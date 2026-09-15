@@ -1,0 +1,35 @@
+{
+  "name": "crux-plugin",
+  "version": "0.1.0",
+  "description": "Crux best practice for designing useful analytics reports, keeping figures consistent, and delivering them on a schedule.",
+  "author": {
+    "name": "Crux",
+    "email": "matt@gocrux.io",
+    "url": "https://gocrux.io"
+  },
+  "homepage": "https://gocrux.io",
+  "repository": "https://github.com/go-crux/crux-plugin",
+  "keywords": [
+    "crux",
+    "analytics",
+    "reporting",
+    "ecommerce",
+    "growth"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Crux",
+    "shortDescription": "Crux analytics and reporting craft",
+    "longDescription": "Design a report worth reading, keep its figures consistent, and arrange reliable scheduled delivery.",
+    "developerName": "Crux",
+    "category": "Productivity",
+    "capabilities": [
+      "Analytics",
+      "Reporting"
+    ],
+    "websiteURL": "https://gocrux.io",
+    "defaultPrompt": [
+      "Help me design a useful scheduled report."
+    ]
+  }
+}
