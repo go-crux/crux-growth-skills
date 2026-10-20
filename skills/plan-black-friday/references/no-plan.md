@@ -4,8 +4,8 @@ Open this when `<client>-daily_budget_versus_actuals` is absent from the roster,
 `all`/`all` row for a month, or holds no plan for the revenue, orders, new orders or spend of
 that month.
 
-1. **Ask first.** Ask the founder for that month's targets: revenue on the budget rung (name the
-   rung), orders, new orders and spend, for each month with no plan. One question, one
+1. **Ask first.** Ask the founder for that month's targets: revenue on the orders table's main sales
+   measure (name it), orders, new orders and spend, for each month with no plan. One question, one
    recommendation: the recommendation is the last-year level per target (step 2), shown as
    figures, so the founder can answer "yes".
 2. **Test what they give.** A target the founder gives goes through the Target test as it

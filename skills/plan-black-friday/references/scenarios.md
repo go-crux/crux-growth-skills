@@ -5,7 +5,8 @@ as a month total, and uses the last-year level and the Pillar gap table from ste
 
 **Gap to close.** Revenue gap = plan revenue − last-year level revenue, when revenue is Stretch
 or Unrealistic. When revenue is Achievable and orders are not, the gap is plan orders −
-last-year level orders. Two inputs:
+last-year level orders. When only new orders or implied CAC is not Achievable, the gap is plan
+new orders − last-year level new orders. Two inputs:
 
 - A = last-year level revenue over last-year level orders (order value).
 - CAC = last year's Black Friday weekend CAC, from the Read's Acquisition table.
@@ -14,7 +15,7 @@ last-year level orders. Two inputs:
 
 | Scenario | Pillar | What moves | Cost or ask |
 |---|---|---|---|
-| New customers | new customers | Extra new orders = gap over A (the orders gap itself when closing orders) | Extra spend = extra new orders × CAC, set beside plan spend less last-year level spend |
+| New customers | new customers | Extra new orders = gap over A (the orders gap itself when closing orders) | Extra spend = extra new orders × CAC, set beside plan spend less last-year level spend (step 2) |
 | Order value | order value | Order value must reach plan revenue over last-year level orders, a relative change of plan revenue over last-year level revenue less 1 | Basket or price move; orders unchanged |
 | Returning orders | order frequency | Extra returning orders = gap over A (the orders gap itself when closing orders) | Retention sends and offers; no extra acquisition spend |
 

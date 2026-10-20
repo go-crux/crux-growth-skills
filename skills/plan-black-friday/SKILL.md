@@ -7,8 +7,8 @@ description: Black Friday planning on the founder's own Growth Brain. Use when t
 
 Produce the Black Friday plan from the founder's own data: one page with two tabs, Last year
 and Plan. Run the five steps in order. The terms Baseline, Lead-in, Black Friday weekend,
-Festive, Lift, Target test, Pillar gap, Scenario, Daily phasing and Black Friday plan are those
-of `GLOSSARY.md`; use them as written.
+Festive, Lift, Last-year level, Target test, Pillar gap, Scenario, Daily phasing and Black Friday
+plan are those of `GLOSSARY.md`; use them as written.
 
 ## 1. Read
 
@@ -127,7 +127,8 @@ years. This year's Baseline runs to yesterday (`baseline_actual`) and the footno
 mart's recorded side holds 12 months, so the plan is the only thing read from it.
 
 **Test each target.** The targets are revenue, orders, new orders and implied CAC (spend over
-new orders). Spend is the input to CAC and carries no verdict. For each target and month:
+new orders). Spend is the input to CAC and carries no verdict, but takes a Lift. For each
+target and month:
 
 1. **This year's Lift** = the plan per day over this year's Baseline per day. Per day means the
    total over the days in the period, so months of different length compare.
@@ -135,11 +136,13 @@ new orders). Spend is the input to CAC and carries no verdict. For each target a
 2. **Last year's Lift** and **the year before's Lift** = that year's November (or December to the
    24th) per day over that year's Baseline per day, on the same rung and sources.
 3. **Verdict**, judged against last year's Lift: **Achievable** at or under it, **Stretch** up to
-   1.5 times it, **Unrealistic** above 1.5 times it. Where last year's Lift is "No data", judge
-   against the year before's and say so.
+   1.5 times it, **Unrealistic** above 1.5 times it. Lower CAC is the harder plan, so for CAC
+   read the band the other way: Achievable at or over last year's CAC Lift, Stretch down to
+   last year's CAC Lift divided by 1.5, Unrealistic below that. Where last year's Lift is
+   "No data", use the year before's Lift in its place throughout this step and say so.
 4. **Last-year level** = this year's Baseline per day × last year's Lift × the days in the
-   period (for CAC, Baseline CAC × last year's CAC Lift). For an Unrealistic target the
-   last-year level is the revised figure; show it beside the plan.
+   period (for CAC, Baseline CAC × last year's CAC Lift). Work it out for spend too. For an
+   Unrealistic target the last-year level is the revised figure; show it beside the plan.
 
 **Done when** every target carries a verdict, its Lift and last year's Lift; each Unrealistic
 target carries its revised figure; the revenue rung is named; and the plan months sum the
@@ -157,7 +160,9 @@ read against the last-year level (step 2), and each reads off one target:
 | Order frequency | returning orders (orders less new orders) | orders |
 | Order value | revenue over orders | revenue |
 
-Columns: the last-year level, the figure the plan implies, and the relative change required.
+Returning orders stand for order frequency here, because the plan carries orders and no
+customer count. Columns: the last-year level, the figure the plan implies, and the relative
+change required.
 Then open `references/scenarios.md` and write 2 or 3 Scenarios for the month, each closing the
 gap through one pillar with the other two held at the last-year level.
 
