@@ -1,11 +1,12 @@
 # Black Friday plan: page layout
 
 The Black Friday plan is one self-contained HTML file, `black-friday-plan.html`, written to the
-working folder. Inline CSS and a few lines of inline script switch the tabs; the page makes no
+working folder. Inline CSS and a few lines of inline script switch the tabs and build the CSV; the page makes no
 network request. Crux house style: British English, no em dashes, outcome before mechanism,
 relative percentage changes (2.0% to 1.8% is "−10%").
 
-Every heading below is always present. A heading with nothing under it reads "Not agreed yet".
+Every heading below is always present. In the Last year tab a section without figures carries
+one line saying why. In the Plan tab a heading with nothing agreed reads "Not agreed".
 
 ## Tab 1: Last year
 
@@ -51,4 +52,43 @@ labelled as such.
 
 ## Tab 2: Plan
 
-Heading: **Plan**. Under it, "Not agreed yet".
+Heading: **Plan**. Under it, seven headings in this order.
+
+1. **Agreed targets**: one table per month (November, December to the 24th), one row per figure
+   in this order: revenue (name the budget rung), orders, new orders, spend, implied CAC
+   (agreed spend over agreed new orders). Columns, in this order: agreed target, source ("Budget
+   sheet", "Revised", "Founder's target" or "Proposed: last year's Lift on this year's
+   Baseline"), Lift over Baseline, verdict. Spend and implied CAC take their Lift from the Target
+   test, and spend carries no verdict.
+2. **Chosen Scenario**: for each month with a Stretch or Unrealistic target, one row per Scenario
+   chosen, a blend as one row per part with its share of the gap. Columns: the move, its size,
+   its cost or ask, its effect on the other targets. A month whose targets are all Achievable
+   reads "Not needed: every target is Achievable".
+3. **Daily phasing**: a caption naming the revenue rung and the year whose daily shape was used,
+   then one table with a row per date, the months one after the other, and a total row under
+   each month. Columns, in this order: `date`, `days_from_black_friday`, `revenue`, `orders`,
+   `new_orders`, `spend`. Black Friday this year is the row with `days_from_black_friday` 0, on
+   its own date, and is marked. Under the table a **Download CSV** button, and one line saying
+   that loading the Daily phasing into the budget sheet is a hand-off: send the CSV to the
+   Crux contact.
+4. **Actions**: one sub-heading per section (Offer, Merchandising, Marketing, Targets), each a
+   table of action, owner and date. A section with none agreed reads "Not agreed".
+5. **Opportunities**: the opportunities the founder adopted, each with its evidence figure, this
+   year's action and the metric to watch on the day.
+6. **Risks**: three rows in this order, **Stock**, **Discount stacking** and **Margin floor**,
+   each with the limit agreed (units to secure; the discounts that may combine; the margin %
+   on the named rung) or "Not agreed".
+7. **Watch list**: 3 to 5 rows, each a number to watch on the day, what it should read, and last
+   year's figure for the same day from Black Friday.
+
+## The CSV
+
+The page builds the file in the browser from the Daily phasing table's date rows, with no
+network request, and offers it as `black-friday-daily-phasing.csv`.
+
+- Columns, in this order: `date, days_from_black_friday, revenue, orders, new_orders, spend`.
+- One header row, then one row per date. The total rows are not in the file.
+- `date` is `YYYY-MM-DD`; `days_from_black_friday` is a whole number, negative before Black
+  Friday; `orders` and `new_orders` are whole numbers; `revenue` and `spend` carry two decimals.
+  No currency symbol and no thousands separator.
+- A month without an agreed target contributes no rows.

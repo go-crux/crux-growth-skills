@@ -171,19 +171,64 @@ single-pillar Scenarios.
 
 ## 4. Grill
 
-Not in this version of the skill. Carry on to step 5.
+**Start.** Open `references/plan-layout.md` and write `black-friday-plan.html` in the working
+folder: the Last year tab as steps 1 to 3 produced it, and every Plan heading reading "Not
+agreed". Tell the founder where the page is, give the headline in one sentence, and say four
+rounds follow, one per section, ending in the Plan tab. They can answer "just write it" at any
+point.
 
-**Done when** step 5 has started.
+**Rounds.** Run four numbered rounds in this order. Open each with its number and section. Each
+question states the finding or opportunity it comes from with its figure, the decision, and a
+recommendation. Ask the next round only after the founder has answered the one before.
+
+- "Yes" accepts every recommendation in the round. An answer to a question replaces that
+  question's recommendation. "Skip" leaves it Not agreed.
+- "Just write it" accepts every recommendation in this round and the rounds still to come, then
+  goes straight to step 5.
+- Close each round by asking an owner and a date for each action agreed in it. Recommend the
+  founder as owner and a date before the first day of the window the action lands in (from
+  `references/windows.sql`), or tomorrow once that day has passed.
+- A target figure the founder changes goes back through step 2's Lift and verdict rules.
+
+| Round | Questions | Feeds |
+|---|---|---|
+| 1. Offer | One per firing opportunity 1, 2 and 8: adopt its action? Recommend yes. Then discount stacking: which discounts may combine over Black Friday weekend? Recommend none that takes the order past last year's weekend discount depth. | Opportunities, Actions, Risks (discount stacking) |
+| 2. Merchandising | One per firing opportunity 3 and 4: adopt its action? Recommend yes. Then stock: what units to secure for last year's five weekend products? Recommend last year's weekend units for each, scaled by the November plan revenue over its last-year level, and never below last year's. | Opportunities, Actions, Risks (stock) |
+| 3. Marketing | One per firing opportunity 5, 6 and 7: adopt its action? Recommend yes. Then repeats: which best acquisition campaign and best retention campaign run again? Recommend the top-ranked campaign of each. | Opportunities, Actions |
+| 4. Targets | Open on each month's Target test verdicts and Scenarios. Then (a) the agreed targets: recommend the plan figure for Achievable and Stretch, and the revised figure for Unrealistic. (b) The Scenario, or blend, for each month with a Stretch or Unrealistic target: recommend the one with the smallest required relative change in the Pillar gap table (the higher extra spend when the Scenarios are the two new-customer variants). (c) The margin floor: recommend last year's Black Friday weekend margin % on the named rung. (d) The watch list of 3 to 5 numbers: recommend the metric to watch of each adopted opportunity, then revenue against the day's Daily phasing, up to five. | Agreed targets, Chosen Scenario, Daily phasing (step 5 derives it from the agreed targets), Actions, Risks (margin floor), Watch list |
+
+A Judgement call joins the round of its section. Keep the agreed list: what is agreed under each of the seven Plan headings.
+
+**Done when** all four rounds are answered or accepted by "just write it", and every Plan heading
+is agreed or marked Not agreed.
 
 ## 5. Plan
 
-Write the Black Friday plan as `black-friday-plan.html` in the working folder. Open
-`references/plan-layout.md` for the tabs and headings. Last year holds what steps 1 to 3 produced;
-Plan holds its heading and "Not agreed yet".
+**Daily phasing.** For each month with agreed targets, compute the Daily phasing in `run_sql`, with the
+agreed targets as literals and the dates from `phasing_days` in `references/windows.sql`.
 
-Tell the founder where the page is, give the headline in one sentence, and say in one line that
-the Grill is not in this version yet.
+- Take last year's daily revenue (the budget rung), orders and new orders from `<client>-orders`
+  and spend from `<client>-channel_reporting`, the sources step 2 used, on each day's
+  `shape_date`.
+- A day's figure = the agreed month target × its `shape_date` figure over the sum of the month's
+  `shape_date` figures, one share per measure.
+- Round orders and new orders to whole numbers and revenue and spend to pence, by largest
+  remainder, so the days sum exactly to the target.
+- Return `date`, `days_from_black_friday`, revenue, orders, new orders and spend for every day,
+  with each measure's monthly sum beside its agreed target.
+- A month whose `shape_date` figures sum to nothing for a measure, or with no agreed targets,
+  keeps its Daily phasing as "Not agreed" with one line of reason.
 
-**Done when** the page has both tabs with every heading in `references/plan-layout.md`, every
-table has a cell for each row and column (or "No data"), each section without figures carries
-its one-line reason, and the founder has the page's path.
+**Write.** Rewrite `black-friday-plan.html` with the Plan tab filled from the agreed list and
+the phasing, headings and CSV as `references/plan-layout.md` fixes them. Implied CAC is the
+agreed spend over the agreed new orders.
+
+Tell the founder where the page is, give the agreed plan in one sentence, and name the CSV
+button. Loading the Daily phasing into their budget sheet is a hand-off: the page says to send
+the CSV to their Crux contact.
+
+**Done when** the page has both tabs with every heading in `references/plan-layout.md`; every
+table has a cell for each row and column (or "No data"); each section without figures carries
+its one-line reason; each Plan heading with nothing agreed reads "Not agreed"; the Daily
+phasing days sum exactly to each agreed month, and Black Friday this year sits on its own date;
+the CSV rows match the table; and the founder has the page's path.
