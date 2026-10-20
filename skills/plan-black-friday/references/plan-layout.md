@@ -24,7 +24,22 @@ Every heading below is always present. A heading with nothing under it reads "No
    followed by its ranked campaign lists (and the three best landing pages under Acquisition).
 6. **Opportunities**: the 3 to 5 that fire, each with its evidence figure, this year's action
    and the metric to watch on the day, then at most one "Judgement call" in its own row.
-7. **Footnote**: one block holding every method caveat, and no caveat anywhere else on the page.
+7. **Target test**: one block per month (November, December to the 24th) with a **Target test
+   table**, then **Pillar gap** and **Scenarios** sub-headings. A sub-heading with no
+   Stretch or Unrealistic target under it reads "Not needed: every target is Achievable".
+   - The Target test table has one row per figure in this order: revenue (name the budget rung),
+     orders, new orders, spend, implied CAC. Columns, in this order: Source ("Budget sheet",
+     "Founder's target" or "Proposed: last year's Lift on this year's Baseline"), this year's
+     plan, this year's Baseline per day, this year's Lift, last year's Lift, the year before's
+     Lift, verdict, revised figure. Head the Lift columns with their calendar years from
+     `references/windows.sql`. A Lift is shown as a ratio over Baseline (1.4 reads "×1.4").
+     Spend carries no verdict. Revised figure is filled for Unrealistic targets only and reads
+     "n/a" elsewhere.
+   - The Pillar gap table has one row per pillar (new customers, order frequency, order value)
+     and the columns last-year level, plan-implied figure, required relative change.
+   - Each Scenario is one row: the move, its size, its cost or ask, and its effect on the other
+     targets.
+8. **Footnote**: one block holding every method caveat, and no caveat anywhere else on the page.
 
 A **window table** has one row per figure per window (Baseline, Lead-in, Black Friday weekend,
 Festive) and these columns in this order: the year before last year, its Lift over Baseline, last year, its

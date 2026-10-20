@@ -1,4 +1,4 @@
--- Put these CTEs ahead of a query, join to `windows` or `calendar`, and drop the final SELECT.
+-- Put these CTEs ahead of a query, join to `windows`, `calendar`, `target_months` or `baseline_actual`, and drop the final SELECT.
 WITH years AS (
   SELECT year
   FROM UNNEST(GENERATE_ARRAY(EXTRACT(YEAR FROM CURRENT_DATE()) - 2, EXTRACT(YEAR FROM CURRENT_DATE()))) AS year
@@ -37,6 +37,20 @@ calendar AS (
   FROM windows AS w
   JOIN black_friday AS b USING (year)
   CROSS JOIN UNNEST(GENERATE_DATE_ARRAY(w.date_from, w.date_to)) AS day
+),
+-- Target test periods: November in full, December to the 24th.
+target_months AS (
+  SELECT year, 'november' AS target_month, DATE(year, 11, 1) AS date_from, DATE(year, 11, 30) AS date_to
+  FROM years
+  UNION ALL
+  SELECT year, 'december', DATE(year, 12, 1), DATE(year, 12, 24)
+  FROM years
+),
+-- Baseline days elapsed: this year's Baseline stops at yesterday while it is still running.
+baseline_actual AS (
+  SELECT year, date_from, LEAST(date_to, DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) AS date_to
+  FROM windows
+  WHERE `window` = 'baseline'
 )
 SELECT year, `window`, date_from, date_to
 FROM windows

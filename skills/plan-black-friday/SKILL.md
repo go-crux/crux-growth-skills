@@ -34,7 +34,8 @@ Type no date by hand, and keep the years to last year and the year before it.
 **Basis.** Apply to the headline and to every section.
 
 - Compare last year with the year before it, and with nothing from this autumn: visits and
-  channel attribution changed source this year.
+  channel attribution changed source this year. The one exception is this year's Baseline in
+  step 2, which reads only revenue, orders, new orders and spend.
 - Put counts (new customers, orders, units, revenue, margin, spend) per day, so a four-day
   window sits against a two-month Baseline. A window's Lift is its per-day figure over the same
   year's Baseline per-day figure; for a ratio (conversion, order value, margin %, CAC), the
@@ -106,15 +107,62 @@ each carry evidence, action and metric (or the count that fired is stated).
 
 ## 2. Target test
 
-Not in this version of the skill. Carry on to step 5.
+**Read the plan.** Call `list_tables` naming only `<client>-daily_budget_versus_actuals`. Take
+the rows keyed `channel = 'all'` and `country_code = 'all'` (the other rows split the same plan
+and would count it twice). Sum the plan by `month_start`: November in full, and December from the
+1st to the 24th, for this year. Take four plan columns: revenue, total orders, new orders and
+spend.
 
-**Done when** step 5 has started.
+- **The revenue rung is the client's own.** Read whichever `daily_budget_*sales*` column
+  `list_tables` returns, and read last year's and the year before's revenue on the same rung from
+  `<client>-orders` (or `<client>-channel_reporting` where that carries it). Name the rung on the
+  page. If neither mart carries it, say so in one line and test orders, new orders and CAC only.
+- With no plan for a month, open `references/no-plan.md`.
+
+**Read the actuals.** One query per source, joined to `target_months` and `baseline_actual` in
+`references/windows.sql`, returning for each of the three years: Baseline, November and
+December (to the 24th) as sums and day counts. Take revenue, orders and new orders from
+`<client>-orders` and spend from `<client>-channel_reporting`, the same sources in all three
+years. This year's Baseline runs to yesterday (`baseline_actual`) and the footnote says so. The
+mart's recorded side holds 12 months, so the plan is the only thing read from it.
+
+**Test each target.** The targets are revenue, orders, new orders and implied CAC (spend over
+new orders). Spend is the input to CAC and carries no verdict. For each target and month:
+
+1. **This year's Lift** = the plan per day over this year's Baseline per day. Per day means the
+   total over the days in the period, so months of different length compare.
+   For CAC, the Lift is plan CAC over Baseline CAC.
+2. **Last year's Lift** and **the year before's Lift** = that year's November (or December to the
+   24th) per day over that year's Baseline per day, on the same rung and sources.
+3. **Verdict**, judged against last year's Lift: **Achievable** at or under it, **Stretch** up to
+   1.5 times it, **Unrealistic** above 1.5 times it. Where last year's Lift is "No data", judge
+   against the year before's and say so.
+4. **Last-year level** = this year's Baseline per day × last year's Lift × the days in the
+   period (for CAC, Baseline CAC × last year's CAC Lift). For an Unrealistic target the
+   last-year level is the revised figure; show it beside the plan.
+
+**Done when** every target carries a verdict, its Lift and last year's Lift; each Unrealistic
+target carries its revised figure; the revenue rung is named; and the plan months sum the
+`all`/`all` rows (or each month's source reads "Founder's target" or "Proposed").
 
 ## 3. Pillar gap
 
-Not in this version of the skill. Carry on to step 5.
+Skip a month in which every target is Achievable and say so in one line. For each month with a
+Stretch or Unrealistic target, build the Pillar gap table from the growth equation. Each row is
+read against the last-year level (step 2), and each reads off one target:
 
-**Done when** step 5 has started.
+| Pillar | Figure | Target it reads |
+|---|---|---|
+| New customers | new orders | new orders |
+| Order frequency | returning orders (orders less new orders) | orders |
+| Order value | revenue over orders | revenue |
+
+Columns: the last-year level, the figure the plan implies, and the relative change required.
+Then open `references/scenarios.md` and write 2 or 3 Scenarios for the month, each closing the
+gap through one pillar with the other two held at the last-year level.
+
+**Done when** each Stretch or Unrealistic target shows its gap per pillar and 2 or 3
+single-pillar Scenarios.
 
 ## 4. Grill
 
@@ -125,11 +173,11 @@ Not in this version of the skill. Carry on to step 5.
 ## 5. Plan
 
 Write the Black Friday plan as `black-friday-plan.html` in the working folder. Open
-`references/plan-layout.md` for the tabs and headings. Last year holds what step 1 produced;
+`references/plan-layout.md` for the tabs and headings. Last year holds what steps 1 to 3 produced;
 Plan holds its heading and "Not agreed yet".
 
 Tell the founder where the page is, give the headline in one sentence, and say in one line that
-the Target test, Pillar gap and Grill are not in this version yet.
+the Grill is not in this version yet.
 
 **Done when** the page has both tabs with every heading in `references/plan-layout.md`, every
 table has a cell for each row and column (or "No data"), each section without figures carries
