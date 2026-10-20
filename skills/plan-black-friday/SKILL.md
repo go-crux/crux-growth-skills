@@ -183,8 +183,8 @@ recommendation. Ask the next round only after the founder has answered the one b
 
 - "Yes" accepts every recommendation in the round. An answer to a question replaces that
   question's recommendation. "Skip" leaves it Not agreed.
-- "Just write it" accepts every recommendation in this round and the rounds still to come, then
-  goes straight to step 5.
+- "Just write it" accepts every recommendation in this round and the rounds still to come, with
+  each action's owner and date set to the recommendation below, then goes straight to step 5.
 - Close each round by asking an owner and a date for each action agreed in it. Recommend the
   founder as owner and a date before the first day of the window the action lands in (from
   `references/windows.sql`), or tomorrow once that day has passed.
@@ -197,23 +197,25 @@ recommendation. Ask the next round only after the founder has answered the one b
 | 3. Marketing | One per firing opportunity 5, 6 and 7: adopt its action? Recommend yes. Then repeats: which best acquisition campaign and best retention campaign run again? Recommend the top-ranked campaign of each. | Opportunities, Actions |
 | 4. Targets | Open on each month's Target test verdicts and Scenarios. Then (a) the agreed targets: recommend the plan figure for Achievable and Stretch, and the revised figure for Unrealistic. (b) The Scenario, or blend, for each month with a Stretch or Unrealistic target: recommend the one with the smallest required relative change in the Pillar gap table (the higher extra spend when the Scenarios are the two new-customer variants). (c) The margin floor: recommend last year's Black Friday weekend margin % on the named rung. (d) The watch list of 3 to 5 numbers: recommend the metric to watch of each adopted opportunity, then revenue against the day's Daily phasing, up to five. | Agreed targets, Chosen Scenario, Daily phasing (step 5 derives it from the agreed targets), Actions, Risks (margin floor), Watch list |
 
-A Judgement call joins the round of its section. Keep the agreed list: what is agreed under each of the seven Plan headings.
+A Judgement call joins the round of its section. Keep the agreed list: what is agreed under
+each of the seven Plan headings.
 
 **Done when** all four rounds are answered or accepted by "just write it", and every Plan heading
 is agreed or marked Not agreed.
 
 ## 5. Plan
 
-**Daily phasing.** For each month with agreed targets, compute the Daily phasing in `run_sql`, with the
-agreed targets as literals and the dates from `phasing_days` in `references/windows.sql`.
+**Daily phasing.** For each month with agreed targets, compute the Daily phasing in `run_sql`,
+with the agreed targets as literals and the dates from `phasing_days` in
+`references/windows.sql`.
 
 - Take last year's daily revenue (the budget rung), orders and new orders from `<client>-orders`
   and spend from `<client>-channel_reporting`, the sources step 2 used, on each day's
   `shape_date`.
 - A day's figure = the agreed month target × its `shape_date` figure over the sum of the month's
   `shape_date` figures, one share per measure.
-- Round orders and new orders to whole numbers and revenue and spend to pence, by largest
-  remainder, so the days sum exactly to the target.
+- Round the month target to a whole number (orders, new orders) or to pence (revenue, spend),
+  then round the days the same way by largest remainder, so the days sum exactly to the target.
 - Return `date`, `days_from_black_friday`, revenue, orders, new orders and spend for every day,
   with each measure's monthly sum beside its agreed target.
 - A month whose `shape_date` figures sum to nothing for a measure, or with no agreed targets,

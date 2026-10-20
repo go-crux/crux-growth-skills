@@ -1,9 +1,9 @@
 # Black Friday plan: page layout
 
 The Black Friday plan is one self-contained HTML file, `black-friday-plan.html`, written to the
-working folder. Inline CSS and a few lines of inline script switch the tabs and build the CSV; the page makes no
-network request. Crux house style: British English, no em dashes, outcome before mechanism,
-relative percentage changes (2.0% to 1.8% is "−10%").
+working folder. Inline CSS and a few lines of inline script switch the tabs and build the CSV;
+the page makes no network request. Crux house style: British English, no em dashes, outcome
+before mechanism, relative percentage changes (2.0% to 1.8% is "−10%").
 
 Every heading below is always present. In the Last year tab a section without figures carries
 one line saying why. In the Plan tab a heading with nothing agreed reads "Not agreed".
