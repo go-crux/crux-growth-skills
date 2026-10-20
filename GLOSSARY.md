@@ -20,6 +20,8 @@ Every window is anchored to that year's Black Friday, the last Friday of Novembe
 
 - **Target test**: this year's planned November and December, from the client's budget sheet (`daily_budget_versus_actuals`), turned into a Lift and judged against the last two years' actual Lift as Achievable, Stretch or Unrealistic. _Avoid_: feasibility check, sense check.
 
+- **Last-year level**: what this year's Baseline would deliver at last year's Lift, a figure per target for the month (CAC: Baseline CAC at last year's CAC Lift). The reference every Pillar gap and Scenario reads against, and the revised figure for an Unrealistic target. _Avoid_: 2025 level, benchmark.
+
 - **Pillar gap**: what new customers, order frequency and order value must each do to close a Stretch or Unrealistic target, read against last year's. _Avoid_: shortfall, variance.
 
 - **Scenario**: one way of closing the Pillar gap through a single pillar, the others held at last year's level. _Avoid_: option, play.
