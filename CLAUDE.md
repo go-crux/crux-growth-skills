@@ -73,9 +73,10 @@ from Matt's own Claude, never from a cold run. Method in
   (it holds the PRD's glossary terms), and PR `--base prd<id>-<slug>` with the `no-review` label at
   open. Run `/code-review` against `docs/skill-authoring.md` before pushing. Squash-merge, and leave
   the issue open.
-- **The promote** is one unlabelled `prd<id>-<slug>` → `main` PR, opened only after the PRD's dry
-  runs on real brains pass. It's the release. If Greptile reviews this repo, its rounds run here
-  to 4/5 or better, with one fix pass on any P1.
+- **The promote** is one `prd<id>-<slug>` → `main` PR, opened only after the PRD's dry runs on
+  real brains pass. It's the release.
+- **Local review only: this repo has no Greptile.** `/code-review` before every push is the whole
+  review, the promote included, and nobody waits on a bot or comments `@greptileai`.
 - **A standalone fix** (no `prd:` label): cut from `main`, PR `--base main`, and bump the patch
   version in the same PR.
 - **Every slice commit subject carries `Closes #<n>`.** Never put `no-review` on an issue.
