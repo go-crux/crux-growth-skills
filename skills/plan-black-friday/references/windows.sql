@@ -1,11 +1,9 @@
--- The only place Black Friday dates are computed. Put every CTE below ahead of a query, join to
--- `windows` (or `calendar` where days are aligned), and drop the final SELECT. `window` is a
--- reserved word in BigQuery, so it stays in backticks.
--- Black Friday is the last Friday of November (BigQuery DAYOFWEEK: Sunday = 1, Friday = 6).
+-- Put these CTEs ahead of a query, join to `windows` or `calendar`, and drop the final SELECT.
 WITH years AS (
   SELECT year
   FROM UNNEST(GENERATE_ARRAY(EXTRACT(YEAR FROM CURRENT_DATE()) - 2, EXTRACT(YEAR FROM CURRENT_DATE()))) AS year
 ),
+-- Last Friday of November; BigQuery DAYOFWEEK has Sunday = 1, Friday = 6.
 black_friday AS (
   SELECT
     year,
@@ -15,6 +13,7 @@ black_friday AS (
     ) AS black_friday
   FROM years
 ),
+-- `window` is a reserved word in BigQuery, so it stays in backticks.
 windows AS (
   SELECT year, 'baseline' AS `window`, DATE(year, 9, 1) AS date_from, DATE(year, 10, 31) AS date_to
   FROM black_friday
@@ -28,8 +27,7 @@ windows AS (
   SELECT year, 'festive', DATE_ADD(black_friday, INTERVAL 4 DAY), DATE(year, 12, 24)
   FROM black_friday
 ),
--- One row per date from 1 Sep to 24 Dec of each year: its window and its offset from that
--- year's Black Friday (0 on Black Friday, 3 on Cyber Monday, negative before).
+-- One row per date, 1 Sep to 24 Dec: its window and days from that year's Black Friday.
 calendar AS (
   SELECT
     w.year,
