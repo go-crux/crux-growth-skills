@@ -1,7 +1,7 @@
 # Opportunity catalogue
 
 Each row is a pattern. Test its **trigger** against the figures the Read produced for last year.
-"2024" below means the year before last year. A pattern fires when its trigger holds on figures
+"The year before" below means the year before last year. A pattern fires when its trigger holds on figures
 that are not "No data". Percentages are relative.
 
 | # | Pattern | Trigger in the read's figures | Action for this year | Metric to watch on the day |

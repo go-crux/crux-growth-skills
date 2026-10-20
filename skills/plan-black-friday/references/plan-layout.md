@@ -9,12 +9,14 @@ Every heading below is always present. A heading with nothing under it reads "No
 
 ## Tab 1: Last year
 
-1. **Headline**: one sentence stating the outcome, for example that Black Friday weekend 2025
-   brought more (or fewer) contribution margin per day than 2024, and which term moved it.
+1. **Headline**: one sentence stating the outcome, for example that last year's Black Friday
+   weekend brought more (or fewer) contribution margin per day than the year before it, and which
+   term moved it.
 2. **Growth equation**: a table, one row per term in this order: new customers per day, order
-   frequency, order value, contribution margin per day. Columns, in this order: 2024 Black
-   Friday weekend, 2024 against its Baseline, 2025 Black Friday weekend, 2025 against its
-   Baseline, 2025 against 2024. Name the margin rung (CM3, CM2 or CM1) and the revenue measure
+   frequency, order value, contribution margin per day. Columns, in this order: the year
+   before's Black Friday weekend, that year against its Baseline, last year's Black Friday
+   weekend, last year against its Baseline, last year against the year before. Head each column
+   with its calendar year from `references/windows.sql`. Name the margin rung (CM3, CM2 or CM1) and the revenue measure
    in the row labels.
 3. **Offer**: a window table, then the landing-page list.
 4. **Merchandising**: a window table, then the five-product list.
@@ -25,10 +27,11 @@ Every heading below is always present. A heading with nothing under it reads "No
 7. **Footnote**: one block holding every method caveat, and no caveat anywhere else on the page.
 
 A **window table** has one row per figure per window (Baseline, Lead-in, Black Friday weekend,
-Festive) and these columns in this order: 2024, 2024 Lift over Baseline, 2025, 2025 Lift over
-Baseline, 2025 against 2024. The Baseline row's Lift cells read "n/a". A section whose mart is
+Festive) and these columns in this order: the year before last year, its Lift over Baseline, last year, its
+Lift over Baseline, last year against the year before. Head each with its calendar year from
+`references/windows.sql`. The Baseline row's Lift cells read "n/a". A section whose mart is
 missing from the roster keeps its heading and one line saying which mart is missing. A ranked
-list shows Black Friday weekend of 2025 with 2024 alongside, and a platform-reported list is
+list shows last year's Black Friday weekend with the year before alongside, and a platform-reported list is
 labelled as such.
 
 ## Tab 2: Plan

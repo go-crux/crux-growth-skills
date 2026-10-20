@@ -50,7 +50,8 @@ growth equation: new customers, order frequency, order value and contribution ma
 against that year's Baseline. Order frequency is orders per ordering customer in the window;
 order value is revenue over orders.
 
-**Offer.** Read conversion, discount, order value, margin % and reorder, for Baseline, Lead-in,
+**Offer.** Read conversion, discount depth, discount rate, order value, margin %, reorder and
+returning customers' share of orders, for Baseline, Lead-in,
 Black Friday weekend and Festive in both years.
 
 - Conversion is orders over visits from `<client>-channel_reporting`, overall and by landing
@@ -64,6 +65,8 @@ Black Friday weekend and Festive in both years.
   customers, from `<client>-orders` with `<client>-customers`, or from `<client>-ltv_retention`
   where that carries the cohort directly. Name in `list_tables` only the one you use. Ninety
   days is the longest horizon both years share, because last year's cohort is under a year old.
+- Returning customers' share of orders is the share of a window's orders placed by customers
+  with an earlier order, from `<client>-orders`. Festive is the window it is judged on.
 - List the ten landing pages with the most weekend visits, each with orders, conversion and
   last year's conversion alongside, and the site's conversion above them.
 
