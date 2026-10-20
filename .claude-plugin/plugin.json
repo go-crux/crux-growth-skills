@@ -1,9 +1,9 @@
 {
-  "name": "crux",
+  "name": "crux-growth-skills",
   "version": "0.1.0",
   "description": "Crux best practice for working with your own data in your own Claude. Ships alongside your Crux Growth Brain and adds the craft the brain does not carry: how to design a report worth reading, how to pin its figures so they mean the same thing every day, and how to have it arrive on a schedule.",
   "author": { "name": "Crux" },
   "homepage": "https://gocrux.io",
-  "repository": "https://github.com/go-crux/crux-plugin",
+  "repository": "https://github.com/go-crux/growth-skills",
   "keywords": ["crux", "analytics", "reporting", "ecommerce", "growth"]
 }

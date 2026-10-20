@@ -94,7 +94,7 @@ client's name, figure or table contents never appears in a skill or a reference 
 
 There is no automated suite: a skill is proven by **dry runs on real brains**.
 
-1. Start a session with the checkout loaded: `claude --plugin-dir ~/code/crux/crux-plugin`, with
+1. Start a session with the checkout loaded: `claude --plugin-dir ~/code/crux/growth-skills`, with
    the client's Growth Brain connector available in that session.
 2. Run the skill end to end as the founder would, to its final output.
 3. Check the PRD's acceptance criteria, especially the totals that should tie to the brain

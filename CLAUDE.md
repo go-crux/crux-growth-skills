@@ -1,6 +1,6 @@
-# CLAUDE.md: working notes for `crux-plugin`
+# CLAUDE.md: working notes for `growth-skills`
 
-The **Crux plugin**: growth skills a client installs in their own Claude (Claude Code, the Code
+**Crux growth skills** (the plugin `crux-growth-skills`): skills a client installs in their own Claude (Claude Code, the Code
 tab of the desktop app, or Codex). Each skill carries Crux craft, such as a Black Friday plan or
 a report worth reading, and runs on the client's own **Growth Brain** connector. The boundary is
 mcp_brain ADR-0026: **the brain ships mechanism, the plugin ships craft**. The brain owns the
@@ -19,7 +19,7 @@ every skill here is held to. Decisions live in `docs/adr/` once there are any.
 | `skills/<name>/SKILL.md` | one skill: its frontmatter and its steps |
 | `skills/<name>/references/` | material that skill reads only when a step points at it |
 | `skills/README.md` | placeholder that keeps `skills/` in git; deliberately not a `SKILL.md` |
-| `.claude-plugin/marketplace.json` | the marketplace `crux-plugin`, listing the plugin `crux` at `source: "./"` |
+| `.claude-plugin/marketplace.json` | the marketplace `crux`, listing the plugin `crux-growth-skills` at `source: "./"` |
 | `.claude-plugin/plugin.json` | the Claude Code manifest |
 | `plugin.json` | the portable manifest (agent-plugins schema) |
 | `.codex-plugin/plugin.json` | the Codex overlay; `skills: "./skills/"` |
@@ -32,7 +32,7 @@ There is no code, no package manager and no test suite. A skill is prose an agen
 
 ```bash
 claude plugin validate .                 # manifest check; run after any manifest edit
-claude --plugin-dir ~/code/crux/crux-plugin   # a session with this checkout loaded, for a dry run
+claude --plugin-dir ~/code/crux/growth-skills   # a session with this checkout loaded, for a dry run
 ```
 
 A dry run needs a Growth Brain connector (`<Client> - Growth Brain`) in that session, so it runs
@@ -55,7 +55,7 @@ from Matt's own Claude, never from a cold run. Method in
   together (minor for a new skill, patch for a fix), and the manifest descriptions say what
   the plugin now carries.
 - **A merged skill is not live in a running session.** A client gets it after
-  `/plugin marketplace update crux-plugin`, `/plugin update crux` and `/reload-plugins`. When a
+  `/plugin marketplace update crux`, `/plugin update crux-growth-skills` and `/reload-plugins`. When a
   run behaves like the old version, check the installed commit before debugging the skill.
 - **A skill reaches the brain only by contract.** It names the tools (`list_tables`,
   `list_metrics`, `search_examples`, `run_sql`) and the marts (`<client>-orders`) and reads
@@ -83,6 +83,6 @@ from Matt's own Claude, never from a cold run. Method in
 
 ## PRDs and programme
 
-PRDs are `prd-doc` issues in `go-crux/crux-plugin`, sliced into `[PRD<id>][Slice]` issues and run by
+PRDs are `prd-doc` issues in `go-crux/growth-skills`, sliced into `[PRD<id>][Slice]` issues and run by
 `/implement` or crux-engineer. Seasonal and growth skills belong to programme PGM003 (spine
-go-crux/crux-workspace#52). The public skills repo and lead-magnet versions are go-crux/crux-plugin#1.
+go-crux/crux-workspace#52). The public skills repo and lead-magnet versions are go-crux/growth-skills#1.

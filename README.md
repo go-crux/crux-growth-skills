@@ -1,4 +1,4 @@
-# The Crux plugin
+# Crux growth skills
 
 Crux best practice, installed inside your own Claude.
 
@@ -26,16 +26,16 @@ no GitHub account needed.
 3. Click into the message box at the bottom and send this, exactly as written:
 
    ```
-   /plugin marketplace add go-crux/crux-plugin
+   /plugin marketplace add go-crux/growth-skills
    ```
 
-   Claude will confirm it has added a marketplace called `crux-plugin`. A marketplace is just
+   Claude will confirm it has added a marketplace called `crux`. A marketplace is just
    Claude's word for a catalogue it can install from.
 
 4. Send this next:
 
    ```
-   /plugin install crux@crux-plugin
+   /plugin install crux-growth-skills@crux
    ```
 
    Choose **User** when it asks about scope, so the plugin is there in every folder you open
@@ -53,8 +53,8 @@ If you run Claude Code from a terminal, start it in any folder with `claude`, th
 two commands:
 
 ```
-/plugin marketplace add go-crux/crux-plugin
-/plugin install crux@crux-plugin
+/plugin marketplace add go-crux/growth-skills
+/plugin install crux-growth-skills@crux
 ```
 
 Choose **User** scope, and run `/reload-plugins` if Claude asks you to.
@@ -67,7 +67,7 @@ Send this:
 /plugin list
 ```
 
-`crux@crux-plugin` should appear in the list. If it does, you are done.
+`crux-growth-skills@crux` should appear in the list. If it does, you are done.
 
 If it does not, the most common cause is that the install has not loaded into the conversation
 you are in yet. Send `/reload-plugins`, or close Claude and open it again.
@@ -87,8 +87,8 @@ Claude checks for updates on its own shortly after each session starts, and tell
 pulled one. To pull an update immediately:
 
 ```
-/plugin marketplace update crux-plugin
-/plugin update crux
+/plugin marketplace update crux
+/plugin update crux-growth-skills
 /reload-plugins
 ```
 
