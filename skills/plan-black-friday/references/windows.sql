@@ -1,4 +1,4 @@
--- Put these CTEs ahead of a query, join to `windows`, `calendar`, `target_months` or `baseline_actual`, and drop the final SELECT.
+-- Put these CTEs ahead of a query, join to `windows`, `calendar`, `target_months`, `baseline_actual` or `phasing_days`, and drop the final SELECT.
 WITH years AS (
   SELECT year
   FROM UNNEST(GENERATE_ARRAY(EXTRACT(YEAR FROM CURRENT_DATE()) - 2, EXTRACT(YEAR FROM CURRENT_DATE()))) AS year
@@ -51,6 +51,20 @@ baseline_actual AS (
   SELECT year, date_from, LEAST(date_to, DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) AS date_to
   FROM windows
   WHERE `window` = 'baseline'
+),
+-- Daily phasing: each date of this year's target months, its days from Black Friday, and the date
+-- last year sits the same days from its own Black Friday (28 Nov 2025 maps to 27 Nov 2026).
+phasing_days AS (
+  SELECT
+    t.target_month,
+    day AS date,
+    DATE_DIFF(day, b.black_friday, DAY) AS days_from_black_friday,
+    DATE_ADD(l.black_friday, INTERVAL DATE_DIFF(day, b.black_friday, DAY) DAY) AS shape_date
+  FROM target_months AS t
+  JOIN black_friday AS b ON b.year = t.year
+  JOIN black_friday AS l ON l.year = t.year - 1
+  CROSS JOIN UNNEST(GENERATE_DATE_ARRAY(t.date_from, t.date_to)) AS day
+  WHERE t.year = EXTRACT(YEAR FROM CURRENT_DATE())
 )
 SELECT year, `window`, date_from, date_to
 FROM windows

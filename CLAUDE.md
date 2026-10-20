@@ -18,7 +18,7 @@ every skill here is held to. Decisions live in `docs/adr/` once there are any.
 |---|---|
 | `skills/<name>/SKILL.md` | one skill: its frontmatter and its steps |
 | `skills/<name>/references/` | material that skill reads only when a step points at it |
-| `skills/README.md` | placeholder that keeps `skills/` in git; deliberately not a `SKILL.md` |
+| `skills/README.md` | index of the skills here; deliberately not a `SKILL.md` |
 | `.claude-plugin/marketplace.json` | the marketplace `crux`, listing the plugin `crux-growth-skills` at `source: "./"` |
 | `.claude-plugin/plugin.json` | the Claude Code manifest |
 | `plugin.json` | the portable manifest (agent-plugins schema) |

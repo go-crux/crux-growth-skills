@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "crux-growth-skills",
-  "version": "0.1.0",
-  "description": "Crux best practice for working with your own data in your own AI assistant. Adds the craft needed to design a useful report, keep its figures consistent, and deliver it on a schedule.",
+  "version": "0.2.0",
+  "description": "Crux best practice for working with your own data in your own AI assistant. It carries a Black Friday plan: last year's Black Friday read on your own data, your November and December targets tested against it, and an agreed plan with day-by-day targets you can download.",
   "author": {
     "name": "Crux"
   },
@@ -11,8 +11,9 @@
   "keywords": [
     "crux",
     "analytics",
-    "reporting",
     "ecommerce",
-    "growth"
+    "growth",
+    "black-friday",
+    "planning"
   ]
 }
