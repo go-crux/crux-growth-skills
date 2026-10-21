@@ -5,6 +5,6 @@ this repository, and points at [`docs/skill-authoring.md`](docs/skill-authoring.
 every skill is written to. Read the parent Crux `AGENTS.md` too, plus both plugin manifests,
 before changing the package.
 
-Keep the Claude manifest under `.claude-plugin/` working. Put Codex compatibility in the portable
-root `plugin.json` or the `.codex-plugin/` overlay, and keep shared skills under `skills/`
-compatible with both hosts.
+The plugin is `plugins/crux-growth-skills/`, the only folder a client installs. Keep its Claude
+manifest under `.claude-plugin/` working. Put Codex compatibility in its portable `plugin.json`
+or its `.codex-plugin/` overlay, and keep its skills under `skills/` compatible with both hosts.

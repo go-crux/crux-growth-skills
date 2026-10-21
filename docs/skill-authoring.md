@@ -1,6 +1,6 @@
 # Writing a Crux plugin skill
 
-The standard every skill in `skills/` is held to, and the checklist `/code-review` reviews a skill
+The standard every skill in `plugins/crux-growth-skills/skills/` is held to, and the checklist `/code-review` reviews a skill
 against. It follows the workspace `writing-for-agents` skill; run that skill when it is available,
 and treat this file as its binding summary for this repo.
 
@@ -11,7 +11,7 @@ from whichever brain it reads.
 ## Shape
 
 ```
-skills/<name>/
+plugins/crux-growth-skills/skills/<name>/
   SKILL.md          frontmatter + the steps, in order
   references/       material only some runs reach, each file behind a pointer in a step
 ```
@@ -94,12 +94,12 @@ client's name, figure or table contents never appears in a skill or a reference 
 
 There is no automated suite: a skill is proven by **dry runs on real brains**.
 
-1. Start a session with the checkout loaded: `claude --plugin-dir ~/code/crux/growth-skills`, with
+1. Start a session with the checkout loaded: `claude --plugin-dir ~/code/crux/growth-skills/plugins/crux-growth-skills`, with
    the client's Growth Brain connector available in that session.
 2. Run the skill end to end as a client user would, to its final output.
 3. Check the PRD's acceptance criteria, especially the totals that should tie to the brain
    (an order count for a date window, a plan's monthly sum).
 4. Run each dry run on a client's own brain and record or share it only with that client.
 
-Run `claude plugin validate .` after any manifest change. `claude plugin eval` can run scored
+Run `claude plugin validate .` and `claude plugin validate plugins/crux-growth-skills` after any manifest change. `claude plugin eval` can run scored
 cases from `evals/` once a skill is worth regression-testing; none exist yet.
