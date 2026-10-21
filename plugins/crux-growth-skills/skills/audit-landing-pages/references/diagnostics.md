@@ -105,9 +105,9 @@ means the page is interesting but not persuasive.
 ## 4. Test or ship? The sample-size reality
 
 Most pages do not have the traffic to detect the changes people want to test. Establish this
-before promising an A/B read. It needs the page's visits and conversion rate: **with neither,
-every hypothesis in the backlog reads "Test or ship: needs traffic figures"** and nothing below
-is applied to it.
+before promising an A/B read. It needs the page's visits and conversion rate, from a Growth
+Brain or a Shopify export: **with neither, every hypothesis in the backlog reads "Test or ship:
+needs traffic figures"** and nothing below is applied to it.
 
 **Rule of thumb** for a two-arm test, 95% confidence, 80% power:
 
@@ -130,6 +130,16 @@ where `p` is the baseline conversion rate and `r` is the **relative** lift you w
 Double these for total traffic across both arms. A page at 2% conversion getting 10,000
 sessions a month needs roughly four months to detect a 20% lift, and will never detect a 10%
 one.
+
+**Reading a hypothesis against the page's real traffic.**
+
+1. Monthly visits are the page's visits in the period times 30, over the days in the period.
+2. Take the table row nearest the page's conversion (below 1%, use the formula; with no orders
+   in the period, the 1% row) and the column nearest the hypothesis's expected relative lift.
+3. Both arms need twice that figure. Divide it by monthly visits for the months to read.
+4. Read as **Test** at 2 months or fewer, **Sequential read** above 2 and up to 6 months, and
+   **Ship** above 6 months or where the change is obviously correct. Say the months in the cell
+   ("Test, about 6 weeks").
 
 **How to use this in a backlog.** For each hypothesis, state which of these it is:
 

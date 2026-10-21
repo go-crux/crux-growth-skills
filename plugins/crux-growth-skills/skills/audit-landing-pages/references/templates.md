@@ -42,7 +42,8 @@ twenty trivia. Number them F1, F2, F3.
 > on how.
 > **What:** the specific problem, with evidence from the page. Quote the headline, name the
 > module. Never generic.
-> **Evidence:** the source if the finding is grounded, else "Heuristic".
+> **Evidence:** the source if the finding is grounded, else "Heuristic". A finding under the
+> Leaking step's ingredients names the step and its shortfall.
 > **Do:** the direction of fix, in one or two sentences: what good looks like, as a move. The
 > audit gives direction; replacement copy and design are the brand's own.
 > **Assumption:** only where the Do rests on an unconfirmed guardrail: "<the guardrail> is not
@@ -80,7 +81,10 @@ needs no test is a quick win instead, and its finding keeps its number with no h
 > **Expected effect:** the metric you expect to move, the direction, a rough magnitude, and the
 > mechanism: why it should work.
 > **Ingredient / reason:** which of the six, and trust, understanding or fit.
-> **Read as:** "Test or ship: needs traffic figures".
+> **Read as:** Test, Sequential read or Ship, with its months, from the page's traffic
+> (`diagnostics.md` section 4); "Test or ship: needs traffic figures" only where there is no
+> brain and no export; with a brain and no traffic found for the page, "Test or ship: no traffic
+> found for this page".
 > **Assumption:** only where the change rests on an unconfirmed guardrail.
 > **ICE:** Impact _/5 · Confidence _/5 · Ease _/5 · **Total _/15**
 
@@ -110,13 +114,15 @@ tie with the higher Impact, then the lower H number. Rank 1, 2, 3 in that order.
 
 | Rank | H | Name | Ingredient | Reason | Read as | ICE |
 |---|---|---|---|---|---|---|
-| 1 | H3 | … | Trust | Trust | Test or ship: needs traffic figures | 13 |
-| 2 | … | … | … | … | Test or ship: needs traffic figures | … |
+| 1 | H3 | … | Trust | Trust | Test, about 6 weeks | 13 |
+| 2 | … | … | … | … | Sequential read, about 4 months | … |
 
 A hypothesis marked as an assumption carries "(assumption)" after its name in the table.
 
-Under the table, one **sequencing line**: "Test or ship needs the page's visits and conversion
-rate. With them, each row reads as a test, a sequential read or a ship."
+Under the table, one **sequencing line**. With traffic figures: the page's monthly visits and
+conversion, how many rows are tests, sequential reads and ships, and that the ships go first
+and the tests run one at a time. Without them: "Test or ship needs the page's visits and
+conversion rate. With them, each row reads as a test, a sequential read or a ship."
 
 ---
 
