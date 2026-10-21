@@ -1,4 +1,4 @@
-# GLOSSARY: growth-skills
+# GLOSSARY: crux-growth-skills
 
 Crux growth skills: skills a client installs in their own Claude that carry Crux craft over their own Growth Brain. The brain ships mechanism, the plugin ships craft (mcp_brain ADR-0026).
 

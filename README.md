@@ -26,7 +26,7 @@ no GitHub account needed.
 3. Click into the message box at the bottom and send this, exactly as written:
 
    ```
-   /plugin marketplace add go-crux/growth-skills
+   /plugin marketplace add go-crux/crux-growth-skills
    ```
 
    Claude will confirm it has added a marketplace called `crux`. A marketplace is just
@@ -53,7 +53,7 @@ If you run Claude Code from a terminal, start it in any folder with `claude`, th
 two commands:
 
 ```
-/plugin marketplace add go-crux/growth-skills
+/plugin marketplace add go-crux/crux-growth-skills
 /plugin install crux-growth-skills@crux
 ```
 
