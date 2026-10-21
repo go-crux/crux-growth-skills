@@ -83,8 +83,8 @@ needs no test is a quick win instead, and its finding keeps its number with no h
 > **Ingredient / reason:** which of the six, and trust, understanding or fit.
 > **Read as:** Test, Sequential read or Ship, with its months, from the page's traffic
 > (`diagnostics.md` section 4); "Test or ship: needs traffic figures" only where there is no
-> brain and no export; with a brain and no traffic found for the page, "Test or ship: no traffic
-> found for this page".
+> brain and no export; with a brain or an export that found no traffic for the page, "Test or
+> ship: no traffic found for this page".
 > **Assumption:** only where the change rests on an unconfirmed guardrail.
 > **ICE:** Impact _/5 · Confidence _/5 · Ease _/5 · **Total _/15**
 

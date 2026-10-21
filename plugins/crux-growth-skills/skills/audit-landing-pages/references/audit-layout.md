@@ -45,15 +45,28 @@ nothing under it stays on the page, and its Summary gives the reason.
 
 ### 1. Performance
 
-Three cases.
+Four cases.
 
-**No brain.** The heading reads **Not available**, and its Summary is that one line:
+**Neither a brain nor an export.** The heading reads **Not available**, and its Summary is that one line:
 "Not available: a Shopify 'Sessions by landing page' export or a Growth Brain
 (gocrux.io/contact) would add visits, conversion and the funnel." Nothing else sits under the
 heading.
 
-**A brain, and the page has no match** (no visits to its path in the traffic table, or the brain
-holds no traffic table). The Summary reads "Not available: " with that reason in one sentence, and
+**A Shopify export, no brain, and the page matched.** The Summary gives the page's sessions,
+conversion and Orders at stake in one sentence. Under it, in this order:
+
+1. **The page's figures**, one table: sessions, conversion, Benchmark conversion and Orders at
+   stake, with the export's date range and "sessions that completed checkout over sessions"
+   named above it. A page ahead of its Benchmark shows its Orders at stake as a negative and says
+   so in a few words.
+2. **The light funnel**, one table: cart rate, checkout reach rate and checkout completion rate
+   for the page, the same Page type and the relative gap, per `references/shopify-export.md`.
+   A rate dropped for a missing column is replaced by one line saying which.
+3. **The footnote**: each rate is summed over summed, the export carries no channel, revenue or
+   device, and a Growth Brain adds revenue, traffic mix and the full funnel (gocrux.io/contact).
+
+**A brain or an export, and the page has no match** (no visits to its path in the traffic table or
+the file, or the brain holds no traffic table). The Summary reads "Not available: " with that reason in one sentence, and
 the audit reads the page only. Nothing else sits under the heading.
 
 **A brain, and the page matched.** The Summary gives the page's visits, conversion and Revenue at
