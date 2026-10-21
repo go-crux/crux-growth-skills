@@ -33,7 +33,8 @@ one line saying why. In the Plan tab a heading with nothing agreed reads "Not ag
      "Team's target" or "Proposed: last year's Lift on this year's Baseline"), this year's
      plan, this year's Baseline per day, this year's Lift, last year's Lift, the year before's
      Lift, verdict, revised figure. Head the Lift columns with their calendar years from
-     `references/windows.sql`. A Lift is shown as a ratio over Baseline (1.4 reads "×1.4").
+     `references/windows.sql`. A Lift on a count is shown as a ratio over Baseline (1.4 reads "×1.4"); on a ratio such as
+     conversion or CAC it is the relative change ("−10%").
      Spend carries no verdict. Revised figure is filled for Unrealistic targets only and reads
      "n/a" elsewhere.
    - The Pillar gap table has one row per pillar (new customers, order frequency, order value)
