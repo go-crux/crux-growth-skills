@@ -7,7 +7,7 @@ description: Landing page audit that works with or without a Growth Brain. Use w
 
 Produce `landing-page-audit-<slug>.html` for one page: a scorecard of sixty checks across six
 ingredients, prioritised findings, quick wins and an ICE-scored test backlog, laid out as
-`references/audit-layout.md` fixes it. Run the three steps in order. The user sees only the chat
+`references/audit-layout.md` fixes it. Run the steps in order. The user sees only the chat
 and the page, never this skill or its references: say what the page showed, in plain words with
 its evidence, and never cite a file or a rule. The terms Find, Audit, Brand guardrails, Page
 type, Benchmark, Revenue at stake, Orders at stake and Underperforming page are those of
@@ -17,20 +17,61 @@ type, Benchmark, Revenue at stake, Orders at stake and Underperforming page are 
 
 Look for a connector named `<Client> - Growth Brain` that offers `list_tables`, `list_metrics`,
 `search_examples` and `run_sql`. With several, ask which one. With none, say in one line that
-the Audit runs from the page alone. With or without a brain, go on to step 2.
+the Audit runs from the page alone.
 
-Ask for the URL of the page to audit when the user has not given one. A user who asks which
-landing pages are underperforming or what to test gets the same reply: ranking pages needs the
-brand's traffic figures, which this Audit does not read, so name the page to audit.
+With a brain connected, a user who asks which landing pages are underperforming, or who gives
+no URL, goes to step 2 (Find). A user who gives a URL goes to step 3. Without a brain, a user who
+asks which pages are underperforming or what to test gets one reply: ranking pages needs the
+brand's traffic figures, which a Growth Brain (gocrux.io/contact) reads, so name the page to
+audit and give its URL.
 
-<!-- HOOK: Find (rank the brand's pages so the user picks one) and brain Performance (the page's
-own figures) slot in here, between Connect and Guardrails. Until they exist, go straight to
-Guardrails. -->
+**Done when** the run has named the connector it uses or said it runs without one, and has sent
+the user to Find or holds one page URL.
 
-**Done when** the run has named the connector it uses or said it runs without one, and holds
-one page URL.
+## 2. Find
 
-## 2. Guardrails
+Runs when step 1 found a brain and the user asked which pages are underperforming or gave no
+URL; otherwise go to step 3.
+
+**Read.** Call `list_tables` once with no arguments, then once naming only
+`<client>-channel_reporting` (`<client>` is the prefix the roster carries). If that mart is
+missing, say in one line that the brain holds no traffic table to rank pages from, ask for the
+URL and go to step 3. Open `references/find.sql`, put its CTEs ahead of the query, compose
+`source` from the columns the second call returns and run it with `run_sql`. Where the brain's
+own instructions name the store's timezone, write every `CURRENT_DATE()` as
+`CURRENT_DATE('<timezone>')`. The period is the last 90 complete days; for a period the user
+names, change only the dates in `period`. Revenue is the mart's total sales measure (after
+discounts and returns). Leave out test orders wherever the mart flags them. Type no date, Page
+type, threshold or Benchmark by hand: the file computes them.
+
+**List.** Write to the chat, with no file:
+
+- Above the list: the period, the revenue measure by name, the site's total visits and the
+  site's revenue per visit.
+- Up to 10 Underperforming pages, largest Revenue at stake first, each with its page, Page type,
+  visits, conversion, revenue per visit, Benchmark revenue per visit and Revenue at stake. Say
+  in a line that the Benchmark is what the page's visits would earn at the site's rate for the
+  same Page type and channel.
+- With fewer than 10 Underperforming pages, list those found and say how many there are. With
+  none, say so and ask for the URL of the page to audit.
+- One line that checkout, cart, account and visits with no landing page are left out of the
+  list and counted in the site's visits.
+
+End by asking which page to audit, recommending the first; "yes" accepts it. The chosen page's
+path is the page to audit: take the store's domain from the brain's instructions or the
+conversation, and ask for it when neither names one.
+
+**Done when** the period and the revenue measure are named; the site's total visits for the
+period are shown and equal the sum of `total_sessions` over the period from
+`<client>-channel_reporting`; at most 10 pages are listed, largest Revenue at stake first, and
+every one carries page, Page type, visits, conversion, revenue per visit, Benchmark revenue per
+visit and Revenue at stake; a short list says how many were found; and the user was asked which
+page to audit with the first recommended.
+
+<!-- HOOK: brain Performance (the page's own figures) slots in here, between Find and Guardrails.
+Until it exists, go straight to Guardrails. -->
+
+## 3. Guardrails
 
 Open `references/guardrails.md` and run it before any scoring, so no recommendation breaches
 what the brand will not do.
@@ -49,7 +90,7 @@ skipped; a run with the file present asked "Still right?" and not the three ques
 was offered or the file was left unchanged; and the unconfirmed guardrails are listed for the
 Audit to mark.
 
-## 3. Audit
+## 4. Audit
 
 **Establish.** Read the Page type from the URL's path, query string cut: `/products/` product,
 `/collections/` collection, `/pages/` landing page, `/blogs/` blog, `/` home. For any other
