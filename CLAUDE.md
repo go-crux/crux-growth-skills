@@ -6,7 +6,7 @@ a report worth reading, and runs on the client's own **Growth Brain** connector.
 mcp_brain ADR-0026: **the brain ships mechanism, the plugin ships craft**. The brain owns the
 tools and the data, and a skill owns the interview, the method and the page it produces.
 
-Read [`GLOSSARY.md`](GLOSSARY.md), where present, before planning or building; a PRD's terms sit on its integration branch until its promote. Before writing or reviewing a
+Read [`GLOSSARY.md`](GLOSSARY.md) and the skill's own `references/glossary.md` before planning or building; a PRD's terms sit on its integration branch until its promote. Before writing or reviewing a
 skill, read [`docs/skill-authoring.md`](docs/skill-authoring.md) **whole**: it is the standard
 every skill here is held to. Decisions live in `docs/adr/` once there are any.
 
@@ -16,23 +16,24 @@ every skill here is held to. Decisions live in `docs/adr/` once there are any.
 
 | Path | What it is |
 |---|---|
-| `skills/<name>/SKILL.md` | one skill: its frontmatter and its steps |
-| `skills/<name>/references/` | material that skill reads only when a step points at it |
-| `skills/README.md` | placeholder that keeps `skills/` in git; deliberately not a `SKILL.md` |
-| `.claude-plugin/marketplace.json` | the marketplace `crux`, listing the plugin `crux-growth-skills` at `source: "./"` |
-| `.claude-plugin/plugin.json` | the Claude Code manifest |
-| `plugin.json` | the portable manifest (agent-plugins schema) |
-| `.codex-plugin/plugin.json` | the Codex overlay; `skills: "./skills/"` |
-| `README.md` | the **client-facing** install guide and skill list |
-| `AGENTS.md` | the Codex entry point, which points here |
+| `plugins/crux-growth-skills/` | **the plugin: the only folder a client installs** |
+| `plugins/crux-growth-skills/skills/<name>/SKILL.md` | one skill: its frontmatter and its steps |
+| `plugins/crux-growth-skills/skills/<name>/references/` | material that skill reads only when a step points at it, its `glossary.md` included |
+| `plugins/crux-growth-skills/.claude-plugin/plugin.json` | the Claude Code manifest |
+| `plugins/crux-growth-skills/plugin.json` | the portable manifest (agent-plugins schema) |
+| `plugins/crux-growth-skills/.codex-plugin/plugin.json` | the Codex overlay; `skills: "./skills/"` |
+| `.claude-plugin/marketplace.json` | the marketplace `crux`, listing the plugin `crux-growth-skills` at `source: "./plugins/crux-growth-skills"` |
+| `README.md` | the **client-facing** install guide and skill list, read on GitHub |
+| `CLAUDE.md`, `AGENTS.md`, `GLOSSARY.md`, `docs/` | for us; outside the plugin folder, so never installed |
 
 There is no code, no package manager and no test suite. A skill is prose an agent runs.
 
 ## Commands
 
 ```bash
-claude plugin validate .                 # manifest check; run after any manifest edit
-claude --plugin-dir ~/code/crux/growth-skills   # a session with this checkout loaded, for a dry run
+claude plugin validate .                              # the marketplace manifest
+claude plugin validate plugins/crux-growth-skills     # the plugin; run both after any manifest edit
+claude --plugin-dir ~/code/crux/growth-skills/plugins/crux-growth-skills   # a session with this checkout's plugin loaded, for a dry run
 ```
 
 A dry run needs a Growth Brain connector (`<Client> - Growth Brain`) in that session, so it runs
@@ -47,11 +48,12 @@ from Matt's own Claude, never from a cold run. Method in
 - **`main` is the release.** Clients install from `main`, and Claude pulls updates on its own
   after a session starts, so a merge to `main` reaches every client. Only a promote PR merges
   there.
-- **The whole repo is the plugin** (`source: "./"`), so everything committed here, `docs/` and
-  this file included, installs on every client's machine. `claude plugin validate .` warns that
-  this `CLAUDE.md` is not loaded as plugin context. That is expected: it is for us, not the client.
-- **The version lives in four places**: `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`
-  (on the plugin entry), `plugin.json` and `.codex-plugin/plugin.json`. A release bumps all four
+- **Only `plugins/crux-growth-skills/` installs.** Everything a client's agent needs goes inside
+  it, and each skill reads nothing outside its own folder. Nothing for us (this file, `AGENTS.md`,
+  `GLOSSARY.md`, `docs/`, notes) goes inside it. The repo is still public, so the split controls
+  what installs, not what is readable on GitHub.
+- **The version lives in four places**: `.claude-plugin/marketplace.json` (on the plugin entry)
+  and the plugin's `.claude-plugin/plugin.json`, `plugin.json` and `.codex-plugin/plugin.json`. A release bumps all four
   together (minor for a new skill, patch for a fix), and the manifest descriptions say what
   the plugin now carries.
 - **A merged skill is not live in a running session.** A client gets it after
@@ -62,9 +64,9 @@ from Matt's own Claude, never from a cold run. Method in
   columns from `list_tables` on every run. This repo has no CI link to `mcp_brain`, so a renamed
   tool or column breaks a skill silently; treat a brain rename as a change with an out-of-repo
   caller (ADR-0026).
-- **Both hosts read `skills/`.** Keep a skill free of Claude-only syntax the Codex host cannot
-  follow, and keep the Claude manifest under `.claude-plugin/` working.
-- **The client reads the README.** It is written for a non-technical founder, in Crux house style
+- **Both hosts read the plugin's `skills/`.** Keep a skill free of Claude-only syntax the Codex host cannot
+  follow, and keep the plugin's Claude manifest under `.claude-plugin/` working.
+- **The client reads the README.** It is written for a non-technical reader on the client's team (founder, head of growth, ecommerce or marketing manager), in Crux house style
   (British English, no em dashes), and lists only skills that have shipped to `main`.
 
 ## Branching & PRs

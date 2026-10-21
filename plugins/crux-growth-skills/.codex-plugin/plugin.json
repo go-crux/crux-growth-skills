@@ -1,0 +1,36 @@
+{
+  "name": "crux-growth-skills",
+  "version": "0.2.0",
+  "description": "Crux best practice for planning Black Friday on your own data: last year's read, your targets tested against it, and an agreed plan with day-by-day targets.",
+  "author": {
+    "name": "Crux",
+    "email": "matt@gocrux.io",
+    "url": "https://gocrux.io"
+  },
+  "homepage": "https://gocrux.io",
+  "repository": "https://github.com/go-crux/growth-skills",
+  "keywords": [
+    "crux",
+    "analytics",
+    "ecommerce",
+    "growth",
+    "black-friday",
+    "planning"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Crux",
+    "shortDescription": "Crux Black Friday planning on your own data",
+    "longDescription": "Read last year's Black Friday on your own data, test your November and December targets against it, and agree a plan with day-by-day targets you can download.",
+    "developerName": "Crux",
+    "category": "Productivity",
+    "capabilities": [
+      "Analytics",
+      "Planning"
+    ],
+    "websiteURL": "https://gocrux.io",
+    "defaultPrompt": [
+      "Help me plan Black Friday."
+    ]
+  }
+}
