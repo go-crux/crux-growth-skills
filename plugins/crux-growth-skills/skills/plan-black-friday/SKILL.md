@@ -23,7 +23,7 @@ only `<client>-orders` and `<client>-channel_reporting` (`<client>` is the prefi
 carries), one table per call: a call naming two marts can overflow the reply. If either is
 missing from the roster, tell the user in one line which one and stop.
 Each section below opens with its own `list_tables` calls, one per mart that section reads. Compose every query from the columns the calls return. A mart absent from the roster
-drops its part of the page, with one line saying so. `product_funnel`, `meta_performance` and
+drops its part of the page, with one line saying so. `meta_performance` and
 `google_ads_performance` are optional: name each in a `list_tables` call only when the roster
 lists it.
 
@@ -78,14 +78,11 @@ Black Friday weekend and Festive in both years.
 - List the ten landing pages with the most weekend visits, each with orders, conversion and
   last year's conversion alongside, and the site's conversion above them.
 
-**Merchandising.** Call `list_tables` for `<client>-order_items`, and for `<client>-product_funnel`
-if the roster lists it. Show units, revenue and margin per day by window, then rank the five
+**Merchandising.** Call `list_tables` for `<client>-order_items`: every product figure comes from
+it. Show units, revenue and margin per day by window, then rank the five
 products with the most revenue in Black Friday weekend of last year. Each product row carries
-units, revenue, margin, share of the weekend's margin, average discount, efficiency, and the
-year before it for the same product. Efficiency is margin per unit sold and, from
-`product_funnel`, the product's view-to-purchase rate. `product_funnel` starts with the GA4 raw
-event stream, so where it holds no rows for last year, view-to-purchase reads "No data" and the
-footnote says why. A figure the tables lack reads "No data".
+units, revenue, margin, margin %, share of the weekend's margin, average discount and margin
+per unit, and the year before it for the same product. A figure the table lacks reads "No data".
 
 **Marketing.** Two parts, each with its own window table.
 
@@ -113,8 +110,7 @@ opportunity carries its evidence figure, this year's action and the metric to wa
 before it and each window's Lift over Baseline, or a one-line reason it is absent; the margin
 rung and the revenue measure are named; the headline and every window table carry the CM3
 (or "CM1 less marketing") row; every query took its dates from `references/windows.sql`;
-the run has queried only the marts named in this step, with `product_funnel`, `meta_performance`
-and `google_ads_performance` only where the roster lists them; and the 3 to 5 opportunities
+the run has queried only the marts named in this step, with `meta_performance` and `google_ads_performance` only where the roster lists them; and the 3 to 5 opportunities
 each carry evidence, action and metric (or the count that fired is stated).
 
 ## 2. Target test
