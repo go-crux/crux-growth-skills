@@ -1,26 +1,26 @@
 ---
 name: plan-black-friday
-description: Black Friday planning on the founder's own Growth Brain. Use when the founder asks to plan Black Friday or the festive peak, to check their November targets, or how last year's Black Friday performed.
+description: Black Friday planning on the brand's own Growth Brain, for anyone on the team with it connected (founder, head of growth, ecommerce or marketing manager). Use when someone asks to plan Black Friday or the festive peak, to check their November targets, or how last year's Black Friday performed.
 ---
 
 # Black Friday plan
 
-Produce the Black Friday plan from the founder's own data: one page with two tabs, Last year
+Produce the Black Friday plan from the brand's own data: one page with two tabs, Last year
 and Plan. Run the five steps in order. The terms Baseline, Lead-in, Black Friday weekend,
 Festive, Lift, Last-year level, Target test, Pillar gap, Scenario, Daily phasing and Black Friday
-plan are those of `GLOSSARY.md`; use them as written.
+plan are those of `references/glossary.md`; use them as written.
 
 ## 1. Read
 
 **Connect.** Look for a connector named `<Client> - Growth Brain` that offers `list_tables`,
-`list_metrics`, `search_examples` and `run_sql`. With none, tell the founder in one line that
+`list_metrics`, `search_examples` and `run_sql`. With none, tell the user in one line that
 Black Friday planning needs their Crux Growth Brain connected in this session and to ask their
 Crux contact to set it up, then stop: run no query and call no other tool. With several, ask
 which one.
 
 **Discover.** Call `list_tables` once with no arguments for the roster. Call it again naming
 only `<client>-orders` and `<client>-channel_reporting` (`<client>` is the prefix the roster
-carries). If either is missing from the roster, tell the founder in one line which one and stop.
+carries). If either is missing from the roster, tell the user in one line which one and stop.
 Each section below opens with its own `list_tables` call naming only the marts that section
 reads. Compose every query from the columns the calls return. A mart absent from the roster
 drops its part of the page, with one line saying so. `product_funnel`, `meta_performance` and
@@ -146,7 +146,7 @@ target and month:
 
 **Done when** every target carries a verdict, its Lift and last year's Lift; each Unrealistic
 target carries its revised figure; the revenue rung is named; and the plan months sum the
-`all`/`all` rows (or each month's source reads "Founder's target" or "Proposed").
+`all`/`all` rows (or each month's source reads "Team's target" or "Proposed").
 
 ## 3. Pillar gap
 
@@ -173,22 +173,22 @@ single-pillar Scenarios.
 
 **Start.** Open `references/plan-layout.md` and write `black-friday-plan.html` in the working
 folder: the Last year tab as steps 1 to 3 produced it, and every Plan heading reading "Not
-agreed". Tell the founder where the page is, give the headline in one sentence, and say four
+agreed". Tell the user where the page is, give the headline in one sentence, and say four
 rounds follow, one per section, ending in the Plan tab. They can answer "just write it" at any
 point.
 
 **Rounds.** Run four numbered rounds in this order. Open each with its number and section. Each
 question states the finding or opportunity it comes from with its figure, the decision, and a
-recommendation. Ask the next round only after the founder has answered the one before.
+recommendation. Ask the next round only after the user has answered the one before.
 
 - "Yes" accepts every recommendation in the round. An answer to a question replaces that
   question's recommendation. "Skip" leaves it Not agreed.
 - "Just write it" accepts every recommendation in this round and the rounds still to come, with
   each action's owner and date set to the recommendation below, then goes straight to step 5.
 - Close each round by asking an owner and a date for each action agreed in it. Recommend the
-  founder as owner and a date before the first day of the window the action lands in (from
+  user as owner and a date before the first day of the window the action lands in (from
   `references/windows.sql`), or tomorrow once that day has passed.
-- A target figure the founder changes goes back through step 2's Lift and verdict rules.
+- A target figure the user changes goes back through step 2's Lift and verdict rules.
 
 | Round | Questions | Feeds |
 |---|---|---|
@@ -225,7 +225,7 @@ with the agreed targets as literals and the dates from `phasing_days` in
 the phasing, headings and CSV as `references/plan-layout.md` fixes them. Implied CAC is the
 agreed spend over the agreed new orders.
 
-Tell the founder where the page is, give the agreed plan in one sentence, and name the CSV
+Tell the user where the page is, give the agreed plan in one sentence, and name the CSV
 button. Loading the Daily phasing into their budget sheet is a hand-off: the page says to send
 the CSV to their Crux contact.
 
@@ -233,4 +233,4 @@ the CSV to their Crux contact.
 table has a cell for each row and column (or "No data"); each section without figures carries
 its one-line reason; each Plan heading with nothing agreed reads "Not agreed"; the Daily
 phasing days sum exactly to each agreed month, and Black Friday this year sits on its own date;
-the CSV rows match the table; and the founder has the page's path.
+the CSV rows match the table; and the user has the page's path.

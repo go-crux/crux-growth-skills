@@ -30,7 +30,7 @@ one line saying why. In the Plan tab a heading with nothing agreed reads "Not ag
    Stretch or Unrealistic target under it reads "Not needed: every target is Achievable".
    - The Target test table has one row per figure in this order: revenue (name the budget rung),
      orders, new orders, spend, implied CAC. Columns, in this order: Source ("Budget sheet",
-     "Founder's target" or "Proposed: last year's Lift on this year's Baseline"), this year's
+     "Team's target" or "Proposed: last year's Lift on this year's Baseline"), this year's
      plan, this year's Baseline per day, this year's Lift, last year's Lift, the year before's
      Lift, verdict, revised figure. Head the Lift columns with their calendar years from
      `references/windows.sql`. A Lift is shown as a ratio over Baseline (1.4 reads "×1.4").
@@ -57,7 +57,7 @@ Heading: **Plan**. Under it, seven headings in this order.
 1. **Agreed targets**: one table per month (November, December to the 24th), one row per figure
    in this order: revenue (name the budget rung), orders, new orders, spend, implied CAC
    (agreed spend over agreed new orders). Columns, in this order: agreed target, source ("Budget
-   sheet", "Revised", "Founder's target" or "Proposed: last year's Lift on this year's
+   sheet", "Revised", "Team's target" or "Proposed: last year's Lift on this year's
    Baseline"), Lift over Baseline, verdict. Spend and implied CAC take their Lift from the Target
    test, and spend carries no verdict.
 2. **Chosen Scenario**: for each month with a Stretch or Unrealistic target, one row per Scenario
@@ -73,7 +73,7 @@ Heading: **Plan**. Under it, seven headings in this order.
    Crux contact.
 4. **Actions**: one sub-heading per section (Offer, Merchandising, Marketing, Targets), each a
    table of action, owner and date. A section with none agreed reads "Not agreed".
-5. **Opportunities**: the opportunities the founder adopted, each with its evidence figure, this
+5. **Opportunities**: the opportunities adopted in the grill, each with its evidence figure, this
    year's action and the metric to watch on the day.
 6. **Risks**: three rows in this order, **Stock**, **Discount stacking** and **Margin floor**,
    each with the limit agreed (units to secure; the discounts that may combine; the margin %

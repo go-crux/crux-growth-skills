@@ -5,8 +5,8 @@ against. It follows the workspace `writing-for-agents` skill; run that skill whe
 and treat this file as its binding summary for this repo.
 
 A skill is a document a client's agent runs on the client's own data, with nobody from Crux in
-the room. Each run should take the same **process**, so the founder gets a comparable result
-whoever runs it and whichever brain it reads.
+the room. Each run should take the same **process**, so whoever runs it gets a comparable result
+from whichever brain it reads.
 
 ## Shape
 
@@ -16,7 +16,7 @@ skills/<name>/
   references/       material only some runs reach, each file behind a pointer in a step
 ```
 
-- **Name** the skill for what the founder walks away with, verb first: `plan-black-friday`.
+- **Name** the skill for what the user walks away with, verb first: `plan-black-friday`.
 - **Steps in `SKILL.md`, reference behind pointers.** Keep inline whatever every run needs.
   Material only some runs reach, such as an optional mart, a fallback, or a branch for one
   verdict, goes in `references/` behind a one-line pointer that states when to open it.
@@ -38,18 +38,18 @@ description: <leading word first; one trigger per distinct case the skill handle
 ---
 ```
 
-- **Model-invoked by default.** A founder asks in plain words ("help me plan Black Friday"), so
-  the agent must be able to reach the skill on its own. The founder can still type `/<name>`.
+- **Model-invoked by default.** Anyone on the client's team (a founder, a head of growth, an ecommerce or marketing manager) asks in plain words ("help me plan Black Friday"), so
+  the agent must be able to reach the skill on its own. They can still type `/<name>`.
 - **The description is a pointer**, loaded in every session the plugin is installed in. Lead with
-  the word the founder would use, give one trigger per distinct case, and leave out identity
+  the word that person would use, give one trigger per distinct case, and leave out identity
   the body already carries.
 - Use `disable-model-invocation: true` only for a skill a person should start deliberately.
 
 ## Language
 
-- **Leading words.** Use the `GLOSSARY.md` terms verbatim and repeat them as tokens; give each
+- **Leading words.** Use the skill's `references/glossary.md` terms verbatim and repeat them as tokens; give each
   meaning one home. Prefer a word the model already knows (the growth equation, a cohort, a lift)
-  to a coined one, and define a coined one in the glossary.
+  to a coined one, and define a coined one there. A skill is self-contained: it reads nothing outside its own folder, because that folder is all a client's agent reliably resolves (and all Codex reads).
 - **Positive instructions.** State the behaviour wanted ("compare 2025 with 2024"). A prohibition
   stays only as a hard guardrail, paired with its positive.
 - **Prune.** Cut every sentence the model already follows by default, and every line that no
@@ -64,15 +64,15 @@ description: <leading word first; one trigger per distinct case the skill handle
 - **Cache what a lookup cannot give**, such as a trap the contract does not confess, which row a
   plan sits on, or a history start date. Each cached fact carries the reason it is there.
 - **Ask for the tables a step needs and no more.** `list_tables` with no arguments returns the
-  roster. Calling it again with every table in the roster costs the founder the whole contract.
+  roster. Calling it again with every table in the roster costs the user the whole contract.
 - **No brain, no run.** A skill that needs a Growth Brain checks for the connector first, and
   without one says so in a line and stops before any query.
 - **A missing mart drops its part with one line**, so one client's narrower warehouse narrows the
   page rather than breaking the run.
-- **Read only.** A skill writes nothing the brain cannot write. A plan the founder wants loaded
+- **Read only.** A skill writes nothing the brain cannot write. A plan the user wants loaded
   somewhere (a budget sheet, a schedule) is a hand-off to Crux, named on the page.
 
-## The founder's page
+## The page the skill produces
 
 - **Crux house style**: British English, no em dashes, outcome before mechanism, and relative
   percentage changes (2.0% to 1.8% is "−10%").
@@ -82,7 +82,7 @@ description: <leading word first; one trigger per distinct case the skill handle
 - **Every finding ends on an action**: a finding without a next step is trivia (the Crux
   analysis framework).
 - **An interview inside a skill** runs in numbered rounds, one recommendation per question. "Yes"
-  accepts it, and "just write it" accepts every remaining one. The founder answers before the
+  accepts it, and "just write it" accepts every remaining one. The user answers before the
   next round.
 
 ## Public repo
@@ -96,7 +96,7 @@ There is no automated suite: a skill is proven by **dry runs on real brains**.
 
 1. Start a session with the checkout loaded: `claude --plugin-dir ~/code/crux/growth-skills`, with
    the client's Growth Brain connector available in that session.
-2. Run the skill end to end as the founder would, to its final output.
+2. Run the skill end to end as a client user would, to its final output.
 3. Check the PRD's acceptance criteria, especially the totals that should tie to the brain
    (an order count for a date window, a plan's monthly sum).
 4. Run each dry run on a client's own brain and record or share it only with that client.

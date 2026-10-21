@@ -6,7 +6,7 @@ a report worth reading, and runs on the client's own **Growth Brain** connector.
 mcp_brain ADR-0026: **the brain ships mechanism, the plugin ships craft**. The brain owns the
 tools and the data, and a skill owns the interview, the method and the page it produces.
 
-Read [`GLOSSARY.md`](GLOSSARY.md), where present, before planning or building; a PRD's terms sit on its integration branch until its promote. Before writing or reviewing a
+Read [`GLOSSARY.md`](GLOSSARY.md) and the skill's own `references/glossary.md` before planning or building; a PRD's terms sit on its integration branch until its promote. Before writing or reviewing a
 skill, read [`docs/skill-authoring.md`](docs/skill-authoring.md) **whole**: it is the standard
 every skill here is held to. Decisions live in `docs/adr/` once there are any.
 
@@ -64,7 +64,7 @@ from Matt's own Claude, never from a cold run. Method in
   caller (ADR-0026).
 - **Both hosts read `skills/`.** Keep a skill free of Claude-only syntax the Codex host cannot
   follow, and keep the Claude manifest under `.claude-plugin/` working.
-- **The client reads the README.** It is written for a non-technical founder, in Crux house style
+- **The client reads the README.** It is written for a non-technical reader on the client's team (founder, head of growth, ecommerce or marketing manager), in Crux house style
   (British English, no em dashes), and lists only skills that have shipped to `main`.
 
 ## Branching & PRs
