@@ -58,8 +58,9 @@ them all. You leave with one page for your team: last year's read across five sh
 every day of November and December you can download as a CSV. Nothing is changed in your budget
 or your data.
 
-*Needs:* a Crux Growth Brain connected, with your budget loaded. Ask Claude to plan Black Friday,
-or send `/plan-black-friday` in Claude Code.
+*Needs:* a Crux Growth Brain connected. If your budget is in the brain, the targets come from it;
+if not, it proposes targets from last year for you to confirm. Ask Claude to plan Black Friday, or
+send `/plan-black-friday` in Claude Code.
 
 ## Getting a Growth Brain
 
