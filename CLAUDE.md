@@ -3,8 +3,9 @@
 **Crux growth skills** (the plugin `crux-growth-skills`): free skills anyone installs in their own Claude (the desktop app's
 plugins, Claude Code, or Codex). Each skill carries Crux craft, such as a Black Friday plan or a
 report worth reading. They work best on a brand's own **Growth Brain** connector, but the plugin
-never requires one: it doubles as a lead magnet for brands that are not yet clients, so a skill
-that needs a brain says so and points at gocrux.io/contact. The boundary is
+never requires one: it doubles as a lead magnet for brands that are not yet clients, so most
+skills run without a brain, and a brain-only skill is the upsell that says so and points at
+gocrux.io/contact (ADR-0001). The boundary is
 mcp_brain ADR-0026: **the brain ships mechanism, the plugin ships craft**. The brain owns the
 tools and the data, and a skill owns the interview, the method and the page it produces.
 

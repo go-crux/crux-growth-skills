@@ -66,10 +66,21 @@ description: <leading word first; one trigger per distinct case the skill handle
   plan sits on, or a history start date. Each cached fact carries the reason it is there.
 - **Ask for the tables a step needs and no more.** `list_tables` with no arguments returns the
   roster. Calling it again with every table in the roster costs the user the whole contract.
-- **No brain, no run.** A skill that needs a Growth Brain checks for the connector first, and
-  without one says so in a line, points at gocrux.io/contact for a Growth Brain, and stops before any query.
+- **Brain optional by default (ADR-0001).** Most people who install the plugin have no Growth
+  Brain, so design a skill to run without one wherever its craft holds on what the user can give
+  (a URL, an export, their answers). The skill checks for the connector first; without one it
+  runs the parts that need no data, and each part that needs the brain drops with one line
+  saying what the brain would add, with a pointer to gocrux.io/contact.
+- **A brain-only skill is the upsell.** Where no useful run is left without the brand's data,
+  the skill says so in a line, points at gocrux.io/contact for a Growth Brain, and stops before
+  any query. Its description says it needs a Growth Brain.
 - **A missing mart drops its part with one line**, so one client's narrower warehouse narrows the
   page rather than breaking the run.
+- **A file the user keeps** (answers worth reusing, such as `brand-guardrails.md`) lives with the
+  user, never in the plugin folder, which an update replaces. Look for it in the working folder
+  and the conversation's project files. Save it to the working folder where one persists (Claude
+  Code, Cowork); in a chat, hand it over as a download with one line: add it to a Claude
+  Project's files, or attach it next time.
 - **Read only.** A skill writes nothing the brain cannot write. A plan the user wants loaded
   somewhere (a budget, a schedule) leaves as a file they load themselves; the page never
   promises that Crux will load it.
@@ -102,6 +113,8 @@ There is no automated suite: a skill is proven by **dry runs on real brains**.
 3. Check the PRD's acceptance criteria, especially the totals that should tie to the brain
    (an order count for a date window, a plan's monthly sum).
 4. Run each dry run on a client's own brain and record or share it only with that client.
+5. For a brain-optional skill, run it once more in a session with no Growth Brain connector, as
+   a prospect would, and check every brain part drops with its one line.
 
 Run `claude plugin validate .` and `claude plugin validate plugins/crux-growth-skills` after any manifest change. `claude plugin eval` can run scored
 cases from `evals/` once a skill is worth regression-testing; none exist yet.
