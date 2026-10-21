@@ -13,9 +13,16 @@ pages 1 to 5 a section without figures carries one line saying why. On page 6 a 
 nothing agreed reads "Not agreed". Every cell holds a figure, "No data" (the tables hold
 nothing for it) or the words this file gives for it; never a bare "n/a".
 
+Every page opens with a **Summary**, before any table: two to four sentences of plain prose
+saying what the page looked at and its key takeaways, each with its figure (for example that
+last year's weekend email sends were down a fifth while email revenue held). Write it from the
+page's own figures, never a caveat (those go in Notes) and never the method on page 1's "How we
+read it". Until the grill ends, the Plan page's Summary says the plan is agreed with you in the
+chat and fills in here once it is.
+
 ## Page 1: Overview
 
-1. **How we read it**: four to six short lines, before any figure, for a reader who has seen
+1. **Summary**, then **How we read it**: four to six short lines, before any figure, for a reader who has seen
    none of the method:
    - the four windows with their dates in both years compared (from `references/windows.sql`),
      and that Baseline is normal September and October trading;
@@ -104,8 +111,7 @@ Heading: **Plan for** this year's calendar year. Under it, seven headings in thi
    each month. Columns, in this order: `date`, `days_from_black_friday`, `revenue`, `orders`,
    `new_orders`, `spend`. Black Friday this year is the row with `days_from_black_friday` 0, on
    its own date, and is marked. Under the table a **Download CSV** button, and one line saying
-   that loading the Daily phasing into your budget is a hand-off: send the CSV to your Crux
-   contact.
+   the file holds these daily targets, ready to open in a spreadsheet or load into your budget.
 4. **Actions**: one sub-heading per grill round (Offer, Products, Marketing and retention, Targets),
    each a table of action and date. A section with none agreed reads "Not agreed".
 5. **Opportunities**: the opportunities adopted in the grill, each with its evidence figure, this

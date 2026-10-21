@@ -216,11 +216,21 @@ folder: pages 1 to 5 as steps 1 to 3 produced them, and every Plan heading readi
 agreed". Then open the chat with what was done, before any question, in a few short lines:
 the windows and their dates in the two years read, that each is read as its Lift over its own
 Baseline and year on year, the headline in one sentence, where this year's targets came from
-(your budget) and each month's verdicts. Say where the page is and which page holds what, that
-four rounds follow, one per section, ending on the Plan page, and that they can answer "just
-write it" at any point.
+(your budget) and each month's verdicts. Say where the page is and which page holds what.
 
-**Rounds.** Run four numbered rounds in this order. Open each with its number and section. Each
+Then say what happens next, as its own short block headed "Agreeing your plan": the read is
+done, and we now turn it into this year's plan together in four rounds of questions, one at a
+time. Name the rounds and what each decides: 1. Offer (which offer changes to make and which
+discounts may combine), 2. Merchandising (which products to lead with and the stock to secure),
+3. Marketing (which campaigns and email changes to run), 4. Targets (the November and December
+targets, how to close any gap, the margin floor and the numbers to watch on the day). Say that
+each question gives what the data showed, the decision and our recommendation; that they can
+answer "yes" to accept, give their own answer, or "skip"; that each round ends by setting a
+date for its actions; that the answers fill the Plan page; and that "just write it" at any
+point accepts the remaining recommendations.
+
+**Rounds.** Run four numbered rounds in this order. Open each with its number, its section and one
+sentence on what it decides. Each
 question states the finding or opportunity it comes from with its figure, the decision, and a
 recommendation. Ask the next round only after the user has answered the one before.
 
@@ -270,10 +280,9 @@ the phasing, headings and CSV as `references/plan-layout.md` fixes them. Implied
 agreed spend over the agreed new orders.
 
 Tell the user where the page is, give the agreed plan in one sentence, and name the CSV
-button. Loading the Daily phasing into their budget is a hand-off: the page says to send
-the CSV to their Crux contact.
+button: it holds the daily targets, ready for a spreadsheet or their budget.
 
-**Done when** the page has all six pages with every heading in `references/plan-layout.md`; every
+**Done when** the page has all six pages, each opening with its Summary, with every heading in `references/plan-layout.md`; every
 table has a cell for each row and column (or "No data"); each section without figures carries
 its one-line reason; each Plan heading with nothing agreed reads "Not agreed"; no cell reads a bare "n/a"; the Daily
 phasing days sum exactly to each agreed month, and Black Friday this year sits on its own date;
