@@ -77,12 +77,12 @@ you are in yet. Send `/reload-plugins`, or close Claude and open it again.
 **`plan-black-friday`** plans your Black Friday and the run to Christmas from your own data. Ask
 Claude to plan Black Friday, or send `/plan-black-friday`, with your Crux Growth Brain connected.
 It reads how last year's Black Friday went against the year before, tests your November and
-December targets from your budget sheet against what those years achieved, and shows what has to
+December targets from your budget against what those years achieved, and shows what has to
 change if a target is a stretch. It then takes you through your offer, products and marketing
 one question at a time, with a recommendation for each, and you can say "just write it" to accept
-them all. You leave with one page for your team: last year's read on one tab and your plan on the
-other, with a day-by-day target for every day you can download as a CSV. Nothing is changed in
-your budget sheet or your data.
+them all. You leave with one page for your team: last year's read across five short pages (overview,
+offer, marketing, retention and targets) and your plan on a sixth, with a day-by-day target for
+every day you can download as a CSV. Nothing is changed in your budget or your data.
 
 ## Staying up to date
 
