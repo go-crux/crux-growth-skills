@@ -17,3 +17,5 @@ The terms `SKILL.md` and the other references use, each with one meaning.
 - **Orders at stake**: the same gap in conversion rather than revenue, from a Shopify export where no brain is connected. _Avoid_: lost orders.
 
 - **Underperforming page**: a page with at least 1% of the site's visits in the period and at least 20% below its Benchmark. Checkout, cart, account and Unknown pages are never ranked. _Avoid_: weak page, problem page.
+
+- **Leaking step**: the funnel step where a page's rate falls furthest below the same Page type's, in relative terms, from a Growth Brain. It sets which findings come first; it never skips a check. _Avoid_: drop-off, bottleneck.

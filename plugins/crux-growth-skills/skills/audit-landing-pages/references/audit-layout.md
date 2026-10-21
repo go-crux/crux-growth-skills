@@ -43,17 +43,37 @@ prose saying what the section holds and its key takeaway, with its figure (for e
 52 assessed checks met; the offer is the weakest ingredient at 0 of 7"). A heading with
 nothing under it stays on the page, and its Summary gives the reason.
 
-<!-- HOOK: Performance. A source of the page's own figures (visits, conversion, the funnel)
-fills this heading's table in place of the "Not available" line. -->
-
 ### 1. Performance
 
-With no traffic figures this heading reads **Not available**, and its Summary is that one line:
+Three cases.
+
+**No brain.** The heading reads **Not available**, and its Summary is that one line:
 "Not available: a Shopify 'Sessions by landing page' export or a Growth Brain
-(gocrux.io/contact) would add visits, conversion and the funnel." Where a Growth Brain is
-connected in the session, the line instead reads "Not available: this audit reads the page
-only, so visits, conversion and the funnel are not part of it." Nothing else sits under the
+(gocrux.io/contact) would add visits, conversion and the funnel." Nothing else sits under the
 heading.
+
+**A brain, and the page has no match** (no visits to its path in the traffic table, or the brain
+holds no traffic table). The Summary reads "Not available: " with that reason in one sentence, and
+the audit reads the page only. Nothing else sits under the heading.
+
+**A brain, and the page matched.** The Summary gives the page's visits, conversion and Revenue at
+stake in one sentence, and names the Leaking step where there is one. Under it, in this order:
+
+1. **The page's figures**, one table: visits, conversion, revenue per visit, Benchmark revenue per
+   visit and Revenue at stake, with the period's dates and the revenue measure ("total sales,
+   after discounts and returns") named above it. A page ahead of its Benchmark shows its Revenue at
+   stake as a negative and says so in a few words.
+2. **The top 3 channels**, each with its share of the page's visits.
+3. **Mobile against desktop**: the session purchase conversion rate on each device, beside the
+   same Page type's.
+4. **The funnel**, one table: each rate in `references/performance.md` for the page, the same
+   Page type and the relative gap, with the Leaking step marked.
+5. **The footnote**: the days the funnel covers, and that each rate is summed over summed.
+
+A part the brain cannot give is replaced by one line saying why, never dropped silently: without
+a funnel table, one line stands for both the device split and the funnel ("The brain holds no
+funnel table, so the device split and funnel steps are not shown"), and with no funnel rows for
+the page, one line says so.
 
 ### 2. Scorecard
 
@@ -68,8 +88,10 @@ this order, as `references/templates.md` sets them out:
 ### 3. Findings
 
 Summary: how many findings, and which ingredient carries the most failed checks. Under it, the
-findings F1, F2, F3 in order, structural first, as `references/templates.md` sets them out.
-Each names its failed checks and one of trust, understanding or fit, and ends on a **Do**. With
+findings F1, F2, F3 in order, as `references/templates.md` sets them out.
+The order is the Leaking step's where Performance names one (structural first within each group),
+otherwise structural first, and the Summary says which. Each names its failed checks and one of
+trust, understanding or fit, and ends on a **Do**. With
 no failed check the heading reads "No findings", with the Summary saying every assessed check
 is met.
 
@@ -83,5 +105,6 @@ check needs a test").
 
 Summary: how many hypotheses and the top-ranked one by name. Under it, in this order: the
 hypothesis blocks H1, H2, H3 numbered to match their findings, the ranked table, then the
-sequencing line. The table's **Read as** column reads "Test or ship: needs traffic figures" in
-every row.
+sequencing line. The table's **Read as** column carries each row's call as
+`references/templates.md` sets it, and reads "Test or ship: needs traffic figures" only where the
+audit had neither a brain nor an export.

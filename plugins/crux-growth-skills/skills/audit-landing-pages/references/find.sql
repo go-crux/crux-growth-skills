@@ -1,4 +1,6 @@
--- Put these CTEs ahead of every query and join to them; each rule is stated once, here.
+-- Put these CTEs ahead of every query and join to them; each rule is stated once, here. Close
+-- the statement with one of the two queries at the foot: Find as written, or Audit (one page),
+-- which is commented out: use it in place of the Find query, with its comment marks removed.
 -- Replace the <angle-bracket> names in `source` with the columns list_tables returns for
 -- `<client>-channel_reporting`; nothing else in this file changes by brand.
 -- Timezone: where the brain's own instructions name the store's timezone, write every
@@ -17,12 +19,14 @@ period AS (
 ),
 -- The one place that names mart columns. Revenue is the total sales measure (after discounts and
 -- returns). Where the mart flags test orders, zero their orders and revenue here and keep their
--- visits, so the site's visits stay equal to the sum of total_sessions.
+-- visits, so the site's visits stay equal to the sum of total_sessions. A trailing slash is
+-- dropped from the landing page (the home page stays '/'), so /x and /x/ are one page.
 source AS (
   SELECT
     <date column> AS day,
     COALESCE(<channel column>, 'Unknown') AS channel,
-    COALESCE(<landing page column>, 'Unknown') AS landing_page,
+    IF(<landing page column> IS NULL, 'Unknown',
+       COALESCE(NULLIF(RTRIM(<landing page column>, '/'), ''), '/')) AS landing_page,
     total_sessions AS visits,
     <orders column, 0 on a flagged test order> AS orders,
     <total sales column, 0 on a flagged test order> AS revenue
@@ -123,7 +127,8 @@ underperforming_page AS (
     AND g.revenue_per_visit <= (1 - cut.min_gap) * g.benchmark_revenue_per_visit
     AND g.revenue_at_stake > 0
 )
--- Find: one row with the site and period, joined to the top 10 Underperforming pages. A NULL
+
+-- FIND. One row with the site and period, joined to the top 10 Underperforming pages. A NULL
 -- landing_page means none qualified.
 SELECT
   p.date_from, p.date_to,
@@ -136,4 +141,31 @@ CROSS JOIN period AS p
 LEFT JOIN (
   SELECT * FROM underperforming_page ORDER BY revenue_at_stake DESC LIMIT 10
 ) AS u ON TRUE
-ORDER BY u.revenue_at_stake DESC;
+ORDER BY u.revenue_at_stake DESC
+
+-- AUDIT. In place of the Find query above, for one page: replace <path> with the page's path, query
+-- string cut and trailing slash dropped. Returns the page's visits, conversion, revenue per
+-- visit, Benchmark revenue per visit and Revenue at stake (negative where the page is ahead of
+-- its Benchmark), with its top 3 channels by visits and each one's share of the page's visits.
+-- No rows means the page has no visits in the mart (or is an excluded page).
+-- , target AS (SELECT '<path>' AS landing_page),
+-- page_channel_share AS (
+--   SELECT
+--     pc.landing_page, pc.channel, pc.visits,
+--     SAFE_DIVIDE(pc.visits, SUM(pc.visits) OVER (PARTITION BY pc.landing_page)) AS visit_share,
+--     ROW_NUMBER() OVER (PARTITION BY pc.landing_page ORDER BY pc.visits DESC) AS channel_rank
+--   FROM page_channel AS pc
+--   JOIN target USING (landing_page)
+-- )
+-- SELECT
+--   p.date_from, p.date_to, site.visits AS site_visits,
+--   g.landing_page, g.page_type, g.visits, g.orders, g.conversion,
+--   g.revenue_per_visit, g.benchmark_revenue_per_visit, g.revenue_at_stake,
+--   s.channel, s.visit_share, s.channel_rank
+-- FROM page_gap AS g
+-- JOIN target USING (landing_page)
+-- JOIN page_channel_share AS s USING (landing_page)
+-- CROSS JOIN period AS p
+-- CROSS JOIN site
+-- WHERE s.channel_rank <= 3
+-- ORDER BY s.channel_rank;

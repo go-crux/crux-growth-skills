@@ -20,10 +20,10 @@ Look for a connector named `<Client> - Growth Brain` that offers `list_tables`, 
 the Audit runs from the page alone.
 
 With a brain connected, a user who asks which landing pages are underperforming, or who gives
-no URL, goes to step 2 (Find). A user who gives a URL goes to step 3. Without a brain, a user who
-asks which pages are underperforming or what to test gets one reply: ranking pages needs the
-brand's traffic figures, which a Growth Brain (gocrux.io/contact) reads, so name the page to
-audit and give its URL.
+no URL, goes to step 2 (Find). A user who gives a URL goes to step 3 (Performance). Without a
+brain, a user who asks which pages are underperforming or what to test gets one reply: ranking
+pages needs the brand's traffic figures, which a Growth Brain (gocrux.io/contact) reads, so name
+the page to audit and give its URL; a URL goes to step 4.
 
 **Done when** the run has named the connector it uses or said it runs without one, and has sent
 the user to Find or holds one page URL.
@@ -31,12 +31,12 @@ the user to Find or holds one page URL.
 ## 2. Find
 
 Runs when step 1 found a brain and the user asked which pages are underperforming or gave no
-URL; otherwise go to step 3.
+URL; otherwise go to step 3, or to step 4 without a brain.
 
 **Read.** Call `list_tables` once with no arguments, then once naming only
 `<client>-channel_reporting` (`<client>` is the prefix the roster carries). If that mart is
 missing, say in one line that the brain holds no traffic table to rank pages from, ask for the
-URL and go to step 3. Open `references/find.sql`, put its CTEs ahead of the query, compose
+URL and go to step 3. Open `references/find.sql`, put its CTEs ahead of its Find query, compose
 `source` from the columns the second call returns and run it with `run_sql`. Where the brain's
 own instructions name the store's timezone, write every `CURRENT_DATE()` as
 `CURRENT_DATE('<timezone>')`. The period is the last 90 complete days; for a period the user
@@ -68,10 +68,40 @@ every one carries page, Page type, visits, conversion, revenue per visit, Benchm
 visit and Revenue at stake; a short list says how many were found; and the user was asked which
 page to audit with the first recommended.
 
-<!-- HOOK: brain Performance (the page's own figures) slots in here, between Find and Guardrails.
-Until it exists, go straight to Guardrails. -->
+## 3. Performance
 
-## 3. Guardrails
+Runs when step 1 found a brain and the run holds a page URL (given, or chosen in step 2);
+otherwise go to step 4, where the Performance heading reads "Not available".
+
+**Match.** Take the URL's path, cut the query string and any fragment, and drop a trailing slash
+(the home page stays `/`).
+
+**Read.** Unless step 2 already did, call `list_tables` once with no arguments, then once naming
+only `<client>-channel_reporting`. Open `references/find.sql`, put its CTEs ahead of its Audit
+query, set the path in it, compose `source` as Find did and run it with `run_sql`, with the
+period, timezone and revenue measure Find used. It returns the page's visits, conversion,
+revenue per visit, Benchmark revenue per visit, Revenue at stake and its top 3 channels' share
+of visits, from the same CTEs as the shortlist. With no row, or no traffic table, say in one
+line that the brain holds no visits to the path in the period, and go to step 4: Performance
+reads "Not available" and the audit reads the page only.
+
+**Funnel.** When the roster lists `<client>-ecommerce_funnel`, call `list_tables` naming only
+it, then open `references/performance.md` and follow it for the funnel steps, mobile against
+desktop, the Leaking step and the footnote dates. When the roster does not list it, say in one
+line that the brain holds no funnel table, so the page shows no funnel steps or device split and
+no Leaking step orders the findings.
+
+Tell the user in two sentences: the page's visits, conversion and Revenue at stake, then its
+Leaking step with its shortfall, or that it has none.
+
+**Done when** the path is matched, or the one-line no-match reason is said; visits, conversion,
+revenue per visit, Benchmark revenue per visit, Revenue at stake and the top 3 channels' share
+of visits are held from `find.sql`, with no Benchmark or Revenue at stake computed anywhere
+else; the funnel steps, mobile against desktop, the Leaking step and the funnel's first and
+last day are held, or the missing funnel is said in one line; each funnel rate is a sum over a
+sum; and the user has heard the Leaking step or that there is none.
+
+## 4. Guardrails
 
 Open `references/guardrails.md` and run it before any scoring, so no recommendation breaches
 what the brand will not do.
@@ -90,7 +120,7 @@ skipped; a run with the file present asked "Still right?" and not the three ques
 was offered or the file was left unchanged; and the unconfirmed guardrails are listed for the
 Audit to mark.
 
-## 4. Audit
+## 5. Audit
 
 **Establish.** Read the Page type from the URL's path, query string cut: `/products/` product,
 `/collections/` collection, `/pages/` landing page, `/blogs/` blog, `/` home. For any other
@@ -123,25 +153,31 @@ standard for a finding.
 
 **Write.** Open `references/audit-layout.md` and `references/templates.md`. Work in this order:
 
-1. **Findings.** Four to eight, structural first. Each names its failed check numbers and one of
-   trust, understanding or fit, labels its evidence "Heuristic" unless the user supplied
-   evidence, and ends on a Do. Open `references/diagnostics.md` for the objection inventory
+1. **Findings.** Four to eight. Where step 3 found a Leaking step, the findings it points to
+   come first (`references/performance.md` says which), structural first within them; otherwise
+   structural first. All sixty checks are still scored, and the leak never skips one. Each names
+   its failed check numbers and one of trust, understanding or fit, labels its evidence
+   "Heuristic" unless the user supplied evidence (a finding the Leaking step points to names the
+   step and its shortfall instead), and ends on a Do. Open `references/diagnostics.md` for the objection inventory
    (section 2) and the leverage order (section 5), and build the inventory from the page and any
    evidence the user gave.
 2. **Quick wins.** The changes to ship without a test, each naming the checks it settles.
 3. **Hypotheses.** One for each finding, numbered to match, scored with ICE and ranked in the
-   backlog table. Every row's **Read as** cell reads "Test or ship: needs traffic figures".
+   backlog table. Where step 3 returned the page's visits and conversion, each row's **Read as**
+   cell is the test, sequential read or ship call from the sample-size table in
+   `references/diagnostics.md` section 4. With no brain it reads "Test or ship: needs traffic
+   figures", and with a brain that found no traffic for the page, "Test or ship: no traffic found
+   for this page".
 4. **Guardrail check.** Go over the page and every Do, quick win and hypothesis drafted so far
    against the Brand guardrails as `references/guardrails.md` part 4 sets out. A lever the brand keeps off the table that is
    already on the page is a quick win. A best practice the guardrails block is replaced with the
    on-brand alternative. A recommendation resting on an unconfirmed guardrail is marked as an
    assumption.
 5. **The page.** Write `landing-page-audit-<slug>.html` to the working folder with the five
-   headings in order, each opening with its one-line Summary. **Performance** reads "Not
-   available" with its one line.
+   headings in order, each opening with its one-line Summary. **Performance** is filled as the layout sets it for what step 3 returned.
 
 Tell the user where the page is, give the total and the weakest ingredient in one sentence,
-name the top finding, and say which checks are *unassessed* and what would settle them.
+name the top finding and the Leaking step where there is one, and say which checks are *unassessed* and what would settle them.
 
 **Done when** the page type, the goal and the device priority are on the page; the masthead
 says how the page was read; all sixty checks carry a mark, each n/a and *unassessed* with its
@@ -152,7 +188,10 @@ quick win and in its backlog row, and the masthead lists the unconfirmed guardra
 scorecard shows six counts with bands and a total; every finding names its failed check
 numbers and trust, understanding or fit and ends on a Do; every not-met check appears in a
 finding or a quick win; every finding has a hypothesis with ICE or a quick win covering it;
-every backlog row reads "Test or ship: needs traffic figures"; the page has Performance,
+every backlog row carries its call from the page's traffic, or reads "Test or ship: needs
+traffic figures" only where no brain was connected, or "no traffic found for this page" where
+the brain held none; the findings follow the Leaking step's order where there is one, with all
+sixty checks scored; the page has Performance,
 Scorecard, Findings, Quick wins and Test backlog in that order, each with a one-line Summary
 and an empty one carrying its reason; the file name follows the slug rule in the layout; and
 the user has the page's path.
