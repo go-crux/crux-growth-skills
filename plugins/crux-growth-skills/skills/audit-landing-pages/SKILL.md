@@ -36,7 +36,8 @@ Open `references/guardrails.md` and run it before any scoring, so no recommendat
 what the brand will not do.
 
 - With `brand-guardrails.md` in the working folder or the conversation's project files, show it
-  in two lines and ask "Still right?". Do not ask the three questions again.
+  in two lines and ask "Still right?". Do not ask the three questions again. Changes go back
+  into the file.
 - Without it, infer the Brand guardrails from the page and the site, then ask one round of
   three questions: levers off the table, claims, who the page is for. Each carries the inferred
   answer as its recommendation; "yes" accepts it and "skip" leaves it unconfirmed.
@@ -89,8 +90,8 @@ standard for a finding.
 2. **Quick wins.** The changes to ship without a test, each naming the checks it settles.
 3. **Hypotheses.** One for each finding, numbered to match, scored with ICE and ranked in the
    backlog table. Every row's **Read as** cell reads "Test or ship: needs traffic figures".
-4. **Guardrail check.** Go over the page and every Do, quick win and hypothesis you have drafted against the Brand guardrails as
-   `references/guardrails.md` part 4 sets out. A lever the brand keeps off the table that is
+4. **Guardrail check.** Go over the page and every Do, quick win and hypothesis drafted so far
+   against the Brand guardrails as `references/guardrails.md` part 4 sets out. A lever the brand keeps off the table that is
    already on the page is a quick win. A best practice the guardrails block is replaced with the
    on-brand alternative. A recommendation resting on an unconfirmed guardrail is marked as an
    assumption.
