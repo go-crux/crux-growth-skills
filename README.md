@@ -2,8 +2,8 @@
 
 Free skills for your own Claude, written by operators who have scaled ecommerce brands (Fussy,
 £2.2M to £22M GMV; DogBuddy, acquired by Rover). Each skill carries one piece of the craft we use
-with our clients, such as planning Black Friday from last year's numbers or auditing a landing page, and runs on your own
-data inside your own Claude.
+with our clients, such as planning Black Friday from last year's numbers or auditing a landing
+page, and runs on your own data inside your own Claude.
 
 The skills work best with a **Crux Growth Brain** connected: a Claude connector that answers
 questions from your own warehouse, with your orders, marketing and customers in one place. You
