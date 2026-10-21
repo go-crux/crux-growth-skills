@@ -14,6 +14,11 @@ that are not "No data". Percentages are relative.
 | 6 | A landing page converting well below the site | A landing page with 5% or more of weekend visits converts at less than half the site's weekend conversion | Send paid traffic to the page that converts best, or rebuild the weak page before the Lead-in | That page's conversion and its share of visits |
 | 7 | A Klaviyo campaign outperforming the rest | In a window with three or more campaigns, one campaign's revenue is at least twice the average of the others | Rebuild this year's sends on that campaign's offer and timing, and resend it to non-openers | Revenue per send for the matching send this year |
 | 8 | Repeat share falling over Festive | Returning customers' share of Festive orders is more than 10% below the same share in the year before | Plan a Festive retention flow for Black Friday weekend buyers, led by a second-purchase offer | Returning customers' share of daily orders through Festive |
+| 9 | Email send cadence off the benchmark | Last year's campaigns on any day of Black Friday weekend fall below the send cadence benchmark, or the weekend's campaigns are more than twice the benchmark while revenue per send sits below Baseline's | Below: add sends to the light days, led by the weekend's best offer and a last-chance send on Cyber Monday. Above: cut the weakest sends and resend the best to non-openers | Campaigns sent and revenue per send, day by day against the benchmark |
+
+**Send cadence benchmark** (pattern 9): from operators' own Black Friday calendars, a brand
+sends at least 2 email campaigns on Black Friday and 1 on each of Saturday, Sunday and Cyber
+Monday, 5 over the weekend.
 
 Add a row when a season shows a pattern the catalogue missed. A new row carries all three
 columns and a trigger that a figure in the Read can settle.

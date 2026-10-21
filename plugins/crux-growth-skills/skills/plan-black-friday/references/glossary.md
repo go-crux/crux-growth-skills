@@ -13,7 +13,7 @@ to that year's Black Friday, the last Friday of November, so years compare like 
 
 - **Lift**: a window's per-day figure over the same year's Baseline per-day figure; for a ratio (conversion, order value, margin %, CAC), the relative change in the ratio. The year-on-year unit every Black Friday comparison uses. _Avoid_: uplift, growth.
 
-- **Target test**: this year's planned November and December, from the client's budget sheet (`daily_budget_versus_actuals`), turned into a Lift and judged against the last two years' actual Lift as Achievable, Stretch or Unrealistic. _Avoid_: feasibility check, sense check.
+- **Target test**: this year's planned November and December, from the client's budget (`daily_budget_versus_actuals`), turned into a Lift and judged against the last two years' actual Lift as Achievable, Stretch or Unrealistic. _Avoid_: feasibility check, sense check.
 
 - **Last-year level**: what this year's Baseline would deliver at last year's Lift, a figure per target for the month (CAC: Baseline CAC at last year's CAC Lift). The reference every Pillar gap and Scenario reads against, and the revised figure for an Unrealistic target. _Avoid_: 2025 level, benchmark.
 
@@ -23,6 +23,6 @@ to that year's Black Friday, the last Friday of November, so years compare like 
 
 - **Scenario**: one way of closing the Pillar gap through a single pillar, the others held at last year's level. _Avoid_: option, play.
 
-- **Daily phasing**: the agreed monthly targets re-spread by last year's daily shape, aligned by days from Black Friday through Cyber Monday and by days before 24 December from Festive to the end of December, so the days still add back to each whole month. _Avoid_: daily budget (the sheet's own weekday spread).
+- **Daily phasing**: the agreed monthly targets re-spread by last year's daily shape, aligned by days from Black Friday through Cyber Monday and by days before 24 December from Festive to the end of December, so the days still add back to each whole month. _Avoid_: daily budget (the budget's own weekday spread).
 
-- **Black Friday plan**: the skill's output, one artifact with two tabs: **Last year** (the read and the Target test) and **Plan** (targets, chosen Scenario, Daily phasing, actions, opportunities, risks and the watch list), agreed with the user in a grill. _Avoid_: report, playbook.
+- **Black Friday plan**: the skill's output, one artifact with six pages: **Overview**, **Offer**, **Marketing**, **Retention** and **Targets** (the read and the Target test) and **Plan** (targets, chosen Scenario, Daily phasing, actions, opportunities, risks and the watch list), agreed with the user in a grill. _Avoid_: report, playbook.
