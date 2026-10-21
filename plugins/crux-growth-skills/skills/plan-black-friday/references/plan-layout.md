@@ -69,7 +69,8 @@ any platform-reported lists.
    90-day reorder of each window's new customers, in both years.
 3. **Cohorts**: one table, a row per cohort (Black Friday weekend and Baseline new customers, the
    year before and last year), with columns for repeat share, orders per customer and margin per
-   customer at 30, 90 and 180 days, then the share who bought only once and the cohort's CAC.
+   customer at 30, 90 and 180 days, then the share who had bought only once by 180 days and the
+   cohort's CAC. A horizon a cohort has not yet reached reads "Too recent".
    Under it one sentence: whether last year's weekend customers were worth more or less than its
    Baseline customers by 180 days, and by how much.
 
@@ -111,8 +112,9 @@ Heading: **Plan for** this year's calendar year. Under it, seven headings in thi
    each month. Columns, in this order: `date`, `days_from_black_friday`, `revenue`, `orders`,
    `new_orders`, `spend`. Black Friday this year is the row with `days_from_black_friday` 0, on
    its own date, and is marked. Under the table a **Download CSV** button, and one line saying
-   the file holds these daily targets, ready to open in a spreadsheet or load into your budget.
-4. **Actions**: one sub-heading per grill round (Offer, Products, Marketing and retention, Targets),
+   the file holds these daily targets, ready to open in a spreadsheet, and that to load them into
+   your budget you send the CSV to your Crux contact.
+4. **Actions**: one sub-heading per grill round (Offer, Merchandising, Marketing, Targets),
    each a table of action and date. A section with none agreed reads "Not agreed".
 5. **Opportunities**: the opportunities adopted in the grill, each with its evidence figure, this
    year's action and the metric to watch on the day.
