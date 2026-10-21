@@ -1,4 +1,4 @@
-# CLAUDE.md: working notes for `growth-skills`
+# CLAUDE.md: working notes for `crux-growth-skills`
 
 **Crux growth skills** (the plugin `crux-growth-skills`): skills a client installs in their own Claude (Claude Code, the Code
 tab of the desktop app, or Codex). Each skill carries Crux craft, such as a Black Friday plan or
@@ -85,6 +85,6 @@ from Matt's own Claude, never from a cold run. Method in
 
 ## PRDs and programme
 
-PRDs are `prd-doc` issues in `go-crux/growth-skills`, sliced into `[PRD<id>][Slice]` issues and run by
+PRDs are `prd-doc` issues in `go-crux/crux-growth-skills`, sliced into `[PRD<id>][Slice]` issues and run by
 `/implement` or crux-engineer. Seasonal and growth skills belong to programme PGM003 (spine
-go-crux/crux-workspace#52). The public skills repo and lead-magnet versions are go-crux/growth-skills#1.
+go-crux/crux-workspace#52). The public skills repo and lead-magnet versions are go-crux/crux-growth-skills#1.
