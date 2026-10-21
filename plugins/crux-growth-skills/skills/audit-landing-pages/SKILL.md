@@ -17,21 +17,23 @@ type, Benchmark, Revenue at stake, Orders at stake and Underperforming page are 
 
 Look for a connector named `<Client> - Growth Brain` that offers `list_tables`, `list_metrics`,
 `search_examples` and `run_sql`. With several, ask which one. With none, say in one line that
-the Audit runs from the page alone.
+the Audit runs from the page alone, and from a Shopify export where the user has one.
 
 With a brain connected, a user who asks which landing pages are underperforming, or who gives
-no URL, goes to step 2 (Find). A user who gives a URL goes to step 3 (Performance). Without a
-brain, a user who asks which pages are underperforming or what to test gets one reply: ranking
-pages needs the brand's traffic figures, which a Growth Brain (gocrux.io/contact) reads, so name
-the page to audit and give its URL; a URL goes to step 4.
+no URL, goes to step 2 (Find). A user who gives a URL goes to step 3 (Performance); a brain is
+never asked for the export. Without a brain, a user who asks which pages are underperforming or
+what to test goes to step 2, which asks for the export; a user who gives a URL goes to step 3
+when the conversation already holds an export, otherwise to step 4.
 
 **Done when** the run has named the connector it uses or said it runs without one, and has sent
-the user to Find or holds one page URL.
+the user to Find or holds one page URL; and no user with a brain connected was asked for the
+export.
 
 ## 2. Find
 
-Runs when step 1 found a brain and the user asked which pages are underperforming or gave no
-URL; otherwise go to step 3, or to step 4 without a brain.
+Runs when the user asked which pages are underperforming or gave no URL, with a brain or
+without one; otherwise go to step 3. With a brain, follow Read and List; without one, follow
+"Without a brain".
 
 **Read.** Call `list_tables` once with no arguments, then once naming only
 `<client>-channel_reporting` (`<client>` is the prefix the roster carries). If that mart is
@@ -61,17 +63,46 @@ End by asking which page to audit, recommending the first; "yes" accepts it. The
 path is the page to audit: take the store's domain from the brain's instructions or the
 conversation, and ask for it when neither names one.
 
-**Done when** the period and the revenue measure are named; the site's total visits for the
+**Done when** (with a brain) the period and the revenue measure are named; the site's total visits for the
 period are shown and equal the sum of `total_sessions` over the period from
 `<client>-channel_reporting`; at most 10 pages are listed, largest Revenue at stake first, and
 every one carries page, Page type, visits, conversion, revenue per visit, Benchmark revenue per
 visit and Revenue at stake; a short list says how many were found; and the user was asked which
 page to audit with the first recommended.
 
+**Without a brain.** Open `references/shopify-export.md`, give the user its four steps for
+exporting one Shopify report and ask for the file. A user with no file to give gets one line
+asking for the URL of the page to audit, and goes to step 4. From the file, apply that
+reference's rules and write to the chat, with no file:
+
+- Above the list: the period (the date range the file covers), the site's total sessions and the
+  site's conversion, named as sessions that completed checkout over sessions.
+- Up to 10 Underperforming pages, largest Orders at stake first, each with its page, Page type,
+  sessions, conversion, Benchmark conversion and Orders at stake. Say in a line that the
+  Benchmark is the site's conversion for the same Page type.
+- With fewer than 10 Underperforming pages, list those found and say how many there are. With
+  none, say so and ask for the URL of the page to audit.
+- One line that checkout, cart and account are left out of the list and counted in the site's
+  sessions.
+- One line: a Growth Brain adds revenue and traffic mix (gocrux.io/contact).
+
+End by asking which page to audit, recommending the first; "yes" accepts it. The chosen page's
+path is the page to audit; take the store's domain from the conversation and ask for it when it
+is not there.
+
+**Done when** (without a brain) the user was given the four export steps or asked for the URL;
+the period and the site's sessions are shown and equal the sum of the file's sessions; at most
+10 pages are listed, largest Orders at stake first, each with page, Page type, sessions,
+conversion, Benchmark conversion and Orders at stake; a short list says how many were found; the
+Growth Brain line is on the shortlist once; and the user was asked which page to audit with the
+first recommended.
+
 ## 3. Performance
 
-Runs when step 1 found a brain and the run holds a page URL (given, or chosen in step 2);
-otherwise go to step 4, where the Performance heading reads "Not available".
+Runs when the run holds a page URL (given, or chosen in step 2) and either step 1 found a brain,
+or there is no brain and the conversation holds a Shopify export; otherwise go to step 4, where
+the Performance heading reads "Not available". Without a brain, follow "From the export" below
+and skip the rest of this step.
 
 **Match.** Take the URL's path, cut the query string and any fragment, and drop a trailing slash
 (the home page stays `/`).
@@ -94,7 +125,20 @@ no Leaking step orders the findings.
 Tell the user in two sentences: the page's visits, conversion and Revenue at stake, then its
 Leaking step with its shortfall, or that it has none.
 
-**Done when** the path is matched, or the one-line no-match reason is said; visits, conversion,
+**From the export.** Open `references/shopify-export.md` and match the page's path to the file.
+Hold its sessions, conversion, Benchmark conversion and Orders at stake, and the light funnel:
+cart rate, checkout reach rate and checkout completion rate, each against the same Page type.
+Tell the user in two sentences: the page's sessions, conversion and Orders at stake, then the
+funnel rate furthest below its Page type's. With no match, say so in one line; Performance reads
+"Not available" and the audit reads the page only.
+
+**Done when** (from the export) the path is matched, or the one-line no-match reason is said;
+sessions, conversion, Benchmark conversion and Orders at stake are held from
+`references/shopify-export.md`; each funnel rate whose columns the file holds is held beside its
+Page type's, and each one dropped for a missing column is named; and the user has heard the
+page's gap.
+
+**Done when** (with a brain) the path is matched, or the one-line no-match reason is said; visits, conversion,
 revenue per visit, Benchmark revenue per visit, Revenue at stake and the top 3 channels' share
 of visits are held from `find.sql`, with no Benchmark or Revenue at stake computed anywhere
 else; the funnel steps, mobile against desktop, the Leaking step and the funnel's first and
@@ -165,9 +209,10 @@ standard for a finding.
 3. **Hypotheses.** One for each finding, numbered to match, scored with ICE and ranked in the
    backlog table. Where step 3 returned the page's visits and conversion, each row's **Read as**
    cell is the test, sequential read or ship call from the sample-size table in
-   `references/diagnostics.md` section 4. With no brain it reads "Test or ship: needs traffic
-   figures", and with a brain that found no traffic for the page, "Test or ship: no traffic found
-   for this page".
+   `references/diagnostics.md` section 4, with the export's sessions and conversion where it was the
+   source. With no brain and no export it reads "Test or ship: needs traffic figures", and with a
+   brain or an export that found no traffic for the page, "Test or ship: no traffic found for
+   this page".
 4. **Guardrail check.** Go over the page and every Do, quick win and hypothesis drafted so far
    against the Brand guardrails as `references/guardrails.md` part 4 sets out. A lever the brand keeps off the table that is
    already on the page is a quick win. A best practice the guardrails block is replaced with the
@@ -189,8 +234,8 @@ scorecard shows six counts with bands and a total; every finding names its faile
 numbers and trust, understanding or fit and ends on a Do; every not-met check appears in a
 finding or a quick win; every finding has a hypothesis with ICE or a quick win covering it;
 every backlog row carries its call from the page's traffic, or reads "Test or ship: needs
-traffic figures" only where no brain was connected, or "no traffic found for this page" where
-the brain held none; the findings follow the Leaking step's order where there is one, with all
+traffic figures" only where there was neither a brain nor an export, or "no traffic found for this
+page" where the brain or the export held none; the findings follow the Leaking step's order where there is one, with all
 sixty checks scored; the page has Performance,
 Scorecard, Findings, Quick wins and Test backlog in that order, each with a one-line Summary
 and an empty one carrying its reason; the file name follows the slug rule in the layout; and
