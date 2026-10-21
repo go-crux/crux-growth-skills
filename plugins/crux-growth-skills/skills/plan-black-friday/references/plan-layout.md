@@ -17,7 +17,7 @@ one line saying why. In the Plan tab a heading with nothing agreed reads "Not ag
    frequency, order value, contribution margin per day. Columns, in this order: the year
    before's Black Friday weekend, that year against its Baseline, last year's Black Friday
    weekend, last year against its Baseline, last year against the year before. Head each column
-   with its calendar year from `references/windows.sql`. Name the margin rung (CM3, CM2 or CM1) and the revenue measure
+   with its calendar year from `references/windows.sql`. Name the margin rung (CM3, "CM1 less marketing", CM2 or CM1) and the revenue measure
    in the row labels.
 3. **Offer**: a window table, then the landing-page list.
 4. **Merchandising**: a window table, then the five-product list.

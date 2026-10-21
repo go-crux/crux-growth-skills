@@ -54,8 +54,9 @@ baseline_actual AS (
   WHERE `window` = 'baseline'
 ),
 -- Daily phasing: each date of this year's target months, its days from Black Friday, and its
--- `shape_date` last year: the same days from Black Friday through Cyber Monday (28 Nov 2025 maps to
--- 27 Nov 2026), then the same days before 24 Dec over Festive, never earlier than last year's Festive.
+-- `shape_date` last year: the same days from Black Friday through Cyber Monday (27 Nov 2026 maps to
+-- 28 Nov 2025), then the same days before 24 Dec over Festive, never earlier than last year's Festive.
+-- A Festive a day longer than last year's reuses last year's first Festive day for its first day.
 phasing_days AS (
   SELECT
     t.target_month,

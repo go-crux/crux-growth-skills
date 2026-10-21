@@ -7,7 +7,7 @@ as a month total, and uses the last-year level and the Pillar gap table from ste
 or Unrealistic. When revenue is Achievable and orders are not, the gap is plan orders −
 last-year level orders. When only new orders is not Achievable, the gap is plan new orders − last-year level new
 orders. When only implied CAC is not Achievable, the gap is plan new orders − plan spend over
-the last-year level CAC: the new orders the plan's spend does not buy at last year's efficiency.
+the last-year level CAC: the new orders the plan's spend does not buy at the last-year level CAC.
 Two inputs:
 
 - A = last-year level revenue over last-year level orders (order value).
@@ -24,7 +24,7 @@ Two inputs:
 
 **Choosing 2 or 3.**
 
-- Show all three. Drop a Scenario whose figure cannot be computed (no weekend CAC, or no
+- Show all three. Drop a Scenario whose figure cannot be computed (no last-year level CAC, or no
   returning-order split) and keep at least two.
 - Closing an orders gap leaves out Order value, so it shows two.
 - Only new orders or implied CAC not Achievable: new customers is the one pillar. Show it

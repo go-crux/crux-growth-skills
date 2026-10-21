@@ -1,6 +1,6 @@
 ---
 name: plan-black-friday
-description: Black Friday planning on the brand's own Growth Brain, for anyone on the team with it connected (founder, head of growth, ecommerce or marketing manager). Use when someone asks to plan Black Friday or the festive peak, to check their November targets, or how last year's Black Friday performed.
+description: Black Friday planning on the brand's own Growth Brain. Use when someone asks to plan Black Friday or the festive peak, to check their November targets, or how last year's Black Friday performed.
 ---
 
 # Black Friday plan
@@ -61,8 +61,8 @@ returning customers' share of orders, for Baseline, Lead-in,
 Black Friday weekend and Festive in both years.
 
 - Conversion is orders over visits from `<client>-channel_reporting`, overall and by landing
-  page. `ecommerce_funnel` starts 2026-09-09 and holds no earlier visits, so last year's
-  conversion comes from `channel_reporting`.
+  page. `ecommerce_funnel` starts with the GA4 raw event stream and holds no visits for last
+  year, so last year's conversion comes from `channel_reporting`.
 - 90-day reorder and returning customers' share have no Lift for a window they are not judged
   on; those cells read "n/a".
 - Discount depth is the average discount as a share of pre-discount value on discounted
@@ -111,7 +111,8 @@ opportunity carries its evidence figure, this year's action and the metric to wa
 
 **Done when** the headline, Offer, Merchandising and Marketing each show last year, the year
 before it and each window's Lift over Baseline, or a one-line reason it is absent; the margin
-rung and the revenue measure are named; every query took its dates from `references/windows.sql`;
+rung and the revenue measure are named; the headline and every window table carry the CM3
+(or "CM1 less marketing") row; every query took its dates from `references/windows.sql`;
 the run has queried only the marts named in this step, with `product_funnel`, `meta_performance`
 and `google_ads_performance` only where the roster lists them; and the 3 to 5 opportunities
 each carry evidence, action and metric (or the count that fired is stated).
@@ -128,7 +129,9 @@ spend.
   `daily_budget_*sales*` column `list_tables` returns. The sheet's actuals book returns on the
   refund date, so read every year's revenue for this step on the same rung from
   `<client>-channel_reporting`, which books them the same way; only where it lacks the rung, read
-  `<client>-orders` and say so in the footnote. Name the rung on the page. If neither mart
+  `<client>-orders` and say so in the footnote. The footnote also says that the Last year tab's
+  revenue is order-dated and the Target test's refund-dated, so their Lifts can differ. Name the
+  rung on the page. If neither mart
   carries it, say so in one line and test orders, new orders and CAC only.
 - With no plan for a month, open `references/no-plan.md`.
 
@@ -160,7 +163,7 @@ target and month:
 
 **Done when** every target carries a verdict, its Lift and last year's Lift; each Unrealistic
 target carries its revised figure; the revenue rung is named; and the plan months sum the
-`all`/`all` rows (or each month's source reads "Team's target" or "Proposed").
+`all`/`all` rows (or each unplanned target reads "Proposed").
 
 ## 3. Pillar gap
 
@@ -202,14 +205,15 @@ recommendation. Ask the next round only after the user has answered the one befo
 - Close each round by asking an owner and a date for each action agreed in it. Recommend the
   user as owner and a date before the first day of the window the action lands in (from
   `references/windows.sql`), or tomorrow once that day has passed.
-- A target figure the user changes goes back through step 2's Lift and verdict rules.
+- A target figure the user changes goes back through step 2's Lift and verdict rules, and
+  through step 3 if it then reads Stretch or Unrealistic.
 
 | Round | Questions | Feeds |
 |---|---|---|
 | 1. Offer | One per firing opportunity 1, 2 and 8: adopt its action? Recommend yes. Then discount stacking: which discounts may combine over Black Friday weekend? Recommend none that takes the order past last year's weekend discount depth. | Opportunities, Actions, Risks (discount stacking) |
 | 2. Merchandising | One per firing opportunity 3 and 4: adopt its action? Recommend yes. Then stock: what units to secure for last year's five weekend products? Recommend last year's weekend units for each, scaled by the November plan revenue over its last-year level, and never below last year's. | Opportunities, Actions, Risks (stock) |
 | 3. Marketing | One per firing opportunity 5, 6 and 7: adopt its action? Recommend yes. Then repeats: which best acquisition campaign and best retention campaign run again? Recommend the top-ranked paid acquisition campaign, and the top-ranked retention campaign of Black Friday weekend. | Opportunities, Actions |
-| 4. Targets | Open on each month's Target test verdicts and Scenarios. First, for each target reading "Proposed" (`references/no-plan.md`), ask the user's own figure, recommending the proposed one; a figure they give becomes "Team's target" and goes back through step 2. Then (a) the agreed targets: recommend the plan figure for Achievable and Stretch, and the revised figure for Unrealistic. (b) The Scenario, or blend, for each month with a Stretch or Unrealistic target: recommend the one with the smallest required relative change in the Pillar gap table (the higher extra spend when the Scenarios are the two new-customer variants). (c) The margin floor: recommend last year's Black Friday weekend order margin % on the order rung (CM2 or CM1), since CM3 is a window figure and no single order carries it. (d) The watch list of 3 to 5 numbers: recommend the metric to watch of each adopted opportunity, then revenue against the day's Daily phasing, up to five. | Agreed targets, Chosen Scenario, Daily phasing (step 5 derives it from the agreed targets), Actions, Risks (margin floor), Watch list |
+| 4. Targets | Open on each month's Target test verdicts and Scenarios. First, for each target reading "Proposed" (`references/no-plan.md`), ask the user's own figure, recommending the proposed one; a figure they give becomes "Team's target" and goes back through step 2, and through step 3 if it then reads Stretch or Unrealistic. Then (a) the agreed targets: recommend the plan figure for Achievable and Stretch, and the revised figure for Unrealistic. (b) The Scenario, or blend, for each month with a Stretch or Unrealistic target: recommend the one with the smallest required relative change in the Pillar gap table (the higher extra spend when the Scenarios are the two new-customer variants). (c) The margin floor: recommend last year's Black Friday weekend order margin % on the order rung (CM2 or CM1), since CM3 is a window figure and no single order carries it. (d) The watch list of 3 to 5 numbers: recommend the metric to watch of each adopted opportunity, then revenue against the day's Daily phasing, up to five. | Agreed targets, Chosen Scenario, Daily phasing (step 5 derives it from the agreed targets), Actions, Risks (margin floor), Watch list |
 
 A Judgement call joins the round of its section. Keep the agreed list: what is agreed under
 each of the seven Plan headings.

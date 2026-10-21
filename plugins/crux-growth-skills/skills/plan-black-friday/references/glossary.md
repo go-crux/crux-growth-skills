@@ -11,7 +11,7 @@ to that year's Black Friday, the last Friday of November, so years compare like 
 
 - **Baseline**: 1 September to 31 October of the same year, the normal trading every Black Friday window is read against. Two months, so an early October teaser does not set the norm on its own. _Avoid_: BAU period, control.
 
-- **Lift**: a window's figure over the same year's Baseline, on Shopify-basis figures only (revenue on the client's budget rung, orders, new orders, spend). The year-on-year unit every Black Friday comparison uses. _Avoid_: uplift, growth.
+- **Lift**: a window's per-day figure over the same year's Baseline per-day figure; for a ratio (conversion, order value, margin %, CAC), the relative change in the ratio. The year-on-year unit every Black Friday comparison uses. _Avoid_: uplift, growth.
 
 - **Target test**: this year's planned November and December, from the client's budget sheet (`daily_budget_versus_actuals`), turned into a Lift and judged against the last two years' actual Lift as Achievable, Stretch or Unrealistic. _Avoid_: feasibility check, sense check.
 
