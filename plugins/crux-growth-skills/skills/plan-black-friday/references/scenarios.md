@@ -20,7 +20,7 @@ Two inputs:
 |---|---|---|---|
 | New customers | new customers | Extra new orders = gap over A (the orders gap itself when closing orders) | Extra spend = extra new orders × CAC, set beside plan spend less last-year level spend (step 2) |
 | Order value | order value | Order value must reach plan revenue over last-year level orders, a relative change of plan revenue over last-year level revenue less 1 | Basket or price move; orders unchanged |
-| Returning orders | order frequency | Extra returning orders = gap over A (the orders gap itself when closing orders) | Retention sends and offers; no extra acquisition spend |
+| Returning orders | returning customer orders | Extra returning orders = gap over A (the orders gap itself when closing orders) | Retention sends and offers; no extra acquisition spend |
 
 **Choosing 2 or 3.**
 

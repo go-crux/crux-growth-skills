@@ -17,10 +17,10 @@ to that year's Black Friday, the last Friday of November, so years compare like 
 
 - **Last-year level**: what this year's Baseline would deliver at last year's Lift, a figure per target for the month (CAC: Baseline CAC at last year's CAC Lift). The reference every Pillar gap and Scenario reads against, and the revised figure for an Unrealistic target. _Avoid_: 2025 level, benchmark.
 
-- **Pillar gap**: what new customers, order frequency and order value must each do to close a Stretch or Unrealistic target, read against last year's. _Avoid_: shortfall, variance.
+- **Pillar gap**: what new customers, returning customer orders and order value must each do to close a Stretch or Unrealistic target, read against last year's. _Avoid_: shortfall, variance.
 
 - **Scenario**: one way of closing the Pillar gap through a single pillar, the others held at last year's level. _Avoid_: option, play.
 
-- **Daily phasing**: the agreed monthly targets re-spread by last year's daily shape, aligned by days from Black Friday through Cyber Monday and by days before 24 December over Festive, so the days still add back to the month. _Avoid_: daily budget (the sheet's own weekday spread).
+- **Daily phasing**: the agreed monthly targets re-spread by last year's daily shape, aligned by days from Black Friday through Cyber Monday and by days before 24 December from Festive to the end of December, so the days still add back to each whole month. _Avoid_: daily budget (the sheet's own weekday spread).
 
 - **Black Friday plan**: the skill's output, one artifact with two tabs: **Last year** (the read and the Target test) and **Plan** (targets, chosen Scenario, Daily phasing, actions, opportunities, risks and the watch list), agreed with the user in a grill. _Avoid_: report, playbook.

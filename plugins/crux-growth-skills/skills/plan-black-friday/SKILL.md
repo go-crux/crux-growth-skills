@@ -52,9 +52,10 @@ Type no date by hand, and keep the years to last year and the year before it.
 - A window with no rows reads "No data" in its cell.
 
 **Headline.** For Black Friday weekend of last year and of the year before it, read the
-growth equation: new customers, order frequency, order value and contribution margin. Read each
-against that year's Baseline. Order frequency is orders per ordering customer in the window;
-order value is revenue over orders.
+growth equation: new customers, returning customer orders, order value and CM3. Read each
+against that year's Baseline. Returning customer orders are orders from customers with an
+earlier order: few customers order twice inside one window, so repeat buying shows as returning
+orders, not as orders per customer. Order value is revenue over orders.
 
 **Offer.** Read conversion, discount depth, discount rate, order value, margin %, reorder and
 returning customers' share of orders, for Baseline, Lead-in,
@@ -117,8 +118,7 @@ each carry evidence, action and metric (or the count that fired is stated).
 
 **Read the plan.** Call `list_tables` naming only `<client>-daily_budget_versus_actuals`. Take
 the rows keyed `channel = 'all'` and `country_code = 'all'` (the other rows split the same plan
-and would count it twice). Sum the plan by `month_start`: November in full, and December from the
-1st to the 24th, for this year. Take four plan columns: revenue, total orders, new orders and
+and would count it twice). Sum the plan by `month_start` for November and December of this year, each in full. Take four plan columns: revenue, total orders, new orders and
 spend.
 
 - **The revenue rung is the client's own, on the sheet's own basis.** Read whichever
@@ -133,7 +133,7 @@ spend.
 
 **Read the actuals.** One query per source, joined to `target_months` and `baseline_actual` in
 `references/windows.sql`, returning for each of the three years: Baseline, November and
-December (to the 24th) as sums and day counts. Take revenue and spend from
+December as sums and day counts. Take revenue and spend from
 `<client>-channel_reporting` (revenue as the rung bullet above says) and orders and new orders
 from `<client>-orders`, the same sources in all three years. This year's Baseline runs to yesterday (`baseline_actual`) and the footnote says so. The
 mart's recorded side holds 12 months, so the plan is the only thing read from it.
@@ -145,8 +145,7 @@ target and month:
 1. **This year's Lift** = the plan per day over this year's Baseline per day. Per day means the
    total over the days in the period, so months of different length compare.
    For CAC, the Lift is plan CAC over Baseline CAC.
-2. **Last year's Lift** and **the year before's Lift** = that year's November (or December to the
-   24th) per day over that year's Baseline per day, on the same rung and sources.
+2. **Last year's Lift** and **the year before's Lift** = that year's November (or December) per day over that year's Baseline per day, on the same rung and sources.
 3. **Verdict**, judged against last year's Lift: **Achievable** at or under it, **Stretch** up to
    1.5 times it, **Unrealistic** above 1.5 times it. Lower CAC is the harder plan, so for CAC
    read the band the other way: Achievable at or over last year's CAC Lift, Stretch down to
@@ -170,11 +169,10 @@ read against the last-year level (step 2), and each reads off one target:
 | Pillar | Figure | Target it reads |
 |---|---|---|
 | New customers | new orders | new orders |
-| Order frequency | returning orders (orders less new orders) | orders |
+| Returning customer orders | returning orders (orders less new orders) | orders |
 | Order value | revenue over orders | revenue |
 
-Returning orders stand for order frequency here, because the plan carries orders and no
-customer count. Columns: the last-year level, the figure the plan implies, and the relative
+Columns: the last-year level, the figure the plan implies, and the relative
 change required.
 Then open `references/scenarios.md` and write 2 or 3 Scenarios for the month, each closing the
 gap through one pillar with the other two held at the last-year level.
@@ -197,9 +195,8 @@ recommendation. Ask the next round only after the user has answered the one befo
 - "Yes" accepts every recommendation in the round. An answer to a question replaces that
   question's recommendation. "Skip" leaves it Not agreed.
 - "Just write it" accepts every recommendation in this round and the rounds still to come, with
-  each action's owner and date set to the recommendation below, then goes straight to step 5.
-- Close each round by asking an owner and a date for each action agreed in it. Recommend the
-  user as owner and a date before the first day of the window the action lands in (from
+  each action's date set to the recommendation below, then goes straight to step 5.
+- Close each round by asking a date for each action agreed in it. Recommend a date before the first day of the window the action lands in (from
   `references/windows.sql`), or tomorrow once that day has passed.
 - A target figure the user changes goes back through step 2's Lift and verdict rules, and
   through step 3 if it then reads Stretch or Unrealistic.

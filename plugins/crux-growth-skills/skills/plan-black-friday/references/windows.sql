@@ -39,12 +39,12 @@ calendar AS (
   JOIN black_friday AS b USING (year)
   CROSS JOIN UNNEST(GENERATE_DATE_ARRAY(w.date_from, w.date_to)) AS day
 ),
--- Target test periods: November in full, December to the 24th.
+-- Target test periods: November and December, each in full.
 target_months AS (
   SELECT year, 'november' AS target_month, DATE(year, 11, 1) AS date_from, DATE(year, 11, 30) AS date_to
   FROM years
   UNION ALL
-  SELECT year, 'december', DATE(year, 12, 1), DATE(year, 12, 24)
+  SELECT year, 'december', DATE(year, 12, 1), DATE(year, 12, 31)
   FROM years
 ),
 -- Baseline days elapsed: this year's Baseline stops at yesterday while it is still running.
@@ -55,7 +55,7 @@ baseline_actual AS (
 ),
 -- Daily phasing: each date of this year's target months, its days from Black Friday, and its
 -- `shape_date` last year: the same days from Black Friday through Cyber Monday (27 Nov 2026 maps to
--- 28 Nov 2025), then the same days before 24 Dec over Festive, never earlier than last year's Festive.
+-- 28 Nov 2025), then the same days before 24 Dec from Festive to 31 Dec (so 25 Dec maps to 25 Dec), never earlier than last year's Festive.
 -- A Festive a day longer than last year's reuses last year's first Festive day for its first day.
 phasing_days AS (
   SELECT
