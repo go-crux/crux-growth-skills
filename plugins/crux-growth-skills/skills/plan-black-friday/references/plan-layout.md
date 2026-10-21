@@ -36,8 +36,9 @@ nothing for it) or the words this file gives for it; never a bare "n/a".
    Baseline, last year's Black Friday weekend, last year against its Baseline, last year
    against the year before. Head each column with its calendar year. Name the margin rung and
    the revenue measure in the row labels.
-4. **Opportunities**: the 3 to 5 that fire, each with its evidence figure, this year's action,
-   the metric to watch on the day and the page its evidence sits on, then at most one
+4. **Opportunities**: the 3 to 5 found, numbered 1, 2, 3 on the page, each with a short plain
+   title, its evidence figure, this year's action, the metric to watch on the day and the page
+   its evidence sits on, then at most one
    "Judgement call" in its own row.
 5. **Notes**: the footnote, one block holding every method caveat, and no caveat on any other page.
 
@@ -59,6 +60,11 @@ any platform-reported lists.
    the year before and last year, and the benchmark from `references/opportunities.md`.
 2. **Repeat customers**: a window table with returning customers' share of orders and the
    90-day reorder of each window's new customers, in both years.
+3. **Cohorts**: one table, a row per cohort (Black Friday weekend and Baseline new customers, the
+   year before and last year), with columns for repeat share, orders per customer and margin per
+   customer at 30, 90 and 180 days, then the share who bought only once and the cohort's CAC.
+   Under it one sentence: whether last year's weekend customers were worth more or less than its
+   Baseline customers by 180 days, and by how much.
 
 ## Page 5: Targets
 

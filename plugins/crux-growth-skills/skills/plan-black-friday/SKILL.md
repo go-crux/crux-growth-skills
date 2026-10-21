@@ -8,7 +8,10 @@ description: Black Friday planning on the brand's own Growth Brain. Use when som
 Produce the Black Friday plan from the brand's own data: one page with six pages (Overview,
 Offer, Marketing, Retention, Targets and Plan) as `references/plan-layout.md` fixes them. Run
 the five steps in order. The user may know nothing of how it works: call the plan figures "your
-budget", in chat and on the page, never "the sheet" or a table name. The terms Baseline, Lead-in, Black Friday weekend,
+budget", in chat and on the page, never "the sheet" or a table name. The user sees only the chat
+and the page, never this skill or its references: say what the data showed, in plain words with
+its figure, and never cite a catalogue number, a trigger, a threshold, a file or a rule, or say
+that something "fired". The terms Baseline, Lead-in, Black Friday weekend,
 Festive, Lift, Last-year level, Target test, Pillar gap, Scenario, Daily phasing and Black Friday
 plan are those of `references/glossary.md`; use them as written.
 
@@ -106,16 +109,27 @@ per unit, and the year before it for the same product. A figure the table lacks 
   orders (orders from customers with an earlier order, from `<client>-orders`) and the 90-day
   reorder of the window's new customers (the share who place a second order within 90 days of
   their first), from `<client>-orders`, or from `<client>-ltv_retention` where that carries the
-  cohort directly. Ninety days is the longest horizon both years share.
+  cohort directly.
+- *Cohorts*: Black Friday brings many customers who buy once and never again, so test whether
+  last year's weekend customers were worth having. Take the new customers of Black Friday weekend
+  and of Baseline, in both years, as four cohorts. For each, at 30, 90 and 180 days from each
+  customer's first order: the share who ordered again, orders per customer, and cumulative
+  margin per customer on the order rung (first order included). Beside the 180-day margin put the
+  cohort window's CAC, and the share who have bought only once. Read from `<client>-ltv_retention`
+  where it carries these cohorts, else from `<client>-orders`. 180 days is the longest horizon
+  every cohort has completed; a horizon a cohort has not reached reads "Too recent".
 
-**Opportunities.** Open `references/opportunities.md` once the three sections are read. Test
+**Opportunities.** Open `references/opportunities.md` once the sections are read. Test
 each pattern's trigger against the figures just read, and name the 3 to 5 that fire, largest
 at stake first. With more than five firing, keep the five with the most contribution margin or
-revenue at stake; with fewer than three, name those that fired and say how many did. Add at
+revenue at stake; with fewer than three, list only those found. Add at
 most one judgement call of your own that no pattern covers, marked "Judgement call". Each
-opportunity carries its evidence figure, this year's action and the metric to watch on the day.
+opportunity carries a short plain title of what was found (for example "Weekend customers rarely
+come back"), its evidence figure, this year's action and the metric to watch on the day. Number
+the opportunities 1, 2, 3 in the order the page lists them; that page number and title are the
+only way the chat refers to one. Say nothing of patterns that did not hold.
 
-**Done when** the headline, Offer, Merchandising, Acquisition, Retention and Repeat customers each show last year, the year
+**Done when** the headline, Offer, Merchandising, Acquisition, Retention, Repeat customers and Cohorts each show last year, the year
 before it and each window's Lift over Baseline, or a one-line reason it is absent; the margin
 rung and the revenue measure are named; the headline and every window table carry the CM3
 (or "CM1 less marketing") row, labelled by the Basis rule; every query took its dates from
@@ -123,7 +137,7 @@ rung and the revenue measure are named; the headline and every window table carr
 flagged test orders; a costed share of revenue under 90% is footnoted; the run has queried
 only the marts named in this step, with `meta_performance` and `google_ads_performance` only
 where the roster lists them; and the 3 to 5 opportunities
-each carry evidence, action and metric (or the count that fired is stated).
+each carry evidence, action and metric (fewer only when fewer were found).
 
 ## 2. Target test
 
@@ -222,9 +236,9 @@ recommendation. Ask the next round only after the user has answered the one befo
 
 | Round | Questions | Feeds |
 |---|---|---|
-| 1. Offer | One per firing opportunity 1, 2 and 8: adopt its action? Recommend yes. Then discount stacking: which discounts may combine over Black Friday weekend? Recommend none that takes the order past last year's weekend discount depth. | Opportunities, Actions, Risks (discount stacking) |
-| 2. Merchandising | One per firing opportunity 3 and 4: adopt its action? Recommend yes. Then stock: what units to secure for last year's five weekend products? Recommend last year's weekend units for each, scaled by the November plan revenue over its last-year level, and never below last year's. | Opportunities, Actions, Risks (stock) |
-| 3. Marketing | One per firing opportunity 5, 6, 7 and 9: adopt its action? Recommend yes. Then repeats: which best acquisition campaign and best retention campaign run again? Recommend the top-ranked paid acquisition campaign, and the top-ranked retention campaign of Black Friday weekend. | Opportunities, Actions |
+| 1. Offer | One per listed opportunity from catalogue patterns 1, 2, 8 and 10, asked by its page number and title: adopt its action? Recommend yes. Then discount stacking: which discounts may combine over Black Friday weekend? Recommend none that takes the order past last year's weekend discount depth. | Opportunities, Actions, Risks (discount stacking) |
+| 2. Merchandising | One per listed opportunity from catalogue patterns 3 and 4, asked by its page number and title: adopt its action? Recommend yes. Then stock: what units to secure for last year's five weekend products? Recommend last year's weekend units for each, scaled by the November plan revenue over its last-year level, and never below last year's. | Opportunities, Actions, Risks (stock) |
+| 3. Marketing | One per listed opportunity from catalogue patterns 5, 6, 7 and 9, asked by its page number and title: adopt its action? Recommend yes. Then repeats: which best acquisition campaign and best retention campaign run again? Recommend the top-ranked paid acquisition campaign, and the top-ranked retention campaign of Black Friday weekend. | Opportunities, Actions |
 | 4. Targets | Open on each month's Target test verdicts and Scenarios. First, for each target reading "Proposed" (`references/no-plan.md`), ask the user's own figure, recommending the proposed one; a figure they give becomes "Team's target" and goes back through step 2, and through step 3 if it then reads Stretch or Unrealistic. Then (a) the agreed targets: recommend the plan figure for Achievable and Stretch, and the revised figure for Unrealistic. (b) The Scenario, or blend, for each month with a Stretch or Unrealistic target: recommend the one with the smallest required relative change in the Pillar gap table (the higher extra spend when the Scenarios are the two new-customer variants). (c) The margin floor: recommend last year's Black Friday weekend order margin % on the order rung (CM2 or CM1), since CM3 is a window figure and no single order carries it. (d) The watch list of 3 to 5 numbers: recommend the metric to watch of each adopted opportunity, then revenue against the day's Daily phasing, up to five. | Agreed targets, Chosen Scenario, Daily phasing (step 5 derives it from the agreed targets), Actions, Risks (margin floor), Watch list |
 
 A Judgement call joins the round of its section. Keep the agreed list: what is agreed under
