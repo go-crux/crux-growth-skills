@@ -29,9 +29,9 @@ lists it.
 
 **Windows.** Open `references/windows.sql`. Put its CTEs ahead of every query and join to them
 for dates, so Baseline, Lead-in, Black Friday weekend and Festive are computed in one place.
-Type no date by hand, and keep the years to last year and the year before it. Where the brain
-names the store's timezone, write every `CURRENT_DATE()` in those CTEs as
-`CURRENT_DATE('<timezone>')`, so yesterday and this year are the store's own.
+Type no date by hand, and keep the years to last year and the year before it. Where the
+brain's own instructions name the store's timezone, write every `CURRENT_DATE()` in those CTEs
+as `CURRENT_DATE('<timezone>')`, so yesterday and this year are the store's own.
 
 **Basis.** Apply to the headline and to every section.
 
@@ -44,24 +44,25 @@ names the store's timezone, write every `CURRENT_DATE()` in those CTEs as
   Lift is the relative change in the ratio.
 - Take margin by order date, from `<client>-orders`: the deepest rung it carries per order
   (CM2, else CM1). For the headline and every window table, also show CM3 = that order margin
-  less the window's marketing spend from `<client>-channel_reporting`; label it CM3 only when the order rung is CM2 and its fulfilment and payment costs carry
-  figures, else "CM1 less marketing" (a CM2 whose extra costs all read zero is CM1). Where the
-  orders mart marks which orders are fully costed, take a window's margin as the margin rate on
-  its fully costed orders times the window's revenue, and footnote the costed share of revenue
-  where it is under 90%. Product rows take the deepest rung
+  less the window's marketing spend from `<client>-channel_reporting`; label it CM3 only when
+  the order rung is CM2 and its fulfilment or payment costs are non-zero on some orders in the
+  window, else "CM1 less marketing" (a CM2 whose extra costs all read zero or null is CM1).
+  Where the orders mart carries a column flagging fully costed orders, take a window's margin as
+  the margin rate on its fully costed orders times the window's revenue, and footnote the
+  costed share of revenue where it is under 90%. Product rows take the deepest rung
   `<client>-order_items` carries. Read no margin from `<client>-channel_reporting`: it books
   refunds on the refund date, so a weekend's margin there carries other weeks' returns. Name the
   rung beside every margin figure.
 - Take revenue from the orders table's total sales measure (the one its own descriptions call
   total sales, after discounts and returns) and name it on the page.
-- Leave out test orders wherever the orders mart flags them.
+- Leave out test orders in every query, wherever a mart flags them.
 - Express every change as a relative percentage.
 - A window with no rows reads "No data" in its cell.
 
 **Headline.** For Black Friday weekend of last year and of the year before it, read the
-growth equation: new customers, returning customer orders, order value and CM3. Read each
-against that year's Baseline. Returning customer orders are orders from customers with an
-earlier order: few customers order twice inside one window, so repeat buying shows as returning
+growth equation: new customers, returning customer orders, order value and CM3 (or "CM1 less
+marketing"). Read each against that year's Baseline. Returning customer orders are orders less
+new orders: few customers order twice inside one window, so repeat buying shows as returning
 orders, not as orders per customer. Order value is revenue over orders.
 
 **Offer.** Read conversion, discount depth, discount rate, order value, margin %, reorder and
@@ -117,26 +118,29 @@ opportunity carries its evidence figure, this year's action and the metric to wa
 **Done when** the headline, Offer, Merchandising and Marketing each show last year, the year
 before it and each window's Lift over Baseline, or a one-line reason it is absent; the margin
 rung and the revenue measure are named; the headline and every window table carry the CM3
-(or "CM1 less marketing") row; every query took its dates from `references/windows.sql`;
-the run has queried only the marts named in this step, with `meta_performance` and `google_ads_performance` only where the roster lists them; and the 3 to 5 opportunities
+(or "CM1 less marketing") row, labelled by the Basis rule; every query took its dates from
+`references/windows.sql`, in the store's timezone where the brain names one, and left out
+flagged test orders; a costed share of revenue under 90% is footnoted; the run has queried
+only the marts named in this step, with `meta_performance` and `google_ads_performance` only
+where the roster lists them; and the 3 to 5 opportunities
 each carry evidence, action and metric (or the count that fired is stated).
 
 ## 2. Target test
 
 **Read the plan.** Call `list_tables` naming only `<client>-daily_budget_versus_actuals`. Take
 the rows keyed `channel = 'all'` and `country_code = 'all'` (the other rows split the same plan
-and would count it twice). Sum the plan by `month_start` for November and December of this year, each in full. Take four plan columns: revenue, total orders, new orders and
-spend.
+and would count it twice). Sum the plan by `month_start` for November and December of this year, each in full. Take four
+plan columns: revenue, total orders, new orders and spend.
 
 - **The revenue rung is the client's own, on the sheet's own basis.** Read whichever
-  `daily_budget_*sales*` column `list_tables` returns. Where the rung takes returns off (net or total sales), the sheet's actuals book them on the
-  refund date, so read every year's revenue for this step on the same rung from
-  `<client>-channel_reporting`, which books them the same way; only where it lacks the rung, read
-  `<client>-orders` and say so in the footnote. Where the rung takes returns off, the footnote also says that the Last year tab's revenue is
-  order-dated and the Target test's refund-dated, so their Lifts can differ; a gross rung takes no
-  returns off and needs no such line. Name the
-  rung on the page. If neither mart
-  carries it, say so in one line and test orders, new orders and CAC only.
+  `daily_budget_*sales*` column `list_tables` returns. Where the rung takes returns off (net or
+  total sales), the sheet's actuals book them on the refund date, so read every year's revenue
+  for this step on the same rung from `<client>-channel_reporting`, which books them the same
+  way; only where it lacks the rung, read `<client>-orders` and say so in the footnote. Where the
+  rung takes returns off, the footnote also says that the Last year tab's revenue is order-dated
+  and the Target test's refund-dated, so their Lifts can differ; a gross rung takes no returns
+  off and needs no such line. Name the rung on the page. If neither mart carries it, say so in
+  one line and test orders, new orders and CAC only.
 - With no plan for a month, open `references/no-plan.md`.
 
 **Read the actuals.** One query per source, joined to `target_months` and `baseline_actual` in
@@ -153,7 +157,8 @@ target and month:
 1. **This year's Lift** = the plan per day over this year's Baseline per day. Per day means the
    total over the days in the period, so months of different length compare.
    For CAC, the Lift is plan CAC over Baseline CAC.
-2. **Last year's Lift** and **the year before's Lift** = that year's November (or December) per day over that year's Baseline per day, on the same rung and sources.
+2. **Last year's Lift** and **the year before's Lift** = that year's November (or December) per
+   day over that year's Baseline per day, on the same rung and sources.
 3. **Verdict**, judged against last year's Lift: **Achievable** at or under it, **Stretch** up to
    1.5 times it, **Unrealistic** above 1.5 times it. Lower CAC is the harder plan, so for CAC
    read the band the other way: Achievable at or over last year's CAC Lift, Stretch down to
@@ -206,8 +211,9 @@ recommendation. Ask the next round only after the user has answered the one befo
   question's recommendation. "Skip" leaves it Not agreed.
 - "Just write it" accepts every recommendation in this round and the rounds still to come, with
   each action's date set to the recommendation below, then goes straight to step 5.
-- Close each round by asking a date for each action agreed in it. Recommend a date before the first day of the window the action lands in (from
-  `references/windows.sql`), or tomorrow once that day has passed.
+- Close each round by asking a date for each action agreed in it. Recommend a date before the
+  first day of the window the action lands in (from `references/windows.sql`), or tomorrow once
+  that day has passed.
 - A target figure the user changes goes back through step 2's Lift and verdict rules, and
   through step 3 if it then reads Stretch or Unrealistic.
 
@@ -235,8 +241,8 @@ with the agreed targets as literals and the dates from `phasing_days` in
   `shape_date`.
 - A day's figure = the agreed month target × its `shape_date` figure over the sum of the month's
   `shape_date` figures, one share per measure.
-- Round the month target to a whole number (orders, new orders) or to the currency's minor unit (revenue, spend),
-  then round the days the same way by largest remainder, so the days sum exactly to the target.
+- Round the month target to a whole number (orders, new orders) or to the currency's minor unit
+  (revenue, spend), then round the days the same way by largest remainder, so the days sum exactly to the target.
 - Return `date`, `days_from_black_friday`, revenue, orders, new orders and spend for every day,
   with each measure's monthly sum beside its agreed target.
 - A month whose `shape_date` figures sum to nothing for a measure, or with no agreed targets,

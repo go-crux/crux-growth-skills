@@ -17,6 +17,8 @@ to that year's Black Friday, the last Friday of November, so years compare like 
 
 - **Last-year level**: what this year's Baseline would deliver at last year's Lift, a figure per target for the month (CAC: Baseline CAC at last year's CAC Lift). The reference every Pillar gap and Scenario reads against, and the revised figure for an Unrealistic target. _Avoid_: 2025 level, benchmark.
 
+- **Returning customer orders**: orders less new orders in a window or month, the growth-equation term for repeat buying; few customers order twice inside one window, so it is counted in orders, not orders per customer. _Avoid_: order frequency, repeat rate.
+
 - **Pillar gap**: what new customers, returning customer orders and order value must each do to close a Stretch or Unrealistic target, read against last year's. _Avoid_: shortfall, variance.
 
 - **Scenario**: one way of closing the Pillar gap through a single pillar, the others held at last year's level. _Avoid_: option, play.

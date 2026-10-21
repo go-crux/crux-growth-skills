@@ -3,8 +3,8 @@
 The Black Friday plan is one self-contained HTML file, `black-friday-plan.html`, written to the
 working folder. Inline CSS and a few lines of inline script switch the tabs and build the CSV;
 the page makes no network request. Crux house style: British English, no em dashes, outcome
-before mechanism, relative percentage changes (2.0% to 1.8% is "−10%"). Money carries the currency the brain's figures are in, with its own
-symbol, never an assumed one.
+before mechanism, relative percentage changes (2.0% to 1.8% is "−10%"). Money carries the
+currency the brain's figures are in, with its own symbol, never an assumed one.
 
 Every heading below is always present. In the Last year tab a section without figures carries
 one line saying why. In the Plan tab a heading with nothing agreed reads "Not agreed".
@@ -14,7 +14,9 @@ one line saying why. In the Plan tab a heading with nothing agreed reads "Not ag
 1. **Headline**: one sentence stating the outcome, for example that last year's Black Friday
    weekend brought more (or fewer) contribution margin per day than the year before it, and which
    term moved it.
-2. **Growth equation**: a table, one row per term in this order: new customers per day, returning customer orders per day, order value, CM3 per day. Columns, in this order: the year
+2. **Growth equation**: a table, one row per term in this order: new customers per day,
+   returning customer orders per day, order value, CM3 (or "CM1 less marketing") per day.
+   Columns, in this order: the year
    before's Black Friday weekend, that year against its Baseline, last year's Black Friday
    weekend, last year against its Baseline, last year against the year before. Head each column
    with its calendar year from `references/windows.sql`. Name the margin rung (CM3, "CM1 less marketing", CM2 or CM1) and the revenue measure
@@ -37,8 +39,8 @@ one line saying why. In the Plan tab a heading with nothing agreed reads "Not ag
      conversion or CAC it is the relative change ("−10%").
      Spend carries no verdict. Revised figure is filled for Unrealistic targets only and reads
      "n/a" elsewhere.
-   - The Pillar gap table has one row per pillar (new customers, returning customer orders, order value)
-     and the columns last-year level, plan-implied figure, required relative change.
+   - The Pillar gap table has one row per pillar (new customers, returning customer orders,
+     order value) and the columns last-year level, plan-implied figure, required relative change.
    - Each Scenario is one row: the move, its size, its cost or ask, and its effect on the other
      targets.
 8. **Footnote**: one block holding every method caveat, and no caveat anywhere else on the page.
@@ -90,6 +92,7 @@ network request, and offers it as `black-friday-daily-phasing.csv`.
 - Columns, in this order: `date, days_from_black_friday, revenue, orders, new_orders, spend`.
 - One header row, then one row per date. The total rows are not in the file.
 - `date` is `YYYY-MM-DD`; `days_from_black_friday` is a whole number, negative before Black
-  Friday; `orders` and `new_orders` are whole numbers; `revenue` and `spend` carry two decimals.
+  Friday; `orders` and `new_orders` are whole numbers; `revenue` and `spend` carry the
+  currency's minor unit (two decimals for pounds, none for a currency without one).
   No currency symbol and no thousands separator.
 - A month without an agreed target contributes no rows.
