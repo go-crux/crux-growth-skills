@@ -70,7 +70,8 @@ description: <leading word first; one trigger per distinct case the skill handle
 - **A missing mart drops its part with one line**, so one client's narrower warehouse narrows the
   page rather than breaking the run.
 - **Read only.** A skill writes nothing the brain cannot write. A plan the user wants loaded
-  somewhere (a budget sheet, a schedule) is a hand-off to Crux, named on the page.
+  somewhere (a budget, a schedule) leaves as a file they load themselves; the page never
+  promises that Crux will load it.
 
 ## The page the skill produces
 

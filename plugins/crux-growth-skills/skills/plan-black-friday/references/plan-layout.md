@@ -112,8 +112,7 @@ Heading: **Plan for** this year's calendar year. Under it, seven headings in thi
    each month. Columns, in this order: `date`, `days_from_black_friday`, `revenue`, `orders`,
    `new_orders`, `spend`. Black Friday this year is the row with `days_from_black_friday` 0, on
    its own date, and is marked. Under the table a **Download CSV** button, and one line saying
-   the file holds these daily targets, ready to open in a spreadsheet, and that to load them into
-   your budget you send the CSV to your Crux contact.
+   the file holds these daily targets, ready to open in a spreadsheet or load into your budget.
 4. **Actions**: one sub-heading per grill round (Offer, Merchandising, Marketing, Targets),
    each a table of action and date. A section with none agreed reads "Not agreed".
 5. **Opportunities**: the opportunities adopted in the grill, each with its evidence figure, this

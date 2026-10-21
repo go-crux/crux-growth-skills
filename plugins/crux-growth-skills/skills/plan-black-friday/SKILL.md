@@ -281,8 +281,8 @@ the phasing, headings and CSV as `references/plan-layout.md` fixes them. Implied
 agreed spend over the agreed new orders.
 
 Tell the user where the page is, give the agreed plan in one sentence, and name the CSV
-button: it holds the daily targets, ready for a spreadsheet. Loading them into their budget is a
-hand-off: the page says to send the CSV to their Crux contact.
+button: it holds the daily targets, ready for a spreadsheet or their budget. Never offer to load
+it for them or say Crux will.
 
 **Done when** the page has all six pages, each opening with its Summary, with every heading in `references/plan-layout.md`; every
 table has a cell for each row and column (or "No data"); each section without figures carries
