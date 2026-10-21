@@ -45,6 +45,8 @@ twenty trivia. Number them F1, F2, F3.
 > **Evidence:** the source if the finding is grounded, else "Heuristic".
 > **Do:** the direction of fix, in one or two sentences: what good looks like, as a move. The
 > audit gives direction; replacement copy and design are the brand's own.
+> **Assumption:** only where the Do rests on an unconfirmed guardrail: "<the guardrail> is not
+> confirmed".
 
 "The hero benefit is abstract" is useless. "The hero leads with the technology name before the
 visitor knows what it does for them, so a visitor scanning for relief gets no benefit in the
@@ -58,6 +60,10 @@ A low-effort, low-risk change worth shipping without a test, such as a missing g
 a CTA that says something different in each place, or a broken link. One line each:
 
 > **Q[n].** The change, where on the page, and the failed checks it settles ("Offer 5, 6").
+> A lever the brand keeps off the table that is already on the page is a quick win too: name
+> the lever, where it sits and the on-brand alternative, and the checks it settles if any.
+> Where it rests on an unconfirmed guardrail, end on "Assumption: <the guardrail> is not
+> confirmed".
 
 ---
 
@@ -75,6 +81,7 @@ needs no test is a quick win instead, and its finding keeps its number with no h
 > mechanism: why it should work.
 > **Ingredient / reason:** which of the six, and trust, understanding or fit.
 > **Read as:** "Test or ship: needs traffic figures".
+> **Assumption:** only where the change rests on an unconfirmed guardrail.
 > **ICE:** Impact _/5 · Confidence _/5 · Ease _/5 · **Total _/15**
 
 ### ICE scoring
@@ -105,6 +112,8 @@ tie with the higher Impact, then the lower H number. Rank 1, 2, 3 in that order.
 |---|---|---|---|---|---|---|
 | 1 | H3 | … | Trust | Trust | Test or ship: needs traffic figures | 13 |
 | 2 | … | … | … | … | Test or ship: needs traffic figures | … |
+
+A hypothesis marked as an assumption carries "(assumption)" after its name in the table.
 
 Under the table, one **sequencing line**: "Test or ship needs the page's visits and conversion
 rate. With them, each row reads as a test, a sequential read or a ship."

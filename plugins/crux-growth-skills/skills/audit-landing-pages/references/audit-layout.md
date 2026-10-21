@@ -24,6 +24,7 @@ URL, and the context in short lines:
 - How the page was read: rendered at mobile width, fetched HTML only, and any screenshots the
   user gave.
 - Which checks are unassessed and the input that would settle them, in one line.
+- The Brand guardrails: confirmed, taken from the user's file, or the ones left unconfirmed.
 - The traffic source and awareness stage where the user named them; otherwise "Traffic source
   not given".
 
@@ -43,8 +44,7 @@ prose saying what the section holds and its key takeaway, with its figure (for e
 nothing under it stays on the page, and its Summary gives the reason.
 
 <!-- HOOK: Performance. A source of the page's own figures (visits, conversion, the funnel)
-fills this heading's table in place of the "Not available" line. Add Brand guardrails to the
-masthead and the Findings checks the same way. -->
+fills this heading's table in place of the "Not available" line. -->
 
 ### 1. Performance
 

@@ -7,7 +7,7 @@ description: Landing page audit that works with or without a Growth Brain. Use w
 
 Produce `landing-page-audit-<slug>.html` for one page: a scorecard of sixty checks across six
 ingredients, prioritised findings, quick wins and an ICE-scored test backlog, laid out as
-`references/audit-layout.md` fixes it. Run the two steps in order. The user sees only the chat
+`references/audit-layout.md` fixes it. Run the three steps in order. The user sees only the chat
 and the page, never this skill or its references: say what the page showed, in plain words with
 its evidence, and never cite a file or a rule. The terms Find, Audit, Brand guardrails, Page
 type, Benchmark, Revenue at stake, Orders at stake and Underperforming page are those of
@@ -23,14 +23,32 @@ Ask for the URL of the page to audit when the user has not given one. A user who
 landing pages are underperforming or what to test gets the same reply: ranking pages needs the
 brand's traffic figures, which this Audit does not read, so name the page to audit.
 
-<!-- HOOK: Find (rank the brand's pages so the user picks one), Brand guardrails (inferred,
-then confirmed in one short round) and brain Performance (the page's own figures) slot in here,
-between Connect and Audit. Until they exist, go straight to Audit. -->
+<!-- HOOK: Find (rank the brand's pages so the user picks one) and brain Performance (the page's
+own figures) slot in here, between Connect and Guardrails. Until they exist, go straight to
+Guardrails. -->
 
 **Done when** the run has named the connector it uses or said it runs without one, and holds
 one page URL.
 
-## 2. Audit
+## 2. Guardrails
+
+Open `references/guardrails.md` and run it before any scoring, so no recommendation breaches
+what the brand will not do.
+
+- With `brand-guardrails.md` in the working folder or the conversation's project files, show it
+  in two lines and ask "Still right?". Do not ask the three questions again.
+- Without it, infer the Brand guardrails from the page and the site, then ask one round of
+  three questions: levers off the table, claims, who the page is for. Each carries the inferred
+  answer as its recommendation; "yes" accepts it and "skip" leaves it unconfirmed.
+- Offer to save the answers as `brand-guardrails.md`: in the working folder where one persists,
+  otherwise as a download. Never write it into the plugin folder.
+
+**Done when** each of the three (levers, claims, audience) is confirmed, answered or marked
+skipped; a run with the file present asked "Still right?" and not the three questions; the save
+was offered or the file was left unchanged; and the unconfirmed guardrails are listed for the
+Audit to mark.
+
+## 3. Audit
 
 **Establish.** Read the Page type from the URL's path, query string cut: `/products/` product,
 `/collections/` collection, `/pages/` landing page, `/blogs/` blog, `/` home. For any other
@@ -63,15 +81,20 @@ standard for a finding.
 
 **Write.** Open `references/audit-layout.md` and `references/templates.md`. Work in this order:
 
-1. **Findings.** Four to eight, structural first. Each names its failed check numbers and one of
+1. **Guardrail check.** Check the page and every Do against the Brand guardrails as
+   `references/guardrails.md` part 4 sets out. A lever the brand keeps off the table that is
+   already on the page is a quick win. A best practice the guardrails block is replaced with the
+   on-brand alternative. A recommendation resting on an unconfirmed guardrail is marked as an
+   assumption.
+2. **Findings.** Four to eight, structural first. Each names its failed check numbers and one of
    trust, understanding or fit, labels its evidence "Heuristic" unless the user supplied
    evidence, and ends on a Do. Open `references/diagnostics.md` for the objection inventory
    (section 2) and the leverage order (section 5), and build the inventory from the page and any
    evidence the user gave.
-2. **Quick wins.** The changes to ship without a test, each naming the checks it settles.
-3. **Hypotheses.** One for each finding, numbered to match, scored with ICE and ranked in the
+3. **Quick wins.** The changes to ship without a test, each naming the checks it settles.
+4. **Hypotheses.** One for each finding, numbered to match, scored with ICE and ranked in the
    backlog table. Every row's **Read as** cell reads "Test or ship: needs traffic figures".
-4. **The page.** Write `landing-page-audit-<slug>.html` to the working folder with the five
+5. **The page.** Write `landing-page-audit-<slug>.html` to the working folder with the five
    headings in order, each opening with its one-line Summary. **Performance** reads "Not
    available" with its one line.
 
@@ -81,7 +104,10 @@ name the top finding, and say which checks are *unassessed* and what would settl
 **Done when** the page type, the goal and the device priority are on the page; the masthead
 says how the page was read; all sixty checks carry a mark, each n/a and *unassessed* with its
 reason, and each check tagged *(needs a render)* is *unassessed* wherever only HTML was read;
-the scorecard shows six counts with bands and a total; every finding names its failed check
+every off-brand lever already on the page is a quick win; no Do breaches a guardrail; every
+recommendation resting on an unconfirmed guardrail carries the assumption mark in its finding or
+quick win and in its backlog row, and the masthead lists the unconfirmed guardrails; the
+scorecard shows six counts with bands and a total; every finding names its failed check
 numbers and trust, understanding or fit and ends on a Do; every not-met check appears in a
 finding or a quick win; every finding has a hypothesis with ICE or a quick win covering it;
 every backlog row reads "Test or ship: needs traffic figures"; the page has Performance,
