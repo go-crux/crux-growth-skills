@@ -1,8 +1,10 @@
 # CLAUDE.md: working notes for `crux-growth-skills`
 
-**Crux growth skills** (the plugin `crux-growth-skills`): skills a client installs in their own Claude (Claude Code, the Code
-tab of the desktop app, or Codex). Each skill carries Crux craft, such as a Black Friday plan or
-a report worth reading, and runs on the client's own **Growth Brain** connector. The boundary is
+**Crux growth skills** (the plugin `crux-growth-skills`): free skills anyone installs in their own Claude (the desktop app's
+plugins, Claude Code, or Codex). Each skill carries Crux craft, such as a Black Friday plan or a
+report worth reading. They work best on a brand's own **Growth Brain** connector, but the plugin
+never requires one: it doubles as a lead magnet for brands that are not yet clients, so a skill
+that needs a brain says so and points at gocrux.io/contact. The boundary is
 mcp_brain ADR-0026: **the brain ships mechanism, the plugin ships craft**. The brain owns the
 tools and the data, and a skill owns the interview, the method and the page it produces.
 
@@ -16,14 +18,14 @@ every skill here is held to. Decisions live in `docs/adr/` once there are any.
 
 | Path | What it is |
 |---|---|
-| `plugins/crux-growth-skills/` | **the plugin: the only folder a client installs** |
+| `plugins/crux-growth-skills/` | **the plugin: the only folder a user installs** |
 | `plugins/crux-growth-skills/skills/<name>/SKILL.md` | one skill: its frontmatter and its steps |
 | `plugins/crux-growth-skills/skills/<name>/references/` | material that skill reads only when a step points at it, its `glossary.md` included |
 | `plugins/crux-growth-skills/.claude-plugin/plugin.json` | the Claude Code manifest |
 | `plugins/crux-growth-skills/plugin.json` | the portable manifest (agent-plugins schema) |
 | `plugins/crux-growth-skills/.codex-plugin/plugin.json` | the Codex overlay; `skills: "./skills/"` |
 | `.claude-plugin/marketplace.json` | the marketplace `crux`, listing the plugin `crux-growth-skills` at `source: "./plugins/crux-growth-skills"` |
-| `README.md` | the **client-facing** install guide and skill list, read on GitHub |
+| `README.md` | the **public** install guide and skill list, read on GitHub |
 | `CLAUDE.md`, `AGENTS.md`, `GLOSSARY.md`, `docs/` | for us; outside the plugin folder, so never installed |
 
 There is no code, no package manager and no test suite. A skill is prose an agent runs.
@@ -66,8 +68,8 @@ from Matt's own Claude, never from a cold run. Method in
   caller (ADR-0026).
 - **Both hosts read the plugin's `skills/`.** Keep a skill free of Claude-only syntax the Codex host cannot
   follow, and keep the plugin's Claude manifest under `.claude-plugin/` working.
-- **The client reads the README.** It is written for a non-technical reader on the client's team (founder, head of growth, ecommerce or marketing manager), in Crux house style
-  (British English, no em dashes), and lists only skills that have shipped to `main`.
+- **Anyone reads the README.** It is written for a non-technical reader at any ecommerce brand, client or not (founder, head of growth, ecommerce or marketing manager), leads with the desktop app's plugin install, and says what each skill needs. It is in Crux house style
+  (British English, no em dashes) and lists only skills that have shipped to `main`.
 
 ## Branching & PRs
 

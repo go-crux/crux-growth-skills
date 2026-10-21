@@ -19,8 +19,9 @@ plan are those of `references/glossary.md`; use them as written.
 
 **Connect.** Look for a connector named `<Client> - Growth Brain` that offers `list_tables`,
 `list_metrics`, `search_examples` and `run_sql`. With none, tell the user in one line that
-Black Friday planning needs their Crux Growth Brain connected in this session and to ask their
-Crux contact to set it up, then stop: run no query and call no other tool. With several, ask
+Black Friday planning reads their own data through a Crux Growth Brain, which isn't connected in
+this session: if they have one, connect it and ask again; if not, they can get one at
+gocrux.io/contact. Then stop: run no query and call no other tool. With several, ask
 which one.
 
 **Discover.** Call `list_tables` once with no arguments for the roster. Call it again naming
