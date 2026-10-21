@@ -16,8 +16,8 @@ With the file, show it in two lines and ask "Still right?" Do not ask the three 
 - Line two: who the page is for.
 
 "Yes" uses the file, and any line marked Unconfirmed becomes confirmed. A change goes into the
-file and is read back in one line; ask again only about what the change leaves open. "Skip"
-uses the file as it stands and leaves Unconfirmed lines unconfirmed.
+file, saved as part 5 sets out, and is read back in one line. "Skip" uses the file as it stands
+and leaves Unconfirmed lines unconfirmed.
 
 With no file, go to part 2.
 
@@ -28,8 +28,8 @@ Read the page and the site's home page (fetched HTML is enough), then work out f
 - **Register:** plain, playful, clinical, premium or mass-value, from the copy.
 - **Levers:** whether the site discounts, uses urgency devices (countdowns, "only X left",
   deadlines), names competitors or opens a popup. A lever in use is on the table. A lever the
-  site shows no sign of is recommended as off the table, because a recommendation cannot
-  breach what it does not propose.
+  site shows no sign of is recommended as off the table, the cautious reading; the user
+  confirms it or frees it.
 - **Claims:** the figures and promises the page makes, and any that look regulated (health,
   safety, financial, environmental, "guaranteed", "clinically proven").
 - **Audience:** who the copy speaks to and what it assumes they already know.
@@ -48,6 +48,8 @@ remaining one. The user answers before the Audit goes on.
    each most needs to hear>."
 
 ## 4. Apply and mark
+
+Run this as a pass over the findings, quick wins and hypotheses once they are drafted.
 
 - **Check the page.** A lever the brand keeps off the table that is already on the page is
   flagged as a quick win.

@@ -81,19 +81,19 @@ standard for a finding.
 
 **Write.** Open `references/audit-layout.md` and `references/templates.md`. Work in this order:
 
-1. **Guardrail check.** Check the page and every Do against the Brand guardrails as
-   `references/guardrails.md` part 4 sets out. A lever the brand keeps off the table that is
-   already on the page is a quick win. A best practice the guardrails block is replaced with the
-   on-brand alternative. A recommendation resting on an unconfirmed guardrail is marked as an
-   assumption.
-2. **Findings.** Four to eight, structural first. Each names its failed check numbers and one of
+1. **Findings.** Four to eight, structural first. Each names its failed check numbers and one of
    trust, understanding or fit, labels its evidence "Heuristic" unless the user supplied
    evidence, and ends on a Do. Open `references/diagnostics.md` for the objection inventory
    (section 2) and the leverage order (section 5), and build the inventory from the page and any
    evidence the user gave.
-3. **Quick wins.** The changes to ship without a test, each naming the checks it settles.
-4. **Hypotheses.** One for each finding, numbered to match, scored with ICE and ranked in the
+2. **Quick wins.** The changes to ship without a test, each naming the checks it settles.
+3. **Hypotheses.** One for each finding, numbered to match, scored with ICE and ranked in the
    backlog table. Every row's **Read as** cell reads "Test or ship: needs traffic figures".
+4. **Guardrail check.** Go over the page and every Do, quick win and hypothesis you have drafted against the Brand guardrails as
+   `references/guardrails.md` part 4 sets out. A lever the brand keeps off the table that is
+   already on the page is a quick win. A best practice the guardrails block is replaced with the
+   on-brand alternative. A recommendation resting on an unconfirmed guardrail is marked as an
+   assumption.
 5. **The page.** Write `landing-page-audit-<slug>.html` to the working folder with the five
    headings in order, each opening with its one-line Summary. **Performance** reads "Not
    available" with its one line.
