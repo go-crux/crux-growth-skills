@@ -5,9 +5,9 @@ against. It follows the workspace `writing-for-agents` skill; run that skill whe
 and treat this file as its binding summary for this repo.
 
 A skill is a document an agent runs on a brand's own data, with nobody from Crux in the room. The
-brand may be a client with a Growth Brain or a prospect who installed the plugin from the
-README, so a skill never assumes a Crux contact. Each run should take the same **process**, so whoever runs it gets a comparable result
-from whichever brain it reads.
+brand may be a client with a Growth Brain or a prospect who installed the plugin from the README,
+so a skill never assumes a Crux contact. Each run should take the same **process**, so whoever
+runs it gets a comparable result from whichever brain it reads.
 
 ## Shape
 
@@ -39,7 +39,7 @@ description: <leading word first; one trigger per distinct case the skill handle
 ---
 ```
 
-- **Model-invoked by default.** Anyone on the client's team (a founder, a head of growth, an ecommerce or marketing manager) asks in plain words ("help me plan Black Friday"), so
+- **Model-invoked by default.** Anyone at the brand (a founder, a head of growth, an ecommerce or marketing manager) asks in plain words ("help me plan Black Friday"), so
   the agent must be able to reach the skill on its own. They can still type `/<name>`.
 - **The description is a pointer**, loaded in every session the plugin is installed in. Lead with
   the word that person would use, give one trigger per distinct case, and leave out identity
@@ -67,7 +67,7 @@ description: <leading word first; one trigger per distinct case the skill handle
 - **Ask for the tables a step needs and no more.** `list_tables` with no arguments returns the
   roster. Calling it again with every table in the roster costs the user the whole contract.
 - **No brain, no run.** A skill that needs a Growth Brain checks for the connector first, and
-  without one says so in a line, points at gocrux.io for a Growth Brain, and stops before any query.
+  without one says so in a line, points at gocrux.io/contact for a Growth Brain, and stops before any query.
 - **A missing mart drops its part with one line**, so one client's narrower warehouse narrows the
   page rather than breaking the run.
 - **Read only.** A skill writes nothing the brain cannot write. A plan the user wants loaded

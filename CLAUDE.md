@@ -4,7 +4,7 @@
 plugins, Claude Code, or Codex). Each skill carries Crux craft, such as a Black Friday plan or a
 report worth reading. They work best on a brand's own **Growth Brain** connector, but the plugin
 never requires one: it doubles as a lead magnet for brands that are not yet clients, so a skill
-that needs a brain says so and points at gocrux.io. The boundary is
+that needs a brain says so and points at gocrux.io/contact. The boundary is
 mcp_brain ADR-0026: **the brain ships mechanism, the plugin ships craft**. The brain owns the
 tools and the data, and a skill owns the interview, the method and the page it produces.
 
@@ -18,14 +18,14 @@ every skill here is held to. Decisions live in `docs/adr/` once there are any.
 
 | Path | What it is |
 |---|---|
-| `plugins/crux-growth-skills/` | **the plugin: the only folder a client installs** |
+| `plugins/crux-growth-skills/` | **the plugin: the only folder a user installs** |
 | `plugins/crux-growth-skills/skills/<name>/SKILL.md` | one skill: its frontmatter and its steps |
 | `plugins/crux-growth-skills/skills/<name>/references/` | material that skill reads only when a step points at it, its `glossary.md` included |
 | `plugins/crux-growth-skills/.claude-plugin/plugin.json` | the Claude Code manifest |
 | `plugins/crux-growth-skills/plugin.json` | the portable manifest (agent-plugins schema) |
 | `plugins/crux-growth-skills/.codex-plugin/plugin.json` | the Codex overlay; `skills: "./skills/"` |
 | `.claude-plugin/marketplace.json` | the marketplace `crux`, listing the plugin `crux-growth-skills` at `source: "./plugins/crux-growth-skills"` |
-| `README.md` | the **client-facing** install guide and skill list, read on GitHub |
+| `README.md` | the **public** install guide and skill list, read on GitHub |
 | `CLAUDE.md`, `AGENTS.md`, `GLOSSARY.md`, `docs/` | for us; outside the plugin folder, so never installed |
 
 There is no code, no package manager and no test suite. A skill is prose an agent runs.

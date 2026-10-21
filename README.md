@@ -6,9 +6,8 @@ with our clients, such as planning Black Friday from last year's numbers, and ru
 data inside your own Claude.
 
 The skills work best with a **Crux Growth Brain** connected: a Claude connector that answers
-questions from your own warehouse, with your orders, marketing and customers already modelled.
-You do not need one to install the skills, but a skill that reads your data will tell you when it
-needs one. Each skill below says what it needs.
+questions from your own warehouse, with your orders, marketing and customers in one place. You
+do not need one to install the skills, and each skill below says what it needs.
 
 ## Before you start
 
@@ -29,7 +28,7 @@ nothing to request access to and no GitHub account needed.
 5. Press **Sync**.
 6. **Crux Growth Skills** now appears in your plugins. Install it if Claude asks.
 
-That is it. Ask Claude for the skill in any new conversation, for example "help me plan Black
+Ask Claude for the skill in any new conversation, for example "help me plan Black
 Friday".
 
 ## Install in Claude Code
@@ -50,16 +49,16 @@ should be in the list.
 
 **Plan Black Friday** (`plan-black-friday`) plans your Black Friday and the run to Christmas. It
 reads how last year's Black Friday went against the year before, tests your November and December
-targets from your budget against what those years achieved, and shows what has to change if a
+targets against what those years achieved, and shows what has to change if a
 target is a stretch. It then takes you through your offer, products, marketing and targets one
 question at a time, with a recommendation for each, and you can say "just write it" to accept
 them all. You leave with one page for your team: last year's read across five short pages
 (overview, offer, marketing, retention and targets) and your plan on a sixth, with a target for
-every day of November and December you can download as a CSV. Nothing is changed in your budget
+every day of each month you agree, which you can download as a CSV. Nothing is changed in your budget
 or your data.
 
 *Needs:* a Crux Growth Brain connected. If your budget is in the brain, the targets come from it;
-if not, it proposes targets from last year for you to confirm. Ask Claude to plan Black Friday, or
+if not, it proposes targets from last year for you to confirm or change. Ask Claude to plan Black Friday, or
 send `/plan-black-friday` in Claude Code.
 
 ## Getting a Growth Brain
