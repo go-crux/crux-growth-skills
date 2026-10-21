@@ -29,7 +29,9 @@ lists it.
 
 **Windows.** Open `references/windows.sql`. Put its CTEs ahead of every query and join to them
 for dates, so Baseline, Lead-in, Black Friday weekend and Festive are computed in one place.
-Type no date by hand, and keep the years to last year and the year before it.
+Type no date by hand, and keep the years to last year and the year before it. Where the brain
+names the store's timezone, write every `CURRENT_DATE()` in those CTEs as
+`CURRENT_DATE('<timezone>')`, so yesterday and this year are the store's own.
 
 **Basis.** Apply to the headline and to every section.
 
@@ -42,12 +44,17 @@ Type no date by hand, and keep the years to last year and the year before it.
   Lift is the relative change in the ratio.
 - Take margin by order date, from `<client>-orders`: the deepest rung it carries per order
   (CM2, else CM1). For the headline and every window table, also show CM3 = that order margin
-  less the window's marketing spend from `<client>-channel_reporting`; label it CM3 only when the
-  order rung is CM2, else "CM1 less marketing". Product rows take the deepest rung
+  less the window's marketing spend from `<client>-channel_reporting`; label it CM3 only when the order rung is CM2 and its fulfilment and payment costs carry
+  figures, else "CM1 less marketing" (a CM2 whose extra costs all read zero is CM1). Where the
+  orders mart marks which orders are fully costed, take a window's margin as the margin rate on
+  its fully costed orders times the window's revenue, and footnote the costed share of revenue
+  where it is under 90%. Product rows take the deepest rung
   `<client>-order_items` carries. Read no margin from `<client>-channel_reporting`: it books
   refunds on the refund date, so a weekend's margin there carries other weeks' returns. Name the
   rung beside every margin figure.
-- Take revenue from the orders table's main sales measure and name it on the page.
+- Take revenue from the orders table's total sales measure (the one its own descriptions call
+  total sales, after discounts and returns) and name it on the page.
+- Leave out test orders wherever the orders mart flags them.
 - Express every change as a relative percentage.
 - A window with no rows reads "No data" in its cell.
 
@@ -122,11 +129,12 @@ and would count it twice). Sum the plan by `month_start` for November and Decemb
 spend.
 
 - **The revenue rung is the client's own, on the sheet's own basis.** Read whichever
-  `daily_budget_*sales*` column `list_tables` returns. The sheet's actuals book returns on the
+  `daily_budget_*sales*` column `list_tables` returns. Where the rung takes returns off (net or total sales), the sheet's actuals book them on the
   refund date, so read every year's revenue for this step on the same rung from
   `<client>-channel_reporting`, which books them the same way; only where it lacks the rung, read
-  `<client>-orders` and say so in the footnote. The footnote also says that the Last year tab's
-  revenue is order-dated and the Target test's refund-dated, so their Lifts can differ. Name the
+  `<client>-orders` and say so in the footnote. Where the rung takes returns off, the footnote also says that the Last year tab's revenue is
+  order-dated and the Target test's refund-dated, so their Lifts can differ; a gross rung takes no
+  returns off and needs no such line. Name the
   rung on the page. If neither mart
   carries it, say so in one line and test orders, new orders and CAC only.
 - With no plan for a month, open `references/no-plan.md`.
@@ -172,8 +180,10 @@ read against the last-year level (step 2), and each reads off one target:
 | Returning customer orders | returning orders (orders less new orders) | orders |
 | Order value | revenue over orders | revenue |
 
-Columns: the last-year level, the figure the plan implies, and the relative
-change required.
+Columns: the last-year level, the figure the plan implies, and the relative change required.
+When implied CAC is the only target not Achievable, the New customers row reads differently:
+its last-year level is the new orders plan spend buys at the last-year level CAC (plan spend over
+that CAC), set against plan new orders.
 Then open `references/scenarios.md` and write 2 or 3 Scenarios for the month, each closing the
 gap through one pillar with the other two held at the last-year level.
 
@@ -225,7 +235,7 @@ with the agreed targets as literals and the dates from `phasing_days` in
   `shape_date`.
 - A day's figure = the agreed month target × its `shape_date` figure over the sum of the month's
   `shape_date` figures, one share per measure.
-- Round the month target to a whole number (orders, new orders) or to pence (revenue, spend),
+- Round the month target to a whole number (orders, new orders) or to the currency's minor unit (revenue, spend),
   then round the days the same way by largest remainder, so the days sum exactly to the target.
 - Return `date`, `days_from_black_friday`, revenue, orders, new orders and spend for every day,
   with each measure's monthly sum beside its agreed target.

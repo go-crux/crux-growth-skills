@@ -1,3 +1,4 @@
+-- Where the brain names the store's timezone, write each CURRENT_DATE() below as CURRENT_DATE('<timezone>').
 -- Put these CTEs ahead of a query, join to `windows`, `calendar`, `target_months`, `baseline_actual` or `phasing_days`, and drop the final SELECT.
 WITH years AS (
   SELECT year
