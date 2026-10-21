@@ -5,11 +5,14 @@ as a month total, and uses the last-year level and the Pillar gap table from ste
 
 **Gap to close.** Revenue gap = plan revenue − last-year level revenue, when revenue is Stretch
 or Unrealistic. When revenue is Achievable and orders are not, the gap is plan orders −
-last-year level orders. When only new orders or implied CAC is not Achievable, the gap is plan
-new orders − last-year level new orders. Two inputs:
+last-year level orders. When only new orders is not Achievable, the gap is plan new orders − last-year level new
+orders. When only implied CAC is not Achievable, the gap is plan new orders − plan spend over
+the last-year level CAC: the new orders the plan's spend does not buy at the last-year level CAC.
+Two inputs:
 
 - A = last-year level revenue over last-year level orders (order value).
-- CAC = last year's Black Friday weekend CAC, from the Read's Acquisition table.
+- CAC = the last-year level CAC (step 2): this year's Baseline CAC at last year's CAC Lift, so
+  extra customers are priced at this year's cost, not last year's.
 
 **Three Scenarios, one pillar each, the other two held at the last-year level.**
 
@@ -17,16 +20,16 @@ new orders − last-year level new orders. Two inputs:
 |---|---|---|---|
 | New customers | new customers | Extra new orders = gap over A (the orders gap itself when closing orders) | Extra spend = extra new orders × CAC, set beside plan spend less last-year level spend (step 2) |
 | Order value | order value | Order value must reach plan revenue over last-year level orders, a relative change of plan revenue over last-year level revenue less 1 | Basket or price move; orders unchanged |
-| Returning orders | order frequency | Extra returning orders = gap over A (the orders gap itself when closing orders) | Retention sends and offers; no extra acquisition spend |
+| Returning orders | returning customer orders | Extra returning orders = gap over A (the orders gap itself when closing orders) | Retention sends and offers; no extra acquisition spend |
 
 **Choosing 2 or 3.**
 
-- Show all three. Drop a Scenario whose figure cannot be computed (no weekend CAC, or no
+- Show all three. Drop a Scenario whose figure cannot be computed (no last-year level CAC, or no
   returning-order split) and keep at least two.
 - Closing an orders gap leaves out Order value, so it shows two.
 - Only new orders or implied CAC not Achievable: new customers is the one pillar. Show it
-  twice, once at last year's Black Friday weekend CAC and once at last year's Baseline CAC,
-  each with its extra spend.
+  twice, once at the last-year level CAC and once at this year's Baseline CAC, each with its
+  extra spend.
 
 **Each Scenario line** states, in this order: the move in one sentence, its size, its cost or
 ask, and what it does to the other targets (orders and new orders rise with extra customers;
