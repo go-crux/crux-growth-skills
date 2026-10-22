@@ -12,7 +12,7 @@ The terms `SKILL.md` and the other references use, each with one meaning.
 
 - **Benchmark**: what a page's visits would earn at the site's rate for the same Page type and channel, falling back to the Page type alone where a channel's cell is thin. From a Shopify export, which carries no channel, the Page type rate alone. _Avoid_: average, site average, baseline.
 
-- **Revenue at stake**: a page's visits times the gap between its Benchmark revenue per visit and its own, from a Growth Brain. What Find ranks on. _Avoid_: lost revenue, opportunity, potential.
+- **Revenue at stake**: a page's visits times the gap between its Benchmark revenue per visit and its own, from a Growth Brain. What Find ranks on. Revenue is one total sales column, named with its tax basis. _Avoid_: lost revenue, opportunity, potential.
 
 - **Orders at stake**: the same gap in conversion rather than revenue, from a Shopify export where no brain is connected. _Avoid_: lost orders.
 
