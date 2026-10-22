@@ -17,9 +17,11 @@ period AS (
     DATE_SUB(CURRENT_DATE(), INTERVAL 90 DAY) AS date_from,
     DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY) AS date_to
 ),
--- The one place that names mart columns. Revenue is the total sales measure (after discounts and
--- returns). Where the mart flags test orders, zero their orders and revenue here and keep their
--- visits, so the site's visits stay equal to the sum of total_sessions.
+-- The one place that names mart columns. Revenue is one total sales column (after discounts and
+-- returns). Where the mart carries ex-tax and inc-tax versions, take the column the brain's
+-- revenue_per_session formula sums, else the ex-tax one, as SKILL.md step 2 sets out. Where the
+-- mart flags test orders, zero their orders and revenue here and keep their visits, so the
+-- site's visits stay equal to the sum of total_sessions.
 source AS (
   SELECT
     <date column> AS day,

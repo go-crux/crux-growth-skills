@@ -73,15 +73,16 @@ the audit reads the page only. Nothing else sits under the heading.
 stake in one sentence, and names the Leaking step where there is one. Under it, in this order:
 
 1. **The page's figures**, one table: visits, conversion, revenue per visit, Benchmark revenue per
-   visit and Revenue at stake, with the period's dates and the revenue measure ("total sales,
-   after discounts and returns") named above it. A page ahead of its Benchmark shows its Revenue at
+   visit and Revenue at stake, with the period's dates and the revenue column named above it. A page ahead of its Benchmark shows its Revenue at
    stake as a negative and says so in a few words.
 2. **The top 3 channels**, each with its share of the page's visits.
 3. **Mobile against desktop**: the session purchase conversion rate on each device, beside the
    same Page type's.
 4. **The funnel**, one table: each rate in `references/performance.md` for the page, the same
    Page type and the relative gap, with the Leaking step marked.
-5. **The footnote**: the days the funnel covers, and that each rate is summed over summed.
+5. **The footnote**: the revenue column and whether it includes tax and shipping ("revenue is
+   total sales ex tax, after discounts and returns, before shipping"), the days the funnel
+   covers, and that each rate is summed over summed.
 
 A part the brain cannot give is replaced by one line saying why, never dropped silently: without
 a funnel table, one line stands for both the device split and the funnel ("The brain holds no

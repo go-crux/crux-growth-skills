@@ -43,14 +43,19 @@ URL and go to step 3. Open `references/find.sql`, put its CTEs ahead of its Find
 the brain's landing page to the store's own path, whether the brain holds a path or a URL with
 its host. Where the brain's own instructions name the store's timezone, write every
 `CURRENT_DATE()` as `CURRENT_DATE('<timezone>')`. The period is the last 90 complete days; for a period the user
-names, change only the dates in `period`. Revenue is the mart's total sales measure (after
-discounts and returns). Leave out test orders wherever the mart flags them. Type no date, Page
-type, threshold or Benchmark by hand: the file computes them.
+names, change only the dates in `period`. Revenue is one total sales column (after discounts and
+returns), chosen the same way on every brain: the column the brain's `revenue_per_session`
+formula sums, as the second `list_tables` call shows it, so the revenue per visit agrees with
+the brain's; where the mart publishes no such formula, its ex-tax total sales column; where it
+carries a single total sales column, that one. Name the column, and from its description or name
+say whether it includes tax and shipping; this is the revenue measure on the shortlist and in the
+Audit's Performance footnote. Leave out test orders wherever the mart flags them. Type no date,
+Page type, threshold or Benchmark by hand: the file computes them.
 
 **List.** Write to the chat, with no file:
 
-- Above the list: the period, the revenue measure by name, the site's total visits and the
-  site's revenue per visit.
+- Above the list: the period, the revenue measure (the column's name, and whether it includes
+  tax and shipping), the site's total visits and the site's revenue per visit.
 - Up to 10 Underperforming pages, largest Revenue at stake first, each with its page, Page type,
   visits, conversion, revenue per visit, Benchmark revenue per visit and Revenue at stake. Say
   in a line that the Benchmark is what the page's visits would earn at the site's rate for the
@@ -64,7 +69,8 @@ End by asking which page to audit, recommending the first; "yes" accepts it. The
 path is the page to audit: take the store's own domain (the one `find.sql` ranked) from the
 brain's instructions or the conversation, and ask for it when neither names one.
 
-**Done when** (with a brain) the period and the revenue measure are named; the site's total visits for the
+**Done when** (with a brain) the period and the revenue measure are named, with the one column
+chosen by the rule above and whether it includes tax and shipping; the site's total visits for the
 period are shown and equal the sum of `total_sessions` over the period from
 `<client>-channel_reporting`; at most 10 pages are listed, largest Revenue at stake first, and
 every one carries page, Page type, visits, conversion, revenue per visit, Benchmark revenue per
@@ -114,11 +120,12 @@ reduced by the same rule.
 **Read.** Unless step 2 already did, call `list_tables` once with no arguments, then once naming
 only `<client>-channel_reporting`. Open `references/find.sql`, put its CTEs ahead of its Audit
 query, set the path in it, compose `source` as Find did and run it with `run_sql`, with the
-period, timezone and revenue measure Find used. It returns the page's visits, conversion,
-revenue per visit, Benchmark revenue per visit, Revenue at stake and its top 3 channels' share
-of visits, from the same CTEs as the shortlist. With no row, or no traffic table, say in one
-line that the brain holds no visits to the path in the period, and go to step 4: Performance
-reads "Not available" and the audit reads the page only.
+period, timezone and revenue column Find used (where step 2 did not run, choose the column by
+step 2's rule). It returns the page's visits, conversion, revenue per visit, Benchmark revenue
+per visit, Revenue at stake and its top 3 channels' share of visits, from the same CTEs as the
+shortlist. With no row, or no traffic table, say in one line that the brain holds no visits to
+the path in the period, and go to step 4: Performance reads "Not available" and the audit reads
+the page only.
 
 **Funnel.** When the roster lists `<client>-ecommerce_funnel`, call `list_tables` naming only
 it, then open `references/performance.md` and follow it for the funnel steps, mobile against
@@ -142,12 +149,13 @@ sessions, conversion, Benchmark conversion and Orders at stake are held from
 Page type's, and each one dropped for a missing column is named; and the user has heard the
 page's gap.
 
-**Done when** (with a brain) the path is matched, or the one-line no-match reason is said; visits, conversion,
-revenue per visit, Benchmark revenue per visit, Revenue at stake and the top 3 channels' share
-of visits are held from `find.sql`, with no Benchmark or Revenue at stake computed anywhere
-else; the funnel steps, mobile against desktop, the Leaking step and the funnel's first and
-last day are held, or the missing funnel is said in one line; each funnel rate is a sum over a
-sum; and the user has heard the Leaking step or that there is none.
+**Done when** (with a brain) the path is matched, or the one-line no-match reason is said;
+visits, conversion, revenue per visit, Benchmark revenue per visit, Revenue at stake and the top
+3 channels' share of visits are held from `find.sql`, with the revenue column and whether it
+includes tax and shipping held for the footnote, and with no Benchmark or Revenue at stake
+computed anywhere else; the funnel steps, mobile against desktop, the Leaking step and the
+funnel's first and last day are held, or the missing funnel is said in one line; each funnel
+rate is a sum over a sum; and the user has heard the Leaking step or that there is none.
 
 ## 4. Guardrails
 
