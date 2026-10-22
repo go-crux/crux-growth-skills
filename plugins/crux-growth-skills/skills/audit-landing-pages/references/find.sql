@@ -19,21 +19,59 @@ period AS (
 ),
 -- The one place that names mart columns. Revenue is the total sales measure (after discounts and
 -- returns). Where the mart flags test orders, zero their orders and revenue here and keep their
--- visits, so the site's visits stay equal to the sum of total_sessions. A trailing slash is
--- dropped from the landing page (the home page stays '/'), so /x and /x/ are one page.
+-- visits, so the site's visits stay equal to the sum of total_sessions.
 source AS (
   SELECT
     <date column> AS day,
     COALESCE(<channel column>, 'Unknown') AS channel,
-    IF(<landing page column> IS NULL, 'Unknown',
-       COALESCE(NULLIF(RTRIM(<landing page column>, '/'), ''), '/')) AS landing_page,
+    TRIM(<landing page column>) AS raw_landing_page,
     total_sessions AS visits,
     <orders column, 0 on a flagged test order> AS orders,
     <total sales column, 0 on a flagged test order> AS revenue
   FROM `<client>-channel_reporting`
 ),
+-- THE LANDING PAGE RULE, stated here once (funnel.sql copies these three CTEs as they are).
+-- The brain's landing page is a path, or a URL with a scheme and host, or no page at all. Reduce
+-- it to the store's own path: strip any scheme and host, cut the query string and fragment, drop
+-- a trailing slash (the home page stays '/'), and keep a value that already starts with '/'.
+-- Keep a page only on the store's own domain: the host carrying most visits in the period, with
+-- 'www.' dropped. Every other host, every value containing '(not set)', and every value that is
+-- neither a path nor a URL (a modelled re-attribution label, for one) becomes 'Unknown', as does
+-- a NULL. 'Unknown' rows are never ranked and stay in the site totals.
+parsed AS (
+  SELECT
+    s.*,
+    REGEXP_REPLACE(
+      LOWER(REGEXP_EXTRACT(s.raw_landing_page,
+        r'^(?:[A-Za-z][A-Za-z0-9+.-]*://)?([A-Za-z0-9.-]+\.[A-Za-z0-9-]+)(?::[0-9]+)?(?:[/?#]|$)')),
+      r'^www\.', '') AS host,
+    IF(STARTS_WITH(s.raw_landing_page, '/'),
+       REGEXP_EXTRACT(s.raw_landing_page, r'^([^?#]*)'),
+       REGEXP_EXTRACT(s.raw_landing_page, r'^(?:[A-Za-z][A-Za-z0-9+.-]*://)?[^/?#]+([^?#]*)')) AS path
+  FROM source AS s
+),
+store_host AS (
+  SELECT p.host
+  FROM parsed AS p
+  JOIN period AS d ON p.day BETWEEN d.date_from AND d.date_to
+  WHERE p.host IS NOT NULL
+  GROUP BY p.host
+  ORDER BY SUM(p.visits) DESC
+  LIMIT 1
+),
+landing AS (
+  SELECT
+    p.* EXCEPT (raw_landing_page, host, path),
+    IF(p.raw_landing_page IS NOT NULL
+         AND NOT CONTAINS_SUBSTR(p.raw_landing_page, '(not set)')
+         AND (STARTS_WITH(p.raw_landing_page, '/') OR p.host = (SELECT host FROM store_host)),
+       COALESCE(NULLIF(RTRIM(p.path, '/'), ''), '/'),
+       'Unknown') AS landing_page
+  FROM parsed AS p
+),
 -- Page type from the path, and the pages never ranked: checkout links, /cart, /account and
--- 'Unknown' (orders with no visit). Excluded pages stay in the site totals.
+-- 'Unknown' (orders with no visit, other hosts, '(not set)' and non-page values). Excluded pages
+-- stay in the site totals.
 page_type AS (
   SELECT
     landing_page,
@@ -47,11 +85,11 @@ page_type AS (
     END AS page_type,
     landing_page = 'Unknown'
       OR REGEXP_CONTAINS(landing_page, r'^/(cart|account)(/|$)|/checkouts?(/|$)') AS excluded
-  FROM (SELECT DISTINCT landing_page FROM source)
+  FROM (SELECT DISTINCT landing_page FROM landing)
 ),
 period_rows AS (
   SELECT s.channel, s.landing_page, t.page_type, t.excluded, s.visits, s.orders, s.revenue
-  FROM source AS s
+  FROM landing AS s
   JOIN period AS p ON s.day BETWEEN p.date_from AND p.date_to
   JOIN page_type AS t USING (landing_page)
 ),
@@ -143,8 +181,9 @@ LEFT JOIN (
 ) AS u ON TRUE
 ORDER BY u.revenue_at_stake DESC
 
--- AUDIT. In place of the Find query above, for one page: replace <path> with the page's path, query
--- string cut and trailing slash dropped. Returns the page's visits, conversion, revenue per
+-- AUDIT. In place of the Find query above, for one page: replace <path> with the audit URL
+-- reduced by the landing page rule above (scheme and host dropped, query string, fragment and
+-- trailing slash cut, the home page '/'). Returns the page's visits, conversion, revenue per
 -- visit, Benchmark revenue per visit and Revenue at stake (negative where the page is ahead of
 -- its Benchmark), with its top 3 channels by visits and each one's share of the page's visits.
 -- No rows means the page has no visits in the mart (or is an excluded page).
