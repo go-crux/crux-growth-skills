@@ -6,15 +6,16 @@
 -- path as find.sql's landing page rule reduces it (the home page '/').
 -- The funnel starts when the GA4 raw event stream began, so it holds only part of a long
 -- period; `days` reports which part.
--- The landing page follows find.sql's landing page rule, stated there once: after `source`,
--- copy find.sql's `parsed`, `store_host` and `landing` CTEs as they are. They read `visits`,
--- which `source` here sets to total sessions, and give each row its `landing_page`: the store's
--- own path, or 'Unknown' for a row with no store page.
+-- The landing page and its Page type follow find.sql's rules, stated there once: after
+-- `source`, copy find.sql's `parsed`, `store_host`, `landing` and `page_type` CTEs as they are.
+-- They read `visits`, which `source` here sets to total sessions, and give each row its
+-- `landing_page` (the store's own path, or 'Unknown' for a row with no store page) and its Page
+-- type from that path. The funnel table's own type column is not read, so the funnel compares
+-- the page with the same Page type Find benchmarks it against.
 source AS (
   SELECT
     <date column> AS day,
     TRIM(<landing page column>) AS raw_landing_page,
-    <landing page type column> AS page_type,
     LOWER(<device category column>) AS device,
     <total sessions column> AS visits,
     <engaged sessions column> AS engaged,
@@ -24,31 +25,31 @@ source AS (
     <purchase sessions column> AS purchase
   FROM `<client>-ecommerce_funnel`
 ),
--- parsed, store_host and landing: copied from find.sql here.
+-- parsed, store_host, landing and page_type: copied from find.sql here.
 period_rows AS (
-  SELECT s.*
+  SELECT s.*, t.page_type, t.excluded
   FROM landing AS s
   JOIN period AS p ON s.day BETWEEN p.date_from AND p.date_to
+  JOIN page_type AS t USING (landing_page)
 ),
 days AS (
   SELECT MIN(day) AS first_day, MAX(day) AS last_day FROM period_rows
 ),
 target AS (SELECT '<path>' AS landing_page),
--- The page's own Page type, as the funnel table assigns it to the page's rows.
+-- The page's own Page type, read from its path as Find reads it.
 page_type_of AS (
-  SELECT page_type
-  FROM period_rows
+  SELECT t.page_type
+  FROM page_type AS t
   JOIN target USING (landing_page)
-  GROUP BY page_type
-  ORDER BY SUM(visits) DESC
-  LIMIT 1
 ),
+-- The Page type's rows are its ranked pages, as in Find's Benchmark: excluded pages are left out.
 scoped AS (
   SELECT 'page' AS scope, r.*
   FROM period_rows AS r JOIN target USING (landing_page)
   UNION ALL
   SELECT 'page type' AS scope, r.*
   FROM period_rows AS r JOIN page_type_of USING (page_type)
+  WHERE NOT r.excluded
 ),
 -- Summed numerators and denominators. device is NULL on the all-devices row.
 sums AS (

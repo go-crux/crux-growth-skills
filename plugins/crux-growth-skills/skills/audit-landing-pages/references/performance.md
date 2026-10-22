@@ -19,8 +19,10 @@ split with one line saying the funnel table holds no sessions for the page in th
 ## The rates
 
 Each rate is the **sum** of its numerator over the page's rows divided by the **sum** of its
-denominator, never an average of row rates. The Page type's rate is the same sum over every row
-of the same landing page type in the same days.
+denominator, never an average of row rates. The Page type's rate is the same sum over every
+ranked page of the same Page type in the same days. The Page type is read from the path, as
+`references/find.sql` reads it, never from the funnel table's own type column, so the funnel and
+the Benchmark compare the page with the same pages.
 
 | Rate | Numerator over denominator |
 |---|---|

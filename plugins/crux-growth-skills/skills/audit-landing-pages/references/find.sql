@@ -73,12 +73,14 @@ landing AS (
 ),
 -- Page type from the path, and the pages never ranked: checkout links, /cart, /account and
 -- 'Unknown' (orders with no visit, other hosts, '(not set)' and non-page values). Excluded pages
--- stay in the site totals.
+-- stay in the site totals. A product reached through a collection
+-- (/collections/<collection>/products/<handle>) is a product, so it is tested before
+-- /collections/. funnel.sql copies this CTE as it is, so Find and the funnel type a page alike.
 page_type AS (
   SELECT
     landing_page,
     CASE
-      WHEN STARTS_WITH(landing_page, '/products/') THEN 'product'
+      WHEN REGEXP_CONTAINS(landing_page, r'^/(collections/[^/]+/)?products/') THEN 'product'
       WHEN STARTS_WITH(landing_page, '/collections/') THEN 'collection'
       WHEN STARTS_WITH(landing_page, '/pages/') THEN 'landing page'
       WHEN STARTS_WITH(landing_page, '/blogs/') THEN 'blog'
