@@ -32,7 +32,8 @@ source AS (
     <total sales column, 0 on a flagged test order> AS revenue
   FROM `<client>-channel_reporting`
 ),
--- THE LANDING PAGE RULE, stated here once (funnel.sql copies these three CTEs as they are).
+-- THE LANDING PAGE RULE, stated here once (funnel.sql copies these three CTEs, and page_type
+-- below, as they are).
 -- The brain's landing page is a path, or a URL with a scheme and host, or no page at all. Reduce
 -- it to the store's own path: strip any scheme and host, cut the query string and fragment, drop
 -- a trailing slash (the home page stays '/'), and keep a value that already starts with '/'.
@@ -73,12 +74,14 @@ landing AS (
 ),
 -- Page type from the path, and the pages never ranked: checkout links, /cart, /account and
 -- 'Unknown' (orders with no visit, other hosts, '(not set)' and non-page values). Excluded pages
--- stay in the site totals.
+-- stay in the site totals. A product reached through a collection
+-- (/collections/<collection>/products/<handle>) is a product, so it is tested before
+-- /collections/. funnel.sql copies this CTE as it is, so Find and the funnel type a page alike.
 page_type AS (
   SELECT
     landing_page,
     CASE
-      WHEN STARTS_WITH(landing_page, '/products/') THEN 'product'
+      WHEN REGEXP_CONTAINS(landing_page, r'^/(collections/[^/]+/)?products/') THEN 'product'
       WHEN STARTS_WITH(landing_page, '/collections/') THEN 'collection'
       WHEN STARTS_WITH(landing_page, '/pages/') THEN 'landing page'
       WHEN STARTS_WITH(landing_page, '/blogs/') THEN 'blog'

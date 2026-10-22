@@ -8,7 +8,7 @@ The terms `SKILL.md` and the other references use, each with one meaning.
 
 - **Brand guardrails**: what the brand will not do or say (levers off the table, regulated claims) and who the page is for, inferred from the live site and confirmed in one short round of questions, then kept in `brand-guardrails.md` for later runs. A recommendation that breaches one is invalid. _Avoid_: brand constraints, brand rules.
 
-- **Page type**: what a landing page is, read from its Shopify path: product (`/products/`), collection (`/collections/`), landing page (`/pages/`), blog (`/blogs/`) or home (`/`). Pages compare only within their type. _Avoid_: template, page category.
+- **Page type**: what a landing page is, read from its Shopify path: product (`/products/`, or a product reached through a collection, `/collections/<collection>/products/<handle>`), collection (any other `/collections/` path), landing page (`/pages/`), blog (`/blogs/`) or home (`/`). Pages compare only within their type. _Avoid_: template, page category.
 
 - **Benchmark**: what a page's visits would earn at the site's rate for the same Page type and channel, falling back to the Page type alone where a channel's cell is thin. From a Shopify export, which carries no channel, the Page type rate alone. _Avoid_: average, site average, baseline.
 

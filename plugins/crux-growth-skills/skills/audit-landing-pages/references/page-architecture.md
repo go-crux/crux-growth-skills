@@ -111,12 +111,12 @@ and loses state costs more conversions than the information gains.
 The Page type comes from the Shopify path (the audit's glossary has the list). It decides which
 checks carry the most weight and which are often n/a. Establish it before scoring.
 
-**Product (`/products/`).** A product page carrying paid traffic. Weight the buy box, variant
+**Product.** A product page carrying paid traffic. Weight the buy box, variant
 signposting and the offer. Watch for the classic leak: full site navigation and a mega-menu
 sending expensive traffic sideways into the catalogue. Often n/a: the lead-capture checks of
 Gives people what they want when the page sells directly.
 
-**Landing page (`/pages/`).** A page built for one campaign. Its form decides the emphasis:
+**Landing page.** A page built for one campaign. Its form decides the emphasis:
 
 - *Dedicated or advertorial.* Single product, single argument, no site navigation. Weight the
   argument order, the anchor nav and CTA cadence. The page must be self-sufficient: every
@@ -132,17 +132,17 @@ Gives people what they want when the page sells directly.
   effort ("six questions, one minute") and the payoff (what they get at the end). Question
   count and order matter more than any copy on the entry page.
 
-**Collection (`/collections/`).** A grid of products. Weight bounded choice, signposting
+**Collection.** A grid of products. Weight bounded choice, signposting
 (bestseller, new, recommended), filters that work on a phone, and a product card that shows
 price, unit price and rating without a click. The conversion goal is a click through to a
 product. Often n/a: the offer checks on plans, bonuses and included components, which belong to
 the product page.
 
-**Home (`/`).** A router for every kind of visitor. Weight the hero's category and outcome, a
+**Home.** A router for every kind of visitor. Weight the hero's category and outcome, a
 clear path for each main visitor type, and proof near the top. Often n/a: the offer checks, and
 those on reasons-to-buy and exit terms.
 
-**Blog (`/blogs/`).** An article read before any decision. Weight the next step: a product or
+**Blog.** An article read before any decision. Weight the next step: a product or
 collection link placed where the article raises the need, and an email capture for the
 not-ready. Often n/a: most Offer and buy-box checks.
 
