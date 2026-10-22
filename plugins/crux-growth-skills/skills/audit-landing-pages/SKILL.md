@@ -39,7 +39,9 @@ without one; otherwise go to step 3. With a brain, follow Read and List; without
 `<client>-channel_reporting` (`<client>` is the prefix the roster carries). If that mart is
 missing, say in one line that the brain holds no traffic table to rank pages from, ask for the
 URL and go to step 3. Open `references/find.sql`, put its CTEs ahead of its Find query, compose
-`source` from the columns the second call returns and run it with `run_sql`. Where the brain's
+`source` from the columns the second call returns and run it with `run_sql`. The file reduces
+the brain's landing page to the store's own path, whether the brain holds a path or a URL with
+its host. Where the brain's
 own instructions name the store's timezone, write every `CURRENT_DATE()` as
 `CURRENT_DATE('<timezone>')`. The period is the last 90 complete days; for a period the user
 names, change only the dates in `period`. Revenue is the mart's total sales measure (after
@@ -56,12 +58,12 @@ type, threshold or Benchmark by hand: the file computes them.
   same Page type and channel.
 - With fewer than 10 Underperforming pages, list those found and say how many there are. With
   none, say so and ask for the URL of the page to audit.
-- One line that checkout, cart, account and visits with no landing page are left out of the
-  list and counted in the site's visits.
+- One line that checkout, cart, account and visits with no store page (another host, "(not set)",
+  a modelled re-attribution label) are left out of the list and counted in the site's visits.
 
 End by asking which page to audit, recommending the first; "yes" accepts it. The chosen page's
-path is the page to audit: take the store's domain from the brain's instructions or the
-conversation, and ask for it when neither names one.
+path is the page to audit: take the store's own domain (the one `find.sql` ranked) from the
+brain's instructions or the conversation, and ask for it when neither names one.
 
 **Done when** (with a brain) the period and the revenue measure are named; the site's total visits for the
 period are shown and equal the sum of `total_sessions` over the period from
@@ -104,8 +106,11 @@ or there is no brain and the conversation holds a Shopify export; otherwise go t
 the Performance heading reads "Not available". Without a brain, follow "From the export" below
 and skip the rest of this step.
 
-**Match.** Take the URL's path, cut the query string and any fragment, and drop a trailing slash
-(the home page stays `/`).
+**Match.** Reduce the URL to its path the way `find.sql` reduces the brain's landing page: drop
+the scheme and host, cut the query string and any fragment, and drop a trailing slash (the home
+page stays `/`). The URL's domain is taken as the store's own domain, the one `find.sql` keeps.
+Put that path in the Audit query and in `funnel.sql`'s `target`; the funnel's landing page is
+reduced by the same rule.
 
 **Read.** Unless step 2 already did, call `list_tables` once with no arguments, then once naming
 only `<client>-channel_reporting`. Open `references/find.sql`, put its CTEs ahead of its Audit

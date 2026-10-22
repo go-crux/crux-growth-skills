@@ -3,17 +3,20 @@
 -- the same timezone rule) so the funnel and the page's figures share one period. Then these
 -- CTEs and the query at the foot. Replace the <angle-bracket> names in `source` with the columns
 -- list_tables returns for `<client>-ecommerce_funnel`, and <path> in `target` with the page's
--- path (query string cut, trailing slash dropped, the home page '/').
+-- path as find.sql's landing page rule reduces it (the home page '/').
 -- The funnel starts when the GA4 raw event stream began, so it holds only part of a long
 -- period; `days` reports which part.
+-- The landing page follows find.sql's landing page rule, stated there once: after `source`,
+-- copy find.sql's `parsed`, `store_host` and `landing` CTEs as they are. They read `visits`,
+-- which `source` here sets to total sessions, and give each row its `landing_page`: the store's
+-- own path, or 'Unknown' for a row with no store page.
 source AS (
   SELECT
     <date column> AS day,
-    IF(<landing page column> IS NULL, 'Unknown',
-       COALESCE(NULLIF(RTRIM(<landing page column>, '/'), ''), '/')) AS landing_page,
+    TRIM(<landing page column>) AS raw_landing_page,
     <landing page type column> AS page_type,
     LOWER(<device category column>) AS device,
-    <total sessions column> AS sessions,
+    <total sessions column> AS visits,
     <engaged sessions column> AS engaged,
     <product view sessions column> AS product_view,
     <add to basket sessions column> AS add_to_basket,
@@ -21,9 +24,10 @@ source AS (
     <purchase sessions column> AS purchase
   FROM `<client>-ecommerce_funnel`
 ),
+-- parsed, store_host and landing: copied from find.sql here.
 period_rows AS (
   SELECT s.*
-  FROM source AS s
+  FROM landing AS s
   JOIN period AS p ON s.day BETWEEN p.date_from AND p.date_to
 ),
 days AS (
@@ -36,7 +40,7 @@ page_type_of AS (
   FROM period_rows
   JOIN target USING (landing_page)
   GROUP BY page_type
-  ORDER BY SUM(sessions) DESC
+  ORDER BY SUM(visits) DESC
   LIMIT 1
 ),
 scoped AS (
@@ -50,7 +54,7 @@ scoped AS (
 sums AS (
   SELECT
     scope, device,
-    SUM(sessions) AS sessions,
+    SUM(visits) AS sessions,
     SUM(engaged) AS engaged,
     SUM(product_view) AS product_view,
     SUM(add_to_basket) AS add_to_basket,
