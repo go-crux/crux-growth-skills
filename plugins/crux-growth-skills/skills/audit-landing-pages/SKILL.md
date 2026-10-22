@@ -41,9 +41,8 @@ missing, say in one line that the brain holds no traffic table to rank pages fro
 URL and go to step 3. Open `references/find.sql`, put its CTEs ahead of its Find query, compose
 `source` from the columns the second call returns and run it with `run_sql`. The file reduces
 the brain's landing page to the store's own path, whether the brain holds a path or a URL with
-its host. Where the brain's
-own instructions name the store's timezone, write every `CURRENT_DATE()` as
-`CURRENT_DATE('<timezone>')`. The period is the last 90 complete days; for a period the user
+its host. Where the brain's own instructions name the store's timezone, write every
+`CURRENT_DATE()` as `CURRENT_DATE('<timezone>')`. The period is the last 90 complete days; for a period the user
 names, change only the dates in `period`. Revenue is the mart's total sales measure (after
 discounts and returns). Leave out test orders wherever the mart flags them. Type no date, Page
 type, threshold or Benchmark by hand: the file computes them.

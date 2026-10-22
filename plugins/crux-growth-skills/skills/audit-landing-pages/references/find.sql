@@ -181,9 +181,9 @@ LEFT JOIN (
 ) AS u ON TRUE
 ORDER BY u.revenue_at_stake DESC
 
--- AUDIT. In place of the Find query above, for one page: replace <path> with the page's path
--- the audit URL reduced by the landing page rule above (its scheme and host dropped, its query
--- string, fragment and trailing slash cut, the home page '/'). Returns the page's visits, conversion, revenue per
+-- AUDIT. In place of the Find query above, for one page: replace <path> with the audit URL
+-- reduced by the landing page rule above (scheme and host dropped, query string, fragment and
+-- trailing slash cut, the home page '/'). Returns the page's visits, conversion, revenue per
 -- visit, Benchmark revenue per visit and Revenue at stake (negative where the page is ahead of
 -- its Benchmark), with its top 3 channels by visits and each one's share of the page's visits.
 -- No rows means the page has no visits in the mart (or is an excluded page).
