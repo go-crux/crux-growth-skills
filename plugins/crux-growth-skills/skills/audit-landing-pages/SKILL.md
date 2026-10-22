@@ -178,15 +178,14 @@ Audit to mark.
 
 ## 5. Audit
 
-**Establish.** Read the Page type from the URL's path, query string cut: `/products/` product,
-and a product reached through a collection (`/collections/<collection>/products/<handle>`) a
-product too; any other `/collections/` path collection, `/pages/` landing page, `/blogs/` blog,
-`/` home. For any other path, take the closest type and say which. Open
-`references/page-architecture.md` and read "Emphasis by Page type" for it. Take mobile as the
-device priority unless the user says otherwise. Once you have read the page, name the single
-conversion goal its primary CTA serves. Where the user has not stated it and the page has no
-primary CTA or several that compete, ask one question with your recommended goal; "yes" accepts
-it.
+**Establish.** Read the Page type from the URL's path, query string cut, by the glossary's
+**Page type** rule: a product reached through a collection
+(`/collections/<collection>/products/<handle>`) is a product. For a path the rule does not
+type, take the closest type and say which. Open `references/page-architecture.md` and read
+"Emphasis by Page type" for it. Take mobile as the device priority unless the user says
+otherwise. Once you have read the page, name the single conversion goal its primary CTA serves.
+Where the user has not stated it and the page has no primary CTA or several that compete, ask
+one question with your recommended goal; "yes" accepts it.
 
 **Read.** Choose by what the session offers.
 

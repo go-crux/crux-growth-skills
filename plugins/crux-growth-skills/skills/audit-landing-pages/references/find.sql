@@ -32,7 +32,8 @@ source AS (
     <total sales column, 0 on a flagged test order> AS revenue
   FROM `<client>-channel_reporting`
 ),
--- THE LANDING PAGE RULE, stated here once (funnel.sql copies these three CTEs as they are).
+-- THE LANDING PAGE RULE, stated here once (funnel.sql copies these three CTEs, and page_type
+-- below, as they are).
 -- The brain's landing page is a path, or a URL with a scheme and host, or no page at all. Reduce
 -- it to the store's own path: strip any scheme and host, cut the query string and fragment, drop
 -- a trailing slash (the home page stays '/'), and keep a value that already starts with '/'.
