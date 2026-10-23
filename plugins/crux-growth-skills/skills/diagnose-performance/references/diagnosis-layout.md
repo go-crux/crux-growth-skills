@@ -108,7 +108,8 @@ many levers read "No data".
    - a Drill-down level read from your orders while its lever's total comes from another
      Source, in the wording **Plain wording** gives;
    - cohorts too young for the horizon, counted in the "Other" row of their level;
-   - an unattended run, and which Growth Brain it read where several were connected;
+   - an unattended run, which Growth Brain it read where several were connected, and any period
+     resolved from "this month" or the like to the last complete one, with its dates;
    - a partial split: which levers read "No data" and why, and that the rest of the change is
      shown as "Not split";
    - a run without a Growth Brain: which connectors and files were read, that each lever reads
