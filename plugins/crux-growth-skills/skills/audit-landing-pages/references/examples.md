@@ -228,7 +228,7 @@ work begins.
 The page below is fictional. It bundles common, instructive faults. Use it to calibrate the
 output standard and tone, not as findings about anything live. The Audit is shown in the order
 of the page's headings, minus Performance, which reads "Not available" with no traffic figures.
-The Methodology page is left out too: its copy is fixed in `references/audit-layout.md`.
+The Methodology tab is left out too: its copy is fixed in `references/audit-layout.md`.
 
 ## The page
 

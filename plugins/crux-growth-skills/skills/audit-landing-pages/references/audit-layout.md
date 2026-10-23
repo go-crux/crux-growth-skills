@@ -1,18 +1,38 @@
 # Audit page layout
 
 An Audit is one self-contained HTML file, `landing-page-audit-<slug>.html`, written to the
-working folder, with inline CSS and no script, and it makes no network request. It holds two
-pages: **the audit**, the masthead and five headings that open by default, and **Methodology**,
-a second page in the same file that the reader opens from the masthead. One file keeps the
-methodology with the audit wherever it is sent, and keeps it off the audit's scroll.
+working folder, with inline CSS and no script, and it makes no network request. Crux house
+style: British English, no em dashes, outcome before mechanism, relative percentage changes
+(2.0% to 1.8% is "−10%").
 
-**The two pages, without a script.** Put the Methodology page first in the file, as
-`<section id="methodology" class="methodology">`, and the audit after it in `<main>`. The CSS
-hides the section, shows it when targeted, and hides the audit while it shows:
-`.methodology{display:none}`, `.methodology:target{display:block}`,
-`.methodology:target ~ main{display:none}`. The masthead's link `href="#methodology"` opens it,
-and its own link "Back to the audit" (`href="#"`) at its top and foot returns. Crux house style: British English, no em dashes, outcome before mechanism,
-relative percentage changes (2.0% to 1.8% is "−10%").
+**Two tabs.** A tab bar at the top of the file switches between two pages: **Audit**, the
+masthead and five headings, open by default, and **Methodology**, the same on every audit. One
+file keeps the methodology with the audit wherever it is sent, and keeps it off the audit's
+scroll. Build the tabs from two radio buttons and their labels, never from links: a link to an
+anchor does nothing in many viewers, the Claude app among them. Use this skeleton, with the
+inputs, the tab bar and both pages as direct children of `<body>`, in this order:
+
+```html
+<input type="radio" name="tab" id="tab-audit" class="tab-input" checked>
+<input type="radio" name="tab" id="tab-methodology" class="tab-input">
+<nav class="tabs">
+  <label for="tab-audit">Audit</label>
+  <label for="tab-methodology">Methodology</label>
+</nav>
+<main class="audit"><!-- the masthead and the five headings --></main>
+<section class="methodology"><!-- the Methodology page --></section>
+```
+
+```css
+.tab-input { position: absolute; opacity: 0; pointer-events: none; }
+.methodology { display: none; }
+#tab-methodology:checked ~ .audit { display: none; }
+#tab-methodology:checked ~ .methodology { display: block; }
+#tab-audit:checked ~ .tabs label[for="tab-audit"],
+#tab-methodology:checked ~ .tabs label[for="tab-methodology"] { /* the selected tab's style */ }
+```
+
+Style the labels as tabs, the selected one marked, with a pointer cursor.
 
 **The slug** is the page's path with the query string, fragment and outer slashes cut, any
 remaining slash replaced by a hyphen, in lower case. `/pages/spring-sale?utm_source=x` gives
@@ -36,7 +56,6 @@ URL, and the context in short lines:
 - The Brand guardrails: confirmed, taken from the user's file, or the ones left unconfirmed.
 - The traffic source and awareness stage where the user named them; otherwise "Traffic source
   not given".
-- The link "How this audit works", which opens the Methodology page.
 
 ## The five headings
 
@@ -141,11 +160,11 @@ goal), and reads "Test or ship: needs traffic figures" only
 where the audit had neither a brain nor an export. The footnote names the lift rule and whether
 the table or the formula was used, and is left out where no row carries a call from traffic.
 
-## The Methodology page
+## The Methodology tab
 
-The second page: how the audit was made, for a reader who arrives cold. It has its own title,
-"Methodology", the "Back to the audit" link, and a fixed Summary that carries no figure. The copy is fixed: write it as given here,
-the same on every audit, so it never restates this page's results. It restates rules from
+The second tab: how the audit was made, for a reader who arrives cold. It has its own title,
+"Methodology", and a fixed Summary that carries no figure. The copy is fixed: write it as given
+here, the same on every audit, so it never restates this page's results. It restates rules from
 `references/ingredients.md`, `references/templates.md` and `references/diagnostics.md`: when one
 of those changes, change this copy with it. Summary: "How the audit works: sixty checks across
 six ingredients, what each one looks for and why it matters." Under it, in this order:
