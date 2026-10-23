@@ -46,7 +46,7 @@ Drill-down stops above it.
   whole denominator in the Current period, less the same for the Comparison period:
   `N_seg1 ÷ D1 − N_seg0 ÷ D0`. A segment whose volume grew or shrank therefore counts, as well as
   one whose rate moved. Show it in Success KPI units: its share of the lever's change times the
-  lever's Contribution (the share as the level's own mart measures it). Percentage points never appear as a contribution; the two period columns
+  lever's Contribution. Percentage points never appear as a contribution; the two period columns
   carry the rates.
 
 Either way the segments add exactly to the parent's change, so a level can be checked.
