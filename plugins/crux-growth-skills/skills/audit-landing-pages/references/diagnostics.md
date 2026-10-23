@@ -144,8 +144,8 @@ each call, so two runs on one page give the same call on every row.
 4. Both arms need twice that figure. Divide it by monthly visits for the months to read.
 5. Read as **Test** at 2 months or fewer, **Sequential read** above 2 and up to 6 months, and
    **Ship** above 6 months. Test and Sequential read say the months in the cell ("Test, about 6
-   weeks", "Sequential read, about 4 months"), to the nearest week or the nearest month. Ship
-   says why and carries no month count: "Ship: too little traffic to read a change this size".
+   weeks", "Sequential read, about 4 months"), to the nearest week or the nearest month; the call
+   itself is decided on the unrounded figure. Ship says why and carries no month count: "Ship: too little traffic to read a change this size".
 
 **How to use this in a backlog.** For each hypothesis, state which of these it is:
 
