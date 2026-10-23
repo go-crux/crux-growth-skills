@@ -24,8 +24,8 @@ Let `L(a, b) = (b − a) ÷ ln(b ÷ a)`, with `L(a, a) = a`.
 3. **A term inside a sum inherits its parent's Contribution in proportion to its own change.**
    For parent = a + b, the Contribution of `a` is the parent's Contribution times `Δa ÷ Δparent`,
    which is `Δa × Contribution(parent) ÷ Δparent`. Where the parent did not change, use
-   `Δa × L(P0, P1) ÷ L(parent0, parent1)` for the product P the parent is a factor of, the same
-   figure in its general form.
+   `Δa × L(P0, P1) × exponent ÷ L(parent0, parent1)` for the product P the parent is a factor of,
+   where exponent is the parent's exponent in P (+1 or −1): the same figure in its general form.
 
 Rules 1 to 3 nest: split the KPI by rule 2 or 1, then split each term that is itself a sum or a
 product by the same rules.
@@ -85,7 +85,7 @@ Rounded to the pound so the shown rows add exactly to the shown change:
 | **Sum** | **−£21,232** |
 
 The roles: the change is a fall, so new customers (−£19,881) is the Main driver. Half of it is
-£9,940.50, so margin % at −£9,836 falls just under and is not a second Main driver, and spend at
+£9,940.60, so margin % at −£9,836 falls just under and is not a second Main driver, and spend at
 −£5,000 is smaller still. Returning orders and order value pull the other way and are Offsets.
 
 ## Rounding

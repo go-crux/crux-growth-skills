@@ -96,7 +96,8 @@ periods' lever values. Then name the roles:
 
 - **Main driver**: the lever with the largest Contribution in the direction of the change. A
   second lever with at least half that Contribution is a Main driver too. Name at most two.
-- **Over the threshold**: a third lever with at least half the largest Contribution is named
+- **Over the threshold**: a third lever, in the direction of the change, with at least half the
+  largest Contribution is named
   with its figure and a one-line action, and is not drilled.
 - **Offset**: a lever whose Contribution runs against the change is named with its figure and
   never drilled.
