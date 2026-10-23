@@ -32,7 +32,8 @@ each lever's Source in plain words ("your Shopify orders", "your Google Ads camp
 
 **Shopify sessions by landing page** gives the visits total and no channel. Do not descend into
 its landing pages: a page's sessions move with the traffic sent to it, so with no channel level the
-visits lever is not drilled, and the Notes name the channel dimension that would let it be.
+visits lever has zero levels where it is a Main driver (it still gets its Cause and
+Recommendations), and the Notes name the channel dimension that would let it go further.
 
 **Order value** has no level to drill without order rows. Open its Drivers block with the
 discount read from Shopify sales over time: Discounts over Gross sales in both periods, in one
