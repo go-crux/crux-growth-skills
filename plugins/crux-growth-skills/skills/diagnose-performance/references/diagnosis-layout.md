@@ -71,8 +71,8 @@ many levers read "No data".
    Its block keeps the heading, the evidence sentence and the zero-levels closing line of **Plain
    wording**, naming what is missing in plain words, and the Notes name the dimension that would
    let it go further. It still has its Cause and Recommendations. With no Main driver, the
-   heading reads "Not drilled: there is no Main driver, because the Success KPI did not change or the levers your data could read all ran
-   against the change."
+   heading reads "Not drilled: there is no Main driver, because the Success KPI did not change
+   or the levers your data could read all ran against the change."
 5. **Cause**: for each drilled Main driver, headed by its lever, the user's answer in their
    words, or "Not confirmed". With no Main driver, it reads "Not confirmed: there is no Main
    driver to confirm a cause for."
