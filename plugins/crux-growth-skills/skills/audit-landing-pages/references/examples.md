@@ -226,9 +226,10 @@ work begins.
 # Part 2: a worked Audit
 
 The page below is fictional. It bundles common, instructive faults. Use it to calibrate the
-output standard and tone, not as findings about anything live. The Audit is shown in the order
-of the page's headings, minus Performance, which reads "Not available" with no traffic figures.
-The Methodology tab is left out too: its copy is fixed in `references/audit-layout.md`.
+output standard and tone, not as findings about anything live. The Audit tab is shown in the
+order `references/audit-layout.md` fixes, as markdown standing in for the HTML; the Methodology
+tab is left out, as its copy is fixed in that file. The page was read with neither a brain nor
+an export, so Performance carries only its Summary.
 
 ## The page
 
@@ -248,16 +249,29 @@ was fetched, and the user pasted one mobile screenshot of the first screen. Top 
 - A generic FAQ: "Where do you ship?", "How do I contact you?"
 - One hero, shown to every traffic segment.
 
-## Context
+## The Audit tab
 
-Assessed: `/pages/corelayer`, Page type landing page (dedicated), goal subscribe, mobile first.
-Search-ad traffic, solution-aware, ad text not given. Read from fetched HTML plus one mobile
-screenshot of the first screen. The user also pasted a list of cancellation reasons. Four checks are unassessed: Benefits 7 (needs the ad text) and
-User-friendly 4, 6 and 10 (need a render).
+**Landing page audit**
+`https://example.com/pages/corelayer`
+
+| | |
+|---|---|
+| Page | Landing page (dedicated); goal: subscribe; mobile first. |
+| How it was read | Fetched HTML, plus one mobile screenshot of the first screen. The user also pasted a list of cancellation reasons. |
+| Unassessed checks | Benefits 7 needs the ad text; User-friendly 4, 6 and 10 need a render or screenshots of the buy area. |
+| Brand guardrails | Confirmed: no competitor names, no medical claims, speaks to past buyers of the category. |
+| Traffic | Search ads, solution-aware visitors who have tried the category before. |
+
+## Performance
+
+**Summary:** Not available: a Shopify 'Sessions by landing page' export or a Growth Brain
+(gocrux.io/contact) would add visits, conversion and the funnel.
 
 ## Scorecard
 
-| Ingredient | Checks met | Band | Justification |
+**Summary:** 14 of 52 assessed checks met; the offer is the weakest ingredient at 0 of 7.
+
+| Ingredient | Checks met | Band | One-line justification |
 |---|---|---|---|
 | Makes the benefits clear | 2/9 | Absent | Hero leads with a technology name and an abstraction: no outcome, no quantified claim, no point of difference. |
 | Has an irresistible offer | 0/7 | Absent | A price with no unit reframe, no itemised inclusions, no risk reversal, no stated exit terms. |
@@ -267,49 +281,111 @@ User-friendly 4, 6 and 10 (need a render).
 | Gives people what they want | 3/10 | Weak | One generic hero for every segment; no fit tool; no secondary conversion. |
 | **Total** | **14/52** | | |
 
-**Failed checks.** Benefits 2, 3, 4, 5, 6, 8, 9 · Offer 1, 2, 3, 4, 5, 6, 8 (7, 9 and 10 n/a)
-· Trust 1, 2, 3, 4, 6, 8 · Written 1, 2, 5, 6, 7, 8, 9 · User-friendly 1, 2, 3, 5 (7 n/a) ·
-Gives people what they want 1, 2, 3, 5, 6, 7, 9.
+Benefits: check 7 would be settled by the ad text. User-friendly: checks 4, 6 and 10 would be
+settled by a browser render or mobile screenshots of the buy area.
+
+The check list follows, all sixty, one line each. The first two ingredients:
+
+**Makes the benefits clear**
+1. **Category is named.** Met
+2. **The headline names an outcome or a change.** Not met
+3. **A point of difference against the visitor's current alternative is stated.** Not met
+4. **A subhead translates the mechanism into a benefit.** Not met
+5. **At least one lead benefit is quantified.** Not met
+6. **A scannable benefit or spec strip appears within the first two screens.** Not met
+7. **The lead benefit continues the promise of the traffic source.** Unassessed: ad text not given
+8. **Nothing in the first screen needs decoding.** Not met
+9. **The benefit is the visitor's, not the product's.** Not met
+10. **The first screen makes a single argument.** Met
+
+**Has an irresistible offer**
+1. **Price is reframed into the unit the visitor thinks in.** Not met
+2. **What is included is itemised.** Not met
+3. **Included components carry a stated individual worth.** Not met
+4. **Any discount has a stated reason.** Not met
+5. **Risk reversal is present and within one screen of the primary CTA.** Not met
+6. **If there is a commitment, exit terms are stated at the decision point.** Not met
+7. **If there is a plan choice, one option is recommended and pre-selected.** n/a: one plan
+8. **Recurring plans are framed as upside.** Not met
+9. **Bonuses and gifts carry a cash value.** n/a: no bonus offered
+10. **Thresholds are stated with the gap to close.** n/a: no threshold
+
+The other four ingredients follow in the same shape. Their not-met checks: Trust 1, 2, 3, 4, 6,
+8 · Written 1, 2, 5, 6, 7, 8, 9 · User-friendly 1, 2, 3, 5 (7 n/a: one plan, no variants) · Gives
+people what they want 1, 2, 3, 5, 6, 7, 9.
 
 ## Findings
 
-**F1. The hero sells the technology, not the outcome.** Failed: Benefits 2, 3, 4, 9.
-Understanding and fit. A solution-aware visitor arrives mid-scepticism, looking for something
-that finally works. "Introducing CoreLayer Technology™: the future of the category" gives them
-no benefit and asks them to care about a new name before they know what it does. *Evidence:*
-heuristic. *Do:* lead with the outcome and the category-contrast argument, with the technology
-as the proof line beneath it.
+**Summary:** Five findings, structural first, as no traffic figures show a Leaking step; the
+benefits, the offer, the writing and fit tie at seven failed checks each.
 
-**F2. The offer is not made, only the price.** Failed: Offer 1, 2, 3, 4, 5, 6, 8. Trust. "£13.99
-per month" with no cancellation terms, nothing itemised and no risk reversal, under a countdown
-banner that names neither a saving nor a reason. The dominant objection for a disappointed buyer
-is "another one that won't work and I'll be stuck paying". *Evidence:* heuristic. *Do:* state
-the exit terms at the button, itemise everything included with its worth, show a per-use price
-beside the monthly charge, and replace the countdown with the reason the launch price exists.
+> **F1. The hero sells the technology, not the outcome.**
+> **Failed checks:** Benefits 2, 3, 4, 5, 6, 8, 9; Written 1, 2.
+> **Why it costs conversions:** understanding. A solution-aware visitor arrives mid-scepticism,
+> looking for something that finally works, and is asked to care about a new name before they
+> know what it does.
+> **What:** the headline "Introducing CoreLayer Technology™: the future of the category" and
+> the subhead "Our advanced triple-active formula is here" name no benefit, no number and no
+> difference from what the visitor tried before.
+> **Evidence:** Heuristic.
+> **Do:** lead with the outcome and the category-contrast argument, with the technology as the
+> proof line beneath it.
 
-**F3. The strongest proof is small print, and none of it is independent.** Failed: Trust 1, 2,
-4. Trust. The only statistic comes from the brand's own study and sits beneath the mechanism,
-far from the price where the doubt bites. *Evidence:* heuristic. *Do:* promote the statistic
-into a proof module with its study context above the pricing block, and add one piece of
-third-party proof.
+> **F2. The offer is not made, only the price.**
+> **Failed checks:** Offer 1, 2, 3, 4, 5, 6, 8.
+> **Why it costs conversions:** trust. The dominant objection for a disappointed buyer is
+> "another one that won't work and I'll be stuck paying", and nothing at the price answers it.
+> **What:** "£13.99/month" with no cancellation terms, nothing itemised and no risk reversal,
+> under a countdown banner that names neither a saving nor a reason.
+> **Evidence:** Heuristic.
+> **Do:** state the exit terms at the button, itemise everything included with its worth, show
+> a per-use price beside the monthly charge, and replace the countdown with the reason the
+> launch price exists.
 
-**F4. The FAQ answers logistics, not doubts.** Failed: Written 6, 7. Trust. Shipping and contact
-questions, while "how long until I notice a difference" and "can I use it alongside what I
-already use" go unanswered. *Evidence:* the cancellation reasons the user pasted. *Do:* rebuild it from the objection
-inventory, answering each doubt concretely near the claim that triggers it.
+> **F3. The strongest proof is small print, and none of it is independent.**
+> **Failed checks:** Trust 1, 2, 3, 4, 6, 8.
+> **Why it costs conversions:** trust. Doubt bites at the price, and the proof sits far from it.
+> **What:** the only statistic comes from the brand's own study, in small print beneath the
+> mechanism. There are no reviews, no review count, no outside voice, and "the future of the
+> category" stands unbounded.
+> **Evidence:** Heuristic.
+> **Do:** promote the statistic into a proof module with its study context above the pricing
+> block, add one piece of third-party proof and attributed reviews, and bound the superlative.
 
-**F5. One hero for every segment.** Failed: Fit 1, 3, 9. Fit. A first-time buyer and a visitor
-who tried the category before read the same opening. *Evidence:* heuristic. *Do:* serve a
-variant per ad group; the shared body can stay.
+> **F4. The FAQ answers logistics, not doubts.**
+> **Failed checks:** Written 5, 6, 7, 8, 9.
+> **Why it costs conversions:** trust. The doubts that stop this audience go unanswered.
+> **What:** "Where do you ship?" and "How do I contact you?", while "how long until I notice a
+> difference" and "can I use it alongside what I already use" appear nowhere, and no list says
+> why this rather than the last one.
+> **Evidence:** the cancellation reasons the user pasted.
+> **Do:** rebuild it from the objection inventory, answering each doubt concretely near the
+> claim that triggers it, with a numbered reasons-to-buy block and the time to first result.
+
+> **F5. One hero for every segment.**
+> **Failed checks:** Fit 1, 2, 3, 5, 6, 7, 9.
+> **Why it costs conversions:** fit. A first-time buyer and a visitor who tried the category
+> before read the same opening, and the not-ready visitor has nowhere to go.
+> **What:** one hero, no statement of who the page is for, no finder and no email capture.
+> **Evidence:** Heuristic.
+> **Do:** serve a hero variant per ad group, and give the not-ready visitor a reason to leave an
+> email; the shared body can stay.
 
 ## Quick wins
+
+**Summary:** Four quick wins, settling the countdown, the CTA, the exit terms and the
+navigation.
 
 - **Q1.** Remove the countdown and say what the launch offer is and why it exists (Offer 4).
 - **Q2.** Replace "Learn more" and "Subscribe" with one primary CTA wording, visible in the first
   screen on mobile and repeated after each block (User-friendly 1, 2, 3).
 - **Q3.** Add the cancellation terms beside the price (Offer 6).
+- **Q4.** Add anchor links to the mechanism, the offer and the FAQ under the hero
+  (User-friendly 5).
 
 ## Test backlog
+
+**Summary:** Five hypotheses; the outcome-led hero ranks first.
 
 > **H1. Outcome-led hero for solution-aware search traffic**
 > **Observation:** hero fails Benefits 2, 3, 4 and 9: technology name plus an abstraction, no
@@ -318,7 +394,7 @@ variant per ad group; the shared body can stay.
 > technology demoted to the proof line beneath.
 > **Expected effect:** higher hero-to-CTA click and overall conversion. The visitor sees their
 > problem and a credible answer in the first screen.
-> **Ingredient / reason:** benefits clear, understanding and fit.
+> **Ingredient / reason:** benefits clear, understanding.
 > **Read as:** Test or ship: needs traffic figures.
 > **ICE:** Impact 5 · Confidence 4 · Ease 4 · **Total 13**
 
@@ -350,7 +426,7 @@ variant per ad group; the shared body can stay.
 > claim that triggers it.
 > **Expected effect:** higher conversion among visitors who scroll past the offer; fewer silent
 > exits at the doubt stage.
-> **Ingredient / reason:** written well, trust and understanding.
+> **Ingredient / reason:** written well, trust.
 > **Read as:** Test or ship: needs traffic figures.
 > **ICE:** Impact 3 · Confidence 4 · Ease 4 · **Total 11**
 

@@ -39,6 +39,14 @@ column added. Without cart additions or sessions that reached checkout, carry on
 funnel rates that need the missing column, saying which in one line; ask for a re-export only if
 the user wants them.
 
+## The period
+
+The file carries no date column: Shopify puts the date range only in the file name,
+`Sessions by landing page - <from> - <to>.csv`. Read the period from the name where it carries
+both dates, and count its days from them. Where the name carries none (the file was renamed, or
+the rows were pasted), ask for the date range in one line before ranking, rather than assuming
+90 days.
+
 ## The rules
 
 The Page type, the pages never ranked and the cut are those of `references/find.sql`, read from
@@ -77,8 +85,8 @@ order.
 ## The read-as call
 
 `references/diagnostics.md` section 4 takes the page's monthly visits and conversion. From the
-export, monthly visits are the page's sessions × 30 ÷ the days in the date range (90 unless the
-user set another), and conversion is the page's conversion above.
+export, monthly visits are the page's sessions × 30 ÷ the days in the period (from the file name, or as
+the user gave it), and conversion is the page's conversion above.
 
 ## The match for an Audit
 

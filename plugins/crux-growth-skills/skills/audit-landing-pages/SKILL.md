@@ -10,7 +10,8 @@ ingredients, prioritised findings, quick wins and an ICE-scored test backlog, wi
 `references/audit-layout.md` fixes it. Run the steps in order. The user sees only the chat
 and the page, never this skill or its references: say what the page showed, in plain words with
 its evidence, and never cite a file or a rule. The terms Find, Audit, Brand guardrails, Page
-type, Benchmark, Revenue at stake, Orders at stake and Underperforming page are those of
+type, Benchmark, Revenue at stake, Orders at stake, Underperforming page, Non-sale page and
+Leaking step are those of
 `references/glossary.md`; use them as written.
 
 ## 1. Connect
@@ -23,9 +24,9 @@ the page alone, and from a Shopify export where the user has one.
 
 With a brain connected, a user who asks which landing pages are underperforming, or who gives
 no URL, goes to step 2 (Find). A user who gives a URL goes to step 3 (Performance); a brain is
-never asked for the export. Without a brain, a user who asks which pages are underperforming or
-what to test goes to step 2, which asks for the export; a user who gives a URL goes to step 3
-when the conversation already holds an export, otherwise to step 4.
+never asked for the export. Without a brain, a user who asks which pages are underperforming, or what
+to test with no URL, goes to step 2, which asks for the export; a user who gives a URL goes to
+step 3 when the conversation already holds an export, otherwise to step 4.
 
 **Done when** the run has named the connector it uses or said it runs without one, and has sent
 the user to Find or holds one page URL; with several connectors, the run used the one matching the
@@ -86,7 +87,8 @@ exporting one Shopify report and ask for the file. A user with no file to give g
 asking for the URL of the page to audit, and goes to step 4. From the file, apply that
 reference's rules and write to the chat, with no file:
 
-- Above the list: the period (the date range the file covers), the site's total sessions and the
+- Above the list: the period (read from the file name, or asked for, as that
+  reference sets out), the site's total sessions and the
   site's conversion, named as sessions that completed checkout over sessions.
 - Up to 10 Underperforming pages, largest Orders at stake first, each with its page, Page type,
   sessions, conversion, Benchmark conversion and Orders at stake. Say in a line that the
@@ -112,7 +114,7 @@ first recommended.
 
 Runs when the run holds a page URL (given, or chosen in step 2) and either step 1 found a brain,
 or there is no brain and the conversation holds a Shopify export; otherwise go to step 4, where
-the Performance heading reads "Not available". A Non-sale page is checked first, brain or not;
+Performance's Summary reads "Not available". A Non-sale page is checked first, brain or not;
 then, without a brain, follow "From the export" below and skip the rest of this step.
 
 **A Non-sale page.** Reduce the URL to its path as **Match** sets out. Where `find.sql`'s
@@ -181,7 +183,7 @@ what the brand will not do.
 - Without it, infer the Brand guardrails from the page and the site, open with the lead-in
   that says what the questions are for, then ask one round of three questions: levers off the
   table, claims, who the page is for. Each carries the inferred answer as its recommendation;
-  "yes" accepts it and "skip" leaves it unconfirmed.
+  "yes" accepts it, "skip" leaves it unconfirmed and "just write it" accepts every remaining one.
 - Offer to save the answers as `brand-guardrails.md`: in the working folder where one persists,
   otherwise as a download. Never write it into the plugin folder.
 
@@ -201,7 +203,8 @@ otherwise. Once you have read the page, name the single conversion goal its prim
 Where the user has not stated it and the page has no primary CTA or several that compete, ask
 one question with your recommended goal; "yes" accepts it. A path `find.sql`'s
 `not_online_sale` rule matches is a Non-sale page, whose goal is not an online purchase (finding
-a stockist, getting in touch, an answer).
+a stockist, getting in touch, an answer); so is any page whose goal, as the user states it or as
+its primary CTA serves it, is not an online purchase.
 
 **A Non-sale page.** Online conversion and revenue do not measure its goal, so Performance opens
 on that, naming the goal; the findings go structural first; and every **Read as** says the
@@ -242,7 +245,7 @@ standard for a finding.
    (section 2) and the leverage order (section 5), and build the inventory from the page and any
    evidence the user gave.
 2. **Quick wins.** The changes to ship without a test, each naming the checks it settles.
-3. **Hypotheses.** One for each finding, numbered to match, scored with ICE and ranked in the
+3. **Hypotheses.** One for each finding a quick win does not settle, numbered to match, scored with ICE and ranked in the
    backlog table. For a Non-sale page, each row's **Read as** says the change is read on the
    page's own goal. Otherwise, where step 3 returned the page's visits and conversion, each row's
    **Read as** cell is the test, sequential read or ship call from the sample-size table and the

@@ -84,7 +84,7 @@ Five cases.
 Summary is that one line: "Online figures do not measure this page: its goal is <the goal>, not
 an online purchase." Nothing else sits under the heading.
 
-**Neither a brain nor an export.** The heading reads **Not available**, and its Summary is that one line:
+**Neither a brain nor an export.** The heading stays **Performance**, and its Summary is that one line:
 "Not available: a Shopify 'Sessions by landing page' export or a Growth Brain
 (gocrux.io/contact) would add visits, conversion and the funnel." Nothing else sits under the
 heading.
@@ -145,8 +145,8 @@ findings F1, F2, F3 in order, as `references/templates.md` sets them out.
 The order is the Leaking step's where Performance names one (structural first within each group),
 otherwise structural first, and the Summary says which. Each names its failed checks and one of
 trust, understanding or fit, and ends on a **Do**. With
-no failed check the heading reads "No findings", with the Summary saying every assessed check
-is met.
+no failed check the Summary reads "No findings: every assessed check is met", and nothing else
+sits under the heading.
 
 ### 4. Quick wins
 
@@ -160,8 +160,9 @@ Summary: how many hypotheses and the top-ranked one by name. Under it, in this o
 hypothesis blocks H1, H2, H3 numbered to match their findings, the ranked table, then the
 sequencing line, then the backlog footnote. The table's **Read as** column carries each row's
 call as `references/templates.md` sets it (for a Non-sale page, the read on the page's own
-goal), and reads "Test or ship: needs traffic figures" only
-where the audit had neither a brain nor an export. The footnote names the lift rule and whether
+goal), reads "Test or ship: needs traffic figures" only
+where the audit had neither a brain nor an export, and "Test or ship: no traffic found for this
+page" where a brain or an export held none for it. The footnote names the lift rule and whether
 the table or the formula was used, and is left out where no row carries a call from traffic.
 
 ## The Methodology tab

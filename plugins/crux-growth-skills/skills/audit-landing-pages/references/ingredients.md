@@ -1,8 +1,8 @@
 # The six ingredients: sixty observable checks
 
-Adapted from Conversion Rate Experts' *Making Websites Win* ("the ingredients of a winning
-website"). The checks are our own wording, written so you can run them against a page and get
-the same answer twice.
+The checks are written so you can run them against a page and get the same answer twice. The
+framework's credit is in the Methodology tab's copy, in `references/audit-layout.md`, and only
+there.
 
 ## How to score
 
