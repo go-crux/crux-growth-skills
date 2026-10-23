@@ -2,7 +2,7 @@
 
 Opened by the Performance step when `<client>-ecommerce_funnel` is on the roster. The page's
 visits, conversion, revenue per visit, Benchmark, Revenue at stake and top 3 channels come from
-`references/find.sql`'s Audit query, never from here, so the shortlist and the audit agree on a
+`references/audit.sql` (on `references/find.sql`'s CTEs), never from here, so the shortlist and the audit agree on a
 page's gap.
 
 ## The query
@@ -32,6 +32,17 @@ the Benchmark compare the page with the same pages.
 | Checkout start rate | sessions that started checkout over sessions that added to basket |
 | Checkout completion rate | purchase sessions over sessions that started checkout |
 | Session purchase conversion rate | purchase sessions over sessions |
+
+## Which conversion the page headlines
+
+The Audit shows two conversions and they differ: conversion from `<client>-channel_reporting`
+(orders over visits, from `audit.sql`) and the funnel's Session purchase conversion rate
+(purchase sessions over the funnel's own sessions). The page headlines the first, in its
+Summary, its figures table and every Read as cell. The funnel's
+appears only in the funnel table and the device split, and a footnote says so: "Conversion in
+the page's figures is orders over visits from the traffic table. The funnel and device figures
+count purchase sessions over the funnel's own sessions, on the days the funnel holds, so their
+purchase rate differs." The page never places the two side by side as one rate.
 
 The page shows each rate beside its Page type's, with the relative gap. Mobile against desktop is
 the session purchase conversion rate on each device, for the page and for its Page type. A
@@ -63,4 +74,4 @@ The Leaking step puts these findings first, structural first within them; the re
 
 Under the funnel table: the first and last day it covers ("Funnel and device figures cover 12
 March to 30 March, the days of the period the funnel table holds"), and that every rate is
-summed over summed.
+summed over summed, then the conversion note above.

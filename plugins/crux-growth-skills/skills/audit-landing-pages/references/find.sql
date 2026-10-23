@@ -1,6 +1,6 @@
--- Put these CTEs ahead of every query and join to them; each rule is stated once, here. Close
--- the statement with one of the two queries at the foot: Find as written, or Audit (one page),
--- which is commented out: use it in place of the Find query, with its comment marks removed.
+-- Put these CTEs, everything above the FIND line, ahead of every query and join to them; each rule
+-- is stated once, here. Close the statement with the Find query at the foot as written, or with
+-- audit.sql's query for one page.
 -- Replace the <angle-bracket> names in `source` with the columns list_tables returns for
 -- `<client>-channel_reporting`; nothing else in this file changes by brand.
 -- Timezone: where the brain's own instructions name the store's timezone, write every
@@ -169,6 +169,15 @@ underperforming_page AS (
   WHERE g.visits >= cut.min_visit_share * site.visits
     AND g.revenue_per_visit <= (1 - cut.min_gap) * g.benchmark_revenue_per_visit
     AND g.revenue_at_stake > 0
+),
+-- Each ranked page's channels by visits, with each one's share of the page's visits. The Find
+-- query leaves it unused; audit.sql reads it.
+page_channel_share AS (
+  SELECT
+    landing_page, channel, visits,
+    SAFE_DIVIDE(visits, SUM(visits) OVER (PARTITION BY landing_page)) AS visit_share,
+    ROW_NUMBER() OVER (PARTITION BY landing_page ORDER BY visits DESC) AS channel_rank
+  FROM page_channel
 )
 
 -- FIND. One row with the site and period, joined to the top 10 Underperforming pages. A NULL
@@ -185,31 +194,3 @@ LEFT JOIN (
   SELECT * FROM underperforming_page ORDER BY revenue_at_stake DESC LIMIT 10
 ) AS u ON TRUE
 ORDER BY u.revenue_at_stake DESC
-
--- AUDIT. In place of the Find query above, for one page: replace <path> with the audit URL
--- reduced by the landing page rule above (scheme and host dropped, query string, fragment and
--- trailing slash cut, the home page '/'). Returns the page's visits, conversion, revenue per
--- visit, Benchmark revenue per visit and Revenue at stake (negative where the page is ahead of
--- its Benchmark), with its top 3 channels by visits and each one's share of the page's visits.
--- No rows means the page has no visits in the mart (or is an excluded page).
--- , target AS (SELECT '<path>' AS landing_page),
--- page_channel_share AS (
---   SELECT
---     pc.landing_page, pc.channel, pc.visits,
---     SAFE_DIVIDE(pc.visits, SUM(pc.visits) OVER (PARTITION BY pc.landing_page)) AS visit_share,
---     ROW_NUMBER() OVER (PARTITION BY pc.landing_page ORDER BY pc.visits DESC) AS channel_rank
---   FROM page_channel AS pc
---   JOIN target USING (landing_page)
--- )
--- SELECT
---   p.date_from, p.date_to, site.visits AS site_visits,
---   g.landing_page, g.page_type, g.visits, g.orders, g.conversion,
---   g.revenue_per_visit, g.benchmark_revenue_per_visit, g.revenue_at_stake,
---   s.channel, s.visit_share, s.channel_rank
--- FROM page_gap AS g
--- JOIN target USING (landing_page)
--- JOIN page_channel_share AS s USING (landing_page)
--- CROSS JOIN period AS p
--- CROSS JOIN site
--- WHERE s.channel_rank <= 3
--- ORDER BY s.channel_rank;

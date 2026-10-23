@@ -21,8 +21,8 @@ URL, and the context in short lines:
 
 - Page type, the single conversion goal and the device priority (mobile first unless told
   otherwise).
-- How the page was read: rendered at mobile width, fetched HTML only, and any screenshots the
-  user gave.
+- How the page was read: rendered at mobile width, fetched HTML only (naming a browser tool
+  that failed, where it did), and any screenshots the user gave.
 - Which checks are unassessed and the input that would settle them, in one line.
 - The Brand guardrails: confirmed, taken from the user's file, or the ones left unconfirmed.
 - The traffic source and awareness stage where the user named them; otherwise "Traffic source
@@ -75,6 +75,7 @@ stake in one sentence, and names the Leaking step where there is one. Under it, 
 1. **The page's figures**, one table: visits, conversion, revenue per visit, Benchmark revenue per
    visit and Revenue at stake, with the period's dates and the revenue column named above it. A
    page ahead of its Benchmark shows its Revenue at stake as a negative and says so in a few words.
+   The page's conversion here, orders over visits, is the page's one headline conversion.
 2. **The top 3 channels**, each with its share of the page's visits.
 3. **Mobile against desktop**: the session purchase conversion rate on each device, beside the
    same Page type's.
@@ -82,7 +83,8 @@ stake in one sentence, and names the Leaking step where there is one. Under it, 
    Page type and the relative gap, with the Leaking step marked.
 5. **The footnote**: the revenue column and whether it includes tax and shipping, as the column
    shows it ("revenue is total sales ex tax, after discounts and returns" or "... inc tax, ..."),
-   the days the funnel covers, and that each rate is summed over summed.
+   the days the funnel covers, that each rate is summed over summed, and the conversion note
+   `references/performance.md` sets out.
 
 A part the brain cannot give is replaced by one line saying why, never dropped silently: without
 a funnel table, one line stands for both the device split and the funnel ("The brain holds no
