@@ -6,7 +6,8 @@ description: Landing page audit. Use when someone asks to improve or audit a lan
 # Landing page audit
 
 Produce `landing-page-audit-<slug>.html` for one page: a scorecard of sixty checks across six
-ingredients, prioritised findings, quick wins and an ICE-scored test backlog, laid out as
+ingredients, prioritised findings, quick wins, an ICE-scored test backlog and the methodology
+behind them, laid out as
 `references/audit-layout.md` fixes it. Run the steps in order. The user sees only the chat
 and the page, never this skill or its references: say what the page showed, in plain words with
 its evidence, and never cite a file or a rule. The terms Find, Audit, Brand guardrails, Page

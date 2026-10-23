@@ -42,7 +42,8 @@ Six headings, always present, always in this order, with these words:
 Each opens with a one-line **Summary** before anything else under it: one sentence of plain
 prose saying what the section holds and its key takeaway, with its figure (for example "14 of
 52 assessed checks met; the offer is the weakest ingredient at 0 of 7"). A heading with
-nothing under it stays on the page, and its Summary gives the reason.
+nothing under it stays on the page, and its Summary gives the reason. Methodology is the one
+exception: its Summary is fixed copy and carries no figure.
 
 ### 1. Performance
 
@@ -135,27 +136,30 @@ the table or the formula was used, and is left out where no row carries a call f
 ### 6. Methodology
 
 How the audit was made, for a reader who arrives cold. The copy is fixed: write it as given here,
-the same on every audit, so it never restates this page's results. Summary: "How the audit works:
-sixty checks across six ingredients, adapted from Conversion Rate Experts' *Making Websites
-Win*." Under it, in this order:
+the same on every audit, so it never restates this page's results. It restates rules from
+`references/ingredients.md`, `references/templates.md` and `references/diagnostics.md`: when one
+of those changes, change this copy with it. Summary: "How the audit works: sixty checks across
+six ingredients, what each one looks for and why it matters." Under it, in this order:
 
 1. **How the audit works**, a numbered list:
-   1. We read the page as a visitor sees it, phone first, alongside its visits and orders where a
-      Growth Brain or a Shopify export holds them.
+   1. We read the page as a visitor sees it, on a phone first where we can render it and from its
+      HTML where we cannot, alongside its visits and orders where a Growth Brain or a Shopify
+      export holds them.
    2. We score it against sixty checks, ten for each ingredient. Each check is Met, Not met, n/a
-      or Unassessed, and an ingredient's score is the checks met over the checks we could assess.
-   3. Every failed check becomes a finding or a quick win. Where the figures show the step at
-      which visitors drop out, the findings that bear on that step come first.
-   4. Each finding becomes a test idea, ranked by ICE: impact, confidence and ease, each out of 5.
-      Where the page's traffic is known, each one says whether to run a test, read it over a
-      longer period, or ship the change.
+      or Unassessed, and an ingredient's score is the checks met over the checks met or not met.
+   3. Every failed check becomes a finding or a quick win. Where the figures show the Leaking
+      step, the funnel step where the page loses most against similar pages, the findings that
+      bear on that step come first.
+   4. Each finding that is not a quick win becomes a test idea, ranked by ICE: impact, confidence
+      and ease, each out of 5. Where the page sells online and its traffic is known, each one says
+      whether to run a test, take a sequential read (before against after), or ship the change.
 2. **The six ingredients**, one table, columns Ingredient, What we check and Why it matters:
 
    | Ingredient | What we check | Why it matters |
    |---|---|---|
    | Makes the benefits clear | In the first screen, a visitor knows what is on offer, what it does for them and why it beats what they use now, told as outcomes rather than features. | Visitors decide in seconds whether a page is for them. If they cannot see the benefit, they read no further. |
    | Has an irresistible offer | Everything the visitor gets, what they pay, the terms, the risk they carry and any bonus. | A good product still loses on a weak offer. The offer is what makes yes easy and no feel like leaving value behind. |
-   | Is trustworthy | Proof matched to each doubt a visitor brings: reviews, guarantees, credentials and evidence that the claims are true. | Doubt is the reason shoppers give most often for not buying, so this ingredient usually has the most to gain. |
+   | Is trustworthy | Proof matched to each doubt a visitor brings: reviews, guarantees, credentials and evidence that the claims are true. | Doubt is among the reasons shoppers give most often for not buying, so this ingredient often has the most to gain. |
    | Is written well | Copy that is concrete, specific and easy to scan, in the order of an argument, with each objection answered where it comes up. | Visitors skim. Vague or muddled copy leaves the question that stops a purchase unanswered. |
    | Is user-friendly | A page that is easy to understand, easy to find your way round and quick to act on, on the device people use. | Every moment of friction, doubt or delay before the one action loses some of the people who came to buy. |
    | Gives people what they want | The page matches what this visitor came for: their intent, who they are, how ready they are to buy and the next step they will take. | A clear, trustworthy, well-built page still loses when it answers a question this visitor was not asking. |
