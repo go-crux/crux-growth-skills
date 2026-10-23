@@ -76,7 +76,7 @@ any platform-reported lists.
 
 ## Page 5: Targets
 
-One block per month (November, December) with a **Target test table**, then **Pillar gap** and
+One block per month (November, December) with a **Target test table**, then **Lever gap** and
 **Scenarios** sub-headings. A sub-heading with no Stretch or Unrealistic target under it reads
 "Not needed: every target is Achievable".
 
@@ -88,7 +88,7 @@ One block per month (November, December) with a **Target test table**, then **Pi
   is shown as a ratio over Baseline (1.4 reads "×1.4"); on a ratio such as conversion or CAC
   it is the relative change ("−10%"). Spend's verdict cell reads "Input to CAC". The revised
   figure is filled for Unrealistic targets only and reads "Not needed" elsewhere.
-- The Pillar gap table has one row per pillar (new customers, returning customer orders,
+- The Lever gap table has one row per lever (new customers, returning customer orders,
   order value) and the columns last-year level, plan-implied figure, required relative change.
 - Each Scenario is one row: the move, its size, its cost or ask, and its effect on the other
   targets.

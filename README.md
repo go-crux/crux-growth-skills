@@ -2,8 +2,8 @@
 
 Free skills for your own Claude, written by operators who have scaled ecommerce brands (Fussy,
 £2.2M to £22M GMV; DogBuddy, acquired by Rover). Each skill carries one piece of the craft we use
-with our clients, such as planning Black Friday from last year's numbers or auditing a landing
-page, and runs on your own data inside your own Claude.
+with our clients, such as planning Black Friday from last year's numbers, auditing a landing page
+or finding out why a number moved, and runs on your own data inside your own Claude.
 
 The skills work best with a **Crux Growth Brain** connected: a Claude connector that answers
 questions from your own warehouse, with your orders, marketing and customers in one place. You
@@ -75,6 +75,22 @@ them by the orders each is missing. A Crux Growth Brain adds the revenue each pa
 traffic by channel and device, and the full funnel, so the audit starts with the step where the
 page loses most people. Ask Claude to audit a landing page, or send `/audit-landing-pages` in
 Claude Code.
+
+**Diagnose performance** (`diagnose-performance`) finds out why a number moved. Pick the
+figure you are judging, such as net sales, orders or profit, and any two periods, such as last
+month against the month before, or this quarter against the same quarter last year. It splits the figure into
+the levers that build it (visits, conversion and order value, for example), says how much of the
+change each lever explains, and names the main driver. It then drills into that driver one level
+at a time, by channel, product or customer group, asks you what you think caused it, and
+recommends what to do about it, with what to watch and how to check it worked. You leave with one
+page for your team: the change, the levers, the drill-down and the recommendations. Nothing is
+changed in your ads, your store or your data.
+
+*Needs:* nothing to start. Without a Growth Brain it reads what Claude is connected to (Shopify,
+Google Analytics 4, Google Ads or Meta Ads) and asks you for a report export where a lever has no
+connector, and it says plainly which levers it could not read. A Crux Growth Brain adds profit
+margin, one source for every lever, and the drill-down by channel, product and customer cohort.
+Ask Claude why a number moved, or send `/diagnose-performance` in Claude Code.
 
 ## Getting a Growth Brain
 

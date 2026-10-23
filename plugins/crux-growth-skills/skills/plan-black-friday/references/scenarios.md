@@ -1,7 +1,7 @@
 # Scenarios
 
 Open this for a month with a Stretch or Unrealistic target. Every figure below is for one month,
-as a month total, and uses the last-year level and the Pillar gap table from step 3.
+as a month total, and uses the last-year level and the Lever gap table from step 3.
 
 **Gap to close.** Revenue gap = plan revenue − last-year level revenue, when revenue is Stretch
 or Unrealistic. When revenue is Achievable and orders are not, the gap is plan orders −
@@ -14,9 +14,9 @@ Two inputs:
 - CAC = the last-year level CAC (step 2): this year's Baseline CAC at last year's CAC Lift, so
   extra customers are priced at this year's cost, not last year's.
 
-**Three Scenarios, one pillar each, the other two held at the last-year level.**
+**Three Scenarios, one lever each, the other two held at the last-year level.**
 
-| Scenario | Pillar | What moves | Cost or ask |
+| Scenario | Lever | What moves | Cost or ask |
 |---|---|---|---|
 | New customers | new customers | Extra new orders = gap over A (the orders gap itself when closing orders) | Extra spend = extra new orders × CAC, set beside plan spend less last-year level spend (step 2) |
 | Order value | order value | Order value must reach plan revenue over last-year level orders, a relative change of plan revenue over last-year level revenue less 1 | Basket or price move; orders unchanged |
@@ -27,7 +27,7 @@ Two inputs:
 - Show all three. Drop a Scenario whose figure cannot be computed (no last-year level CAC, or no
   returning-order split) and keep at least two.
 - Closing an orders gap leaves out Order value, so it shows two.
-- Only new orders or implied CAC not Achievable: new customers is the one pillar. Show it
+- Only new orders or implied CAC not Achievable: new customers is the one lever. Show it
   twice, once at the last-year level CAC and once at this year's Baseline CAC, each with its
   extra spend.
 

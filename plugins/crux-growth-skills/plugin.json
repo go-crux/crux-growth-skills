@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "crux-growth-skills",
-  "version": "0.3.0",
-  "description": "Growth skills for ecommerce brands by gocrux.io, written by operators who have scaled them. They work best with a Crux Growth Brain connected. The plugin carries two skills: a Black Friday plan (last year's Black Friday read on your own data, your November and December targets tested against it, and an agreed plan with day-by-day targets you can download) and a landing page audit (find your weakest pages, or audit any page from its URL, with prioritised fixes and a test backlog).",
+  "version": "0.4.0",
+  "description": "Growth skills for ecommerce brands by gocrux.io, written by operators who have scaled them. They work best with a Crux Growth Brain connected. The plugin carries three skills: a Black Friday plan (last year's Black Friday read on your own data, your November and December targets tested against it, and an agreed plan with day-by-day targets you can download), a landing page audit (find your weakest pages, or audit any page from its URL, with prioritised fixes and a test backlog) and a performance diagnosis (why a KPI moved between two periods, split into its levers, with the main driver found and what to do about it).",
   "author": {
     "name": "Crux"
   },

@@ -6,7 +6,7 @@ that month.
 
 1. **Propose.** For each month and measure the budget does not plan, use the last-year level
    (step 2) as the target and label it "Proposed: last year's Lift on this year's Baseline". It
-   reads Achievable by construction, so no Pillar gap follows for it alone. Ask nothing yet: the
+   reads Achievable by construction, so no Lever gap follows for it alone. Ask nothing yet: the
    question waits for the grill.
 2. **Ask in round 4.** Round 4 opens by asking the user's own figure for each Proposed target,
    recommending the proposed one, so they can answer "yes".

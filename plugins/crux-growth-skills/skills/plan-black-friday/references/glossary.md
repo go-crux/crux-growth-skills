@@ -15,13 +15,15 @@ to that year's Black Friday, the last Friday of November, so years compare like 
 
 - **Target test**: this year's planned November and December, from the client's budget (`daily_budget_versus_actuals`), turned into a Lift and judged against the last two years' actual Lift as Achievable, Stretch or Unrealistic. _Avoid_: feasibility check, sense check.
 
-- **Last-year level**: what this year's Baseline would deliver at last year's Lift, a figure per target for the month (CAC: Baseline CAC at last year's CAC Lift). The reference every Pillar gap and Scenario reads against, and the revised figure for an Unrealistic target. _Avoid_: 2025 level, benchmark.
+- **Last-year level**: what this year's Baseline would deliver at last year's Lift, a figure per target for the month (CAC: Baseline CAC at last year's CAC Lift). The reference every Lever gap and Scenario reads against, and the revised figure for an Unrealistic target. _Avoid_: 2025 level, benchmark.
 
 - **Returning customer orders**: orders less new orders in a window or month, the growth-equation term for repeat buying; few customers order twice inside one window, so it is counted in orders, not orders per customer. _Avoid_: order frequency, repeat rate.
 
-- **Pillar gap**: what new customers, returning customer orders and order value must each do to close a Stretch or Unrealistic target, read against last year's. _Avoid_: shortfall, variance.
+- **Lever**: one term of the growth equation, new customers, returning customer orders or order value, that together rebuild revenue. _Avoid_: pillar, factor.
 
-- **Scenario**: one way of closing the Pillar gap through a single pillar, the others held at last year's level. _Avoid_: option, play.
+- **Lever gap**: what new customers, returning customer orders and order value must each do to close a Stretch or Unrealistic target, read against last year's. _Avoid_: shortfall, variance, pillar.
+
+- **Scenario**: one way of closing the Lever gap through a single lever, the others held at last year's level. _Avoid_: option, play.
 
 - **Daily phasing**: the agreed monthly targets re-spread by last year's daily shape, aligned by days from Black Friday through Cyber Monday and by days before 24 December from Festive to the end of December, so the days still add back to each whole month. _Avoid_: daily budget (the budget's own weekday spread).
 
