@@ -178,16 +178,17 @@ what the brand will not do.
 - With `brand-guardrails.md` in the working folder or the conversation's project files, show it
   in two lines and ask "Still right?". Do not ask the three questions again. Changes go back
   into the file.
-- Without it, infer the Brand guardrails from the page and the site, then ask one round of
-  three questions: levers off the table, claims, who the page is for. Each carries the inferred
-  answer as its recommendation; "yes" accepts it and "skip" leaves it unconfirmed.
+- Without it, infer the Brand guardrails from the page and the site, open with the lead-in
+  that says what the questions are for, then ask one round of three questions: levers off the
+  table, claims, who the page is for. Each carries the inferred answer as its recommendation;
+  "yes" accepts it and "skip" leaves it unconfirmed.
 - Offer to save the answers as `brand-guardrails.md`: in the working folder where one persists,
   otherwise as a download. Never write it into the plugin folder.
 
-**Done when** each of the three (levers, claims, audience) is confirmed, answered or marked
-skipped; a run with the file present asked "Still right?" and not the three questions; the save
-was offered or the file was left unchanged; and the unconfirmed guardrails are listed for the
-Audit to mark.
+**Done when** the user heard what the questions are for before the first one; each of the
+three (levers, claims, audience) is confirmed, answered or marked skipped; a run with the file
+present asked "Still right?" and not the three questions; the save was offered or the file was
+left unchanged; and the unconfirmed guardrails are listed for the Audit to mark.
 
 ## 5. Audit
 
