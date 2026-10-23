@@ -119,6 +119,7 @@ check needs a test").
 
 Summary: how many hypotheses and the top-ranked one by name. Under it, in this order: the
 hypothesis blocks H1, H2, H3 numbered to match their findings, the ranked table, then the
-sequencing line. The table's **Read as** column carries each row's call as
-`references/templates.md` sets it, and reads "Test or ship: needs traffic figures" only where the
-audit had neither a brain nor an export.
+sequencing line, then the backlog footnote. The table's **Read as** column carries each row's
+call as `references/templates.md` sets it, and reads "Test or ship: needs traffic figures" only
+where the audit had neither a brain nor an export. The footnote names the lift rule and whether
+the table or the formula was used, and is left out where no row carries a call from traffic.
