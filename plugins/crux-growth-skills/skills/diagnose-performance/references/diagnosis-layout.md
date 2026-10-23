@@ -13,12 +13,19 @@ Google Ads campaigns"). Every heading below is always present, in this order, as
 heading. A heading with nothing to show stays visible with one line saying why; a cell holds a
 figure or "No data", never a bare "n/a".
 
+**A stopped run writes no page.** When `SKILL.md` step 3 stops (the Success KPI itself cannot be
+read in both periods, or no lever can), the chat gives the one line saying which Source is
+missing, with the Brain line on a run without a Growth Brain, and no file is written. A run whose
+Success KPI can be read and that has at least one readable lever always writes the page, however
+many levers read "No data".
+
 ## The headings
 
 1. **Summary**: two to four sentences of plain prose, written last, from the page's own figures:
    the change (the Success KPI in both periods and its relative change), the Main driver(s) with
-   their Contributions, and the top action: the first recommendation of the drilled driver with
-   the most KPI at stake. Never a caveat (those go in Notes).
+   their Contributions (an Offset may be named beside them), and the top action: the first
+   recommendation of the drilled Main driver with the most KPI at stake. The chat repeats this
+   action as its top recommendation. Never a caveat (those go in Notes).
 2. **The change**: the Success KPI, the Current period and the Comparison period as dates, the
    Success KPI in each and its relative change, and for each lever the Source it was read from
    (the brain's mart, a connector or the user's file, in plain words). A lever that reads "No
@@ -26,10 +33,13 @@ figure or "No data", never a bare "n/a".
    margin rung where the tree uses them.
 3. **Levers**: a table, one row per lever in tree order. Columns, in this order: lever (with V or
    E), Comparison period, Current period, change, Contribution, role (Main driver, Over the
-   threshold, Offset or blank). Add a "Not split" row where a lever reads "No data", and a total
-   row that adds exactly to the Success KPI's change. Under the table, one line for each Offset
-   and each lever over the threshold, with its figure; an over-threshold lever also gets a
-   one-line action. Then the waterfall.
+   threshold, Offset or blank), the roles as `SKILL.md` step 5 defines them. A lever with no role
+   has a blank role cell and no line. Spend and visits ranked together as cost per visit show the
+   pair's role on both rows, written "Main driver (cost per visit)". Add a "Not split" row where
+   a lever reads "No data", and a total row that adds exactly to the Success KPI's change. Under
+   the table, one line for each Offset and each lever over the threshold, with its figure; the
+   action for an over-threshold lever is written once, under Recommendations. Then the
+   waterfall.
 
    **Waterfall**: an inline SVG from the Comparison period's Success KPI to the Current period's.
    The first and last bars are the two Success KPI values, each from the baseline. Between them,
@@ -54,21 +64,25 @@ figure or "No data", never a bare "n/a".
      discount rate and the discount depth in both periods under the table.
    - One closing line saying where the Drill-down stopped and why, in plain words.
 
-   With no Main driver to drill, the heading reads "Not drilled: the Success KPI did not change,
-   so there is no Main driver." Where the Drill-down could not start because the source holds
-   no dimension for the lever, it reads "Not drilled: your data holds no finer view of this
-   lever." and the Notes name the dimension that would let it go further.
+   A Main driver whose source holds no dimension for the lever's first level has zero levels.
+   Its block keeps the heading, the evidence sentence and a closing line, "Could not be sliced
+   further: your data holds no finer view of this lever." (naming what is missing in plain
+   words), and the Notes name the dimension that would let it go further. It still has its Cause
+   and Recommendations. With no Main driver, the heading reads "Not drilled: there is no Main
+   driver, because the Success KPI did not change or the levers your data could read all ran
+   against the change."
 5. **Cause**: for each drilled Main driver, headed by its lever, the user's answer in their
-   words, or "Not confirmed". With no drilled driver, it reads "Not confirmed: there is no drilled
+   words, or "Not confirmed". With no Main driver, it reads "Not confirmed: there is no Main
    driver to confirm a cause for."
 6. **Recommendations**: for each drilled Main driver, headed by its lever, 1 to 3 recommendations
    in the order of the KPI at stake. Each carries, as labelled lines in this order: the
    **Hypothesis** ("if we X, the KPI moves because Y"), the **Action** (opening with the check
    where the Cause is "Not confirmed"), the **KPI at stake** (the change in the Success KPI that
-   the segment carries, in its unit), the **Metric to watch**, and **How to validate** (Test,
-   Watch next period or Ship). Then, if any lever is over the threshold, its one check-first
-   action line under its own name. With no drilled driver, the heading reads "None: there is no
-   drilled driver to act on."
+   the segment carries, in its unit; for a driver with zero levels, the lever's whole
+   Contribution), the **Metric to watch**, and **How to validate** (Test, Watch next period or
+   Ship). Then, if any lever is over the threshold, its one check-first action line under its own
+   name: the only place that action is written. With no Main driver, the heading reads "None:
+   there is no Main driver to act on."
 7. **Notes**: every caveat in one place, and no caveat anywhere else. Include, where they apply:
    - the basis: the revenue measure, the margin rung and whether the figure is CM3 or "CM1 less
      marketing", that flagged test orders are left out, and the timezone the periods were read in
@@ -95,6 +109,6 @@ figure or "No data", never a bare "n/a".
 ## The Brain line
 
 Said once on the page, as the last line of the Notes, and once in the chat, on a run without a
-Growth Brain; never on a run with one. Its words are fixed: "A Growth Brain adds margin (CM3), one
+Growth Brain; never on a run with one. A stopped run has no page and says it in the chat only. Its words are fixed: "A Growth Brain adds margin (CM3), one
 source for every lever, and the drill-down by channel, product and cohort. Get one at
 gocrux.io/contact."

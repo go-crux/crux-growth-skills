@@ -109,6 +109,7 @@ landing page report with no channel does not start the path.
 | returning orders, active customers, repeat rate | channel → CRM campaign or flow → cohort |
 | platform ROAS tree: spend, impressions, click-through, platform conversion, order value | campaign → ad set or ad group → ad |
 | margin % | product category → product → discount |
+| cost per visit (spend and visits ranked together, `SKILL.md` step 5) | the path of spend and visits: channel → campaign → landing page, ad group or ad |
 | any lever with no fixed path | the dimensions the source holds, ranked by contribution |
 
 **Where each dimension is held.** A path reads a dimension only from the Source below; where a
@@ -190,7 +191,7 @@ that fit the lever:
 "Don't know" sets that driver's Cause to "Not confirmed". Any other answer is the Cause, in
 the user's words.
 
-**Cause evidence.** Where a lever cannot be drilled (Shopify sessions with no channel), the
+**Cause evidence.** Where a lever has zero levels (Shopify sessions with no channel), the
 question may name in one sentence the landing pages whose sessions moved most. That is evidence
 for the Cause, never a Drill-down level.
 
@@ -200,7 +201,9 @@ Each drilled driver gets 1 to 3 recommendations, ranked by the KPI at stake. The
 Drill-down ended on** is the largest segment in the direction of the change at the last level
 read.
 
-- The first recommendation follows that segment.
+- The first recommendation follows that segment. A driver with zero levels has no segment: its
+  recommendations take the lever itself, each a different action on it, and its KPI at stake is
+  the lever's whole Contribution.
 - A second or third may take the next segment in the direction of the change, at the same level
   or the parent's.
 - A segment pulling against the change gets no recommendation of its own.

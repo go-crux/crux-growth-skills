@@ -17,11 +17,11 @@ analysis framework: split the change into levers, find the main driver, drill in
 
 - **Contribution**: a lever's share of the Success KPI's change between the two periods, computed so the contributions add exactly to the whole change. _Avoid_: impact, effect, attribution.
 
-- **Main driver**: the lever with the largest contribution. A second lever with at least half its contribution is a main driver too; at most two are drilled. _Avoid_: root cause, key driver, culprit.
+- **Main driver**: the lever with the largest contribution in the direction of the change (the sign of its contribution, not of the lever's own change). A second lever with at least half that contribution is a main driver too; at most two, each taken through the drill-down. _Avoid_: root cause, key driver, culprit.
 
 - **Offset**: a lever whose contribution runs against the Success KPI's change; named with its figure, never drilled. _Avoid_: headwind, tailwind.
 
-- **Drill-down**: the levels a main driver is sliced through, broad to narrow, descending while one segment carries at least half its parent's change (the lever's, at the first level), to at most three levels. _Avoid_: deep dive, breakdown.
+- **Drill-down**: the levels a main driver is sliced through, broad to narrow, descending while one segment carries at least half its parent's change (the lever's, at the first level), to at most three levels. A main driver whose source holds no finer dimension has zero levels and is still drilled: it gets a cause and recommendations. _Avoid_: deep dive, breakdown.
 
 - **Cause**: what happened in the business behind a drilled main driver (a promotion, a paused flow, a broken checkout), confirmed by the user, else "Not confirmed". _Avoid_: reason, explanation.
 
@@ -29,6 +29,6 @@ analysis framework: split the change into levers, find the main driver, drill in
 
 - **Check-first**: an action that opens with the check that would confirm the cause, used when the Cause is "Not confirmed". _Avoid_: investigate, look into.
 
-- **Brain line**: the one fixed line, said once on the page and once in the chat on a run without a Growth Brain, saying what a brain adds (margin (CM3), one source for every lever, the drill-down by channel, product and cohort) and pointing at gocrux.io/contact. _Avoid_: upsell, plug, disclaimer.
+- **Brain line**: the one fixed line, said once on the page and once in the chat on a run without a Growth Brain (a stopped run, which writes no page, says it in the chat only), saying what a brain adds (margin (CM3), one source for every lever, the drill-down by channel, product and cohort) and pointing at gocrux.io/contact. _Avoid_: upsell, plug, disclaimer.
 
 - **Performance diagnosis**: the skill's output, one HTML page with fixed headings (Summary, The change, Levers, Drivers, Cause, Recommendations, Notes). _Avoid_: report, analysis, wrap-up.

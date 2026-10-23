@@ -40,8 +40,8 @@ the split is partial.
 
 ## Roles
 
-Name the roles from the Contributions as `SKILL.md` step 5 defines them. A lever that reads "No
-data" or "Not split" takes no role.
+Name the roles from the Contributions as `SKILL.md` step 5 defines them, the sign of each
+Contribution deciding the direction. A lever that reads "No data" or "Not split" takes no role.
 
 ## Worked example (CM3)
 
@@ -84,13 +84,22 @@ Rounded to the pound so the shown rows add exactly to the shown change:
 | Marketing spend | −£5,000 |
 | **Sum** | **−£21,232** |
 
-The roles: the change is a fall, so new customers (−£19,881) is the Main driver. Half of it is
-£9,940.60, so margin % at −£9,836 falls just under and is not a second Main driver, and spend at
-−£5,000 is smaller still. Returning orders and order value pull the other way and are Offsets.
+The roles: the change is a fall, so the levers with a negative Contribution run with it, spend
+included (its own change is a rise, its Contribution a fall). New customers (−£19,881) is the Main
+driver. Half of it is £9,940.60, so margin % at −£9,836 falls just under and is not a second Main
+driver, and spend at −£5,000 is smaller still; both take no role and are listed without a line.
+Returning orders and order value pull the other way and are Offsets.
 
 ## Rounding
 
-Round each Contribution to the Success KPI's display unit (the currency's minor unit, or the
-KPI's usual precision for a ratio), then adjust by largest remainder so the rounded
-Contributions add exactly to the rounded change. The waterfall and the Levers table use these
-rounded figures.
+Round the Success KPI and each Contribution to the KPI's display precision, then adjust by
+largest remainder so the rounded Contributions (the "Not split" row included) add exactly to the
+rounded change, which is the rounded Current period figure less the rounded Comparison period
+figure. The display precision follows the kind of KPI:
+
+- **A money KPI** (CM3, revenue, spend, CAC) rounds to whole currency units, as the worked
+  example does.
+- **A ratio KPI** (MER, ROAS) rounds to two decimals, shown as a plain multiple (3.52).
+- **A rate KPI** (conversion rate) rounds to one decimal place of a percentage (2.4%).
+
+The waterfall and the Levers table use these rounded figures.

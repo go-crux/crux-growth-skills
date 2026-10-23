@@ -26,10 +26,10 @@ and follow these five rules:
   and say which in the Notes.
 - Ask for no export: a lever the named Source cannot read reads "No data".
 - Set every Cause to "Not confirmed" and make every action check-first.
-- Where a step stops with one line (fewer than three levers can be read), stop with that line.
+- Where step 3 stops with one line, stop with that line and write no page.
 
 **Done when** no question was asked, every Cause reads "Not confirmed", every action is
-check-first, and the page holds all seven headings.
+check-first, and the page holds all seven headings (or step 3 stopped with its one line).
 
 ## 1. Connect
 
@@ -43,7 +43,8 @@ Take the data from the first of these Sources that holds each lever:
 3. **Files the user gives**: CSV exports or pasted figures.
 
 Without a Growth Brain the diagnosis still runs, read from the connectors and files, and the
-Brain line (`references/diagnosis-layout.md`) is said once on the page and once in the chat.
+Brain line (`references/diagnosis-layout.md`) is said once on the page and once in the chat (a run
+that stops at step 3 says it in the chat only).
 
 Then settle two facts once, for every later step to reuse:
 
@@ -99,9 +100,13 @@ to the same rule. Then:
 
 - **Name each lever's Source**: the first in step 1's order that holds it, one Source for both
   periods. Without a Growth Brain, open `references/exports.md` for which Source reads which lever.
-- **Drop what no Source can read**: that lever stays on the tree and reads "No data". If fewer
-  than three levers can be read, say in one line which Source is missing (with the Brain line, on
-  a run without a Growth Brain) and stop.
+- **Drop what no Source can read**: that lever stays on the tree and reads "No data". The page
+  is still written, with those levers as "No data" and a "Not split" row, however many are
+  dropped.
+- **Stop only** when the Success KPI itself cannot be read in both periods (no Source holds its
+  total, whatever the levers hold), or when no lever can be read. Say in one line, in the chat
+  only, which Source is missing (with the Brain line, on a run without a Growth Brain). A stopped
+  run writes no page.
 - **Read the columns first**: with a Growth Brain, call `list_tables` naming each mart the tree
   needs that step 1 has not read, one mart per call (discovery, no query), so each lever's "how it
   is measured" comes from the columns.
@@ -118,8 +123,9 @@ An unattended run asks nothing and goes straight to Read.
 confirm (an unattended run reads them in step 4); the user has confirmed (an unattended run: the
 skill has derived) a Lever tree of 3 to 5 levers with at least one volume and one efficiency,
 whose arithmetic rebuilds the Success KPI exactly; every lever has one named Source across both
-periods, or "No data" with its line; and every export asked for is in hand or its lever reads "No
-data".
+periods, or "No data" with its line; every export asked for is in hand or its lever reads "No
+data"; and the run either goes on (the Success KPI and at least one lever can be read) or has
+stopped with its one line and no page.
 
 ## 4. Read
 
@@ -176,60 +182,75 @@ rows. A lever whose mart is absent, or that is zero or missing in either period,
 
 **Done when** every lever has a value in the Current period and the Comparison period, or "No
 data" with its reason; the rebuilt Success KPI is within 0.01% of the Success KPI read in its own
-query, in both periods; every tree count comes from its one mart; test orders are out of every
+query, in both periods (for a tree with a lever reading "No data", the gap is the "Not split"
+row); every tree count comes from its one mart; test orders are out of every
 query the Source flags them in; and every query took its dates from `periods` (without a Growth
 Brain, every read took the four dates).
 
 ## 5. Split
 
 Open `references/contribution.md` and compute every Contribution in `run_sql` (without a Growth
-Brain, in code, else by hand) from the two periods' lever values. Then name the roles:
+Brain, in code, else by hand) from the two periods' lever values. Then name the roles, which are
+stated here and nowhere else. "In the direction of the change" means the sign of the lever's
+Contribution, not of the lever's own change: spend that rose lowers CM3, so it runs with a fall.
 
 - **Main driver**: the lever with the largest Contribution in the direction of the change. A
   second lever with at least half that Contribution is a Main driver too. Name at most two.
-- **Over the threshold**: a third lever, in the direction of the change, with at least half the
-  largest Contribution is named with its figure and a one-line action (step 8), and is not
-  drilled.
+- **Over the threshold**: any other lever in the direction of the change with at least half the
+  largest Contribution. It is named with its figure in the Levers table and gets one action line
+  under Recommendations (step 8); it is not drilled.
 - **Offset**: a lever whose Contribution runs against the change is named with its figure and
   never drilled.
+- **No role**: a lever in the direction of the change under half the largest Contribution, and a
+  lever that reads "No data". It is listed in the Levers table without a line.
+- **Cost per visit.** In a tree holding spend and visits (CAC, MER / ROAS), when their
+  Contributions run against each other, rank their combined Contribution as one lever, cost per
+  visit, and give the pair one role together. A spend cut that visits cancel is then not drilled
+  as the Main driver. A cost per visit that is a Main driver is drilled as the ratio of spend to
+  visits.
 
-A Success KPI that did not change has no Main driver; say so and name the levers that offset.
+A Success KPI that did not change has no Main driver; say so and name the levers that offset. So
+has one whose readable levers all run against the change.
 
 **Done when** the Contributions add exactly to the Success KPI's change (with a "Not split" row
 where a lever read "No data"), and every lever carries a role or none.
 
 ## 6. Drill down
 
-Open `references/drill-down.md`. Take each Main driver (at most two) down its lever's path, one
-level at a time, by the descent rule. Read each level in `run_sql` from the lever's own Source
-and the Basis rule above, with dates from `periods`; call `list_tables` for one mart at a time
-when a level needs columns not yet read. A level the Source holds no dimension for is not read:
-the Drill-down stops above it, with one line saying so. Each level is a table ranked by
-Contribution with the volume beside it, and the Drill-down ends with one line saying where it
-stopped and why.
+Open `references/drill-down.md`. Take every Main driver (at most two) through this step; from
+here on each is a drilled Main driver, including one with zero levels. Take it down its lever's
+path, one level at a time, by the descent rule. Read each level in `run_sql` from the lever's own
+Source and the Basis rule above, with dates from `periods`; call `list_tables` for one mart at a
+time when a level needs columns not yet read. A level the Source holds no dimension for is not
+read: the Drill-down stops above it, with one line saying so. A Main driver whose Source holds no
+dimension for the path's first level has zero levels: its Drivers block says it could not be
+sliced further and why, and it goes on to steps 7 and 8 like any other. Each level is a table
+ranked by Contribution with the volume beside it, and the Drill-down ends with one line saying
+where it stopped and why.
 
-**Done when** every Main driver has a Drill-down of at most three levels that follows the path
-for its lever and stops by the descent rule or at its Source's last dimension; each level's
-rows, with an "Other" row for the segments under the volume floor, add exactly to the change
-they split; and an Offset or over-threshold lever has not been drilled.
+**Done when** every Main driver has a Drill-down of 0 to 3 levels that follows the path for its
+lever and stops by the descent rule or at its Source's last dimension, and a driver with zero
+levels has its line saying why; each level's rows, with an "Other" row for the segments under the
+volume floor, add exactly to the change they split; and an Offset or over-threshold lever has not
+been drilled.
 
 ## 7. Cause
 
-For each drilled Main driver, give its evidence in a sentence with its figures and ask one
-question offering two or three likely causes, as `references/drill-down.md` lists them. Put the
-questions to the user in one numbered round and wait for the answers. "Don't know" sets that
-driver's Cause to "Not confirmed". An unattended run sets every Cause to "Not confirmed" and
-asks nothing.
+For each drilled Main driver, a zero-level one included, give its evidence in a sentence with its
+figures (for a zero-level driver, its two period values and Contribution) and ask one question
+offering two or three likely causes, as `references/drill-down.md` lists them. Put the questions
+to the user in one numbered round and wait for the answers. "Don't know" sets that driver's Cause
+to "Not confirmed". An unattended run sets every Cause to "Not confirmed" and asks nothing.
 
 **Done when** every drilled Main driver has a Cause, in the user's words, or "Not confirmed".
 
 ## 8. Recommend
 
-Write 1 to 3 recommendations for each drilled Main driver from `references/drill-down.md`,
-ranked by the KPI at stake. Each carries a hypothesis ("if we X, the KPI moves because Y"), the
-action, the metric to watch, and how to validate it: test, watch next period or ship. Under a
-Cause of "Not confirmed" every action is check-first. Each lever over the threshold gets its one
-check-first action line.
+Write 1 to 3 recommendations for each drilled Main driver, a zero-level one included, from
+`references/drill-down.md`, ranked by the KPI at stake. Each carries a hypothesis ("if we X, the
+KPI moves because Y"), the action, the metric to watch, and how to validate it: test, watch next
+period or ship. Under a Cause of "Not confirmed" every action is check-first. Each lever over the
+threshold gets its one check-first action line, written here and nowhere else.
 
 **Done when** every drilled Main driver has 1 to 3 recommendations, each with hypothesis, action,
 metric to watch and test, watch or ship; every action under a "Not confirmed" Cause is
@@ -242,8 +263,8 @@ the working folder: `<kpi>` is the Success KPI in lower case with hyphens, and `
 Current period as `YYYY-MM` for a calendar month, else `<start>_<end>` as `YYYY-MM-DD`.
 
 Tell the user in four lines the change (the Success KPI in both periods and the relative
-change), the Main driver with its Contribution, the Cause, and the top recommendation, then the
-page's path. Without a Growth Brain, add the Brain line after the four lines and before the path.
+change), the Main driver(s) with their Contributions (an Offset may be named in the same line),
+the Cause, and the top recommendation, which is the Summary's top action, then the page's path. Without a Growth Brain, add the Brain line after the four lines and before the path.
 
 **Done when** the page holds all seven headings in order, every heading carries its content or
 its reason, the Levers table sums to the change, the waterfall ties from the Comparison period's
