@@ -103,10 +103,12 @@ many levers read "No data".
    - a run without a Growth Brain: which connectors and files were read, that each lever reads
      one Source across both periods, and the timezone the Source reports in, in the wording
      **Plain wording** gives;
+   - a connector that refused a read, and where its levers were read from instead, in the
+     wording **Plain wording** gives;
    - marketing spend covering only the platforms read, on a run without a Growth Brain whose tree
      holds spend as a lever (and no other run);
-   - an export that carries no test-order flag, and a platform export that does not say which
-     conversion actions it counts, each in the wording **Plain wording** gives;
+   - an export that carries no test-order flag, and a platform export or connector that does
+     not say which conversion actions it counts, each in the wording **Plain wording** gives;
    - the method in one line: Contributions split the change by each lever's share of it, so they
      add exactly to the Success KPI's change;
    - that figures are rounded so the rows add exactly to the change.
@@ -172,6 +174,8 @@ way. The lines above fix what to say; these fix how.
 | Marketing spend, on a run without a Growth Brain whose tree holds spend | Marketing spend covers <platforms> only, the same in both periods. |
 | The timezone, on a run without a Growth Brain | Days follow the timezone <Source> reports in, <timezone>. Where it names none: <Source> does not say which timezone it reports in, so days may be cut differently from your store's. |
 | Conversion actions in a platform export that does not say which it counts | <Source> does not say which conversion actions it counts, so platform conversions are every action it holds. |
+| Conversions from the Google Ads connector read with no purchase filter | <Source> could not be limited to purchases, so platform conversions are every primary conversion action. |
+| A connector refused a read | <Source> refused to share its figures, so <levers> were read from <next Source in plain words>, or read "No data" where nothing else holds them. |
 
 ## The Brain line
 
