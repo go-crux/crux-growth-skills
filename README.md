@@ -2,8 +2,8 @@
 
 Free skills for your own Claude, written by operators who have scaled ecommerce brands (Fussy,
 £2.2M to £22M GMV; DogBuddy, acquired by Rover). Each skill carries one piece of the craft we use
-with our clients, such as planning Black Friday from last year's numbers or finding out why a
-number moved, and runs on your own data inside your own Claude.
+with our clients, such as planning Black Friday from last year's numbers, auditing a landing page
+or finding out why a number moved, and runs on your own data inside your own Claude.
 
 The skills work best with a **Crux Growth Brain** connected: a Claude connector that answers
 questions from your own warehouse, with your orders, marketing and customers in one place. You
@@ -60,6 +60,21 @@ or your data.
 *Needs:* a Crux Growth Brain connected. If your budget is in the brain, the targets come from it;
 if not, it proposes targets from last year for you to confirm or change. Ask Claude to plan Black Friday, or
 send `/plan-black-friday` in Claude Code.
+
+**Audit landing pages** (`audit-landing-pages`) finds the pages that let your traffic down and
+shows what to fix. Ask "which of my landing pages are underperforming?" and it ranks them by what
+each is costing you against pages of the same kind on your site. Ask it to "audit this page" with a
+link and it scores the page against sixty checks across six ingredients, then gives you the
+findings in priority order, the quick wins, and a backlog of tests to run, in one page you can
+share with your team. It asks you a few short questions about what your brand will not do or say,
+so nothing it recommends breaks your rules. Nothing is changed on your site.
+
+*Needs:* nothing. Give it the link to any page and it audits the page itself. To find your weakest
+pages without a Growth Brain, give it a Shopify export of sessions by landing page, and it ranks
+them by the orders each is missing. A Crux Growth Brain adds the revenue each page is missing,
+traffic by channel and device, and the full funnel, so the audit starts with the step where the
+page loses most people. Ask Claude to audit a landing page, or send `/audit-landing-pages` in
+Claude Code.
 
 **Diagnose performance** (`diagnose-performance`) finds out why a number moved. Pick the
 figure you are judging, such as net sales, orders or profit, and any two periods, such as this

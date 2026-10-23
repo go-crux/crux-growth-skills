@@ -1,7 +1,7 @@
 {
   "name": "crux-growth-skills",
-  "version": "0.3.0",
-  "description": "Free Crux skills, best with a Crux Growth Brain connected. Plan Black Friday on your own data, and diagnose why a KPI moved between two periods.",
+  "version": "0.4.0",
+  "description": "Growth skills for ecommerce brands by gocrux.io, best with a Crux Growth Brain connected. Plan Black Friday on your own data, audit your landing pages, and diagnose why a KPI moved between two periods.",
   "author": {
     "name": "Crux",
     "email": "matt@gocrux.io",
@@ -15,13 +15,15 @@
     "ecommerce",
     "growth",
     "black-friday",
-    "planning"
+    "planning",
+    "landing-pages",
+    "cro"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Crux",
-    "shortDescription": "Crux Black Friday planning and performance diagnosis",
-    "longDescription": "Read last year's Black Friday on your own data, test your November and December targets against it, and agree a plan with day-by-day targets you can download. Diagnose why a KPI moved between two periods, split into its levers, with the main driver found and what to do about it.",
+    "shortDescription": "Crux Black Friday planning, landing page audits and performance diagnosis",
+    "longDescription": "Plan Black Friday on your own data: read last year, test your November and December targets against it, and agree a plan with day-by-day targets you can download. Audit a landing page from its URL, or find your weakest pages, with prioritised fixes and a test backlog. Diagnose why a KPI moved between two periods, split into its levers, with the main driver found and what to do about it.",
     "developerName": "Crux",
     "category": "Productivity",
     "capabilities": [
@@ -31,6 +33,7 @@
     "websiteURL": "https://gocrux.io",
     "defaultPrompt": [
       "Help me plan Black Friday.",
+      "Which of my landing pages are underperforming?",
       "Why did my revenue drop last month?"
     ]
   }
