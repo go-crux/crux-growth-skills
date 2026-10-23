@@ -96,6 +96,8 @@ many levers read "No data".
      source for a change in the business;
    - a Drill-down that stopped because the source holds no finer dimension, and which dimension
      would let it go further;
+   - a Drill-down level read from your orders while its lever's total comes from another
+     Source, in the wording **Plain wording** gives;
    - cohorts too young for the horizon, counted in the "Other" row of their level;
    - an unattended run, and which Growth Brain it read where several were connected;
    - a partial split: which levers read "No data" and why, and that the rest of the change is
@@ -170,6 +172,7 @@ way. The lines above fix what to say; these fix how.
 
 | Caveat | Wording |
 |---|---|
+| A level read from the orders while the lever's total comes from another Source | The split of <lever> by <dimension> comes from your orders, while its total comes from <Source in plain words>. |
 | An export carries no test-order flag | <Source> carries no test-order flag, so any test orders are counted. |
 | Marketing spend, on a run without a Growth Brain whose tree holds spend | Marketing spend covers <platforms> only, the same in both periods. |
 | The timezone, on a run without a Growth Brain | Days follow the timezone <Source> reports in, <timezone>. Where it names none: <Source> does not say which timezone it reports in, so days may be cut differently from your store's. |

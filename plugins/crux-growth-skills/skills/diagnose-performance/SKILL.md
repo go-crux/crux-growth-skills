@@ -240,13 +240,16 @@ where a lever read "No data"), and every lever carries a role or none.
 Open `references/drill-down.md`. Take every Main driver (at most two) through this step; from
 here on each is a drilled Main driver, including one with zero levels. Take it down its lever's
 path, one level at a time, by the descent rule. Read each level in `run_sql` from the lever's own
-Source and the Basis rule above, with dates from `periods`; call `list_tables` for one mart at a
-time when a level needs columns not yet read. A level the Source holds no dimension for is not
-read: the Drill-down stops above it, with one line saying so. A Main driver whose Source holds no
-dimension for the path's first level has zero levels: its Drivers block says it could not be
-sliced further and why, and it goes on to steps 7 and 8 like any other. Each level is a table
-ranked by Contribution with the volume beside it, and the Drill-down ends with one line saying
-where it stopped and why, in the approved wording for that reason (`references/diagnosis-layout.md`).
+Source and the Basis rule above, with dates from `periods`, except an order-mix level, which
+`references/drill-down.md` reads from the orders mart and apportions to the lever's Contribution
+(the tree's levers and the Success KPI still come from one mart). Call `list_tables` for one mart
+at a time when a level needs columns not yet read. A level no Source the run holds carries a
+dimension for is not read: the Drill-down stops above it, with one line saying so. A Main driver
+for which no Source the run holds carries the path's first dimension has zero levels: its
+Drivers block says it could not be sliced further and why, and it goes on to steps 7 and 8 like
+any other. Each level is a table ranked by Contribution with the volume beside it, and the
+Drill-down ends with one line saying where it stopped and why, in the approved wording for that
+reason (`references/diagnosis-layout.md`).
 
 **Done when** every Main driver has a Drill-down of 0 to 3 levels that follows the path for its
 lever and stops by the descent rule or at its Source's last dimension, and a driver with zero
