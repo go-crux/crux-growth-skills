@@ -13,6 +13,8 @@ analysis framework: split the change into levers, find the main driver, drill in
 
 - **Lever tree**: the 3 to 5 levers that rebuild the Success KPI exactly, at least one volume and one efficiency, taken from the catalogue or derived to the same rule, and confirmed by the user before any query. _Avoid_: metric tree, KPI tree, decomposition.
 
+- **Source**: the one place a lever is read from, the same for both periods: a Growth Brain mart, a platform connector (Shopify, GA4, Google Ads, Meta Ads) or a file the user gives. Taken in that order, per lever. _Avoid_: data source, feed, input.
+
 - **Contribution**: a lever's share of the Success KPI's change between the two periods, computed so the contributions add exactly to the whole change. _Avoid_: impact, effect, attribution.
 
 - **Main driver**: the lever with the largest contribution. A second lever with at least half its contribution is a main driver too; at most two are drilled. _Avoid_: root cause, key driver, culprit.
@@ -26,5 +28,7 @@ analysis framework: split the change into levers, find the main driver, drill in
 - **Recommendation**: one action on a drilled main driver, with a hypothesis ("if we X, the KPI moves because Y"), the action, the metric to watch and how to validate it (test, watch next period or ship); 1 to 3 per driver, ranked by the KPI at stake. _Avoid_: suggestion, next step, insight.
 
 - **Check-first**: an action that opens with the check that would confirm the cause, used when the Cause is "Not confirmed". _Avoid_: investigate, look into.
+
+- **Brain line**: the one fixed line, said once on the page and once in the chat on a run without a Growth Brain, saying what a brain adds (margin (CM3), one source for every lever, the drill-down by channel, product and cohort) and pointing at gocrux.io/contact. _Avoid_: upsell, plug, disclaimer.
 
 - **Performance diagnosis**: the skill's output, one HTML page with fixed headings (Summary, The change, Levers, Drivers, Cause, Recommendations, Notes). _Avoid_: report, analysis, wrap-up.

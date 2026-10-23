@@ -30,14 +30,16 @@ cancel in turn, leaving the count the KPI is made of.
   `SKILL.md` names. Then orders × order value × margin % = order margin, and CM3 = order margin −
   spend. Where the rung is not CM2, the figure and the page say "CM1 less marketing" in place of
   CM3.
-- **Revenue** is the total sales measure (after discounts and returns), named on the page.
+- **Revenue** is the total sales measure (after discounts and returns), named on the page. From
+  Shopify sales over time it is net sales, named as such.
 - **CAC and MER / ROAS.** Cost per visit is spend ÷ visits, so cost per visit is spend and visits
   read together: the tree lists spend and visits as separate levers because a tree holding cost
   per visit and spend cannot rebuild the KPI (spend cancels out of it). Say "cost per visit" in
   prose when spend and visits both moved.
 - **Platform ROAS** reads spend, impressions, clicks, purchases and conversion value from the
   platform's own mart (`<client>-meta_performance`, `<client>-google_ads_performance`) when the
-  roster lists it, platform-reported and not comparable with MER. CPM is spend and impressions
+  roster lists it, else from its connector or campaign export (`references/exports.md`),
+  platform-reported and not comparable with MER. CPM is spend and impressions
   read together, as above.
 - **Returning revenue.** Active customers are customers with an earlier order who ordered in the
   period. Repeat rate is returning orders per active customer.
@@ -50,7 +52,7 @@ cancel in turn, leaving the count the KPI is made of.
 
 Derive a tree to the same rule:
 
-1. Write the Success KPI as a product, a quotient or a sum of measures the brain holds.
+1. Write the Success KPI as a product, a quotient or a sum of measures the Source holds.
 2. Break a product or quotient into 3 to 5 levers by inserting the ratio that links one count to
    the next, so each denominator cancels the next numerator.
 3. Make at least one lever a count or an amount (V) and at least one a ratio (E).
