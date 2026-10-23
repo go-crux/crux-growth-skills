@@ -18,9 +18,9 @@ Source, with the same report, columns and filters, in both periods.
 | revenue, order value | Shopify sales over time (Orders, Net sales) | none |
 | conversion | Shopify orders over the visits lever's sessions | none |
 | new-customer conversion | Shopify new customers over the visits lever's sessions (CAC tree), or over the new visitor share lever's New users (New customers tree) | none |
-| spend (platform) | the Google Ads or Meta Ads campaign report (spend) | the finest level the export or connector holds (campaign, ad set or ad group, ad) |
-| spend (marketing, for CAC and MER / ROAS) | the sum of the platform reports read | campaign |
-| impressions, click-through, platform conversion, platform order value | the platform's campaign report (Impressions, Clicks, Purchases, and their value, named per platform in the tables below) | the finest level the export or connector holds (campaign, ad set or ad group, ad) |
+| spend (platform) | the Google Ads or Meta Ads campaign report (spend) | ad group or ad set with that report; ad through a connector only |
+| spend (marketing, for CAC and MER / ROAS) | the sum of the platform reports read | ad group or ad set with that report |
+| impressions, click-through, platform conversion, platform order value | the platform's campaign report (Impressions, Clicks, Purchases, and their value, named per platform in the tables below) | ad group or ad set with that report; ad through a connector only |
 | margin % | a Source carrying cost of goods, which none above does | none |
 | active customers, repeat rate | a Source carrying distinct customers over time, which none above does | none |
 | any lever | figures the user pastes or exports for both periods | what the figures hold |
@@ -142,6 +142,24 @@ enabled campaigns by default, so they cannot read a named period. Read through i
 | Link clicks | click-through |
 | Purchases | platform conversion |
 | Purchases conversion value | platform order value |
+
+## Google Ads and Meta Ads: ad group or ad set report
+
+Asked for only in `SKILL.md` step 6, when a Drill-down reaches the level below campaign for the
+one campaign it descended into, and only where no connector reads that level.
+
+1. **Google Ads**: open Ad groups, filter to the campaign the Drill-down descended into, and set
+   the status filter to all ad groups. **Meta Ads**: in Ads Manager, select that campaign and open
+   the Ad sets tab.
+2. Set the date range to the Current period's dates and add the same columns as that platform's
+   campaign report above.
+3. Download or export as CSV and drop the file into this chat.
+4. Repeat for the Comparison period's dates.
+
+| Column | Feeds |
+|---|---|
+| Ad group (Google Ads) or Ad set name (Meta Ads) | the ad group or ad set level |
+| the campaign report's other columns | the same levers as there |
 
 ## Reading a connector or an export
 

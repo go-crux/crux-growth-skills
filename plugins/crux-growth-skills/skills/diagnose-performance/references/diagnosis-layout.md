@@ -25,7 +25,7 @@ many levers read "No data".
 1. **Summary**: two to four sentences of plain prose, written last, from the page's own figures:
    the change (the Success KPI in both periods and its relative change), the Main driver(s) with
    their Contributions (an Offset may be named beside them), and the top action: the first
-   recommendation of the drilled Main driver with the most KPI at stake. The chat repeats this
+   recommendation of the drilled Main driver with the larger Contribution. The chat repeats this
    action as its top recommendation. Never a caveat (those go in Notes).
 2. **The change**: the Success KPI, the Current period and the Comparison period as dates, the
    Success KPI in each and its relative change, and for each lever the Source it was read from
@@ -44,12 +44,13 @@ many levers read "No data".
 3. **Levers**: a table, one row per lever in tree order. Columns, in this order: lever (with V or
    E), Comparison period, Current period, change, Contribution, role (Main driver, Also
    large, Offset or blank), the roles as `SKILL.md` step 5 defines them. A lever with no role
-   has a blank role cell and no line. Spend and visits ranked together as cost per visit show the
-   pair's role on both rows, written "Main driver (cost per visit)". Add a "Not split" row where
-   a lever reads "No data", and a total row that adds exactly to the Success KPI's change. Under
-   the table, one line for each Offset and each Also large lever, with its figure; the
-   action for an Also large lever is written once, under Recommendations. Then the
-   waterfall.
+   has a blank role cell and no line. A cost pair ranked together (`SKILL.md` step 5) shows the
+   pair's role on both rows with the pair's name, written "Main driver (cost per visit)" or
+   "Offset (CPM)". Add a "Not split" row where a lever reads "No data", and a total row that adds
+   exactly to the Success KPI's change. Under the table, one line for each Offset and each Also
+   large lever, with its figure, and the line for a cost pair that takes no role, in the wording
+   **Plain wording** gives; the action for an Also large lever is written once, under
+   Recommendations. Then the waterfall.
 
    **Waterfall**: an inline SVG from the Comparison period's Success KPI to the Current period's.
    The first and last bars are the two Success KPI values, each from zero. Between them,
@@ -59,20 +60,25 @@ many levers read "No data".
    label every bar with its name and figure. Extend the scale to include any negative running
    total. Give the SVG a `title` stating the change in a sentence.
 4. **Drivers**: one block per drilled Main driver, headed by its lever and its Contribution.
-   - One sentence of evidence with its figures.
+   - One sentence of evidence with its figures. Where the driver's change straddles a change of
+     source, the line **Plain wording** gives follows it.
    - For a conversion or new-customer conversion lever, the stage table first (session →
      engaged, engaged → checkout, in both periods), and a line naming a suspected site-wide
      fault where no channel carries half the change.
    - One table per Drill-down level, in order, each headed by the dimension it reads (and, for
      a level inside a segment, that segment). Columns, in this order: segment, Comparison
      period, Current period, Contribution, share of the parent's change, Current period volume,
-     share of the parent's volume (the parent is the lever at the first level). Rows run from
-     the largest Contribution in the direction of the change to the largest against it, with an
-     "Other" row for segments under the volume floor, worded as **Plain wording** sets out. Where
-     the lever is a ratio, show the rate in both periods in the two period columns, the
-     denominator as the volume, and the Contribution in the Success KPI's unit. For the discount
-     level of order value, show the discount rate and the discount depth in both periods under
-     the table.
+     share of the parent's volume (the parent is the lever at the first level). For a count or
+     amount lever, drop the Current period volume column: the Current period column already is
+     it. Rows run from the largest Contribution in the direction of the change to the largest
+     against it, then the "Other" row, always last, for segments under the volume floor, worded
+     as **Plain wording** sets out. Where the lever is a ratio, show the rate in both periods in
+     the two period columns, the denominator as the volume, and the Contribution in the Success
+     KPI's unit. A new or stopped segment reads "New" or "Stopped" in its empty period's cell.
+     For the discount level of order value, show the discount rate and the discount depth in both
+     periods under the table. Under a table, where they apply, the line naming the other
+     dimensions read at that level, and the line for a segment whose rate moved one way while its
+     Contribution ran the other, in the wording **Plain wording** gives.
    - One closing line saying where the Drill-down stopped and why, in the wording **Plain
      wording** gives for that reason.
 
@@ -90,7 +96,8 @@ many levers read "No data".
    **Hypothesis** ("if we X, the KPI moves because Y"), the **Action** (opening with the check
    where the Cause is "Not confirmed"), the **KPI at stake** (the change in the Success KPI that
    the segment carries, in its unit; for a driver with zero levels, the lever's whole
-   Contribution), the **Metric to watch**, and **How to validate** (Test, Watch next period or
+   Contribution; capped at the lever's Contribution, in the wording **Plain wording** gives),
+   the **Metric to watch**, and **How to validate** (Test, Watch next period or
    Ship). Then, if any lever is Also large, its one check-first action line under its own
    name: the only place that action is written. With no Main driver, the heading reads "None:
    there is no Main driver to act on."
@@ -102,7 +109,11 @@ many levers read "No data".
    - the periods' lengths when they differ in days, and that volumes then differ with them;
    - a change of source between the periods (such as the GA4 raw event stream replacing an
      earlier feed) and which levers move with it, so the reader does not mistake the change of
-     source for a change in the business;
+     source for a change in the business, in the wording **Plain wording** gives;
+   - cancelled orders, whether the Source includes them, excludes them or does not say;
+   - modelled re-attribution rows and their coverage, zero coverage included;
+   - a currency no Source states;
+   - on a run with a Growth Brain, connectors in the session that were not read;
    - a Drill-down that stopped because the source holds no finer dimension, and which dimension
      would let it go further;
    - a Drill-down level read from your orders while its lever's total comes from another
@@ -111,7 +122,7 @@ many levers read "No data".
    - an unattended run, which Growth Brain it read where several were connected, and any period
      resolved from "this month" or the like to the last complete one, with its dates;
    - a partial split: which levers read "No data" and why, and that the rest of the change is
-     shown as "Not split";
+     shown as "Not split", including a lever whose export the user chose not to give;
    - a run without a Growth Brain: which connectors and files were read, that each lever reads
      one Source across both periods, and the timezone the Source reports in, in the wording
      **Plain wording** gives;
@@ -120,9 +131,13 @@ many levers read "No data".
    - a connector account that could not be told to be the brand's, skipped on an unattended run,
      in the wording **Plain wording** gives;
    - marketing spend covering only the platforms read, on a run without a Growth Brain whose tree
-     holds spend as a lever (and no other run);
-   - an export that carries no test-order flag, and a platform export or connector that does
-     not say which conversion actions it counts, each in the wording **Plain wording** gives;
+     holds marketing spend summed across platforms (CAC, MER / ROAS), and on no other page: a
+     Platform ROAS page reads one platform's own spend;
+   - an order count read from a Source with no test-order flag, with the result of checking it
+     against your orders where a Growth Brain holds them; never on a Platform ROAS page, whose
+     purchases are the platform's, not store orders;
+   - a platform export or connector that does not say which conversion actions it counts;
+   - each of these in the wording **Plain wording** gives;
    - the method in one line: Contributions split the change by each lever's share of it, so they
      add exactly to the Success KPI's change;
    - that figures are rounded so the rows add exactly to the change.
@@ -142,6 +157,12 @@ way. The lines above fix what to say; these fix how.
 | Levers table, role of a lever other than a Main driver, in the direction of the change, with at least half the largest Contribution | Also large |
 | Drill-down row for segments too small to list | Other (smaller <dimension>), the dimension in the plural as the table's heading names it: "Other (smaller campaigns)", "Other (smaller channels)" |
 | The same row on a cohort level, which also holds cohorts too young to read | Other (smaller or too-young cohorts) |
+| Drill-down cell for a segment with no volume in that period | New (Comparison period cell), Stopped (Current period cell) |
+| Under the Levers table, a cost pair that takes no role | <Spend> moved <KPI> by <figure> and <visits or impressions> by <figure>; read together as <cost per visit or CPM> they moved it by <figure>, too little to drive the change. |
+| Under a Drill-down table, the other dimensions read at that level | Also read at this level: <dimensions>. <Chosen dimension> shows most of the change in one place. |
+| Under a Drill-down table, a ratio segment whose rate moved one way and Contribution the other | <Segment>'s <lever> <rose or fell>, yet it <lowered or raised> <lever> overall: it carried a <smaller or larger> share of your <volume> than before. |
+| Drivers block, after the evidence sentence, where the driver's change straddles a change of source | Part of this change may come from the change in how <measure> is recorded on <date>, not from the business. |
+| Recommendations, KPI at stake capped at the lever's Contribution | <figure>, all of <lever>'s change: <segment> moved it by <figure> on its own, and other <dimension, plural> pulled the other way. |
 
 **The Drill-down's closing line**, one per driver, by the reason it stopped:
 
@@ -179,6 +200,7 @@ way. The lines above fix what to say; these fix how.
 | GA4 sessions by default channel group | your GA4 traffic by channel |
 | a file the user gave | the <report name> you gave |
 | pasted figures | the figures you gave |
+| a connector read directly (Shopify, GA4, Google Ads, Meta Ads) | your <platform> account |
 
 **Notes lines**
 
@@ -186,6 +208,19 @@ way. The lines above fix what to say; these fix how.
 |---|---|
 | A level read from the orders while the lever's total comes from another Source | The split of <lever> by <dimension> comes from your orders, while its total comes from <Source in plain words>. |
 | An export carries no test-order flag | <Source> carries no test-order flag, so any test orders are counted. |
+| An order count with no test-order flag, checked against your orders, matching | <Source> carries no test-order flag; its order count matches your orders with test orders left out. |
+| The same, not matching | <Source> carries no test-order flag; its order count is <n> above your orders with test orders left out, so up to <n> test orders may be counted. |
+| Cancelled orders, the Source says they are left out | Cancelled orders are left out, as <Source> records them. |
+| Cancelled orders, the Source says they are counted | Cancelled orders are counted, as <Source> records them. |
+| Cancelled orders, the Source does not say | <Source> does not say whether cancelled orders are counted, so orders are as it records them. |
+| Modelled re-attribution rows in the periods | <share> of <measure> in the Current period (<share> in the Comparison period) is modelled re-attribution, kept in the totals and shown in "Other" below channel. |
+| No modelled re-attribution rows in the periods | None of these figures is modelled re-attribution: every channel is as your data recorded it. |
+| A change of source between or inside the periods | <Measure> is recorded by <later source> from <date> and by <earlier source> before it, so part of the change in <levers> may be the change of source. |
+| A currency no Source states, confirmed by the user | <Source> does not say which currency it reports in; amounts are in <currency>, as you confirmed. |
+| A currency no Source states, on an unattended run | <Source> does not say which currency it reports in, so amounts are shown without a symbol. |
+| Connectors in the session not read, on a Growth Brain run | <Connectors> were connected but not read: your Growth Brain holds what they would have given. |
+| A partial split | <Levers> could not be read (<reason>), so <figure> of the change is shown as "Not split". |
+| An export the user chose not to give | You chose not to give <report name>, so <levers> read "No data". |
 | Marketing spend, on a run without a Growth Brain whose tree holds spend | Marketing spend covers <platforms> only, the same in both periods. |
 | The timezone, with a Growth Brain that names one | Days are read in <timezone>. |
 | The timezone, where the Growth Brain says only that dates are the store's own | Days are your store's own, as your Growth Brain records them. |
