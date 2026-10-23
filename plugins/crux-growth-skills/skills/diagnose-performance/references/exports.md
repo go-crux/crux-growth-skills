@@ -1,6 +1,6 @@
 # Without a Growth Brain
 
-Opened by `SKILL.md` steps 3, 4 and 6 when a lever's Source is a platform connector or a file the
+Opened by `SKILL.md` steps 1, 3, 4 and 6 when a Source is a platform connector or a file the
 user gives. A connector is read through its own reporting tool for the columns named here. The
 export steps are for a lever no connected Source reads, and for nothing else; give the user only
 the steps for the reports the confirmed Lever tree needs.
@@ -88,13 +88,34 @@ a brain: name it on the page.
 | Sessions | visits |
 | New users | new visitor share |
 
+## Google Ads: connector
+
+The connector's summary and performance tools take relative date ranges ("last 30 days") and show
+enabled campaigns by default, so they cannot read a named period. Read through its query tool
+(Google Ads Query Language) instead:
+
+- **Dates.** Filter on `segments.date BETWEEN '<start>' AND '<end>'` with a period's own dates,
+  and run it once for each period, on the four dates.
+- **Status.** Put no filter on campaign status: paused and removed campaigns spent in the
+  period too, and the spend lever is every campaign.
+- **Pages.** Take every page of rows, following the reply's next-page token until it gives none,
+  before any sum. A first page alone understates spend.
+- **Spend, impressions, clicks.** One query selecting `campaign.name` with `metrics.cost_micros`
+  (divide by 1,000,000), `metrics.impressions` and `metrics.clicks`, and no conversion segment.
+- **Purchases.** A second query selecting `campaign.name`, `segments.conversion_action_category`,
+  `metrics.conversions` and `metrics.conversions_value`, filtered on
+  `segments.conversion_action_category = 'PURCHASE'`; join the two on campaign. Where the tool
+  cannot filter on the category, conversions are every primary conversion action: say so in the
+  Notes in the layout's wording.
+
 ## Google Ads: campaign report
 
 1. In Google Ads, open Campaigns and set the date range to the Current period's dates.
-2. Add the columns Cost, Impressions, Clicks, Conversions and Conversion value, and keep the
+2. Set the status filter to all campaigns (enabled, paused and removed).
+3. Add the columns Cost, Impressions, Clicks, Conversions and Conversion value, and keep the
    conversion actions to purchases.
-3. Download as CSV and drop the file into this chat.
-4. Repeat for the Comparison period's dates.
+4. Download as CSV and drop the file into this chat.
+5. Repeat for the Comparison period's dates.
 
 | Column | Feeds |
 |---|---|
@@ -126,12 +147,17 @@ a brain: name it on the page.
 
 - Match column headers loosely: labels vary by report version and language. Read numbers as
   counts or amounts, ignoring thousands separators, in the currency the Source reports.
-- A file with a date column holds both periods in one file; split it on the periods' dates. Any
-  other file is one period: confirm which from its date range, and ask for the re-export if the
-  dates do not match.
-- Add together the rows that share a segment, and check that the segments sum to the file's total.
-- A connector is read for the same columns and the same dates, and the same Source is read for both
-  periods.
+- **Dates in a file.** A file with a date column (by day, week or month) holds both periods, or
+  one: split its rows on the periods' dates. A file grouped by month is accepted where each
+  period is whole calendar months (add the months a period holds); for a week or any other
+  period that is not whole months, ask once for the file grouped by day. A file whose date
+  column holds one period is that one period: confirm it against the period's dates. A file with
+  no date column is one period: confirm which from its date range. Ask once for the re-export
+  when the dates do not match.
+- Add together the rows that share a segment, leaving any total row out of the sums. Where the
+  file has a total row, check that the segments sum to it; where it has none, make no such check.
+- A connector is read for the same columns, on the four dates, for every campaign whatever its
+  status and with every page of rows, and the same Source is read for both periods.
 - Leave out test orders wherever the Source flags them. An export with no test-order flag is read
   as it stands, and the Notes say so in the layout's wording.
 - A platform export that does not say which conversion actions it counts is read as given, and the

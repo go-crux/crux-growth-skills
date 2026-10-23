@@ -47,6 +47,16 @@ Without a Growth Brain the diagnosis still runs, read from the connectors and fi
 Brain line (`references/diagnosis-layout.md`) is said once on the page and once in the chat (a run
 that stops at step 3 says it in the chat only).
 
+**Probe each connector.** A connector that lists an account can still refuse every performance
+read, so make one small read per connector in the session before any Source is offered, on the
+Comparison period (the one the first message names, else the one step 2 recommends): one headline
+figure for its first day, through the tool step 4 will read it with (Shopify orders, GA4
+sessions, Google Ads or Meta Ads cost; for Google Ads its query tool, as
+`references/exports.md` sets out). An error or a refusal is a refusal; a read that returns zero
+is not. A connector that refuses is named to the user, with what it refused, in the intake
+message (an unattended run names it in the Notes), is offered as a Source for no lever, and is
+not read again in this run.
+
 Then settle two facts once, for every later step to reuse:
 
 - **Timezone**: the Growth Brain's instructions where they name one; else the timezone the date
@@ -58,7 +68,8 @@ Then settle two facts once, for every later step to reuse:
 
 **Done when** the Sources in this session are named to the user in the intake message (an
 unattended run has none, and names them in the Notes): the one Growth Brain chosen with its roster
-in hand and `search_examples` called once, or none; the connectors found; and the files the
+in hand and `search_examples` called once, or none; the connectors found, each with one probe
+read, and any that refused named to the user and offered as no Source; and the files the
 conversation already holds. The timezone and the currency are set.
 
 ## 2. Intake
@@ -173,6 +184,14 @@ stopped with its one line and no page.
 **Without a Growth Brain**, read each lever from its Source as `references/exports.md` sets out,
 on the four dates, then rebuild the Success KPI and compare it as below.
 
+**A refused read.** A read that fails in this step, after the probe passed or after the tree was
+confirmed, sends its lever to the next Source in step 1's order that holds it, on every run, and
+that Source is read for both periods again. A Source that has refused is read for no lever
+again in this run. Where the next Source is an export, give the steps for it from
+`references/exports.md` and ask for it once, then wait (an unattended run asks for none). A
+lever with no Source left reads "No data", and step 3's stop rule applies to what remains. Tell
+the user in one line which lever moved to which Source (an unattended run: the Notes).
+
 **Query.** For each mart the confirmed tree needs that is not yet read, call `list_tables` naming
 that one mart, one mart per call: a call naming two can overflow the reply. Compose every query
 from the columns the calls return, and join to the `periods` CTE for dates. Read each lever's value in both
@@ -182,11 +201,11 @@ period (for the revenue tree, channel reporting's total sales) and not from the 
 rows. A lever whose mart is absent, or that is zero or missing in either period, reads "No data".
 
 **Done when** every lever has a value in the Current period and the Comparison period, or "No
-data" with its reason; the rebuilt Success KPI is within 0.01% of the Success KPI read in its own
-query, in both periods (for a tree with a lever reading "No data", the gap is the "Not split"
-row); every tree count comes from its one mart; test orders are out of every
-query the Source flags them in; and every query took its dates from `periods` (without a Growth
-Brain, every read took the four dates).
+data" with its reason, and none was read from a Source that refused; the rebuilt Success KPI is
+within 0.01% of the Success KPI read in its own query, in both periods (for a tree with a lever
+reading "No data", the gap is the "Not split" row); every tree count comes from its one mart;
+test orders are out of every query the Source flags them in; and every query took its dates from
+`periods` (without a Growth Brain, every read took the four dates).
 
 ## 5. Split
 
