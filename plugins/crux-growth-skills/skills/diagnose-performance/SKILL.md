@@ -123,8 +123,9 @@ year, or a week, which is a complete Monday to Sunday week.
 "1 to 7 March") is typed as dates, here and nowhere else. A recommended period and a name
 relative to today are computed from `CURRENT_DATE('<timezone>')` (step 1's store-local case:
 `CURRENT_DATE()`); "last month", "last quarter" and "same quarter last year" are named periods.
-"This month", "this quarter" or "this year" while it is still running resolves to the last complete period of that kind: an attended run says so
-in the tree confirmation, with the dates, and an unattended run in the Notes. With a Growth
+"This month", "this quarter" or "this year" while it is still running resolves to the last
+complete period of that kind: an attended run says so in the tree confirmation, with the dates,
+and an unattended run in the Notes. With a Growth
 Brain, put the start and end dates in one `periods` CTE (`period`, `start_date`, `end_date`) ahead
 of every query. Without a Growth Brain, write the four dates once, from today's date, and read
 every connector and file on them. When the periods differ in length, say so in the Notes.
