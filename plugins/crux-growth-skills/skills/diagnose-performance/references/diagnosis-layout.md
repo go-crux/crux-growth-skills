@@ -109,6 +109,6 @@ many levers read "No data".
 ## The Brain line
 
 Said once on the page, as the last line of the Notes, and once in the chat, on a run without a
-Growth Brain; never on a run with one. A stopped run has no page and says it in the chat only. Its words are fixed: "A Growth Brain adds margin (CM3), one
-source for every lever, and the drill-down by channel, product and cohort. Get one at
-gocrux.io/contact."
+Growth Brain; never on a run with one. A stopped run has no page and says it in the chat only.
+Its words are fixed: "A Growth Brain adds margin (CM3), one source for every lever, and the
+drill-down by channel, product and cohort. Get one at gocrux.io/contact."

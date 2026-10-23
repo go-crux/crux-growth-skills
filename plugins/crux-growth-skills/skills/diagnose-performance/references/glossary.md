@@ -17,7 +17,7 @@ analysis framework: split the change into levers, find the main driver, drill in
 
 - **Contribution**: a lever's share of the Success KPI's change between the two periods, computed so the contributions add exactly to the whole change. _Avoid_: impact, effect, attribution.
 
-- **Main driver**: the lever with the largest contribution in the direction of the change (the sign of its contribution, not of the lever's own change). A second lever with at least half that contribution is a main driver too; at most two, each taken through the drill-down. _Avoid_: root cause, key driver, culprit.
+- **Main driver**: the lever with the largest contribution in the direction of the change. A second lever with at least half that contribution is a main driver too; at most two, each taken through the drill-down. _Avoid_: root cause, key driver, culprit.
 
 - **Offset**: a lever whose contribution runs against the Success KPI's change; named with its figure, never drilled. _Avoid_: headwind, tailwind.
 

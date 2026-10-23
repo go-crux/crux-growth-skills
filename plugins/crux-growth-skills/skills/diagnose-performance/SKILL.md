@@ -264,7 +264,8 @@ Current period as `YYYY-MM` for a calendar month, else `<start>_<end>` as `YYYY-
 
 Tell the user in four lines the change (the Success KPI in both periods and the relative
 change), the Main driver(s) with their Contributions (an Offset may be named in the same line),
-the Cause, and the top recommendation, which is the Summary's top action, then the page's path. Without a Growth Brain, add the Brain line after the four lines and before the path.
+the Cause, and the top recommendation, which is the Summary's top action, then the page's path.
+Without a Growth Brain, add the Brain line after the four lines and before the path.
 
 **Done when** the page holds all seven headings in order, every heading carries its content or
 its reason, the Levers table sums to the change, the waterfall ties from the Comparison period's
