@@ -16,8 +16,10 @@ type, Benchmark, Revenue at stake, Orders at stake and Underperforming page are 
 ## 1. Connect
 
 Look for a connector named `<Client> - Growth Brain` that offers `list_tables`, `list_metrics`,
-`search_examples` and `run_sql`. With several, ask which one. With none, say in one line that
-the Audit runs from the page alone, and from a Shopify export where the user has one.
+`search_examples` and `run_sql`. With several, use the one whose client name plainly matches the
+domain of the URL the user gave or the brand they named, and say which in a line; ask which one
+only when none match or more than one does. With none, say in one line that the Audit runs from
+the page alone, and from a Shopify export where the user has one.
 
 With a brain connected, a user who asks which landing pages are underperforming, or who gives
 no URL, goes to step 2 (Find). A user who gives a URL goes to step 3 (Performance); a brain is
@@ -26,8 +28,9 @@ what to test goes to step 2, which asks for the export; a user who gives a URL g
 when the conversation already holds an export, otherwise to step 4.
 
 **Done when** the run has named the connector it uses or said it runs without one, and has sent
-the user to Find or holds one page URL; and no user with a brain connected was asked for the
-export.
+the user to Find or holds one page URL; with several connectors, the run used the one matching the
+URL's domain or the named brand without asking, or asked because none or several matched; and no
+user with a brain connected was asked for the export.
 
 ## 2. Find
 
@@ -38,8 +41,8 @@ without one; otherwise go to step 3. With a brain, follow Read and List; without
 **Read.** Call `list_tables` once with no arguments, then once naming only
 `<client>-channel_reporting` (`<client>` is the prefix the roster carries). If that mart is
 missing, say in one line that the brain holds no traffic table to rank pages from, ask for the
-URL and go to step 3. Open `references/find.sql`, put its CTEs ahead of its Find query, compose
-`source` from the columns the second call returns and run it with `run_sql`. The file reduces
+URL and go to step 3. Open `references/find.sql`, put its CTEs (everything above its FIND line) ahead of its Find
+query, compose `source` from the columns the second call returns and run it with `run_sql`. The file reduces
 the brain's landing page to the store's own path, whether the brain holds a path or a URL with
 its host. Where the brain's own instructions name the store's timezone, write every
 `CURRENT_DATE()` as `CURRENT_DATE('<timezone>')`. The period is the last 90 complete days; for a period the user
@@ -114,12 +117,13 @@ and skip the rest of this step.
 **Match.** Reduce the URL to its path the way `find.sql` reduces the brain's landing page: drop
 the scheme and host, cut the query string and any fragment, and drop a trailing slash (the home
 page stays `/`). The URL's domain is taken as the store's own domain, the one `find.sql` keeps.
-Put that path in the Audit query and in `funnel.sql`'s `target`; the funnel's landing page is
+Put that path in `references/audit.sql` and in `funnel.sql`'s `target`; the funnel's landing page is
 reduced by the same rule.
 
 **Read.** Unless step 2 already did, call `list_tables` once with no arguments, then once naming
-only `<client>-channel_reporting`. Open `references/find.sql`, put its CTEs ahead of its Audit
-query, set the path in it, compose `source` as Find did and run it with `run_sql`, with the
+only `<client>-channel_reporting`. Open `references/find.sql` and `references/audit.sql`, put find.sql's CTEs
+(everything above its FIND line) ahead of audit.sql's query, set the path in that query, compose
+`source` as Find did and run the two together with `run_sql`, with the
 period, timezone and revenue column Find used (where step 2 did not run, choose the column by
 step 2's rule). It returns the page's visits, conversion, revenue per visit, Benchmark revenue
 per visit, Revenue at stake and its top 3 channels' share of visits, from the same CTEs as the
@@ -151,11 +155,12 @@ page's gap.
 
 **Done when** (with a brain) the path is matched, or the one-line no-match reason is said;
 visits, conversion, revenue per visit, Benchmark revenue per visit, Revenue at stake and the top
-3 channels' share of visits are held from `find.sql`, with the revenue column and whether it
+3 channels' share of visits are held from `references/audit.sql`, with the revenue column and whether it
 includes tax and shipping held for the footnote, and with no Benchmark or Revenue at stake
 computed anywhere else; the funnel steps, mobile against desktop, the Leaking step and the
 funnel's first and last day are held, or the missing funnel is said in one line; each funnel
-rate is a sum over a sum; and the user has heard the Leaking step or that there is none.
+rate is a sum over a sum; the page headlines the conversion from the traffic table, and the funnel's
+purchase rate is footnoted as counted on the funnel's own sessions and dates; and the user has heard the Leaking step or that there is none.
 
 ## 4. Guardrails
 
@@ -189,13 +194,16 @@ one question with your recommended goal; "yes" accepts it.
 
 **Read.** Choose by what the session offers.
 
-- With a browser tool, render the page at mobile width first (about 390 px), scroll it end to
+- With a browser tool that works, render the page at mobile width first (about 390 px), scroll it end to
   end, then render it at desktop width. Note the first screen, what sticks, any popup on
   arrival and how it loads.
 - Without one, fetch the HTML and assess structure and copy. Mark every check tagged *(needs a
   render)* in `references/ingredients.md` as *unassessed*, and say in one line, in the chat and
   in the page's masthead, that mobile screenshots of the first screen and the buy area would
   settle them.
+- Where the browser tool is present but errors (not connected, or it fails to load the page),
+  fetch the HTML as if there were no browser tool, and say in the chat and in the page's masthead
+  that the browser tool failed and the page was read from its HTML.
 - Read every screenshot the user gives. A screenshot settles only what it shows.
 - When the page will not load (a login, an error), ask for mobile screenshots or the page's
   text, and read those the same way.
@@ -239,7 +247,7 @@ Tell the user where the page is, give the total and the weakest ingredient in on
 name the top finding and the Leaking step where there is one, and say which checks are *unassessed* and what would settle them.
 
 **Done when** the page type, the goal and the device priority are on the page; the masthead
-says how the page was read; all sixty checks carry a mark, each n/a and *unassessed* with its
+says how the page was read, including a browser tool that failed; all sixty checks carry a mark, each n/a and *unassessed* with its
 reason, and each check tagged *(needs a render)* is *unassessed* wherever only HTML was read;
 every off-brand lever already on the page is a quick win; no Do breaches a guardrail; every
 recommendation resting on an unconfirmed guardrail carries the assumption mark in its finding or
