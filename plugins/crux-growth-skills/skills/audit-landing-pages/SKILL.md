@@ -6,7 +6,7 @@ description: Landing page audit. Use when someone asks to improve or audit a lan
 # Landing page audit
 
 Produce `landing-page-audit-<slug>.html` for one page: a scorecard of sixty checks across six
-ingredients, prioritised findings, quick wins and an ICE-scored test backlog, with a Methodology page behind them, laid out as
+ingredients, prioritised findings, quick wins and an ICE-scored test backlog, with a Methodology tab behind them, laid out as
 `references/audit-layout.md` fixes it. Run the steps in order. The user sees only the chat
 and the page, never this skill or its references: say what the page showed, in plain words with
 its evidence, and never cite a file or a rule. The terms Find, Audit, Brand guardrails, Page
@@ -257,8 +257,9 @@ standard for a finding.
    on-brand alternative. A recommendation resting on an unconfirmed guardrail is marked as an
    assumption.
 5. **The page.** Write `landing-page-audit-<slug>.html` to the working folder: the audit
-   page with the five headings in order, each opening with its one-line Summary, and the
-   Methodology page behind the masthead's link. **Performance** is filled as the layout sets it for what step 3 returned.
+   tab with the five headings in order, each opening with its one-line Summary, and the
+   Methodology tab beside it. **Performance** is filled as the layout sets it for what step 3
+   returned.
 
 Tell the user where the page is, give the total and the weakest ingredient in one sentence,
 name the top finding and the Leaking step where there is one, and say which checks are *unassessed* and what would settle them.
@@ -280,6 +281,7 @@ no Ship call and the footnote naming the lift rule and the table or the formula,
 "no traffic found for this page" where the brain or the export held none; the findings follow
 the Leaking step's order where there is one, with all sixty checks scored; the page has
 Performance, Scorecard, Findings, Quick wins and Test backlog in that order, each with a one-line
-Summary and an empty one carrying its reason; the Methodology page opens only from the masthead's
-link, with the fixed copy and the Conversion Rate Experts credit with its link; the file name follows the slug rule in the layout; and
-the user has the page's path.
+Summary and an empty one carrying its reason; a tab bar switches between Audit and Methodology
+with radio buttons, not links, and the Methodology tab carries the fixed copy and the Conversion
+Rate Experts credit with its link; the file name follows the slug rule in the layout; and the
+user has the page's path.
