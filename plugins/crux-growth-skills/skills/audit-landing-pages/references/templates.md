@@ -85,6 +85,8 @@ needs no test is a quick win instead, and its finding keeps its number with no h
 > months, from the page's traffic and the lift rule (`diagnostics.md` section 4); "Test or
 > ship: needs traffic figures" only where there is no brain and no export; with a brain or an
 > export that found no traffic for the page, "Test or ship: no traffic found for this page".
+> For a Non-sale page, "Read on <the goal>: online conversion does not measure this page",
+> with no months.
 > **Assumption:** only where the change rests on an unconfirmed guardrail.
 > **ICE:** Impact _/5 · Confidence _/5 · Ease _/5 · **Total _/15**
 
@@ -123,7 +125,9 @@ A hypothesis marked as an assumption carries "(assumption)" after its name in th
 Under the table, one **sequencing line**. With traffic figures: the page's monthly visits and
 conversion, how many rows are tests, sequential reads and ships, and that the ships go first
 and the tests run one at a time. Without them: "Test or ship needs the page's visits and
-conversion rate. With them, each row reads as a test, a sequential read or a ship."
+conversion rate. With them, each row reads as a test, a sequential read or a ship." For a
+Non-sale page, in place of both: "Each change is read on <the goal>, which the store's online
+figures do not count; ship the quick wins first."
 
 Under the sequencing line, where the rows carry calls from traffic figures, the **backlog
 footnote** names the lift rule and the basis in one sentence, per `diagnostics.md` section 4:

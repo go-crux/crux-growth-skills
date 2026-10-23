@@ -45,7 +45,11 @@ nothing under it stays on the page, and its Summary gives the reason.
 
 ### 1. Performance
 
-Four cases.
+Five cases.
+
+**A Non-sale page.** This case holds whatever the run had, a brain, an export or neither. The
+Summary is that one line: "Online figures do not measure this page: its goal is <the goal>, not
+an online purchase." Nothing else sits under the heading.
 
 **Neither a brain nor an export.** The heading reads **Not available**, and its Summary is that one line:
 "Not available: a Shopify 'Sessions by landing page' export or a Growth Brain
@@ -122,6 +126,7 @@ check needs a test").
 Summary: how many hypotheses and the top-ranked one by name. Under it, in this order: the
 hypothesis blocks H1, H2, H3 numbered to match their findings, the ranked table, then the
 sequencing line, then the backlog footnote. The table's **Read as** column carries each row's
-call as `references/templates.md` sets it, and reads "Test or ship: needs traffic figures" only
+call as `references/templates.md` sets it (for a Non-sale page, the read on the page's own
+goal), and reads "Test or ship: needs traffic figures" only
 where the audit had neither a brain nor an export. The footnote names the lift rule and whether
 the table or the formula was used, and is left out where no row carries a call from traffic.

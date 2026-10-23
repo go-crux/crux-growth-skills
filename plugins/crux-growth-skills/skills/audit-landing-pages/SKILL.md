@@ -65,8 +65,9 @@ Page type, threshold or Benchmark by hand: the file computes them.
   same Page type and channel.
 - With fewer than 10 Underperforming pages, list those found and say how many there are. With
   none, say so and ask for the URL of the page to audit.
-- One line that checkout, cart, account and visits with no store page (another host, "(not set)",
-  a modelled re-attribution label) are left out of the list and counted in the site's visits.
+- One line that checkout, cart, account, Non-sale pages (named by the glossary's examples) and
+  visits with no store page (another host, "(not set)", a modelled re-attribution label) are
+  left out of the list and counted in the site's visits.
 
 End by asking which page to audit, recommending the first; "yes" accepts it. The chosen page's
 path is the page to audit: take the store's own domain (the one `find.sql` ranked) from the
@@ -92,8 +93,8 @@ reference's rules and write to the chat, with no file:
   Benchmark is the site's conversion for the same Page type.
 - With fewer than 10 Underperforming pages, list those found and say how many there are. With
   none, say so and ask for the URL of the page to audit.
-- One line that checkout, cart and account are left out of the list and counted in the site's
-  sessions.
+- One line that checkout, cart, account and Non-sale pages (named by the glossary's examples)
+  are left out of the list and counted in the site's sessions.
 - One line: a Growth Brain adds revenue and traffic mix (gocrux.io/contact).
 
 End by asking which page to audit, recommending the first; "yes" accepts it. The chosen page's
@@ -111,8 +112,12 @@ first recommended.
 
 Runs when the run holds a page URL (given, or chosen in step 2) and either step 1 found a brain,
 or there is no brain and the conversation holds a Shopify export; otherwise go to step 4, where
-the Performance heading reads "Not available". Without a brain, follow "From the export" below
-and skip the rest of this step.
+the Performance heading reads "Not available". A Non-sale page is checked first, brain or not;
+then, without a brain, follow "From the export" below and skip the rest of this step.
+
+**A Non-sale page.** Reduce the URL to its path as **Match** sets out. Where `find.sql`'s
+`not_online_sale` rule matches it, the page is a Non-sale page: hold that, tell the user in one
+line that online figures do not measure it, and go straight to step 4.
 
 **Match.** Reduce the URL to its path the way `find.sql` reduces the brain's landing page: drop
 the scheme and host, cut the query string and any fragment, and drop a trailing slash (the home
@@ -146,6 +151,9 @@ cart rate, checkout reach rate and checkout completion rate, each against the sa
 Tell the user in two sentences: the page's sessions, conversion and Orders at stake, then the
 funnel rate furthest below its Page type's. With no match, say so in one line; Performance reads
 "Not available" and the audit reads the page only.
+
+**Done when** (for a Non-sale page) it went to step 4 before any query or export match, and the
+user was told in one line that online figures do not measure the page.
 
 **Done when** (from the export) the path is matched, or the one-line no-match reason is said;
 sessions, conversion, Benchmark conversion and Orders at stake are held from
@@ -190,7 +198,13 @@ type, take the closest type and say which. Open `references/page-architecture.md
 "Emphasis by Page type" for it. Take mobile as the device priority unless the user says
 otherwise. Once you have read the page, name the single conversion goal its primary CTA serves.
 Where the user has not stated it and the page has no primary CTA or several that compete, ask
-one question with your recommended goal; "yes" accepts it.
+one question with your recommended goal; "yes" accepts it. A path `find.sql`'s
+`not_online_sale` rule matches is a Non-sale page, whose goal is not an online purchase (finding
+a stockist, getting in touch, an answer).
+
+**A Non-sale page.** Online conversion and revenue do not measure its goal, so Performance opens
+on that, naming the goal; the findings go structural first; and every **Read as** says the
+change is read on the page's own goal, as `references/templates.md` sets it.
 
 **Read.** Choose by what the session offers.
 
@@ -228,9 +242,10 @@ standard for a finding.
    evidence the user gave.
 2. **Quick wins.** The changes to ship without a test, each naming the checks it settles.
 3. **Hypotheses.** One for each finding, numbered to match, scored with ICE and ranked in the
-   backlog table. Where step 3 returned the page's visits and conversion, each row's **Read as**
-   cell is the test, sequential read or ship call from the sample-size table and the fixed lift
-   rule in `references/diagnostics.md` section 4, with the export's sessions and conversion where
+   backlog table. For a Non-sale page, each row's **Read as** says the change is read on the
+   page's own goal. Otherwise, where step 3 returned the page's visits and conversion, each row's
+   **Read as** cell is the test, sequential read or ship call from the sample-size table and the
+   fixed lift rule in `references/diagnostics.md` section 4, with the export's sessions and conversion where
    it was the source. Months sit on Test and Sequential read only, and a Ship call gives its
    reason. With no brain and no export it reads "Test or ship: needs traffic figures", and with a
    brain or an export that found no traffic for the page, "Test or ship: no traffic found for
@@ -255,7 +270,9 @@ quick win and in its backlog row, and the masthead lists the unconfirmed guardra
 scorecard shows six counts with bands and a total; every finding names its failed check
 numbers and trust, understanding or fit and ends on a Do; every not-met check appears in a
 finding or a quick win; every finding has a hypothesis with ICE or a quick win covering it;
-every backlog row carries its call from the page's traffic and the lift rule, with months on
+for a Non-sale page, Performance says online figures do not measure its goal and every Read as
+says the change is read on that goal; for any other page, every backlog row carries its call from
+the page's traffic and the lift rule, with months on
 no Ship call and the footnote naming the lift rule and the table or the formula, or reads
 "Test or ship: needs traffic figures" only where there was neither a brain nor an export, or
 "no traffic found for this page" where the brain or the export held none; the findings follow
