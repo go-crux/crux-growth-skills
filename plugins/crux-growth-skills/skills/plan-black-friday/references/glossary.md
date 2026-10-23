@@ -19,6 +19,8 @@ to that year's Black Friday, the last Friday of November, so years compare like 
 
 - **Returning customer orders**: orders less new orders in a window or month, the growth-equation term for repeat buying; few customers order twice inside one window, so it is counted in orders, not orders per customer. _Avoid_: order frequency, repeat rate.
 
+- **Lever**: one term of the growth equation, new customers, returning customer orders or order value, that together rebuild revenue. _Avoid_: pillar, factor.
+
 - **Lever gap**: what new customers, returning customer orders and order value must each do to close a Stretch or Unrealistic target, read against last year's. _Avoid_: shortfall, variance, pillar.
 
 - **Scenario**: one way of closing the Lever gap through a single lever, the others held at last year's level. _Avoid_: option, play.

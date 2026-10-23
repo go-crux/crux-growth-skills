@@ -69,7 +69,7 @@ names, else the one step 2 recommends (`references/lever-trees.md`).
 
 Make the probe read on the Comparison period as the first message names it, else as step 2
 recommends it (the period before the last complete one; the final dates are set in step 2, and
-the probe needs only a day inside it): one headline figure for that period's first day, through
+the probe needs only a day inside it): one figure for that period's first day, through
 the tool step 4 will read it with (Shopify orders, GA4 sessions, Google Ads or Meta Ads cost; for
 Google Ads its query tool, as `references/exports.md` sets out). An error or a refusal is a
 refusal; a read that returns zero is not. A connector that refuses is named to the user, with
@@ -116,7 +116,7 @@ for the answer:
    conversation; for a lever none of these holds, the reports the user can export. Where step 1
    found a connector account that could not be told to be the brand's, ask whose it is.
 
-"Yes" accepts every recommendation, and "just run it" does the same. An answer replaces that
+"Yes" accepts every recommendation, and "just write it" does the same. An answer replaces that
 question's recommendation. A period is any span: a calendar month, a calendar quarter, a calendar
 year, or a week, which is a complete Monday to Sunday week.
 
@@ -164,7 +164,7 @@ An unattended run asks nothing and goes straight to Read.
 
 **Done when** the columns of each mart the tree needs were read before the user was asked to
 confirm (an unattended run reads them in step 4); the user has confirmed (an unattended run: the
-skill has derived) a Lever tree of 3 to 5 levers with at least one volume and one efficiency,
+skill has derived) a Lever tree of 3 to 5 levers (fewer only where `references/lever-trees.md` allows) with at least one volume and one efficiency,
 whose arithmetic rebuilds the Success KPI exactly; every lever has one named Source across both
 periods, or "No data" with its line; every export asked for is in hand or its lever reads "No
 data"; and the run either goes on (the Success KPI and at least one lever can be read) or has
@@ -252,8 +252,8 @@ Contribution, not of the lever's own change: spend that rose lowers CM3, so it r
   under Recommendations (step 8); it is not drilled.
 - **Offset**: a lever whose Contribution runs against the change is named with its figure and
   never drilled.
-- **No role**: a lever in the direction of the change under half the largest Contribution, and a
-  lever that reads "No data". It is listed in the Levers table without a line.
+- **No role**: a lever in the direction of the change under half the largest Contribution, a
+  lever that reads "No data", and the "Not split" row. It is listed in the Levers table without a line.
 - **Cost per visit.** In a tree holding spend and visits (CAC, MER / ROAS), when their
   Contributions run against each other, rank their combined Contribution as one lever, cost per
   visit, and give the pair one role together. A spend cut that visits cancel is then not drilled

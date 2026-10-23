@@ -133,8 +133,8 @@ Source does not hold it, the Drill-down stops above it. Confirm each column in `
 
 | Dimension | Growth Brain | Without one |
 |---|---|---|
-| channel | `<client>-channel_reporting` | GA4 sessions by default channel group |
-| campaign | `<client>-channel_reporting` | the Google Ads or Meta Ads campaign report |
+| channel | `<client>-channel_reporting`; for a lever counted from `<client>-orders` (the CM3 tree's customers and orders), that mart's own channel column, where `list_tables` shows one | GA4 sessions by default channel group |
+| campaign | `<client>-channel_reporting`; for a lever counted from `<client>-orders`, that mart's own campaign column, where `list_tables` shows one | the Google Ads or Meta Ads campaign report |
 | landing page, ad group, ad | `<client>-channel_reporting` | a connector that reads it; the exports stop at campaign |
 | discount, new against repeat, order-level flags, order category | `<client>-orders` | none |
 | product | `<client>-order_items`, where `list_tables` shows it carries the lever's measure | none |
@@ -191,9 +191,10 @@ Choosing among dimensions, and descend by the rule above.
 
 ### The Cause question
 
-One question per drilled driver, asked in one numbered round with the others, in plain words.
+One question per Main driver, asked in one numbered round with the others, in plain words.
 Open with the evidence in a sentence with its figures, then offer two or three likely causes,
-the best fit for the evidence first, then "something else, or you don't know". Offer causes
+the best fit for the evidence first, then "something else, or you don't know". The best fit is
+the recommendation, and "Yes" accepts it. Offer causes
 that fit the lever:
 
 | Lever | Likely causes |
@@ -214,7 +215,7 @@ for the Cause, never a Drill-down level.
 
 ### Recommendations
 
-Each drilled driver gets 1 to 3 recommendations, ranked by the KPI at stake. The **segment the
+Each Main driver gets 1 to 3 recommendations, ranked by the KPI at stake. The **segment the
 Drill-down ended on** is the largest segment in the direction of the change at the last level
 read.
 

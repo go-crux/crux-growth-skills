@@ -13,11 +13,11 @@ Source, with the same report, columns and filters, in both periods.
 | Lever | Source and columns | Finest dimension held |
 |---|---|---|
 | visits | GA4 sessions by default channel group (Sessions); else Shopify sessions by landing page (Sessions, summed over every row) | channel (GA4); none for Shopify (see below) |
-| new visitor share | GA4 sessions by default channel group (New users, over Sessions) | channel |
+| new visitor share | GA4 sessions by default channel group (New users, over Sessions; a new user is counted once, on the first session, so New users sum across channel rows) | channel |
 | orders, new customers, returning orders | Shopify sales over time (Orders, by customer type) | none |
 | revenue, order value | Shopify sales over time (Orders, Net sales) | none |
 | conversion | Shopify orders over the visits lever's sessions | none |
-| new-customer conversion | Shopify new customers over the visits lever's sessions | none |
+| new-customer conversion | Shopify new customers over the visits lever's sessions (CAC tree), or over the new visitor share lever's New users (New customers tree) | none |
 | spend (platform) | the Google Ads or Meta Ads campaign report (spend) | the finest level the export or connector holds (campaign, ad set or ad group, ad) |
 | spend (marketing, for CAC and MER / ROAS) | the sum of the platform reports read | campaign |
 | impressions, click-through, platform conversion, platform order value | the platform's campaign report (Impressions, Clicks, Purchases, and their value, named per platform in the tables below) | the finest level the export or connector holds (campaign, ad set or ad group, ad) |

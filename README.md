@@ -77,8 +77,8 @@ page loses most people. Ask Claude to audit a landing page, or send `/audit-land
 Claude Code.
 
 **Diagnose performance** (`diagnose-performance`) finds out why a number moved. Pick the
-figure you are judging, such as net sales, orders or profit, and any two periods, such as this
-month against last, or this quarter against the same quarter last year. It splits the figure into
+figure you are judging, such as net sales, orders or profit, and any two periods, such as last
+month against the month before, or this quarter against the same quarter last year. It splits the figure into
 the levers that build it (visits, conversion and order value, for example), says how much of the
 change each lever explains, and names the main driver. It then drills into that driver one level
 at a time, by channel, product or customer group, asks you what you think caused it, and

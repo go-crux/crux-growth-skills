@@ -9,7 +9,7 @@ analysis framework: split the change into levers, find the main driver, drill in
 
 - **Comparison period**: the period the current period is read against, as the user names it (the one before, the same one last year, or any other). _Avoid_: baseline, control, prior period.
 
-- **Lever**: one term of the lever tree, either a volume (visits, new customers, spend) or an efficiency (conversion, order value, margin %, cost per visit). _Avoid_: pillar, factor, component, driver.
+- **Lever**: one term of the lever tree, either a volume (visits, new customers, spend) or an efficiency (conversion, order value, margin %). _Avoid_: pillar, factor, component, driver.
 
 - **Lever tree**: the 3 to 5 levers that rebuild the Success KPI exactly, at least one volume and one efficiency, taken from the catalogue or derived to the same rule, and confirmed by the user before any query. _Avoid_: metric tree, KPI tree, decomposition.
 

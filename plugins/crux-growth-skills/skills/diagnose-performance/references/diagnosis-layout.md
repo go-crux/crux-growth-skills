@@ -52,7 +52,7 @@ many levers read "No data".
    waterfall.
 
    **Waterfall**: an inline SVG from the Comparison period's Success KPI to the Current period's.
-   The first and last bars are the two Success KPI values, each from the baseline. Between them,
+   The first and last bars are the two Success KPI values, each from zero. Between them,
    one floating bar per lever in tree order (and "Not split" last, grey, if present), each
    starting where the running total stands and ending at it plus the lever's Contribution. Use
    one colour for an increase, another for a decrease, a neutral one for the two totals, and

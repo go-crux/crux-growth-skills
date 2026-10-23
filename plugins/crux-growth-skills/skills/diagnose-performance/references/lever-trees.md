@@ -40,6 +40,8 @@ another mart.
 
 Each rebuild cancels to the Success KPI: in every row the inner denominators and numerators
 cancel in turn, leaving the count the KPI is made of.
+New-customer conversion divides by the lever before it in its tree: new visitors in the New
+customers tree, visits in the CAC tree. Name which on the page.
 
 The last column is the page's table of counts (`references/diagnosis-layout.md`, The change): every
 count and amount the levers' ratios divide, in both periods, each read from the source One mart per

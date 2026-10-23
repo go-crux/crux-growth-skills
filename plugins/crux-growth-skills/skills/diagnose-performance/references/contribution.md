@@ -40,8 +40,7 @@ the split is partial.
 
 ## Roles
 
-Name the roles from the Contributions as `SKILL.md` step 5 defines them, the sign of each
-Contribution deciding the direction. A lever that reads "No data" or "Not split" takes no role.
+`SKILL.md` step 5 names the roles from these Contributions.
 
 ## Worked example (CM3)
 
