@@ -29,7 +29,7 @@ another mart.
 
 | Success KPI | Levers | Rebuild | Counts shown on the page |
 |---|---|---|---|
-| CM3 | new customers (V), returning orders (V), order value (E), margin % (E), marketing spend (V) | CM3 = (new + returning) × order value × margin % − spend | new customers, returning orders, orders, revenue, margin, spend |
+| CM3 | new customers (V), returning orders (V), order value (E), margin % (E), marketing spend (V) | CM3 = (new + returning) × order value × margin % − spend | new customers, returning orders, orders, revenue, order margin, spend |
 | Revenue | visits (V), conversion (E), order value (E) | revenue = visits × (orders ÷ visits) × (revenue ÷ orders) | visits, orders, revenue |
 | New customers | visits (V), new visitor share (E), new-customer conversion (E) | new customers = visits × (new visitors ÷ visits) × (new customers ÷ new visitors) | visits, new visitors, new customers |
 | CAC | spend (V), visits (V), new-customer conversion (E) | CAC = spend ÷ (visits × (new customers ÷ visits)) | spend, visits, new customers |
@@ -42,9 +42,9 @@ Each rebuild cancels to the Success KPI: in every row the inner denominators and
 cancel in turn, leaving the count the KPI is made of.
 
 The last column is the page's table of counts (`references/diagnosis-layout.md`, The change): every
-count and amount the levers' ratios divide, in both periods, read once and from the tree's one
-mart. A count two levers share is listed once. Google Ads purchases can be fractional; the page
-shows a fractional count to one decimal and every other count to the unit.
+count and amount the levers' ratios divide, in both periods, each read from the source One mart per
+tree sets for it. A count two levers share is listed once. The page's precision rule is in
+`references/diagnosis-layout.md`.
 
 - **CM3.** Orders = new customers + returning orders, where a new customer is an order from a
   customer with no earlier order and returning orders are the rest. Order value = revenue ÷
