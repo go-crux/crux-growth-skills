@@ -16,8 +16,8 @@ Recommendation, Check-first, Brain line and Performance diagnosis are those of
 
 ## Unattended run
 
-A first message that names the Success KPI, both periods and the data source (a Growth Brain,
-connector or files) runs unattended, as a Claude routine does. Ask the user nothing, at any step,
+A first message that names the Success KPI, both periods and where the data comes from (a Growth
+Brain, connector or files) runs unattended, as a Claude routine does. Ask the user nothing, at any step,
 and follow these five rules:
 
 - Skip Intake's round and the Lever tree's confirmation, and still resolve the periods as step 2
@@ -61,8 +61,8 @@ conversation already holds. The timezone and the currency are set.
 
 ## 2. Intake
 
-A first message that names the Success KPI, both periods and the data source (a Growth Brain,
-connector or files) skips the round below (an unattended run). Otherwise build the round on what
+A first message that names the Success KPI, both periods and where the data comes from (a Growth
+Brain, connector or files) skips the round below (an unattended run). Otherwise build the round on what
 the first message already says. A question it answers is stated in the round as settled, with what
 was understood, and not asked. Ask each open question with a recommendation, then wait for the
 answer:
@@ -89,7 +89,7 @@ Brain, put the start and end dates in one `periods` CTE (`period`, `start_date`,
 of every query. Without a Growth Brain, write the four dates once, from today's date, and read
 every connector and file on them. When the periods differ in length, say so in the Notes.
 
-**Done when** the Success KPI, both periods as start and end dates, and the data source are set,
+**Done when** the Success KPI, both periods as start and end dates, and where the data comes from are set,
 whether by the user's answers or by an unattended run's first message.
 
 ## 3. Lever tree and Sources
@@ -117,8 +117,9 @@ An unattended run asks nothing and goes straight to Read.
 **Done when** the columns of each mart the tree needs were read before the user was asked to
 confirm (an unattended run reads them in step 4); the user has confirmed (an unattended run: the
 skill has derived) a Lever tree of 3 to 5 levers with at least one volume and one efficiency,
-whose arithmetic rebuilds the Success KPI exactly; every lever has one named Source across both periods, or "No data" with its line; and
-every export asked for is in hand or its lever reads "No data".
+whose arithmetic rebuilds the Success KPI exactly; every lever has one named Source across both
+periods, or "No data" with its line; and every export asked for is in hand or its lever reads "No
+data".
 
 ## 4. Read
 
@@ -165,9 +166,9 @@ every export asked for is in hand or its lever reads "No data".
 **Without a Growth Brain**, read each lever from its Source as `references/exports.md` sets out,
 on the four dates, then rebuild the Success KPI and compare it as below.
 
-**Query.** For each mart the confirmed tree needs that is not yet read, call `list_tables` naming that
-one mart, one mart per call: a call naming two can overflow the reply. Compose every query from the columns
-the calls return, and join to the `periods` CTE for dates. Read each lever's value in both
+**Query.** For each mart the confirmed tree needs that is not yet read, call `list_tables` naming
+that one mart, one mart per call: a call naming two can overflow the reply. Compose every query
+from the columns the calls return, and join to the `periods` CTE for dates. Read each lever's value in both
 periods in `run_sql`, then rebuild the Success KPI from the levers as `references/lever-trees.md`
 writes it and compare with the Success KPI read in its own query, from the mart's total for the
 period (for the revenue tree, channel reporting's total sales) and not from the lever queries'
