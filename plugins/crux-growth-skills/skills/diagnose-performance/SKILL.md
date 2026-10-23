@@ -113,7 +113,8 @@ for the answer:
    first message says so; else the period before the Current period, of the same kind.
 4. **Data**: recommend the connected Growth Brain, reading the marts the roster holds for the
    levers the diagnosis needs; then the connectors in the session, then the files already in the
-   conversation; for a lever none of these holds, the reports the user can export.
+   conversation; for a lever none of these holds, the reports the user can export. Where step 1
+   found a connector account that could not be told to be the brand's, ask whose it is.
 
 "Yes" accepts every recommendation, and "just run it" does the same. An answer replaces that
 question's recommendation. A period is any span: a calendar month, a calendar quarter, a calendar
@@ -125,10 +126,10 @@ relative to today are computed from `CURRENT_DATE('<timezone>')` (step 1's store
 `CURRENT_DATE()`); "last month", "last quarter" and "same quarter last year" are named periods.
 "This month", "this quarter" or "this year" while it is still running resolves to the last
 complete period of that kind: an attended run says so in the tree confirmation, with the dates,
-and an unattended run in the Notes. With a Growth
-Brain, put the start and end dates in one `periods` CTE (`period`, `start_date`, `end_date`) ahead
-of every query. Without a Growth Brain, write the four dates once, from today's date, and read
-every connector and file on them. When the periods differ in length, say so in the Notes.
+and an unattended run in the Notes. With a Growth Brain, put the start and end dates in one
+`periods` CTE (`period`, `start_date`, `end_date`) ahead of every query. Without a Growth Brain,
+write the four dates once, from today's date, and read every connector and file on them. When the
+periods differ in length, say so in the Notes.
 
 **Done when** the Success KPI, both periods as start and end dates, and where the data comes from
 are set, whether by the user's answers, a complete first message or an unattended run's first
