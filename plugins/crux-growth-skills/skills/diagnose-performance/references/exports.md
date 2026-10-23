@@ -18,9 +18,9 @@ Source, with the same report, columns and filters, in both periods.
 | revenue, order value | Shopify sales over time (Orders, Net sales) | none |
 | conversion | Shopify orders over the visits lever's sessions | none |
 | new-customer conversion | Shopify new customers over the visits lever's sessions | none |
-| spend (platform) | the Google Ads or Meta Ads campaign report (spend) | campaign |
+| spend (platform) | the Google Ads or Meta Ads campaign report (spend) | the finest level the export or connector holds (campaign, ad set or ad group, ad) |
 | spend (marketing, for CAC and MER / ROAS) | the sum of the platform reports read | campaign |
-| impressions, click-through, platform conversion, platform order value | the platform's campaign report (Impressions, Clicks, Purchases, and their value, named per platform in the tables below) | campaign; ad set or ad where a connector reads it |
+| impressions, click-through, platform conversion, platform order value | the platform's campaign report (Impressions, Clicks, Purchases, and their value, named per platform in the tables below) | the finest level the export or connector holds (campaign, ad set or ad group, ad) |
 | margin % | a Source carrying cost of goods, which none above does | none |
 | active customers, repeat rate | a Source carrying distinct customers over time, which none above does | none |
 | any lever | figures the user pastes or exports for both periods | what the figures hold |

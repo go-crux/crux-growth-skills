@@ -40,17 +40,18 @@ figure or "No data", never a bare "n/a".
    total. Give the SVG a `title` stating the change in a sentence.
 4. **Drivers**: one block per drilled Main driver, headed by its lever and its Contribution.
    - One sentence of evidence with its figures.
-   - For a Conversion lever, the stage table first (session → engaged, engaged → checkout,
-     in both periods), and a line naming a suspected site-wide fault where no
-     channel carries half the change.
+   - For a conversion or new-customer conversion lever, the stage table first (session →
+     engaged, engaged → checkout, in both periods), and a line naming a suspected site-wide
+     fault where no channel carries half the change.
    - One table per Drill-down level, in order, each headed by the dimension it reads (and, for
      a level inside a segment, that segment). Columns, in this order: segment, Comparison
-     period, Current period, Contribution, share of the lever's change, Current period volume,
-     share of the lever's volume. Rows run from the largest Contribution in the direction of the
-     change to the largest against it, with an "Other" row for segments under the volume floor.
-     Where the lever is a ratio, show the rate in both periods in the two period columns and the
-     denominator as the volume. For the discount level of order value, show the discount rate
-     and the discount depth in both periods under the table.
+     period, Current period, Contribution, share of the parent's change, Current period volume,
+     share of the parent's volume (the parent is the lever at the first level). Rows run from
+     the largest Contribution in the direction of the change to the largest against it, with an
+     "Other" row for segments under the volume floor. Where the lever is a ratio, show the rate
+     in both periods in the two period columns, the denominator as the volume, and the
+     Contribution in the Success KPI's unit. For the discount level of order value, show the
+     discount rate and the discount depth in both periods under the table.
    - One closing line saying where the Drill-down stopped and why, in plain words.
 
    With no Main driver to drill, the heading reads "Not drilled: the Success KPI did not change,

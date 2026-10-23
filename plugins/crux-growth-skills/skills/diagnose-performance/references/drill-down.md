@@ -18,45 +18,56 @@ Main driver, slice within the lever, end on an action.
 
 ## Reading a level
 
-A level is one dimension (channel, campaign, product category) read in both periods, from the
-lever's own source so the segments add up to the lever. Take the dates from `periods` and apply
-the Basis rule of `SKILL.md` step 4.
+A level is one dimension (channel, campaign, order category) read in both periods, from the
+lever's own Source so the segments add up to the lever. Take the dates from `periods` and apply
+the Basis rule of `SKILL.md` step 4. A level's **parent** is the lever at the first level, and
+the segment descended into below it.
 
-**A segment's contribution to the lever** is in the lever's own unit:
+**A segment's contribution to the lever:**
 
-- A lever that is a count or an amount (visits, new customers, spend): the segment's change.
+- A lever that is a count or an amount (visits, new customers, spend): the segment's change, in
+  the lever's unit.
 - A lever that is a ratio of a numerator N to a denominator D (conversion, order value, margin
-  %): the segment's numerator in the Current period over the lever's whole denominator in the
-  Current period, less the same for the Comparison period: `N_seg1 ÷ D1 − N_seg0 ÷ D0`. A segment
-  whose volume grew or shrank therefore counts, as well as one whose rate moved.
+  %): the segment's change in the lever is its numerator in the Current period over the lever's
+  whole denominator in the Current period, less the same for the Comparison period:
+  `N_seg1 ÷ D1 − N_seg0 ÷ D0`. A segment whose volume grew or shrank therefore counts, as well as
+  one whose rate moved. Show it in Success KPI units: its share of the lever's change times the
+  lever's Contribution. Percentage points never appear as a contribution; the two period columns
+  carry the rates.
 
-Either way the segments add exactly to the lever's change, so a level can be checked.
+Either way the segments add exactly to the parent's change, so a level can be checked.
 
 **Volume** is the lever's count or amount, or a ratio lever's denominator (sessions for
 conversion, orders for order value, revenue for margin %). Show each segment's Current period
-volume and its share of the lever's volume beside its contribution.
+volume, its share of its parent's volume and its share of its parent's change beside its
+contribution.
 
-**The descent rule.**
+**Choosing among dimensions.** Where a step of a path offers several dimensions, read each at
+that level and take the one whose largest qualifying segment carries most of the parent's change;
+name the others in one line. A dimension the lever has no values on is skipped (landing page
+carries no spend). A qualifying segment is one the volume floor leaves on its own row.
 
-- Go down a level while one segment carries at least half the lever's change: the segment's
-  contribution is at least half the lever's change, in the direction of the change.
-- Ignore segments under 5% of the lever's volume in both periods. They join one "Other" row,
-  which keeps the level adding up, and are never descended into.
-- Stop at three levels, or when the source holds no finer dimension. Say which in the Drivers
+**The descent rule.** Every threshold is here.
+
+- Go down a level into a segment that carries at least half its parent's change, in the direction
+  of the change.
+- The volume floor: a segment under 5% of its parent's volume in both periods joins one "Other"
+  row, which keeps the level adding up, and is never descended into. A segment carrying at least
+  half its parent's change is never floored.
+- Stop at three levels, or when the Source holds no finer dimension. Say which in the Drivers
   block, and name the finer dimension in the Notes.
 - With no segment carrying half the change, stop at that level: the change is spread, and the
   table shows how.
-
-A level below the first reads the same dimension list for the next step of the path, inside the
-one segment carried: its segments are measured against the lever's whole change and add to that
-segment's contribution.
+- A level whose parent holds one segment is collapsed: it gets no table, says in one line which
+  segment it is, and the descent continues below it. A collapsed or skipped level does not count
+  toward the three.
 
 Rank each table by contribution, the largest in the direction of the change first and segments
 pulling the other way last. Round as `references/contribution.md` does, so the rows add exactly.
 
 **Worked example.** An invented brand whose visits lever fell from 100,000 to 90,000 (−10,000).
-The floor is 5% of the lever's volume: 5,000 visits in the Comparison period, 4,500 in the
-Current period.
+The floor at level 1 is 5% of the lever's volume: 5,000 visits in the Comparison period, 4,500 in
+the Current period.
 
 Level 1, channel:
 
@@ -68,16 +79,20 @@ Level 1, channel:
 | Direct | 20,000 | 21,000 | +1,000 | −10% | 23% |
 
 Paid social carries 90% of the change, so the descent goes into it. Level 2, campaign within
-paid social, whose rows add to its −9,000:
+paid social, is measured against paid social: its change is −9,000, and the floor is 5% of its
+volume, 1,500 visits in the Comparison period and 1,050 in the Current period. Its rows add to
+−9,000:
 
 | Campaign | Comparison | Current | Contribution | Share of change | Share of volume |
 |---|---|---|---|---|---|
-| Prospecting | 18,000 | 10,000 | −8,000 | 80% | 11% |
-| Retargeting | 8,000 | 7,500 | −500 | 5% | 8% |
-| Other (Brand, under the floor) | 4,000 | 3,500 | −500 | 5% | 4% |
+| Prospecting | 18,000 | 10,800 | −7,200 | 80% | 51% |
+| Retargeting | 8,000 | 6,650 | −1,350 | 15% | 32% |
+| Brand | 4,000 | 3,550 | −450 | 5% | 17% |
 
-Prospecting carries 80% of the lever's change, so a third level (ad group or ad) follows where
-the source holds one, and the descent then stops at three levels.
+Prospecting carries 80% of paid social's change, so a third level follows where the Source holds
+one, and the descent then stops at three levels. If the visits lever's Contribution to revenue is
+−£90,000, Prospecting's share of the lever's change is 7,200 ÷ 10,000 = 72%, so its KPI at stake
+is 72% × −£90,000 = −£64,800.
 
 ## Paths
 
@@ -90,49 +105,69 @@ landing page report with no channel does not start the path.
 |---|---|
 | visits, new customers, new visitor share, new-customer conversion, conversion, marketing spend, spend (CAC, MER / ROAS) | channel → campaign → landing page, ad group or ad |
 | engaged rate, add to basket, checkout start, purchase | channel → campaign → landing page, for the stage |
-| order value | discount → order mix → product category |
+| order value (store trees) | discount → order mix → product category |
 | returning orders, active customers, repeat rate | channel → CRM campaign or flow → cohort |
-| platform ROAS: spend, CPM, click-through, platform conversion, order value | campaign → ad set or ad group → ad |
+| platform ROAS tree: spend, impressions, click-through, platform conversion, order value | campaign → ad set or ad group → ad |
 | margin % | product category → product → discount |
 | any lever with no fixed path | the dimensions the source holds, ranked by contribution |
+
+**Where each dimension is held.** A path reads a dimension only from the Source below; where a
+Source does not hold it, the Drill-down stops above it. Confirm each column in `list_tables`.
+
+| Dimension | Growth Brain | Without one |
+|---|---|---|
+| channel | `<client>-channel_reporting` | GA4 sessions by default channel group |
+| campaign | `<client>-channel_reporting` | the Google Ads or Meta Ads campaign report |
+| landing page, ad group, ad | `<client>-channel_reporting` | a connector that reads it; the exports stop at campaign |
+| discount, new against repeat, order-level flags, order category | `<client>-orders` | none |
+| product | `<client>-order_items`, where `list_tables` shows it carries the lever's measure | none |
+| CRM campaign or flow | the CRM or email mart, where the roster lists one | none |
+| cohort | `<client>-ltv_retention` | none |
+| funnel stage | `<client>-ecommerce_funnel` | none |
+
+The platform ROAS tree reads every dimension from the platform's own Source
+(`references/lever-trees.md` names it), never from `<client>-channel_reporting`.
 
 **Traffic, new customers, conversion, cost per visit, CAC.**
 
 - Go to channels first. Landing pages before channels is the framework's named trap: a page's
   numbers move with the traffic sent to it, so only a channel level says whether the traffic or
   the page changed.
-- The third level is the finest of landing page, ad group and ad the source holds. Take the one
-  that carries most of the campaign's change.
+- The third level is one criterion: of landing page, ad group and ad, the dimension whose largest
+  qualifying segment carries most of the campaign's change, by Choosing among dimensions above.
 - New customers and new-customer conversion read new orders.
-- **Conversion** also checks the stages before the channels. Read session → engaged and engaged →
-  checkout in both periods, from the funnel mart where the roster lists one, and name the stage
-  that fell furthest. This check is one small table and does not count
-  as a level. Then run the channel path for that stage. When no channel carries half the change,
-  suspect a site-wide fault (checkout, payments, a key product page) and say so in the Drivers
-  block.
+- **Conversion and new-customer conversion** also check the stages before the channels. Read
+  session → engaged and engaged → checkout in both periods, from the funnel Source, and name the
+  stage that moved furthest in the direction of the change. This check is one small table and
+  does not count as a level. Then run the channel path for the lever itself. Where no funnel
+  Source is held, skip the check with one line. When no channel carries half the change, suspect
+  a site-wide fault (checkout, payments, a key product page) and say so in the Drivers block.
 
-**Order value.**
+**Order value (store trees).**
 
-- Discount first. The level's segments are discounted orders and orders at full price. Beside
-  them show the discount rate (the share of orders discounted) and the discount depth (the
-  discount over pre-discount revenue, on discounted orders), in both periods.
-- Then order mix, inside the segment carried: new against repeat, order type, order category.
-  Read each dimension the source holds and take the one whose largest segment carries the most
-  of the change; name the others in one line.
-- Then product category.
+- Discount first, from the orders mart. The level's segments are discounted orders and orders at
+  full price. Beside them show the discount rate (the share of orders discounted) and the
+  discount depth (the discount over pre-discount revenue, on discounted orders), in both periods.
+  When the discounted orders are floored, say so in one line and read order mix across all orders.
+- Then order mix, inside the segment carried: new against repeat, and the order-level flags the
+  orders mart holds. Take the dimension by Choosing among dimensions.
+- Then product category: the orders mart's order category, which is order-level and so adds to
+  order-level revenue.
 
 **Returning orders, repeat rate, active customers.** Repeat orders by channel, then CRM campaign
 or flow, then cohort. A cohort is read only once it is mature for the horizon the lever uses: a
 cohort younger than the horizon joins "Other" and is named in the Notes. When the source holds
 no CRM campaign or flow, stop at the channel level.
 
-**Platform ROAS.** The platform's own campaign, then ad set or ad group, then ad. Read platform
+**Platform ROAS tree.** Every lever takes the platform's own path: campaign, then ad set or ad
+group, then ad, down to the finest level the Source holds. Order value is the platform's
+conversion value per purchase, so it takes this path too, not the discount path. Read platform
 figures only, never the store's.
 
 **Margin %.** Product category, then product, then discount.
 
-**Any other lever.** Read each dimension the source holds at one level, take the dimension whose
-largest segment carries the most of the lever's change, and descend by the rule above.
+**Any other lever.** Read each dimension the source holds at one level, take the dimension by
+Choosing among dimensions, and descend by the rule above.
 
 ## After the drill-down
 
@@ -150,18 +185,31 @@ that fit the lever:
 | order value | a promotion or price change; a change in free-shipping threshold or bundles; a change in the product mix sold |
 | returning orders, repeat rate, active customers | a flow or newsletter paused or changed; a promotion that pulled orders forward; a cohort ageing |
 | margin % | a discount or price change; a supplier cost change; a change in the product mix sold |
-| platform levers | a creative, audience or bidding change; a platform delivery change |
+| platform levers | a creative, audience or bidding change; a platform delivery change; for order value, a price or promotion change |
 
 "Don't know" sets that driver's Cause to "Not confirmed". Any other answer is the Cause, in
 the user's words.
 
+**Cause evidence.** Where a lever cannot be drilled (Shopify sessions with no channel), the
+question may name in one sentence the landing pages whose sessions moved most. That is evidence
+for the Cause, never a Drill-down level.
+
 ### Recommendations
 
-Each drilled driver gets 1 to 3 recommendations that follow from where the Drill-down ended,
-ranked by the KPI at stake. The **KPI at stake** is the Success KPI's change that the
-recommendation's segment carries: the segment's share of the lever's change times the lever's
-Contribution, in the Success KPI's unit. Where a recommendation spans segments, use their sum.
-State it as the change at stake, never as a forecast of what the action recovers.
+Each drilled driver gets 1 to 3 recommendations, ranked by the KPI at stake. The **segment the
+Drill-down ended on** is the largest segment in the direction of the change at the last level
+read.
+
+- The first recommendation follows that segment.
+- A second or third may take the next segment in the direction of the change, at the same level
+  or the parent's.
+- A segment pulling against the change gets no recommendation of its own.
+
+The **KPI at stake** is the Success KPI's change that the recommendation's segment carries: the
+segment's share of the lever's change times the lever's Contribution, in the Success KPI's unit,
+and never more than the lever's Contribution. Where a recommendation spans segments, use their
+sum, capped the same way. State it as the change at stake, never as a forecast of what the action
+recovers.
 
 Each recommendation carries:
 
