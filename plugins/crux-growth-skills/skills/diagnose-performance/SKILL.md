@@ -52,20 +52,36 @@ Without a Growth Brain the diagnosis still runs, read from the connectors and fi
 Brain line (`references/diagnosis-layout.md`) is said once on the page and once in the chat (a run
 that stops at step 3 says it in the chat only).
 
-**Probe each connector.** A connector that lists an account can still refuse every performance
-read, so make one small read per connector in the session before any Source is offered, on the
-Comparison period as the first message names it, else as step 2 recommends it (the period before
-the last complete one; the final dates are set in step 2, and the probe needs only a day inside
-it): one headline figure for that period's first day, through the tool step 4 will read it with
-(Shopify orders, GA4 sessions, Google Ads or Meta Ads cost; for Google Ads its query tool, as
-`references/exports.md` sets out). An error or a refusal is a refusal; a read that returns zero
-is not. A connector that refuses is named to the user, with what it refused, in the intake
-message (an unattended run names it in the Notes), and is offered as a Source for no lever.
+**Probe only what could be a Source.** A connector that lists an account can still refuse every
+performance read, so make one small read for each connector the run could use, and for no other,
+before any Source is offered. The likely tree is the one for the Success KPI the first message
+names, else the one step 2 recommends (`references/lever-trees.md`).
+
+- **A Growth Brain whose roster holds the marts that tree reads** (One mart per tree, in
+  `references/lever-trees.md`) leaves nothing for a connector to add: probe no connector, and
+  offer none as a Source.
+- **Otherwise probe a connector** only for a platform that a lever the Growth Brain does not hold
+  needs (Shopify, GA4, Google Ads, Meta Ads), and only an account that is plainly the brand's
+  own: named in the message, or the only account the connector lists.
+- **An account that cannot be told to be the brand's** is not probed and is offered as a Source
+  for no lever. An attended run asks whose it is in the intake round, and probes it if the
+  answer is the brand's own; an unattended run names it in the Notes and skips it.
+
+Make the probe read on the Comparison period as the first message names it, else as step 2
+recommends it (the period before the last complete one; the final dates are set in step 2, and
+the probe needs only a day inside it): one headline figure for that period's first day, through
+the tool step 4 will read it with (Shopify orders, GA4 sessions, Google Ads or Meta Ads cost; for
+Google Ads its query tool, as `references/exports.md` sets out). An error or a refusal is a
+refusal; a read that returns zero is not. A connector that refuses is named to the user, with
+what it refused, in the intake message (an unattended run names it in the Notes), and is offered
+as a Source for no lever.
 
 Then settle two facts once, for every later step to reuse:
 
 - **Timezone**: the Growth Brain's instructions where they name one; else the timezone the date
-  descriptions of `<client>-orders` name (`list_tables` naming that mart); else UTC, said in the
+  descriptions of `<client>-orders` name (`list_tables` naming that mart). Where they say only
+  that dates are the store's own timezone, read the date columns as they are with no conversion,
+  compute relative periods from `CURRENT_DATE()`, and say so in the Notes. Else UTC, said in the
   Notes. Without a Growth Brain, the timezone the Source reports in, said in the Notes.
 - **Currency**: the Growth Brain's instructions where they name it; else the first mart that
   names it, `<client>-orders` first (`list_tables`, one mart per call). Without a Growth Brain,
@@ -73,9 +89,10 @@ Then settle two facts once, for every later step to reuse:
 
 **Done when** the Sources in this session are named to the user in the intake message (an
 unattended run has none, and names them in the Notes): the one Growth Brain chosen with its roster
-in hand and `search_examples` called once, or none; the connectors found, each with one probe
-read, and any that refused named to the user and offered as no Source; and the files the
-conversation already holds. The timezone and the currency are set.
+in hand and `search_examples` called once, or none; the connectors the run could use, each with
+one probe read, and any that refused or could not be told to be the brand's named to the user
+(an attended run asks about the latter in the intake round) and offered as no Source; and the
+files the conversation already holds. The timezone and the currency are set.
 
 ## 2. Intake
 
@@ -96,7 +113,8 @@ for the answer:
    first message says so; else the period before the Current period, of the same kind.
 4. **Data**: recommend the connected Growth Brain, reading the marts the roster holds for the
    levers the diagnosis needs; then the connectors in the session, then the files already in the
-   conversation; for a lever none of these holds, the reports the user can export.
+   conversation; for a lever none of these holds, the reports the user can export. Where step 1
+   found a connector account that could not be told to be the brand's, ask whose it is.
 
 "Yes" accepts every recommendation, and "just run it" does the same. An answer replaces that
 question's recommendation. A period is any span: a calendar month, a calendar quarter, a calendar
@@ -104,13 +122,14 @@ year, or a week, which is a complete Monday to Sunday week.
 
 **Periods.** Resolve both periods once, in step 1's timezone. A period the user names ("Q3 2025",
 "1 to 7 March") is typed as dates, here and nowhere else. A recommended period and a name
-relative to today are computed from `CURRENT_DATE('<timezone>')`; "last month", "last quarter"
-and "same quarter last year" are named periods. "This month", "this quarter" or "this year" while
-it is still running resolves to the last complete period of that kind: an attended run says so
-in the tree confirmation, with the dates, and an unattended run in the Notes. With a Growth
-Brain, put the start and end dates in one `periods` CTE (`period`, `start_date`, `end_date`) ahead
-of every query. Without a Growth Brain, write the four dates once, from today's date, and read
-every connector and file on them. When the periods differ in length, say so in the Notes.
+relative to today are computed from `CURRENT_DATE('<timezone>')` (step 1's store-local case:
+`CURRENT_DATE()`); "last month", "last quarter" and "same quarter last year" are named periods.
+"This month", "this quarter" or "this year" while it is still running resolves to the last
+complete period of that kind: an attended run says so in the tree confirmation, with the dates,
+and an unattended run in the Notes. With a Growth Brain, put the start and end dates in one
+`periods` CTE (`period`, `start_date`, `end_date`) ahead of every query. Without a Growth Brain,
+write the four dates once, from today's date, and read every connector and file on them. When the
+periods differ in length, say so in the Notes.
 
 **Done when** the Success KPI, both periods as start and end dates, and where the data comes from
 are set, whether by the user's answers, a complete first message or an unattended run's first
