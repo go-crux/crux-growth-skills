@@ -47,11 +47,9 @@ nothing under it stays on the page, and its Summary gives the reason.
 
 Five cases.
 
-**A goal that is not an online purchase** (a store locator, stockists, contact, FAQ, careers or
-about page, or any page whose single conversion goal is something else). The Summary reads
-"Online figures do not measure this page: its goal is <the goal>, not an online purchase." and,
-where step 3 held the page's visits, gives them in the same sentence as its traffic only. No
-conversion, revenue, Benchmark, at-stake value, funnel or Leaking step sits under the heading.
+**A Non-sale page.** This case holds whatever the run had, a brain, an export or neither. The
+Summary is that one line: "Online figures do not measure this page: its goal is <the goal>, not
+an online purchase." Nothing else sits under the heading.
 
 **Neither a brain nor an export.** The heading reads **Not available**, and its Summary is that one line:
 "Not available: a Shopify 'Sessions by landing page' export or a Growth Brain
@@ -111,8 +109,7 @@ this order, as `references/templates.md` sets them out:
 
 Summary: how many findings, and which ingredient carries the most failed checks. Under it, the
 findings F1, F2, F3 in order, as `references/templates.md` sets them out.
-The order is the Leaking step's where Performance names one (never for a goal that is not an
-online purchase) (structural first within each group),
+The order is the Leaking step's where Performance names one (structural first within each group),
 otherwise structural first, and the Summary says which. Each names its failed checks and one of
 trust, understanding or fit, and ends on a **Do**. With
 no failed check the heading reads "No findings", with the Summary saying every assessed check
@@ -129,7 +126,7 @@ check needs a test").
 Summary: how many hypotheses and the top-ranked one by name. Under it, in this order: the
 hypothesis blocks H1, H2, H3 numbered to match their findings, the ranked table, then the
 sequencing line, then the backlog footnote. The table's **Read as** column carries each row's
-call as `references/templates.md` sets it (for a goal that is not an online purchase, the read on
-the page's own goal), and reads "Test or ship: needs traffic figures" only
+call as `references/templates.md` sets it (for a Non-sale page, the read on the page's own
+goal), and reads "Test or ship: needs traffic figures" only
 where the audit had neither a brain nor an export. The footnote names the lift rule and whether
 the table or the formula was used, and is left out where no row carries a call from traffic.
