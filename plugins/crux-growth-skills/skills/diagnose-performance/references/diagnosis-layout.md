@@ -4,11 +4,12 @@ The Performance diagnosis is one self-contained HTML file, written to the workin
 `performance-diagnosis-<kpi>-<period>.html`. It is a single page with inline CSS and no script
 that fetches anything: the page makes no network request (no web font, no library, no image by
 URL). Crux house style: British English, no em dashes, outcome before mechanism, relative
-percentage changes (2.0% to 1.8% is "−10%"). Money carries the currency the brain's figures are
+percentage changes (2.0% to 1.8% is "−10%"). Money carries the currency the Source's figures are
 in, with its own symbol, never an assumed one.
 
 The reader may arrive cold, with no idea how the page was made. Speak of "your data", never of a
-table, a file or a rule. Every heading below is always present, in this order, as a level-two
+table, a file or a rule; name a Source in plain words ("your orders", "your Shopify sales", "your
+Google Ads campaigns"). Every heading below is always present, in this order, as a level-two
 heading. A heading with nothing to show stays visible with one line saying why; a cell holds a
 figure or "No data", never a bare "n/a".
 
@@ -19,8 +20,9 @@ figure or "No data", never a bare "n/a".
    their Contributions, and the top action: the first recommendation of the drilled driver with
    the most KPI at stake. Never a caveat (those go in Notes).
 2. **The change**: the Success KPI, the Current period and the Comparison period as dates, the
-   Success KPI in each and its relative change, and for each lever the source it was read from
-   (the brain's mart, in plain words such as "your orders"). Name the revenue measure and the
+   Success KPI in each and its relative change, and for each lever the Source it was read from
+   (the brain's mart, a connector or the user's file, in plain words). A lever that reads "No
+   data" names the Source it would need. Name the revenue measure and the
    margin rung where the tree uses them.
 3. **Levers**: a table, one row per lever in tree order. Columns, in this order: lever (with V or
    E), Comparison period, Current period, change, Contribution, role (Main driver, Over the
@@ -79,6 +81,17 @@ figure or "No data", never a bare "n/a".
    - an unattended run, and which Growth Brain it read where several were connected;
    - a partial split: which levers read "No data" and why, and that the rest of the change is
      shown as "Not split";
+   - a run without a Growth Brain: which connectors and files were read, that each lever reads
+     one Source across both periods, and that marketing spend covers only the platforms read;
    - the method in one line: Contributions split the change by each lever's share of it, so they
      add exactly to the Success KPI's change;
    - that figures are rounded so the rows add exactly to the change.
+
+   On a run without a Growth Brain, the Brain line closes the Notes, once.
+
+## The Brain line
+
+Said once on the page, as the last line of the Notes, and once in the chat, on a run without a
+Growth Brain; never on a run with one. Its words are fixed: "A Growth Brain adds margin (CM3), one
+source for every lever, and the drill-down by channel, product and cohort. Get one at
+gocrux.io/contact."

@@ -81,7 +81,10 @@ the source holds one, and the descent then stops at three levels.
 
 ## Paths
 
-Follow the lever's path in order. Never reorder it.
+Follow the lever's path in order. Never reorder it. Without a Growth Brain the Source may hold
+only part of a path (`references/exports.md` names the finest dimension each holds): descend as
+far as it goes and stop there. Never begin at a lower level because the first is missing; a
+landing page report with no channel does not start the path.
 
 | Lever | Path |
 |---|---|
