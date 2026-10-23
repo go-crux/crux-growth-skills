@@ -81,10 +81,10 @@ needs no test is a quick win instead, and its finding keeps its number with no h
 > **Expected effect:** the metric you expect to move, the direction, a rough magnitude, and the
 > mechanism: why it should work.
 > **Ingredient / reason:** which of the six, and trust, understanding or fit.
-> **Read as:** Test, Sequential read or Ship, with its months, from the page's traffic
-> (`diagnostics.md` section 4); "Test or ship: needs traffic figures" only where there is no
-> brain and no export; with a brain or an export that found no traffic for the page, "Test or
-> ship: no traffic found for this page".
+> **Read as:** Test or Sequential read, with its months, or Ship, with its reason and no
+> months, from the page's traffic and the lift rule (`diagnostics.md` section 4); "Test or
+> ship: needs traffic figures" only where there is no brain and no export; with a brain or an
+> export that found no traffic for the page, "Test or ship: no traffic found for this page".
 > **Assumption:** only where the change rests on an unconfirmed guardrail.
 > **ICE:** Impact _/5 · Confidence _/5 · Ease _/5 · **Total _/15**
 
@@ -116,6 +116,7 @@ tie with the higher Impact, then the lower H number. Rank 1, 2, 3 in that order.
 |---|---|---|---|---|---|---|
 | 1 | H3 | … | Trust | Trust | Test, about 6 weeks | 13 |
 | 2 | … | … | … | … | Sequential read, about 4 months | … |
+| 3 | … | … | … | … | Ship: too little traffic to read a change this size | … |
 
 A hypothesis marked as an assumption carries "(assumption)" after its name in the table.
 
@@ -123,6 +124,13 @@ Under the table, one **sequencing line**. With traffic figures: the page's month
 conversion, how many rows are tests, sequential reads and ships, and that the ships go first
 and the tests run one at a time. Without them: "Test or ship needs the page's visits and
 conversion rate. With them, each row reads as a test, a sequential read or a ship."
+
+Under the sequencing line, where the rows carry calls from traffic figures, the **backlog
+footnote** names the lift rule and the basis in one sentence, per `diagnostics.md` section 4:
+
+> Read as uses a lift fixed by each hypothesis's ICE Impact (5 is +50%, 4 is +30%, 3 is +20%,
+> 1 or 2 is +10%) and the sample-size [table row nearest the page's conversion | formula, as the
+> page converts below 1%].
 
 ---
 

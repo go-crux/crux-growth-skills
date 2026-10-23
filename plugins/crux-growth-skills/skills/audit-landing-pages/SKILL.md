@@ -221,9 +221,10 @@ standard for a finding.
 2. **Quick wins.** The changes to ship without a test, each naming the checks it settles.
 3. **Hypotheses.** One for each finding, numbered to match, scored with ICE and ranked in the
    backlog table. Where step 3 returned the page's visits and conversion, each row's **Read as**
-   cell is the test, sequential read or ship call from the sample-size table in
-   `references/diagnostics.md` section 4, with the export's sessions and conversion where it was the
-   source. With no brain and no export it reads "Test or ship: needs traffic figures", and with a
+   cell is the test, sequential read or ship call from the sample-size table and the fixed lift
+   rule in `references/diagnostics.md` section 4, with the export's sessions and conversion where
+   it was the source. Months sit on Test and Sequential read only, and a Ship call gives its
+   reason. With no brain and no export it reads "Test or ship: needs traffic figures", and with a
    brain or an export that found no traffic for the page, "Test or ship: no traffic found for
    this page".
 4. **Guardrail check.** Go over the page and every Do, quick win and hypothesis drafted so far
@@ -246,10 +247,11 @@ quick win and in its backlog row, and the masthead lists the unconfirmed guardra
 scorecard shows six counts with bands and a total; every finding names its failed check
 numbers and trust, understanding or fit and ends on a Do; every not-met check appears in a
 finding or a quick win; every finding has a hypothesis with ICE or a quick win covering it;
-every backlog row carries its call from the page's traffic, or reads "Test or ship: needs
-traffic figures" only where there was neither a brain nor an export, or "no traffic found for this
-page" where the brain or the export held none; the findings follow the Leaking step's order where there is one, with all
-sixty checks scored; the page has Performance,
-Scorecard, Findings, Quick wins and Test backlog in that order, each with a one-line Summary
+every backlog row carries its call from the page's traffic and the lift rule, with months on
+no Ship call and the footnote naming the lift rule and the table or the formula, or reads
+"Test or ship: needs traffic figures" only where there was neither a brain nor an export, or
+"no traffic found for this page" where the brain or the export held none; the findings follow
+the Leaking step's order where there is one, with all sixty checks scored; the page has
+Performance, Scorecard, Findings, Quick wins and Test backlog in that order, each with a one-line Summary
 and an empty one carrying its reason; the file name follows the slug rule in the layout; and
 the user has the page's path.

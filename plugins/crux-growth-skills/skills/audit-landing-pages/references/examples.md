@@ -374,7 +374,7 @@ variant per ad group; the shared body can stay.
 row reads as a test, a sequential read or a ship.
 
 *For calibration only:* had the page been converting at about 2% on 10,000 sessions a month, the
-sample-size table in `diagnostics.md` puts a 20% lift at roughly 20,000 sessions per arm, which
-this page would not reach in a sensible window. H1 and H2 would read as sequential before-and-after
-runs with campaigns held constant, H4 would ship on judgement, and H3 would wait for the proof
-module to be built.
+fixed lift rule and sample-size table in `diagnostics.md` would read H1 and H2 (Impact 5, +50%) as
+Test at under a month, H3 and H5 (Impact 4, +30%) as Test at under two months, and H4 (Impact 3,
++20%) as a Sequential read of about 4 months, run as a before-and-after with campaigns held
+constant. None would read Ship.

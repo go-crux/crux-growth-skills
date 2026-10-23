@@ -131,15 +131,21 @@ Double these for total traffic across both arms. A page at 2% conversion getting
 sessions a month needs roughly four months to detect a 20% lift, and will never detect a 10%
 one.
 
-**Reading a hypothesis against the page's real traffic.**
+**Reading a hypothesis against the page's real traffic.** The traffic and the lift rule decide
+each call, so two runs on one page give the same call on every row.
 
 1. Monthly visits are the page's visits in the period times 30, over the days in the period.
-2. Take the table row nearest the page's conversion (below 1%, use the formula; with no orders
-   in the period, the 1% row) and the column nearest the hypothesis's expected relative lift.
-3. Both arms need twice that figure. Divide it by monthly visits for the months to read.
-4. Read as **Test** at 2 months or fewer, **Sequential read** above 2 and up to 6 months, and
-   **Ship** above 6 months or where the change is obviously correct. Say the months in the cell
-   ("Test, about 6 weeks").
+2. Fix the lift from the hypothesis's ICE Impact: 5 is +50%, 4 is +30%, 3 is +20%, and 1 or 2 is
+   +10%. Use the table column for that lift.
+3. Take the table row nearest the page's conversion (a tie goes to the lower row, and above 5% the
+   5% row). Below the table's lowest row, 1%, use the formula with the page's conversion and
+   that lift instead. With no orders in the period conversion is zero, so use the 1% row. Note
+   which one the backlog used, table or formula.
+4. Both arms need twice that figure. Divide it by monthly visits for the months to read.
+5. Read as **Test** at 2 months or fewer, **Sequential read** above 2 and up to 6 months, and
+   **Ship** above 6 months. Test and Sequential read say the months in the cell ("Test, about 6
+   weeks", "Sequential read, about 4 months"), to the nearest week or the nearest month; the call
+   itself is decided on the unrounded figure. Ship says why and carries no month count: "Ship: too little traffic to read a change this size".
 
 **How to use this in a backlog.** For each hypothesis, state which of these it is:
 
@@ -149,8 +155,9 @@ one.
   show in a before-and-after window. Run it as a clean-window before and after, hold everything
   else constant, and state the confounders (seasonality, campaign changes, promotions) up
   front.
-- **Ship on judgement**: the change is obviously correct (a broken link, a missing guarantee)
-  or too small to ever detect. Shipping it is right; calling it a test is not.
+- **Ship**: the traffic cannot read a change this size inside 6 months. Shipping it on
+  judgement is right; calling it a test is not. A change that is obviously correct (a broken
+  link, a missing guarantee) is a quick win, not a hypothesis.
 
 Never present a plan that implies a clean statistical read the traffic cannot support. "We
 cannot measure this one, and we should do it anyway because X" is a better answer than a
