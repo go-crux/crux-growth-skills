@@ -88,9 +88,21 @@ page_type AS (
       WHEN landing_page = '/' THEN 'home'
       ELSE 'other'
     END AS page_type,
-    landing_page = 'Unknown'
+    not_online_sale,
+    not_online_sale
+      OR landing_page = 'Unknown'
       OR REGEXP_CONTAINS(landing_page, r'^/(cart|account)(/|$)|/checkouts?(/|$)') AS excluded
-  FROM (SELECT DISTINCT landing_page FROM landing)
+  FROM (
+    SELECT
+      landing_page,
+      -- A page whose job is not an online sale: it sends people to a shop, a form or an answer,
+      -- so online revenue does not measure it. Never ranked and out of every Benchmark, but in
+      -- the site totals. Audit still runs on one, without its online figures.
+      REGEXP_CONTAINS(landing_page,
+        r'^/pages/(store-locator|stockists?|find-a-store|store-finder|contact|faqs?|careers|about)(-[^/]*)?$')
+        AS not_online_sale
+    FROM (SELECT DISTINCT landing_page FROM landing)
+  )
 ),
 period_rows AS (
   SELECT s.channel, s.landing_page, t.page_type, t.excluded, s.visits, s.orders, s.revenue

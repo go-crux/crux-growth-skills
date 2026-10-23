@@ -65,8 +65,10 @@ Page type, threshold or Benchmark by hand: the file computes them.
   same Page type and channel.
 - With fewer than 10 Underperforming pages, list those found and say how many there are. With
   none, say so and ask for the URL of the page to audit.
-- One line that checkout, cart, account and visits with no store page (another host, "(not set)",
-  a modelled re-attribution label) are left out of the list and counted in the site's visits.
+- One line that checkout, cart, account, pages whose job is not an online sale (a store locator,
+  stockists, contact, FAQ, careers, about) and visits with no store page (another host, "(not
+  set)", a modelled re-attribution label) are left out of the list and counted in the site's
+  visits.
 
 End by asking which page to audit, recommending the first; "yes" accepts it. The chosen page's
 path is the page to audit: take the store's own domain (the one `find.sql` ranked) from the
@@ -92,8 +94,9 @@ reference's rules and write to the chat, with no file:
   Benchmark is the site's conversion for the same Page type.
 - With fewer than 10 Underperforming pages, list those found and say how many there are. With
   none, say so and ask for the URL of the page to audit.
-- One line that checkout, cart and account are left out of the list and counted in the site's
-  sessions.
+- One line that checkout, cart, account and pages whose job is not an online sale (a store
+  locator, stockists, contact, FAQ, careers, about) are left out of the list and counted in the
+  site's sessions.
 - One line: a Growth Brain adds revenue and traffic mix (gocrux.io/contact).
 
 End by asking which page to audit, recommending the first; "yes" accepts it. The chosen page's
@@ -118,7 +121,9 @@ and skip the rest of this step.
 the scheme and host, cut the query string and any fragment, and drop a trailing slash (the home
 page stays `/`). The URL's domain is taken as the store's own domain, the one `find.sql` keeps.
 Put that path in `references/audit.sql` and in `funnel.sql`'s `target`; the funnel's landing page is
-reduced by the same rule.
+reduced by the same rule. Where `find.sql`'s `not_online_sale` rule matches the path, the page's
+job is not an online sale: run no query and match nothing in an export, hold that, tell the user
+in one line that online figures do not measure this page, and go to step 4.
 
 **Read.** Unless step 2 already did, call `list_tables` once with no arguments, then once naming
 only `<client>-channel_reporting`. Open `references/find.sql` and `references/audit.sql`, put find.sql's CTEs
@@ -146,6 +151,9 @@ cart rate, checkout reach rate and checkout completion rate, each against the sa
 Tell the user in two sentences: the page's sessions, conversion and Orders at stake, then the
 funnel rate furthest below its Page type's. With no match, say so in one line; Performance reads
 "Not available" and the audit reads the page only.
+
+**Done when** (for a path `not_online_sale` matches) no performance query ran and the user was
+told in one line that online figures do not measure the page.
 
 **Done when** (from the export) the path is matched, or the one-line no-match reason is said;
 sessions, conversion, Benchmark conversion and Orders at stake are held from
@@ -190,7 +198,15 @@ type, take the closest type and say which. Open `references/page-architecture.md
 "Emphasis by Page type" for it. Take mobile as the device priority unless the user says
 otherwise. Once you have read the page, name the single conversion goal its primary CTA serves.
 Where the user has not stated it and the page has no primary CTA or several that compete, ask
-one question with your recommended goal; "yes" accepts it.
+one question with your recommended goal; "yes" accepts it. A path `find.sql`'s
+`not_online_sale` rule matches has a goal other than an online purchase (finding a stockist,
+getting in touch, an answer).
+
+**A goal that is not an online purchase.** Online conversion and revenue do not measure it, so:
+Performance opens on that, naming the goal, and shows no online figures as the page's measure;
+no Leaking step orders the findings, which go structural first; and every **Read as** says the
+change is read on the page's own goal, as `references/templates.md` sets it, rather than giving
+an online test, sequential read or ship call.
 
 **Read.** Choose by what the session offers.
 
@@ -218,7 +234,8 @@ standard for a finding.
 
 **Write.** Open `references/audit-layout.md` and `references/templates.md`. Work in this order:
 
-1. **Findings.** Four to eight. Where step 3 found a Leaking step, the findings it points to
+1. **Findings.** Four to eight. Where step 3 found a Leaking step and the goal is an online
+   purchase, the findings it points to
    come first (`references/performance.md` says which), structural first within them; otherwise
    structural first. All sixty checks are still scored, and the leak never skips one. Each names
    its failed check numbers and one of trust, understanding or fit, labels its evidence
@@ -228,8 +245,9 @@ standard for a finding.
    evidence the user gave.
 2. **Quick wins.** The changes to ship without a test, each naming the checks it settles.
 3. **Hypotheses.** One for each finding, numbered to match, scored with ICE and ranked in the
-   backlog table. Where step 3 returned the page's visits and conversion, each row's **Read as**
-   cell is the test, sequential read or ship call from the sample-size table and the fixed lift
+   backlog table. Where the goal is not an online purchase, each row's **Read as** says the
+   change is read on the page's own goal. Otherwise, where step 3 returned the page's visits and
+   conversion, each row's **Read as** cell is the test, sequential read or ship call from the sample-size table and the fixed lift
    rule in `references/diagnostics.md` section 4, with the export's sessions and conversion where
    it was the source. Months sit on Test and Sequential read only, and a Ship call gives its
    reason. With no brain and no export it reads "Test or ship: needs traffic figures", and with a
@@ -255,11 +273,14 @@ quick win and in its backlog row, and the masthead lists the unconfirmed guardra
 scorecard shows six counts with bands and a total; every finding names its failed check
 numbers and trust, understanding or fit and ends on a Do; every not-met check appears in a
 finding or a quick win; every finding has a hypothesis with ICE or a quick win covering it;
-every backlog row carries its call from the page's traffic and the lift rule, with months on
+for an online purchase goal, every backlog row carries its call from the page's traffic and the lift rule, with months on
 no Ship call and the footnote naming the lift rule and the table or the formula, or reads
 "Test or ship: needs traffic figures" only where there was neither a brain nor an export, or
 "no traffic found for this page" where the brain or the export held none; the findings follow
-the Leaking step's order where there is one, with all sixty checks scored; the page has
+the Leaking step's order where there is one and the goal is an online purchase, with all sixty
+checks scored; where the goal is not an online purchase, Performance says the online figures do
+not measure it, no finding is ordered by a Leaking step and every Read as says the change is read
+on the page's own goal; the page has
 Performance, Scorecard, Findings, Quick wins and Test backlog in that order, each with a one-line Summary
 and an empty one carrying its reason; the file name follows the slug rule in the layout; and
 the user has the page's path.
