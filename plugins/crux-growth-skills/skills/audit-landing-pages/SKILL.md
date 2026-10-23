@@ -255,7 +255,7 @@ standard for a finding.
    already on the page is a quick win. A best practice the guardrails block is replaced with the
    on-brand alternative. A recommendation resting on an unconfirmed guardrail is marked as an
    assumption.
-5. **The page.** Write `landing-page-audit-<slug>.html` to the working folder with the five
+5. **The page.** Write `landing-page-audit-<slug>.html` to the working folder with the six
    headings in order, each opening with its one-line Summary. **Performance** is filled as the layout sets it for what step 3 returned.
 
 Tell the user where the page is, give the total and the weakest ingredient in one sentence,
@@ -277,6 +277,7 @@ no Ship call and the footnote naming the lift rule and the table or the formula,
 "Test or ship: needs traffic figures" only where there was neither a brain nor an export, or
 "no traffic found for this page" where the brain or the export held none; the findings follow
 the Leaking step's order where there is one, with all sixty checks scored; the page has
-Performance, Scorecard, Findings, Quick wins and Test backlog in that order, each with a one-line Summary
-and an empty one carrying its reason; the file name follows the slug rule in the layout; and
+Performance, Scorecard, Findings, Quick wins, Test backlog and Methodology in that order, each with a
+one-line Summary and an empty one carrying its reason; Methodology carries the fixed copy and the
+Conversion Rate Experts credit with its link; the file name follows the slug rule in the layout; and
 the user has the page's path.

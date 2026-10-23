@@ -28,15 +28,16 @@ URL, and the context in short lines:
 - The traffic source and awareness stage where the user named them; otherwise "Traffic source
   not given".
 
-## The five headings
+## The six headings
 
-Five headings, always present, always in this order, with these words:
+Six headings, always present, always in this order, with these words:
 
 1. **Performance**
 2. **Scorecard**
 3. **Findings**
 4. **Quick wins**
 5. **Test backlog**
+6. **Methodology**
 
 Each opens with a one-line **Summary** before anything else under it: one sentence of plain
 prose saying what the section holds and its key takeaway, with its figure (for example "14 of
@@ -130,3 +131,40 @@ call as `references/templates.md` sets it (for a Non-sale page, the read on the 
 goal), and reads "Test or ship: needs traffic figures" only
 where the audit had neither a brain nor an export. The footnote names the lift rule and whether
 the table or the formula was used, and is left out where no row carries a call from traffic.
+
+### 6. Methodology
+
+How the audit was made, for a reader who arrives cold. The copy is fixed: write it as given here,
+the same on every audit, so it never restates this page's results. Summary: "How the audit works:
+sixty checks across six ingredients, adapted from Conversion Rate Experts' *Making Websites
+Win*." Under it, in this order:
+
+1. **How the audit works**, a numbered list:
+   1. We read the page as a visitor sees it, phone first, alongside its visits and orders where a
+      Growth Brain or a Shopify export holds them.
+   2. We score it against sixty checks, ten for each ingredient. Each check is Met, Not met, n/a
+      or Unassessed, and an ingredient's score is the checks met over the checks we could assess.
+   3. Every failed check becomes a finding or a quick win. Where the figures show the step at
+      which visitors drop out, the findings that bear on that step come first.
+   4. Each finding becomes a test idea, ranked by ICE: impact, confidence and ease, each out of 5.
+      Where the page's traffic is known, each one says whether to run a test, read it over a
+      longer period, or ship the change.
+2. **The six ingredients**, one table, columns Ingredient, What we check and Why it matters:
+
+   | Ingredient | What we check | Why it matters |
+   |---|---|---|
+   | Makes the benefits clear | In the first screen, a visitor knows what is on offer, what it does for them and why it beats what they use now, told as outcomes rather than features. | Visitors decide in seconds whether a page is for them. If they cannot see the benefit, they read no further. |
+   | Has an irresistible offer | Everything the visitor gets, what they pay, the terms, the risk they carry and any bonus. | A good product still loses on a weak offer. The offer is what makes yes easy and no feel like leaving value behind. |
+   | Is trustworthy | Proof matched to each doubt a visitor brings: reviews, guarantees, credentials and evidence that the claims are true. | Doubt is the reason shoppers give most often for not buying, so this ingredient usually has the most to gain. |
+   | Is written well | Copy that is concrete, specific and easy to scan, in the order of an argument, with each objection answered where it comes up. | Visitors skim. Vague or muddled copy leaves the question that stops a purchase unanswered. |
+   | Is user-friendly | A page that is easy to understand, easy to find your way round and quick to act on, on the device people use. | Every moment of friction, doubt or delay before the one action loses some of the people who came to buy. |
+   | Gives people what they want | The page matches what this visitor came for: their intent, who they are, how ready they are to buy and the next step they will take. | A clear, trustworthy, well-built page still loses when it answers a question this visitor was not asking. |
+
+3. **The lens**, one line: "Across all six, we read the page against how ready its visitors are
+   to buy, from not yet knowing they have the problem to ready to buy today. It shapes the
+   findings and is not scored."
+4. **The credit**, one paragraph, with the address as a link to
+   `https://conversion-rate-experts.com/`: "The six ingredients are adapted from Conversion Rate
+   Experts' ingredients of a winning website, set out in their book *Making Websites Win*
+   (conversion-rate-experts.com). The sixty checks and their wording, the scoring and the test
+   backlog are Crux's own, and any fault in them is ours."
