@@ -1,8 +1,17 @@
 # Audit page layout
 
 An Audit is one self-contained HTML file, `landing-page-audit-<slug>.html`, written to the
-working folder. It is a single scrolling page with inline CSS and no script, and it makes no
-network request. Crux house style: British English, no em dashes, outcome before mechanism,
+working folder, with inline CSS and no script, and it makes no network request. It holds two
+pages: **the audit**, the masthead and five headings that open by default, and **Methodology**,
+a second page in the same file that the reader opens from the masthead. One file keeps the
+methodology with the audit wherever it is sent, and keeps it off the audit's scroll.
+
+**The two pages, without a script.** Put the Methodology page first in the file, as
+`<section id="methodology" class="methodology">`, and the audit after it in `<main>`. The CSS
+hides the section, shows it when targeted, and hides the audit while it shows:
+`.methodology{display:none}`, `.methodology:target{display:block}`,
+`.methodology:target ~ main{display:none}`. The masthead's link `href="#methodology"` opens it,
+and its own link "Back to the audit" (`href="#"`) at its top and foot returns. Crux house style: British English, no em dashes, outcome before mechanism,
 relative percentage changes (2.0% to 1.8% is "−10%").
 
 **The slug** is the page's path with the query string, fragment and outer slashes cut, any
@@ -27,10 +36,11 @@ URL, and the context in short lines:
 - The Brand guardrails: confirmed, taken from the user's file, or the ones left unconfirmed.
 - The traffic source and awareness stage where the user named them; otherwise "Traffic source
   not given".
+- The link "How this audit works", which opens the Methodology page.
 
 ## The five headings
 
-Five headings, always present, always in this order, with these words:
+Five headings on the audit page, always present, always in this order, with these words:
 
 1. **Performance**
 2. **Scorecard**
@@ -130,3 +140,44 @@ call as `references/templates.md` sets it (for a Non-sale page, the read on the 
 goal), and reads "Test or ship: needs traffic figures" only
 where the audit had neither a brain nor an export. The footnote names the lift rule and whether
 the table or the formula was used, and is left out where no row carries a call from traffic.
+
+## The Methodology page
+
+The second page: how the audit was made, for a reader who arrives cold. It has its own title,
+"Methodology", the "Back to the audit" link, and a fixed Summary that carries no figure. The copy is fixed: write it as given here,
+the same on every audit, so it never restates this page's results. It restates rules from
+`references/ingredients.md`, `references/templates.md` and `references/diagnostics.md`: when one
+of those changes, change this copy with it. Summary: "How the audit works: sixty checks across
+six ingredients, what each one looks for and why it matters." Under it, in this order:
+
+1. **How the audit works**, a numbered list:
+   1. We read the page as a visitor sees it, on a phone first where we can render it and from its
+      HTML where we cannot, alongside its visits and orders where a Growth Brain or a Shopify
+      export holds them.
+   2. We score it against sixty checks, ten for each ingredient. Each check is Met, Not met, n/a
+      or Unassessed, and an ingredient's score is the checks met over the checks met or not met.
+   3. Every failed check becomes a finding or a quick win. Where the figures show the Leaking
+      step, the funnel step where the page loses most against similar pages, the findings that
+      bear on that step come first.
+   4. Each finding that is not a quick win becomes a test idea, ranked by ICE: impact, confidence
+      and ease, each out of 5. Where the page sells online and its traffic is known, each one says
+      whether to run a test, take a sequential read (before against after), or ship the change.
+2. **The six ingredients**, one table, columns Ingredient, What we check and Why it matters:
+
+   | Ingredient | What we check | Why it matters |
+   |---|---|---|
+   | Makes the benefits clear | In the first screen, a visitor knows what is on offer, what it does for them and why it beats what they use now, told as outcomes rather than features. | Visitors decide in seconds whether a page is for them. If they cannot see the benefit, they read no further. |
+   | Has an irresistible offer | Everything the visitor gets, what they pay, the terms, the risk they carry and any bonus. | A good product still loses on a weak offer. The offer is what makes yes easy and no feel like leaving value behind. |
+   | Is trustworthy | Proof matched to each doubt a visitor brings: reviews, guarantees, credentials and evidence that the claims are true. | Doubt is among the reasons shoppers give most often for not buying, so this ingredient often has the most to gain. |
+   | Is written well | Copy that is concrete, specific and easy to scan, in the order of an argument, with each objection answered where it comes up. | Visitors skim. Vague or muddled copy leaves the question that stops a purchase unanswered. |
+   | Is user-friendly | A page that is easy to understand, easy to find your way round and quick to act on, on the device people use. | Every moment of friction, doubt or delay before the one action loses some of the people who came to buy. |
+   | Gives people what they want | The page matches what this visitor came for: their intent, who they are, how ready they are to buy and the next step they will take. | A clear, trustworthy, well-built page still loses when it answers a question this visitor was not asking. |
+
+3. **The lens**, one line: "Across all six, we read the page against how ready its visitors are
+   to buy, from not yet knowing they have the problem to ready to buy today. It shapes the
+   findings and is not scored."
+4. **The credit**, one paragraph, with the address as a link to
+   `https://conversion-rate-experts.com/`: "The six ingredients are adapted from Conversion Rate
+   Experts' ingredients of a winning website, set out in their book *Making Websites Win*
+   (conversion-rate-experts.com). The sixty checks and their wording, the scoring and the test
+   backlog are Crux's own, and any fault in them is ours."
