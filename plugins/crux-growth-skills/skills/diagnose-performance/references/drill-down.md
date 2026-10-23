@@ -47,7 +47,7 @@ that level and take the one whose largest qualifying segment carries most of the
 name the others in one line. A dimension the lever has no values on is skipped (landing page
 carries no spend). A qualifying segment is one the volume floor leaves on its own row.
 
-**The descent rule.** Every threshold is here.
+**The descent rule.** Every cut-off is here, and none is named on the page.
 
 - Go down a level into a segment that carries at least half its parent's change, in the direction
   of the change.
@@ -61,6 +61,8 @@ carries no spend). A qualifying segment is one the volume floor leaves on its ow
 - A level whose parent holds one segment is collapsed: it gets no table, says in one line which
   segment it is, and the descent continues below it. A collapsed or skipped level does not count
   toward the three.
+- Each stop, collapse and "Other" row is worded on the page as `references/diagnosis-layout.md`
+  sets out; the page never names a floor, a cap or a share.
 
 Rank each table by contribution, the largest in the direction of the change first and segments
 pulling the other way last. Round as `references/contribution.md` does, so the rows add exactly.
@@ -157,7 +159,7 @@ The platform ROAS tree reads every dimension from the platform's own Source
 
 **Returning orders, repeat rate, active customers.** Repeat orders by channel, then CRM campaign
 or flow, then cohort. A cohort is read only once it is mature for the horizon the lever uses: a
-cohort younger than the horizon joins "Other" and is named in the Notes. When the source holds
+cohort younger than the horizon joins the "Other" row and is named in the Notes. When the source holds
 no CRM campaign or flow, stop at the channel level.
 
 **Platform ROAS tree.** Every lever takes the platform's own path: campaign, then ad set or ad
@@ -183,7 +185,7 @@ that fit the lever:
 |---|---|
 | visits, new customers, marketing spend | a budget, bid or campaign change; a campaign paused or ended; a seasonal or tracking change |
 | conversion, engaged rate, add to basket, checkout start, purchase | a site or checkout change; a payments or shipping issue; a change in the traffic sent |
-| order value | a promotion or price change; a change in free-shipping threshold or bundles; a change in the product mix sold |
+| order value | a promotion or price change; a change in the free-shipping minimum or bundles; a change in the product mix sold |
 | returning orders, repeat rate, active customers | a flow or newsletter paused or changed; a promotion that pulled orders forward; a cohort ageing |
 | margin % | a discount or price change; a supplier cost change; a change in the product mix sold |
 | platform levers | a creative, audience or bidding change; a platform delivery change; for order value, a price or promotion change |
@@ -230,5 +232,5 @@ confirm the cause (the promotion calendar for these dates, the campaign's change
 checkout's release log), and says what to do on each answer. Ship never applies to a check-first
 action.
 
-A lever over the threshold in step 5 gets one action line, check-first: the first segment or
+An Also large lever in step 5 gets one action line, check-first: the first segment or
 level to open and what to look for. An Offset gets no action.

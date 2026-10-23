@@ -9,10 +9,11 @@ Produce the Performance diagnosis from the brand's own data: why the Success KPI
 the Current period and the Comparison period, as one HTML page with the seven headings
 `references/diagnosis-layout.md` fixes. Run the nine steps in order. The user sees only the chat
 and the page, never this skill or its references: say what the data showed, in plain words with
-its figure, and never cite a file, a rule or a threshold. The terms Success KPI, Current period,
-Comparison period, Lever, Lever tree, Source, Contribution, Main driver, Offset, Drill-down, Cause,
-Recommendation, Check-first, Brain line and Performance diagnosis are those of
-`references/glossary.md`; use them as written.
+its figure, and never cite a file, a rule, a threshold or a cut-off. Every line the page needs has
+its approved plain wording in `references/diagnosis-layout.md`; use it as written. The terms
+Success KPI, Current period, Comparison period, Lever, Lever tree, Source, Contribution, Main
+driver, Also large, Offset, Drill-down, Cause, Recommendation, Check-first, Brain line and
+Performance diagnosis are those of `references/glossary.md`; use them as written.
 
 ## Unattended run
 
@@ -105,8 +106,8 @@ to the same rule. Then:
   dropped.
 - **Stop only** when the Success KPI itself cannot be read in both periods (no Source holds its
   total, whatever the levers hold), or when no lever can be read. Say in one line, in the chat
-  only, which Source is missing (with the Brain line, on a run without a Growth Brain). A stopped
-  run writes no page.
+  only, which Source is missing, in the wording of `references/diagnosis-layout.md` (with the Brain
+  line, on a run without a Growth Brain). A stopped run writes no page.
 - **Read the columns first**: with a Growth Brain, call `list_tables` naming each mart the tree
   needs that step 1 has not read, one mart per call (discovery, no query), so each lever's "how it
   is measured" comes from the columns.
@@ -196,7 +197,7 @@ Contribution, not of the lever's own change: spend that rose lowers CM3, so it r
 
 - **Main driver**: the lever with the largest Contribution in the direction of the change. A
   second lever with at least half that Contribution is a Main driver too. Name at most two.
-- **Over the threshold**: any other lever in the direction of the change with at least half the
+- **Also large**: any other lever in the direction of the change with at least half the
   largest Contribution. It is named with its figure in the Levers table and gets one action line
   under Recommendations (step 8); it is not drilled.
 - **Offset**: a lever whose Contribution runs against the change is named with its figure and
@@ -226,13 +227,13 @@ read: the Drill-down stops above it, with one line saying so. A Main driver whos
 dimension for the path's first level has zero levels: its Drivers block says it could not be
 sliced further and why, and it goes on to steps 7 and 8 like any other. Each level is a table
 ranked by Contribution with the volume beside it, and the Drill-down ends with one line saying
-where it stopped and why.
+where it stopped and why, in the approved wording for that reason (`references/diagnosis-layout.md`).
 
 **Done when** every Main driver has a Drill-down of 0 to 3 levels that follows the path for its
 lever and stops by the descent rule or at its Source's last dimension, and a driver with zero
-levels has its line saying why; each level's rows, with an "Other" row for the segments under the
-volume floor, add exactly to the change they split; and an Offset or over-threshold lever has not
-been drilled.
+levels has its line saying why; each level's rows, with an "Other (smaller <dimension>)" row for the
+segments under the volume floor, add exactly to the change they split; and an Offset or Also
+large lever has not been drilled.
 
 ## 7. Cause
 
@@ -249,12 +250,12 @@ to "Not confirmed". An unattended run sets every Cause to "Not confirmed" and as
 Write 1 to 3 recommendations for each drilled Main driver, a zero-level one included, from
 `references/drill-down.md`, ranked by the KPI at stake. Each carries a hypothesis ("if we X, the
 KPI moves because Y"), the action, the metric to watch, and how to validate it: test, watch next
-period or ship. Under a Cause of "Not confirmed" every action is check-first. Each lever over the
-threshold gets its one check-first action line, written here and nowhere else.
+period or ship. Under a Cause of "Not confirmed" every action is check-first. Each Also large
+lever gets its one check-first action line, written here and nowhere else.
 
 **Done when** every drilled Main driver has 1 to 3 recommendations, each with hypothesis, action,
 metric to watch and test, watch or ship; every action under a "Not confirmed" Cause is
-check-first; and every lever over the threshold has its action line.
+check-first; and every Also large lever has its action line.
 
 ## 9. Write
 

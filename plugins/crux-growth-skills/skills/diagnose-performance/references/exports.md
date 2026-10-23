@@ -28,7 +28,7 @@ Source, with the same report, columns and filters, in both periods.
 The rest of the Lever tree's levers follow from these: each lever's counts come from the Source
 named for it, and a ratio lever uses the same count as the volume lever beside it (the
 conversion lever's sessions are the visits lever's sessions). The Levers table and The change name
-each lever's Source in plain words ("your Shopify orders", "your Google Ads campaigns").
+each lever's Source in the plain words `references/diagnosis-layout.md` lists.
 
 **Shopify sessions by landing page** gives the visits total and no channel. Do not descend into
 its landing pages: a page's sessions move with the traffic sent to it, so with no channel level the
@@ -132,7 +132,10 @@ a brain: name it on the page.
 - Add together the rows that share a segment, and check that the segments sum to the file's total.
 - A connector is read for the same columns and the same dates, and the same Source is read for both
   periods.
-- Leave out test orders wherever the Source flags them.
+- Leave out test orders wherever the Source flags them. An export with no test-order flag is read
+  as it stands, and the Notes say so in the layout's wording.
+- A platform export that does not say which conversion actions it counts is read as given, and the
+  Notes say so in the layout's wording.
 - Compute the Contributions and the rebuild in code where the session can run it; otherwise by
   hand, and check that the Contributions add to the change.
 

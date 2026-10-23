@@ -13,11 +13,13 @@ analysis framework: split the change into levers, find the main driver, drill in
 
 - **Lever tree**: the 3 to 5 levers that rebuild the Success KPI exactly, at least one volume and one efficiency, taken from the catalogue or derived to the same rule, and confirmed by the user before any query. _Avoid_: metric tree, KPI tree, decomposition.
 
-- **Source**: the one place a lever is read from, the same for both periods: a Growth Brain mart, a platform connector (Shopify, GA4, Google Ads, Meta Ads) or a file the user gives. Taken in that order, per lever. _Avoid_: data source, feed, input.
+- **Source**: the one place a lever is read from, the same for both periods: a Growth Brain mart, a platform connector (Shopify, GA4, Google Ads, Meta Ads) or a file the user gives. Taken in that order, per lever. Named on the page in plain words (the layout lists them), never by mart or file. _Avoid_: data source, feed, input.
 
 - **Contribution**: a lever's share of the Success KPI's change between the two periods, computed so the contributions add exactly to the whole change. _Avoid_: impact, effect, attribution.
 
 - **Main driver**: the lever with the largest contribution in the direction of the change. A second lever with at least half that contribution is a main driver too; at most two, each taken through the drill-down. _Avoid_: root cause, key driver, culprit.
+
+- **Also large**: a lever other than a main driver, in the direction of the Success KPI's change, with at least half the largest contribution; named with its figure and given one check-first action line, never drilled. _Avoid_: over the threshold, secondary driver, runner-up.
 
 - **Offset**: a lever whose contribution runs against the Success KPI's change; named with its figure, never drilled. _Avoid_: headwind, tailwind.
 
