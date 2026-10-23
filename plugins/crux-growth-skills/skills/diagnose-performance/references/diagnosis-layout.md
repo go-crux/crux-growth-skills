@@ -25,7 +25,8 @@ many levers read "No data".
 1. **Summary**: two to four sentences of plain prose, written last, from the page's own figures:
    the change (the Success KPI in both periods and its relative change), the Main driver(s) with
    their Contributions (an Offset may be named beside them), and the top action: the first
-   recommendation of the drilled Main driver with the larger Contribution. The chat repeats this
+   recommendation of the drilled Main driver with the largest Contribution in the direction of
+   the change. The chat repeats this
    action as its top recommendation. Never a caveat (those go in Notes).
 2. **The change**: the Success KPI, the Current period and the Comparison period as dates, the
    Success KPI in each and its relative change, and for each lever the Source it was read from
@@ -137,7 +138,7 @@ many levers read "No data".
      against your orders where a Growth Brain holds them; never on a Platform ROAS page, whose
      purchases are the platform's, not store orders;
    - a platform export or connector that does not say which conversion actions it counts;
-   - each of these in the wording **Plain wording** gives;
+   - these last three in the wording **Plain wording** gives;
    - the method in one line: Contributions split the change by each lever's share of it, so they
      add exactly to the Success KPI's change;
    - that figures are rounded so the rows add exactly to the change.
@@ -207,7 +208,7 @@ way. The lines above fix what to say; these fix how.
 | Caveat | Wording |
 |---|---|
 | A level read from the orders while the lever's total comes from another Source | The split of <lever> by <dimension> comes from your orders, while its total comes from <Source in plain words>. |
-| An export carries no test-order flag | <Source> carries no test-order flag, so any test orders are counted. |
+| An order count from an export with no test-order flag, on a run without a Growth Brain (never a Platform ROAS page) | <Source> carries no test-order flag, so any test orders are counted. |
 | An order count with no test-order flag, checked against your orders, matching | <Source> carries no test-order flag; its order count matches your orders with test orders left out. |
 | The same, not matching | <Source> carries no test-order flag; its order count is <n> above your orders with test orders left out, so up to <n> test orders may be counted. |
 | Cancelled orders, the Source says they are left out | Cancelled orders are left out, as <Source> records them. |
@@ -221,7 +222,7 @@ way. The lines above fix what to say; these fix how.
 | Connectors in the session not read, on a Growth Brain run | <Connectors> were connected but not read: your Growth Brain holds what they would have given. |
 | A partial split | <Levers> could not be read (<reason>), so <figure> of the change is shown as "Not split". |
 | An export the user chose not to give | You chose not to give <report name>, so <levers> read "No data". |
-| Marketing spend, on a run without a Growth Brain whose tree holds spend | Marketing spend covers <platforms> only, the same in both periods. |
+| Marketing spend summed across platforms (CAC, MER / ROAS), on a run without a Growth Brain | Marketing spend covers <platforms> only, the same in both periods. |
 | The timezone, with a Growth Brain that names one | Days are read in <timezone>. |
 | The timezone, where the Growth Brain says only that dates are the store's own | Days are your store's own, as your Growth Brain records them. |
 | The timezone, where a Source's dates are UTC | Days are read in UTC. |

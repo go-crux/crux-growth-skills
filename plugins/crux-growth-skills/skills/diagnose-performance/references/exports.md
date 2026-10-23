@@ -177,7 +177,8 @@ one campaign it descended into, and only where no connector reads that level.
 - A connector is read for the same columns, on the four dates, for every campaign whatever its
   status and with every page of rows, and the same Source is read for both periods.
 - Leave out test orders wherever the Source flags them. An export with no test-order flag is read
-  as it stands, and the Notes say so in the layout's wording.
+  as it stands, and on a store-order count the Notes say so in the layout's wording (never on a
+  Platform ROAS page, whose purchases are the platform's).
 - A platform export that does not say which conversion actions it counts is read as given, and the
   Notes say so in the layout's wording.
 - Compute the Contributions and the rebuild in code where the session can run it; otherwise by

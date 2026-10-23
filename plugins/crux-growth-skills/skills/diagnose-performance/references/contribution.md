@@ -100,9 +100,10 @@ the same way for a negative figure as for a positive one (−£19,881.21 rounded
 by 0.21). Relative changes are computed from the unrounded figures. The display precision
 follows the kind of KPI:
 
-- **A money KPI** (CM3, revenue, spend, CAC) rounds to whole currency units, as the worked
-  example does. A money KPI per customer or per order (CAC, order value) rounds to one decimal
-  (£38.4) where whole units would show any lever's Contribution as 0 or ±1.
+- **A money KPI** (CM3, revenue, spend) rounds to whole currency units, as the worked
+  example does.
+- **A money KPI per customer or per order** (CAC, order value) rounds to whole currency units
+  too, or to one decimal (£38.4) where whole units would show any lever's Contribution as 0 or ±1.
 - **A ratio KPI** (MER, ROAS) rounds to two decimals, shown as a plain multiple (3.52).
 - **A rate KPI** (conversion rate) rounds to one decimal place of a percentage (2.4%).
 

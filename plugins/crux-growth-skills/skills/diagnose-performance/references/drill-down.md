@@ -264,7 +264,10 @@ Each recommendation carries:
 **Check-first.** Under a "Not confirmed" Cause the action opens with the check that would
 confirm the cause (the promotion calendar for these dates, the campaign's change history, the
 checkout's release log), and says what to do on each answer. Ship never applies to a check-first
-action. On a rise the check-first action is verify, then scale: the check that confirms what
+action.
+
+**On a rise**, phrase every action for a rise: scale what drove it. A check-first action is
+verify, then scale: the check that confirms what
 drove the rise, then, on each answer, how to scale it or why to hold it.
 
 An Also large lever in step 5 gets one action line, check-first: the first segment or

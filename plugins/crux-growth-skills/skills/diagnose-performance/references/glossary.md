@@ -23,6 +23,8 @@ analysis framework: split the change into levers, find the main driver, drill in
 
 - **Offset**: a lever whose contribution runs against the Success KPI's change; named with its figure, never drilled. _Avoid_: headwind, tailwind.
 
+- **Cost pair**: spend and the volume it buys, ranked as one lever when their contributions run against each other: spend and visits as cost per visit, spend and impressions as CPM. The pair takes one role, shown on both rows. _Avoid_: blended cost, efficiency pair.
+
 - **Drill-down**: the levels a main driver is sliced through, broad to narrow, descending while one segment carries at least half its parent's change (the lever's, at the first level), to at most three levels. A main driver whose source holds no finer dimension has zero levels and is still drilled: it gets a cause and recommendations. _Avoid_: deep dive, breakdown.
 
 - **Cause**: what happened in the business behind a drilled main driver (a promotion, a paused flow, a broken checkout), confirmed by the user, else "Not confirmed". _Avoid_: reason, explanation.

@@ -211,8 +211,10 @@ stopped with its one line and no page.
 - **A change of source.** Where the brain's descriptions name a change of source for visits or
   channel attribution (for example the GA4 raw event stream replacing an earlier feed) and its
   date falls inside either period or between them, read both periods as the brain gives them and
-  carry the change into the Notes, and into the Drivers block of a Main driver it moves.
-- Express every change as a relative percentage, computed from the unrounded figures.
+  carry the change into the Notes, and into the Drivers block of a Main driver whose change
+  straddles it.
+- Express every change as a relative percentage, computed as `references/contribution.md` sets
+  out under Rounding.
 
 **Without a Growth Brain**, read each lever from its Source as `references/exports.md` sets out,
 on the four dates, then rebuild the Success KPI and compare it as below.
@@ -255,7 +257,8 @@ Contribution, not of the lever's own change: spend that rose lowers CM3, so it r
 - **Offset**: a lever whose Contribution runs against the change is named with its figure and
   never drilled.
 - **No role**: a lever in the direction of the change under half the largest Contribution, a
-  lever that reads "No data", and the "Not split" row. It is listed in the Levers table without a line.
+  lever that reads "No data", and the "Not split" row. It is listed in the Levers table without a line, except a cost pair
+  that takes no role (below).
 - **A cost pair.** Spend paired with the volume it buys is ranked as one lever when their
   Contributions run against each other: spend and visits as **cost per visit** (CAC, MER / ROAS),
   spend and impressions as **CPM** (Platform ROAS). Rank the pair's combined Contribution against
@@ -278,10 +281,10 @@ path, one level at a time, by the descent rule. Read each level in `run_sql` fro
 Source and the Basis rule above, with dates from `periods`, except an order-mix level, which
 `references/drill-down.md` reads from the orders mart and apportions to the lever's Contribution
 (the tree's levers and the Success KPI still come from one mart). Call `list_tables` for one mart
-at a time when a level needs columns not yet read. Without a Growth Brain, a level only an
-ad group or ad set report holds is asked for when the Drill-down reaches it, with the steps from
-`references/exports.md`, once (an unattended run asks for none). A level no Source the run holds carries a
-dimension for is not read: the Drill-down stops above it, with one line saying so. A Main driver
+at a time when a level needs columns not yet read. Without a Growth Brain, where no connector
+reads the level below campaign, ask once per Main driver for the ad group or ad set report
+`references/exports.md` sets out, when its Drill-down reaches that level (an unattended run asks
+for none). A level no Source the run holds carries a dimension for is not read: the Drill-down stops above it, with one line saying so. A Main driver
 for which no Source the run holds carries the path's first dimension has zero levels: its
 Drivers block says it could not be sliced further and why, and it goes on to steps 7 and 8 like
 any other. Each level is a table ranked by Contribution with the volume beside it, and the
@@ -308,7 +311,7 @@ to "Not confirmed". An unattended run sets every Cause to "Not confirmed" and as
 
 Write 1 to 3 recommendations for each drilled Main driver, a zero-level one included, from
 `references/drill-down.md`, ranked by the KPI at stake. On a rise, phrase every action for a
-rise: scale what drove it, and a check-first action verifies, then scales. Each carries a hypothesis ("if we X, the
+rise, as `references/drill-down.md` sets out. Each carries a hypothesis ("if we X, the
 KPI moves because Y"), the action, the metric to watch, and how to validate it: test, watch next
 period or ship. Under a Cause of "Not confirmed" every action is check-first. Each Also large
 lever gets its one check-first action line, written here and nowhere else.
