@@ -4,9 +4,26 @@ A Lever tree has 3 to 5 levers, at least one volume (V) and one efficiency (E), 
 Success KPI exactly. Fewer than three levers only where the arithmetic allows it, said in one
 line. The user confirms the tree before any query.
 
-Each lever is a ratio of counts from one source, taken so the product telescopes: every lever's
+Each lever is a ratio of counts from one mart, taken so the product telescopes: every lever's
 denominator is the next lever's numerator. That is what makes the rebuild exact. Compute the
-rebuild in `run_sql` for both periods and compare it with the Success KPI read directly.
+rebuild in `run_sql` for both periods and compare it with the Success KPI read in its own query,
+from the mart's total for the period, not from the lever queries' rows.
+
+## One mart per tree
+
+A tree's counts (visits, orders, customers) all come from one mart, so no ratio divides a count
+from one mart by a count from another. Spend is an amount, read from `<client>-channel_reporting`
+in every tree that holds it.
+
+| Tree | Counts from |
+|---|---|
+| Revenue, New customers, CAC, MER / ROAS | `<client>-channel_reporting`, revenue included |
+| CM3, Returning revenue | `<client>-orders`, with revenue on the same rows as margin |
+| Platform ROAS | the platform's own mart or its connector or export |
+| Conversion rate | `<client>-ecommerce_funnel` |
+
+A mart the roster lacks makes its tree's levers read "No data", never a count borrowed from
+another mart.
 
 ## Catalogue
 
@@ -27,19 +44,23 @@ cancel in turn, leaving the count the KPI is made of.
 - **CM3.** Orders = new customers + returning orders, where a new customer is an order from a
   customer with no earlier order and returning orders are the rest. Order value = revenue ÷
   orders. Margin % = order margin ÷ revenue, with order margin on the rung the Basis rule in
-  `SKILL.md` names. Then orders × order value × margin % = order margin, and CM3 = order margin −
-  spend. Where the rung is not CM2, the figure and the page say "CM1 less marketing" in place of
+  `SKILL.md` names. Order value and margin % read revenue from the orders mart, order-dated,
+  on the same rows as margin (`SKILL.md` Basis). Then orders × order value × margin % = order
+  margin, and CM3 = order margin − spend. Where the rung is not CM2, the figure and the page say "CM1 less marketing" in place of
   CM3.
-- **Revenue** is the total sales measure (after discounts and returns), named on the page. From
-  Shopify sales over time it is net sales, named as such.
+- **Revenue** is total sales as `SKILL.md` Basis sets it out, named with its basis on the page.
+  From Shopify sales over time it is net sales, named as such.
 - **CAC and MER / ROAS.** Cost per visit is spend ÷ visits, so cost per visit is spend and visits
   read together: the tree lists spend and visits as separate levers because a tree holding cost
   per visit and spend cannot rebuild the KPI (spend cancels out of it). Say "cost per visit" in
-  prose when spend and visits both moved.
+  prose when spend and visits both moved. Visits are sessions, not users, because users cannot
+  be summed across rows; where the brain offers a user-based conversion metric, the Notes say it
+  measures something else and is not this lever.
 - **Platform ROAS** reads spend, impressions, clicks, purchases and conversion value from the
   platform's own mart (`<client>-meta_performance`, `<client>-google_ads_performance`) when the
   roster lists it, else from its connector or campaign export (`references/exports.md`),
-  platform-reported and not comparable with MER. CPM is spend and impressions
+  platform-reported and not comparable with MER. Its conversion value is the platform's own, as
+  it reports it, and the page names it platform-reported. CPM is spend and impressions
   read together, as above.
 - **Returning revenue.** Active customers are customers with an earlier order who ordered in the
   period. Repeat rate is returning orders per active customer.

@@ -99,21 +99,43 @@ every export asked for is in hand or its lever reads "No data".
 
 ## 4. Read
 
-**Basis.** Apply to every query.
+**Basis.** Apply to every query, and put each caveat named here in the Notes.
 
-- Leave out test orders wherever a mart or Source flags them.
-- Take revenue from the orders table's total sales measure (the one its own descriptions call
-  total sales, after discounts and returns) and name it on the page. Without a Growth Brain, take
-  net sales (gross sales less discounts and returns) and name that.
-- Take margin from `<client>-orders` on the deepest rung it carries per order (CM2, else CM1).
-  Label CM3 as such only when that rung is CM2 and its fulfilment or payment costs are non-zero
-  on some orders in the period; otherwise label the figure "CM1 less marketing". Take spend from
-  `<client>-channel_reporting`, and read no margin from it: it books refunds on the refund date.
-  Without a Growth Brain, take margin only from a Source carrying cost of goods; otherwise the
-  margin % lever reads "No data".
-- Where the brain's descriptions name a change of source for visits or channel attribution (for
-  example the GA4 raw event stream replacing an earlier feed) and one period sits on each side
-  of it, read both periods as the brain gives them and carry the change into the Notes.
+- **One mart per tree for counts.** Read a tree's visits, orders and customers from the one mart
+  `references/lever-trees.md` names for it, so conversion is never orders from one mart over
+  visits from another. The revenue tree and MER / ROAS read visits, orders and revenue all from
+  `<client>-channel_reporting`.
+- **Revenue** is total sales, named with its basis on the page. Take it ex VAT where the mart
+  carries total sales both ex and inc VAT, the basis of the margin rung and of spend. In
+  `<client>-channel_reporting` it books each return on its refund date, the windowed figure the
+  brain's descriptions point to. The orders mart's total sales books returns on the order date
+  and is right only over all time, so it is never the revenue of a window; the CM3 tree reads it
+  only as the order-dated pair of margin (next bullet). Without a Growth Brain, take net sales
+  (gross sales less discounts and returns) and name that.
+- **Margin** comes from `<client>-orders` on the deepest rung it carries per order (CM2, else
+  CM1), order-dated. Label CM3 as such only when that rung is CM2 and its fulfilment or payment
+  costs are non-zero on some orders in the period; otherwise label the figure "CM1 less
+  marketing". Take spend from `<client>-channel_reporting` and read no margin from it. Say in one
+  line why the page's CM3 can differ from one the brain or a dashboard publishes: refunds are
+  dated differently and other cost lines may be in or out. Without a Growth Brain, take margin
+  only from a Source carrying cost of goods; otherwise the margin % lever reads "No data".
+- **Uncosted orders.** Where the orders mart flags orders that are not fully costed, filter
+  margin and the revenue beside it on the same rows, as the mart's own margin-rate metric does,
+  and give the uncosted share of revenue in the Notes.
+- **Returns still arriving.** Where revenue is order-dated after the returns so far, say the
+  latest period's returns are still coming in.
+- **Test orders.** Leave out test orders wherever a mart or Source flags them. Where a lever
+  reads an order count from a mart with no test flag, check that count against the flagged
+  `<client>-orders` for the same days and give the result in the Notes.
+- **Cancelled orders.** Follow the mart (most exclude them upstream) and say so in the Notes
+  where its descriptions say it includes or excludes them.
+- **Modelled or adjustment rows.** Where a mart marks modelled re-attribution or adjustment
+  rows, keep them in totals so segments add up, give their coverage in the Notes, and expect
+  them in "Other" below channel.
+- **A change of source.** Where the brain's descriptions name a change of source for visits or
+  channel attribution (for example the GA4 raw event stream replacing an earlier feed) and its
+  date falls inside either period or between them, read both periods as the brain gives them and
+  carry the change into the Notes.
 - Express every change as a relative percentage.
 
 **Without a Growth Brain**, read each lever from its Source as `references/exports.md` sets out,
@@ -123,12 +145,14 @@ on the four dates, then rebuild the Success KPI and compare it as below.
 mart per call: a call naming two can overflow the reply. Compose every query from the columns
 the calls return, and join to the `periods` CTE for dates. Read each lever's value in both
 periods in `run_sql`, then rebuild the Success KPI from the levers as `references/lever-trees.md`
-writes it and compare with the Success KPI read directly. A lever whose mart is absent, or that
+writes it and compare with the Success KPI read in its own query, from the mart's total for the
+period (for the revenue tree, channel reporting's total sales) and not from the lever queries'
+rows. A lever whose mart is absent, or that
 is zero or missing in either period, reads "No data".
 
 **Done when** every lever has a value in the Current period and the Comparison period, or "No
-data" with its reason; the rebuilt Success KPI is within 0.01% of the Success KPI read directly,
-in both periods; test orders are out of every query the Source flags them in; and every query
+data" with its reason; the rebuilt Success KPI is within 0.01% of the Success KPI read in its own query,
+in both periods; every tree count comes from its one mart; test orders are out of every query the Source flags them in; and every query
 (without a Growth Brain, every read) took its dates from `periods`.
 
 ## 5. Split
