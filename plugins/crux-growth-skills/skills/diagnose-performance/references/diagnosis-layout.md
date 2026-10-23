@@ -32,6 +32,15 @@ many levers read "No data".
    (the brain's mart, a connector or the user's file, in plain words). A lever that reads "No
    data" names the Source it would need. Name the revenue measure and the
    margin rung where the tree uses them.
+
+   Then **the counts**, written once: a table of every count and amount the tree's ratios are
+   built from, as the Catalogue of `references/lever-trees.md` lists them for the tree, one row
+   each in the order the Catalogue gives, with a Comparison period column and a Current period
+   column. Each cell is the figure the Levers were computed from, so a reader can rebuild the
+   Success KPI from the page alone and tie visits, orders and revenue to their own reporting. A
+   count two Levers share has one row. A count that reads "No data" shows that in its cells. A
+   count that can be fractional (Google Ads purchases) shows to one decimal; every other count
+   shows to the unit; an amount rounds as `references/contribution.md` rounds a money KPI.
 3. **Levers**: a table, one row per lever in tree order. Columns, in this order: lever (with V or
    E), Comparison period, Current period, change, Contribution, role (Main driver, Also
    large, Offset or blank), the roles as `SKILL.md` step 5 defines them. A lever with no role
