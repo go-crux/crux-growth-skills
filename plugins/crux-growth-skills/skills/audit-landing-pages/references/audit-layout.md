@@ -46,16 +46,20 @@ this file fixes the page around them.
 ## The masthead
 
 Above the first heading, no heading of its own: the title "Landing page audit", the page's
-URL, and the context in short lines:
+URL, then the context as one two-column table, a label in the left column and its text in the
+right, one row per label, in this order, so each line of text sits beside its label however it
+wraps:
 
-- Page type, the single conversion goal and the device priority (mobile first unless told
-  otherwise).
-- How the page was read: rendered at mobile width, fetched HTML only (naming a browser tool
-  that failed, where it did), and any screenshots the user gave.
-- Which checks are unassessed and the input that would settle them, in one line.
-- The Brand guardrails: confirmed, taken from the user's file, or the ones left unconfirmed.
-- The traffic source and awareness stage where the user named them; otherwise "Traffic source
-  not given".
+| Label | Text |
+|---|---|
+| Page | The page type, the single conversion goal and the device priority (mobile first unless told otherwise). |
+| How it was read | Rendered at mobile width, or fetched HTML only (naming a browser tool that failed, where it did), and any screenshots the user gave. |
+| Unassessed checks | Which checks are unassessed and the input that would settle them, in one line. |
+| Brand guardrails | Confirmed, taken from the user's file, or the ones left unconfirmed. |
+| Traffic | The traffic source and awareness stage where the user named them; otherwise "Traffic source not given". |
+
+Give the label column a fixed width with labels that do not wrap, and align both cells to the
+top of the row.
 
 ## The five headings
 
