@@ -23,4 +23,8 @@ analysis framework: split the change into levers, find the main driver, drill in
 
 - **Cause**: what happened in the business behind a drilled main driver (a promotion, a paused flow, a broken checkout), confirmed by the user, else "Not confirmed". _Avoid_: reason, explanation.
 
+- **Recommendation**: one action on a drilled main driver, with a hypothesis ("if we X, the KPI moves because Y"), the action, the metric to watch and how to validate it (test, watch next period or ship); 1 to 3 per driver, ranked by the KPI at stake. _Avoid_: suggestion, next step, insight.
+
+- **Check-first**: an action that opens with the check that would confirm the cause, used when the Cause is "Not confirmed". _Avoid_: investigate, look into.
+
 - **Performance diagnosis**: the skill's output, one HTML page with fixed headings (Summary, The change, Levers, Drivers, Cause, Recommendations, Notes). _Avoid_: report, analysis, wrap-up.

@@ -16,8 +16,8 @@ figure or "No data", never a bare "n/a".
 
 1. **Summary**: two to four sentences of plain prose, written last, from the page's own figures:
    the change (the Success KPI in both periods and its relative change), the Main driver(s) with
-   their Contributions, and the top action. Until Recommendations is filled, the top action is
-   the one thing to check first about the Main driver. Never a caveat (those go in Notes).
+   their Contributions, and the top action: the first recommendation of the drilled driver with
+   the most KPI at stake. Never a caveat (those go in Notes).
 2. **The change**: the Success KPI, the Current period and the Comparison period as dates, the
    Success KPI in each and its relative change, and for each lever the source it was read from
    (the brain's mart, in plain words such as "your orders"). Name the revenue measure and the
@@ -36,15 +36,36 @@ figure or "No data", never a bare "n/a".
    one colour for an increase, another for a decrease, a neutral one for the two totals, and
    label every bar with its name and figure. Extend the scale to include any negative running
    total. Give the SVG a `title` stating the change in a sentence.
-4. **Drivers**: for each Main driver, what the Drill-down found. Until the Drill-down is part of
-   the skill, this heading reads: "Not drilled: the drill-down into the Main driver is not part
-   of this version of the diagnosis."
-5. **Cause**: what happened in the business behind each drilled Main driver, as the user
-   confirmed it. Until then, this heading reads: "Not confirmed: with no drill-down there is no
-   cause to confirm."
-6. **Recommendations**: actions from the Drivers and the Cause, each ending on an action. Until
-   then, this heading reads: "None yet: recommendations follow the drill-down, which is not part
-   of this version of the diagnosis."
+4. **Drivers**: one block per drilled Main driver, headed by its lever and its Contribution.
+   - One sentence of evidence with its figures.
+   - For a Conversion lever, the stage table first (session → engaged, engaged → checkout,
+     checkout → order, in both periods), and a line naming a suspected site-wide fault where no
+     channel carries half the change.
+   - One table per Drill-down level, in order, each headed by the dimension it reads (and, for
+     a level inside a segment, that segment). Columns, in this order: segment, Comparison
+     period, Current period, Contribution, share of the lever's change, Current period volume,
+     share of the lever's volume. Rows run from the largest Contribution in the direction of the
+     change to the largest against it, with an "Other" row for segments under the volume floor.
+     Where the lever is a ratio, show the rate in both periods in the two period columns and the
+     denominator as the volume. For the discount level of order value, show the discount rate
+     and the discount depth in both periods under the table.
+   - One closing line saying where the Drill-down stopped and why, in plain words.
+
+   With no Main driver to drill, the heading reads "Not drilled: the Success KPI did not change,
+   so there is no Main driver." Where the Drill-down could not start because the source holds
+   no dimension for the lever, it reads "Not drilled: your data holds no finer view of this
+   lever." and the Notes name the dimension that would let it go further.
+5. **Cause**: for each drilled Main driver, headed by its lever, the user's answer in their
+   words, or "Not confirmed". With no drilled driver, it reads "Not confirmed: there is no drilled
+   driver to confirm a cause for."
+6. **Recommendations**: for each drilled Main driver, headed by its lever, 1 to 3 recommendations
+   in the order of the KPI at stake. Each carries, as labelled lines in this order: the
+   **Hypothesis** ("if we X, the KPI moves because Y"), the **Action** (opening with the check
+   where the Cause is "Not confirmed"), the **KPI at stake** (the change in the Success KPI that
+   the segment carries, in its unit), the **Metric to watch**, and **How to validate** (Test,
+   Watch next period or Ship). Then, if any lever is over the threshold, its one check-first
+   action line under its own name. With no drilled driver, the heading reads "None: there is no
+   drilled driver to act on."
 7. **Notes**: every caveat in one place, and no caveat anywhere else. Include, where they apply:
    - the basis: the revenue measure, the margin rung and whether the figure is CM3 or "CM1 less
      marketing", that flagged test orders are left out, and the store's timezone;
@@ -52,10 +73,12 @@ figure or "No data", never a bare "n/a".
    - a change of source between the periods (such as the GA4 raw event stream replacing an
      earlier feed) and which levers move with it, so the reader does not mistake the change of
      source for a change in the business;
+   - a Drill-down that stopped because the source holds no finer dimension, and which dimension
+     would let it go further;
+   - cohorts too young for the horizon, counted in "Other";
+   - an unattended run, and which Growth Brain it read where several were connected;
    - a partial split: which levers read "No data" and why, and that the rest of the change is
      shown as "Not split";
    - the method in one line: Contributions split the change by each lever's share of it, so they
      add exactly to the Success KPI's change;
    - that figures are rounded so the rows add exactly to the change.
-
-The three placeholder lines above are the only reasons those headings carry in this version.

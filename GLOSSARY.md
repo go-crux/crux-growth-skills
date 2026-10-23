@@ -11,4 +11,4 @@ Crux growth skills: free skills any brand installs in its own Claude that carry 
 ## Skill glossaries
 
 - `plan-black-friday`: [`plan-black-friday/references/glossary.md`](plugins/crux-growth-skills/skills/plan-black-friday/references/glossary.md) (the windows, Lift, Target test, Last-year level, Lever gap, Scenario, Daily phasing, Black Friday plan).
-- `diagnose-performance`: [`diagnose-performance/references/glossary.md`](plugins/crux-growth-skills/skills/diagnose-performance/references/glossary.md) (Success KPI, Current period, Comparison period, Lever, Lever tree, Contribution, Main driver, Offset, Drill-down, Cause, Performance diagnosis).
+- `diagnose-performance`: [`diagnose-performance/references/glossary.md`](plugins/crux-growth-skills/skills/diagnose-performance/references/glossary.md) (Success KPI, Current period, Comparison period, Lever, Lever tree, Contribution, Main driver, Offset, Drill-down, Cause, Recommendation, Check-first, Performance diagnosis).
