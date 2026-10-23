@@ -1,8 +1,17 @@
 # Audit page layout
 
 An Audit is one self-contained HTML file, `landing-page-audit-<slug>.html`, written to the
-working folder. It is a single scrolling page with inline CSS and no script, and it makes no
-network request. Crux house style: British English, no em dashes, outcome before mechanism,
+working folder, with inline CSS and no script, and it makes no network request. It holds two
+pages: **the audit**, the masthead and five headings that open by default, and **Methodology**,
+a second page in the same file that the reader opens from the masthead. One file keeps the
+methodology with the audit wherever it is sent, and keeps it off the audit's scroll.
+
+**The two pages, without a script.** Put the Methodology page first in the file, as
+`<section id="methodology" class="methodology">`, and the audit after it in `<main>`. The CSS
+hides the section, shows it when targeted, and hides the audit while it shows:
+`.methodology{display:none}`, `.methodology:target{display:block}`,
+`.methodology:target ~ main{display:none}`. The masthead's link `href="#methodology"` opens it,
+and its own link "Back to the audit" (`href="#"`) at its top and foot returns. Crux house style: British English, no em dashes, outcome before mechanism,
 relative percentage changes (2.0% to 1.8% is "−10%").
 
 **The slug** is the page's path with the query string, fragment and outer slashes cut, any
@@ -27,23 +36,22 @@ URL, and the context in short lines:
 - The Brand guardrails: confirmed, taken from the user's file, or the ones left unconfirmed.
 - The traffic source and awareness stage where the user named them; otherwise "Traffic source
   not given".
+- The link "How this audit works", which opens the Methodology page.
 
-## The six headings
+## The five headings
 
-Six headings, always present, always in this order, with these words:
+Five headings on the audit page, always present, always in this order, with these words:
 
 1. **Performance**
 2. **Scorecard**
 3. **Findings**
 4. **Quick wins**
 5. **Test backlog**
-6. **Methodology**
 
 Each opens with a one-line **Summary** before anything else under it: one sentence of plain
 prose saying what the section holds and its key takeaway, with its figure (for example "14 of
 52 assessed checks met; the offer is the weakest ingredient at 0 of 7"). A heading with
-nothing under it stays on the page, and its Summary gives the reason. Methodology is the one
-exception: its Summary is fixed copy and carries no figure.
+nothing under it stays on the page, and its Summary gives the reason.
 
 ### 1. Performance
 
@@ -133,9 +141,10 @@ goal), and reads "Test or ship: needs traffic figures" only
 where the audit had neither a brain nor an export. The footnote names the lift rule and whether
 the table or the formula was used, and is left out where no row carries a call from traffic.
 
-### 6. Methodology
+## The Methodology page
 
-How the audit was made, for a reader who arrives cold. The copy is fixed: write it as given here,
+The second page: how the audit was made, for a reader who arrives cold. It has its own title,
+"Methodology", the "Back to the audit" link, and a fixed Summary that carries no figure. The copy is fixed: write it as given here,
 the same on every audit, so it never restates this page's results. It restates rules from
 `references/ingredients.md`, `references/templates.md` and `references/diagnostics.md`: when one
 of those changes, change this copy with it. Summary: "How the audit works: sixty checks across
