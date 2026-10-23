@@ -1,7 +1,7 @@
 {
   "name": "crux-growth-skills",
-  "version": "0.2.2",
-  "description": "Free Crux skills, best with a Crux Growth Brain connected. Plan Black Friday on your own data: last year's read, your targets tested against it, and an agreed plan with day-by-day targets.",
+  "version": "0.3.0",
+  "description": "Free Crux skills, best with a Crux Growth Brain connected. Plan Black Friday on your own data, and diagnose why a KPI moved between two periods.",
   "author": {
     "name": "Crux",
     "email": "matt@gocrux.io",
@@ -20,8 +20,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Crux",
-    "shortDescription": "Crux Black Friday planning on your own data",
-    "longDescription": "Read last year's Black Friday on your own data, test your November and December targets against it, and agree a plan with day-by-day targets you can download.",
+    "shortDescription": "Crux Black Friday planning and performance diagnosis",
+    "longDescription": "Read last year's Black Friday on your own data, test your November and December targets against it, and agree a plan with day-by-day targets you can download. Diagnose why a KPI moved between two periods, split into its levers, with the main driver found and what to do about it.",
     "developerName": "Crux",
     "category": "Productivity",
     "capabilities": [
@@ -30,7 +30,8 @@
     ],
     "websiteURL": "https://gocrux.io",
     "defaultPrompt": [
-      "Help me plan Black Friday."
+      "Help me plan Black Friday.",
+      "Why did my revenue drop last month?"
     ]
   }
 }
