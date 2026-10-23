@@ -49,13 +49,13 @@ that stops at step 3 says it in the chat only).
 
 **Probe each connector.** A connector that lists an account can still refuse every performance
 read, so make one small read per connector in the session before any Source is offered, on the
-Comparison period (the one the first message names, else the one step 2 recommends): one headline
-figure for its first day, through the tool step 4 will read it with (Shopify orders, GA4
-sessions, Google Ads or Meta Ads cost; for Google Ads its query tool, as
+Comparison period as the first message names it, else as step 2 recommends it (the period before
+the last complete one; the final dates are set in step 2, and the probe needs only a day inside
+it): one headline figure for that period's first day, through the tool step 4 will read it with
+(Shopify orders, GA4 sessions, Google Ads or Meta Ads cost; for Google Ads its query tool, as
 `references/exports.md` sets out). An error or a refusal is a refusal; a read that returns zero
 is not. A connector that refuses is named to the user, with what it refused, in the intake
-message (an unattended run names it in the Notes), is offered as a Source for no lever, and is
-not read again in this run.
+message (an unattended run names it in the Notes), and is offered as a Source for no lever.
 
 Then settle two facts once, for every later step to reuse:
 
