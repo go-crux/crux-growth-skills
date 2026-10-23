@@ -27,19 +27,24 @@ another mart.
 
 ## Catalogue
 
-| Success KPI | Levers | Rebuild |
-|---|---|---|
-| CM3 | new customers (V), returning orders (V), order value (E), margin % (E), marketing spend (V) | CM3 = (new + returning) × order value × margin % − spend |
-| Revenue | visits (V), conversion (E), order value (E) | revenue = visits × (orders ÷ visits) × (revenue ÷ orders) |
-| New customers | visits (V), new visitor share (E), new-customer conversion (E) | new customers = visits × (new visitors ÷ visits) × (new customers ÷ new visitors) |
-| CAC | spend (V), visits (V), new-customer conversion (E) | CAC = spend ÷ (visits × (new customers ÷ visits)) |
-| MER / ROAS | visits (V), spend (V), conversion (E), order value (E) | ROAS = visits × (orders ÷ visits) × (revenue ÷ orders) ÷ spend |
-| Platform ROAS (one ad account) | spend (V), impressions (V), click-through (E), platform conversion (E), order value (E) | ROAS = impressions × (clicks ÷ impressions) × (purchases ÷ clicks) × (conversion value ÷ purchases) ÷ spend |
-| Returning revenue | active customers (V), repeat rate (E), order value (E) | returning revenue = active customers × (returning orders ÷ active customers) × (returning revenue ÷ returning orders) |
-| Conversion rate | engaged rate (E), add to basket (E), checkout start (E), purchase (E), with visits shown as V | conversion = (engaged ÷ visits) × (basket ÷ engaged) × (checkout ÷ basket) × (orders ÷ checkout) |
+| Success KPI | Levers | Rebuild | Counts shown on the page |
+|---|---|---|---|
+| CM3 | new customers (V), returning orders (V), order value (E), margin % (E), marketing spend (V) | CM3 = (new + returning) × order value × margin % − spend | new customers, returning orders, orders, revenue, margin, spend |
+| Revenue | visits (V), conversion (E), order value (E) | revenue = visits × (orders ÷ visits) × (revenue ÷ orders) | visits, orders, revenue |
+| New customers | visits (V), new visitor share (E), new-customer conversion (E) | new customers = visits × (new visitors ÷ visits) × (new customers ÷ new visitors) | visits, new visitors, new customers |
+| CAC | spend (V), visits (V), new-customer conversion (E) | CAC = spend ÷ (visits × (new customers ÷ visits)) | spend, visits, new customers |
+| MER / ROAS | visits (V), spend (V), conversion (E), order value (E) | ROAS = visits × (orders ÷ visits) × (revenue ÷ orders) ÷ spend | visits, orders, revenue, spend |
+| Platform ROAS (one ad account) | spend (V), impressions (V), click-through (E), platform conversion (E), order value (E) | ROAS = impressions × (clicks ÷ impressions) × (purchases ÷ clicks) × (conversion value ÷ purchases) ÷ spend | spend (cost), impressions, clicks, purchases, conversion value |
+| Returning revenue | active customers (V), repeat rate (E), order value (E) | returning revenue = active customers × (returning orders ÷ active customers) × (returning revenue ÷ returning orders) | active customers, returning orders, returning revenue |
+| Conversion rate | engaged rate (E), add to basket (E), checkout start (E), purchase (E), with visits shown as V | conversion = (engaged ÷ visits) × (basket ÷ engaged) × (checkout ÷ basket) × (orders ÷ checkout) | visits, engaged visits, basket adds, checkout starts, orders |
 
 Each rebuild cancels to the Success KPI: in every row the inner denominators and numerators
 cancel in turn, leaving the count the KPI is made of.
+
+The last column is the page's table of counts (`references/diagnosis-layout.md`, The change): every
+count and amount the levers' ratios divide, in both periods, read once and from the tree's one
+mart. A count two levers share is listed once. Google Ads purchases can be fractional; the page
+shows a fractional count to one decimal and every other count to the unit.
 
 - **CM3.** Orders = new customers + returning orders, where a new customer is an order from a
   customer with no earlier order and returning orders are the rest. Order value = revenue ÷
@@ -78,6 +83,7 @@ Derive a tree to the same rule:
    the next, so each denominator cancels the next numerator.
 3. Make at least one lever a count or an amount (V) and at least one a ratio (E).
 4. Write the rebuild arithmetic as the catalogue does, and check it cancels to the KPI.
+5. List every count and amount the levers' ratios divide, as the catalogue's last column does, for the page's table of counts.
 
 A KPI that is a sum (CM3 is one) keeps each term whole when it is a lever and splits a term that
 is itself a product.
