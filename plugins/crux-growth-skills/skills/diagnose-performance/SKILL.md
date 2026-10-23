@@ -76,17 +76,21 @@ whether by the user's answers or by an unattended run's first message.
 ## 3. Lever tree and Sources
 
 Open `references/lever-trees.md`. Take the Success KPI's tree from the catalogue, or derive one
-to the same rule. Give each lever its Source: the first in step 1's order that holds it, one
-Source for both periods. Without a Growth Brain, open `references/exports.md` for which Source
-reads which lever. A lever no Source can read stays on the tree and reads "No data"; if fewer
-than three levers can be read, say in one line which Source is missing (with the Brain line, on a
-run without a Growth Brain) and stop. Show the user
-the Lever tree: each lever with its kind (volume or efficiency), how it is measured and its
-Source, and how the levers rebuild the Success KPI. Ask whether to run it. Read nothing until the
-user says yes; an answer that changes a lever goes back through the tree rule. Then, for each
-lever whose Source is an export the conversation does not yet hold, give the user the steps for
-that report from `references/exports.md` and wait for the files, asking for no export for a lever
-no Source can read. An unattended run asks nothing and goes straight to Read.
+to the same rule. Then:
+
+- **Name each lever's Source**: the first in step 1's order that holds it, one Source for both
+  periods. Without a Growth Brain, open `references/exports.md` for which Source reads which lever.
+- **Drop what no Source can read**: that lever stays on the tree and reads "No data". If fewer
+  than three levers can be read, say in one line which Source is missing (with the Brain line, on
+  a run without a Growth Brain) and stop.
+- **Confirm the tree**: show each lever with its kind (volume or efficiency), how it is measured
+  and its Source, and how the levers rebuild the Success KPI. Ask whether to run it. Read nothing
+  until the user says yes; an answer that changes a lever goes back through the tree rule.
+- **Collect the exports**: for each lever whose Source is an export the conversation does not yet
+  hold, give the user the steps for that report from `references/exports.md` and wait for the
+  files. Ask for no export for a lever no Source can read.
+
+An unattended run asks nothing and goes straight to Read.
 
 **Done when** the user has confirmed (an unattended run: the skill has derived) a Lever tree of
 3 to 5 levers with at least one volume and one efficiency, whose arithmetic rebuilds the Success

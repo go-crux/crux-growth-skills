@@ -20,7 +20,7 @@ Source, with the same report, columns and filters, in both periods.
 | new-customer conversion | Shopify new customers over the visits lever's sessions | none |
 | spend (platform) | the Google Ads or Meta Ads campaign report (spend) | campaign |
 | spend (marketing, for CAC and MER / ROAS) | the sum of the platform reports read | campaign |
-| impressions, click-through, platform conversion, platform order value | the platform's campaign report (Impressions, Clicks, Purchases, Purchase value) | campaign; ad set or ad where a connector reads it |
+| impressions, click-through, platform conversion, platform order value | the platform's campaign report (Impressions, Clicks, Purchases, and their value, named per platform in the tables below) | campaign; ad set or ad where a connector reads it |
 | margin % | a Source carrying cost of goods, which none above does | none |
 | active customers, repeat rate | a Source carrying distinct customers over time, which none above does | none |
 | any lever | figures the user pastes or exports for both periods | what the figures hold |
@@ -38,7 +38,8 @@ visits lever is not drilled, and the Notes name the channel dimension that would
 discount read from Shopify sales over time: Discounts over Gross sales in both periods, in one
 sentence.
 
-**Marketing spend** covers the platforms read only. Say in the Notes which they are.
+**Marketing spend** covers the platforms read only, the same platforms in both periods. Say in the
+Notes which they are.
 
 ## Shopify: sales over time
 
