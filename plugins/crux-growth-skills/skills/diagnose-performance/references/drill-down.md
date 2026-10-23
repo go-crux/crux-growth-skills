@@ -19,9 +19,23 @@ Main driver, slice within the lever, end on an action.
 ## Reading a level
 
 A level is one dimension (channel, campaign, order category) read in both periods, from the
-lever's own Source so the segments add up to the lever. Take the dates from `periods` and apply
-the Basis rule of `SKILL.md` step 4. A level's **parent** is the lever at the first level, and
-the segment descended into below it.
+lever's own Source so the segments add up to the lever, except an order-mix level (next
+paragraph). Take the dates from `periods` and apply the Basis rule of `SKILL.md` step 4. A
+level's **parent** is the lever at the first level, and the segment descended into below it.
+
+**An order-mix level reads its own mart.** A level whose dimension the table under Paths places
+in `<client>-orders` or `<client>-order_items` (discount, new against repeat, order-level flags,
+order category, product) is read there, even when the lever's Source is another mart, such as
+channel reporting for a revenue tree's order value. The platform ROAS tree is not covered: it
+reads the platform only. The Basis rule is unchanged: the tree's levers and the Success KPI
+still come from one mart, and only a Drill-down level reads another. Apportion the level so its
+rows add to the lever's Contribution: each segment's share of the change is its share as the
+orders mart measures it (the ratio rule below), applied to the lever's Contribution. Each
+further level inside a segment is apportioned the same way, to that segment's Contribution. Say
+in one Notes line, in the wording of `references/diagnosis-layout.md`, that the split comes from
+the orders while the lever's total comes from its own Source. Where the orders mart shows no
+change in the lever between the periods, no share exists: the level is not read and the
+Drill-down stops above it.
 
 **A segment's contribution to the lever:**
 
@@ -32,7 +46,7 @@ the segment descended into below it.
   whole denominator in the Current period, less the same for the Comparison period:
   `N_seg1 ÷ D1 − N_seg0 ÷ D0`. A segment whose volume grew or shrank therefore counts, as well as
   one whose rate moved. Show it in Success KPI units: its share of the lever's change times the
-  lever's Contribution. Percentage points never appear as a contribution; the two period columns
+  lever's Contribution (the share as the level's own mart measures it). Percentage points never appear as a contribution; the two period columns
   carry the rates.
 
 Either way the segments add exactly to the parent's change, so a level can be checked.
@@ -148,7 +162,8 @@ The platform ROAS tree reads every dimension from the platform's own Source
 
 **Order value (store trees).**
 
-- Discount first, from the orders mart. The level's segments are discounted orders and orders at
+- Discount first, from the orders mart, whatever the tree's Source (an order-mix level, above).
+  The level's segments are discounted orders and orders at
   full price. Beside them show the discount rate (the share of orders discounted) and the
   discount depth (the discount over pre-discount revenue, on discounted orders), in both periods.
   When the discounted orders are floored, say so in one line and read order mix across all orders.
