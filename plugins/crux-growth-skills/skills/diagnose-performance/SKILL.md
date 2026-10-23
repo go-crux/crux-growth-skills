@@ -17,27 +17,31 @@ Performance diagnosis are those of `references/glossary.md`; use them as written
 
 ## Unattended run
 
-A first message that names the Success KPI, both periods and where the data comes from (a Growth
-Brain, connector or files) runs unattended, as a Claude routine does. Ask the user nothing, at any step,
-and follow these five rules:
+A run is unattended only on an explicit signal: the message says not to ask ("don't ask me
+anything", "run it without questions"), or the run is a scheduled task or routine. A message that
+names the Success KPI, both periods and the data is not on its own that signal: a person who
+writes it is attended and follows step 2. An unattended run asks the user nothing, at any step,
+and follows these five rules:
 
 - Skip Intake's round and the Lever tree's confirmation, and still resolve the periods as step 2
   sets out; the tree is shown on the page only.
-- With several Growth Brains, take the one the message names, else the first the session lists,
-  and say which in the Notes.
+- With several Growth Brains, take the one the message names. If it names none, stop with one
+  line in the chat naming the brains found, run no query and write no page; the first the
+  session lists is never taken. With one, say in the Notes which it read.
 - Ask for no export: a lever the named Source cannot read reads "No data".
 - Set every Cause to "Not confirmed" and make every action check-first.
 - Where step 3 stops with one line, stop with that line and write no page.
 
 **Done when** no question was asked, every Cause reads "Not confirmed", every action is
-check-first, and the page holds all seven headings (or step 3 stopped with its one line).
+check-first, and the page holds all seven headings (or the run stopped with its one line, for
+several Growth Brains none named or at step 3).
 
 ## 1. Connect
 
 Take the data from the first of these Sources that holds each lever:
 
 1. **A Growth Brain**: a connector named `<Client> - Growth Brain` that offers `list_tables`,
-   `list_metrics`, `search_examples` and `run_sql`. With several, ask which one. Call
+   `list_metrics`, `search_examples` and `run_sql`. With several, ask which one (an unattended run follows the rule above). Call
    `list_tables` once with no arguments for the roster (`<client>` is the prefix it carries), then
    `search_examples` once, and keep what it returns for the queries in steps 4 and 6.
 2. **Platform connectors** in the session: Shopify, GA4, Google Ads, Meta Ads.
@@ -74,11 +78,13 @@ conversation already holds. The timezone and the currency are set.
 
 ## 2. Intake
 
-A first message that names the Success KPI, both periods and where the data comes from (a Growth
-Brain, connector or files) skips the round below (an unattended run). Otherwise build the round on what
-the first message already says. A question it answers is stated in the round as settled, with what
-was understood, and not asked. Ask each open question with a recommendation, then wait for the
-answer:
+An unattended run skips the round below. An attended run builds it on what the first message
+already says: a question the message answers, in a name relative to today as much as in dates, is
+stated as settled, with what was understood, and not asked. When the message answers all four
+(the Success KPI, both periods and where the data comes from), nothing is left to ask: the round
+is skipped, the intake message states the four as understood, and step 3 still confirms the tree
+and step 7 still asks the Cause round. Ask each open question with a recommendation, then wait
+for the answer:
 
 1. **Success KPI**: what figure are you judging performance on? Recommend the KPI the first
    message names; else CM3 with a Growth Brain whose orders carry margin; else net sales (or
@@ -97,13 +103,16 @@ year, or a week, which is a complete Monday to Sunday week.
 
 **Periods.** Resolve both periods once, in step 1's timezone. A period the user names ("Q3 2025",
 "1 to 7 March") is typed as dates, here and nowhere else. A recommended period and a name
-relative to today ("last quarter") are computed from `CURRENT_DATE('<timezone>')`. With a Growth
+relative to today are computed from `CURRENT_DATE('<timezone>')`; "last month", "last quarter"
+and "same quarter last year" are named periods. "This month", "this quarter" or "this year" while
+it is still running resolves to the last complete period of that kind: an attended run says so
+in the tree confirmation, with the dates, and an unattended run in the Notes. With a Growth
 Brain, put the start and end dates in one `periods` CTE (`period`, `start_date`, `end_date`) ahead
 of every query. Without a Growth Brain, write the four dates once, from today's date, and read
 every connector and file on them. When the periods differ in length, say so in the Notes.
 
 **Done when** the Success KPI, both periods as start and end dates, and where the data comes from are set,
-whether by the user's answers or by an unattended run's first message.
+whether by the user's answers, a complete first message or an unattended run's first message.
 
 ## 3. Lever tree and Sources
 
@@ -123,8 +132,9 @@ to the same rule. Then:
   needs that step 1 has not read, one mart per call (discovery, no query), so each lever's "how it
   is measured" comes from the columns.
 - **Confirm the tree**: show each lever with its kind (volume or efficiency), how it is measured
-  and its Source, and how the levers rebuild the Success KPI. Ask whether to run it. Run no query
-  until the user says yes; an answer that changes a lever goes back through the tree rule.
+  and its Source, and how the levers rebuild the Success KPI. Say in one line any period resolved
+  from "this month" or the like, with its dates. Ask whether to run it. Run no query until the
+  user says yes; an answer that changes a lever goes back through the tree rule.
 - **Collect the exports**: for each lever whose Source is an export the conversation does not yet
   hold, give the user the steps for that report from `references/exports.md` and wait for the
   files. Ask for no export for a lever no Source can read.
