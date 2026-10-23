@@ -70,8 +70,9 @@ figure or "No data", never a bare "n/a".
    drilled driver to act on."
 7. **Notes**: every caveat in one place, and no caveat anywhere else. Include, where they apply:
    - the basis: the revenue measure, the margin rung and whether the figure is CM3 or "CM1 less
-     marketing", that flagged test orders are left out, and the store's timezone, with each
-     caveat the Basis rule in `SKILL.md` asks the Notes to carry;
+     marketing", that flagged test orders are left out, and the timezone the periods were read in
+     (UTC where nothing named one), with each caveat the Basis rule in `SKILL.md` asks the Notes
+     to carry;
    - the periods' lengths when they differ in days, and that volumes then differ with them;
    - a change of source between the periods (such as the GA4 raw event stream replacing an
      earlier feed) and which levers move with it, so the reader does not mistake the change of

@@ -16,10 +16,12 @@ Recommendation, Check-first, Brain line and Performance diagnosis are those of
 
 ## Unattended run
 
-A first message that names the Success KPI, both periods and the source (a Claude routine) runs
-unattended. Ask the user nothing, at any step, and follow these five rules:
+A first message that names the Success KPI, both periods and where the data comes from (a Growth
+Brain, connector or files) runs unattended, as a Claude routine does. Ask the user nothing, at any step,
+and follow these five rules:
 
-- Skip Intake and the Lever tree's confirmation; the tree is shown on the page only.
+- Skip Intake's round and the Lever tree's confirmation, and still resolve the periods as step 2
+  sets out; the tree is shown on the page only.
 - With several Growth Brains, take the one the message names, else the first the session lists,
   and say which in the Notes.
 - Ask for no export: a lever the named Source cannot read reads "No data".
@@ -35,42 +37,59 @@ Take the data from the first of these Sources that holds each lever:
 
 1. **A Growth Brain**: a connector named `<Client> - Growth Brain` that offers `list_tables`,
    `list_metrics`, `search_examples` and `run_sql`. With several, ask which one. Call
-   `list_tables` once with no arguments for the roster (`<client>` is the prefix it carries), and
-   take the store's timezone from the brain's own instructions where they name one.
+   `list_tables` once with no arguments for the roster (`<client>` is the prefix it carries), then
+   `search_examples` once, and keep what it returns for the queries in steps 4 and 6.
 2. **Platform connectors** in the session: Shopify, GA4, Google Ads, Meta Ads.
 3. **Files the user gives**: CSV exports or pasted figures.
 
 Without a Growth Brain the diagnosis still runs, read from the connectors and files, and the
 Brain line (`references/diagnosis-layout.md`) is said once on the page and once in the chat.
 
-**Done when** the Sources in this session are named (the one Growth Brain chosen and its roster in
-hand, or none), with the connectors found and the files the conversation already holds.
+Then settle two facts once, for every later step to reuse:
+
+- **Timezone**: the Growth Brain's instructions where they name one; else the timezone the date
+  descriptions of `<client>-orders` name (`list_tables` naming that mart); else UTC, said in the
+  Notes. Without a Growth Brain, the timezone the Source reports in, said in the Notes.
+- **Currency**: the Growth Brain's instructions where they name it; else the first mart that
+  names it, `<client>-orders` first (`list_tables`, one mart per call). Without a Growth Brain,
+  the currency the files or connector report in.
+
+**Done when** the Sources in this session are named to the user in the intake message (an
+unattended run has none, and names them in the Notes): the one Growth Brain chosen with its roster
+in hand and `search_examples` called once, or none; the connectors found; and the files the
+conversation already holds. The timezone and the currency are set.
 
 ## 2. Intake
 
-A first message that names the Success KPI, both periods and the source skips this step (an
-unattended run). Otherwise ask one numbered round, each question with a recommendation, then wait for the answer:
+A first message that names the Success KPI, both periods and where the data comes from (a Growth
+Brain, connector or files) skips the round below (an unattended run). Otherwise build the round on what
+the first message already says. A question it answers is stated in the round as settled, with what
+was understood, and not asked. Ask each open question with a recommendation, then wait for the
+answer:
 
-1. **Success KPI**: what figure are you judging performance on? Recommend CM3 with a Growth
-   Brain whose orders carry margin; otherwise net sales (or revenue), because CM3 needs margin
-   and only a Source carrying cost of goods gives it.
-2. **Current period**: which period is being diagnosed? Recommend the last complete calendar
-   month.
-3. **Comparison period**: what is it read against? Recommend the period before it, of the same
-   kind.
+1. **Success KPI**: what figure are you judging performance on? Recommend the KPI the first
+   message names; else CM3 with a Growth Brain whose orders carry margin; else net sales (or
+   revenue), because CM3 needs margin and only a Source carrying cost of goods gives it.
+2. **Current period**: which period is being diagnosed? Recommend the last complete period of the
+   kind the first message names (a quarter, a week, a year); else the last complete calendar month.
+3. **Comparison period**: what is it read against? Recommend the same period last year where the
+   first message says so; else the period before the Current period, of the same kind.
 4. **Data**: recommend the connected Growth Brain, reading the marts the roster holds for the
-   levers the diagnosis needs; without one, the connectors in the session, then the reports the
-   user can export.
+   levers the diagnosis needs; then the connectors in the session, then the files already in the
+   conversation; for a lever none of these holds, the reports the user can export.
 
 "Yes" accepts every recommendation, and "just run it" does the same. An answer replaces that
-question's recommendation. A period is any span: a month, a quarter, a year, or a week, which is
-a complete Monday to Sunday week. Resolve both periods to a start and an end date in the store's
-timezone and put them in one `periods` CTE (`period`, `start_date`, `end_date`) ahead of every
-query. For the recommended periods compute the dates from `CURRENT_DATE('<timezone>')`; type no
-other date by hand. Without a Growth Brain, write the four dates once, from today's date, and read
+question's recommendation. A period is any span: a calendar month, a calendar quarter, a calendar
+year, or a week, which is a complete Monday to Sunday week.
+
+**Periods.** Resolve both periods once, in step 1's timezone. A period the user names ("Q3 2025",
+"1 to 7 March") is typed as dates, here and nowhere else. A recommended period and a name
+relative to today ("last quarter") are computed from `CURRENT_DATE('<timezone>')`. With a Growth
+Brain, put the start and end dates in one `periods` CTE (`period`, `start_date`, `end_date`) ahead
+of every query. Without a Growth Brain, write the four dates once, from today's date, and read
 every connector and file on them. When the periods differ in length, say so in the Notes.
 
-**Done when** the Success KPI, both periods as start and end dates, and the source are set,
+**Done when** the Success KPI, both periods as start and end dates, and where the data comes from are set,
 whether by the user's answers or by an unattended run's first message.
 
 ## 3. Lever tree and Sources
@@ -83,8 +102,11 @@ to the same rule. Then:
 - **Drop what no Source can read**: that lever stays on the tree and reads "No data". If fewer
   than three levers can be read, say in one line which Source is missing (with the Brain line, on
   a run without a Growth Brain) and stop.
+- **Read the columns first**: with a Growth Brain, call `list_tables` naming each mart the tree
+  needs that step 1 has not read, one mart per call (discovery, no query), so each lever's "how it
+  is measured" comes from the columns.
 - **Confirm the tree**: show each lever with its kind (volume or efficiency), how it is measured
-  and its Source, and how the levers rebuild the Success KPI. Ask whether to run it. Read nothing
+  and its Source, and how the levers rebuild the Success KPI. Ask whether to run it. Run no query
   until the user says yes; an answer that changes a lever goes back through the tree rule.
 - **Collect the exports**: for each lever whose Source is an export the conversation does not yet
   hold, give the user the steps for that report from `references/exports.md` and wait for the
@@ -92,10 +114,12 @@ to the same rule. Then:
 
 An unattended run asks nothing and goes straight to Read.
 
-**Done when** the user has confirmed (an unattended run: the skill has derived) a Lever tree of
-3 to 5 levers with at least one volume and one efficiency, whose arithmetic rebuilds the Success
-KPI exactly; every lever has one named Source across both periods, or "No data" with its line; and
-every export asked for is in hand or its lever reads "No data".
+**Done when** the columns of each mart the tree needs were read before the user was asked to
+confirm (an unattended run reads them in step 4); the user has confirmed (an unattended run: the
+skill has derived) a Lever tree of 3 to 5 levers with at least one volume and one efficiency,
+whose arithmetic rebuilds the Success KPI exactly; every lever has one named Source across both
+periods, or "No data" with its line; and every export asked for is in hand or its lever reads "No
+data".
 
 ## 4. Read
 
@@ -142,9 +166,9 @@ every export asked for is in hand or its lever reads "No data".
 **Without a Growth Brain**, read each lever from its Source as `references/exports.md` sets out,
 on the four dates, then rebuild the Success KPI and compare it as below.
 
-**Query.** For each mart the confirmed tree needs, call `list_tables` naming that one mart, one
-mart per call: a call naming two can overflow the reply. Compose every query from the columns
-the calls return, and join to the `periods` CTE for dates. Read each lever's value in both
+**Query.** For each mart the confirmed tree needs that is not yet read, call `list_tables` naming
+that one mart, one mart per call: a call naming two can overflow the reply. Compose every query
+from the columns the calls return, and join to the `periods` CTE for dates. Read each lever's value in both
 periods in `run_sql`, then rebuild the Success KPI from the levers as `references/lever-trees.md`
 writes it and compare with the Success KPI read in its own query, from the mart's total for the
 period (for the revenue tree, channel reporting's total sales) and not from the lever queries'
@@ -153,8 +177,8 @@ rows. A lever whose mart is absent, or that is zero or missing in either period,
 **Done when** every lever has a value in the Current period and the Comparison period, or "No
 data" with its reason; the rebuilt Success KPI is within 0.01% of the Success KPI read in its own
 query, in both periods; every tree count comes from its one mart; test orders are out of every
-query the Source flags them in; and every query (without a Growth Brain, every read) took its
-dates from `periods`.
+query the Source flags them in; and every query took its dates from `periods` (without a Growth
+Brain, every read took the four dates).
 
 ## 5. Split
 
