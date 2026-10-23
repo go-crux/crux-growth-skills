@@ -12,7 +12,7 @@ budget", in chat and on the page, never "the sheet" or a table name. The user se
 and the page, never this skill or its references: say what the data showed, in plain words with
 its figure, and never cite a catalogue number, a trigger, a threshold, a file or a rule, or say
 that something "fired". The terms Baseline, Lead-in, Black Friday weekend,
-Festive, Lift, Last-year level, Target test, Pillar gap, Scenario, Daily phasing and Black Friday
+Festive, Lift, Last-year level, Target test, Lever gap, Scenario, Daily phasing and Black Friday
 plan are those of `references/glossary.md`; use them as written.
 
 ## 1. Read
@@ -189,13 +189,13 @@ target and month:
 target carries its revised figure; the revenue rung is named; and the plan months sum the
 `all`/`all` rows (or each unplanned target reads "Proposed").
 
-## 3. Pillar gap
+## 3. Lever gap
 
 Skip a month in which every target is Achievable and say so in one line. For each month with a
-Stretch or Unrealistic target, build the Pillar gap table from the growth equation. Each row is
+Stretch or Unrealistic target, build the Lever gap table from the growth equation. Each row is
 read against the last-year level (step 2), and each reads off one target:
 
-| Pillar | Figure | Target it reads |
+| Lever | Figure | Target it reads |
 |---|---|---|
 | New customers | new orders | new orders |
 | Returning customer orders | returning orders (orders less new orders) | orders |
@@ -206,10 +206,10 @@ When implied CAC is the only target not Achievable, the New customers row reads 
 its last-year level is the new orders plan spend buys at the last-year level CAC (plan spend over
 that CAC), set against plan new orders.
 Then open `references/scenarios.md` and write 2 or 3 Scenarios for the month, each closing the
-gap through one pillar with the other two held at the last-year level.
+gap through one lever with the other two held at the last-year level.
 
-**Done when** each Stretch or Unrealistic target shows its gap per pillar and 2 or 3
-single-pillar Scenarios.
+**Done when** each Stretch or Unrealistic target shows its gap per lever and 2 or 3
+single-lever Scenarios.
 
 ## 4. Grill
 
@@ -251,7 +251,7 @@ recommendation. Ask the next round only after the user has answered the one befo
 | 1. Offer | One per listed opportunity from catalogue patterns 1, 2, 8 and 10, asked by its opportunity number and title: adopt its action? Recommend yes. Then discount stacking: which discounts may combine over Black Friday weekend? Recommend none that takes the order past last year's weekend discount depth. | Opportunities, Actions, Risks (discount stacking) |
 | 2. Merchandising | One per listed opportunity from catalogue patterns 3 and 4, asked by its opportunity number and title: adopt its action? Recommend yes. Then stock: what units to secure for last year's five weekend products? Recommend last year's weekend units for each, scaled by the November plan revenue over its last-year level, and never below last year's. | Opportunities, Actions, Risks (stock) |
 | 3. Marketing | One per listed opportunity from catalogue patterns 5, 6, 7 and 9, asked by its opportunity number and title: adopt its action? Recommend yes. Then repeats: which best acquisition campaign and best retention campaign run again? Recommend the top-ranked paid acquisition campaign, and the top-ranked retention campaign of Black Friday weekend. | Opportunities, Actions |
-| 4. Targets | Open on each month's Target test verdicts and Scenarios. First, for each target reading "Proposed" (`references/no-plan.md`), ask the user's own figure, recommending the proposed one; a figure they give becomes "Team's target" and goes back through step 2, and through step 3 if it then reads Stretch or Unrealistic. Then (a) the agreed targets: recommend the plan figure for Achievable and Stretch, and the revised figure for Unrealistic. (b) The Scenario, or blend, for each month with a Stretch or Unrealistic target: recommend the one with the smallest required relative change in the Pillar gap table (the higher extra spend when the Scenarios are the two new-customer variants). (c) The margin floor: recommend last year's Black Friday weekend order margin % on the order rung (CM2 or CM1), since CM3 is a window figure and no single order carries it. (d) The watch list of 3 to 5 numbers: recommend the metric to watch of each adopted opportunity, then revenue against the day's Daily phasing, up to five. | Agreed targets, Chosen Scenario, Daily phasing (step 5 derives it from the agreed targets), Actions, Risks (margin floor), Watch list |
+| 4. Targets | Open on each month's Target test verdicts and Scenarios. First, for each target reading "Proposed" (`references/no-plan.md`), ask the user's own figure, recommending the proposed one; a figure they give becomes "Team's target" and goes back through step 2, and through step 3 if it then reads Stretch or Unrealistic. Then (a) the agreed targets: recommend the plan figure for Achievable and Stretch, and the revised figure for Unrealistic. (b) The Scenario, or blend, for each month with a Stretch or Unrealistic target: recommend the one with the smallest required relative change in the Lever gap table (the higher extra spend when the Scenarios are the two new-customer variants). (c) The margin floor: recommend last year's Black Friday weekend order margin % on the order rung (CM2 or CM1), since CM3 is a window figure and no single order carries it. (d) The watch list of 3 to 5 numbers: recommend the metric to watch of each adopted opportunity, then revenue against the day's Daily phasing, up to five. | Agreed targets, Chosen Scenario, Daily phasing (step 5 derives it from the agreed targets), Actions, Risks (margin floor), Watch list |
 
 A Judgement call joins the round of its section. Keep the agreed list: what is agreed under
 each of the seven Plan headings.
