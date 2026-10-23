@@ -41,9 +41,10 @@ several Growth Brains none named or at step 3).
 Take the data from the first of these Sources that holds each lever:
 
 1. **A Growth Brain**: a connector named `<Client> - Growth Brain` that offers `list_tables`,
-   `list_metrics`, `search_examples` and `run_sql`. With several, ask which one (an unattended run follows the rule above). Call
-   `list_tables` once with no arguments for the roster (`<client>` is the prefix it carries), then
-   `search_examples` once, and keep what it returns for the queries in steps 4 and 6.
+   `list_metrics`, `search_examples` and `run_sql`. With several, ask which one (an unattended run
+   follows the rule above). Call `list_tables` once with no arguments for the roster (`<client>` is
+   the prefix it carries), then `search_examples` once, and keep what it returns for the queries in
+   steps 4 and 6.
 2. **Platform connectors** in the session: Shopify, GA4, Google Ads, Meta Ads.
 3. **Files the user gives**: CSV exports or pasted figures.
 
@@ -111,8 +112,9 @@ Brain, put the start and end dates in one `periods` CTE (`period`, `start_date`,
 of every query. Without a Growth Brain, write the four dates once, from today's date, and read
 every connector and file on them. When the periods differ in length, say so in the Notes.
 
-**Done when** the Success KPI, both periods as start and end dates, and where the data comes from are set,
-whether by the user's answers, a complete first message or an unattended run's first message.
+**Done when** the Success KPI, both periods as start and end dates, and where the data comes from
+are set, whether by the user's answers, a complete first message or an unattended run's first
+message.
 
 ## 3. Lever tree and Sources
 
