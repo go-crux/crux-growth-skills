@@ -109,9 +109,10 @@ every export asked for is in hand or its lever reads "No data".
   carries total sales both ex and inc VAT, the basis of the margin rung and of spend. In
   `<client>-channel_reporting` it books each return on its refund date, the windowed figure the
   brain's descriptions point to. The orders mart's total sales books returns on the order date
-  and is right only over all time, so it is never the revenue of a window; the CM3 tree reads it
-  only as the order-dated pair of margin (next bullet). Without a Growth Brain, take net sales
-  (gross sales less discounts and returns) and name that.
+  and is right only over all time, so the Revenue tree never takes revenue from it; the CM3 and
+  Returning revenue trees read it order-dated, as the pair of margin or of the returning orders
+  (next bullet). Without a Growth Brain, take net sales (gross sales less discounts and returns)
+  and name that.
 - **Margin** comes from `<client>-orders` on the deepest rung it carries per order (CM2, else
   CM1), order-dated. Label CM3 as such only when that rung is CM2 and its fulfilment or payment
   costs are non-zero on some orders in the period; otherwise label the figure "CM1 less
@@ -147,13 +148,13 @@ the calls return, and join to the `periods` CTE for dates. Read each lever's val
 periods in `run_sql`, then rebuild the Success KPI from the levers as `references/lever-trees.md`
 writes it and compare with the Success KPI read in its own query, from the mart's total for the
 period (for the revenue tree, channel reporting's total sales) and not from the lever queries'
-rows. A lever whose mart is absent, or that
-is zero or missing in either period, reads "No data".
+rows. A lever whose mart is absent, or that is zero or missing in either period, reads "No data".
 
 **Done when** every lever has a value in the Current period and the Comparison period, or "No
-data" with its reason; the rebuilt Success KPI is within 0.01% of the Success KPI read in its own query,
-in both periods; every tree count comes from its one mart; test orders are out of every query the Source flags them in; and every query
-(without a Growth Brain, every read) took its dates from `periods`.
+data" with its reason; the rebuilt Success KPI is within 0.01% of the Success KPI read in its own
+query, in both periods; every tree count comes from its one mart; test orders are out of every
+query the Source flags them in; and every query (without a Growth Brain, every read) took its
+dates from `periods`.
 
 ## 5. Split
 

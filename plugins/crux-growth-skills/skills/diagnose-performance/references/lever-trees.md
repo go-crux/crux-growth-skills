@@ -18,7 +18,7 @@ in every tree that holds it.
 | Tree | Counts from |
 |---|---|
 | Revenue, New customers, CAC, MER / ROAS | `<client>-channel_reporting`, revenue included |
-| CM3, Returning revenue | `<client>-orders`, with revenue on the same rows as margin |
+| CM3, Returning revenue | `<client>-orders`, revenue order-dated (on the same rows as margin in the CM3 tree) |
 | Platform ROAS | the platform's own mart or its connector or export |
 | Conversion rate | `<client>-ecommerce_funnel` |
 
@@ -46,8 +46,8 @@ cancel in turn, leaving the count the KPI is made of.
   orders. Margin % = order margin ÷ revenue, with order margin on the rung the Basis rule in
   `SKILL.md` names. Order value and margin % read revenue from the orders mart, order-dated,
   on the same rows as margin (`SKILL.md` Basis). Then orders × order value × margin % = order
-  margin, and CM3 = order margin − spend. Where the rung is not CM2, the figure and the page say "CM1 less marketing" in place of
-  CM3.
+  margin, and CM3 = order margin − spend. Where the rung is not CM2, the figure and the page say
+  "CM1 less marketing" in place of CM3.
 - **Revenue** is total sales as `SKILL.md` Basis sets it out, named with its basis on the page.
   From Shopify sales over time it is net sales, named as such.
 - **CAC and MER / ROAS.** Cost per visit is spend ÷ visits, so cost per visit is spend and visits
