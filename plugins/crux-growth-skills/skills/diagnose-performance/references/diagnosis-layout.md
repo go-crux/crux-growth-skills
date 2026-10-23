@@ -39,7 +39,7 @@ figure or "No data", never a bare "n/a".
 4. **Drivers**: one block per drilled Main driver, headed by its lever and its Contribution.
    - One sentence of evidence with its figures.
    - For a Conversion lever, the stage table first (session → engaged, engaged → checkout,
-     checkout → order, in both periods), and a line naming a suspected site-wide fault where no
+     in both periods), and a line naming a suspected site-wide fault where no
      channel carries half the change.
    - One table per Drill-down level, in order, each headed by the dimension it reads (and, for
      a level inside a segment, that segment). Columns, in this order: segment, Comparison

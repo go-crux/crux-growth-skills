@@ -89,7 +89,7 @@ Follow the lever's path in order. Never reorder it.
 | engaged rate, add to basket, checkout start, purchase | channel → campaign → landing page, for the stage |
 | order value | discount → order mix → product category |
 | returning orders, active customers, repeat rate | channel → CRM campaign or flow → cohort |
-| platform ROAS: spend, impressions, click-through, platform conversion, order value | campaign → ad set or ad group → ad |
+| platform ROAS: spend, CPM, click-through, platform conversion, order value | campaign → ad set or ad group → ad |
 | margin % | product category → product → discount |
 | any lever with no fixed path | the dimensions the source holds, ranked by contribution |
 
@@ -101,9 +101,9 @@ Follow the lever's path in order. Never reorder it.
 - The third level is the finest of landing page, ad group and ad the source holds. Take the one
   that carries most of the campaign's change.
 - New customers and new-customer conversion read new orders.
-- **Conversion** also checks the stages before the channels. Read session → engaged, engaged →
-  checkout and checkout → order in both periods, from the funnel mart where the roster lists
-  one, and name the stage that fell furthest. This check is one small table and does not count
+- **Conversion** also checks the stages before the channels. Read session → engaged and engaged →
+  checkout in both periods, from the funnel mart where the roster lists one, and name the stage
+  that fell furthest. This check is one small table and does not count
   as a level. Then run the channel path for that stage. When no channel carries half the change,
   suspect a site-wide fault (checkout, payments, a key product page) and say so in the Drivers
   block.

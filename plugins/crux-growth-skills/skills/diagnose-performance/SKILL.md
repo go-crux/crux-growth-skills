@@ -10,8 +10,8 @@ the Current period and the Comparison period, as one HTML page with the seven he
 `references/diagnosis-layout.md` fixes. Run the nine steps in order. The user sees only the chat
 and the page, never this skill or its references: say what the data showed, in plain words with
 its figure, and never cite a file, a rule or a threshold. The terms Success KPI, Current period,
-Comparison period, Lever, Lever tree, Contribution, Main driver, Offset, Drill-down, Cause and
-Performance diagnosis are those of `references/glossary.md`; use them as written.
+Comparison period, Lever, Lever tree, Contribution, Main driver, Offset, Drill-down, Cause, Recommendation,
+Check-first and Performance diagnosis are those of `references/glossary.md`; use them as written.
 
 ## Unattended run
 
