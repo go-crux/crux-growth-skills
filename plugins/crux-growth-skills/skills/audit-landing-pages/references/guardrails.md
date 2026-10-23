@@ -10,7 +10,9 @@ Look for `brand-guardrails.md` in the working folder and in the conversation's p
 Take it only when its title names the brand whose page is being audited; for another
 brand's file, carry on as if none exists.
 
-With the file, show it in two lines and ask "Still right?" Do not ask the three questions.
+With the file, open with one line saying what it is: "These are the brand guardrails you saved
+last time: what you won't do or claim, and who the page is for. I'll keep every recommendation
+inside them." Then show it in two lines and ask "Still right?" Do not ask the three questions.
 
 - Line one: the levers off the table and the claims rules.
 - Line two: who the page is for.
@@ -36,12 +38,22 @@ Read the page and the site's home page (fetched HTML is enough), then work out f
 
 ## 3. Ask one round of three questions
 
-Ask all three together, numbered, each with the inferred answer as the recommendation. "Yes"
-accepts a recommendation, "skip" leaves it unconfirmed, and "just write it" accepts every
+The user may never have run an audit, so open with this lead-in, in these words, before the
+questions:
+
+> Before I score the page, three quick questions so the audit only recommends things your brand
+> would actually do. I've read your site and put my best guess under each one. Reply "yes" to
+> accept a guess, correct any that are wrong, "skip" to leave one open, or "just write it" to
+> accept them all. Your answers become your brand guardrails, and I can save them as a file so
+> next time I only check they're still right.
+
+Then ask all three together, numbered, each with the inferred answer as the recommendation.
+"Yes" accepts a recommendation, "skip" leaves it unconfirmed, and "just write it" accepts every
 remaining one. The user answers before the Audit goes on.
 
-1. **Levers off the table.** "Is there anything a conversion consultant would usually suggest
-   that you will not do: urgency, discounting, naming competitors, popups? I'd say <inferred>."
+1. **Levers off the table.** "Audits often suggest urgency (countdowns, 'only 3 left'),
+   discounts, naming competitors or a popup. Are any of these off the table for your brand? If
+   so, I'll suggest an on-brand alternative instead. I'd say <inferred>."
 2. **Claims.** "Is there anything you may not claim, or any wording that is regulated, and are
    there approved figures I may quote? I'd say <inferred>."
 3. **Who the page is for.** "Who is this page for? I'd say <inferred segments, one line on what
