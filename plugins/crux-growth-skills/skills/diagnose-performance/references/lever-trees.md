@@ -67,8 +67,9 @@ tree sets for it. A count two levers share is listed once. The page's precision 
   platform's own mart (`<client>-meta_performance`, `<client>-google_ads_performance`) when the
   roster lists it, else from its connector or campaign export (`references/exports.md`),
   platform-reported and not comparable with MER. Its conversion value is the platform's own, as
-  it reports it, and the page names it platform-reported. CPM is spend and impressions
-  read together, as above.
+  it reports it, and the page names it platform-reported. CPM is spend and impressions read
+  together as a cost pair, as cost per visit is above; `SKILL.md` step 5 gives both pairs their
+  role.
 - **Returning revenue.** Active customers are customers with an earlier order who ordered in the
   period. Repeat rate is returning orders per active customer.
 - **Conversion rate.** The four stage rates telescope to orders ÷ visits. Visits enter no

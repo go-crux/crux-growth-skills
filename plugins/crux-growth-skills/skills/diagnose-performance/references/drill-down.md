@@ -54,17 +54,26 @@ Either way the segments add exactly to the parent's change, so a level can be ch
 **Volume** is the lever's count or amount, or a ratio lever's denominator (sessions for
 conversion, orders for order value, revenue for margin %). Show each segment's Current period
 volume, its share of its parent's volume and its share of its parent's change beside its
-contribution.
+contribution. For a count or amount lever the Current period column already is the volume, so
+the table drops the volume column and keeps the share of volume, as the worked example below
+does.
+
+**A segment that is new or gone.** A segment with no volume in the Comparison period is new: its
+Comparison period cell reads "New", never "No data" or zero, and its whole Current period figure
+is its change. One with no volume in the Current period reads "Stopped" there.
 
 **Choosing among dimensions.** Where a step of a path offers several dimensions, read each at
 that level and take the one whose largest qualifying segment carries most of the parent's change;
-name the others in one line. A dimension the lever has no values on is skipped (landing page
-carries no spend). A qualifying segment is one the volume floor leaves on its own row.
+on a tie, take the dimension listed first in the path. Name the others in one line under the
+level's table, in the wording of `references/diagnosis-layout.md`. A dimension the lever has no
+values on is skipped (landing page carries no spend). A qualifying segment is one the volume
+floor leaves on its own row.
 
 **The descent rule.** Every cut-off is here, and none is named on the page.
 
 - Go down a level into a segment that carries at least half its parent's change, in the direction
-  of the change.
+  of the change. Where several do (segments pulling the other way can leave more than one over
+  half), go into the largest; the others stay rows of the table.
 - The volume floor: a segment under 5% of its parent's volume in both periods joins one "Other"
   row, which keeps the level adding up, and is never descended into. A segment carrying at least
   half its parent's change is never floored.
@@ -79,7 +88,8 @@ carries no spend). A qualifying segment is one the volume floor leaves on its ow
   sets out; the page never names a floor, a cap or a share.
 
 Rank each table by contribution, the largest in the direction of the change first and segments
-pulling the other way last. Round as `references/contribution.md` does, so the rows add exactly.
+pulling the other way after them. The "Other" row is always last, whatever its figure. Round as
+`references/contribution.md` does, so the rows add exactly.
 
 **Worked example.** An invented brand whose visits lever fell from 100,000 to 90,000 (−10,000).
 The floor at level 1 is 5% of the lever's volume: 5,000 visits in the Comparison period, 4,500 in
@@ -123,7 +133,7 @@ landing page report with no channel does not start the path.
 | engaged rate, add to basket, checkout start, purchase | channel → campaign → landing page, for the stage |
 | order value (store trees) | discount → order mix → product category |
 | returning orders, active customers, repeat rate | channel → CRM campaign or flow → cohort |
-| platform ROAS tree: spend, impressions, click-through, platform conversion, order value | campaign → ad set or ad group → ad |
+| platform ROAS tree: spend, impressions, CPM (spend and impressions ranked together), click-through, platform conversion, order value | campaign → ad set or ad group → ad |
 | margin % | product category → product → discount |
 | cost per visit (spend and visits ranked together, `SKILL.md` step 5) | the path of spend and visits: channel → campaign → landing page, ad group or ad |
 | any lever with no fixed path | the dimensions the source holds, ranked by contribution |
@@ -135,7 +145,8 @@ Source does not hold it, the Drill-down stops above it. Confirm each column in `
 |---|---|---|
 | channel | `<client>-channel_reporting`; for a lever counted from `<client>-orders` (the CM3 tree's customers and orders), that mart's own channel column, where `list_tables` shows one | GA4 sessions by default channel group |
 | campaign | `<client>-channel_reporting`; for a lever counted from `<client>-orders`, that mart's own campaign column, where `list_tables` shows one | the Google Ads or Meta Ads campaign report |
-| landing page, ad group, ad | `<client>-channel_reporting` | a connector that reads it; the exports stop at campaign |
+| ad group or ad set | `<client>-channel_reporting`, or the platform's own mart on the platform ROAS tree | the platform's connector, else its ad group or ad set report (`references/exports.md`) |
+| landing page, ad | `<client>-channel_reporting`, or the platform's own mart for an ad on the platform ROAS tree | a connector that reads it; no export holds them |
 | discount, new against repeat, order-level flags, order category | `<client>-orders` | none |
 | product | `<client>-order_items`, where `list_tables` shows it carries the lever's measure | none |
 | CRM campaign or flow | the CRM or email mart, where the roster lists one | none |
@@ -206,12 +217,16 @@ that fit the lever:
 | margin % | a discount or price change; a supplier cost change; a change in the product mix sold |
 | platform levers | a creative, audience or bidding change; a platform delivery change; for order value, a price or promotion change |
 
+The table words each cause for a fall. On a rise, offer the same cause in its rising form: a
+budget raised, a campaign launched, a flow switched on, a promotion started, a fault fixed.
+
 "Don't know" sets that driver's Cause to "Not confirmed". Any other answer is the Cause, in
 the user's words.
 
 **Cause evidence.** Where a lever has zero levels (Shopify sessions with no channel), the
 question may name in one sentence the landing pages whose sessions moved most. That is evidence
-for the Cause, never a Drill-down level.
+for the Cause, never a Drill-down level. An unattended run, which asks no question, names them
+in the driver's evidence sentence in the Drivers block instead.
 
 ### Recommendations
 
@@ -222,15 +237,18 @@ read.
 - The first recommendation follows that segment. A driver with zero levels has no segment: its
   recommendations take the lever itself, each a different action on it, and its KPI at stake is
   the lever's whole Contribution.
-- A second or third may take the next segment in the direction of the change, at the same level
-  or the parent's.
-- A segment pulling against the change gets no recommendation of its own.
+- The second takes the next segment in the direction of the change at the same level.
+- The third takes the one after that at the same level; where there is none, the largest
+  segment in the direction of the change at the parent's level other than the one descended
+  into. Where neither exists, the driver has fewer recommendations.
+- A segment pulling against the change, and the "Other" row, get no recommendation of their own.
 
 The **KPI at stake** is the Success KPI's change that the recommendation's segment carries: the
 segment's share of the lever's change times the lever's Contribution, in the Success KPI's unit,
 and never more than the lever's Contribution. Where a recommendation spans segments, use their
-sum, capped the same way. State it as the change at stake, never as a forecast of what the action
-recovers.
+sum, capped the same way. A capped figure is worded as `references/diagnosis-layout.md` sets
+out, so the reader sees why it is smaller than the segment's row in the table. State it as the
+change at stake, never as a forecast of what the action recovers.
 
 Each recommendation carries:
 
@@ -247,6 +265,10 @@ Each recommendation carries:
 confirm the cause (the promotion calendar for these dates, the campaign's change history, the
 checkout's release log), and says what to do on each answer. Ship never applies to a check-first
 action.
+
+**On a rise**, phrase every action for a rise: scale what drove it. A check-first action is
+verify, then scale: the check that confirms what
+drove the rise, then, on each answer, how to scale it or why to hold it.
 
 An Also large lever in step 5 gets one action line, check-first: the first segment or
 level to open and what to look for. An Offset gets no action.
