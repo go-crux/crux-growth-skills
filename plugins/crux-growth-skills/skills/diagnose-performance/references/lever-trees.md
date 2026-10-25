@@ -62,7 +62,8 @@ tree sets for it. A count two levers share is listed once. The page's precision 
   the tree is orders (V) and order value (E): revenue = orders × (revenue ÷ orders). That is the
   fewer-than-three case, because two levers rebuild revenue exactly. The tree confirmation says
   in one line that visits had no Source, so conversion is not shown (an unattended run says it in
-  the Notes). The page's counts are orders and revenue. A user who declines the sessions export
+  the Notes). Both counts come from that one Source, in place of the Revenue row of the table
+  above, and the page's counts are orders and revenue. A user who declines the sessions export
   after confirming sends the tree back through this rule, to be confirmed again.
 - **CAC and MER / ROAS.** Cost per visit is spend ÷ visits, so cost per visit is spend and visits
   read together: the tree lists spend and visits as separate levers because a tree holding cost
