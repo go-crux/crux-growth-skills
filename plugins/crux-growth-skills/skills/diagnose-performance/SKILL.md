@@ -109,8 +109,8 @@ unattended run has none, and names them in the Notes): the one Growth Brain chos
 in hand and `search_examples` called once, or none; the connectors the run could use, each with
 one probe read (an account that needs the ownership answer is probed after step 2's round), and
 any that refused, whose listing did not load or that could not be told to be the brand's named to
-the user (an attended run asks about the latter in the intake round) and offered as no Source; and the
-files the conversation already holds. The period timezone (named, the store's own, or not
+the user (an attended run asks about the latter in the intake round) and offered as no Source;
+and the files the conversation already holds. The period timezone (named, the store's own, or not
 known) and the currency are set.
 
 ## 2. Intake
@@ -119,8 +119,8 @@ An unattended run skips the round below. An attended run builds it on what the f
 already says: a question the message answers, in a name relative to today as much as in dates, is
 stated as settled, with what was understood, and not asked. When the message answers all four
 (the Success KPI, both periods and where the data comes from) and step 1 left no account whose
-ownership is to be asked, nothing is left to ask: the round is skipped, the intake message states the four as understood, and step 3 still confirms the tree
-and step 7 still asks the Cause round. Ask each open question with a recommendation, then wait
+ownership is to be asked, nothing is left to ask: the round is skipped, the intake message states
+the four as understood, and step 3 still confirms the tree and step 7 still asks the Cause round. Ask each open question with a recommendation, then wait
 for the answer:
 
 1. **Success KPI**: what figure are you judging performance on? Recommend the KPI the first
@@ -177,8 +177,8 @@ to the same rule. Then:
   is measured" comes from the columns and each mart's timezone from its date descriptions.
 - **Confirm the tree**: show each lever with its kind (volume or efficiency), how it is measured
   and its Source, and how the levers rebuild the Success KPI. Say in one line any period resolved
-  from "this month" or the like, with its dates, and any refusal of the probe made after intake.
-  Ask whether to run it. Run no query until the
+  from "this month" or the like, with its dates, and any refusal of the probe made after intake
+  (a probe that read fine adds nothing). Ask whether to run it. Run no query until the
   user says yes; an answer that changes a lever goes back through the tree rule.
 - **Collect the exports**: for each lever whose Source is an export the conversation does not yet
   hold, give the user the steps for that report from `references/exports.md` and wait for the
