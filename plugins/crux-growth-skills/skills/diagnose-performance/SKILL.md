@@ -62,19 +62,24 @@ names, else the one step 2 recommends (`references/lever-trees.md`).
   offer none as a Source.
 - **Otherwise probe a connector** only for a platform that a lever the Growth Brain does not hold
   needs (Shopify, GA4, Google Ads, Meta Ads), and only an account that is plainly the brand's
-  own: named in the message, or the only account the connector lists.
-- **An account that cannot be told to be the brand's** is not probed and is offered as a Source
-  for no lever. An attended run asks whose it is in the intake round, and probes it if the
-  answer is the brand's own; an unattended run names it in the Notes and skips it.
+  own: named in the message, or the only account the connector lists. A listing that fails to
+  load leaves no account known: the connector is not probed, and is named as a refusal below.
+- **An account that cannot be told to be the brand's** is offered as a Source for no lever and
+  is probed only after the ownership answer is in. An attended run asks whose it is in the intake
+  round; on the answer that it is the brand's own, it makes the probe read below then, and
+  reports a refusal in the tree confirmation message (step 3), since intake has passed; on any
+  other answer it never reads the account. An unattended run names it in the Notes and skips it.
 
 Make the probe read on the Comparison period as the first message names it, else as step 2
 recommends it (the period before the last complete one; the final dates are set in step 2, and
-the probe needs only a day inside it): one figure for that period's first day, through
+the probe needs only a day inside it; an account probed after intake takes the Comparison period
+as the round settled it): one figure for that period's first day, through
 the tool step 4 will read it with (Shopify orders, GA4 sessions, Google Ads or Meta Ads cost; for
 Google Ads its query tool, as `references/exports.md` sets out). An error or a refusal is a
 refusal; a read that returns zero is not. A connector that refuses is named to the user, with
 what it refused, in the intake message (an unattended run names it in the Notes), and is offered
-as a Source for no lever.
+as a Source for no lever. The Notes carry it in the wording of `references/diagnosis-layout.md`
+for a refusal before any lever was assigned a Source.
 
 Then settle two facts once, for every later step to reuse:
 
@@ -102,9 +107,10 @@ Then settle two facts once, for every later step to reuse:
 **Done when** the Sources in this session are named to the user in the intake message (an
 unattended run has none, and names them in the Notes): the one Growth Brain chosen with its roster
 in hand and `search_examples` called once, or none; the connectors the run could use, each with
-one probe read, and any that refused or could not be told to be the brand's named to the user
-(an attended run asks about the latter in the intake round) and offered as no Source; and the
-files the conversation already holds. The period timezone (named, the store's own, or not
+one probe read (an account that needs the ownership answer is probed after step 2's round), and
+any that refused, whose listing did not load or that could not be told to be the brand's named to
+the user (an attended run asks about the latter in the intake round) and offered as no Source;
+and the files the conversation already holds. The period timezone (named, the store's own, or not
 known) and the currency are set.
 
 ## 2. Intake
@@ -112,9 +118,9 @@ known) and the currency are set.
 An unattended run skips the round below. An attended run builds it on what the first message
 already says: a question the message answers, in a name relative to today as much as in dates, is
 stated as settled, with what was understood, and not asked. When the message answers all four
-(the Success KPI, both periods and where the data comes from), nothing is left to ask: the round
-is skipped, the intake message states the four as understood, and step 3 still confirms the tree
-and step 7 still asks the Cause round. Ask each open question with a recommendation, then wait
+(the Success KPI, both periods and where the data comes from) and step 1 left no account whose
+ownership is to be asked, nothing is left to ask: the round is skipped, the intake message states
+the four as understood, and step 3 still confirms the tree and step 7 still asks the Cause round. Ask each open question with a recommendation, then wait
 for the answer:
 
 1. **Success KPI**: what figure are you judging performance on? Recommend the KPI the first
@@ -127,7 +133,8 @@ for the answer:
 4. **Data**: recommend the connected Growth Brain, reading the marts the roster holds for the
    levers the diagnosis needs; then the connectors in the session, then the files already in the
    conversation; for a lever none of these holds, the reports the user can export. Where step 1
-   found a connector account that could not be told to be the brand's, ask whose it is.
+   found a connector account that could not be told to be the brand's, ask whose it is, and
+   probe it only on the answer, as step 1 sets out.
 
 "Yes" accepts every recommendation, and "just write it" does the same. An answer replaces that
 question's recommendation. A period is any span: a calendar month, a calendar quarter, a calendar
@@ -149,7 +156,7 @@ periods differ in length, say so in the Notes.
 
 **Done when** the Success KPI, both periods as start and end dates, and where the data comes from
 are set, whether by the user's answers, a complete first message or an unattended run's first
-message.
+message, and every account whose ownership was asked is probed or left unread on the answer.
 
 ## 3. Lever tree and Sources
 
@@ -170,7 +177,8 @@ to the same rule. Then:
   is measured" comes from the columns and each mart's timezone from its date descriptions.
 - **Confirm the tree**: show each lever with its kind (volume or efficiency), how it is measured
   and its Source, and how the levers rebuild the Success KPI. Say in one line any period resolved
-  from "this month" or the like, with its dates. Ask whether to run it. Run no query until the
+  from "this month" or the like, with its dates, and any refusal of the probe made after intake
+  (a probe that read fine adds nothing). Ask whether to run it. Run no query until the
   user says yes; an answer that changes a lever goes back through the tree rule.
 - **Collect the exports**: for each lever whose Source is an export the conversation does not yet
   hold, give the user the steps for that report from `references/exports.md` and wait for the
