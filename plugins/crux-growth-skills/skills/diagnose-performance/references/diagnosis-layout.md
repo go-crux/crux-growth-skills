@@ -128,8 +128,9 @@ many levers read "No data".
    - a run without a Growth Brain: which connectors and files were read, that each lever reads
      one Source across both periods, and the timezone each Source reports in (one line when they
      match, else one naming each), in the wording **Plain wording** gives;
-   - a connector that refused a read, and where its levers were read from instead, in the
-     wording **Plain wording** gives;
+   - a connector that refused a read, and where its levers were read from instead; or, when it
+     refused the first read or its account list did not load, that no lever was taken from it,
+     in the wording **Plain wording** gives;
    - a connector account that could not be told to be the brand's, skipped on an unattended run,
      in the wording **Plain wording** gives;
    - marketing spend covering only the platforms read, on a run without a Growth Brain whose tree
@@ -231,8 +232,10 @@ way. The lines above fix what to say; these fix how.
 | The timezone, where Sources are dated in different timezones | Days are read in <timezone> for <Source in plain words> and in <timezone> for <Source in plain words>, the same in both periods, so a day at the edge of a period can fall differently between the two. |
 | Conversion actions in a platform export that does not say which it counts | <Source> does not say which conversion actions it counts, so platform conversions are every action it holds. |
 | Conversions from the Google Ads connector read with no purchase filter | <Source> could not be limited to purchases, so platform conversions are every primary conversion action. |
-| A connector refused a read, and a lever moved | <Source> refused to share its figures, so <levers> were read from <next Source in plain words>, or read "No data" where nothing else holds them. |
-| A connector refused a read, and no lever moved | <Source> refused a read, so nothing was read from it. |
+| A connector refused a read after a lever was assigned to it, and a lever moved | <Source> refused to share its figures, so <levers> were read from <next Source in plain words>, or read "No data" where nothing else holds them. |
+| A connector refused a read after a lever was assigned to it, and no lever moved | <Source> refused a read, so nothing was read from it. |
+| A connector refused the first read, before any lever was assigned a Source | <Source> refused a first read, so no lever was taken from it. |
+| A connector's list of accounts did not load, so no account was read | <Platform> did not load its list of accounts, so no lever was taken from it. |
 | A connector account that could not be told to be the brand's, on an unattended run | <Platform> lists an account that could not be told to be yours, so it was not read. |
 
 ## The Brain line
