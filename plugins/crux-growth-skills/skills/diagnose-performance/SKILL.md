@@ -84,7 +84,8 @@ Then settle two facts once, for every later step to reuse:
     the date descriptions of `<client>-orders` name (`list_tables` naming that mart). Where they
     say only that dates are the store's own timezone, it is the store's own with no name, and the
     date columns are read as they are with no conversion. Else UTC. Without a Growth Brain, it is
-    the timezone of the Source that holds the Success KPI's total.
+    the timezone of the Source that holds the Success KPI's total, or not known where that Source
+    names none.
   - A mart is read in the timezone its own date descriptions name, else in the period timezone.
     An export is read in the timezone it names; where it names none, in the account timezone of
     the connector for that platform when one is in the session (`references/exports.md`); else
@@ -103,7 +104,8 @@ unattended run has none, and names them in the Notes): the one Growth Brain chos
 in hand and `search_examples` called once, or none; the connectors the run could use, each with
 one probe read, and any that refused or could not be told to be the brand's named to the user
 (an attended run asks about the latter in the intake round) and offered as no Source; and the
-files the conversation already holds. The period timezone and the currency are set.
+files the conversation already holds. The period timezone (named, the store's own, or not
+known) and the currency are set.
 
 ## 2. Intake
 
@@ -135,8 +137,8 @@ year, or a week, which is a complete Monday to Sunday week.
 timezone (step 1). A period the user names ("Q3 2025", "1 to 7 March") is typed as dates, here
 and nowhere else. A recommended period and a name relative to today are computed from today's
 date in the period timezone, `CURRENT_DATE('<timezone>')`, because a bare `CURRENT_DATE()` is
-UTC's day. Where step 1 found the store's own timezone with no name, today is the date the
-session gives, written into the dates. "Last month", "last quarter" and "same quarter last year"
+UTC's day. Where step 1 found no name for it (the store's own, or not known), today is the
+user's own date as the session reports it, written into the dates. "Last month", "last quarter" and "same quarter last year"
 are named periods.
 "This month", "this quarter" or "this year" while it is still running resolves to the last
 complete period of that kind: an attended run says so in the tree confirmation, with the dates,
