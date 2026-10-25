@@ -101,7 +101,8 @@ collapsed. A qualifying segment is one the volume floor leaves on its own row.
 
 Rank each table by contribution, the largest in the direction of the change first and segments
 pulling the other way after them. The "Other" row is always last, whatever its figure. Round as
-`references/contribution.md` does, so the rows add exactly.
+`references/contribution.md` does: Contributions so the rows add exactly, shares and relative
+changes to its one precision each.
 
 **Worked example.** An invented brand whose visits lever fell from 100,000 to 90,000 (−10,000).
 The floor at level 1 is 5% of the lever's volume: 5,000 visits in the Comparison period, 4,500 in

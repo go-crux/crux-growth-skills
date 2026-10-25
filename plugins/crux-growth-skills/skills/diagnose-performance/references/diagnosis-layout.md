@@ -4,7 +4,7 @@ The Performance diagnosis is one self-contained HTML file, written to the workin
 `performance-diagnosis-<kpi>-<period>.html`. It is a single page with inline CSS and no script
 that fetches anything: the page makes no network request (no web font, no library, no image by
 URL). Crux house style: British English, no em dashes, outcome before mechanism, relative
-percentage changes (2.0% to 1.8% is "−10%"). Money carries the currency the Source's figures are
+percentage changes (2.0% to 1.8% is "−10%"), and every relative change and share column shown to the precision `references/contribution.md` sets under Rounding. Money carries the currency the Source's figures are
 in, with its own symbol, never an assumed one.
 
 The reader may arrive cold, with no idea how the page was made. Speak of "your data", never of a

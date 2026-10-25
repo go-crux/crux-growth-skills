@@ -255,8 +255,10 @@ the user in one line which lever moved to which Source (an unattended run: the N
 
 **Query.** For each mart the confirmed tree needs that is not yet read, call `list_tables` naming
 that one mart, one mart per call: a call naming two can overflow the reply. Compose every query
-from the columns the calls return, and join to the `periods` CTE for dates. Read each lever's value in both
-periods in `run_sql`, then rebuild the Success KPI from the levers as `references/lever-trees.md`
+from the columns the calls return, and join to the `periods` CTE for dates. Alias every column by
+more than case: BigQuery reads `n0` and `N0` as one name and the query fails (`comparison_numerator`,
+`current_orders`). Read each lever's value in both periods in `run_sql`, then rebuild the Success
+KPI from the levers as `references/lever-trees.md`
 writes it and compare with the Success KPI read in its own query, from the mart's total for the
 period (for the revenue tree, channel reporting's total sales; for CM3, the independent read
 `references/lever-trees.md` sets out) and not from the lever queries' rows. A lever whose mart is
