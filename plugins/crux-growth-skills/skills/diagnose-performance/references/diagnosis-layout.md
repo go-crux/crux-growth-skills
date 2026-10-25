@@ -77,7 +77,7 @@ many levers read "No data".
      the two period columns, the denominator as the volume, and the Contribution in the Success
      KPI's unit. A new or stopped segment reads "New" or "Stopped" in its empty period's cell.
      For the discount level of order value, show the discount rate and the discount depth in both
-     periods under the table. Under a table, where they apply, the line naming the other
+     periods under the table, or under the collapse line where the level has no table. Under a table, where they apply, the line naming the other
      dimensions read at that level, and the line for a segment whose rate moved one way while its
      Contribution ran the other, in the wording **Plain wording** gives.
    - One closing line saying where the Drill-down stopped and why, in the wording **Plain
@@ -179,6 +179,7 @@ way. The lines above fix what to say; these fix how.
 | Three levels read | This is as far as the diagnosis goes: <segment> is specific enough to act on. |
 | The Source holds no finer dimension | This is as fine as your data goes: <Source> has no view by <next dimension>. |
 | A level's parent holds one segment (a line in place of that level's table) | All of <parent> sits in one <dimension>, <segment>, so there is nothing to split. |
+| A yes/no level (discounted or full price) whose smaller segment joined "Other" (a line in place of that level's table) | Nearly all of <parent> sits in one <dimension>, <segment>; the rest is too small to read on its own. |
 | Channels do not carry the change, on a conversion lever | No one channel carries this change, so the cause may be on the whole site: check checkout, payments and key product pages first. |
 | The funnel steps cannot be read, on a conversion lever | Not checked: your data holds no view of the steps between a visit and an order. |
 | Zero levels | Could not be sliced further: your data holds no finer view of this lever. |
