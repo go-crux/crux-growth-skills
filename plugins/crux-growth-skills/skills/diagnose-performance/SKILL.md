@@ -78,11 +78,21 @@ as a Source for no lever.
 
 Then settle two facts once, for every later step to reuse:
 
-- **Timezone**: the Growth Brain's instructions where they name one; else the timezone the date
-  descriptions of `<client>-orders` name (`list_tables` naming that mart). Where they say only
-  that dates are the store's own timezone, read the date columns as they are with no conversion,
-  compute relative periods from `CURRENT_DATE()`, and say so in the Notes. Else UTC, said in the
-  Notes. Without a Growth Brain, the timezone the Source reports in, said in the Notes.
+- **Timezone**: one **period timezone**, which settles today's date for relative periods (step 2),
+  and the timezone each Source is read in, the same in both periods.
+  - The period timezone is the Growth Brain's instructions where they name one; else the timezone
+    the date descriptions of `<client>-orders` name (`list_tables` naming that mart). Where they
+    say only that dates are the store's own timezone, it is the store's own with no name, and the
+    date columns are read as they are with no conversion. Else UTC. Without a Growth Brain, it is
+    the timezone of the Source that holds the Success KPI's total, or not known where that Source
+    names none.
+  - A mart is read in the timezone its own date descriptions name, else in the period timezone.
+    An export is read in the timezone it names; where it names none, in the account timezone of
+    the connector for that platform when one is in the session (`references/exports.md`); else
+    none is known.
+  - Dates are not converted between Sources. The Notes give the one timezone where every Source
+    reads in it, and each Source's where they differ, in the wording of
+    `references/diagnosis-layout.md`.
 - **Currency**: the Growth Brain's instructions where they name it; else the first mart that
   names it, `<client>-orders` first (`list_tables`, one mart per call). Without a Growth Brain,
   the currency the files or connector report in. Where none states one, an attended run asks
@@ -94,7 +104,8 @@ unattended run has none, and names them in the Notes): the one Growth Brain chos
 in hand and `search_examples` called once, or none; the connectors the run could use, each with
 one probe read, and any that refused or could not be told to be the brand's named to the user
 (an attended run asks about the latter in the intake round) and offered as no Source; and the
-files the conversation already holds. The timezone and the currency are set.
+files the conversation already holds. The period timezone (named, the store's own, or not
+known) and the currency are set.
 
 ## 2. Intake
 
@@ -122,10 +133,13 @@ for the answer:
 question's recommendation. A period is any span: a calendar month, a calendar quarter, a calendar
 year, or a week, which is a complete Monday to Sunday week.
 
-**Periods.** Resolve both periods once, in step 1's timezone. A period the user names ("Q3 2025",
-"1 to 7 March") is typed as dates, here and nowhere else. A recommended period and a name
-relative to today are computed from `CURRENT_DATE('<timezone>')` (step 1's store-local case:
-`CURRENT_DATE()`); "last month", "last quarter" and "same quarter last year" are named periods.
+**Periods.** Resolve both periods once, as calendar dates that each Source reads in its own
+timezone (step 1). A period the user names ("Q3 2025", "1 to 7 March") is typed as dates, here
+and nowhere else. A recommended period and a name relative to today are computed from today's
+date in the period timezone, `CURRENT_DATE('<timezone>')`, because a bare `CURRENT_DATE()` is
+UTC's day. Where step 1 found no name for it (the store's own, or not known), today is the
+user's own date as the session reports it, written into the dates. "Last month", "last quarter" and "same quarter last year"
+are named periods.
 "This month", "this quarter" or "this year" while it is still running resolves to the last
 complete period of that kind: an attended run says so in the tree confirmation, with the dates,
 and an unattended run in the Notes. With a Growth Brain, put the start and end dates in one
@@ -153,7 +167,7 @@ to the same rule. Then:
   line, on a run without a Growth Brain). A stopped run writes no page.
 - **Read the columns first**: with a Growth Brain, call `list_tables` naming each mart the tree
   needs that step 1 has not read, one mart per call (discovery, no query), so each lever's "how it
-  is measured" comes from the columns.
+  is measured" comes from the columns and each mart's timezone from its date descriptions.
 - **Confirm the tree**: show each lever with its kind (volume or efficiency), how it is measured
   and its Source, and how the levers rebuild the Success KPI. Say in one line any period resolved
   from "this month" or the like, with its dates. Ask whether to run it. Run no query until the
