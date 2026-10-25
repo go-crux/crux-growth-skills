@@ -259,7 +259,8 @@ from the columns the calls return, and join to the `periods` CTE for dates. Read
 periods in `run_sql`, then rebuild the Success KPI from the levers as `references/lever-trees.md`
 writes it and compare with the Success KPI read in its own query, from the mart's total for the
 period (for the revenue tree, channel reporting's total sales; for CM3, the independent read
-`references/lever-trees.md` sets out) and not from the lever queries' rows. A lever whose mart is absent, or that is zero or missing in either period, reads "No data".
+`references/lever-trees.md` sets out) and not from the lever queries' rows. A lever whose mart is
+absent, or that is zero or missing in either period, reads "No data".
 
 **Done when** every lever has a value in the Current period and the Comparison period, or "No
 data" with its reason, and none was read from a Source that refused; the rebuilt Success KPI is
