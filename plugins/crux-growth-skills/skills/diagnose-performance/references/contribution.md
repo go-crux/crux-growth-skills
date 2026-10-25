@@ -55,7 +55,7 @@ writes it.
 | Order value | £50 | £52 | +4.0% |
 | Revenue | £500,000 | £483,600 | −3.3% |
 | Margin % | 40% | 38% | −5.0% |
-| Order margin | £200,000 | £183,768 | −8% |
+| Order margin | £200,000 | £183,768 | −8.1% |
 | Marketing spend | £120,000 | £125,000 | +4.2% |
 | CM3 | £80,000 | £58,768 | −27% |
 
@@ -114,7 +114,7 @@ Two more figures follow one precision each, on the page and in the chat alike:
 - **A relative change** shows to one decimal place of a percentage under 10% in size (+4.2%,
   −3.3%, +5.0%) and to the whole percent at 10% or over (−27%). Decide the precision on the
   change rounded to one decimal, so 9.96% shows as 10%. This applies to every relative change
-  shown: the Success KPI's, a lever's, a segment's rate.
+  shown: the Success KPI's, a lever's, a segment's.
 - **A share** (share of the parent's change, share of the parent's volume) shows to the whole
   percent, rounded from the unrounded figure and not forced to add to 100%: the Contribution
   column carries the exact sum, and a share is read for its size.
