@@ -57,6 +57,14 @@ tree sets for it. A count two levers share is listed once. The page's precision 
   "CM1 less marketing" in place of CM3.
 - **Revenue** is total sales as `SKILL.md` Basis sets it out, named with its basis on the page.
   From Shopify sales over time it is net sales, named as such.
+- **Revenue without visits.** Where no Source holds visits (no mart, connector or file in hand,
+  and the user cannot or will not export sessions) and one Source holds both orders and revenue,
+  the tree is orders (V) and order value (E): revenue = orders × (revenue ÷ orders). That is the
+  fewer-than-three case, because two levers rebuild revenue exactly. The tree confirmation says
+  in one line that visits had no Source, so conversion is not shown (an unattended run says it in
+  the Notes). Both counts come from that one Source, in place of the Revenue row of the table
+  above, and the page's counts are orders and revenue. A user who declines the sessions export
+  after confirming sends the tree back through this rule, to be confirmed again.
 - **CAC and MER / ROAS.** Cost per visit is spend ÷ visits, so cost per visit is spend and visits
   read together: the tree lists spend and visits as separate levers because a tree holding cost
   per visit and spend cannot rebuild the KPI (spend cancels out of it). Say "cost per visit" in
