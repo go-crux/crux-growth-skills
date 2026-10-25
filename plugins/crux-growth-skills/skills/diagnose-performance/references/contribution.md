@@ -50,14 +50,14 @@ writes it.
 | | Comparison period | Current period | Change |
 |---|---|---|---|
 | New customers | 4,000 | 3,000 | −25% |
-| Returning orders | 6,000 | 6,300 | +5% |
-| Orders | 10,000 | 9,300 | −7% |
-| Order value | £50 | £52 | +4% |
+| Returning orders | 6,000 | 6,300 | +5.0% |
+| Orders | 10,000 | 9,300 | −7.0% |
+| Order value | £50 | £52 | +4.0% |
 | Revenue | £500,000 | £483,600 | −3.3% |
-| Margin % | 40% | 38% | −5% |
-| Order margin | £200,000 | £183,768 | −8.1% |
+| Margin % | 40% | 38% | −5.0% |
+| Order margin | £200,000 | £183,768 | −8% |
 | Marketing spend | £120,000 | £125,000 | +4.2% |
-| CM3 | £80,000 | £58,768 | −26.5% |
+| CM3 | £80,000 | £58,768 | −27% |
 
 CM3 changes by −£21,232.
 
@@ -108,3 +108,13 @@ follows the kind of KPI:
 - **A rate KPI** (conversion rate) rounds to one decimal place of a percentage (2.4%).
 
 The waterfall and the Levers table use these rounded figures.
+
+Two more figures follow one precision each, on the page and in the chat alike:
+
+- **A relative change** shows to one decimal place of a percentage under 10% in size (+4.2%,
+  −3.3%, +5.0%) and to the whole percent at 10% or over (−27%). Decide the precision on the
+  change rounded to one decimal, so 9.96% shows as 10%. This applies to every relative change
+  shown: the Success KPI's, a lever's, a segment's rate.
+- **A share** (share of the parent's change, share of the parent's volume) shows to the whole
+  percent, rounded from the unrounded figure and not forced to add to 100%: the Contribution
+  column carries the exact sum, and a share is read for its size.
