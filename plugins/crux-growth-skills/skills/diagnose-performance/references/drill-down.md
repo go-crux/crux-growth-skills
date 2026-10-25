@@ -30,12 +30,15 @@ channel reporting for a revenue tree's order value. The platform ROAS tree is no
 reads the platform only. The Basis rule is unchanged: the tree's levers and the Success KPI
 still come from one mart, and only a Drill-down level reads another. Apportion the level so its
 rows add to the lever's Contribution: each segment's share of the change is its share as the
-orders mart measures it (the ratio rule below), applied to the lever's Contribution. Each
-further level inside a segment is apportioned the same way, to that segment's Contribution. Say
-in one Notes line, in the wording of `references/diagnosis-layout.md`, that the split comes from
-the orders while the lever's total comes from its own Source. Where the orders mart shows no
-change in the lever between the periods, no share exists: the level is not read and the
-Drill-down stops above it.
+orders mart measures it (the ratio rule below), applied to the lever's Contribution. For an
+order value level, that ratio's revenue is the orders mart's total sales, order-dated, on the
+basis `SKILL.md` Basis gives that mart (and, on the CM3 tree, on the rows its order counts take),
+and its orders are that mart's order count, whichever Source the tree's own revenue comes from:
+only the shares come from the orders mart. Each further level inside a segment is apportioned
+the same way, to that segment's Contribution. Say in one Notes line, in the wording of
+`references/diagnosis-layout.md`, that the split comes from the orders while the lever's total
+comes from its own Source. Where the orders mart shows no change in the lever between the
+periods, no share exists: the level is not read and the Drill-down stops above it.
 
 **A segment's contribution to the lever:**
 
@@ -174,14 +177,25 @@ The platform ROAS tree reads every dimension from the platform's own Source
 **Order value (store trees).**
 
 - Discount first, from the orders mart, whatever the tree's Source (an order-mix level, above).
-  The level's segments are discounted orders and orders at
-  full price. Beside them show the discount rate (the share of orders discounted) and the
-  discount depth (the discount over pre-discount revenue, on discounted orders), in both periods.
-  When the discounted orders are floored, say so in one line and read order mix across all orders.
-- Then order mix, inside the segment carried: new against repeat, and the order-level flags the
-  orders mart holds. Take the dimension by Choosing among dimensions.
-- Then product category: the orders mart's order category, which is order-level and so adds to
-  order-level revenue.
+  The level's segments are discounted orders and orders at full price. An order is discounted
+  when the orders mart's `is_discounted` flag says so; where `list_tables` shows no such flag,
+  when it carries a discount code. Use the one rule `list_tables` supports, the same in both
+  periods; where the mart holds neither, the Drill-down stops above this level. Beside the segments show
+  the discount rate (the share of orders discounted) and the discount depth (the discount over
+  pre-discount revenue, on discounted orders), in both periods.
+- This yes/no level follows the volume floor like any other: when its smaller segment is under
+  the floor in both periods and carries under half the change, it joins "Other", and the level
+  is collapsed to the larger segment. The descent continues inside that segment, and the discount
+  rate and depth stand under the collapse line. A smaller segment that carries at least half the
+  change keeps its own row.
+- Then order mix, inside the segment carried, read from the orders mart and never from
+  `<client>-order_items`: new against repeat (the mart's own flag for an order from a customer
+  with no earlier order) and the mart's other order-level flag or type columns. Take the
+  dimension by Choosing among dimensions.
+- Then product category: the orders mart's order category column, which is order-level and so
+  adds to order-level revenue. A product category held only on `<client>-order_items` is not
+  read here, because it splits order lines and does not add to order revenue; with no order
+  category column, the Drill-down stops above this level.
 
 **Returning orders, repeat rate, active customers.** Repeat orders by channel, then CRM campaign
 or flow, then cohort. A cohort is read only once it is mature for the horizon the lever uses: a
