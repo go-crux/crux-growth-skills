@@ -62,7 +62,8 @@ many levers read "No data".
    total. Give the SVG a `title` stating the change in a sentence.
 4. **Drivers**: one block per drilled Main driver, headed by its lever and its Contribution.
    - One sentence of evidence with its figures. Where the driver's change straddles a change of
-     source, the line **Plain wording** gives follows it.
+     source, or on a Platform ROAS page the campaign level shows spend moving between
+     campaigns, the line **Plain wording** gives for each follows it.
    - For a conversion or new-customer conversion lever, the stage table first (session →
      engaged, engaged → checkout, in both periods), and a line naming a suspected site-wide
      fault where no channel carries half the change.
@@ -98,7 +99,8 @@ many levers read "No data".
    **Hypothesis** ("if we X, the KPI moves because Y"), the **Action** (opening with the check
    where the Cause is "Not confirmed"), the **KPI at stake** (the change in the Success KPI that
    the segment carries, in its unit; for a driver with zero levels, the lever's whole
-   Contribution; capped at the lever's Contribution, in the wording **Plain wording** gives),
+   Contribution; capped at the Contribution of the segment it sits in, or of the lever at the
+   first level, in the wording **Plain wording** gives),
    the **Metric to watch**, and **How to validate** (Test, Watch next period or
    Ship). Then, if any lever is Also large, its one check-first action line under its own
    name: the only place that action is written. With no Main driver, the heading reads "None:
@@ -170,7 +172,9 @@ way. The lines above fix what to say; these fix how.
 | Under a Drill-down table, the other dimensions read at that level | Also read at this level: <dimensions>. <Chosen dimension> shows most of the change in one place. |
 | Under a Drill-down table, a ratio segment whose rate moved one way and Contribution the other | <Segment>'s <lever> <rose or fell>, yet it <lowered or raised> <lever> overall: it carried a <smaller or larger> share of your <volume> than before. |
 | Drivers block, after the evidence sentence, where the driver's change straddles a change of source | Part of this change may come from the change in how <measure> is recorded on <date>, not from the business. |
-| Recommendations, KPI at stake capped at the lever's Contribution | <figure>, all of <lever>'s change: <segment> moved it by <figure> on its own, and other <dimension, plural> pulled the other way. |
+| Drivers block, after the evidence sentence, on a Platform ROAS page where the campaign carrying the change is one whose own rate did not move in the direction of the change | Spend moved <towards or away from> <campaign>, which returns <more or less> per unit of spend than your other campaigns, so <KPI> <rose or fell> without a matching change in any campaign's own <ROAS>. |
+| Recommendations, KPI at stake capped at the lever's Contribution (first level) | <figure>, all of <lever>'s change: <segment> moved it by <figure> on its own, and other <dimension, plural> pulled the other way. |
+| Recommendations, KPI at stake capped at the Contribution of the segment it sits in (second or third level) | <figure>, all of <parent segment>'s change in <lever>: <segment> moved it by <figure> on its own, and other <dimension, plural> pulled the other way. |
 
 **The Drill-down's closing line**, one per driver, by the reason it stopped:
 
