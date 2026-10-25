@@ -147,7 +147,7 @@ Source does not hold it, the Drill-down stops above it. Confirm each column in `
 | campaign | `<client>-channel_reporting`; for a lever counted from `<client>-orders`, that mart's own campaign column, where `list_tables` shows one | the Google Ads or Meta Ads campaign report |
 | ad group or ad set | `<client>-channel_reporting`, or the platform's own mart on the platform ROAS tree | the platform's connector, else its ad group or ad set report (`references/exports.md`) |
 | landing page, ad | `<client>-channel_reporting`, or the platform's own mart for an ad on the platform ROAS tree | a connector that reads it; no export holds them |
-| discount, new against repeat, order-level flags, order category | `<client>-orders` | none |
+| discount, new against repeat, order-level flags, order category | `<client>-orders` | none (`references/exports.md`: the customer-type export feeds levers only) |
 | product | `<client>-order_items`, where `list_tables` shows it carries the lever's measure | none |
 | CRM campaign or flow | the CRM or email mart, where the roster lists one | none |
 | cohort | `<client>-ltv_retention` | none |
