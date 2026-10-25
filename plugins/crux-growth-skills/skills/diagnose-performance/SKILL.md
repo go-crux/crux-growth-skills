@@ -218,8 +218,12 @@ stopped with its one line and no page.
   dated differently and other cost lines may be in or out. Without a Growth Brain, take margin
   only from a Source carrying cost of goods; otherwise the margin % lever reads "No data".
 - **Uncosted orders.** Where the orders mart flags orders that are not fully costed, filter
-  margin and the revenue beside it on the same rows, as the mart's own margin-rate metric does,
-  and give the uncosted share of revenue in the Notes.
+  margin, the revenue beside it and the order counts (new customers, returning orders) on the
+  same rows, as the mart's own margin-rate metric does, so orders × order value × margin % still
+  equals order margin. A customer is new or returning by their orders over all rows; only the
+  count takes the filter. Margin % divides by revenue on those filtered, order-dated rows. Give
+  the uncosted share of revenue in the Notes, and that margin % may differ from the brain's
+  published rate.
 - **Returns still arriving.** Where revenue is order-dated after the returns so far, say the
   latest period's returns are still coming in.
 - **Test orders.** Leave out test orders wherever a mart or Source flags them. Where a lever
@@ -254,13 +258,15 @@ that one mart, one mart per call: a call naming two can overflow the reply. Comp
 from the columns the calls return, and join to the `periods` CTE for dates. Read each lever's value in both
 periods in `run_sql`, then rebuild the Success KPI from the levers as `references/lever-trees.md`
 writes it and compare with the Success KPI read in its own query, from the mart's total for the
-period (for the revenue tree, channel reporting's total sales) and not from the lever queries'
-rows. A lever whose mart is absent, or that is zero or missing in either period, reads "No data".
+period (for the revenue tree, channel reporting's total sales; for CM3, the independent read
+`references/lever-trees.md` sets out) and not from the lever queries' rows. A lever whose mart is
+absent, or that is zero or missing in either period, reads "No data".
 
 **Done when** every lever has a value in the Current period and the Comparison period, or "No
 data" with its reason, and none was read from a Source that refused; the rebuilt Success KPI is
 within 0.01% of the Success KPI read in its own query, in both periods (for a tree with a lever
-reading "No data", the gap is the "Not split" row); every tree count comes from its one mart;
+reading "No data", the gap is the "Not split" row; for CM3 with no independent read, the check is
+arithmetic only and the Notes say so); every tree count comes from its one mart;
 test orders are out of every query the Source flags them in; and every query took its dates from
 `periods` (without a Growth Brain, every read took the four dates).
 
