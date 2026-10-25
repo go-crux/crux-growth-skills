@@ -69,8 +69,10 @@ is its change. One with no volume in the Current period reads "Stopped" there.
 that level and take the one whose largest qualifying segment carries most of the parent's change;
 on a tie, take the dimension listed first in the path. Name the others in one line under the
 level's table, in the wording of `references/diagnosis-layout.md`. A dimension the lever has no
-values on is skipped (landing page carries no spend). A qualifying segment is one the volume
-floor leaves on its own row.
+values on is skipped (landing page carries no spend). A dimension on which the parent holds one
+segment is not weighed, because that segment carries all the change by default; it is collapsed
+only when every dimension the step offers holds one segment, and then the one listed first is
+collapsed. A qualifying segment is one the volume floor leaves on its own row.
 
 **The descent rule.** Every cut-off is here, and none is named on the page.
 
@@ -80,13 +82,19 @@ floor leaves on its own row.
 - The volume floor: a segment under 5% of its parent's volume in both periods joins one "Other"
   row, which keeps the level adding up, and is never descended into. A segment carrying at least
   half its parent's change is never floored.
+- On a ratio lever the floor reads the numerator as well as the volume: a segment joins "Other"
+  only when it is under 5% of its parent's volume and under 5% of its parent's numerator in both
+  periods. A segment with orders and no visits (Radio, Retail, modelled re-attribution rows)
+  keeps its own row, its rate reading "No data" and its volume 0.
 - Stop at three levels, or when the Source holds no finer dimension. Say which in the Drivers
   block, and name the finer dimension in the Notes.
 - With no segment carrying half the change, stop at that level: the change is spread, and the
   table shows how.
 - A level whose parent holds one segment is collapsed: it gets no table, says in one line which
-  segment it is, and the descent continues below it. A collapsed or skipped level does not count
-  toward the three.
+  segment it is, and the descent continues below it. A dimension with no values on the parent's
+  rows is skipped instead: nothing is read and no line is written; where every dimension a step
+  offers is skipped, the Source holds no finer dimension and the Drill-down stops there. A
+  collapsed or skipped level does not count toward the three.
 - Each stop, collapse and "Other" row is worded on the page as `references/diagnosis-layout.md`
   sets out; the page never names a floor, a cap or a share.
 
@@ -168,11 +176,15 @@ The platform ROAS tree reads every dimension from the platform's own Source
   qualifying segment carries most of the campaign's change, by Choosing among dimensions above.
 - New customers and new-customer conversion read new orders.
 - **Conversion and new-customer conversion** also check the stages before the channels. Read
-  session → engaged and engaged → checkout in both periods, from the funnel Source, and name the
-  stage that moved furthest in the direction of the change. This check is one small table and
-  does not count as a level. Then run the channel path for the lever itself. Where no funnel
-  Source is held, skip the check with one line. When no channel carries half the change, suspect
-  a site-wide fault (checkout, payments, a key product page) and say so in the Drivers block.
+  session → engaged and engaged → checkout in both periods from `<client>-ecommerce_funnel`, the
+  funnel mart of the dimensions table below, and name the stage that moved furthest in the
+  direction of the change. Sessions from `<client>-channel_reporting` are not stages, so that
+  mart never feeds this check. This check is one small table and does not count as a level.
+  Then run the channel path for the lever itself. Where the roster lists no funnel mart or it
+  covers neither period (a revenue tree whose sessions come from channel reporting alone), skip
+  the check with the funnel line of `references/diagnosis-layout.md`. When no channel carries
+  half the change, suspect a site-wide fault (checkout, payments, a key product page) and say so
+  in the Drivers block.
 
 **Order value (store trees).**
 
@@ -206,6 +218,16 @@ no CRM campaign or flow, stop at the channel level.
 group, then ad, down to the finest level the Source holds. Order value is the platform's
 conversion value per purchase, so it takes this path too, not the discount path. Read platform
 figures only, never the store's.
+
+**Mix shift.** Spend moving from campaigns that return less to campaigns that return more lifts
+account ROAS with no campaign's own ROAS changing, and the reverse lowers it. The campaign level
+shows it through the ratio rule above: the campaign that took the spend counts for more because
+its share of the volume grew, while its own rate is flat or ran the other way (the line for such
+a segment applies too). Where the campaign carrying the change is one whose own rate did not
+move in the direction of the change, add the mix shift line of `references/diagnosis-layout.md`
+to the Drivers block, after the evidence sentence. The recommendation's action is about the
+budget split between the named campaigns, and its metric to watch is the receiving campaign's
+own ROAS at its new spend.
 
 **Margin %.** Product category, then product, then discount.
 
@@ -259,10 +281,14 @@ read.
 
 The **KPI at stake** is the Success KPI's change that the recommendation's segment carries: the
 segment's share of the lever's change times the lever's Contribution, in the Success KPI's unit,
-and never more than the lever's Contribution. Where a recommendation spans segments, use their
-sum, capped the same way. A capped figure is worded as `references/diagnosis-layout.md` sets
-out, so the reader sees why it is smaller than the segment's row in the table. State it as the
-change at stake, never as a forecast of what the action recovers.
+and never more than the Contribution of its nearest ancestor: the segment it sits in, taken as
+that segment's share of the lever's change times the lever's Contribution (and itself held to the
+lever's), or the lever at the first level. Segments pulling the other way inside that ancestor
+can lift a segment's share of the lever's change past it. Where a recommendation spans segments,
+use their sum, capped the same way. A capped figure is worded as
+`references/diagnosis-layout.md` sets out, so the reader sees why it is smaller than the
+segment's row in the table. State it as the change at stake, never as a forecast of what the
+action recovers.
 
 Each recommendation carries:
 
