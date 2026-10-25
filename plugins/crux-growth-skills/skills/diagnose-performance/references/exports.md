@@ -174,6 +174,10 @@ one campaign it descended into, and only where no connector reads that level.
   when the dates do not match.
 - Add together the rows that share a segment, leaving any total row out of the sums. Where the
   file has a total row, check that the segments sum to it; where it has none, make no such check.
+- **Timezone.** An export that names a timezone (in its header, its filename or the report's
+  settings) is read in it. Where it names none and a connector for that platform is in the
+  session, read the account's timezone from the connector's account details. Where neither
+  names one, the Notes say so in the layout's wording.
 - A connector is read for the same columns, on the four dates, for every campaign whatever its
   status and with every page of rows, and the same Source is read for both periods.
 - Leave out test orders wherever the Source flags them. An export with no test-order flag is read

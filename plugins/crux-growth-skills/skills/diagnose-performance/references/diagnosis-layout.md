@@ -104,9 +104,10 @@ many levers read "No data".
    there is no Main driver to act on."
 7. **Notes**: every caveat in one place, and no caveat anywhere else. Include, where they apply:
    - the basis: the revenue measure, the margin rung and whether the figure is CM3 or "CM1 less
-     marketing", that flagged test orders are left out, and, with a Growth Brain, the timezone the
-     periods were read in, in the wording **Plain wording** gives, with each caveat the Basis
-     rule in `SKILL.md` asks the Notes to carry;
+     marketing", that flagged test orders are left out, and, with a Growth Brain, the timezone each
+     Source was read in (one line when they match, else one naming each), in the wording
+     **Plain wording** gives, with each caveat the Basis rule in `SKILL.md` asks the Notes to
+     carry;
    - the periods' lengths when they differ in days, and that volumes then differ with them;
    - a change of source between the periods (such as the GA4 raw event stream replacing an
      earlier feed) and which levers move with it, so the reader does not mistake the change of
@@ -125,8 +126,8 @@ many levers read "No data".
    - a partial split: which levers read "No data" and why, and that the rest of the change is
      shown as "Not split", including a lever whose export the user chose not to give;
    - a run without a Growth Brain: which connectors and files were read, that each lever reads
-     one Source across both periods, and the timezone the Source reports in, in the wording
-     **Plain wording** gives;
+     one Source across both periods, and the timezone each Source reports in (one line when they
+     match, else one naming each), in the wording **Plain wording** gives;
    - a connector that refused a read, and where its levers were read from instead, in the
      wording **Plain wording** gives;
    - a connector account that could not be told to be the brand's, skipped on an unattended run,
@@ -226,7 +227,8 @@ way. The lines above fix what to say; these fix how.
 | The timezone, with a Growth Brain that names one | Days are read in <timezone>. |
 | The timezone, where the Growth Brain says only that dates are the store's own | Days are your store's own, as your Growth Brain records them. |
 | The timezone, where a Source's dates are UTC | Days are read in UTC. |
-| The timezone, on a run without a Growth Brain | Days follow the timezone <Source> reports in, <timezone>. Where it names none: <Source> does not say which timezone it reports in, so days may be cut differently from your store's. |
+| The timezone, on a run without a Growth Brain | Days follow the timezone <Source> reports in, <timezone>. Where neither it nor a connector for that platform names one: <Source> does not say which timezone it reports in, so days may be cut differently from your store's. |
+| The timezone, where Sources are dated in different timezones | Days are read in <timezone> for <Source in plain words> and in <timezone> for <Source in plain words>, the same in both periods, so a day at the edge of a period can fall differently between the two. |
 | Conversion actions in a platform export that does not say which it counts | <Source> does not say which conversion actions it counts, so platform conversions are every action it holds. |
 | Conversions from the Google Ads connector read with no purchase filter | <Source> could not be limited to purchases, so platform conversions are every primary conversion action. |
 | A connector refused a read, and a lever moved | <Source> refused to share its figures, so <levers> were read from <next Source in plain words>, or read "No data" where nothing else holds them. |
