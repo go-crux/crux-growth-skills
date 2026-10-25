@@ -34,12 +34,11 @@ orders mart measures it (the ratio rule below), applied to the lever's Contribut
 order value level, that ratio's revenue is the orders mart's total sales, order-dated, on the
 basis `SKILL.md` Basis gives that mart (and, on the CM3 tree, on the rows its order counts take),
 and its orders are that mart's order count, whichever Source the tree's own revenue comes from:
-only the shares come from the orders mart. Each
-further level inside a segment is apportioned the same way, to that segment's Contribution. Say
-in one Notes line, in the wording of `references/diagnosis-layout.md`, that the split comes from
-the orders while the lever's total comes from its own Source. Where the orders mart shows no
-change in the lever between the periods, no share exists: the level is not read and the
-Drill-down stops above it.
+only the shares come from the orders mart. Each further level inside a segment is apportioned
+the same way, to that segment's Contribution. Say in one Notes line, in the wording of
+`references/diagnosis-layout.md`, that the split comes from the orders while the lever's total
+comes from its own Source. Where the orders mart shows no change in the lever between the
+periods, no share exists: the level is not read and the Drill-down stops above it.
 
 **A segment's contribution to the lever:**
 

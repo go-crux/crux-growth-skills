@@ -77,9 +77,10 @@ many levers read "No data".
      the two period columns, the denominator as the volume, and the Contribution in the Success
      KPI's unit. A new or stopped segment reads "New" or "Stopped" in its empty period's cell.
      For the discount level of order value, show the discount rate and the discount depth in both
-     periods under the table, or under the collapse line where the level has no table. Under a table, where they apply, the line naming the other
-     dimensions read at that level, and the line for a segment whose rate moved one way while its
-     Contribution ran the other, in the wording **Plain wording** gives.
+     periods under the table, or under the collapse line where the level has no table. Under a
+     table, where they apply, the line naming the other dimensions read at that level, and the
+     line for a segment whose rate moved one way while its Contribution ran the other, in the
+     wording **Plain wording** gives.
    - One closing line saying where the Drill-down stopped and why, in the wording **Plain
      wording** gives for that reason.
 
