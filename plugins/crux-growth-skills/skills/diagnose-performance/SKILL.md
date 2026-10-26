@@ -83,18 +83,16 @@ for a refusal before any lever was assigned a Source.
 
 Then settle two facts once, for every later step to reuse:
 
-- **Timezone**: one **period timezone**, which settles today's date for relative periods (step 2),
+- **Timezone**: one **Period timezone**, which settles today's date for relative periods (step 2),
   and the timezone each Source is read in, the same in both periods.
-  - The period timezone is the Growth Brain's instructions where they name one; else the timezone
+  - The Period timezone is the Growth Brain's instructions where they name one; else the timezone
     the date descriptions of `<client>-orders` name (`list_tables` naming that mart). Where they
     say only that dates are the store's own timezone, it is the store's own with no name, and the
     date columns are read as they are with no conversion. Else UTC. Without a Growth Brain, it is
     the timezone of the Source that holds the Success KPI's total, or not known where that Source
     names none.
-  - A mart is read in the timezone its own date descriptions name, else in the period timezone.
-    An export is read in the timezone it names; where it names none, in the account timezone of
-    the connector for that platform when one is in the session (`references/exports.md`); else
-    none is known.
+  - A mart is read in the timezone its own date descriptions name, else in the Period timezone.
+    An export is read as `references/exports.md` sets out under Timezone.
   - Dates are not converted between Sources. The Notes give the one timezone where every Source
     reads in it, and each Source's where they differ, in the wording of
     `references/diagnosis-layout.md`.
@@ -110,7 +108,7 @@ in hand and `search_examples` called once, or none; the connectors the run could
 one probe read (an account that needs the ownership answer is probed after step 2's round), and
 any that refused, whose listing did not load or that could not be told to be the brand's named to
 the user (an attended run asks about the latter in the intake round) and offered as no Source;
-and the files the conversation already holds. The period timezone (named, the store's own, or not
+and the files the conversation already holds. The Period timezone (named, the store's own, or not
 known) and the currency are set.
 
 ## 2. Intake
@@ -143,7 +141,7 @@ year, or a week, which is a complete Monday to Sunday week.
 **Periods.** Resolve both periods once, as calendar dates that each Source reads in its own
 timezone (step 1). A period the user names ("Q3 2025", "1 to 7 March") is typed as dates, here
 and nowhere else. A recommended period and a name relative to today are computed from today's
-date in the period timezone, `CURRENT_DATE('<timezone>')`, because a bare `CURRENT_DATE()` is
+date in the Period timezone, `CURRENT_DATE('<timezone>')`, because a bare `CURRENT_DATE()` is
 UTC's day. Where step 1 found no name for it (the store's own, or not known), today is the
 user's own date as the session reports it, written into the dates. "Last month", "last quarter" and "same quarter last year"
 are named periods.
@@ -349,12 +347,13 @@ Write 1 to 3 recommendations for each drilled Main driver, a zero-level one incl
 rise, as `references/drill-down.md` sets out. Each carries a hypothesis ("if we X, the
 KPI moves because Y"), the action, the metric to watch, and how to validate it: test, watch next
 period or ship. Under a Cause of "Not confirmed" every action is check-first. Each Also large
-lever, and each Offset step 5 gives an action line, gets its one check-first action line, written
-here and nowhere else.
+lever, and each other lever step 5 gives an action line (a large Offset, or the largest lever when
+there is no Main driver), gets its one check-first action line, written here and nowhere else.
 
 **Done when** every drilled Main driver has 1 to 3 recommendations, each with hypothesis, action,
 metric to watch and test, watch or ship; every action under a "Not confirmed" Cause is
-check-first; and every Also large lever and every Offset step 5 gives an action line has that line.
+check-first; and every Also large lever and every other lever step 5 gives an action line has
+that line.
 
 ## 9. Write
 

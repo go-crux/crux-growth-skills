@@ -229,7 +229,7 @@ confirm, with each period as the user named it:
 |---|---|
 | Orders not fully costed, left out of margin, revenue and order counts | <share> of revenue in the Current period (<share> in the Comparison period) is from orders not fully costed, so margin, revenue and order counts leave them out. |
 | Margin %, on a margin tree | Margin % is order margin divided by revenue on the orders counted here, dated by order. The margin rate your Growth Brain publishes may divide by a different revenue, so the two can differ. |
-| CM3 with no separate figure to check it against | CM3 is built from your orders' margin and your ad spend, so the levers add up to it by construction; no separate CM3 figure was available to check it against. |
+| CM3 (or CM1 less marketing) with no separate figure to check it against | <CM3 or CM1 less marketing> is built from your orders' margin and your ad spend, so the levers add up to it by construction; no separate <CM3 or CM1 less marketing> figure was available to check it against. |
 | A level read from the orders while the lever's total comes from another Source | The split of <lever> by <dimension> comes from your orders, while its total comes from <Source in plain words>. |
 | An order count from an export with no test-order flag, on a run without a Growth Brain (never a Platform ROAS page) | <Source> carries no test-order flag, so any test orders are counted. |
 | An order count with no test-order flag, checked against your orders, matching | <Source> carries no test-order flag; its order count matches your orders with test orders left out. |

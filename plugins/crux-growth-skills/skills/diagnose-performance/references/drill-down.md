@@ -179,21 +179,21 @@ The platform ROAS tree reads every dimension from the platform's own Source
 - New customers and new-customer conversion read new orders.
 - **Conversion and new-customer conversion** also check the stages before the channels. Read
   session → engaged and engaged → checkout in both periods from `<client>-ecommerce_funnel`, the
-  funnel mart of the dimensions table below, and name the stage that moved furthest in the
+  funnel mart of the dimensions table above, and name the stage that moved furthest in the
   direction of the change. Sessions from `<client>-channel_reporting` are not stages, so that
   mart never feeds this check. This check is one small table and does not count as a level.
   Then run the channel path for the lever itself. Where the roster lists no funnel mart or it
-  covers neither period (a revenue tree whose sessions come from channel reporting alone), skip
-  the check with the funnel line of `references/diagnosis-layout.md`. When no channel carries
-  half the change, suspect a site-wide fault (checkout, payments, a key product page) and say so
-  in the Drivers block.
+  does not cover both periods (a revenue tree whose sessions come from channel reporting alone),
+  skip the check with the funnel line of `references/diagnosis-layout.md`. When no channel
+  carries half the change, suspect a site-wide fault (checkout, payments, a key product page)
+  and say so in the Drivers block.
 
 **Order value (store trees).**
 
 - Discount first, from the orders mart, whatever the tree's Source (an order-mix level, above).
   The level's segments are discounted orders and orders at full price. An order is discounted
-  when the orders mart's `is_discounted` flag says so; where `list_tables` shows no such flag,
-  when it carries a discount code. Use the one rule `list_tables` supports, the same in both
+  when the orders mart's own discounted-order flag says so; where `list_tables` shows no such
+  flag, when it carries a discount code. Use the one rule `list_tables` supports, the same in both
   periods; where the mart holds neither, the Drill-down stops above this level. Beside the segments show
   the discount rate (the share of orders discounted) and the discount depth (the discount over
   pre-discount revenue, on discounted orders), in both periods.
@@ -313,6 +313,7 @@ verify, then scale: the check that confirms what
 drove the rise, then, on each answer, how to scale it or why to hold it.
 
 An Also large lever in step 5 gets one action line, check-first: the first segment or
-level to open and what to look for. An Offset that `SKILL.md` step 5 gives an action line gets the
-same line, phrased for the Offset's own direction, not the Success KPI's: verify, then fix a fall
-or scale a rise. Every other Offset gets no action.
+level to open and what to look for. An Offset that `SKILL.md` step 5 gives an action line, or the
+lever it gives that line when there is no Main driver, gets the same line, phrased for that
+lever's own direction, not the Success KPI's: verify, then fix a fall or scale a rise. Every
+other Offset gets no action.
