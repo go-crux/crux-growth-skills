@@ -115,14 +115,16 @@ known) and the currency are set.
 ## 2. Intake
 
 An unattended run skips the round below. An attended run opens the intake message with the
-method lead-in in `references/diagnosis-layout.md`, as given, ahead of every question and of the
-Sources step 1 names, so the user knows what the run does before it asks anything. It builds the
-round on what the first message already says: a question the message answers, in a name relative to today as much as in dates, is
+method lead-in in `references/diagnosis-layout.md`, as given, so the user knows what the run
+does before it asks anything; then the Sources step 1 names; then the lead-in's closing line
+that fits the round; then the questions. It builds the round on what the first message already
+says: a question the message answers, in a name relative to today as much as in dates, is
 stated as settled, with what was understood, and not asked. When the message answers all four
 (the Success KPI, both periods and where the data comes from) and step 1 left no account whose
-ownership is to be asked, nothing is left to ask: the round is skipped, the intake message states
-the four as understood, and step 3 still confirms the tree and step 7 still asks the Cause round. Ask each open question with a recommendation, then wait
-for the answer:
+ownership is to be asked and no currency to ask, nothing is left to ask: the round is skipped,
+the intake message states the four as understood, and step 3 still confirms the tree and step 7
+still asks the Cause round. Ask each open question with a recommendation, then wait for the
+answer:
 
 1. **Success KPI**: what figure are you judging performance on? Recommend the KPI the first
    message names; else CM3 with a Growth Brain whose orders carry margin; else net sales (or
@@ -180,11 +182,12 @@ to the same rule. Then:
   needs that step 1 has not read, one mart per call (discovery, no query), so each lever's "how it
   is measured" comes from the columns and each mart's timezone from its date descriptions.
 - **Confirm the tree**: open with the tree lead-in in `references/diagnosis-layout.md`, as
-  given. Then show each lever with its kind (volume or efficiency), how it is measured and its Source, and how
-  the levers rebuild the Success KPI, and whether higher or lower is better for it. Say in one
-  line any period resolved from "this month" or the like, with its dates, and any refusal of the
-  probe made after intake (a probe that read fine adds nothing). Ask whether to run it. Run no
-  query until the user says yes; an answer that changes a lever goes back through the tree rule.
+  given. Then show each lever with its kind (volume or efficiency), how it is measured and its
+  Source, and how the levers rebuild the Success KPI, and whether higher or lower is better for
+  it. Say in one line any period resolved from "this month" or the like, with its dates, and any
+  refusal of the probe made after intake (a probe that read fine adds nothing). Ask whether to
+  run it. Run no query until the user says yes; an answer that changes a lever goes back through
+  the tree rule.
 - **Collect the exports**: for each lever whose Source is an export the conversation does not yet
   hold, give the user the steps for that report from `references/exports.md` and wait for the
   files. Ask for no export for a lever no Source can read.
@@ -193,8 +196,8 @@ An unattended run asks nothing and goes straight to Read.
 
 **Done when** the columns of each mart the tree needs were read before the user was asked to
 confirm (an unattended run reads them in step 4); the tree confirmation opened with the layout's
-tree lead-in, as given (an unattended run gives none); the user has confirmed (an unattended run: the
-skill has derived) a Lever tree of 3 to 5 levers (fewer only where `references/lever-trees.md` allows) with at least one volume and one efficiency,
+tree lead-in, as given (an unattended run gives none); the user has confirmed (an unattended run:
+the skill has derived) a Lever tree of 3 to 5 levers (fewer only where `references/lever-trees.md` allows) with at least one volume and one efficiency,
 whose arithmetic rebuilds the Success KPI exactly; every lever has one named Source across both
 periods, or "No data" with its line; every export asked for is in hand or its lever reads "No
 data"; and the run either goes on (the Success KPI and at least one lever can be read) or has

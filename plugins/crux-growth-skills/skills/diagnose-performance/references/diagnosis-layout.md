@@ -198,9 +198,10 @@ way. The lines above fix what to say; these fix how.
 | Zero levels | Could not be sliced further: your data holds no finer view of this lever. |
 
 **The lead-ins**, in the chat only. The method lead-in opens the intake message `SKILL.md` step 2
-sends, before any question; it names no KPI or period, since the round may not have settled them,
-and ends on the line that fits the round. The tree lead-in opens the tree `SKILL.md` step 3 asks
-the user to confirm, with each period as the user named it, and repeats none of the method.
+sends, in the order that step gives; it names no KPI or period, since the round may not have
+settled them, and its closing line is the one that fits the round: any question left to ask, a
+currency or an account's owner included, takes the line with questions to ask. The tree lead-in
+opens the tree `SKILL.md` step 3 asks the user to confirm, with each period as the user named it.
 
 | Where | Wording |
 |---|---|
