@@ -313,4 +313,6 @@ verify, then scale: the check that confirms what
 drove the rise, then, on each answer, how to scale it or why to hold it.
 
 An Also large lever in step 5 gets one action line, check-first: the first segment or
-level to open and what to look for. An Offset gets no action.
+level to open and what to look for. An Offset larger than the largest Main driver gets the same
+line, phrased for its own direction (verify, then fix a fall or scale a rise), since it runs
+against the change. Every other Offset gets no action.

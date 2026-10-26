@@ -23,7 +23,7 @@ analysis framework: split the change into levers, find the main driver, drill in
 
 - **Also large**: a lever other than a main driver, in the direction of the Success KPI's change, with at least half the largest contribution; named with its figure and given one check-first action line, never drilled. _Avoid_: over the threshold, secondary driver, runner-up.
 
-- **Offset**: a lever whose contribution runs against the Success KPI's change; named with its figure, never drilled. _Avoid_: headwind, tailwind.
+- **Offset**: a lever whose contribution runs against the Success KPI's change; named with its figure, never drilled. One larger than the largest main driver's contribution also gets one check-first action line. _Avoid_: headwind, tailwind.
 
 - **Cost pair**: spend and the volume it buys, ranked as one lever when their contributions run against each other: spend and visits as cost per visit, spend and impressions as CPM. The pair takes one role, shown on both rows. _Avoid_: blended cost, efficiency pair.
 
