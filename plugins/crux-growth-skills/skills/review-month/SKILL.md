@@ -49,22 +49,22 @@ periods (last month, the same month last year) are set from it, and the Source i
 
 ## 3. Read
 
-Read the Trading, Acquisition and Retention & LTV Sections, and the three Appendix slides, in
-`run_sql` from the Source, with dates from `periods`. Compose every query from the columns
-`list_tables` returns, one mart per call, and take each figure's mart and basis from
+Read the Trading, Acquisition, Retention & LTV and Order value & product Sections, and the three
+Appendix slides, in `run_sql` from the Source, with dates from `periods`. Compose every query from
+the columns `list_tables` returns, one mart per call, and take each figure's mart and basis from
 `references/sources.md`. For each slide `references/deck-layout.md` builds in full, read its
 figures: this month, last month, the same month last year, and a budget only where the Source holds
 one; the 24-month series for the trend charts, the 12 months or 12 cohorts the slide names; and the
 columns of a slide that states its own. Check each total against its own query: the month's
 revenue, orders and new orders against the orders mart for the month's days, and marketing spend
 against channel reporting. These slides are built on a Growth Brain: on any other Source the
-Acquisition, Retention & LTV and Appendix slides are Brain slots, and the Appendix is a Brain slot
-whatever the connectors hold. Every other slide of the deck is written as its Brain slot, with the
-wording of `references/deck-layout.md`.
+Acquisition, Retention & LTV, Order value & product and Appendix slides are Brain slots, and the
+Appendix is a Brain slot whatever the connectors hold. Last month's actions is written as its Brain
+slot, with the wording of `references/deck-layout.md`.
 
-**Done when** every Trading, Acquisition and Retention & LTV slide and every Appendix slide has its
-figures or its Brain slot, a conditional slide (markets, subscriptions) being present only where
-the business has it; and:
+**Done when** every Trading, Acquisition, Retention & LTV and Order value & product slide and every
+Appendix slide has its figures or its Brain slot, a conditional slide (markets, subscriptions,
+discount codes) being present only where the business has it; and:
 
 - the KPI table's revenue, orders and new orders each equal an unfiltered total for the Current
   period's days read in its own query; new plus returning revenue equals revenue in every month of
@@ -79,21 +79,27 @@ the business has it; and:
 - the cohort table's Current period cohort size equals the KPI table's new orders, every cohort
   starts at 100% in month 0, and the cohort LTV lines and the rolling average read the same
   cohorts as the table;
-- every LTV figure reads the LTV window.
+- every LTV figure reads the LTV window;
+- the blended AOV equals the KPI table's Average order value in every month of the series;
+- the Product and category mix rows, No category included, add up to the Total row, whose orders
+  and sales equal the KPI table's, and each month's columns add up to that month's revenue;
+- discounted and full-price orders add up to orders in each of the 24 months;
+- the Discount codes slide is present only where an order in the Current period carries a code, and
+  its rows add up to its Total row.
 
 A figure the Source cannot give reads "No data" or its slide is a Brain slot; none is guessed.
 
 ## 4. Recommend
 
-Write up to three Recommendation cards for each of Trading, Acquisition and Retention & LTV from
-that Section's own figures, each with its title, evidence figure, action, metric to watch and how
-to validate it, ranked by revenue at stake, as `references/deck-layout.md` sets out. Then write
-the Executive summary and Next month from every Section that holds cards, and each Action title
-last.
+Write up to three Recommendation cards for each of Trading, Acquisition, Retention & LTV and Order
+value & product from that Section's own figures, each with its title, evidence figure, action,
+metric to watch and how to validate it, ranked by revenue at stake, as `references/deck-layout.md`
+sets out. Then write the Executive summary and Next month from every Section that holds cards, and
+each Action title last.
 
-**Done when** every Trading, Acquisition and Retention & LTV card carries a figure from its own
-Section's slides and an action, a metric to watch and Test, Watch next month or Ship; Next month
-holds the three cards with the most revenue at stake, or fewer where fewer exist; and every
+**Done when** every Trading, Acquisition, Retention & LTV and Order value & product card
+carries a figure from its own Section's slides and an action, a metric to watch and Test, Watch
+next month or Ship; Next month holds the three cards with the most revenue at stake, or fewer where fewer exist; and every
 content slide has an Action title of one full sentence with a figure.
 
 ## 5. Write

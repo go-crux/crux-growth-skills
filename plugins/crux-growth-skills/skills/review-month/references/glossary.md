@@ -37,6 +37,12 @@ growth equation: trading, then acquisition, retention and LTV, then order value 
 
 - **Last month's actions**: the slide after the Executive summary listing the previous review's Next month actions, each Done, Not done (with the user's reason) or Not updated, with what its metric did. _Avoid_: action tracker, follow-up.
 
+## Order value and discounts
+
+- **Discount rate**: discounted orders divided by orders in the month. A rate, so never on a Share toggle. _Avoid_: discount share, promo rate.
+
+- **Discount depth**: the discount given on discounted orders divided by those orders' value before discount. How deep a discount cuts, not how often one is used. _Avoid_: discount size, average discount.
+
 ## Measures without a brain
 
 With a Growth Brain, its own metric definitions win. Without one, these hold, and the Notes state them.

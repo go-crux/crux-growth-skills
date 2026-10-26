@@ -44,11 +44,11 @@ Section's divider, with an Action title of its own.
 | `ret-subscriptions` | Subscription mix (conditional) | line, 24 months, with a small table | no | here |
 | `ret-recs` | Retention & LTV Recommendations | up to three cards | no | here |
 | `aov-divider` | Order value & product | divider | no | here |
-| `aov-trend` | AOV, new / returning / blended | three lines, 24 months | no | Brain slot |
-| `aov-product` | Product and category mix | table | yes | Brain slot |
-| `aov-discount` | Discount impact | discount rate line and depth columns as small multiples | yes | Brain slot |
-| `aov-codes` | Discount codes (conditional) | table | no | Brain slot |
-| `aov-recs` | Order value & product Recommendations | up to three cards | no | Brain slot |
+| `aov-trend` | AOV, new / returning / blended | three lines, 24 months | no | here |
+| `aov-product` | Product and category mix | table, and stacked columns of sales by category, 24 months | yes | here |
+| `aov-discount` | Discount impact | small multiples: discount rate line, discount depth columns, discounted vs full-price orders | yes | here |
+| `aov-codes` | Discount codes (conditional) | table | no | here |
+| `aov-recs` | Order value & product Recommendations | up to three cards | no | here |
 | `next-month` | Next month | top three cards across Sections | no | here |
 | `app-ltv-category` | Appendix: LTV by order category | ranked horizontal bars | no | here, brain only |
 | `app-ltv-type` | Appendix: LTV by order type | ranked horizontal bars | no | here, brain only |
@@ -60,7 +60,7 @@ that is not a Growth Brain, or where a mart the slide reads is missing from the 
 is written as its Brain slot (**Brain slot wording** below). "Here, brain only" is a slide no
 other Source fills: it is a Brain slot on every run without a Growth Brain, whatever the connectors
 hold (ADR-0002). "Brain slot" means the slide is written as its Brain slot until a build is
-specified for it. The campaigns slide repeats once per connected ad platform.
+specified for it (today only `last-actions`). The campaigns slide repeats once per connected ad platform.
 
 ## Rules every slide follows
 
@@ -110,7 +110,7 @@ marketing spend row is always neutral, since spend rising is neither good nor ba
 figure is coloured by whether the move is good: a fall takes the up colour and a rise the down
 colour, with ▲ or ▼ still showing the direction. A slide that states its own columns below
 (Channel mix, Top campaigns, Cohort retention, Cohort LTV, the LTV slides, Subscription mix,
-Line items) uses those: it holds too many measures for five columns each, or reads a cohort
+Line items, Product and category mix, Discount codes) uses those: it holds too many measures for five columns each, or reads a cohort
 window rather than a month.
 
 **Trend charts.** Show 24 months ending with the Current period, or as far back as the Source
@@ -186,14 +186,16 @@ No title rule applies.
 
 **Dividers**: the Section's name large on a plain slide, with one line listing what the Section
 holds ("Revenue, customers and markets"; "Traffic, channels, campaigns and customer value" for
-Acquisition; "Cohorts, repeat buying and lifetime value" for Retention & LTV). No title rule applies.
+Acquisition; "Cohorts, repeat buying and lifetime value" for Retention & LTV; "Order value, products and discounts" for Order value & product). No title rule
+applies.
 
 **Executive summary**: three columns headed **Performance**, **Read** and **Actions**.
 - **Performance**: one line per Section that holds figures, in Section order, each with its
   headline figure and MoM and YoY change ("Trading: revenue £1.2m, +8% MoM, +14% YoY"). A Section
   whose slides are all Brain slots adds no line. The headline figure of Acquisition is new orders
   with blended CAC; of Retention & LTV, the retention at month 1 of the latest cohort to reach it
-  against the rolling average (a cohort figure carries no MoM or YoY change).
+  against the rolling average (a cohort figure carries no MoM or YoY change); of Order value & product,
+the blended average order value with the discount rate.
 - **Read**: two to four sentences saying what moved and by how much, from the Performance
   figures. Where the cause is not known, it says so ("the cause is not yet known"), and never
   guesses one; a Month context replaces that sentence when the user gave one.
@@ -417,6 +419,103 @@ can differ from Revenue on the Trading KPIs, which is read from your orders." Ac
 share of line-item revenue the 15 carry and the lead line ("Fifteen lines carried 58% of line-item
 revenue, led by one at £96k").
 
+### AOV, new / returning / blended (`aov-trend`)
+
+Three lines, one per month for 24 months, on one axis since all three are order value in the same
+currency: **blended** AOV (revenue ÷ orders, bold, series 1), **new-customer** AOV (new-customer
+revenue ÷ new orders, series 3) and **returning-customer** AOV (returning-customer revenue ÷
+returning orders, series 2), the Current period marked on each. Revenue is on the basis of
+`trading-kpi` and the new and returning split is that of `trading-revenue`, so the blended line
+equals Average order value on `trading-kpi` in every month. Beside the chart, a small table of the
+three AOVs with the comparison columns (AOV changes as relative %). No Share toggle: AOV is a rate.
+Action title: the blended AOV and its move, with the customer type that moved it ("Average order
+value rose 4% to £62, as new customers' orders reached £54 and returning customers' £68").
+
+### Product and category mix (`aov-product`)
+
+A table above a chart; the grouping is the order's **category**.
+
+**Category.** The category the Source holds on the order. Where the orders carry none and the order
+items carry a product category, an order's category is that of its highest-revenue line (ties by the
+line listed first), so every order sits in one category and the rows add up. Orders with no category
+are the row **No category**, never spread. A Source with neither makes the slide a Brain slot, and
+the Notes name it.
+
+**Table**, at a smaller type size, ranked by orders in the Current period. Rows, in this order:
+
+1. Up to six categories.
+2. **Other categories**, when more than six hold orders: every category not named above, in each
+   period.
+3. **No category**, when any order has none.
+4. **Total**: orders equal Orders and sales equal Revenue on `trading-kpi`, new and returning orders
+   equal theirs, and the rows above add up to it.
+
+Columns, in this order: Category; **orders**, **new orders**, **returning orders**, **sales** (revenue
+on the basis of `trading-kpi`) and **AOV** (sales ÷ orders), each with this month and MoM %; **share of
+sales** (the row's sales ÷ the Total row's) with this month and MoM %. A category that had no orders
+last month reads "New" in its MoM cells; a row with no orders reads "No data" in its AOV cells. There
+is no year-ago column: the table holds too many measures, and the chart carries the history.
+
+**Chart**, below the table: stacked columns of sales by category, one per month for 24 months, the
+Current period marked, the three categories with the most sales in the Current period as series 1
+to 3 and every other category and No category as series 4, **with the Share toggle**: absolute shows
+sales, "% of total" rescales each month to 100% and labels the percentages. The Current period's
+classification applies to every month shown, so the months compare like for like, and each month's
+columns add up to that month's revenue.
+
+Action title: the lead category's share of sales and the category that moved most ("Skincare carried
+38% of sales, while haircare grew 21% to £140k").
+
+### Discount impact (`aov-discount`)
+
+A **discounted order** is an order that carries a discount, as the Source holds it on the order.
+Three small charts side by side, 24 months, one measure each, none sharing an axis, the Current
+period marked:
+
+- **Discount rate** (discounted orders ÷ orders) as a line, in percent.
+- **Discount depth** (discount given on discounted orders ÷ their value before discount) as columns,
+  in percent.
+- **Discounted vs full-price orders** as stacked columns of order counts (full-price series 1,
+  discounted series 3), **with the Share toggle**: absolute shows orders, "% of total" rescales each
+  month to 100% and labels the percentages. The toggle sits on this chart only: the rate and the
+  depth are rates and carry none.
+
+Beneath, a small table with the rows discounted orders, full-price orders, discount rate, discount
+depth and discount given (the money), with the comparison columns (the rate and the depth change as
+relative %). Where the Source defines either rate or depth in its own metrics, its definition wins
+and the Notes state it. Action title: the discount rate and depth and how they moved ("Discounts
+touched 31% of orders at an average depth of 18%, with the rate up 15% on last month").
+
+### Discount codes (`aov-codes`, conditional)
+
+A table of the codes used in the Current period, at a smaller type size, ranked by orders, ties by
+revenue. An order counts under the code the Source holds on it, matched ignoring case and spaces.
+Rows, in this order:
+
+1. Up to ten codes.
+2. **All other codes**, when more than ten were used: every code not named above, in each period.
+3. **Total**: every order that carries a code, which the rows above add up to.
+
+Columns, in this order: Code; **orders** with this month and MoM %; **revenue** (on the basis of
+`trading-kpi`) with this month and MoM %; **discount given** with this month and MoM %; **depth**
+(discount given ÷ the orders' value before discount) with this month; **share of orders** (the code's
+orders ÷ all orders of the month). A code that was not used last month reads "New" in its MoM cells;
+there is no year-ago column, as codes rarely last a year. A Source that holds discounts but no code
+on the order writes the slide as a Brain slot, and the Notes name it. Action title: the code with the
+most orders and its depth, with the share of orders that used a code ("One welcome code brought 1,200
+orders at a 10% depth, and codes touched 24% of all orders").
+
+### Order value & product Recommendations (`aov-recs`)
+
+Up to three Recommendation cards drawn from the Order value & product slides, ranked by revenue at
+stake, worked one of four ways and the card says which. **AOV slip**: new-customer or
+returning-customer AOV below last month's, sized as that group's Current period orders times the
+fall. **Category gap**: a category in the table whose AOV sits below the blended AOV, sized as its
+Current period orders times the gap. **Discount creep**: a discount depth above last month's, sized
+as the discount given in the Current period less what last month's depth would have given on the same
+discounted orders' value. **Code depth**: a code whose depth sits above the depth of all codes,
+sized the same way against the all-codes depth. Action title: as `trading-recs`.
+
 ### Notes (`notes`)
 
 No Action title. Three headings, always present, in this order:
@@ -471,7 +570,7 @@ A slide built here uses these only when its Source cannot fill it.
 | `ret-subscriptions` | The subscription share of new orders over 24 months | your orders by subscription |
 | `ret-recs` | Up to three Retention & LTV actions, each with its evidence and how to validate it | the Retention & LTV slides' data |
 | `aov-trend` | Average order value for new, returning and all customers over 24 months | your orders by customer type |
-| `aov-product` | The product and category mix of revenue, against last month | your orders by product |
+| `aov-product` | The product and category mix of revenue, against last month | your orders by product category |
 | `aov-discount` | Discounted against full-price orders, with discount rate and depth | your orders with their discounts |
 | `aov-codes` | Orders, revenue and discount by discount code | your orders by discount code |
 | `aov-recs` | Up to three Order value & product actions, each with its evidence and how to validate it | the Order value & product slides' data |
