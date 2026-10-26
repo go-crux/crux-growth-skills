@@ -109,6 +109,14 @@ follows the kind of KPI:
 
 The waterfall and the Levers table use these rounded figures.
 
+**A KPI at stake** (`references/drill-down.md`, Recommendations) shows the figure the page already
+shows for the same change. Where it equals a lever's whole Contribution (a driver with zero
+levels, or a segment that carries all of its lever's change), it shows that lever's row of the
+Levers table, so the two never differ by a rounding unit. Where it is capped at the
+Contribution of a segment it sits in, it shows that segment's own KPI at stake, so two
+recommendations capped at one segment show one figure. Any other KPI at stake rounds on its own,
+as the Success KPI does, from its unrounded figure, and is not forced to add to anything.
+
 Two more figures follow one precision each, on the page and in the chat alike:
 
 - **A relative change** shows to one decimal place of a percentage under 10% in size (+4.2%,

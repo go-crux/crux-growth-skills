@@ -103,7 +103,8 @@ many levers read "No data".
    where the Cause is "Not confirmed"), the **KPI at stake** (the change in the Success KPI that
    the segment carries, in its unit; for a driver with zero levels, the lever's whole
    Contribution; capped at the Contribution of the segment it sits in, or of the lever at the
-   first level, in the wording **Plain wording** gives),
+   first level, in the wording **Plain wording** gives; rounded as `references/contribution.md`
+   sets out, so it matches the Levers table where it is the lever's whole Contribution),
    the **Metric to watch**, and **How to validate** (Test, Watch next period or
    Ship). Then, for each lever that is Also large or an Offset `SKILL.md` step 5 gives an
    action line, its one check-first action line under its own name, in the wording **Plain
