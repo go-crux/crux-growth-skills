@@ -12,7 +12,7 @@ changes (2.0% to 1.8% is "−10%"). Money carries the currency the Source's figu
 own symbol, never an assumed one, and shows compactly (£1.2m, £84k). The reader may arrive cold:
 speak of "your orders", "your ad spend", never a table, a column, a rule or a threshold. A cell
 holds a figure, "No data" (the Source holds nothing for it) or "New" (the comparison figure is
-zero), never a bare "n/a".
+zero), never a bare "n/a"; the cohort table and `last-actions` name their own empty cells.
 
 ## The slide list
 
@@ -24,7 +24,7 @@ Section's divider, with an Action title of its own.
 |---|---|---|---|---|
 | `cover` | Cover | brand name, "Monthly performance review", the Current period as "March 2026" | no | here |
 | `exec-summary` | Executive summary | three columns: Performance / Read / Actions | no | here |
-| `last-actions` | Last month's actions | table of actions | no | Brain slot |
+| `last-actions` | Last month's actions | table of actions | no | here |
 | `trading-divider` | Trading | divider | no | here |
 | `trading-kpi` | Trading KPIs | KPI table | no | here |
 | `trading-revenue` | Revenue, new vs returning | stacked columns, 24 months | yes | here |
@@ -55,22 +55,32 @@ Section's divider, with an Action title of its own.
 | `app-line-items` | Appendix: line items | table | no | here, brain only |
 | `notes` | Notes | Sources, definitions, caveats | no | here |
 
+**Focus slides.** Each Focus question the intake settled adds one slide, `focus-1` and `focus-2`,
+directly after its Section's divider, in the order the questions were given; its `data-section` is
+that Section's. A run with no Focus question has none. The Focus slide carries no Share toggle.
+
 "Built: here" means this file specifies the slide in full below, from a Growth Brain: on a Source
 that is not a Growth Brain, or where a mart the slide reads is missing from the roster, the slide
 is written as its Brain slot (**Brain slot wording** below). "Here, brain only" is a slide no
 other Source fills: it is a Brain slot on every run without a Growth Brain, whatever the connectors
-hold (ADR-0002). "Brain slot" means the slide is written as its Brain slot until a build is
-specified for it (today only `last-actions`). The campaigns slide repeats once per connected ad
-platform.
+hold (ADR-0002). `last-actions` is built on every Source, since it reads the previous review and
+not a Growth Brain. The campaigns slide repeats once per connected ad platform.
 
 ## Rules every slide follows
 
 **Action title.** Every content slide (all but `cover`, the dividers and `notes`) opens on one:
 a full sentence with at least one figure from the slide, at most two lines at the title size
-(about 110 characters), stating the takeaway, never the topic. Write each title last, from the
+(about 110 characters), stating the takeaway, never the topic. The one exception is
+`last-actions` when no previous review was found, whose title names the missing month instead. Write each title last, from the
 slide's own figures: "Revenue rose 8% to £1.2m as returning customers carried the month", not
 "Revenue trend". A title states what the figures show and no cause the Month context or the data
 does not support.
+
+**Month context.** Where the intake settled a Month context that bears on a slide's figures (a
+promotion on the revenue slides, a stockout on a category, a tracking change on traffic and
+channels), the slide carries it as one line beneath its content, "You told us: `<the user's words,
+trimmed to one sentence>`.", in place of any guessed cause. The Executive summary's Read uses it the
+same way. A slide it does not bear on carries no such line.
 
 **Brain slot.** A Brain slot keeps a title that says what the slide would show (it carries no
 figure, since it holds none) and a body of one fixed line, written as given with the data filled
@@ -134,7 +144,7 @@ finding alone.
 
 Inline CSS, inline SVG charts and a few lines of inline script (slide bar, arrow keys, Share
 toggle). The page makes no network request: no web font (use the system stack), library, image
-by URL or fetch. It prints one slide per page.
+by URL or fetch. A brand's look changes the CSS values below and nothing else. It prints one slide per page.
 
 Write the page to this skeleton, filling the slides and keeping the CSS and script as given:
 
@@ -178,12 +188,19 @@ and the % SVG as `class="v-share"`.
 brand changes only these roles: ink, paper, accent, the four series colours, the font stack and
 the cover's logo text. Up and down colours stay green and red so every deck reads alike.
 
+**Brand tokens.** Where `references/intake.md` resolved a brand, write its values over the
+skeleton's custom properties, each role as the intake settled it and every other role as given:
+ink to `--ink`, paper to `--paper`, accent to `--accent` (also the cohort shading), the four series
+colours to `--s1` to `--s4` in the order the guidelines list them, and the stack to `--font`. The
+cover shows the logo text as the brand name set in the accent colour. The page loads no font file,
+image or style sheet, so a brand web font is never fetched and its fallback stack is what shows.
+
 ## Slides built here
 
 ### Cover and Executive summary
 
-**Cover**: the brand name, "Monthly performance review" and the Current period as month and year.
-No title rule applies.
+**Cover**: the brand name (the logo text, where the brand supplied one), "Monthly performance
+review" and the Current period as month and year. No title rule applies.
 
 **Dividers**: the Section's name large on a plain slide, with one line listing what the Section
 holds ("Revenue, customers and markets"; "Traffic, channels, campaigns and customer value" for
@@ -202,6 +219,67 @@ products and discounts" for Order value & product). No title rule applies.
   guesses one; a Month context replaces that sentence when the user gave one.
 - **Actions**: the three Recommendations of Next month, one line each (title and revenue at
   stake), the same three and no others.
+
+**Focus questions lead the Executive summary.** For each Focus slide, in order, **Performance**
+opens with one line headed "You asked: `<the question>`" holding the Focus slide's headline figure
+with its MoM and YoY change where it has them, and **Read** opens with one sentence answering the
+question from the same figures, ahead of the other lines and sentences and in addition to the two to
+four.
+
+### Last month's actions (`last-actions`)
+
+Built on every Source, from the previous review's actions the intake settled (up to three, the
+cards of its Next month slide), after the Executive summary. A table with one row for each action,
+at a smaller type size, columns in this order:
+
+- **Action**: the card's title, with its Section beneath in the muted colour.
+- **Metric to watch**: the card's own words.
+- **Last month**, **This month** and **Change %**: the metric read like for like. The deck's own
+  measure of the same name (blended CAC is CAC on `acq-blended`, new-customer conversion likewise,
+  and so on) gives both figures from the slides already read; a metric the deck has no measure for is
+  read from the Source on the same basis for the two months. "Last month" is the previous review's
+  Current period and "This month" the Current period. A metric the Source cannot give reads "No
+  data" in all three cells. The change is a relative %, a delta cell as the comparison rule sets out.
+- **Status**: **Done** in the up colour, **Not done** in the down colour, or **Not updated** in the
+  muted colour. Not updated means the user has not said yet.
+- **Why**: the user's reason beside a Not done ("No reason given" where they gave none); empty for
+  Done and Not updated.
+
+Action title: the count of Done against the actions and the metric that moved most, with its
+change ("Two of February's three actions were done, and blended CAC fell 8% to £31"); where every
+action is Not updated, the count of Not updated in its place ("None of February's three actions is
+updated yet, and new-customer conversion, the metric that moved most, rose 9% to 1.2%"). The month
+is the previous review's.
+
+Two fixed cases keep the slide's place and replace the table with one line in a muted panel, with
+a title of their own:
+
+| Case | Title | Line |
+|---|---|---|
+| No previous review found, or the file holds no Next month slide | No previous review was found for `<previous month>` | No previous review was found, so there are no actions to check this month. |
+| The previous review's Next month held no cards | `<Previous month>`'s review set no actions | The previous review set no actions, so there are none to check this month. |
+
+The slide is never a Brain slot, and is never dropped.
+
+### Focus slide (`focus-1`, `focus-2`)
+
+One for each Focus question, directly after its Section's divider. It answers the question with
+the Section's own figures. Its shape, top to bottom:
+
+1. **You asked**: the question in the user's words, in the muted colour, one line.
+2. **Action title**: the answer as a full sentence with a figure ("New-customer conversion slipped
+   9% to 1.1% as visits rose 14% and new orders held at 3,100").
+3. **Evidence**: one chart or one small table, taken from a slide of its Section that holds the
+   figures the question needs, drawn as that slide draws it (24 months with the Current period
+   marked for a trend; the comparison columns for a table) and without the Share toggle. Where the
+   question needs a figure no slide of its Section holds, one extra query from the Source gives it.
+4. **Month context**: the line of that rule, where one bears on the question.
+5. **What to do**: one sentence naming the action the answer points to, and the metric that
+   shows it worked.
+
+A question the Source cannot answer is written as a Brain slot: its title is "`<the question>`,
+answered from your data" and its data is "the data your question needs". The Focus slide's Section
+keeps its Recommendations slide as before.
 
 ### Trading KPIs (`trading-kpi`)
 
@@ -358,7 +436,7 @@ a Customers column with the cohort's size, then columns for months 0 to 12 after
 month, holding the **retention %**: the share of the cohort that ordered in that month. Month 0 is
 100% by definition and unshaded; months 1 to 12 are shaded on one scale from the accent colour at
 the lowest cell to its darkest at the highest. An age a cohort has not yet reached is left empty,
-the one exception to the cell rule, so the table reads as a staircase. A final row, **Rolling
+an exception to the cell rule, so the table reads as a staircase. A final row, **Rolling
 average**, holds for each age the customers who ordered ÷ the customers of the 12 most recent
 cohorts to have reached it (those cohorts can include ones older than the 12 shown). The Current
 period's cohort size equals New orders on `trading-kpi`, where the glossary's New customer holds.
@@ -534,7 +612,7 @@ No Action title. Three headings, always present, in this order:
 | Caveat | Wording |
 |---|---|
 | Days | Days are read in `<timezone>`. |
-| Currency | Amounts are in `<currency>`. |
+| Currency | Amounts are in `<currency>`. Where no Source states one: Amounts are in the currency your orders are recorded in. |
 | Test orders | Test orders are left out. |
 | Cancelled orders | Cancelled orders are `<left out / counted / not stated>`, as your orders record them. |
 | Returns | Returns are booked on the `<order / refund>` date, so the latest months' revenue can still change as returns arrive. |
@@ -542,6 +620,7 @@ No Action title. Three headings, always present, in this order:
 | History | The history starts in `<month>`, so trend charts are shorter than 24 months. |
 | A missing source | `<Slides>` could not be built because your `<plain name>` is not in your Growth Brain. |
 | Channel total | The channels' new orders exceed your orders' new orders by `<n>`, so the Unknown row reads 0. |
+| Tracking change | You told us `<the tracking change>`, so comparisons across it may not be like for like. |
 
 On a run without a Growth Brain, the **Brain line** closes the Notes, once and in these words: "A
 Growth Brain adds every view in this review from one source: channels and campaigns, cohorts, LTV
@@ -554,7 +633,6 @@ A slide built here uses these only when its Source cannot fill it.
 
 | Id | Title | Data |
 |---|---|---|
-| `last-actions` | Last month's actions, each marked Done or Not done, with what its metric did | last month's review and the status of its actions |
 | `trading-kpi` | Revenue, orders, new orders, spend and margin against last month, last year and budget | your orders, ad spend and budget |
 | `trading-revenue` | Revenue from new and returning customers, month by month for 24 months | your orders by customer type |
 | `trading-customers` | The active customer base each month, with new, reactivated and lapsed customers | your customers' order history |
@@ -579,5 +657,5 @@ A slide built here uses these only when its Source cannot fill it.
 | `app-ltv-type` | LTV by the type of a customer's first order | your customers' order history by first-order type |
 | `app-line-items` | Units and revenue by product and variant for the month | your order line items |
 
-The `cover`, the dividers, `exec-summary`, `next-month` and `notes` are never Brain slots. A
+The `cover`, the dividers, `exec-summary`, `last-actions`, `next-month` and `notes` are never Brain slots. A
 Section whose slides are all Brain slots keeps its divider and its Recommendations slot.
