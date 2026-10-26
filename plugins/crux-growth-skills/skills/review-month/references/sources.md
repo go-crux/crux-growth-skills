@@ -27,15 +27,47 @@ the brains found when the message names none.
 
 ## The marts, by module
 
-| Module | Mart | What the Trading slides read from it |
+| Module | Mart | What the slides read from it |
 |---|---|---|
-| Orders | `<client>-orders` | revenue, orders, new and returning orders, customers (for the customer base), market, the margin rungs |
-| Channel reporting | `<client>-channel_reporting` | marketing spend |
+| Orders | `<client>-orders` | Trading: revenue, orders, new and returning orders, customers (for the customer base), market, the margin rungs. Acquisition and Retention & LTV: each customer's first order and its date, channel, category and type, subscription flag, revenue by order date |
+| Channel reporting | `<client>-channel_reporting` | marketing spend; visits; new customers by channel and by campaign; impressions and clicks where it carries them |
+| Ad platform performance | `<client>-meta_performance`, `<client>-google_ads_performance` | impressions and clicks by campaign where channel reporting lacks them; the platform's own mart, only for a platform the roster lists |
+| LTV retention | `<client>-ltv_retention` | cohort sizes, retention by month since first order and cumulative revenue per customer, where `list_tables` shows it carries them |
+| Order items | `<client>-order_items` | units and revenue by product and variant, for the line-item breakdown |
 
-The other Sections name the marts they read in their own steps, and the roster decides which exist.
+The roster decides which exist, and each step names only the marts its slides need.
 **A mart missing from the roster** makes every slide that reads it a Brain slot, and the Notes name
 what could not be built (`references/deck-layout.md`). One client's narrower warehouse narrows the
 deck and never breaks the run.
+
+### Acquisition and Retention & LTV
+
+One rule per figure. The columns come from `list_tables` for the mart named, one mart per call;
+only the reasons for a choice are kept here.
+
+| Figure | Read from | Rule |
+|---|---|---|
+| Visits (traffic) | `<client>-channel_reporting` | Sessions, because users cannot be summed across rows. The orders mart holds no visits |
+| New orders | `<client>-orders` | A new order is a customer's first ever order, so new orders equal new customers. One figure for the whole deck: the KPI table, the blended slide, the Channel mix Total row and paid vs organic all read it, so no two slides disagree on the month's new orders |
+| New-customer conversion | both marts | New orders from the orders mart ÷ visits from channel reporting, with the Notes saying so. Where `list_metrics` defines a new-customer conversion, use that |
+| Spend, CAC | channel reporting | Spend is read there, never from the orders mart. CAC is spend ÷ new orders, blended; where `list_metrics` defines CAC, use that definition and state it in the Notes |
+| New orders by channel | `<client>-orders` where `list_tables` shows a channel column on it, else channel reporting | The orders mart first, because the channel rows then add to the month's new orders by construction. Orders the mart leaves without a channel are the Unknown row. From channel reporting, the Unknown row is the Total row's new orders less the channels' sum; where that is below zero it reads 0 and the Notes carry the Channel total caveat |
+| Paid or organic | the channel grouping `list_tables` shows in channel reporting | A channel is paid where the grouping marks it paid, else where it carries spend in the Current period. State the paid channels in the Notes |
+| Campaigns | channel reporting, where `list_tables` shows a campaign column | New orders by campaign are the Source's own attributed new orders, never a platform's reported purchases (those are platform-reported and not comparable with CAC). Platform here is the platform column the mart carries. Impressions and clicks from channel reporting, else from the platform's mart joined on a campaign identifier both share; with no shared identifier they read "No data" |
+| Cohorts, retention, cumulative revenue per customer | `<client>-ltv_retention` where it carries cohort size, retention and cumulative revenue; else `<client>-orders` | Cohort is the customer's first-order calendar month. Compute from orders with the cohort month and months since it. Where both are available, use the cohort mart and tie its Current period cohort size to New orders |
+| 12-month LTV by channel, category or type | the cohort mart where it carries the grouping, else `<client>-orders` | The LTV window of `references/deck-layout.md`. Group by the first order's channel, category and type; where the mart has no such column, that slide is a Brain slot and the Notes name it |
+| Subscription share | `<client>-orders` | The orders' own subscription flag. No flag, or no subscription order in the Current period, drops the slide (conditional). No orders mart makes it a Brain slot |
+| Line items | `<client>-order_items` | Units and revenue by product and variant for the Current period and its Comparison periods |
+
+**Definitions.** The brain's `list_metrics` definitions win for CAC, LTV, retention and any other
+measure above, and the Notes state them. Where it holds none, the glossary's hold: CAC is all
+connected ad spend ÷ new customers, LTV is cumulative revenue per customer since the first order,
+and retention is the share of a cohort that ordered in a month. Revenue for LTV, line items and
+the cohort slides is on the basis of the KPI table.
+
+**Attribution.** The channel of a customer or a new order is the Source's own first-order
+attribution. Name it in the Notes in plain words, and leave an unattributed order in the Unknown
+row and the Unknown bar, never spread across the channels.
 
 ## Definitions and basis
 
