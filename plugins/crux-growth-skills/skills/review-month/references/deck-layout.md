@@ -59,12 +59,14 @@ Section's divider, with an Action title of its own.
 directly after its Section's divider, in the order the questions were given; its `data-section` is
 that Section's. A run with no Focus question has none. The Focus slide carries no Share toggle.
 
-"Built: here" means this file specifies the slide in full below, from a Growth Brain: on a Source
-that is not a Growth Brain, or where a mart the slide reads is missing from the roster, the slide
-is written as its Brain slot (**Brain slot wording** below). "Here, brain only" is a slide no
-other Source fills: it is a Brain slot on every run without a Growth Brain, whatever the connectors
-hold (ADR-0002). `last-actions` is built on every Source, since it reads the previous review and
-not a Growth Brain. The campaigns slide repeats once per connected ad platform.
+"Built: here" means this file specifies the slide in full below. On a Growth Brain it is built
+from the brain, and where a mart the slide reads is missing from the roster it is written as its
+Brain slot (**Brain slot wording** below). On the ad account and Shopify connectors or CSV exports
+it is built where **Slides without a Growth Brain** below says that Source fills it, and written as
+its Brain slot where it does not. "Here, brain only" is a slide no other Source fills: it is a
+Brain slot on every run without a Growth Brain, whatever the connectors hold (ADR-0002).
+`last-actions` is built on every Source, since it reads the previous review and not a Growth
+Brain. The campaigns slide repeats once per connected ad platform.
 
 ## Rules every slide follows
 
@@ -601,7 +603,9 @@ No Action title. Three headings, always present, in this order:
 
 1. **Sources**: what was read from where, in plain words ("Revenue, orders and customers: your
    orders. Marketing spend: your sales and ad spend by channel. Budget: your budget."), and the
-   Growth Brain's name when several were connected.
+   Growth Brain's name when several were connected. Without a Growth Brain, each connector or
+   file read and the figures it gave ("Orders and customers: your Shopify connector. Marketing
+   spend: your Google Ads export."), and the platforms marketing spend covers.
 2. **Definitions**: with a Growth Brain, one line saying the brain's own definitions are used, then
    the definition of each measure on the deck as that brain gives it (revenue and its basis, new
    customer, active, lapsed, reactivated, CAC, retention, LTV, the margin rung), and the channels
@@ -621,10 +625,57 @@ No Action title. Three headings, always present, in this order:
 | A missing source | `<Slides>` could not be built because your `<plain name>` is not in your Growth Brain. |
 | Channel total | The channels' new orders exceed your orders' new orders by `<n>`, so the Unknown row reads 0. |
 | Tracking change | You told us `<the tracking change>`, so comparisons across it may not be like for like. |
+| Spend platforms (no brain) | Marketing spend covers `<platforms>` only. |
+| A connector not read (no brain) | Your `<platform>` `<connector / account>` was not read: `<it refused the read / it could not be told to be your brand's / it reports in a different currency>`. |
+| Channel placement (no brain) | Channels are placed from the UTM and referrer data on your Shopify orders, so an order without them is in the Unknown row and a channel's CAC can read high. |
+| Customer IDs (no brain) | `<share>` of orders carry no customer ID, so each counts as a new customer of its own. |
+| Test orders in an export (no brain) | Your export does not flag test orders, so none are left out. |
 
-On a run without a Growth Brain, the **Brain line** closes the Notes, once and in these words: "A
+The caveat for returns takes "order" for order rows and "refund" for the sales over time report. On a
+run without a Growth Brain, the **Brain line** closes the Notes, once and in these words: "A
 Growth Brain adds every view in this review from one source: channels and campaigns, cohorts, LTV
-and margin. Get one at gocrux.io/contact." A run with a Growth Brain never carries it.
+and margin. Get one at gocrux.io/contact." It is the last line of the Notes, said nowhere else on
+the page (the Brain slots carry their own fixed line). A run with a Growth Brain never carries it.
+
+## Slides without a Growth Brain
+
+On the ad account and Shopify connectors or CSV exports, every slide of the slide list is still
+built, in the same order: a slide its Source can fill is drawn as specified above, and the rest are
+Brain slots. **Order rows** and **reports** are those of `references/sources.md`, Connectors and
+exports, which also sets how each figure is read. A slide that is built but lacks one of its
+figures shows "No data" in that cell or panel, and never a guess. No slide here carries budget
+columns or margin rows, since no such Source holds either.
+
+| Id | Filled without a brain by | Brain slot when |
+|---|---|---|
+| `trading-kpi` | order rows or the sales over time report; spend rows and MER from the ad platforms read | no orders Source |
+| `trading-revenue` | order rows by customer ID, else sales over time by customer type | no orders Source |
+| `trading-customers` | order rows with customer IDs and history | no customer IDs, or the 12-month history limit leaves no month |
+| `trading-markets` | order rows with a shipping country (conditional) | no order rows |
+| `trading-recs` | the Trading slides built | all Trading slides are Brain slots |
+| `acq-blended` | sessions over time for traffic and conversion; connected ad spend and new orders for CAC; each panel reads "No data" for what is not held | neither visits nor ad spend is held |
+| `acq-channels` | order rows with UTM or referrer, spend from the ad platforms read (spend and CAC read "No data" for a channel with none) | no order row carries UTM or referrer |
+| `acq-paid-organic` | the channel placement of `acq-channels` | `acq-channels` is a Brain slot |
+| `acq-campaigns` | one slide for each connected ad platform whose campaign report is held and whose campaigns match Shopify new orders on UTM campaign | no ad platform report is held, or no campaign matches an order |
+| `acq-ltv-channel` | order rows with customer IDs, history for the LTV window and UTM or referrer | any of the three is missing |
+| `acq-recs` | the Acquisition slides built | all Acquisition slides are Brain slots |
+| `ret-cohort` | order rows with customer IDs and history | no customer IDs, or too little history for a cohort |
+| `ret-ltv` | as `ret-cohort` | as `ret-cohort` |
+| `ret-subscriptions` | order rows with a subscription flag (conditional) | no order row carries a flag |
+| `ret-recs` | the Retention & LTV slides built | all Retention & LTV slides are Brain slots |
+| `aov-trend` | order rows by customer ID, else sales over time by customer type | no orders Source |
+| `aov-product` | order rows with a category, from the products file or connector | no order or no category |
+| `aov-discount` | order rows with a discount amount | no discount column |
+| `aov-codes` | order rows with a discount code (conditional) | discounts present, no code column |
+| `aov-recs` | the Order value & product slides built | all of them are Brain slots |
+| `app-ltv-category`, `app-ltv-type`, `app-line-items` | never | always |
+
+`last-actions` reads each action's metric from the deck's own measures for the two months, and
+"No data" where the Source cannot give it. Conditional slides follow the conditional rule above,
+and a Section keeps its divider and its Recommendations slot whatever its slides.
+
+The Brain slot of a slide the Source could not fill carries the fixed line below, whichever Source
+was tried; the Brain line, once, closes the Notes (see Notes above) and the chat names the count.
 
 ## Brain slot wording
 

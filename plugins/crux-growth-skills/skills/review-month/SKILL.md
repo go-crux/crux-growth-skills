@@ -30,44 +30,52 @@ the user in one line.
 
 ## 2. Connect
 
-Take each figure from the first of these Sources that holds it, starting at the one the intake
-settled:
+Check for a Growth Brain first, then take each figure from the first of these Sources that holds
+it, starting at the one the intake settled:
 
 1. **A Growth Brain**: a connector named `<Client> - Growth Brain` that offers `list_tables`,
    `list_metrics`, `search_examples` and `run_sql`; the one the intake settled where several are
    connected. Open `references/sources.md` and make the calls it sets out, once each: `list_tables`
-   with no arguments, `list_metrics` and `search_examples`.
-2. **Ad account and Shopify connectors**, then
-3. **CSV exports the user gives**: open `references/sources.md`, Connectors and exports.
+   with no arguments, `list_metrics` and `search_examples`. A run with a brain reads the brain alone.
+2. **Ad account and Shopify connectors** the session offers, then
+3. **CSV exports the user gives**: with no Growth Brain, open `references/sources.md`, Connectors
+   and exports, and run it: probe only the connectors the session offers, skip an account that
+   cannot be told to be the brand's, and ask for an export only for a figure no connector reads.
 
 Then settle the timezone and the currency once, as `references/sources.md` sets out, and resolve
 the Current period and its Comparison periods once, in the `periods` CTE there, from the month the
 intake settled.
 
 **Done when** the one Growth Brain chosen has its roster, its metric definitions and its examples in
-hand, or there is none; the timezone and the currency are set; and the Current period is a calendar
+hand, or there is none and each connector the session offers has had one probe read, with any that
+refused or could not be told to be the brand's named to the user (in the Notes on an Unattended
+run) and any export a figure needs asked for once or its figure marked "No data"; the timezone and
+the currency are set; and the Current period is a calendar
 month set as start and end dates, with the Comparison periods (last month, the same month last
 year) set from it.
 
 ## 3. Read
 
 Read the Trading, Acquisition, Retention & LTV and Order value & product Sections, and the three
-Appendix slides, in `run_sql` from the Source, with dates from `periods`. Compose every query from
-the columns `list_tables` returns, one mart per call, and take each figure's mart and basis from
-`references/sources.md`. For each slide `references/deck-layout.md` builds in full, read its
+Appendix slides, from the Source, with dates from `periods`. On a Growth Brain compose every query
+for `run_sql` from the columns `list_tables` returns, one mart per call, and take each figure's mart
+and basis from `references/sources.md`; without one, read the connectors and files as its
+Connectors and exports section sets out. For each slide `references/deck-layout.md` builds in full, read its
 figures: this month, last month, the same month last year, and a budget only where the Source holds
 one; the 24-month series for the trend charts, the 12 months or 12 cohorts the slide names; and the
-columns of a slide that states its own. Check each total against its own query: the month's
-revenue, orders and new orders against the orders mart for the month's days, and marketing spend
-against channel reporting. These slides are built on a Growth Brain: on any other Source the
-Acquisition, Retention & LTV, Order value & product and Appendix slides are Brain slots, and the
-Appendix is a Brain slot whatever the connectors hold. Last month's actions is built on every
+columns of a slide that states its own. Check each total against its own read: the month's
+revenue, orders and new orders against an unfiltered total of your orders for the month's days, and
+marketing spend against channel reporting (without a brain, against each ad platform's own total).
+On a Source that is not a Growth Brain, a slide is built where the Slides without a Growth Brain
+table in `references/deck-layout.md` says that Source fills it and is a Brain slot otherwise, and
+the Appendix is a Brain slot whatever the connectors and files hold. Last month's actions is built on every
 Source: read what each action's metric did, last month against this month, as
 `references/deck-layout.md` sets out. For each Focus question, read the figures its Focus slide
 needs, from its Section's own slides where they hold them.
 
 **Done when** every Trading, Acquisition, Retention & LTV and Order value & product slide and every
-Appendix slide has its figures or its Brain slot, a conditional slide (markets, subscriptions,
+Appendix slide has its figures or its Brain slot (without a Growth Brain, built where the table
+says its Source fills it and a Brain slot otherwise, the Appendix always a Brain slot), a conditional slide (markets, subscriptions,
 discount codes) being present only where the business has it; every action of the previous review
 has its metric's last month and this month figures or "No data"; every Focus question has its
 figures, or its Focus slide is a Brain slot; and:
@@ -121,7 +129,7 @@ month's actions after the Executive summary, using the skeleton with the brand's
 colours and font stack as `references/deck-layout.md` sets out.
 
 **Done when** the file holds every slide of the slide list in order (conditional slides only
-where the business has them) and one Focus slide for each Focus question, Last month's actions
+where the business has them), each one filled from the Source or a Brain slot, and one Focus slide for each Focus question, Last month's actions
 holds one row for each action of the previous review or its fixed line, the brand's values are the
 only change to the skeleton's CSS, every slide has the footer, each built chart marked for a Share
 toggle carries one and no other chart does, the Notes carry their three headings (and the Brain line,

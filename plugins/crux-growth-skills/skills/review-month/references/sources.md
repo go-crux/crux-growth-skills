@@ -147,5 +147,235 @@ say when that is.
 
 ## Connectors and exports
 
-A run without a Growth Brain builds the deck with every slide a Brain slot, closes the Notes with
-the Brain line, and says so in the chat.
+For a run whose Source is the ad account and Shopify connectors or CSV exports (no Growth Brain
+chosen at the intake). A deck never mixes a Growth Brain's figures with a connector's, since
+slides then stop tying to each other: a run with a brain reads the brain alone, and a run without
+one reads each figure below from the first Source that holds it. Everything below is restated here,
+because this skill reads nothing outside its own folder.
+
+### Source order per figure
+
+For each figure, the first of these that holds it:
+
+1. **A connector in the session** (Shopify, Google Ads, Meta Ads), read through its own reporting
+   tool for the columns named below.
+2. **A CSV export the user gives**, or one already in the conversation.
+
+A figure no connector reads and no file holds reads "No data", and a slide that cannot be built
+from what is held is a Brain slot (`references/deck-layout.md`, Slides without a Growth Brain). A
+figure keeps one Source across the Current period, its Comparison periods and the trend series, so
+the periods compare like for like.
+
+**Probe only what could be a Source.** A connector that lists an account can still refuse every
+read, so make one small read for each connector the session offers, and for no platform it does
+not: Shopify's orders on the Current period's first day, an ad platform's spend on that day, each
+through the tool the Read step will use (Google Ads through its query tool). An error or a refusal
+is a refusal; a read that returns zero is not.
+
+- **An account that cannot be told to be the brand's** (several accounts listed, none named in
+  the message, none the only one) is not read. An attended run asks whose it is, and probes it
+  if the answer is the brand's own; an Unattended run skips it.
+- **A connector that refuses, or an account skipped**, is named to the user with what it refused
+  (an Unattended run names it in the Notes, in the wording of the Caveats table), and is a Source
+  for no figure. An export can then fill its figures.
+- **An attended run with no connector for a figure the deck reads** asks which ad platforms the
+  brand spends on, and gives the user the steps below for the reports those figures need, once,
+  then waits. An Unattended run asks for no file: what the session holds is read and the rest is
+  "No data" or a Brain slot.
+
+### What each figure reads
+
+Customer-level rows are Shopify **order rows**: one row per order with the columns of the Orders
+export below, from a connector or the export. **Reports** are Shopify's sales over time and
+sessions over time, a coarser Source that fills only the first three rows.
+
+| Figure | Reads | Slides |
+|---|---|---|
+| Orders, revenue, average order value | order rows; else the sales over time report | `trading-kpi` |
+| New and returning orders and revenue | order rows by customer ID; else sales over time by customer type | `trading-kpi`, `trading-revenue`, `aov-trend` |
+| Visits | the sessions over time report, summed by month | `acq-blended` |
+| Marketing spend | every connected ad platform's spend by month, added together | `trading-kpi`, `acq-blended`, `acq-channels` |
+| Customers: new, active, reactivated, lapsed; cohorts; LTV | order rows with customer IDs and history | `trading-customers`, `ret-cohort`, `ret-ltv`, `acq-ltv-channel` |
+| New orders by channel and campaign | order rows with UTM or referrer, and the ad platforms' campaign reports | `acq-channels`, `acq-paid-organic`, `acq-campaigns`, `acq-ltv-channel` |
+| Market, category, discount, code, subscription | order rows | `trading-markets`, `aov-product`, `aov-discount`, `aov-codes`, `ret-subscriptions` |
+
+No Source here holds a budget or a margin: there are no budget columns and no margin rows.
+
+**Revenue** is Shopify net sales: after discounts and returns, before shipping and taxes where
+the Source separates them. From order rows it is the order's Subtotal less its Refunded Amount,
+booked on the order date; from sales over time it is Net sales, booked on the refund date. One
+basis serves the whole deck, the order rows' where they exist. The KPI table's label and the
+Notes name it, and the Returns caveat takes the matching word.
+
+### Definitions without a Growth Brain
+
+The glossary fixes the five measures, and the Notes state them as written there: **New customer**,
+**CAC**, **Active customer**, **Lapsed customer** and **LTV**, with the **Unknown row**. Applied to
+Shopify order rows:
+
+- **First order.** A customer's first order is their earliest order for that customer ID in the
+  Source. The earliest order held is the history's start. A customer first seen in the history's
+  first 12 months may have ordered earlier, so new customers, the customer base, cohorts and LTV
+  read "No data" for those 12 months, and the Notes' History line says when the history starts.
+  Ask the user for every order from the store's first, or at least the 36 months ending with the
+  Current period, which leaves the 24-month series and the LTV window whole.
+- **New orders** equal new customers: the orders that are their customer's first. An order with no
+  customer ID is its own new customer, and the Notes carry the Customer IDs caveat with the share.
+- **Active customer** at a month's end: ordered in the 12 months ending then. **Reactivated** and
+  the other customer-base terms follow `references/deck-layout.md`.
+- **Lapsed customer** in a month: the 12 months since their last order ended in that month.
+- **CAC** is all connected ad spend ÷ new customers (the New orders above), blended, in every period. With no ad spend read,
+  CAC reads "No data".
+- **Cancelled orders** (a cancelled-at date) are left out of every count.
+- **Test orders** are left out where the connector flags them. An export carries no such flag, and
+  the Notes carry the Test orders line for exports.
+
+**Cohorts.** Build the cohort retention table and cohort LTV on the rules of
+`references/deck-layout.md` (cohort, retention %, rolling average, cumulative revenue per customer),
+from order rows with customer IDs: a cohort is the customers whose first order fell in one calendar
+month; retention % at month *n* is the share of the cohort that ordered in the *n*th calendar month
+after it; cumulative revenue per customer sums the cohort's revenue to month *n* over its size. The
+Current period's cohort size equals New orders on `trading-kpi`. Order rows without customer IDs, or
+without enough history, make `ret-cohort`, `ret-ltv`, `trading-customers` and `acq-ltv-channel`
+Brain slots.
+
+### Channel mix
+
+A **channel** is placed from the UTM and referrer data on the Shopify orders (the UTM source,
+medium and campaign columns, else the landing site and referring site they come from), taking the
+first that places the order:
+
+| Channel | An order is placed here when |
+|---|---|
+| Google Ads | the UTM source is google and the medium is paid (cpc, ppc or paid) |
+| Meta Ads | the UTM source is facebook, instagram, fb, ig or meta and the medium is paid (paid, cpc, paid social) |
+| Email and SMS | the medium is email or sms |
+| Organic search | no paid UTM, and the referrer is a search engine or the medium is organic |
+| Organic social | no paid UTM, and the referrer or source is a social network |
+| Referral | any other referrer site |
+| Another UTM source | any other UTM source, named as the source, paid when its medium is paid |
+| **Unknown row** | no UTM and no referrer, or none of the above |
+
+An order that carries neither UTM nor referrer is Unknown, never Direct and never spread across the
+channels. A connected ad platform other than Google Ads or Meta Ads is its own row by the same
+rule, named as the platform.
+
+- **New orders by channel** are the new orders (first orders) placed on each channel.
+- **Spend by channel** is the connected platform's spend on its own row (Google Ads, Meta Ads, or the
+  platform named). A channel with no ad platform has no spend, so its spend and CAC read "No data".
+  A connected platform with spend always has a row, even with no placed new orders, so spend adds
+  up; its CAC then reads "No data".
+- **Channel CAC** = that channel's spend ÷ the new orders Shopify places on it. The Total row's
+  spend is all connected ad spend and its CAC the blended CAC.
+- **Platform-reported conversions never share that column.** An ad platform's own purchases and
+  conversion value are not read anywhere in this deck: they follow the platform's attribution, so
+  they are not comparable with a Shopify-placed new order.
+- **Paid or organic.** A channel is paid when it is a connected ad platform's row or its orders'
+  medium is paid; every other placed channel is organic, and the Unknown row stays its own group.
+  State the paid channels in the Notes.
+- **Campaigns.** A campaign's new orders are the Shopify new orders whose UTM campaign equals the
+  campaign's name or ID in the platform's report (trimmed, ignoring case). Only campaigns with at
+  least one placed new order are ranked; the "All `<platform>` campaigns" row carries the platform's
+  spend, impressions and clicks and its channel row's new orders.
+- **LTV by channel** groups customers by the channel of their first order, on the LTV window.
+
+### Timezone, currency and periods
+
+Timezone: the one the Source reports in (the Shopify store's), said in the Notes; where it states
+none, UTC, said in the Notes. Currency: the one the Shopify Source states, else the ad platform's;
+an ad platform that reports in another currency than the orders is not added to marketing spend and
+is named in the Notes. Where none states one, an attended run asks which and an Unattended run shows
+amounts with no symbol, and the Notes say so. Work out the dates by the rules of The periods above
+(the Current period, last month, the same month last year and the 24-month trend) and read every
+connector and file on them.
+
+### The reports to export
+
+Give the user only the steps for the files the run needs and does not already hold, and name what
+each file feeds. Match column headers loosely: labels vary by report version and language.
+
+**Shopify: Orders export.**
+
+1. In Shopify admin, open Orders, then Export.
+2. Choose all orders in the date range (every order up to the end of the Current period, or the 36
+   months ending with it), as a plain CSV file, and drop the file into this chat.
+
+Shopify exports one row per line item, with order-level columns filled on an order's first row:
+read each order's totals once.
+
+| Column | Feeds |
+|---|---|
+| Name (order number) | one row per order |
+| Created at | the order's date |
+| Cancelled at | cancelled orders left out |
+| Customer ID | new, active, lapsed customers, cohorts, LTV |
+| Subtotal, Refunded Amount | revenue |
+| Discount Code, Discount Amount | discounted orders, depth, codes |
+| Shipping Country | markets |
+| UTM source, UTM medium, UTM campaign (or Landing site and Referring site) | channel placement |
+| Tags (or a subscription column) | an order is a subscription order when it names a subscription |
+| Lineitem name, Lineitem sku | the order's category, with the Products export |
+| Currency | currency |
+
+**Shopify: Products export** (for the category): Products, Export, CSV, with Title, Type, Product
+Category and Variant SKU. A line's category is its product's Type, else its Product Category,
+joined on the SKU, else the product title the line's name begins with.
+
+**Shopify: sales over time and sessions over time** (when no order rows are held, and for visits):
+in Analytics, Reports, open "Sales over time", set the range to the 24 months ending with the
+Current period, group by month, add customer type (new or returning) and export as CSV. Open the
+sessions over time report for the same range and grouping and export it the same way.
+
+| Report | Column | Feeds |
+|---|---|---|
+| Sales over time | Month, Customer type, Orders, Gross sales, Discounts, Net sales | orders, revenue, new and returning |
+| Sessions over time | Month, Sessions | visits |
+
+**Google Ads: campaign report.** Open Campaigns, set the range to the 24 months ending with the
+Current period, segment by month (Segment, Time, Month), set the status filter to all campaigns
+(enabled, paused and removed), add Campaign ID where offered, and download as CSV.
+
+| Column | Feeds |
+|---|---|
+| Campaign (and Campaign ID), Month | the campaign level, the month |
+| Cost | spend |
+| Impressions (Impr.), Clicks | impressions, clicks |
+
+**Meta Ads: campaign report.** In Ads Manager, open the Campaigns tab, set the range to the 24
+months ending with the Current period, break down by time (Month), add Campaign ID where offered
+and export as CSV.
+
+| Column | Feeds |
+|---|---|
+| Campaign name (and Campaign ID), Month | the campaign level, the month |
+| Amount spent | spend |
+| Impressions, Link clicks | impressions, clicks |
+
+**Google Ads connector.** The summary and performance tools take relative ranges and show enabled
+campaigns only, so read through its query tool (Google Ads Query Language): filter on
+`segments.date` between the first day of the trend and the Current period's last day, segment by
+`segments.month`, put no filter on campaign status, and take every page of rows (following the
+next-page token until none) before any sum. Select `campaign.name`, `campaign.id`,
+`metrics.cost_micros` (divide by 1,000,000), `metrics.impressions` and `metrics.clicks`, with no
+conversion segment.
+
+### Reading a connector or an export
+
+- Read numbers as counts or amounts, ignoring thousands separators, in the currency the Source
+  reports.
+- A file with a date column holds the periods the deck reads: split its rows on the dates. A file
+  grouped by month is accepted where each period is a whole month; a file with no date column is
+  one period and its range is confirmed against the dates. Ask once for the re-export when the
+  dates do not match.
+- Add together rows that share a segment, leaving any total row out of the sums, and where a file
+  has a total row check that the segments sum to it.
+- Read ad platform files as given: platform conversion columns are left unread, and a figure the
+  file lacks reads "No data".
+
+### When a figure cannot be read
+
+A missing column, a report the user cannot export or a figure with no Source reads "No data", or
+its slide is a Brain slot (`references/deck-layout.md`). Name what is missing to the user with what
+it feeds ("Cohorts need a customer ID on your orders"), and ask for the re-export once; an
+Unattended run asks for none. The Appendix is a Brain slot on every run without a Growth Brain,
+whatever the connectors and files hold.
