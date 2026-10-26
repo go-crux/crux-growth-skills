@@ -311,9 +311,9 @@ checkout's release log), and says what to do on each answer. Ship never applies 
 action.
 
 **On an improvement** (the Success KPI moved in its good direction, `references/lever-trees.md`),
-phrase every action for an improvement: scale what drove it. A CAC that fell is an improvement. A
-check-first action is verify, then scale: the check that confirms what drove the improvement,
-then, on each answer, how to scale it or why to hold it. On a decline, every action fixes what
+phrase every action for an improvement: scale what drove it. A check-first action is verify,
+then scale: the check that confirms what drove the improvement, then, on each answer, how to
+scale it or why to hold it. On a decline, every action fixes what
 drove it.
 
 An Also large lever in step 5 gets one action line, check-first: the first segment or

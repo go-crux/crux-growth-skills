@@ -20,7 +20,7 @@ in every tree that holds it.
 | Revenue, New customers, CAC, MER / ROAS | `<client>-channel_reporting`, revenue included |
 | CM3, Returning revenue | `<client>-orders`, revenue order-dated (on the same rows as margin and counts in the CM3 tree) |
 | Platform ROAS | the platform's own mart or its connector or export |
-| Conversion rate | higher | `<client>-ecommerce_funnel` |
+| Conversion rate | `<client>-ecommerce_funnel` |
 
 A mart the roster lacks makes its tree's levers read "No data", never a count borrowed from
 another mart.
@@ -38,10 +38,9 @@ another mart.
 | Returning revenue | higher | active customers (V), repeat rate (E), order value (E) | returning revenue = active customers × (returning orders ÷ active customers) × (returning revenue ÷ returning orders) | active customers, returning orders, returning revenue |
 | Conversion rate | higher | engaged rate (E), add to basket (E), checkout start (E), purchase (E), with visits shown as V | conversion = (engaged ÷ visits) × (basket ÷ engaged) × (checkout ÷ basket) × (orders ÷ checkout) | visits, engaged visits, basket adds, checkout starts, orders |
 
-The good direction is whether higher or lower is better for the Success KPI: lower for CAC and
-any other cost per unit (cost per visit, CPM, cost per order), higher for the rest. It decides
-whether the change is an improvement or a decline, and how the page words each lever's
-Contribution and colours the waterfall; the roles of `SKILL.md` step 5 still follow the sign.
+The good direction is whether higher or lower is better for the Success KPI: lower for CAC, any
+other cost per unit (cost per visit, CPM, cost per order) and any rate of loss (return rate,
+refund rate, churn), higher for the rest. `SKILL.md` step 5 says what it decides.
 
 Each rebuild cancels to the Success KPI: in every row the inner denominators and numerators
 cancel in turn, leaving the count the KPI is made of.

@@ -24,7 +24,8 @@ writes it is attended and follows step 2. An unattended run asks the user nothin
 and follows these five rules:
 
 - Skip Intake's round and the Lever tree's confirmation, and still resolve the periods as step 2
-  sets out; the tree is shown on the page only.
+  sets out; the tree is shown on the page only. A KPI the lever tree catalogue does not hold takes
+  the good direction its rule gives, and the Notes say it was assumed.
 - With several Growth Brains, take the one the message names. If it names none, stop with one
   line in the chat naming the brains found, run no query and write no page; the first the
   session lists is never taken. With one, say in the Notes which it read.
@@ -125,7 +126,7 @@ for the answer:
    message names; else CM3 with a Growth Brain whose orders carry margin; else net sales (or
    revenue), because CM3 needs margin and only a Source carrying cost of goods gives it. For a
    KPI the catalogue of `references/lever-trees.md` does not hold, also ask whether higher or
-   lower is better, recommending the answer its rule gives.
+   lower is better, recommending the answer the rule under that catalogue gives.
 2. **Current period**: which period is being diagnosed? Recommend the last complete period of the
    kind the first message names (a quarter, a week, a year); else the last complete calendar month.
 3. **Comparison period**: what is it read against? Recommend the same period last year where the
@@ -179,8 +180,8 @@ to the same rule. Then:
   show each lever with its kind (volume or efficiency), how it is measured and its Source, and how
   the levers rebuild the Success KPI, and whether higher or lower is better for it. Say in one
   line any period resolved from "this month" or the like, with its dates, and any refusal of the
-  probe made after intake (a probe that read fine adds nothing). Ask whether to run it. Run no query until the
-  user says yes; an answer that changes a lever goes back through the tree rule.
+  probe made after intake (a probe that read fine adds nothing). Ask whether to run it. Run no
+  query until the user says yes; an answer that changes a lever goes back through the tree rule.
 - **Collect the exports**: for each lever whose Source is an export the conversation does not yet
   hold, give the user the steps for that report from `references/exports.md` and wait for the
   files. Ask for no export for a lever no Source can read.
@@ -280,9 +281,9 @@ Open `references/contribution.md` and compute every Contribution in `run_sql` (w
 Brain, in code, else by hand) from the two periods' lever values. Then name the roles, which are
 stated here and nowhere else. "In the direction of the change" means the sign of the lever's
 Contribution, not of the lever's own change: spend that rose lowers CM3, so it runs with a fall.
-Whether the change is an improvement or a decline follows the Success KPI's good direction (`references/lever-trees.md`), not the sign: a
-CAC that fell improved. The roles below follow the sign; the wording, the actions and the
-waterfall follow the good direction.
+Whether the change is an improvement or a decline follows the Success KPI's good direction
+(`references/lever-trees.md`), not the sign: a CAC that fell improved. The roles below follow the
+sign; the wording, the actions and the waterfall follow the good direction.
 
 - **Main driver**: the lever with the largest Contribution in the direction of the change. A
   second lever with at least half that Contribution is a Main driver too. Name at most two.
@@ -349,8 +350,8 @@ to "Not confirmed". An unattended run sets every Cause to "Not confirmed" and as
 
 Write 1 to 3 recommendations for each drilled Main driver, a zero-level one included, from
 `references/drill-down.md`, ranked by the KPI at stake. On an improvement, phrase every action
-for an improvement, as `references/drill-down.md` sets out. Each carries a hypothesis ("if we X, the
-KPI moves because Y"), the action, the metric to watch, and how to validate it: test, watch next
+for an improvement, as `references/drill-down.md` sets out. Each carries a hypothesis ("if we X,
+the KPI moves because Y"), the action, the metric to watch, and how to validate it: test, watch next
 period or ship. Under a Cause of "Not confirmed" every action is check-first. Each Also large
 lever, and each other lever step 5 gives an action line (a large Offset, or the largest lever when
 there is no Main driver), gets its one check-first action line, written here and nowhere else.
