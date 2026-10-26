@@ -97,10 +97,10 @@ metric to watch and how to validate it, ranked by revenue at stake, as `referenc
 sets out. Then write the Executive summary and Next month from every Section that holds cards, and
 each Action title last.
 
-**Done when** every Trading, Acquisition, Retention & LTV and Order value & product card
-carries a figure from its own Section's slides and an action, a metric to watch and Test, Watch
-next month or Ship; Next month holds the three cards with the most revenue at stake, or fewer where fewer exist; and every
-content slide has an Action title of one full sentence with a figure.
+**Done when** every Trading, Acquisition, Retention & LTV and Order value & product card carries a
+figure from its own Section's slides and an action, a metric to watch and Test, Watch next month or
+Ship; Next month holds the three cards with the most revenue at stake, or fewer where fewer exist;
+and every content slide has an Action title of one full sentence with a figure.
 
 ## 5. Write
 

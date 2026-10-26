@@ -46,7 +46,7 @@ Section's divider, with an Action title of its own.
 | `aov-divider` | Order value & product | divider | no | here |
 | `aov-trend` | AOV, new / returning / blended | three lines, 24 months | no | here |
 | `aov-product` | Product and category mix | table, and stacked columns of sales by category, 24 months | yes | here |
-| `aov-discount` | Discount impact | small multiples: discount rate line, discount depth columns, discounted vs full-price orders | yes | here |
+| `aov-discount` | Discount impact | small multiples: discount rate line, discount depth columns, discounted vs full-price orders | yes, on discounted vs full-price orders only | here |
 | `aov-codes` | Discount codes (conditional) | table | no | here |
 | `aov-recs` | Order value & product Recommendations | up to three cards | no | here |
 | `next-month` | Next month | top three cards across Sections | no | here |
@@ -60,7 +60,8 @@ that is not a Growth Brain, or where a mart the slide reads is missing from the 
 is written as its Brain slot (**Brain slot wording** below). "Here, brain only" is a slide no
 other Source fills: it is a Brain slot on every run without a Growth Brain, whatever the connectors
 hold (ADR-0002). "Brain slot" means the slide is written as its Brain slot until a build is
-specified for it (today only `last-actions`). The campaigns slide repeats once per connected ad platform.
+specified for it (today only `last-actions`). The campaigns slide repeats once per connected ad
+platform.
 
 ## Rules every slide follows
 
@@ -110,8 +111,8 @@ marketing spend row is always neutral, since spend rising is neither good nor ba
 figure is coloured by whether the move is good: a fall takes the up colour and a rise the down
 colour, with ▲ or ▼ still showing the direction. A slide that states its own columns below
 (Channel mix, Top campaigns, Cohort retention, Cohort LTV, the LTV slides, Subscription mix,
-Line items, Product and category mix, Discount codes) uses those: it holds too many measures for five columns each, or reads a cohort
-window rather than a month.
+Line items, Product and category mix, Discount codes) uses those: it holds too many measures for
+five columns each, or reads a cohort window rather than a month.
 
 **Trend charts.** Show 24 months ending with the Current period, or as far back as the Source
 goes (the Notes say when the history starts). The Current period's column or point is marked.
@@ -186,16 +187,16 @@ No title rule applies.
 
 **Dividers**: the Section's name large on a plain slide, with one line listing what the Section
 holds ("Revenue, customers and markets"; "Traffic, channels, campaigns and customer value" for
-Acquisition; "Cohorts, repeat buying and lifetime value" for Retention & LTV; "Order value, products and discounts" for Order value & product). No title rule
-applies.
+Acquisition; "Cohorts, repeat buying and lifetime value" for Retention & LTV; "Order value,
+products and discounts" for Order value & product). No title rule applies.
 
 **Executive summary**: three columns headed **Performance**, **Read** and **Actions**.
 - **Performance**: one line per Section that holds figures, in Section order, each with its
   headline figure and MoM and YoY change ("Trading: revenue £1.2m, +8% MoM, +14% YoY"). A Section
   whose slides are all Brain slots adds no line. The headline figure of Acquisition is new orders
   with blended CAC; of Retention & LTV, the retention at month 1 of the latest cohort to reach it
-  against the rolling average (a cohort figure carries no MoM or YoY change); of Order value & product,
-the blended average order value with the discount rate.
+  against the rolling average (a cohort figure carries no MoM or YoY change); of Order value &
+  product, the blended average order value with the discount rate.
 - **Read**: two to four sentences saying what moved and by how much, from the Performance
   figures. Where the cause is not known, it says so ("the cause is not yet known"), and never
   guesses one; a Month context replaces that sentence when the user gave one.
