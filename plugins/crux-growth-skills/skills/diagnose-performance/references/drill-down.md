@@ -74,7 +74,7 @@ segment is not weighed, because that segment carries all the change by default; 
 only when every dimension the step offers holds one segment, and then the one listed first is
 collapsed. A qualifying segment is one the volume floor leaves on its own row.
 
-**The descent rule.** Every cut-off is here, and none is named on the page.
+**The descent rule.** Every cut-off on the descent is here, and none is named on the page.
 
 - Go down a level into a segment that carries at least half its parent's change, in the direction
   of the change. Where several do (segments pulling the other way can leave more than one over

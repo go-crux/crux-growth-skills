@@ -111,7 +111,8 @@ The waterfall and the Levers table use these rounded figures.
 
 **A KPI at stake** (`references/drill-down.md`, Recommendations) shows the figure the page already
 shows for the same change. Where it equals a lever's whole Contribution (a driver with zero
-levels, or a segment that carries all of its lever's change), it shows that lever's row of the
+levels, a segment that carries all of its lever's change, or a figure capped at the lever at the
+first level), it shows that lever's row of the
 Levers table, so the two never differ by a rounding unit. Where it is capped at the
 Contribution of a segment it sits in, it shows that segment's own KPI at stake, so two
 recommendations capped at one segment show one figure. Any other KPI at stake rounds on its own,
