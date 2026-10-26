@@ -261,7 +261,7 @@ opens the tree `SKILL.md` step 3 asks the user to confirm, with each period as t
 | Cancelled orders, the Source says they are left out | Cancelled orders are left out, as <Source> records them. |
 | Cancelled orders, the Source says they are counted | Cancelled orders are counted, as <Source> records them. |
 | Cancelled orders, the Source does not say | <Source> does not say whether cancelled orders are counted, so orders are as it records them. |
-| Modelled re-attribution rows in the periods | <share> of <measure> in the Current period (<share> in the Comparison period) is modelled re-attribution, kept in the totals and shown in "Other" below channel. |
+| Modelled re-attribution rows in the periods | <share> of <measure> in the Current period (<share> in the Comparison period) is modelled re-attribution, kept in the totals; below channel it is its own row, or in "Other" where it is small. |
 | No modelled re-attribution rows in the periods | None of these figures is modelled re-attribution: every channel is as your data recorded it. |
 | A change of source between or inside the periods | <Measure> is recorded by <later source> from <date> and by <earlier source> before it, so part of the change in <levers> may be the change of source. |
 | A currency no Source states, confirmed by the user | <Source> does not say which currency it reports in; amounts are in <currency>, as you confirmed. |
