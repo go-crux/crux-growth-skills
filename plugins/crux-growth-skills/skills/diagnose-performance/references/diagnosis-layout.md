@@ -197,12 +197,17 @@ way. The lines above fix what to say; these fix how.
 | The funnel steps cannot be read, on a conversion lever | Not checked: your data holds no view of the steps between a visit and an order. |
 | Zero levels | Could not be sliced further: your data holds no finer view of this lever. |
 
-**Before the Lever tree**, in the chat only, ahead of the tree `SKILL.md` step 3 asks the user to
-confirm, with each period as the user named it:
+**The lead-ins**, in the chat only. The method lead-in opens the intake message `SKILL.md` step 2
+sends, before any question; it names no KPI or period, since the round may not have settled them,
+and ends on the line that fits the round. The tree lead-in opens the tree `SKILL.md` step 3 asks
+the user to confirm, with each period as the user named it, and repeats none of the method.
 
 | Where | Wording |
 |---|---|
-| Lead-in to the tree | Here's how I'll find what moved <Success KPI> from <Comparison period> to <Current period>, and what to do about it. <Success KPI> is made up of a few levers, so I'll first work out how much of the change each one caused, which shows where to look. Then I'll dig into the one or two that drove it most to find where they moved, ask what you think caused it, and write it up as a page with what to do next. The levers I'll use are below, for you to check before I run anything. |
+| Method lead-in | Here's how I'll find what moved your KPI between two periods, and what to do about it. A KPI is made up of a few levers (revenue, for one, is visits × conversion × order value), so I'll first work out how much of the change each lever caused, which shows where to look. Then I'll dig into the one or two that drove it most to find where they moved, ask what you think caused it, and write it up as a page with what to do next. |
+| Method lead-in, closing line, with questions to ask | First, a few questions, each with my recommendation. |
+| Method lead-in, closing line, with nothing to ask | Here's what I took from your message. |
+| Tree lead-in | Here are the levers I'll use for <Success KPI>, from <Comparison period> to <Current period>, for you to check before I run anything. |
 
 **A stopped run**, in the chat only:
 

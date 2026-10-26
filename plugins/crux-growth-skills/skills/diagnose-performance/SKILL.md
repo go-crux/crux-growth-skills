@@ -114,8 +114,10 @@ known) and the currency are set.
 
 ## 2. Intake
 
-An unattended run skips the round below. An attended run builds it on what the first message
-already says: a question the message answers, in a name relative to today as much as in dates, is
+An unattended run skips the round below. An attended run opens the intake message with the
+method lead-in in `references/diagnosis-layout.md`, as given, ahead of every question and of the
+Sources step 1 names, so the user knows what the run does before it asks anything. It builds the
+round on what the first message already says: a question the message answers, in a name relative to today as much as in dates, is
 stated as settled, with what was understood, and not asked. When the message answers all four
 (the Success KPI, both periods and where the data comes from) and step 1 left no account whose
 ownership is to be asked, nothing is left to ask: the round is skipped, the intake message states
@@ -157,7 +159,8 @@ periods differ in length, say so in the Notes.
 
 **Done when** the Success KPI, both periods as start and end dates, and where the data comes from
 are set, whether by the user's answers, a complete first message or an unattended run's first
-message, and every account whose ownership was asked is probed or left unread on the answer.
+message, and every account whose ownership was asked is probed or left unread on the answer;
+an attended run's intake message opened with the method lead-in, as given.
 
 ## 3. Lever tree and Sources
 
@@ -176,8 +179,8 @@ to the same rule. Then:
 - **Read the columns first**: with a Growth Brain, call `list_tables` naming each mart the tree
   needs that step 1 has not read, one mart per call (discovery, no query), so each lever's "how it
   is measured" comes from the columns and each mart's timezone from its date descriptions.
-- **Confirm the tree**: open with the lead-in in `references/diagnosis-layout.md`, as given. Then
-  show each lever with its kind (volume or efficiency), how it is measured and its Source, and how
+- **Confirm the tree**: open with the tree lead-in in `references/diagnosis-layout.md`, as
+  given. Then show each lever with its kind (volume or efficiency), how it is measured and its Source, and how
   the levers rebuild the Success KPI, and whether higher or lower is better for it. Say in one
   line any period resolved from "this month" or the like, with its dates, and any refusal of the
   probe made after intake (a probe that read fine adds nothing). Ask whether to run it. Run no
@@ -190,7 +193,7 @@ An unattended run asks nothing and goes straight to Read.
 
 **Done when** the columns of each mart the tree needs were read before the user was asked to
 confirm (an unattended run reads them in step 4); the tree confirmation opened with the layout's
-lead-in, as given (an unattended run gives none); the user has confirmed (an unattended run: the
+tree lead-in, as given (an unattended run gives none); the user has confirmed (an unattended run: the
 skill has derived) a Lever tree of 3 to 5 levers (fewer only where `references/lever-trees.md` allows) with at least one volume and one efficiency,
 whose arithmetic rebuilds the Success KPI exactly; every lever has one named Source across both
 periods, or "No data" with its line; every export asked for is in hand or its lever reads "No
