@@ -11,9 +11,9 @@ the Current period and the Comparison period, as one HTML page with the seven he
 and the page, never this skill or its references: say what the data showed, in plain words with
 its figure, and never cite a file, a rule, a threshold or a cut-off. Every line the page needs has
 its approved plain wording in `references/diagnosis-layout.md`; use it as written. The terms
-Success KPI, Current period, Comparison period, Lever, Lever tree, Source, Contribution, Main
-driver, Also large, Offset, Drill-down, Cause, Recommendation, Check-first, Brain line and
-Performance diagnosis are those of `references/glossary.md`; use them as written.
+Success KPI, Current period, Comparison period, Good direction, Lever, Lever tree, Source,
+Contribution, Main driver, Also large, Offset, Drill-down, Cause, Recommendation, Check-first,
+Brain line and Performance diagnosis are those of `references/glossary.md`; use them as written.
 
 ## Unattended run
 
@@ -123,7 +123,9 @@ for the answer:
 
 1. **Success KPI**: what figure are you judging performance on? Recommend the KPI the first
    message names; else CM3 with a Growth Brain whose orders carry margin; else net sales (or
-   revenue), because CM3 needs margin and only a Source carrying cost of goods gives it.
+   revenue), because CM3 needs margin and only a Source carrying cost of goods gives it. For a
+   KPI the catalogue of `references/lever-trees.md` does not hold, also ask whether higher or
+   lower is better, recommending the answer its rule gives.
 2. **Current period**: which period is being diagnosed? Recommend the last complete period of the
    kind the first message names (a quarter, a week, a year); else the last complete calendar month.
 3. **Comparison period**: what is it read against? Recommend the same period last year where the
@@ -175,9 +177,9 @@ to the same rule. Then:
   is measured" comes from the columns and each mart's timezone from its date descriptions.
 - **Confirm the tree**: open with the lead-in in `references/diagnosis-layout.md`, as given. Then
   show each lever with its kind (volume or efficiency), how it is measured and its Source, and how
-  the levers rebuild the Success KPI. Say in one line any period resolved
-  from "this month" or the like, with its dates, and any refusal of the probe made after intake
-  (a probe that read fine adds nothing). Ask whether to run it. Run no query until the
+  the levers rebuild the Success KPI, and whether higher or lower is better for it. Say in one
+  line any period resolved from "this month" or the like, with its dates, and any refusal of the
+  probe made after intake (a probe that read fine adds nothing). Ask whether to run it. Run no query until the
   user says yes; an answer that changes a lever goes back through the tree rule.
 - **Collect the exports**: for each lever whose Source is an export the conversation does not yet
   hold, give the user the steps for that report from `references/exports.md` and wait for the
@@ -278,6 +280,9 @@ Open `references/contribution.md` and compute every Contribution in `run_sql` (w
 Brain, in code, else by hand) from the two periods' lever values. Then name the roles, which are
 stated here and nowhere else. "In the direction of the change" means the sign of the lever's
 Contribution, not of the lever's own change: spend that rose lowers CM3, so it runs with a fall.
+Whether the change is an improvement or a decline follows the Success KPI's good direction (`references/lever-trees.md`), not the sign: a
+CAC that fell improved. The roles below follow the sign; the wording, the actions and the
+waterfall follow the good direction.
 
 - **Main driver**: the lever with the largest Contribution in the direction of the change. A
   second lever with at least half that Contribution is a Main driver too. Name at most two.
@@ -343,8 +348,8 @@ to "Not confirmed". An unattended run sets every Cause to "Not confirmed" and as
 ## 8. Recommend
 
 Write 1 to 3 recommendations for each drilled Main driver, a zero-level one included, from
-`references/drill-down.md`, ranked by the KPI at stake. On a rise, phrase every action for a
-rise, as `references/drill-down.md` sets out. Each carries a hypothesis ("if we X, the
+`references/drill-down.md`, ranked by the KPI at stake. On an improvement, phrase every action
+for an improvement, as `references/drill-down.md` sets out. Each carries a hypothesis ("if we X, the
 KPI moves because Y"), the action, the metric to watch, and how to validate it: test, watch next
 period or ship. Under a Cause of "Not confirmed" every action is check-first. Each Also large
 lever, and each other lever step 5 gives an action line (a large Offset, or the largest lever when

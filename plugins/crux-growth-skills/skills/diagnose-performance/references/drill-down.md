@@ -255,8 +255,10 @@ that fit the lever:
 | margin % | a discount or price change; a supplier cost change; a change in the product mix sold |
 | platform levers | a creative, audience or bidding change; a platform delivery change; for order value, a price or promotion change |
 
-The table words each cause for a fall. On a rise, offer the same cause in its rising form: a
-budget raised, a campaign launched, a flow switched on, a promotion started, a fault fixed.
+The table words each cause for a lever that fell. Where the lever rose, offer the same cause in
+its rising form: a budget raised, a campaign launched, a flow switched on, a promotion started, a
+fault fixed. The lever's own movement sets the form, not the Success KPI's: on a CAC tree,
+conversion that rose takes the rising form though CAC fell.
 
 "Don't know" sets that driver's Cause to "Not confirmed". Any other answer is the Cause, in
 the user's words.
@@ -308,12 +310,14 @@ confirm the cause (the promotion calendar for these dates, the campaign's change
 checkout's release log), and says what to do on each answer. Ship never applies to a check-first
 action.
 
-**On a rise**, phrase every action for a rise: scale what drove it. A check-first action is
-verify, then scale: the check that confirms what
-drove the rise, then, on each answer, how to scale it or why to hold it.
+**On an improvement** (the Success KPI moved in its good direction, `references/lever-trees.md`),
+phrase every action for an improvement: scale what drove it. A CAC that fell is an improvement. A
+check-first action is verify, then scale: the check that confirms what drove the improvement,
+then, on each answer, how to scale it or why to hold it. On a decline, every action fixes what
+drove it.
 
 An Also large lever in step 5 gets one action line, check-first: the first segment or
 level to open and what to look for. An Offset that `SKILL.md` step 5 gives an action line, or the
 lever it gives that line when there is no Main driver, gets the same line, phrased for that
-lever's own direction, not the Success KPI's: verify, then fix a fall or scale a rise. Every
-other Offset gets no action.
+lever's own Contribution, not the Success KPI's change: verify, then scale a lever that improved
+the Success KPI or fix one that worsened it. Every other Offset gets no action.
