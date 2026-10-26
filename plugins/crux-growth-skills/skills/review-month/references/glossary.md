@@ -1,0 +1,54 @@
+# Glossary
+
+The terms `SKILL.md` and the other references use, each with one meaning. The deck follows the
+growth equation: trading, then acquisition, retention and LTV, then order value and product.
+
+## The deck
+
+- **Monthly performance review**: the skill's output, one self-contained HTML deck of 16:9 slides, `monthly-performance-review-YYYY-MM.html`, in a fixed section order where every slide is always built. _Avoid_: wrap-up, monthly report, deck (alone).
+
+- **Section**: one of the deck's four analytical parts (Trading, Acquisition, Retention & LTV, Order value & product), each opened by a divider and closed by its Recommendations slide. _Avoid_: chapter, part.
+
+- **Action title**: the heading on every content slide, the slide's takeaway as a full sentence with at least one figure, at most two lines. Never the topic ("CAC trend"). _Avoid_: headline, slide title, McKinsey title.
+
+- **Brain slot**: a slide the Sources could not fill. It keeps its action title, saying what it would show, and its body is one fixed line naming the data it needs and that a Growth Brain provides it (gocrux.io/contact). The appendix slides are always Brain slots without a brain. _Avoid_: placeholder, empty slide, upsell slide.
+
+- **Brain line**: the one fixed line closing the Notes on a run without a Growth Brain, saying what a brain adds and pointing at gocrux.io/contact. Said once, unlike a Brain slot. _Avoid_: upsell, plug, disclaimer.
+
+- **Share toggle**: the per-chart switch between absolute values and % of total, absolute by default, on charts whose series add up to a whole (revenue new vs returning, paid vs organic, product category mix, discounted vs full-price orders), never on a rate. _Avoid_: percentage view, mix toggle.
+
+## Periods and sources
+
+- **Current period**: the month reviewed, the last complete calendar month unless the user names another. _Avoid_: this month, focus month.
+
+- **Comparison period**: what the current period is read against: last month (MoM), the same month last year (YoY), and the budget where one exists. _Avoid_: baseline, prior period.
+
+- **Source**: where a figure is read from, the first of: a Growth Brain, the ad account and Shopify connectors, CSV exports the user gives. _Avoid_: data source, feed, input.
+
+## Intake and actions
+
+- **Month context**: what the user says happened in the month (a promotion, a launch, a stockout, a tracking change), written into the slides' read in place of guessed causes. _Avoid_: notes, commentary.
+
+- **Focus question**: one of up to two things the user asks the review to pull out; each gets one extra slide at the top of its section and leads the Executive summary. _Avoid_: priority, theme.
+
+- **Recommendation**: one action on a section's evidence, as a card: title, evidence figure and action, with the metric to watch and how to validate it in its footer. Up to three per section. _Avoid_: suggestion, next step, insight.
+
+- **Next month**: the slide holding the top three recommendations across sections, ranked by revenue at stake; next month's review checks them. _Avoid_: forward focus, priorities.
+
+- **Last month's actions**: the slide after the Executive summary listing the previous review's Next month actions, each Done, Not done (with the user's reason) or Not updated, with what its metric did. _Avoid_: action tracker, follow-up.
+
+## Measures without a brain
+
+With a Growth Brain, its own metric definitions win. Without one, these hold, and the Notes state them.
+
+- **New customer**: a customer whose first order ever falls in the month, by Shopify customer ID. _Avoid_: first-time buyer, acquired customer.
+
+- **CAC**: all ad spend from the connected platforms divided by new customers, blended. _Avoid_: CPA, cost per acquisition.
+
+- **Active customer**: a customer who ordered in the last 12 months. _Avoid_: live customer, current customer.
+
+- **Lapsed customer**: a customer who passed 12 months since their last order during the month. _Avoid_: churned customer, inactive.
+
+- **LTV**: cumulative revenue per customer since their first order. _Avoid_: lifetime value (spelled out on a slide only), CLV.
+
+- **Unknown row**: the channel-mix row holding new orders Shopify's UTM and referrer data cannot place, shown, never spread across channels. _Avoid_: unattributed, direct, other.
