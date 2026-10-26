@@ -192,7 +192,7 @@ alone says which levers get a line.
 | Where | Wording |
 |---|---|
 | An Also large lever | Check first: open <lever> by <dimension> and look for <likely cause>. If it is there, <fix or scale> it; if not, <lever> needs no action this period. |
-| An Offset larger than every Main driver | <Lever> moved <Success KPI> by <figure>, against the change and by more than any Main driver. Check first: open <lever> by <dimension> and look for <likely cause>. If it is there, <fix or scale> it; if not, <lever> needs no action this period. |
+| An Offset that step 5 gives an action line | <Lever> moved <Success KPI> by <figure>, against the change and by more than any Main driver. Check first: open <lever> by <dimension> and look for <likely cause>. If it is there, <fix or scale> it; if not, <lever> needs no action this period. |
 | The largest lever, under "None: there is no Main driver to act on." | <Lever> moved <Success KPI> by <figure>, the most of any lever. Check first: open <lever> by <dimension> and look for <likely cause>. If it is there, <fix or scale> it; if not, <lever> needs no action this period. |
 
 **The Drill-down's closing line**, one per driver, by the reason it stopped:
