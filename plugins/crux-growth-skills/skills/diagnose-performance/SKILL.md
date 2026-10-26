@@ -285,7 +285,10 @@ Contribution, not of the lever's own change: spend that rose lowers CM3, so it r
   largest Contribution. It is named with its figure in the Levers table and gets one action line
   under Recommendations (step 8); it is not drilled.
 - **Offset**: a lever whose Contribution runs against the change is named with its figure and
-  never drilled.
+  never drilled. An Offset whose Contribution is larger in size than the largest Main driver's
+  (a KPI that barely moved because a large rise and a large fall cancelled) also gets one action
+  line under Recommendations (step 8); with no Main driver, the one lever with the largest
+  Contribution in size gets that line instead. Every other Offset gets no action line.
 - **No role**: a lever in the direction of the change under half the largest Contribution, a
   lever that reads "No data", and the "Not split" row. It is listed in the Levers table without a line, except a cost pair
   that takes no role (below).
@@ -344,11 +347,12 @@ Write 1 to 3 recommendations for each drilled Main driver, a zero-level one incl
 rise, as `references/drill-down.md` sets out. Each carries a hypothesis ("if we X, the
 KPI moves because Y"), the action, the metric to watch, and how to validate it: test, watch next
 period or ship. Under a Cause of "Not confirmed" every action is check-first. Each Also large
-lever gets its one check-first action line, written here and nowhere else.
+lever, and each Offset step 5 gives an action line, gets its one check-first action line, written
+here and nowhere else.
 
 **Done when** every drilled Main driver has 1 to 3 recommendations, each with hypothesis, action,
 metric to watch and test, watch or ship; every action under a "Not confirmed" Cause is
-check-first; and every Also large lever has its action line.
+check-first; and every Also large lever and every Offset step 5 gives an action line has that line.
 
 ## 9. Write
 
