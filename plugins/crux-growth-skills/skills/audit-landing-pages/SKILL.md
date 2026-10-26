@@ -1,6 +1,6 @@
 ---
 name: audit-landing-pages
-description: Landing page audit. Use when someone asks to improve or audit a landing page (they give its URL), which landing pages are underperforming, or what to test on a page.
+description: Landing page audit. Use when the user asks to improve or audit a landing page (with its URL), which landing pages are underperforming, or what to test on a page.
 ---
 
 # Landing page audit
