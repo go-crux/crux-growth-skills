@@ -37,9 +37,13 @@ There is no code, no package manager and no test suite. A skill is prose an agen
 claude plugin validate .                              # the marketplace manifest
 claude plugin validate plugins/crux-growth-skills     # the plugin; run both after any manifest edit
 claude --plugin-dir ~/code/crux/growth-skills/plugins/crux-growth-skills   # a session with this checkout's plugin loaded, for a dry run
+(cd plugins/crux-growth-skills && zip -qr ~/Downloads/crux-growth-skills-<branch>-$(git rev-parse --short HEAD).zip . -x '*.DS_Store')   # the plugin zip Matt tests in Claude Desktop
 ```
 
-A dry run needs a Growth Brain connector (`<Client> - Growth Brain`) in that session, so it runs
+**The default test of a new skill is Matt's, in Claude Desktop.** On the integration branch,
+synced to its remote, zip the plugin folder (above) into `~/Downloads` and hand him the path. He
+turns off the installed `crux-growth-skills`, uploads the zip (Customize → Plugins → Add → Upload
+plugin), tests, then deletes the zip and turns the installed plugin back on. A dry run needs a Growth Brain connector (`<Client> - Growth Brain`) in that session, so it runs
 from Matt's own Claude, never from a cold run. Method in
 [`docs/skill-authoring.md`](docs/skill-authoring.md#testing-a-skill).
 
