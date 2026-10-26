@@ -190,6 +190,13 @@ way. The lines above fix what to say; these fix how.
 | The funnel steps cannot be read, on a conversion lever | Not checked: your data holds no view of the steps between a visit and an order. |
 | Zero levels | Could not be sliced further: your data holds no finer view of this lever. |
 
+**Before the Lever tree**, in the chat only, ahead of the tree `SKILL.md` step 3 asks the user to
+confirm, with each period as the user named it:
+
+| Where | Wording |
+|---|---|
+| Lead-in to the tree | Here's how I'll find what moved <Success KPI> from <Comparison period> to <Current period>, and what to do about it. <Success KPI> is made up of a few levers, so I'll first work out how much of the change each one caused, which shows where to look. Then I'll dig into the one or two that drove it most to find where they moved, ask what you think caused it, and write it up as a page with what to do next. The levers I'll use are below, for you to check before I run anything. |
+
 **A stopped run**, in the chat only:
 
 | Reason | Wording |
