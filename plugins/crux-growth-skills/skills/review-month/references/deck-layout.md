@@ -612,7 +612,7 @@ No Action title. Three headings, always present, in this order:
 | Caveat | Wording |
 |---|---|
 | Days | Days are read in `<timezone>`. |
-| Currency | Amounts are in `<currency>`. |
+| Currency | Amounts are in `<currency>`. Where no Source states one: Amounts are in the currency your orders are recorded in. |
 | Test orders | Test orders are left out. |
 | Cancelled orders | Cancelled orders are `<left out / counted / not stated>`, as your orders record them. |
 | Returns | Returns are booked on the `<order / refund>` date, so the latest months' revenue can still change as returns arrive. |
