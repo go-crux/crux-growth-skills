@@ -242,7 +242,7 @@ stopped with its one line and no page.
   whether its descriptions say it includes them, excludes them or say nothing.
 - **Modelled or adjustment rows.** Where a mart marks modelled re-attribution or adjustment
   rows, keep them in totals so segments add up, give their coverage in the Notes (zero
-  included), and expect them in "Other" below channel.
+  included), and expect them as their own row below channel, or in "Other" where they are small.
 - **A change of source.** Where the brain's descriptions name a change of source for visits or
   channel attribution (for example the GA4 raw event stream replacing an earlier feed) and its
   date falls inside either period or between them, read both periods as the brain gives them and
