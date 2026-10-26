@@ -29,11 +29,11 @@ the brains found when the message names none.
 
 | Module | Mart | What the slides read from it |
 |---|---|---|
-| Orders | `<client>-orders` | Trading: revenue, orders, new and returning orders, customers (for the customer base), market, the margin rungs. Acquisition and Retention & LTV: each customer's first order and its date, channel, category and type, subscription flag, revenue by order date |
+| Orders | `<client>-orders` | Trading: revenue, orders, new and returning orders, customers (for the customer base), market, the margin rungs. Acquisition and Retention & LTV: each customer's first order and its date, channel, category and type, subscription flag, revenue by order date. Order value & product: AOV by customer type, order category, discount, discount code |
 | Channel reporting | `<client>-channel_reporting` | marketing spend; visits; new customers by channel and by campaign; impressions and clicks where it carries them |
 | Ad platform performance | `<client>-meta_performance`, `<client>-google_ads_performance` | impressions and clicks by campaign where channel reporting lacks them; the platform's own mart, only for a platform the roster lists |
 | LTV retention | `<client>-ltv_retention` | cohort sizes, retention by month since first order and cumulative revenue per customer, where `list_tables` shows it carries them |
-| Order items | `<client>-order_items` | units and revenue by product and variant, for the line-item breakdown |
+| Order items | `<client>-order_items` | units and revenue by product and variant, for the line-item breakdown; a product category per line, for the order's category only where the orders mart holds none |
 
 The roster decides which exist, and each step names only the marts its slides need.
 **A mart missing from the roster** makes every slide that reads it a Brain slot, and the Notes name
@@ -68,6 +68,20 @@ the cohort slides is on the basis of the KPI table.
 **Attribution.** The channel of a customer or a new order is the Source's own first-order
 attribution. Name it in the Notes in plain words, and leave an order with no channel in the Unknown
 row and the Unknown bar, never spread across the channels.
+
+### Order value & product
+
+One rule per figure, on the same terms as above: columns from `list_tables` for the mart named, one
+mart per call, only the reasons kept.
+
+| Figure | Read from | Rule |
+|---|---|---|
+| AOV, blended, new, returning | `<client>-orders` | Revenue ÷ orders, with new and returning from the orders' customer-type flag. The basis is that of the KPI table, so the blended AOV equals the KPI table's and no two slides disagree. Where `list_metrics` defines AOV, its definition wins and the Notes state it |
+| Order category | `<client>-orders` where `list_tables` shows a category column on it, else `<client>-order_items` | A category is read on the order so each order sits in one category and the rows add to the month's totals. From the order items, the category of the order's highest-revenue line. A product's category is never counted per line, since an order with two categories would count twice. Neither mart holds a category: the slide is a Brain slot and the Notes name it |
+| Category sales and the 24-month mix | `<client>-orders` | Revenue by category on the KPI table's basis, each month classified by the Current period's categories, so the monthly series add to revenue and compare like for like |
+| Discounted orders, discount given, value before discount | `<client>-orders` where `list_tables` shows a discount column on it | A discounted order is one whose discount is above zero. Value before discount is the mart's own pre-discount column where it has one, else the order's revenue plus its discount, both on the same VAT basis. No discount column: `aov-discount` is a Brain slot and the Notes name it |
+| Discount rate, discount depth | `<client>-orders` | The glossary's definitions, over the figures above. Where `list_metrics` defines either, its definition wins and the Notes state it |
+| Discount codes | `<client>-orders` where `list_tables` shows a discount code column on it | The order's own code, trimmed and upper-cased so one code is one row. No order in the Current period carries a code: the slide is dropped (conditional). Discounts present but no code column: a Brain slot, and the Notes name it |
 
 ## Definitions and basis
 
