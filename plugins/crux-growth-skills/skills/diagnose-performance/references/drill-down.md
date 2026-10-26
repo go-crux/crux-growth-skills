@@ -316,8 +316,16 @@ then scale: the check that confirms what drove the improvement, then, on each an
 scale it or why to hold it. On a decline, every action fixes what
 drove it.
 
-An Also large lever in step 5 gets one action line, check-first: the first segment or
-level to open and what to look for. An Offset that `SKILL.md` step 5 gives an action line, or the
-lever it gives that line when there is no Main driver, gets the same line, phrased for that
-lever's own Contribution, not the Success KPI's change: verify, then scale a lever that improved
-the Success KPI or fix one that worsened it. Every other Offset gets no action.
+An Also large lever in step 5 gets one action line, check-first: the first level to open and what
+to look for. An Offset that `SKILL.md` step 5 gives an action line, or the lever it gives that
+line when there is no Main driver, gets the same line, phrased for that lever's own Contribution,
+not the Success KPI's change: verify, then scale a lever that improved the Success KPI or fix one
+that worsened it. Every other Offset gets no action.
+
+Each line is worded from the rows under "The action lines" in `references/diagnosis-layout.md`.
+Fill them so:
+
+- **<dimension>**: the first dimension of the lever's path (Paths above).
+- **<likely cause>**: the first cause listed for the lever in the Cause question's table, in its
+  falling or rising form as the lever's own movement sets it.
+- **<fix or scale>**: "scale" where the lever improved the Success KPI, "fix" where it worsened it.

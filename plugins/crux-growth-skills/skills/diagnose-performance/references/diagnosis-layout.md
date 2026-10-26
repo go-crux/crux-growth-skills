@@ -106,9 +106,10 @@ many levers read "No data".
    first level, in the wording **Plain wording** gives),
    the **Metric to watch**, and **How to validate** (Test, Watch next period or
    Ship). Then, for each lever that is Also large or an Offset `SKILL.md` step 5 gives an
-   action line, its one check-first action line under its own name: the only place that action
-   is written. With no Main driver, the heading reads "None: there is no Main driver to act on.",
-   followed by the one action line step 5 then gives.
+   action line, its one check-first action line under its own name, in the wording **Plain
+   wording** gives: the only place that action is written. With no Main driver, the heading
+   reads "None: there is no Main driver to act on.", followed by the one action line step 5 then
+   gives, in the same wording.
 7. **Notes**: every caveat in one place, and no caveat anywhere else. Include, where they apply:
    - the basis: the revenue measure, the margin rung and whether the figure is CM3 or "CM1 less
      marketing", that flagged test orders are left out, and, with a Growth Brain, the timezone each
@@ -183,6 +184,16 @@ way. The lines above fix what to say; these fix how.
 | Waterfall legend, the bad colour | Worsened <Success KPI> |
 | Recommendations, KPI at stake capped at the lever's Contribution (first level) | <figure>, all of <lever>'s change: <segment> moved it by <figure> on its own, and other <dimension, plural> pulled the other way. |
 | Recommendations, KPI at stake capped at the Contribution of the segment it sits in (second or third level) | <figure>, all of <parent segment>'s change in <lever>: <segment> moved it by <figure> on its own, and other <dimension, plural> pulled the other way. |
+
+**The action lines**, under Recommendations, one for each lever `SKILL.md` step 5 gives one. Fill
+the angle brackets as `references/drill-down.md` sets out; the rows give the wording, and step 5
+alone says which levers get a line.
+
+| Where | Wording |
+|---|---|
+| An Also large lever | Check first: open <lever> by <dimension> and look for <likely cause>. If it is there, <fix or scale> it; if not, <lever> needs no action this period. |
+| An Offset larger than every Main driver | <Lever> moved <Success KPI> by <figure>, against the change and by more than any Main driver. Check first: open <lever> by <dimension> and look for <likely cause>. If it is there, <fix or scale> it; if not, <lever> needs no action this period. |
+| The largest lever, under "None: there is no Main driver to act on." | <Lever> moved <Success KPI> by <figure>, the most of any lever. Check first: open <lever> by <dimension> and look for <likely cause>. If it is there, <fix or scale> it; if not, <lever> needs no action this period. |
 
 **The Drill-down's closing line**, one per driver, by the reason it stopped:
 
