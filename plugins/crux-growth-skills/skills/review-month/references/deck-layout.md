@@ -241,7 +241,7 @@ of revenue, while the US grew 22% to £180k").
 
 ### Trading Recommendations (`trading-recs`)
 
-Up to three Recommendation cards drawn from the three Trading slides above, ranked by revenue at
+Up to three Recommendation cards drawn from the Trading slides above, ranked by revenue at
 stake. Action title: the count and the combined revenue at stake with the lead action ("Three
 actions are worth about £90k a month, led by recovering new-customer orders").
 
