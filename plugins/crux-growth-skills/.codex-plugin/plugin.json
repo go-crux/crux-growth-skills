@@ -1,7 +1,7 @@
 {
   "name": "crux-growth-skills",
-  "version": "0.4.1",
-  "description": "Growth skills for ecommerce brands by gocrux.io, best with a Crux Growth Brain connected. Plan Black Friday on your own data, audit your landing pages, and diagnose why a KPI moved between two periods.",
+  "version": "0.5.0",
+  "description": "Growth skills for ecommerce brands by gocrux.io, best with a Crux Growth Brain connected. Plan Black Friday on your own data, audit your landing pages, diagnose why a KPI moved between two periods, and review last month.",
   "author": {
     "name": "Crux",
     "email": "matt@gocrux.io",
@@ -22,8 +22,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Crux",
-    "shortDescription": "Crux Black Friday planning, landing page audits and performance diagnosis",
-    "longDescription": "Plan Black Friday on your own data: read last year, test your November and December targets against it, and agree a plan with day-by-day targets you can download. Audit a landing page from its URL, or find your weakest pages, with prioritised fixes and a test backlog. Diagnose why a KPI moved between two periods, split into its levers, with the main driver found and what to do about it.",
+    "shortDescription": "Crux Black Friday planning, landing page audits, performance diagnosis and monthly reviews",
+    "longDescription": "Plan Black Friday on your own data: read last year, test your November and December targets against it, and agree a plan with day-by-day targets you can download. Audit a landing page from its URL, or find your weakest pages, with prioritised fixes and a test backlog. Diagnose why a KPI moved between two periods, split into its levers, with the main driver found and what to do about it. Review last month in a deck across trading, acquisition, retention and LTV, and order value and product, with recommendations.",
     "developerName": "Crux",
     "category": "Productivity",
     "capabilities": [
@@ -34,7 +34,8 @@
     "defaultPrompt": [
       "Help me plan Black Friday.",
       "Which of my landing pages are underperforming?",
-      "Why did my revenue drop last month?"
+      "Why did my revenue drop last month?",
+      "How did last month go? Write my monthly review."
     ]
   }
 }
