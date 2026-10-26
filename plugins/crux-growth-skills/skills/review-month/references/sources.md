@@ -66,7 +66,7 @@ and retention is the share of a cohort that ordered in a month. Revenue for LTV,
 the cohort slides is on the basis of the KPI table.
 
 **Attribution.** The channel of a customer or a new order is the Source's own first-order
-attribution. Name it in the Notes in plain words, and leave an unattributed order in the Unknown
+attribution. Name it in the Notes in plain words, and leave an order with no channel in the Unknown
 row and the Unknown bar, never spread across the channels.
 
 ## Definitions and basis

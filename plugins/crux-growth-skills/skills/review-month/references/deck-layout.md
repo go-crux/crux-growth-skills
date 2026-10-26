@@ -303,7 +303,7 @@ to 100% and labels each group's percentage. On the right, a 12-month line of the
 line is a rate: it sits outside the toggle's chart and reads in percent whichever view is shown.
 Beside them, a small table of paid, organic and Unknown new orders and the paid share, with the
 comparison columns. Action title: the paid share and how it moved ("Paid channels brought 58% of
-new orders, a share 12% above last month's, with 7% unattributed").
+new orders, a share 12% above last month's, with 7% from no known channel").
 
 ### Top campaigns (`acq-campaigns`)
 
