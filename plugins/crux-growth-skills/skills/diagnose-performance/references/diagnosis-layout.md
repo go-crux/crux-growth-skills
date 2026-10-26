@@ -56,9 +56,12 @@ many levers read "No data".
    **Waterfall**: an inline SVG from the Comparison period's Success KPI to the Current period's.
    The first and last bars are the two Success KPI values, each from zero. Between them,
    one floating bar per lever in tree order (and "Not split" last, grey, if present), each
-   starting where the running total stands and ending at it plus the lever's Contribution. Use
-   one colour for an increase, another for a decrease, a neutral one for the two totals, and
-   label every bar with its name and figure. Extend the scale to include any negative running
+   starting where the running total stands and ending at it plus the lever's Contribution. The
+   colours mean good and bad, not up and down: one colour for a lever that improved the Success
+   KPI, another for one that worsened it, by the KPI's good direction (`references/lever-trees.md`),
+   so on a CAC page a bar that lowers CAC takes the good colour. A neutral colour for the two
+   totals. A legend names the two colours in the wording **Plain wording** gives, and every bar
+   is labelled with its name and figure. Extend the scale to include any negative running
    total. Give the SVG a `title` stating the change in a sentence.
 4. **Drivers**: one block per drilled Main driver, headed by its lever and its Contribution.
    - One sentence of evidence with its figures. Where the driver's change straddles a change of
@@ -131,6 +134,8 @@ many levers read "No data".
    - cohorts too young for the horizon, counted in the "Other" row of their level;
    - an unattended run, which Growth Brain it read where several were connected, and any period
      resolved from "this month" or the like to the last complete one, with its dates;
+   - an unattended run on a KPI the lever tree catalogue does not hold, the good direction it
+     assumed, in the wording **Plain wording** gives;
    - a partial split: which levers read "No data" and why, and that the rest of the change is
      shown as "Not split", including a lever whose export the user chose not to give;
    - a run without a Growth Brain: which connectors and files were read, that each lever reads
@@ -174,6 +179,8 @@ way. The lines above fix what to say; these fix how.
 | Under a Drill-down table, a ratio segment whose rate moved one way and Contribution the other | <Segment>'s <lever> <rose or fell>, yet it <lowered or raised> <lever> overall: it carried a <smaller or larger> share of your <volume> than before. |
 | Drivers block, after the evidence sentence, where the driver's change straddles a change of source | Part of this change may come from the change in how <measure> is recorded on <date>, not from the business. |
 | Drivers block, after the evidence sentence, on a Platform ROAS page where the campaign carrying the change is one whose own rate did not move in the direction of the change | Spend moved <towards or away from> <campaign>, which returns <more or less> per unit of spend than your other campaigns, so <KPI> <rose or fell> without a matching change in any campaign's own <ROAS>. |
+| Waterfall legend, the good colour | Improved <Success KPI> |
+| Waterfall legend, the bad colour | Worsened <Success KPI> |
 | Recommendations, KPI at stake capped at the lever's Contribution (first level) | <figure>, all of <lever>'s change: <segment> moved it by <figure> on its own, and other <dimension, plural> pulled the other way. |
 | Recommendations, KPI at stake capped at the Contribution of the segment it sits in (second or third level) | <figure>, all of <parent segment>'s change in <lever>: <segment> moved it by <figure> on its own, and other <dimension, plural> pulled the other way. |
 
@@ -190,12 +197,18 @@ way. The lines above fix what to say; these fix how.
 | The funnel steps cannot be read, on a conversion lever | Not checked: your data holds no view of the steps between a visit and an order. |
 | Zero levels | Could not be sliced further: your data holds no finer view of this lever. |
 
-**Before the Lever tree**, in the chat only, ahead of the tree `SKILL.md` step 3 asks the user to
-confirm, with each period as the user named it:
+**The lead-ins**, in the chat only. The method lead-in opens the intake message `SKILL.md` step 2
+sends, in the order that step gives; it names no KPI or period, since the round may not have
+settled them, and its closing line is the one that fits the round: any question left to ask, a
+currency or an account's owner included, takes the line with questions to ask. The tree lead-in
+opens the tree `SKILL.md` step 3 asks the user to confirm, with each period as the user named it.
 
 | Where | Wording |
 |---|---|
-| Lead-in to the tree | Here's how I'll find what moved <Success KPI> from <Comparison period> to <Current period>, and what to do about it. <Success KPI> is made up of a few levers, so I'll first work out how much of the change each one caused, which shows where to look. Then I'll dig into the one or two that drove it most to find where they moved, ask what you think caused it, and write it up as a page with what to do next. The levers I'll use are below, for you to check before I run anything. |
+| Method lead-in | Here's how I'll find what moved your KPI between two periods, and what to do about it. A KPI is made up of a few levers (revenue, for one, is visits × conversion × order value), so I'll first work out how much of the change each lever caused, which shows where to look. Then I'll dig into the one or two that drove it most to find where they moved, ask what you think caused it, and write it up as a page with what to do next. |
+| Method lead-in, closing line, with questions to ask | First, a few questions, each with my recommendation. |
+| Method lead-in, closing line, with nothing to ask | Here's what I took from your message. |
+| Tree lead-in | Here are the levers I'll use for <Success KPI>, from <Comparison period> to <Current period>, for you to check before I run anything. |
 
 **A stopped run**, in the chat only:
 
@@ -242,6 +255,7 @@ confirm, with each period as the user named it:
 | A change of source between or inside the periods | <Measure> is recorded by <later source> from <date> and by <earlier source> before it, so part of the change in <levers> may be the change of source. |
 | A currency no Source states, confirmed by the user | <Source> does not say which currency it reports in; amounts are in <currency>, as you confirmed. |
 | A currency no Source states, on an unattended run | <Source> does not say which currency it reports in, so amounts are shown without a symbol. |
+| The good direction assumed, on an unattended run on a KPI the catalogue does not hold | <Higher or Lower> <Success KPI> is read as better, which was assumed rather than asked. |
 | Connectors in the session not read, on a Growth Brain run | <Connectors> were connected but not read: your Growth Brain holds what they would have given. |
 | A partial split | <Levers> could not be read (<reason>), so <figure> of the change is shown as "Not split". |
 | An export the user chose not to give | You chose not to give <report name>, so <levers> read "No data". |

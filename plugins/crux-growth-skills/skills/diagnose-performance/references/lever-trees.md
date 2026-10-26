@@ -27,16 +27,20 @@ another mart.
 
 ## Catalogue
 
-| Success KPI | Levers | Rebuild | Counts shown on the page |
-|---|---|---|---|
-| CM3 | new customers (V), returning orders (V), order value (E), margin % (E), marketing spend (V) | CM3 = (new + returning) × order value × margin % − spend | new customers, returning orders, orders, revenue, order margin, spend |
-| Revenue | visits (V), conversion (E), order value (E) | revenue = visits × (orders ÷ visits) × (revenue ÷ orders) | visits, orders, revenue |
-| New customers | visits (V), new visitor share (E), new-customer conversion (E) | new customers = visits × (new visitors ÷ visits) × (new customers ÷ new visitors) | visits, new visitors, new customers |
-| CAC | spend (V), visits (V), new-customer conversion (E) | CAC = spend ÷ (visits × (new customers ÷ visits)) | spend, visits, new customers |
-| MER / ROAS | visits (V), spend (V), conversion (E), order value (E) | ROAS = visits × (orders ÷ visits) × (revenue ÷ orders) ÷ spend | visits, orders, revenue, spend |
-| Platform ROAS (one ad account) | spend (V), impressions (V), click-through (E), platform conversion (E), order value (E) | ROAS = impressions × (clicks ÷ impressions) × (purchases ÷ clicks) × (conversion value ÷ purchases) ÷ spend | spend (cost), impressions, clicks, purchases, conversion value |
-| Returning revenue | active customers (V), repeat rate (E), order value (E) | returning revenue = active customers × (returning orders ÷ active customers) × (returning revenue ÷ returning orders) | active customers, returning orders, returning revenue |
-| Conversion rate | engaged rate (E), add to basket (E), checkout start (E), purchase (E), with visits shown as V | conversion = (engaged ÷ visits) × (basket ÷ engaged) × (checkout ÷ basket) × (orders ÷ checkout) | visits, engaged visits, basket adds, checkout starts, orders |
+| Success KPI | Good direction | Levers | Rebuild | Counts shown on the page |
+|---|---|---|---|---|
+| CM3 | higher | new customers (V), returning orders (V), order value (E), margin % (E), marketing spend (V) | CM3 = (new + returning) × order value × margin % − spend | new customers, returning orders, orders, revenue, order margin, spend |
+| Revenue | higher | visits (V), conversion (E), order value (E) | revenue = visits × (orders ÷ visits) × (revenue ÷ orders) | visits, orders, revenue |
+| New customers | higher | visits (V), new visitor share (E), new-customer conversion (E) | new customers = visits × (new visitors ÷ visits) × (new customers ÷ new visitors) | visits, new visitors, new customers |
+| CAC | lower | spend (V), visits (V), new-customer conversion (E) | CAC = spend ÷ (visits × (new customers ÷ visits)) | spend, visits, new customers |
+| MER / ROAS | higher | visits (V), spend (V), conversion (E), order value (E) | ROAS = visits × (orders ÷ visits) × (revenue ÷ orders) ÷ spend | visits, orders, revenue, spend |
+| Platform ROAS (one ad account) | higher | spend (V), impressions (V), click-through (E), platform conversion (E), order value (E) | ROAS = impressions × (clicks ÷ impressions) × (purchases ÷ clicks) × (conversion value ÷ purchases) ÷ spend | spend (cost), impressions, clicks, purchases, conversion value |
+| Returning revenue | higher | active customers (V), repeat rate (E), order value (E) | returning revenue = active customers × (returning orders ÷ active customers) × (returning revenue ÷ returning orders) | active customers, returning orders, returning revenue |
+| Conversion rate | higher | engaged rate (E), add to basket (E), checkout start (E), purchase (E), with visits shown as V | conversion = (engaged ÷ visits) × (basket ÷ engaged) × (checkout ÷ basket) × (orders ÷ checkout) | visits, engaged visits, basket adds, checkout starts, orders |
+
+The good direction is whether higher or lower is better for the Success KPI: lower for CAC, any
+other cost per unit (cost per visit, CPM, cost per order) and any rate of loss (return rate,
+refund rate, churn), higher for the rest. `SKILL.md` step 5 says what it decides.
 
 Each rebuild cancels to the Success KPI: in every row the inner denominators and numerators
 cancel in turn, leaving the count the KPI is made of.
@@ -102,6 +106,9 @@ Derive a tree to the same rule:
 3. Make at least one lever a count or an amount (V) and at least one a ratio (E).
 4. Write the rebuild arithmetic as the catalogue does, and check it cancels to the KPI.
 5. List every count and amount the levers' ratios divide, as the catalogue's last column does, for the page's table of counts.
+6. Set the good direction by the rule under the catalogue. An attended run asks it at intake
+   (`SKILL.md` step 2), recommending that answer; an unattended run takes that answer, and the
+   Notes say it was assumed.
 
 A KPI that is a sum (CM3 is one) keeps each term whole when it is a lever and splits a term that
 is itself a product.

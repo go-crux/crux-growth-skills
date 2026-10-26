@@ -11,6 +11,8 @@ analysis framework: split the change into levers, find the main driver, drill in
 
 - **Period timezone**: the one timezone that settles today's date when a period is named relative to today ("last month"); it may be the store's own with no name, or not known. Each Source is still read in its own timezone. _Avoid_: store timezone, reporting timezone.
 
+- **Good direction**: whether higher or lower is better for the Success KPI, stated for each tree in the lever tree catalogue and set by the rule under it. A change in the good direction is an **improvement**, one against it a **decline**; a lever whose Contribution runs in the good direction **improved** the Success KPI, one against it **worsened** it. _Avoid_: positive, negative, a rise, a fall (for the KPI's change as good or bad news).
+
 - **Lever**: one term of the lever tree, either a volume (visits, new customers, spend) or an efficiency (conversion, order value, margin %). _Avoid_: pillar, factor, component, driver.
 
 - **Lever tree**: the 3 to 5 levers that rebuild the Success KPI exactly, at least one volume and one efficiency, taken from the catalogue or derived to the same rule, and confirmed by the user before any query. _Avoid_: metric tree, KPI tree, decomposition.
