@@ -18,7 +18,7 @@ in every tree that holds it.
 | Tree | Counts from |
 |---|---|
 | Revenue, New customers, CAC, MER / ROAS | `<client>-channel_reporting`, revenue included |
-| CM3, Returning revenue | `<client>-orders`, revenue order-dated (on the same rows as margin in the CM3 tree) |
+| CM3, Returning revenue | `<client>-orders`, revenue order-dated (on the same rows as margin and counts in the CM3 tree) |
 | Platform ROAS | the platform's own mart or its connector or export |
 | Conversion rate | `<client>-ecommerce_funnel` |
 
@@ -51,12 +51,27 @@ tree sets for it. A count two levers share is listed once. The page's precision 
 - **CM3.** Orders = new customers + returning orders, where a new customer is an order from a
   customer with no earlier order and returning orders are the rest. Order value = revenue ÷
   orders. Margin % = order margin ÷ revenue, with order margin on the rung the Basis rule in
-  `SKILL.md` names. Order value and margin % read revenue from the orders mart, order-dated,
-  on the same rows as margin (`SKILL.md` Basis). Then orders × order value × margin % = order
-  margin, and CM3 = order margin − spend. Where the rung is not CM2, the figure and the page say
-  "CM1 less marketing" in place of CM3.
+  `SKILL.md` names. Order counts, revenue and margin all read from the orders mart, order-dated,
+  on the same rows (`SKILL.md` Basis, Uncosted orders). Then orders × order value × margin % =
+  order margin, and CM3 = order margin − spend. Where the rung is not CM2, the figure and the page
+  say "CM1 less marketing" in place of CM3.
+- **The CM3 check.** The rebuild and a total read from the lever queries' own sums both reduce
+  to order margin and spend, so they tie by construction. The independent read is a CM3 column
+  the orders mart carries itself, summed over the same rows and period, on the same cost lines
+  (its descriptions say which); the 0.01% tie is made against that, and a gap sends the run back
+  to its queries. Where the mart carries no such column, where its cost lines differ, or where
+  the figure is "CM1 less marketing", the CM3 check is arithmetic only: it shows the levers add
+  up, and the Notes say so, in the wording `references/diagnosis-layout.md` gives.
 - **Revenue** is total sales as `SKILL.md` Basis sets it out, named with its basis on the page.
   From Shopify sales over time it is net sales, named as such.
+- **Revenue without visits.** Where no Source holds visits (no mart, connector or file in hand,
+  and the user cannot or will not export sessions) and one Source holds both orders and revenue,
+  the tree is orders (V) and order value (E): revenue = orders × (revenue ÷ orders). That is the
+  fewer-than-three case, because two levers rebuild revenue exactly. The tree confirmation says
+  in one line that visits had no Source, so conversion is not shown (an unattended run says it in
+  the Notes). Both counts come from that one Source, in place of the Revenue row of the table
+  above, and the page's counts are orders and revenue. A user who declines the sessions export
+  after confirming sends the tree back through this rule, to be confirmed again.
 - **CAC and MER / ROAS.** Cost per visit is spend ÷ visits, so cost per visit is spend and visits
   read together: the tree lists spend and visits as separate levers because a tree holding cost
   per visit and spend cannot rebuild the KPI (spend cancels out of it). Say "cost per visit" in

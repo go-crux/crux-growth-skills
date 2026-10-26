@@ -4,7 +4,7 @@ The Performance diagnosis is one self-contained HTML file, written to the workin
 `performance-diagnosis-<kpi>-<period>.html`. It is a single page with inline CSS and no script
 that fetches anything: the page makes no network request (no web font, no library, no image by
 URL). Crux house style: British English, no em dashes, outcome before mechanism, relative
-percentage changes (2.0% to 1.8% is "−10%"). Money carries the currency the Source's figures are
+percentage changes (2.0% to 1.8% is "−10%"), and every relative change and share column shown to the precision `references/contribution.md` sets under Rounding. Money carries the currency the Source's figures are
 in, with its own symbol, never an assumed one.
 
 The reader may arrive cold, with no idea how the page was made. Speak of "your data", never of a
@@ -50,8 +50,8 @@ many levers read "No data".
    "Offset (CPM)". Add a "Not split" row where a lever reads "No data", and a total row that adds
    exactly to the Success KPI's change. Under the table, one line for each Offset and each Also
    large lever, with its figure, and the line for a cost pair that takes no role, in the wording
-   **Plain wording** gives; the action for an Also large lever is written once, under
-   Recommendations. Then the waterfall.
+   **Plain wording** gives; the action for an Also large lever, or an Offset `SKILL.md` step 5
+   gives an action line, is written once, under Recommendations. Then the waterfall.
 
    **Waterfall**: an inline SVG from the Comparison period's Success KPI to the Current period's.
    The first and last bars are the two Success KPI values, each from zero. Between them,
@@ -62,7 +62,8 @@ many levers read "No data".
    total. Give the SVG a `title` stating the change in a sentence.
 4. **Drivers**: one block per drilled Main driver, headed by its lever and its Contribution.
    - One sentence of evidence with its figures. Where the driver's change straddles a change of
-     source, the line **Plain wording** gives follows it.
+     source, or on a Platform ROAS page the campaign level shows spend moving between
+     campaigns, the line **Plain wording** gives for each follows it.
    - For a conversion or new-customer conversion lever, the stage table first (session →
      engaged, engaged → checkout, in both periods), and a line naming a suspected site-wide
      fault where no channel carries half the change.
@@ -77,9 +78,10 @@ many levers read "No data".
      the two period columns, the denominator as the volume, and the Contribution in the Success
      KPI's unit. A new or stopped segment reads "New" or "Stopped" in its empty period's cell.
      For the discount level of order value, show the discount rate and the discount depth in both
-     periods under the table. Under a table, where they apply, the line naming the other
-     dimensions read at that level, and the line for a segment whose rate moved one way while its
-     Contribution ran the other, in the wording **Plain wording** gives.
+     periods under the table, or under the collapse line where the level has no table. Under a
+     table, where they apply, the line naming the other dimensions read at that level, and the
+     line for a segment whose rate moved one way while its Contribution ran the other, in the
+     wording **Plain wording** gives.
    - One closing line saying where the Drill-down stopped and why, in the wording **Plain
      wording** gives for that reason.
 
@@ -97,16 +99,23 @@ many levers read "No data".
    **Hypothesis** ("if we X, the KPI moves because Y"), the **Action** (opening with the check
    where the Cause is "Not confirmed"), the **KPI at stake** (the change in the Success KPI that
    the segment carries, in its unit; for a driver with zero levels, the lever's whole
-   Contribution; capped at the lever's Contribution, in the wording **Plain wording** gives),
+   Contribution; capped at the Contribution of the segment it sits in, or of the lever at the
+   first level, in the wording **Plain wording** gives),
    the **Metric to watch**, and **How to validate** (Test, Watch next period or
-   Ship). Then, if any lever is Also large, its one check-first action line under its own
-   name: the only place that action is written. With no Main driver, the heading reads "None:
-   there is no Main driver to act on."
+   Ship). Then, for each lever that is Also large or an Offset `SKILL.md` step 5 gives an
+   action line, its one check-first action line under its own name: the only place that action
+   is written. With no Main driver, the heading reads "None: there is no Main driver to act on.",
+   followed by the one action line step 5 then gives.
 7. **Notes**: every caveat in one place, and no caveat anywhere else. Include, where they apply:
    - the basis: the revenue measure, the margin rung and whether the figure is CM3 or "CM1 less
-     marketing", that flagged test orders are left out, and, with a Growth Brain, the timezone the
-     periods were read in, in the wording **Plain wording** gives, with each caveat the Basis
-     rule in `SKILL.md` asks the Notes to carry;
+     marketing", that flagged test orders are left out, and, with a Growth Brain, the timezone each
+     Source was read in (one line when they match, else one naming each), in the wording
+     **Plain wording** gives, with each caveat the Basis rule in `SKILL.md` asks the Notes to
+     carry;
+   - on a margin tree, the share of revenue from orders not fully costed (and that margin,
+     revenue and order counts leave them out, where the mart flags them), that margin % may
+     differ from the brain's published rate, and, for CM3, that the check is arithmetic only
+     where it is, these three in the wording **Plain wording** gives;
    - the periods' lengths when they differ in days, and that volumes then differ with them;
    - a change of source between the periods (such as the GA4 raw event stream replacing an
      earlier feed) and which levers move with it, so the reader does not mistake the change of
@@ -125,10 +134,11 @@ many levers read "No data".
    - a partial split: which levers read "No data" and why, and that the rest of the change is
      shown as "Not split", including a lever whose export the user chose not to give;
    - a run without a Growth Brain: which connectors and files were read, that each lever reads
-     one Source across both periods, and the timezone the Source reports in, in the wording
-     **Plain wording** gives;
-   - a connector that refused a read, and where its levers were read from instead, in the
-     wording **Plain wording** gives;
+     one Source across both periods, and the timezone each Source reports in (one line when they
+     match, else one naming each), in the wording **Plain wording** gives;
+   - a connector that refused a read, and where its levers were read from instead; or, when it
+     refused the first read or its account list did not load, that no lever was taken from it,
+     in the wording **Plain wording** gives;
    - a connector account that could not be told to be the brand's, skipped on an unattended run,
      in the wording **Plain wording** gives;
    - marketing spend covering only the platforms read, on a run without a Growth Brain whose tree
@@ -163,7 +173,9 @@ way. The lines above fix what to say; these fix how.
 | Under a Drill-down table, the other dimensions read at that level | Also read at this level: <dimensions>. <Chosen dimension> shows most of the change in one place. |
 | Under a Drill-down table, a ratio segment whose rate moved one way and Contribution the other | <Segment>'s <lever> <rose or fell>, yet it <lowered or raised> <lever> overall: it carried a <smaller or larger> share of your <volume> than before. |
 | Drivers block, after the evidence sentence, where the driver's change straddles a change of source | Part of this change may come from the change in how <measure> is recorded on <date>, not from the business. |
-| Recommendations, KPI at stake capped at the lever's Contribution | <figure>, all of <lever>'s change: <segment> moved it by <figure> on its own, and other <dimension, plural> pulled the other way. |
+| Drivers block, after the evidence sentence, on a Platform ROAS page where the campaign carrying the change is one whose own rate did not move in the direction of the change | Spend moved <towards or away from> <campaign>, which returns <more or less> per unit of spend than your other campaigns, so <KPI> <rose or fell> without a matching change in any campaign's own <ROAS>. |
+| Recommendations, KPI at stake capped at the lever's Contribution (first level) | <figure>, all of <lever>'s change: <segment> moved it by <figure> on its own, and other <dimension, plural> pulled the other way. |
+| Recommendations, KPI at stake capped at the Contribution of the segment it sits in (second or third level) | <figure>, all of <parent segment>'s change in <lever>: <segment> moved it by <figure> on its own, and other <dimension, plural> pulled the other way. |
 
 **The Drill-down's closing line**, one per driver, by the reason it stopped:
 
@@ -173,9 +185,17 @@ way. The lines above fix what to say; these fix how.
 | Three levels read | This is as far as the diagnosis goes: <segment> is specific enough to act on. |
 | The Source holds no finer dimension | This is as fine as your data goes: <Source> has no view by <next dimension>. |
 | A level's parent holds one segment (a line in place of that level's table) | All of <parent> sits in one <dimension>, <segment>, so there is nothing to split. |
+| A yes/no level (discounted or full price) whose smaller segment joined "Other" (a line in place of that level's table) | Nearly all of <parent> sits in one <dimension>, <segment>; the rest is too small to read on its own. |
 | Channels do not carry the change, on a conversion lever | No one channel carries this change, so the cause may be on the whole site: check checkout, payments and key product pages first. |
 | The funnel steps cannot be read, on a conversion lever | Not checked: your data holds no view of the steps between a visit and an order. |
 | Zero levels | Could not be sliced further: your data holds no finer view of this lever. |
+
+**Before the Lever tree**, in the chat only, ahead of the tree `SKILL.md` step 3 asks the user to
+confirm, with each period as the user named it:
+
+| Where | Wording |
+|---|---|
+| Lead-in to the tree | Here's how I'll find what moved <Success KPI> from <Comparison period> to <Current period>, and what to do about it. <Success KPI> is made up of a few levers, so I'll first work out how much of the change each one caused, which shows where to look. Then I'll dig into the one or two that drove it most to find where they moved, ask what you think caused it, and write it up as a page with what to do next. The levers I'll use are below, for you to check before I run anything. |
 
 **A stopped run**, in the chat only:
 
@@ -207,6 +227,9 @@ way. The lines above fix what to say; these fix how.
 
 | Caveat | Wording |
 |---|---|
+| Orders not fully costed, left out of margin, revenue and order counts | <share> of revenue in the Current period (<share> in the Comparison period) is from orders not fully costed, so margin, revenue and order counts leave them out. |
+| Margin %, on a margin tree | Margin % is order margin divided by revenue on the orders counted here, dated by order. The margin rate your Growth Brain publishes may divide by a different revenue, so the two can differ. |
+| CM3 (or CM1 less marketing) with no separate figure to check it against | <CM3 or CM1 less marketing> is built from your orders' margin and your ad spend, so the levers add up to it by construction; no separate <CM3 or CM1 less marketing> figure was available to check it against. |
 | A level read from the orders while the lever's total comes from another Source | The split of <lever> by <dimension> comes from your orders, while its total comes from <Source in plain words>. |
 | An order count from an export with no test-order flag, on a run without a Growth Brain (never a Platform ROAS page) | <Source> carries no test-order flag, so any test orders are counted. |
 | An order count with no test-order flag, checked against your orders, matching | <Source> carries no test-order flag; its order count matches your orders with test orders left out. |
@@ -226,11 +249,14 @@ way. The lines above fix what to say; these fix how.
 | The timezone, with a Growth Brain that names one | Days are read in <timezone>. |
 | The timezone, where the Growth Brain says only that dates are the store's own | Days are your store's own, as your Growth Brain records them. |
 | The timezone, where a Source's dates are UTC | Days are read in UTC. |
-| The timezone, on a run without a Growth Brain | Days follow the timezone <Source> reports in, <timezone>. Where it names none: <Source> does not say which timezone it reports in, so days may be cut differently from your store's. |
+| The timezone, on a run without a Growth Brain | Days follow the timezone <Source> reports in, <timezone>. Where neither it nor a connector for that platform names one: <Source> does not say which timezone it reports in, so days may be cut differently from your store's. |
+| The timezone, where Sources are dated in different timezones | Days are read in <timezone> for <Source in plain words> and in <timezone> for <Source in plain words>, the same in both periods, so a day at the edge of a period can fall differently between the two. |
 | Conversion actions in a platform export that does not say which it counts | <Source> does not say which conversion actions it counts, so platform conversions are every action it holds. |
 | Conversions from the Google Ads connector read with no purchase filter | <Source> could not be limited to purchases, so platform conversions are every primary conversion action. |
-| A connector refused a read, and a lever moved | <Source> refused to share its figures, so <levers> were read from <next Source in plain words>, or read "No data" where nothing else holds them. |
-| A connector refused a read, and no lever moved | <Source> refused a read, so nothing was read from it. |
+| A connector refused a read after a lever was assigned to it, and a lever moved | <Source> refused to share its figures, so <levers> were read from <next Source in plain words>, or read "No data" where nothing else holds them. |
+| A connector refused a read after a lever was assigned to it, and no lever moved | <Source> refused a read, so nothing was read from it. |
+| A connector refused the first read, before any lever was assigned a Source | <Source> refused a first read, so no lever was taken from it. |
+| A connector's list of accounts did not load, so no account was read | <Platform> did not load its list of accounts, so no lever was taken from it. |
 | A connector account that could not be told to be the brand's, on an unattended run | <Platform> lists an account that could not be told to be yours, so it was not read. |
 
 ## The Brain line

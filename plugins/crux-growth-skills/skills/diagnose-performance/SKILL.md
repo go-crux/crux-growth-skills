@@ -1,6 +1,6 @@
 ---
 name: diagnose-performance
-description: Diagnose why a KPI moved between two periods. Use when someone asks why a KPI moved ("why did revenue drop last month", "what's driving CAC up"), to diagnose performance for a period, or to compare two periods and say what changed. Best on the brand's own Growth Brain; also works without one.
+description: Diagnose why a KPI moved between two periods. Use when the user asks why a KPI moved ("why did revenue drop last month", "what's driving CAC up"), to diagnose performance for a period, or to compare two periods and say what changed. Best on the brand's own Growth Brain; also works without one.
 ---
 
 # Performance diagnosis
@@ -62,27 +62,40 @@ names, else the one step 2 recommends (`references/lever-trees.md`).
   offer none as a Source.
 - **Otherwise probe a connector** only for a platform that a lever the Growth Brain does not hold
   needs (Shopify, GA4, Google Ads, Meta Ads), and only an account that is plainly the brand's
-  own: named in the message, or the only account the connector lists.
-- **An account that cannot be told to be the brand's** is not probed and is offered as a Source
-  for no lever. An attended run asks whose it is in the intake round, and probes it if the
-  answer is the brand's own; an unattended run names it in the Notes and skips it.
+  own: named in the message, or the only account the connector lists. A listing that fails to
+  load leaves no account known: the connector is not probed, and is named as a refusal below.
+- **An account that cannot be told to be the brand's** is offered as a Source for no lever and
+  is probed only after the ownership answer is in. An attended run asks whose it is in the intake
+  round; on the answer that it is the brand's own, it makes the probe read below then, and
+  reports a refusal in the tree confirmation message (step 3), since intake has passed; on any
+  other answer it never reads the account. An unattended run names it in the Notes and skips it.
 
 Make the probe read on the Comparison period as the first message names it, else as step 2
 recommends it (the period before the last complete one; the final dates are set in step 2, and
-the probe needs only a day inside it): one figure for that period's first day, through
+the probe needs only a day inside it; an account probed after intake takes the Comparison period
+as the round settled it): one figure for that period's first day, through
 the tool step 4 will read it with (Shopify orders, GA4 sessions, Google Ads or Meta Ads cost; for
 Google Ads its query tool, as `references/exports.md` sets out). An error or a refusal is a
 refusal; a read that returns zero is not. A connector that refuses is named to the user, with
 what it refused, in the intake message (an unattended run names it in the Notes), and is offered
-as a Source for no lever.
+as a Source for no lever. The Notes carry it in the wording of `references/diagnosis-layout.md`
+for a refusal before any lever was assigned a Source.
 
 Then settle two facts once, for every later step to reuse:
 
-- **Timezone**: the Growth Brain's instructions where they name one; else the timezone the date
-  descriptions of `<client>-orders` name (`list_tables` naming that mart). Where they say only
-  that dates are the store's own timezone, read the date columns as they are with no conversion,
-  compute relative periods from `CURRENT_DATE()`, and say so in the Notes. Else UTC, said in the
-  Notes. Without a Growth Brain, the timezone the Source reports in, said in the Notes.
+- **Timezone**: one **Period timezone**, which settles today's date for relative periods (step 2),
+  and the timezone each Source is read in, the same in both periods.
+  - The Period timezone is the Growth Brain's instructions where they name one; else the timezone
+    the date descriptions of `<client>-orders` name (`list_tables` naming that mart). Where they
+    say only that dates are the store's own timezone, it is the store's own with no name, and the
+    date columns are read as they are with no conversion. Else UTC. Without a Growth Brain, it is
+    the timezone of the Source that holds the Success KPI's total, or not known where that Source
+    names none.
+  - A mart is read in the timezone its own date descriptions name, else in the Period timezone.
+    An export is read as `references/exports.md` sets out under Timezone.
+  - Dates are not converted between Sources. The Notes give the one timezone where every Source
+    reads in it, and each Source's where they differ, in the wording of
+    `references/diagnosis-layout.md`.
 - **Currency**: the Growth Brain's instructions where they name it; else the first mart that
   names it, `<client>-orders` first (`list_tables`, one mart per call). Without a Growth Brain,
   the currency the files or connector report in. Where none states one, an attended run asks
@@ -92,18 +105,20 @@ Then settle two facts once, for every later step to reuse:
 **Done when** the Sources in this session are named to the user in the intake message (an
 unattended run has none, and names them in the Notes): the one Growth Brain chosen with its roster
 in hand and `search_examples` called once, or none; the connectors the run could use, each with
-one probe read, and any that refused or could not be told to be the brand's named to the user
-(an attended run asks about the latter in the intake round) and offered as no Source; and the
-files the conversation already holds. The timezone and the currency are set.
+one probe read (an account that needs the ownership answer is probed after step 2's round), and
+any that refused, whose listing did not load or that could not be told to be the brand's named to
+the user (an attended run asks about the latter in the intake round) and offered as no Source;
+and the files the conversation already holds. The Period timezone (named, the store's own, or not
+known) and the currency are set.
 
 ## 2. Intake
 
 An unattended run skips the round below. An attended run builds it on what the first message
 already says: a question the message answers, in a name relative to today as much as in dates, is
 stated as settled, with what was understood, and not asked. When the message answers all four
-(the Success KPI, both periods and where the data comes from), nothing is left to ask: the round
-is skipped, the intake message states the four as understood, and step 3 still confirms the tree
-and step 7 still asks the Cause round. Ask each open question with a recommendation, then wait
+(the Success KPI, both periods and where the data comes from) and step 1 left no account whose
+ownership is to be asked, nothing is left to ask: the round is skipped, the intake message states
+the four as understood, and step 3 still confirms the tree and step 7 still asks the Cause round. Ask each open question with a recommendation, then wait
 for the answer:
 
 1. **Success KPI**: what figure are you judging performance on? Recommend the KPI the first
@@ -116,16 +131,20 @@ for the answer:
 4. **Data**: recommend the connected Growth Brain, reading the marts the roster holds for the
    levers the diagnosis needs; then the connectors in the session, then the files already in the
    conversation; for a lever none of these holds, the reports the user can export. Where step 1
-   found a connector account that could not be told to be the brand's, ask whose it is.
+   found a connector account that could not be told to be the brand's, ask whose it is, and
+   probe it only on the answer, as step 1 sets out.
 
 "Yes" accepts every recommendation, and "just write it" does the same. An answer replaces that
 question's recommendation. A period is any span: a calendar month, a calendar quarter, a calendar
 year, or a week, which is a complete Monday to Sunday week.
 
-**Periods.** Resolve both periods once, in step 1's timezone. A period the user names ("Q3 2025",
-"1 to 7 March") is typed as dates, here and nowhere else. A recommended period and a name
-relative to today are computed from `CURRENT_DATE('<timezone>')` (step 1's store-local case:
-`CURRENT_DATE()`); "last month", "last quarter" and "same quarter last year" are named periods.
+**Periods.** Resolve both periods once, as calendar dates that each Source reads in its own
+timezone (step 1). A period the user names ("Q3 2025", "1 to 7 March") is typed as dates, here
+and nowhere else. A recommended period and a name relative to today are computed from today's
+date in the Period timezone, `CURRENT_DATE('<timezone>')`, because a bare `CURRENT_DATE()` is
+UTC's day. Where step 1 found no name for it (the store's own, or not known), today is the
+user's own date as the session reports it, written into the dates. "Last month", "last quarter" and "same quarter last year"
+are named periods.
 "This month", "this quarter" or "this year" while it is still running resolves to the last
 complete period of that kind: an attended run says so in the tree confirmation, with the dates,
 and an unattended run in the Notes. With a Growth Brain, put the start and end dates in one
@@ -135,7 +154,7 @@ periods differ in length, say so in the Notes.
 
 **Done when** the Success KPI, both periods as start and end dates, and where the data comes from
 are set, whether by the user's answers, a complete first message or an unattended run's first
-message.
+message, and every account whose ownership was asked is probed or left unread on the answer.
 
 ## 3. Lever tree and Sources
 
@@ -153,10 +172,12 @@ to the same rule. Then:
   line, on a run without a Growth Brain). A stopped run writes no page.
 - **Read the columns first**: with a Growth Brain, call `list_tables` naming each mart the tree
   needs that step 1 has not read, one mart per call (discovery, no query), so each lever's "how it
-  is measured" comes from the columns.
-- **Confirm the tree**: show each lever with its kind (volume or efficiency), how it is measured
-  and its Source, and how the levers rebuild the Success KPI. Say in one line any period resolved
-  from "this month" or the like, with its dates. Ask whether to run it. Run no query until the
+  is measured" comes from the columns and each mart's timezone from its date descriptions.
+- **Confirm the tree**: open with the lead-in in `references/diagnosis-layout.md`, as given. Then
+  show each lever with its kind (volume or efficiency), how it is measured and its Source, and how
+  the levers rebuild the Success KPI. Say in one line any period resolved
+  from "this month" or the like, with its dates, and any refusal of the probe made after intake
+  (a probe that read fine adds nothing). Ask whether to run it. Run no query until the
   user says yes; an answer that changes a lever goes back through the tree rule.
 - **Collect the exports**: for each lever whose Source is an export the conversation does not yet
   hold, give the user the steps for that report from `references/exports.md` and wait for the
@@ -165,7 +186,8 @@ to the same rule. Then:
 An unattended run asks nothing and goes straight to Read.
 
 **Done when** the columns of each mart the tree needs were read before the user was asked to
-confirm (an unattended run reads them in step 4); the user has confirmed (an unattended run: the
+confirm (an unattended run reads them in step 4); the tree confirmation opened with the layout's
+lead-in, as given (an unattended run gives none); the user has confirmed (an unattended run: the
 skill has derived) a Lever tree of 3 to 5 levers (fewer only where `references/lever-trees.md` allows) with at least one volume and one efficiency,
 whose arithmetic rebuilds the Success KPI exactly; every lever has one named Source across both
 periods, or "No data" with its line; every export asked for is in hand or its lever reads "No
@@ -196,8 +218,12 @@ stopped with its one line and no page.
   dated differently and other cost lines may be in or out. Without a Growth Brain, take margin
   only from a Source carrying cost of goods; otherwise the margin % lever reads "No data".
 - **Uncosted orders.** Where the orders mart flags orders that are not fully costed, filter
-  margin and the revenue beside it on the same rows, as the mart's own margin-rate metric does,
-  and give the uncosted share of revenue in the Notes.
+  margin, the revenue beside it and the order counts (new customers, returning orders) on the
+  same rows, as the mart's own margin-rate metric does, so orders × order value × margin % still
+  equals order margin. A customer is new or returning by their orders over all rows; only the
+  count takes the filter. Margin % divides by revenue on those filtered, order-dated rows. Give
+  the uncosted share of revenue in the Notes, and that margin % may differ from the brain's
+  published rate.
 - **Returns still arriving.** Where revenue is order-dated after the returns so far, say the
   latest period's returns are still coming in.
 - **Test orders.** Leave out test orders wherever a mart or Source flags them. Where a lever
@@ -229,16 +255,20 @@ the user in one line which lever moved to which Source (an unattended run: the N
 
 **Query.** For each mart the confirmed tree needs that is not yet read, call `list_tables` naming
 that one mart, one mart per call: a call naming two can overflow the reply. Compose every query
-from the columns the calls return, and join to the `periods` CTE for dates. Read each lever's value in both
-periods in `run_sql`, then rebuild the Success KPI from the levers as `references/lever-trees.md`
+from the columns the calls return, and join to the `periods` CTE for dates. Alias every column by
+more than case: BigQuery reads `n0` and `N0` as one name and the query fails (`comparison_numerator`,
+`current_orders`). Read each lever's value in both periods in `run_sql`, then rebuild the Success
+KPI from the levers as `references/lever-trees.md`
 writes it and compare with the Success KPI read in its own query, from the mart's total for the
-period (for the revenue tree, channel reporting's total sales) and not from the lever queries'
-rows. A lever whose mart is absent, or that is zero or missing in either period, reads "No data".
+period (for the revenue tree, channel reporting's total sales; for CM3, the independent read
+`references/lever-trees.md` sets out) and not from the lever queries' rows. A lever whose mart is
+absent, or that is zero or missing in either period, reads "No data".
 
 **Done when** every lever has a value in the Current period and the Comparison period, or "No
 data" with its reason, and none was read from a Source that refused; the rebuilt Success KPI is
 within 0.01% of the Success KPI read in its own query, in both periods (for a tree with a lever
-reading "No data", the gap is the "Not split" row); every tree count comes from its one mart;
+reading "No data", the gap is the "Not split" row; for CM3 with no independent read, the check is
+arithmetic only and the Notes say so); every tree count comes from its one mart;
 test orders are out of every query the Source flags them in; and every query took its dates from
 `periods` (without a Growth Brain, every read took the four dates).
 
@@ -255,7 +285,10 @@ Contribution, not of the lever's own change: spend that rose lowers CM3, so it r
   largest Contribution. It is named with its figure in the Levers table and gets one action line
   under Recommendations (step 8); it is not drilled.
 - **Offset**: a lever whose Contribution runs against the change is named with its figure and
-  never drilled.
+  never drilled. An Offset whose Contribution is larger in size than the largest Main driver's
+  (a KPI that barely moved because a large rise and a large fall cancelled) also gets one action
+  line under Recommendations (step 8); with no Main driver, the one lever with the largest
+  Contribution in size gets that line instead. Every other Offset gets no action line.
 - **No role**: a lever in the direction of the change under half the largest Contribution, a
   lever that reads "No data", and the "Not split" row. It is listed in the Levers table without a line, except a cost pair
   that takes no role (below).
@@ -314,11 +347,13 @@ Write 1 to 3 recommendations for each drilled Main driver, a zero-level one incl
 rise, as `references/drill-down.md` sets out. Each carries a hypothesis ("if we X, the
 KPI moves because Y"), the action, the metric to watch, and how to validate it: test, watch next
 period or ship. Under a Cause of "Not confirmed" every action is check-first. Each Also large
-lever gets its one check-first action line, written here and nowhere else.
+lever, and each other lever step 5 gives an action line (a large Offset, or the largest lever when
+there is no Main driver), gets its one check-first action line, written here and nowhere else.
 
 **Done when** every drilled Main driver has 1 to 3 recommendations, each with hypothesis, action,
 metric to watch and test, watch or ship; every action under a "Not confirmed" Cause is
-check-first; and every Also large lever has its action line.
+check-first; and every Also large lever and every other lever step 5 gives an action line has
+that line.
 
 ## 9. Write
 
