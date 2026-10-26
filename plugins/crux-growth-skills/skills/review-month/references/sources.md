@@ -21,9 +21,8 @@ is the source of truth and a copy here would go stale.
    returns.
 5. **`run_sql`** for every figure.
 
-Several Growth Brains in the session: ask which one, with a recommendation (the one the user
-named, else the first the session lists), and wait. An unattended run stops with one line naming
-the brains found when the message names none.
+Several Growth Brains in the session: the intake settles which one (`references/intake.md`), and
+the Notes name it.
 
 ## The marts, by module
 
@@ -114,11 +113,12 @@ name one, else the timezone the date descriptions of `<client>-orders` name. Whe
 that dates are the store's own timezone, read the date columns as they are with no conversion,
 compute relative periods from `CURRENT_DATE()` and say so in the Notes. Else UTC, said in the
 Notes. Currency: the brain's instructions where they name it, else the first mart that names it,
-`<client>-orders` first. Where none states one, ask which, and say so in the Notes.
+`<client>-orders` first. Where none states one, ask which, and say so in the Notes (an Unattended
+run asks nothing, and `references/intake.md` sets out its wording).
 
 ## The periods
 
-Resolve the Current period and its Comparison periods once, from the month step 2 settles, and put
+Resolve the Current period and its Comparison periods once, from the month the intake settles, and put
 them in the `periods` CTE below, ahead of every query. The Current period is the last complete calendar
 month in the brand's timezone unless the user names another.
 

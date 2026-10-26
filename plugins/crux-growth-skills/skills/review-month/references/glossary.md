@@ -37,6 +37,8 @@ growth equation: trading, then acquisition, retention and LTV, then order value 
 
 - **Last month's actions**: the slide after the Executive summary listing the previous review's Next month actions, each Done, Not done (with the user's reason) or Not updated, with what its metric did. _Avoid_: action tracker, follow-up.
 
+- **Unattended run**: a run whose first message names the month and the Source, so it asks the user nothing, sets no Focus questions and leaves every action of last month's review Not updated. _Avoid_: automatic run, headless run.
+
 ## Order value and discounts
 
 - **Discount rate**: discounted orders divided by orders in the month. A rate, so never on a Share toggle. _Avoid_: discount share, promo rate.
