@@ -175,9 +175,9 @@ to the same rule. Then:
 - **Read the columns first**: with a Growth Brain, call `list_tables` naming each mart the tree
   needs that step 1 has not read, one mart per call (discovery, no query), so each lever's "how it
   is measured" comes from the columns and each mart's timezone from its date descriptions.
-- **Confirm the tree**: open with the lead-in `references/diagnosis-layout.md` gives, so the user
-  knows what the tree is for and what happens next. Then show each lever with its kind (volume or efficiency), how it is measured
-  and its Source, and how the levers rebuild the Success KPI. Say in one line any period resolved
+- **Confirm the tree**: open with the lead-in in `references/diagnosis-layout.md`, as given. Then
+  show each lever with its kind (volume or efficiency), how it is measured and its Source, and how
+  the levers rebuild the Success KPI. Say in one line any period resolved
   from "this month" or the like, with its dates, and any refusal of the probe made after intake
   (a probe that read fine adds nothing). Ask whether to run it. Run no query until the
   user says yes; an answer that changes a lever goes back through the tree rule.
@@ -188,8 +188,8 @@ to the same rule. Then:
 An unattended run asks nothing and goes straight to Read.
 
 **Done when** the columns of each mart the tree needs were read before the user was asked to
-confirm (an unattended run reads them in step 4); the user heard the lead-in before the tree (an unattended run gives none);
-the user has confirmed (an unattended run: the
+confirm (an unattended run reads them in step 4); the tree confirmation opened with the layout's
+lead-in, as given (an unattended run gives none); the user has confirmed (an unattended run: the
 skill has derived) a Lever tree of 3 to 5 levers (fewer only where `references/lever-trees.md` allows) with at least one volume and one efficiency,
 whose arithmetic rebuilds the Success KPI exactly; every lever has one named Source across both
 periods, or "No data" with its line; every export asked for is in hand or its lever reads "No

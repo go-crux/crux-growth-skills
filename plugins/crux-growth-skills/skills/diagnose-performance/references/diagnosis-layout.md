@@ -191,11 +191,11 @@ way. The lines above fix what to say; these fix how.
 | Zero levels | Could not be sliced further: your data holds no finer view of this lever. |
 
 **Before the Lever tree**, in the chat only, ahead of the tree `SKILL.md` step 3 asks the user to
-confirm:
+confirm, with each period as the user named it:
 
 | Where | Wording |
 |---|---|
-| Lead-in to the tree | Here's how I'll diagnose this. <Success KPI> is built from a few levers that multiply or add up to it, so I'll work out how much of the change from <Comparison period> to <Current period> each lever caused, then dig into the biggest one to find where it moved and what to do about it. First, check the levers below are the right ones for your business. |
+| Lead-in to the tree | Here's how I'll find what moved <Success KPI> from <Comparison period> to <Current period>, and what to do about it. <Success KPI> is made up of a few levers, so I'll first work out how much of the change each one caused, which shows where to look. Then I'll dig into the one or two that drove it most to find where they moved, ask what you think caused it, and write it up as a page with what to do next. The levers I'll use are below, for you to check before I run anything. |
 
 **A stopped run**, in the chat only:
 
