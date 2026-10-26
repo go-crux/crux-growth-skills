@@ -23,7 +23,7 @@ analysis framework: split the change into levers, find the main driver, drill in
 
 - **Also large**: a lever other than a main driver, in the direction of the Success KPI's change, with at least half the largest contribution; named with its figure and given one check-first action line, never drilled. _Avoid_: over the threshold, secondary driver, runner-up.
 
-- **Offset**: a lever whose contribution runs against the Success KPI's change; named with its figure, never drilled. One larger than the largest main driver's contribution also gets one check-first action line. _Avoid_: headwind, tailwind.
+- **Offset**: a lever whose contribution runs against the Success KPI's change; named with its figure, never drilled. One whose contribution is larger in size than the largest main driver's also gets one check-first action line. _Avoid_: headwind, tailwind.
 
 - **Cost pair**: spend and the volume it buys, ranked as one lever when their contributions run against each other: spend and visits as cost per visit, spend and impressions as CPM. The pair takes one role, shown on both rows. _Avoid_: blended cost, efficiency pair.
 
@@ -33,7 +33,7 @@ analysis framework: split the change into levers, find the main driver, drill in
 
 - **Recommendation**: one action on a drilled main driver, with a hypothesis ("if we X, the KPI moves because Y"), the action, the metric to watch and how to validate it (test, watch next period or ship); 1 to 3 per driver, ranked by the KPI at stake. _Avoid_: suggestion, next step, insight.
 
-- **Check-first**: an action that opens with the check that would confirm the cause, used when the Cause is "Not confirmed". _Avoid_: investigate, look into.
+- **Check-first**: an action that opens with the check that would confirm the cause, used when the Cause is "Not confirmed", and for the one action line an Also large lever or Offset gets, which has no Cause. _Avoid_: investigate, look into.
 
 - **Brain line**: the one fixed line, said once on the page and once in the chat on a run without a Growth Brain (a stopped run, which writes no page, says it in the chat only), saying what a brain adds (margin (CM3), one source for every lever, the drill-down by channel, product and cohort) and pointing at gocrux.io/contact. _Avoid_: upsell, plug, disclaimer.
 

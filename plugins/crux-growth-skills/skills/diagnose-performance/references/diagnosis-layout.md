@@ -50,8 +50,8 @@ many levers read "No data".
    "Offset (CPM)". Add a "Not split" row where a lever reads "No data", and a total row that adds
    exactly to the Success KPI's change. Under the table, one line for each Offset and each Also
    large lever, with its figure, and the line for a cost pair that takes no role, in the wording
-   **Plain wording** gives; the action for an Also large lever, or an Offset larger than the
-   largest Main driver, is written once, under Recommendations. Then the waterfall.
+   **Plain wording** gives; the action for an Also large lever, or an Offset `SKILL.md` step 5
+   gives an action line, is written once, under Recommendations. Then the waterfall.
 
    **Waterfall**: an inline SVG from the Comparison period's Success KPI to the Current period's.
    The first and last bars are the two Success KPI values, each from zero. Between them,
@@ -102,10 +102,10 @@ many levers read "No data".
    Contribution; capped at the Contribution of the segment it sits in, or of the lever at the
    first level, in the wording **Plain wording** gives),
    the **Metric to watch**, and **How to validate** (Test, Watch next period or
-   Ship). Then, for each lever that is Also large or an Offset larger than the largest Main
-   driver, its one check-first action line under its own name: the only place that action is
-   written. With no Main driver, the heading reads "None:
-   there is no Main driver to act on."
+   Ship). Then, for each lever that is Also large or an Offset `SKILL.md` step 5 gives an
+   action line, its one check-first action line under its own name: the only place that action
+   is written. With no Main driver, the heading reads "None: there is no Main driver to act on.",
+   followed by the one action line step 5 then gives.
 7. **Notes**: every caveat in one place, and no caveat anywhere else. Include, where they apply:
    - the basis: the revenue measure, the margin rung and whether the figure is CM3 or "CM1 less
      marketing", that flagged test orders are left out, and, with a Growth Brain, the timezone each
