@@ -85,8 +85,9 @@ collapsed. A qualifying segment is one the volume floor leaves on its own row.
 - On a ratio lever the floor reads the numerator as well as the volume: a segment joins "Other"
   only when it is under 5% of its parent's volume and under 5% of its parent's numerator in both
   periods. A segment with orders and no visits (Radio, Retail, modelled re-attribution rows)
-  follows the same floor: under it, it joins "Other"; at or above it, it keeps its own row, its
-  rate reading "No data" and its volume 0. Its contribution is still defined, and "New" and
+  follows the same floor, and its numerator decides it, since its volume is 0: under the floor
+  it joins "Other"; at or above it, it keeps its own row, its rate reading "No data" and its
+  volume 0. Its contribution is still defined, and "New" and
   "Stopped" follow its numerator there, not its volume.
 - Stop at three levels, or when the Source holds no finer dimension. Say which in the Drivers
   block, and name the finer dimension in the Notes.
