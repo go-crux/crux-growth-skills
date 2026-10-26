@@ -43,8 +43,8 @@ description: <leading word first; one trigger per distinct case the skill handle
   the agent must be able to reach the skill on its own. They can still type `/<name>`.
 - **The description is a pointer**, loaded in every session the plugin is installed in. Lead with
   the word that person would use, give one trigger per distinct case, and leave out identity
-  the body already carries. Write each trigger for the person running the skill: "Use when the
-  user asks to …".
+  the body already carries. Name that person "the user" in each trigger, never "someone":
+  "Use when the user asks to …".
 - Use `disable-model-invocation: true` only for a skill a person should start deliberately.
 
 ## Language
