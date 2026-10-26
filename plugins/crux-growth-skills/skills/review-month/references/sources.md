@@ -224,7 +224,7 @@ Shopify order rows:
 - **Active customer** at a month's end: ordered in the 12 months ending then. **Reactivated** and
   the other customer-base terms follow `references/deck-layout.md`.
 - **Lapsed customer** in a month: the 12 months since their last order ended in that month.
-- **CAC** is all connected ad spend ÷ new orders, blended, in every period. With no ad spend read,
+- **CAC** is all connected ad spend ÷ new customers (the New orders above), blended, in every period. With no ad spend read,
   CAC reads "No data".
 - **Cancelled orders** (a cancelled-at date) are left out of every count.
 - **Test orders** are left out where the connector flags them. An export carries no such flag, and
