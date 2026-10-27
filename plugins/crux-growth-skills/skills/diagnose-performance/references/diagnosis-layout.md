@@ -117,10 +117,9 @@ many levers read "No data".
      Source was read in (one line when they match, else one naming each), in the wording
      **Plain wording** gives, with each caveat the Basis rule in `SKILL.md` asks the Notes to
      carry;
-   - on a margin tree, the share of revenue from orders not fully costed (and that margin,
-     revenue and order counts leave them out, where the mart flags them), that margin % may
-     differ from the brain's published rate, and, for CM3, that the check is arithmetic only
-     where it is, these three in the wording **Plain wording** gives;
+   - on a margin tree, the share of revenue from orders not fully costed, where the mart flags
+     them, how margin % is read, and, for CM3, that the check is arithmetic only where it is,
+     these three in the wording **Plain wording** gives;
    - the periods' lengths when they differ in days, and that volumes then differ with them;
    - a change of source between the periods (such as the GA4 raw event stream replacing an
      earlier feed) and which levers move with it, so the reader does not mistake the change of
@@ -253,8 +252,8 @@ opens the tree `SKILL.md` step 3 asks the user to confirm, with each period as t
 
 | Caveat | Wording |
 |---|---|
-| Orders not fully costed, left out of margin, revenue and order counts | <share> of revenue in the Current period (<share> in the Comparison period) is from orders not fully costed, so margin, revenue and order counts leave them out. |
-| Margin %, on a margin tree | Margin % is order margin divided by revenue on the orders counted here, dated by order. The margin rate your Growth Brain publishes may divide by a different revenue, so the two can differ. |
+| Orders not fully costed, on a margin tree | <share> of revenue in the Current period (<share> in the Comparison period) is from orders with a product that has no cost yet. They are counted in orders and revenue, and margin % for them is taken to be the same as for your other orders. |
+| Margin %, on a margin tree with a Growth Brain | Margin % is the margin rate your Growth Brain publishes, dated by order, and order margin is that rate applied to all revenue. Where your Growth Brain publishes no such rate on this revenue, margin % is margin divided by revenue on your fully costed orders. |
 | CM3 (or CM1 less marketing) with no separate figure to check it against | <CM3 or CM1 less marketing> is built from your orders' margin and your ad spend, so the levers add up to it by construction; no separate <CM3 or CM1 less marketing> figure was available to check it against. |
 | A level read from the orders while the lever's total comes from another Source | The split of <lever> by <dimension> comes from your orders, while its total comes from <Source in plain words>. |
 | An order count from an export with no test-order flag, on a run without a Growth Brain (never a Platform ROAS page) | <Source> carries no test-order flag, so any test orders are counted. |
