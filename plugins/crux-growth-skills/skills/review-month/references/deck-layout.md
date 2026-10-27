@@ -114,11 +114,10 @@ the view on screen.
 **Comparison columns.** Every table, and the small table beside a chart, carries these columns in
 this order: this month, last month, MoM %, same month last year, YoY %. Add budget and v budget %
 (after YoY %) only where the Source holds a budget, on the rows it holds one for; a Source with no
-budget carries no budget column, and a row whose measure has no budget reads "No data" in those two
-cells. The budget cell is the budget mart's figure for the Current period's days, and v budget % is
-that mart's own actual for the same measure against it (`references/sources.md`, Budget), so it is
-the row's this month figure only where the two bases match, and the Budget basis caveat says so
-where they do not. The Current period supplies "this month"; the Comparison periods
+budget carries no budget column. A row's budget cells are read as `references/sources.md` (Budget)
+sets out, which also says when they read "No data"; v budget % is not the row's this month figure
+against the budget unless the two bases match, and the Budget basis caveat says so where they do
+not. The Current period supplies "this month"; the Comparison periods
 are as `references/sources.md` sets out. Every % change is relative: a rate that moves from 2.0%
 to 1.8% reads "−10%". A year-ago figure the Source does not reach reads "No data". Show a change
 to the nearest whole % at 10% or more and to one decimal below it. A delta cell carries ▲ or ▼
