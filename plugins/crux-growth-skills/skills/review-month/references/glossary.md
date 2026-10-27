@@ -7,9 +7,19 @@ growth equation: trading, then acquisition, retention and LTV, then order value 
 
 - **Monthly performance review**: the skill's output, one self-contained HTML deck of 16:9 slides, `monthly-performance-review-YYYY-MM.html`, in a fixed section order where every slide is always built. _Avoid_: wrap-up, monthly report, deck (alone).
 
+- **Slidedoc**: what the deck is: slides read on screen or in print with no presenter, so each explains itself. Full-sentence titles and a readable body, one idea a slide, no animation. _Avoid_: presentation, slideshow.
+
+- **Takeaway panel**: the right-hand third of every data slide: two or three short lines saying what the evidence means, its cause where the data or Month context shows one, and what to watch. _Avoid_: commentary box, insight, notes.
+
+- **Stat row**: the headline figures of a slide set large, each with its MoM, YoY and budget deltas, in place of a table; the full table moves to the Appendix. _Avoid_: KPI tiles, scorecards, big numbers.
+
+- **Highlight colour**: the one colour that marks what the action title is about (a bar, line, row or figure), every other mark grey. _Avoid_: accent, emphasis colour.
+
 - **Section**: one of the deck's four analytical parts (Trading, Acquisition, Retention & LTV, Order value & product), each opened by a divider and closed by its Recommendations slide. _Avoid_: chapter, part.
 
 - **Action title**: the heading on every content slide, the slide's takeaway as a full sentence with at least one figure, at most two lines. Never the topic ("CAC trend"). _Avoid_: headline, slide title, McKinsey title.
+
+- **Layout**: one of the seven fixed slide shapes every slide maps to: cover, section divider, stat slide, chart slide, table slide (Appendix only), cards slide, text slide. Each has its grid in the skeleton CSS. _Avoid_: template, slide type.
 
 - **Brain slot**: a slide the Sources could not fill. It keeps its action title, saying what it would show, and its body is one fixed line naming the data it needs and that a Growth Brain provides it (gocrux.io/contact); on a run with a brain, the line names the mart or column the brain lacks instead. The appendix slides are always Brain slots without a brain. _Avoid_: placeholder, empty slide, upsell slide.
 
