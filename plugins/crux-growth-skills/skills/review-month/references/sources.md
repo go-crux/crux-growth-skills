@@ -12,13 +12,18 @@ A Growth Brain is a connector named `<Client> - Growth Brain` that offers `list_
 names the tools and the marts and reads the columns from the brain on every run, because the brain
 is the source of truth and a copy here would go stale.
 
-1. **`list_tables` with no arguments** once, for the roster. `<client>` is the prefix its tables
+1. **`list_tables` with no arguments**, once, for the roster. `<client>` is the prefix its tables
    carry.
-2. **`list_metrics`** once, for the brain's own definitions.
-3. **`search_examples`** once, and keep what it returns for the queries.
-4. **`list_tables` naming one mart** for each mart a step needs, one mart per call (a call naming
-   two can overflow the reply), and only the marts needed. Compose every query from the columns it
-   returns.
+2. **`list_metrics` with no arguments**, once, for the index of the brain's metrics. The index
+   names them and may hold no definitions, and a reply that carries every definition at once can be
+   too long to read. Then **`list_metrics` naming the tables the deck reads** (the roster's marts
+   from The marts, by module below), for the definitions the deck relies on; name them in as few
+   calls as keep each reply readable, and split by table when a reply errors or is cut off.
+3. **`search_examples` once, after the roster**, with an `intent` that names the review: "monthly
+   performance review: revenue, orders, spend by channel". Keep what it returns for the queries.
+4. **`list_tables` naming one mart** for each mart a step reads, the ad platform marts included,
+   before any query on it: one mart per call (a call naming two can overflow the reply), and only
+   the marts needed. Compose every query from the columns it returns.
 5. **`run_sql`** for every figure.
 
 Several Growth Brains in the session: the intake settles which one (`references/intake.md`), and
@@ -31,7 +36,7 @@ the Notes name it as the Sources heading sets out.
 | Orders | `<client>-orders` | Trading: revenue, orders, new and returning orders, customers (for the customer base, where no customer mart is named below), market, the margin rungs. Acquisition and Retention & LTV: each customer's first order and its date, channel, category and type, subscription flag, revenue by order date. Order value & product: AOV by customer type, order category, discount, discount code |
 | Customers | the customer mart the brain's definition of active or lapsed customer names, where `list_tables` shows it | the customer base: active, new, reactivated and lapsed customers, as the brain defines them |
 | Channel reporting | `<client>-channel_reporting` | marketing spend; traffic (visits or users, as the brain's conversion reads it); new customers by channel, modelled or measured as the brain's channel CAC reads them, and by campaign; impressions and clicks where it carries them |
-| Ad platform performance | `<client>-meta_performance`, `<client>-google_ads_performance` | impressions and clicks by campaign where channel reporting lacks them; the platform's own mart, only for a platform the roster lists |
+| Ad platform performance | `<client>-meta_performance`, `<client>-google_ads_performance` | impressions and clicks by campaign where channel reporting lacks them; the platform's own mart, only for a platform the roster lists, and only after its own `list_tables` pull |
 | LTV retention | `<client>-ltv_retention` | cohort sizes, retention by month since first order and cumulative LTV per customer in the brain's LTV measure, where `list_tables` shows it carries them |
 | Order items | `<client>-order_items` | units and revenue by product and variant, for the line-item breakdown; a product category per line, for the order's category only where the orders mart holds none |
 | Budget | `<client>-daily_budget_versus_actuals`, where `list_tables` shows it | each measure's budget and the mart's own actual for the same measure, for "v budget". Read the whole-business row: the grain value the mart's description names as the all-business grain (`all`), never a sum across grains. The window is the Current period's first day to its last complete day (its last day, or yesterday in the brand's timezone where that is earlier), the same days on both sides |
@@ -54,7 +59,7 @@ only the reasons for a choice are kept here.
 | Spend, CAC | channel reporting | Spend is read there, never from the orders mart. CAC is the brain's definition and the Notes state it; where `list_metrics` defines none, spend ÷ new orders, blended |
 | New orders by channel | the same source as the brain's channel CAC | Channel rows and channel CAC share one basis, so a row's CAC is its spend ÷ its new orders and the rows add to the month's new orders. Where the brain's channel CAC reads modelled channel credit (channel reporting rows the mart flags as modelled), the new orders are that modelled credit and the Notes say channels are credited as the brain models them. Where it reads measured orders, or the brain defines none: the orders mart where `list_tables` shows a channel column on it, so the rows add by construction, and orders the mart leaves without a channel are the Unknown row; else channel reporting. From channel reporting the Unknown row is the Total row's new orders less the channels' sum; where that is below zero it reads 0 and the Notes carry the Channel total caveat |
 | Paid or organic | the channel rows of New orders by channel, with the channel grouping `list_tables` shows in channel reporting | A channel is paid where the grouping marks it paid, else where it carries spend in the Current period. State the paid channels in the Notes |
-| Campaigns | channel reporting, where `list_tables` shows a campaign column | New orders by campaign are the Source's own attributed new orders, never a platform's reported purchases (those are platform-reported and not comparable with CAC). Platform here is the platform column the mart carries. Impressions and clicks from channel reporting, else from the platform's mart joined on a campaign identifier both share; with no shared identifier they read "No data" |
+| Campaigns | channel reporting, where `list_tables` shows a campaign column | New orders by campaign are the Source's own attributed new orders, never a platform's reported purchases (those are platform-reported and not comparable with CAC). Platform here is the platform column the mart carries. Impressions and clicks from channel reporting, else from the platform's mart (pulled with `list_tables` first), joined on the campaign identifier where both marts carry one, else on the campaign name, trimmed and ignoring case, with the Campaign match by name caveat in the Notes. **Rank named campaigns only.** Spend the mart holds with no campaign (a blank campaign, or the placeholder it uses, such as "Unknown") is the platform's "No campaign" row, shown below the ranking and never in it; its new orders, impressions and clicks go on that row too, so the ranking, the "No campaign" row and the platform's other named campaigns add up to the platform's totals |
 | Cohorts, retention, cumulative LTV per customer | `<client>-ltv_retention` where it carries cohort size, retention and cumulative LTV in the brain's measure; else `<client>-orders` | Cohort is the customer's first-order calendar month. Compute from orders with the cohort month and months since it, retention and LTV as the brain defines them. Where both are available, use the cohort mart. Its Current period cohort size is expected to equal New orders only where the mart counts every order; a mart that counts customers and leaves out guest orders (or whose description does not say it counts every order) carries the Cohort count caveat instead of a tie |
 | 12-month LTV by channel, category or type | the cohort mart where it carries the grouping, else `<client>-orders` | The LTV window of `references/deck-layout.md`. Group by the first order's channel, category and type, measured on the orders (modelled channel credit has no customer to group); where the mart has no such column, that slide is a Brain slot and the Notes name it |
 | Subscription share | `<client>-orders` | The orders' own subscription flag. No flag, or no subscription order in the Current period, drops the slide (conditional). No orders mart makes it a Brain slot |
@@ -82,7 +87,7 @@ mart per call, only the reasons kept.
 | Category sales and the 24-month mix | `<client>-orders` | Revenue by category on the KPI table's basis, each month classified by the Current period's categories, so the monthly series add to revenue and compare like for like |
 | Discounted orders, discount given, value before discount | `<client>-orders` where `list_tables` shows a discount column on it | A discounted order is one whose discount is above zero. Value before discount is the mart's own pre-discount column where it has one, else the order's revenue plus its discount, both on the same VAT basis. No discount column: `aov-discount` is a Brain slot and the Notes name it |
 | Discount rate, discount depth | `<client>-orders` | The glossary's definitions, over the figures above. Where `list_metrics` defines either, its definition wins and the Notes state it |
-| Discount codes | `<client>-orders` where `list_tables` shows a discount code column on it | The order's own code, trimmed and upper-cased so one code is one row. No order in the Current period carries a code: the slide is dropped (conditional). Discounts present but no code column: a Brain slot, and the Notes name it |
+| Discount codes | `<client>-orders` where `list_tables` shows a discount code column on it | A row is a **code group** where `list_tables` shows a code group column on the orders mart (its description says to group by it, because a month can hold hundreds of single-use codes): the order's own group, read as the column's description sets out. Otherwise a row is a code, the order's own code trimmed and upper-cased so one code is one row. No order in the Current period carries a code: the slide is dropped (conditional). Discounts present but no code column: a Brain slot, and the Notes name it. A row for a free-shipping code, or whose depth works out at 0%, reads "free shipping" in its depth cell, never 0% |
 
 ## Definitions and basis
 
@@ -332,9 +337,11 @@ rule, named as the platform.
   medium is paid; every other placed channel is organic, and the Unknown row stays its own group.
   State the paid channels in the Notes.
 - **Campaigns.** A campaign's new orders are the Shopify new orders whose UTM campaign equals the
-  campaign's name or ID in the platform's report (trimmed, ignoring case). Only campaigns with at
-  least one placed new order are ranked; the "All `<platform>` campaigns" row carries the platform's
-  spend, impressions and clicks and its channel row's new orders.
+  campaign's name or ID in the platform's report (trimmed, ignoring case). Only named campaigns
+  with at least one placed new order are ranked; spend the report holds with no campaign (a blank
+  campaign, or a placeholder such as "Unknown") is the "No campaign" row, below the ranking, and the
+  "All `<platform>` campaigns" row carries the platform's spend, impressions and clicks and its
+  channel row's new orders.
 - **LTV by channel** groups customers by the channel of their first order, on the LTV window.
 
 ### Timezone, currency and periods
