@@ -1,6 +1,6 @@
 ---
 name: plan-black-friday
-description: Black Friday planning on the brand's own Growth Brain. Use when someone asks to plan Black Friday or the festive peak, to check their November targets, or how last year's Black Friday performed.
+description: Black Friday planning on the brand's own Growth Brain. Use when the user asks to plan Black Friday or the festive peak, to check their November targets, or how last year's Black Friday performed.
 ---
 
 # Black Friday plan

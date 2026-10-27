@@ -43,7 +43,8 @@ description: <leading word first; one trigger per distinct case the skill handle
   the agent must be able to reach the skill on its own. They can still type `/<name>`.
 - **The description is a pointer**, loaded in every session the plugin is installed in. Lead with
   the word that person would use, give one trigger per distinct case, and leave out identity
-  the body already carries.
+  the body already carries. Name that person "the user" in each trigger, never "someone":
+  "Use when the user asks to …".
 - Use `disable-model-invocation: true` only for a skill a person should start deliberately.
 
 ## Language
@@ -107,8 +108,12 @@ client's name, figure or table contents never appears in a skill or a reference 
 
 There is no automated suite: a skill is proven by **dry runs on real brains**.
 
-1. Start a session with the checkout loaded: `claude --plugin-dir ~/code/crux/growth-skills/plugins/crux-growth-skills`, with
-   the client's Growth Brain connector available in that session.
+1. Load the branch's plugin with the client's Growth Brain connector available. The default is
+   Claude Desktop, as a client runs it: zip `plugins/crux-growth-skills` from the integration
+   branch (command in `CLAUDE.md`), turn off the installed `crux-growth-skills`, upload the zip
+   (Customize → Plugins → Add → Upload plugin), and after testing delete the zip and turn the
+   installed plugin back on. In Claude Code, start a session with
+   `claude --plugin-dir ~/code/crux/growth-skills/plugins/crux-growth-skills` instead.
 2. Run the skill end to end as a client user would, to its final output.
 3. Check the PRD's acceptance criteria, especially the totals that should tie to the brain
    (an order count for a date window, a plan's monthly sum).

@@ -14,8 +14,8 @@ Source, with the same report, columns and filters, in both periods.
 |---|---|---|
 | visits | GA4 sessions by default channel group (Sessions); else Shopify sessions by landing page (Sessions, summed over every row) | channel (GA4); none for Shopify (see below) |
 | new visitor share | GA4 sessions by default channel group (New users, over Sessions; a new user is counted once, on the first session, so New users sum across channel rows) | channel |
-| orders, new customers, returning orders | Shopify sales over time (Orders, by customer type) | none |
-| revenue, order value | Shopify sales over time (Orders, Net sales) | none |
+| orders, revenue, order value | Shopify sales over time (Orders, Net sales) | none |
+| new customers, returning orders | Shopify sales over time (Orders, by customer type) | none |
 | conversion | Shopify orders over the visits lever's sessions | none |
 | new-customer conversion | Shopify new customers over the visits lever's sessions (CAC tree), or over the new visitor share lever's New users (New customers tree) | none |
 | spend (platform) | the Google Ads or Meta Ads campaign report (spend) | ad group or ad set with that report; ad through a connector only |
@@ -37,7 +37,8 @@ Recommendations), and the Notes name the channel dimension that would let it go 
 
 **Order value** has no level to drill without order rows. Open its Drivers block with the
 discount read from Shopify sales over time: Discounts over Gross sales in both periods, in one
-sentence.
+sentence. The customer-type breakdown feeds the new customers and returning orders levers only,
+so new against repeat is not a level without a Growth Brain.
 
 **Marketing spend** covers the platforms read only, the same platforms in both periods. Say in the
 Notes which they are.
@@ -45,16 +46,17 @@ Notes which they are.
 ## Shopify: sales over time
 
 1. In Shopify admin, open Analytics, then Reports, then "Sales over time".
-2. Set the date range to the Current period's dates, group by day, and add the breakdown by
-   customer type (new or returning); where Shopify offers it only as its own report, use "New vs
-   returning customer sales" for the same dates.
+2. Set the date range to the Current period's dates and group by day. Where a lever of the
+   confirmed tree reads new customers or returning orders, add the breakdown by customer type
+   (new or returning); where Shopify offers it only as its own report, use "New vs returning
+   customer sales" for the same dates. Ask for no breakdown otherwise.
 3. Export as CSV and drop the file into this chat.
 4. Repeat for the Comparison period's dates.
 
 | Column | Feeds |
 |---|---|
 | Orders | orders, order value, conversion |
-| Customer type (new, returning) with its Orders | new customers, returning orders |
+| Customer type (new, returning) with its Orders, asked for as step 2 says | new customers, returning orders |
 | Gross sales | the discount read |
 | Discounts | the discount read |
 | Net sales | revenue, order value |
@@ -174,6 +176,10 @@ one campaign it descended into, and only where no connector reads that level.
   when the dates do not match.
 - Add together the rows that share a segment, leaving any total row out of the sums. Where the
   file has a total row, check that the segments sum to it; where it has none, make no such check.
+- **Timezone.** An export that names a timezone (in its header, its filename or the report's
+  settings) is read in it. Where it names none and a connector for that platform is in the
+  session, read the account's timezone from the connector's account details. Where neither
+  names one, the Notes say so in the layout's wording.
 - A connector is read for the same columns, on the four dates, for every campaign whatever its
   status and with every page of rows, and the same Source is read for both periods.
 - Leave out test orders wherever the Source flags them. An export with no test-order flag is read
