@@ -12,12 +12,13 @@
 --display:Georgia,"Times New Roman",serif;
 --body:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
 *{box-sizing:border-box}
-body{margin:0;font-family:var(--body);color:var(--ink-2);background:var(--paper-3)}
+body{margin:0;font-family:var(--body);color:var(--ink-2);background:var(--paper)}
+@media screen{html,body{height:100%;overflow:hidden}.slide.cover{overflow:visible}.slide .cover-bar{left:-4000px;right:-4000px}}
 p,h1,h2,h3,ol,dl,dd{margin:0}
 .bar{height:40px;display:flex;gap:4px;align-items:center;padding:0 12px;background:var(--paper);border-bottom:1px solid var(--line)}
 .bar button{border:0;border-bottom:2px solid transparent;background:none;padding:6px 10px;cursor:pointer;color:var(--ink-3);font:inherit;font-size:13px}
 .bar button.on{color:var(--ink-1);font-weight:700;border-bottom-color:var(--signal)}
-.stage{transform-origin:top left;transform:scale(var(--k,1))}
+.stage{transform-origin:top left;transform:translate(var(--x,0px),var(--y,0px)) scale(var(--k,1))}
 .slide{display:none;width:1280px;height:720px;padding:52px 64px 64px;background:var(--paper);flex-direction:column;position:relative;overflow:hidden}
 .slide.on{display:flex}
 .slide footer{position:absolute;left:64px;bottom:22px;font-size:12px}
@@ -231,7 +232,7 @@ table.kpi{width:100%;border-collapse:collapse;font-size:15px;font-variant-numeri
 const S=[...document.querySelectorAll('.slide')],B=document.querySelector('.bar');let i=0;
 [...new Set(S.map(s=>s.dataset.section))].forEach(n=>{const b=document.createElement('button');b.textContent=n;b.onclick=()=>go(S.findIndex(s=>s.dataset.section===n));B.append(b)});
 function go(n){i=Math.max(0,Math.min(S.length-1,n));S.forEach((s,k)=>s.classList.toggle('on',k===i));[...B.children].forEach(b=>b.classList.toggle('on',b.textContent===S[i].dataset.section))}
-function fit(){document.documentElement.style.setProperty('--k',Math.min(innerWidth/1280,(innerHeight-40)/720))}
+function fit(){const r=document.documentElement.style,h=innerHeight-40,k=Math.min(innerWidth/1280,h/720);r.setProperty('--k',k);r.setProperty('--x',(innerWidth-1280*k)/2+'px');r.setProperty('--y',(h-720*k)/2+'px')}
 onkeydown=e=>{if(e.key==='ArrowRight'||e.key==='PageDown')go(i+1);if(e.key==='ArrowLeft'||e.key==='PageUp')go(i-1)};
 document.querySelectorAll('.chart [data-view-set]').forEach(b=>b.onclick=()=>b.closest('.chart').dataset.view=b.dataset.viewSet);
 onresize=fit;fit();go(0);
