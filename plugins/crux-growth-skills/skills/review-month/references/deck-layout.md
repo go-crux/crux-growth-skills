@@ -96,8 +96,13 @@ from the table below:
 
 > This slide needs `<data>`. A Growth Brain provides it: gocrux.io/contact.
 
+On a run with a Growth Brain the slot names what the brain lacks instead, a mart or a column on one:
+
+> This slide needs `<data>`, and your Growth Brain holds no `<plain name>`.
+
 "gocrux.io/contact" links to https://gocrux.io/contact. The slot is a muted panel; its footer is
-the same as any slide's. The line never changes.
+the same as any slide's. Each of the two lines is fixed, and the second belongs only to a run with
+a Growth Brain.
 
 **Conditional slides** (`trading-markets`, `ret-subscriptions`, `aov-codes`) exist only when the
 business has what they show: markets when more than one market holds orders in the Current period
@@ -306,8 +311,8 @@ A KPI table, one row per figure in this order, with the comparison columns:
 7. MER (revenue ÷ marketing spend)
 
 On a Growth Brain that holds a margin rung, add two rows after MER: the rung's money figure and
-its % of revenue, labelled with the rung's own name (CM3 where the brain holds it, else the highest
-rung it holds). Revenue leads: margin rows add to the table and never replace a row. Rates (MER,
+its % of revenue, labelled with the margin rung's own name (the rung `references/sources.md` chooses
+by its dating, and the lower rung's name where the brain says the two are equal). Revenue leads: margin rows add to the table and never replace a row. Rates (MER,
 margin %) change as relative % per the comparison rule.
 
 Action title: the Current period's revenue and its MoM change, with the figure behind the largest
@@ -465,7 +470,9 @@ the lowest cell to its darkest at the highest. An age a cohort has not yet reach
 an exception to the cell rule, so the table reads as a staircase. A final row, **Rolling
 average**, holds for each age the retained customers ÷ the customers of the 12 most recent
 cohorts to have reached it (those cohorts can include ones older than the 12 shown). The Current
-period's cohort size equals New orders on `trading-kpi`, where the glossary's New customer holds.
+period's cohort size equals New orders on `trading-kpi` where the cohort mart counts every order
+and the glossary's New customer holds; a mart that counts customers only carries the Cohort count
+caveat.
 No comparison columns: the rows compare the cohorts. Action title: the latest cohort's retention
 at the latest age it shares with others, against the rolling average ("The latest cohort to reach
 month 3 retained 14% of its customers, 12% above the rolling average").
@@ -628,8 +635,8 @@ sized the same way against the all-codes depth. Action title: as `trading-recs`.
 No Action title. Three headings, always present, in this order:
 
 1. **Sources**: what was read from where, in plain words ("Revenue, orders and customers: your
-   orders. Marketing spend: your sales and ad spend by channel. Budget: your budget."), and the
-   Growth Brain's name when several were connected. Without a Growth Brain, each connector or
+   orders. Marketing spend: your sales and ad spend by channel. Budget: your budget."), led, when
+   several Growth Brains were connected, by "Read from `<the Growth Brain's name>`.". Without a Growth Brain, each connector or
    file read and the figures it gave ("Orders and customers: your Shopify connector. Marketing
    spend: your Google Ads export."), and the platforms marketing spend covers.
 2. **Definitions**: with a Growth Brain, one line saying the brain's own definitions are used, then
@@ -644,16 +651,21 @@ No Action title. Three headings, always present, in this order:
 
 | Caveat | Wording |
 |---|---|
-| Days | Days are read in `<timezone>`. |
+| Days | Days are read in `<timezone>`. Where the brain says only that dates are the store's own timezone: Days are read in your store's own timezone, as your orders record them. |
 | Currency | Amounts are in `<currency>`. Where no Source states one: Amounts are in the currency your orders are recorded in. |
 | Test orders | Test orders are left out. |
 | Cancelled orders | Cancelled orders are `<left out / counted / not stated>`, as your orders record them. |
 | Returns | Returns are booked on the `<order / refund>` date, so the latest months' revenue can still change as returns arrive. Where the Revenue basis is before returns: `<Revenue name>` is before returns, so the latest months can still change as returns arrive. |
 | Budget basis, where it differs from the Revenue basis | Budget is set on `<basis>`, so the budget column compares your `<basis>` against it, not the revenue above. |
-| Orders not fully costed, where your orders flag them | `<n>` orders (`<share>` of revenue) include a product that has no cost yet. They are counted in every figure. With margin rows, add: Their `<rung>` % is taken to be the same as for your other orders. |
-| Margin, with margin rows | `<Rung>` % is the margin rate your Growth Brain publishes, dated by order, and `<rung>` is that rate applied to all revenue, so it can differ from a `<rung>` your Growth Brain or a dashboard adds up order by order. Where your Growth Brain publishes no such rate on this revenue, `<rung>` % is `<rung>` divided by revenue on your fully costed orders. |
+| Orders not fully costed, where your orders flag them | `<n>` orders (`<share>` of revenue) include a product that has no cost yet. They are counted in every figure. With margin rows, add: Their `<rung>` % is taken to be the same as for your other orders. Where `<n>` is 1: 1 order (`<share>` of revenue) includes a product that has no cost yet. It is counted in every figure. With margin rows, add: Its `<rung>` % is taken to be the same as for your other orders. |
+| Margin, with margin rows on a rung dated by order | `<Rung>` % is the margin rate your Growth Brain publishes, dated by order, and `<rung>` is that rate applied to all revenue, so it can differ from a `<rung>` your Growth Brain or a dashboard adds up order by order. Where your Growth Brain publishes no such rate on this revenue, `<rung>` % is `<rung>` divided by revenue on your fully costed orders. |
+| Mixed-dated margin, with margin rows on a rung dated partly by refund | Your `<plain name of the mart>` dates `<rung>` partly by refund, so `<rung>` % can swing from month to month with the timing of refunds. `<Rung>` is that % applied to all revenue, so it can differ from a `<rung>` your Growth Brain or a dashboard adds up order by order. |
+| Equal rungs, where the brain says the chosen rung equals the one below | Your Growth Brain holds `<higher rung>` equal to `<lower rung>` (`<its reason in plain words>`), so the margin rows are labelled `<lower rung>`. |
+| Thin costing, where the share of fully costed revenue falls sharply in the history shown | Costs are recorded from `<month>`, so margin before then, and year-on-year margin LTV, is not like for like. Where LTV is revenue, read: Costs are recorded from `<month>`, so margin before then is not like for like. |
+| Cohort count, where the cohort mart counts customers | The cohorts count customers, leaving out guest orders, so a cohort can differ from the month's new orders. |
+| Brain warning, one line for each | Your Growth Brain warns: `<the warning, trimmed to one sentence, with its date>`. |
 | History | The history starts in `<month>`, so trend charts are shorter than 24 months. |
-| A missing source | `<Slides>` could not be built because your `<plain name>` is not in your Growth Brain. |
+| A missing source | `<Slides>` could not be built because your Growth Brain holds no `<plain name>`. |
 | Modelled channels, where channel CAC reads modelled credit | Channels are credited as your Growth Brain models them, so a channel's new orders are its modelled credit and can differ from the orders your orders record against it. |
 | Definition fallback, where a definition cannot be read | Your Growth Brain defines `<measure>` from `<plain name of the data>`, which this review cannot read, so `<measure>` is read as `<its plain glossary definition>` from your orders. |
 | Channel total | The channels' new orders exceed your orders' new orders by `<n>`, so the Unknown row reads 0. |
@@ -663,6 +675,14 @@ No Action title. Three headings, always present, in this order:
 | Channel placement (no brain) | Channels are placed from the UTM and referrer data on your Shopify orders, so an order without them is in the Unknown row and a channel's CAC can read high. |
 | Customer IDs (no brain) | `<share>` of orders carry no customer ID, so each counts as a new customer of its own. |
 | Test orders in an export (no brain) | Your export does not flag test orders, so none are left out. |
+
+The Thin costing caveat applies where margin is shown (margin rows or margin LTV) and the share of
+fully costed revenue, read for each month of the 24-month series, is below half the Current period's
+share in an earlier month; `<month>` is the first month whose share is at least half the Current
+period's. The Cohort count caveat applies whenever the cohort mart is read and its Current period
+cohort size does not equal New orders, or its description says it counts customers or does not say
+it counts every order. A Brain warning is quoted whenever `references/sources.md` found one that
+touches the Current period or a Comparison period, with no Month context needed.
 
 The caveat for returns takes "order" for order rows and "refund" for the sales over time report. On a
 run without a Growth Brain, the **Brain line** closes the Notes, once and in these words: "A

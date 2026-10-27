@@ -11,7 +11,7 @@ growth equation: trading, then acquisition, retention and LTV, then order value 
 
 - **Action title**: the heading on every content slide, the slide's takeaway as a full sentence with at least one figure, at most two lines. Never the topic ("CAC trend"). _Avoid_: headline, slide title, McKinsey title.
 
-- **Brain slot**: a slide the Sources could not fill. It keeps its action title, saying what it would show, and its body is one fixed line naming the data it needs and that a Growth Brain provides it (gocrux.io/contact). The appendix slides are always Brain slots without a brain. _Avoid_: placeholder, empty slide, upsell slide.
+- **Brain slot**: a slide the Sources could not fill. It keeps its action title, saying what it would show, and its body is one fixed line naming the data it needs and that a Growth Brain provides it (gocrux.io/contact); on a run with a brain, the line names the mart or column the brain lacks instead. The appendix slides are always Brain slots without a brain. _Avoid_: placeholder, empty slide, upsell slide.
 
 - **Brain line**: the one fixed line closing the Notes on a run without a Growth Brain, saying what a brain adds and pointing at gocrux.io/contact. Said once, unlike a Brain slot. _Avoid_: upsell, plug, disclaimer.
 
@@ -30,6 +30,8 @@ growth equation: trading, then acquisition, retention and LTV, then order value 
 - **Revenue basis**: the one revenue measure every revenue figure on a Growth Brain deck is read on: the revenue the brain's AOV metric divides by orders, else the brain's revenue metric dated by order. Named in the KPI table and the Notes as the brain names it. _Avoid_: revenue type, revenue rung.
 
 - **Budget basis**: the measure the budget is set on, as the budget mart names it; "v budget %" compares the budget with that mart's own actual for the same measure, so it can differ from the Revenue basis. _Avoid_: budget type, budget revenue.
+
+- **Margin rung**: the one level of the brain's margin ladder (CM3, CM2, CM1) whose rows the Trading KPI table shows: the highest held on a mart dated by order, else the highest on a mixed-dated mart with its caveat. _Avoid_: margin tier, profit line.
 
 ## Intake and actions
 

@@ -22,7 +22,7 @@ is the source of truth and a copy here would go stale.
 5. **`run_sql`** for every figure.
 
 Several Growth Brains in the session: the intake settles which one (`references/intake.md`), and
-the Notes name it.
+the Notes name it as the Sources heading sets out.
 
 ## The marts, by module
 
@@ -55,7 +55,7 @@ only the reasons for a choice are kept here.
 | New orders by channel | the same source as the brain's channel CAC | Channel rows and channel CAC share one basis, so a row's CAC is its spend ÷ its new orders and the rows add to the month's new orders. Where the brain's channel CAC reads modelled channel credit (channel reporting rows the mart flags as modelled), the new orders are that modelled credit and the Notes say channels are credited as the brain models them. Where it reads measured orders, or the brain defines none: the orders mart where `list_tables` shows a channel column on it, so the rows add by construction, and orders the mart leaves without a channel are the Unknown row; else channel reporting. From channel reporting the Unknown row is the Total row's new orders less the channels' sum; where that is below zero it reads 0 and the Notes carry the Channel total caveat |
 | Paid or organic | the channel rows of New orders by channel, with the channel grouping `list_tables` shows in channel reporting | A channel is paid where the grouping marks it paid, else where it carries spend in the Current period. State the paid channels in the Notes |
 | Campaigns | channel reporting, where `list_tables` shows a campaign column | New orders by campaign are the Source's own attributed new orders, never a platform's reported purchases (those are platform-reported and not comparable with CAC). Platform here is the platform column the mart carries. Impressions and clicks from channel reporting, else from the platform's mart joined on a campaign identifier both share; with no shared identifier they read "No data" |
-| Cohorts, retention, cumulative LTV per customer | `<client>-ltv_retention` where it carries cohort size, retention and cumulative LTV in the brain's measure; else `<client>-orders` | Cohort is the customer's first-order calendar month. Compute from orders with the cohort month and months since it, retention and LTV as the brain defines them. Where both are available, use the cohort mart and tie its Current period cohort size to New orders |
+| Cohorts, retention, cumulative LTV per customer | `<client>-ltv_retention` where it carries cohort size, retention and cumulative LTV in the brain's measure; else `<client>-orders` | Cohort is the customer's first-order calendar month. Compute from orders with the cohort month and months since it, retention and LTV as the brain defines them. Where both are available, use the cohort mart. Its Current period cohort size is expected to equal New orders only where the mart counts every order; a mart that counts customers and leaves out guest orders (or whose description does not say it counts every order) carries the Cohort count caveat instead of a tie |
 | 12-month LTV by channel, category or type | the cohort mart where it carries the grouping, else `<client>-orders` | The LTV window of `references/deck-layout.md`. Group by the first order's channel, category and type, measured on the orders (modelled channel credit has no customer to group); where the mart has no such column, that slide is a Brain slot and the Notes name it |
 | Subscription share | `<client>-orders` | The orders' own subscription flag. No flag, or no subscription order in the Current period, drops the slide (conditional). No orders mart makes it a Brain slot |
 | Line items | `<client>-order_items` | Units and revenue by product and variant for the Current period and its Comparison periods |
@@ -119,20 +119,36 @@ and the glossary's alike. Three rules follow from it:
   reads revenue (trend, customer type, market, category, cohort, LTV) reads this one basis, so
   revenue, AOV and the product table's Total row agree. Where the Revenue basis is before returns,
   the Returns caveat applies.
-- **Margin adds rows, never replaces them.** Add the CM3 rows when the brain holds CM3, else the
-  highest margin rung it holds, labelled as the brain names it. A brain with no margin rung adds no
-  margin row.
+- **Margin adds rows, never replaces them.** Add the rows of one **margin rung**, chosen from the
+  rungs the brain holds (CM3, then CM2, then CM1, else as the brain names them) by how each is dated:
+  1. The highest rung published **dated by order**: on `<client>-orders`, or on a mart whose
+     description says it is dated by order alone.
+  2. Where no held rung is dated by order, the highest rung found on a mart dated partly by refund
+     (a description that names a refund date beside the order date, or that does not say it is dated
+     by order alone), with the Mixed-dated margin caveat of `references/deck-layout.md`. A mixed-dated
+     rung above an order-dated one is skipped, so the rows compare like for like with revenue.
+  3. A brain with no margin rung adds no margin row.
+
+  Where the brain's descriptions say the chosen rung equals the one below (for example "fees are not
+  connected, so CM2 equals CM1"), label the rows with the lower rung's name and carry the Equal
+  rungs caveat.
 - **Every order counts.** Revenue, orders, new and returning orders, customers and every other
   figure read every order the brain counts (test orders out, cancelled orders as their bullet
   below sets), so the deck matches the brain and the brand's dashboards for the same days. An
   order not fully costed is never left out of a count or an amount, the rung's money figure
-  included. The rung's % of revenue is the orders mart's own published margin-rate metric for the
-  rung, quoted as the brain defines it; where the mart publishes none for the rung, or its revenue
-  is on another basis than the KPI table's, take margin ÷ revenue over the fully costed orders on
-  the KPI table's basis instead. The rung's money figure is that % × the KPI table's revenue, over
-  all orders, so it can differ from a margin the brain or a dashboard sums directly: the Notes say
-  so in the Margin caveat. Where `<client>-orders` flags orders that are not fully costed, give
-  their number and share of revenue in the Notes.
+  included. The rung's % of revenue, for a rung dated by order, is the published margin-rate metric
+  for the rung on the mart that holds it, quoted as the brain defines it; where the mart publishes none
+  for the rung, or its revenue is on another basis than the KPI table's, take margin ÷ revenue over the
+  fully costed orders on the KPI table's basis instead. For a mixed-dated rung it is the mart's own
+  margin ÷ its own revenue for the period's days. The rung's money figure is that % × the KPI table's
+  revenue, over all orders, so it can differ from a margin the brain or a dashboard sums directly: the
+  Notes say so in the Margin caveat (the Mixed-dated margin caveat for a mixed-dated rung). Where `<client>-orders` flags orders that are not fully costed,
+  give their number and share of revenue in the Notes, and read the share of fully costed revenue for
+  each month of the 24-month series, for the Thin costing caveat.
+- **Brain warnings.** Note each warning in the descriptions `list_tables` and `list_metrics` return
+  that carries a date (a tracking change, a source switch, a backfill) and touches the Current period
+  or a Comparison period, on a mart or metric the deck reads. Each is quoted in the Notes as the Brain
+  warning caveat, whether or not the user gave a Month context.
 - **Test orders** are left out wherever a mart flags them. **Cancelled orders** follow the mart
   (most exclude them upstream); the Notes say whether its descriptions include them, exclude them
   or say nothing.
@@ -152,7 +168,8 @@ and the glossary's alike. Three rules follow from it:
 **Timezone and currency**, settled once and reused. Timezone: the brain's instructions where they
 name one, else the timezone the date descriptions of `<client>-orders` name. Where they say only
 that dates are the store's own timezone, read the date columns as they are with no conversion,
-compute relative periods from `CURRENT_DATE()` and say so in the Notes. Else UTC, said in the
+compute relative periods from `CURRENT_DATE()` and say so in the Notes (the Days caveat's
+store-timezone wording). Else UTC, said in the
 Notes. Currency: the brain's instructions where they name it, else the first mart that names it,
 `<client>-orders` first. Where none states one, ask which, and say so in the Notes (an Unattended
 run asks nothing, and `references/intake.md` sets out its wording).
