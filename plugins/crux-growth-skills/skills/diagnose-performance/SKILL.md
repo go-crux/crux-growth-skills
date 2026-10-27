@@ -229,13 +229,13 @@ stopped with its one line and no page.
   line why the page's CM3 can differ from one the brain or a dashboard publishes: refunds are
   dated differently and other cost lines may be in or out. Without a Growth Brain, take margin
   only from a Source carrying cost of goods; otherwise the margin % lever reads "No data".
-- **Uncosted orders.** Where the orders mart flags orders that are not fully costed, filter
-  margin, the revenue beside it and the order counts (new customers, returning orders) on the
-  same rows, as the mart's own margin-rate metric does, so orders × order value × margin % still
-  equals order margin. A customer is new or returning by their orders over all rows; only the
-  count takes the filter. Margin % divides by revenue on those filtered, order-dated rows. Give
-  the uncosted share of revenue in the Notes, and that margin % may differ from the brain's
-  published rate.
+- **Every order counts.** Orders, new customers, returning orders and revenue read every order
+  but test and cancelled ones, as the brain counts them, so they match it and the brand's
+  dashboards for the same dates. An order with an uncosted product is never left out of a count
+  or an amount. Margin % is the orders mart's own published margin-rate metric for the rung,
+  quoted as the brain defines it (it leaves uncosted orders out of both halves itself); order
+  margin is that rate × revenue over all orders. Where the mart flags orders that are not fully
+  costed, give their share of revenue in the Notes.
 - **Returns still arriving.** Where revenue is order-dated after the returns so far, say the
   latest period's returns are still coming in.
 - **Test orders.** Leave out test orders wherever a mart or Source flags them. Where a lever
