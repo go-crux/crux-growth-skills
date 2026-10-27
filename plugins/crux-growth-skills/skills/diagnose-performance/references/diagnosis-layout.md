@@ -253,7 +253,7 @@ opens the tree `SKILL.md` step 3 asks the user to confirm, with each period as t
 | Caveat | Wording |
 |---|---|
 | Orders not fully costed, on a margin tree | <share> of revenue in the Current period (<share> in the Comparison period) is from orders with a product that has no cost yet. They are counted in orders and revenue, and margin % for them is taken to be the same as for your other orders. |
-| Margin %, on a margin tree | Margin % is the margin rate your Growth Brain publishes, dated by order, and order margin is that rate applied to all revenue. |
+| Margin %, on a margin tree with a Growth Brain | Margin % is the margin rate your Growth Brain publishes, dated by order, and order margin is that rate applied to all revenue. Where your Growth Brain publishes no such rate on this revenue, margin % is margin divided by revenue on your fully costed orders. |
 | CM3 (or CM1 less marketing) with no separate figure to check it against | <CM3 or CM1 less marketing> is built from your orders' margin and your ad spend, so the levers add up to it by construction; no separate <CM3 or CM1 less marketing> figure was available to check it against. |
 | A level read from the orders while the lever's total comes from another Source | The split of <lever> by <dimension> comes from your orders, while its total comes from <Source in plain words>. |
 | An order count from an export with no test-order flag, on a run without a Growth Brain (never a Platform ROAS page) | <Source> carries no test-order flag, so any test orders are counted. |

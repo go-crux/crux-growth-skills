@@ -54,19 +54,19 @@ tree sets for it. A count two levers share is listed once. The page's precision 
 
 - **CM3.** Orders = new customers + returning orders, where a new customer is an order from a
   customer with no earlier order and returning orders are the rest. Order value = revenue ÷
-  orders. Margin % is the mart's margin-rate metric on the rung the Basis rule in
-  `SKILL.md` names. Order counts and revenue read from the orders mart, order-dated, over every
-  order (`SKILL.md` Basis, Every order counts), and order margin = margin % × revenue. Then
-  orders × order value × margin % = order margin, and CM3 = order margin − spend. Where the rung is not CM2, the figure and the page
-  say "CM1 less marketing" in place of CM3.
+  orders. Order counts and revenue read from the orders mart, order-dated, and margin % on the
+  rung the Basis rule in `SKILL.md` names, both as `SKILL.md` Basis, Every order counts, sets
+  them; order margin = margin % × revenue. Then orders × order value × margin % = order margin,
+  and CM3 = order margin − spend. Where the rung is not CM2, the figure and the page say "CM1
+  less marketing" in place of CM3.
 - **The CM3 check.** The rebuild and a total read from the lever queries' own sums both reduce
   to order margin and spend, so they tie by construction. The independent read is a CM3 column
   the orders mart carries itself, summed over the same rows and period, on the same cost lines
-  (its descriptions say which), where every order in the period is fully costed; the 0.01% tie is
-  made against that, and a gap sends the run back to its queries. Where the mart carries no such
-  column, where its cost lines differ, where some orders are not fully costed, or where
-  the figure is "CM1 less marketing", the CM3 check is arithmetic only: it shows the levers add
-  up, and the Notes say so, in the wording `references/diagnosis-layout.md` gives.
+  (its descriptions say which); the 0.01% tie is made against that, and a gap sends the run back
+  to its queries. Where the mart carries no such column, where its cost lines differ, where some
+  orders are not fully costed, or where the figure is "CM1 less marketing", the CM3 check is
+  arithmetic only: it shows the levers add up, and the Notes say so, in the wording
+  `references/diagnosis-layout.md` gives.
 - **Revenue** is total sales as `SKILL.md` Basis sets it out, named with its basis on the page.
   From Shopify sales over time it is net sales, named as such.
 - **Revenue without visits.** Where no Source holds visits (no mart, connector or file in hand,

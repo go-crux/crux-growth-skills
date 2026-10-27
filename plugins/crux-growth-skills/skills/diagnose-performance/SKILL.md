@@ -223,19 +223,22 @@ stopped with its one line and no page.
   (next bullet). Without a Growth Brain, take net sales (gross sales less discounts and returns)
   and name that.
 - **Margin** comes from `<client>-orders` on the deepest rung it carries per order (CM2, else
-  CM1), order-dated. Label CM3 as such only when that rung is CM2 and its fulfilment or payment
-  costs are non-zero on some orders in the period; otherwise label the figure "CM1 less
-  marketing". Take spend from `<client>-channel_reporting` and read no margin from it. Say in one
-  line why the page's CM3 can differ from one the brain or a dashboard publishes: refunds are
-  dated differently and other cost lines may be in or out. Without a Growth Brain, take margin
-  only from a Source carrying cost of goods; otherwise the margin % lever reads "No data".
+  CM1), order-dated, with margin % and order margin as **Every order counts** sets. Label CM3 as
+  such only when that rung is CM2 and its fulfilment or payment costs are non-zero on some orders
+  in the period; otherwise label the figure "CM1 less marketing". Take spend from
+  `<client>-channel_reporting` and read no margin from it. Say in one line why the page's CM3 can
+  differ from one the brain or a dashboard publishes: refunds are dated differently and other
+  cost lines may be in or out. Without a Growth Brain, take margin only from a Source carrying
+  cost of goods; otherwise the margin % lever reads "No data".
 - **Every order counts.** Orders, new customers, returning orders and revenue read every order
-  but test and cancelled ones, as the brain counts them, so they match it and the brand's
-  dashboards for the same dates. An order with an uncosted product is never left out of a count
-  or an amount. Margin % is the orders mart's own published margin-rate metric for the rung,
-  quoted as the brain defines it (it leaves uncosted orders out of both halves itself); order
-  margin is that rate × revenue over all orders. Where the mart flags orders that are not fully
-  costed, give their share of revenue in the Notes.
+  the brain counts (test orders out, cancelled orders as their bullet below sets), so they match
+  it and the brand's dashboards for the same dates. An order not fully costed is never left out
+  of a count or an amount. Margin % is the orders mart's own published margin-rate metric for the
+  rung, quoted as the brain defines it; where the mart publishes none for the rung, or its
+  revenue is on another basis than the page's, take margin ÷ revenue over the fully costed orders
+  on the page's basis instead. Without a Growth Brain, margin % is margin ÷ revenue from the
+  Source carrying cost of goods. Order margin is that margin % × revenue over all orders. Where
+  the mart flags orders that are not fully costed, give their share of revenue in the Notes.
 - **Returns still arriving.** Where revenue is order-dated after the returns so far, say the
   latest period's returns are still coming in.
 - **Test orders.** Leave out test orders wherever a mart or Source flags them. Where a lever

@@ -32,9 +32,8 @@ still come from one mart, and only a Drill-down level reads another. Apportion t
 rows add to the lever's Contribution: each segment's share of the change is its share as the
 orders mart measures it (the ratio rule below), applied to the lever's Contribution. For an
 order value level, that ratio's revenue is the orders mart's total sales, order-dated, on the
-basis `SKILL.md` Basis gives that mart (and, on the CM3 tree, on the rows its order counts take),
-and its orders are that mart's order count, whichever Source the tree's own revenue comes from:
-only the shares come from the orders mart. Each further level inside a segment is apportioned
+basis `SKILL.md` Basis gives that mart, and its orders are that mart's order count, whichever
+Source the tree's own revenue comes from: only the shares come from the orders mart. Each further level inside a segment is apportioned
 the same way, to that segment's Contribution. Say in one Notes line, in the wording of
 `references/diagnosis-layout.md`, that the split comes from the orders while the lever's total
 comes from its own Source. Where the orders mart shows no change in the lever between the
@@ -52,7 +51,10 @@ periods, no share exists: the level is not read and the Drill-down stops above i
   lever's Contribution. Percentage points never appear as a contribution; the two period columns
   carry the rates.
 
-Either way the segments add exactly to the parent's change, so a level can be checked.
+Either way the segments add exactly to the parent's change, so a level can be checked. A margin %
+level where the orders mart flags orders not fully costed takes each segment's share of the change
+on the fully costed orders only and applies it to the lever's Contribution, as an order-mix level
+does: the lever's order margin is a rate × all revenue, which segment rows alone do not sum to.
 
 **Volume** is the lever's count or amount, or a ratio lever's denominator (sessions for
 conversion, orders for order value, revenue for margin %). Show each segment's Current period
