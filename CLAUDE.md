@@ -61,8 +61,9 @@ session, so it runs from Matt's own Claude, never from a cold run. Method in
   what installs, not what is readable on GitHub.
 - **The version lives in four places**: `.claude-plugin/marketplace.json` (on the plugin entry)
   and the plugin's `.claude-plugin/plugin.json`, `plugin.json` and `.codex-plugin/plugin.json`. A release bumps all four
-  together (minor for a new skill, patch for a fix), and the manifest descriptions say what
-  the plugin now carries. Keep the plugin description at 500 characters or fewer: Claude Desktop
+  together (minor for a new skill, patch for a fix). The manifest descriptions name the kinds of
+  skill the plugin carries (planning, reporting and diagnosis, conversion), never each skill, so a
+  new skill changes them only when it opens a new kind. Keep the plugin description at 500 characters or fewer: Claude Desktop
   refuses a longer one on upload, and `claude plugin validate` does not check it.
 - **A merged skill is not live in a running session.** A client gets it after
   `/plugin marketplace update crux`, `/plugin update crux-growth-skills` and `/reload-plugins`. When a
