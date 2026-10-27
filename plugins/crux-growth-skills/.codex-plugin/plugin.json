@@ -1,7 +1,7 @@
 {
   "name": "crux-growth-skills",
   "version": "0.5.0",
-  "description": "Growth skills for ecommerce brands by gocrux.io, best with a Crux Growth Brain connected. Plan Black Friday on your own data, audit your landing pages, diagnose why a KPI moved between two periods, and review last month.",
+  "description": "Growth skills for ecommerce brands by gocrux.io, written by operators who have scaled them: planning and targets, performance reporting and diagnosis, and conversion. Best with a Crux Growth Brain connected; most skills also run without one.",
   "author": {
     "name": "Crux",
     "email": "matt@gocrux.io",
@@ -22,8 +22,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Crux",
-    "shortDescription": "Crux Black Friday planning, landing page audits, performance diagnosis and monthly reviews",
-    "longDescription": "Plan Black Friday on your own data: read last year, test your November and December targets against it, and agree a plan with day-by-day targets you can download. Audit a landing page from its URL, or find your weakest pages, with prioritised fixes and a test backlog. Diagnose why a KPI moved between two periods, split into its levers, with the main driver found and what to do about it. Review last month in a deck across trading, acquisition, retention and LTV, and order value and product, with recommendations.",
+    "shortDescription": "Crux growth skills: planning and targets, performance reporting and diagnosis, and conversion",
+    "longDescription": "Growth skills written by operators who have scaled ecommerce brands, in three kinds: planning and targets, performance reporting and diagnosis, and conversion. Each skill works from your own pages and data and ends on what to do next. Best with a Crux Growth Brain connected; most skills also run without one and say what the brain would add.",
     "developerName": "Crux",
     "category": "Productivity",
     "capabilities": [
