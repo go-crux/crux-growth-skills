@@ -142,7 +142,7 @@ and the glossary's alike. Three rules follow from it:
   fully costed orders on the KPI table's basis instead. For a mixed-dated rung it is the mart's own
   margin ÷ its own revenue for the period's days. The rung's money figure is that % × the KPI table's
   revenue, over all orders, so it can differ from a margin the brain or a dashboard sums directly: the
-  Notes say so in the Margin caveat. Where `<client>-orders` flags orders that are not fully costed,
+  Notes say so in the Margin caveat (the Mixed-dated margin caveat for a mixed-dated rung). Where `<client>-orders` flags orders that are not fully costed,
   give their number and share of revenue in the Notes, and read the share of fully costed revenue for
   each month of the 24-month series, for the Thin costing caveat.
 - **Brain warnings.** Note each warning in the descriptions `list_tables` and `list_metrics` return
