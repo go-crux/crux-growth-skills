@@ -84,8 +84,11 @@ figures, or its Focus slide is a Brain slot; and:
   period's days read in its own query; new plus returning revenue equals revenue in every month of
   the series; and the customer base rolls forward (last month's active customers, plus new and
   reactivated, less lapsed, equals this month's) wherever the glossary's definitions are used;
+- every measure `list_metrics` defines and the deck shows is read as the brain defines it, every
+  slide names it as the brain does, and the Notes list each definition used;
 - the Channel mix rows, its Unknown row included, add up to the Total row's new orders, which
-  equals the KPI table's new orders, and its spend equals the KPI table's marketing spend, in every
+  equals the KPI table's new orders, on the same basis as the channel CAC (modelled or measured),
+  and its spend equals the KPI table's marketing spend, in every
   period shown (or the Notes carry the Channel total caveat);
 - paid, organic and Unknown new orders add up to new orders in each of the 12 months;
 - each ad platform with spend in the Current period has one campaigns slide of at most ten
@@ -93,7 +96,7 @@ figures, or its Focus slide is a Brain slot; and:
 - the cohort table's Current period cohort size equals the KPI table's new orders, every cohort
   starts at 100% in month 0, and the cohort LTV lines and the rolling average read the same
   cohorts as the table;
-- every LTV figure reads the LTV window;
+- every LTV figure reads the LTV window and the brain's LTV measure;
 - the blended AOV equals the KPI table's Average order value in every month of the series (and,
   where the brain defines an AOV metric, that metric), every revenue figure sits on the Revenue
   basis, and each budget cell is read from the budget mart on the Budget basis;
