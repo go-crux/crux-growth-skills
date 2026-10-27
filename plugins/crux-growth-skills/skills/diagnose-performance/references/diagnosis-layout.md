@@ -228,7 +228,7 @@ opens the tree `SKILL.md` step 3 asks the user to confirm, with each period as t
 |---|---|
 | The Success KPI cannot be read in both periods | I can't read <Success KPI> for both periods: I would need <Source in plain words>. |
 | No lever can be read | I can't read any lever of <Success KPI>: I would need <Source in plain words>. |
-| Several Growth Brains, none or more than one named, on an unattended run | I found <each Growth Brain's connector name, comma-separated>. Name the brain to read, for example "<the first of them>", and run it again. |
+| Several Growth Brains, none or more than one named, on an unattended run | I found <each Growth Brain's connector name, comma-separated>. Name the brain to read, for example "<any one of them>", and run it again. |
 
 **Sources**, by what was read; the page never names a mart, a file or a column:
 
