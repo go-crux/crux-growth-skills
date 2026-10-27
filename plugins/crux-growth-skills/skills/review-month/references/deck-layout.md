@@ -620,7 +620,8 @@ No Action title. Three headings, always present, in this order:
 | Test orders | Test orders are left out. |
 | Cancelled orders | Cancelled orders are `<left out / counted / not stated>`, as your orders record them. |
 | Returns | Returns are booked on the `<order / refund>` date, so the latest months' revenue can still change as returns arrive. |
-| Uncosted orders | `<share>` of revenue is on orders not yet fully costed, so margin rows exclude it. |
+| Orders not fully costed, where your orders flag them | `<n>` orders (`<share>` of revenue) include a product that has no cost yet. They are counted in every figure. With margin rows, add: Their `<rung>` % is taken to be the same as for your other orders. |
+| Margin, with margin rows | `<Rung>` % is the margin rate your Growth Brain publishes, dated by order, and `<rung>` is that rate applied to all revenue, so it can differ from a `<rung>` your Growth Brain or a dashboard adds up order by order. Where your Growth Brain publishes no such rate on this revenue, `<rung>` % is `<rung>` divided by revenue on your fully costed orders. |
 | History | The history starts in `<month>`, so trend charts are shorter than 24 months. |
 | A missing source | `<Slides>` could not be built because your `<plain name>` is not in your Growth Brain. |
 | Channel total | The channels' new orders exceed your orders' new orders by `<n>`, so the Unknown row reads 0. |

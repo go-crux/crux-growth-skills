@@ -94,9 +94,17 @@ Where it does not, the glossary's definitions hold and the Notes state those.
 - **Margin adds rows, never replaces them.** Add the CM3 rows when the brain holds CM3, else the
   highest margin rung it holds, labelled as the brain names it. A brain with no margin rung adds no
   margin row.
-- **Uncosted orders.** Where `<client>-orders` flags orders that are not fully costed, filter
-  margin and the revenue beside it on the same rows, and give the uncosted share of revenue in the
-  Notes: otherwise margin looks better than it is.
+- **Every order counts.** Revenue, orders, new and returning orders, customers and every other
+  figure read every order the brain counts (test orders out, cancelled orders as their bullet
+  below sets), so the deck matches the brain and the brand's dashboards for the same days. An
+  order not fully costed is never left out of a count or an amount, the rung's money figure
+  included. The rung's % of revenue is the orders mart's own published margin-rate metric for the
+  rung, quoted as the brain defines it; where the mart publishes none for the rung, or its revenue
+  is on another basis than the KPI table's, take margin ÷ revenue over the fully costed orders on
+  the KPI table's basis instead. The rung's money figure is that % × the KPI table's revenue, over
+  all orders, so it can differ from a margin the brain or a dashboard sums directly: the Notes say
+  so in the Margin caveat. Where `<client>-orders` flags orders that are not fully costed, give
+  their number and share of revenue in the Notes.
 - **Test orders** are left out wherever a mart flags them. **Cancelled orders** follow the mart
   (most exclude them upstream); the Notes say whether its descriptions include them, exclude them
   or say nothing.
