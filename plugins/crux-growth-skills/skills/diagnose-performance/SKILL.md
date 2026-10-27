@@ -25,7 +25,8 @@ and follows these five rules:
 
 - Skip Intake's round and the Lever tree's confirmation, and still resolve the periods as step 2
   sets out; the tree is shown on the page only. A KPI the lever tree catalogue does not hold takes
-  the good direction its rule gives, and the Notes say it was assumed.
+  the good direction the rule under the catalogue in `references/lever-trees.md` gives, and the
+  Notes say it was assumed.
 - With several Growth Brains, take the one the message names. If it names none, stop with one
   line in the chat naming the brains found, run no query and write no page; the first the
   session lists is never taken. With one, say in the Notes which it read.
@@ -197,7 +198,7 @@ An unattended run asks nothing and goes straight to Read.
 **Done when** the columns of each mart the tree needs were read before the user was asked to
 confirm (an unattended run reads them in step 4); the tree confirmation opened with the layout's
 tree lead-in, as given (an unattended run gives none); the user has confirmed (an unattended run:
-the skill has derived) a Lever tree of 3 to 5 levers (fewer only where `references/lever-trees.md` allows) with at least one volume and one efficiency,
+the skill has derived) a Lever tree of 3 to 5 levers, with the Success KPI's good direction set, (fewer only where `references/lever-trees.md` allows) with at least one volume and one efficiency,
 whose arithmetic rebuilds the Success KPI exactly; every lever has one named Source across both
 periods, or "No data" with its line; every export asked for is in hand or its lever reads "No
 data"; and the run either goes on (the Success KPI and at least one lever can be read) or has

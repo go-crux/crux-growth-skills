@@ -106,9 +106,8 @@ Derive a tree to the same rule:
 3. Make at least one lever a count or an amount (V) and at least one a ratio (E).
 4. Write the rebuild arithmetic as the catalogue does, and check it cancels to the KPI.
 5. List every count and amount the levers' ratios divide, as the catalogue's last column does, for the page's table of counts.
-6. Set the good direction by the rule under the catalogue. An attended run asks it at intake
-   (`SKILL.md` step 2), recommending that answer; an unattended run takes that answer, and the
-   Notes say it was assumed.
+6. Set the good direction by the rule under the catalogue; `SKILL.md` says when it is asked and
+   when it is assumed.
 
 A KPI that is a sum (CM3 is one) keeps each term whole when it is a lever and splits a term that
 is itself a product.
