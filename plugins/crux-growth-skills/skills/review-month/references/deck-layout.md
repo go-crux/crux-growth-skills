@@ -410,16 +410,24 @@ new orders, a share 12% above last month's, with 7% from no known channel").
 
 ### Top campaigns (`acq-campaigns`)
 
-One slide for each ad platform with spend in the Current period, each a table of its ten campaigns
-with the most new orders, ranked on that, ties by higher spend. Columns: Campaign; **spend** with
+One slide for each ad platform with spend in the Current period, each a table of its ten named
+campaigns with the most new orders, ranked on that, ties by higher spend. Only named campaigns are
+ranked. Columns: Campaign; **spend** with
 this month and MoM %; **impressions**; **clicks**; **CTR** (clicks ÷ impressions); **new orders**
 with this month and MoM %; **CAC** with this month and MoM %. A campaign that did not run last
 month reads "New" in its MoM cells; there is no year-ago column, as campaigns rarely last a year.
-A last row, "All `<platform>` campaigns", carries the platform's totals so the ten rows read
-against their whole. New orders are the new orders the Source attributes to the campaign, never the
+Beneath the ranking, in this order: a **"No campaign"** row, when the platform holds spend with no
+campaign, carrying that spend and its new orders, impressions and clicks; then a last row, "All
+`<platform>` campaigns", carrying the platform's totals so the rows above read against their whole.
+New orders are the new orders the Source attributes to the campaign, never the
 platform's own reported conversions, and a figure it cannot give reads "No data". Action title, one
-per slide: the share of the platform's new orders the ten carry, with the lead campaign's CAC
-("Ten Meta campaigns delivered 82% of the platform's 3,100 new orders, led by one at a £28 CAC").
+per slide: the share of the platform's new orders the ranked campaigns carry, with the lead
+campaign's CAC, counting named campaigns only, so the "No campaign" row is never in the count
+("Ten Meta campaigns delivered 82% of the platform's 3,100 new orders, led by one at a £28 CAC";
+"Four Google campaigns delivered 64% of the platform's 900 new orders" where the platform ran four).
+Impressions and clicks are joined from the platform's mart on the campaign identifier where both
+marts carry one, else on the campaign name; a name match puts the Campaign match by name caveat in
+the Notes.
 
 ### LTV by acquisition channel (`acq-ltv-channel`)
 
@@ -603,20 +611,27 @@ touched 31% of orders at an average depth of 18%, with the rate up 15% on last m
 ### Discount codes (`aov-codes`, conditional)
 
 A table of the codes used in the Current period, at a smaller type size, ranked by orders, ties by
-revenue. An order counts under the code the Source holds on it, matched ignoring case and spaces.
-Rows, in this order:
+revenue. A row is a **code group** where the Source's orders carry a code group column
+(`references/sources.md`), so a month of single-use codes reads as a handful of groups; otherwise a
+row is a code. An order counts under the group or code the Source holds on it, a code matched
+ignoring case and spaces. Rows, in this order:
 
-1. Up to ten codes.
-2. **All other codes**, when more than ten were used: every code not named above, in each period.
+1. Up to ten code groups, or codes.
+2. **All other codes** (**All other code groups** on a grouped table), when more than ten were used:
+   every group or code not named above, in each period.
 3. **Total**: every order that carries a code, which the rows above add up to.
 
-Columns, in this order: Code; **orders** with this month and MoM %; **revenue** (on the basis of
+Columns, in this order: Code (Code group on a grouped table); **orders** with this month and MoM %;
+**revenue** (on the basis of
 `trading-kpi`) with this month and MoM %; **discount given** with this month and MoM %; **depth**
-(discount given ÷ the orders' value before discount) with this month; **share of orders** (the code's
-orders ÷ all orders of the month). A code that was not used last month reads "New" in its MoM cells;
+(discount given ÷ the orders' value before discount) with this month; **share of orders** (the row's
+orders ÷ all orders of the month). A row for a free-shipping code, or whose depth works out at 0%,
+reads "free shipping" in its depth cell, never 0%. A row that was not used last month reads "New" in
+its MoM cells;
 there is no year-ago column, as codes rarely last a year. A Source that holds discounts but no code
-on the order writes the slide as a Brain slot, and the Notes name it. Action title: the code with the
-most orders and its depth, with the share of orders that used a code ("One welcome code brought 1,200
+on the order writes the slide as a Brain slot, and the Notes name it. Action title: the row with the
+most orders and its depth ("free shipping" in place of a depth for a free-shipping row), with the
+share of orders that used a code ("One welcome code brought 1,200
 orders at a 10% depth, and codes touched 24% of all orders").
 
 ### Order value & product Recommendations (`aov-recs`)
@@ -628,7 +643,8 @@ fall. **Category gap**: a category in the table whose AOV sits below the blended
 Current period orders times the gap. **Discount creep**: a discount depth above last month's, sized
 as the discount given in the Current period less what last month's depth would have given on the same
 discounted orders' value. **Code depth**: a code whose depth sits above the depth of all codes,
-sized the same way against the all-codes depth. Action title: as `trading-recs`.
+sized the same way against the all-codes depth; a free-shipping row has no depth and is not sized.
+Action title: as `trading-recs`.
 
 ### Notes (`notes`)
 
@@ -664,6 +680,7 @@ No Action title. Three headings, always present, in this order:
 | Thin costing, where the share of fully costed revenue falls sharply in the history shown | Costs are recorded from `<month>`, so margin before then, and year-on-year margin LTV, is not like for like. Where LTV is revenue, read: Costs are recorded from `<month>`, so margin before then is not like for like. |
 | Cohort count, where the cohort mart counts customers | The cohorts count customers, leaving out guest orders, so a cohort can differ from the month's new orders. |
 | Brain warning, one line for each | Your Growth Brain warns: `<the warning, trimmed to one sentence, with its date>`. |
+| Campaign match by name, where a platform mart's campaigns are joined to channel reporting on the name | Campaigns are matched by name between your `<platform>` data and your channel reporting, so a renamed campaign can read "No data" for impressions and clicks. |
 | History | The history starts in `<month>`, so trend charts are shorter than 24 months. |
 | A missing source | `<Slides>` could not be built because your Growth Brain holds no `<plain name>`. |
 | Modelled channels, where channel CAC reads modelled credit | Channels are credited as your Growth Brain models them, so a channel's new orders are its modelled credit and can differ from the orders your orders record against it. |
