@@ -535,8 +535,8 @@ size the same gap, or one gap sits inside another (a market's fall inside the re
 against budget, or an AOV fall inside a revenue gap), only the larger reaches Next month and the
 next distinct card, by revenue at stake, takes its place. Cards sized on a different measure or a
 different part of the business are distinct. Fewer than three distinct Recommendations exist: show
-those that do. Action title: the combined revenue at stake and the lead action. These three cards are the
-actions next month's review checks.
+those that do. Action title: the combined revenue at stake and the lead action. These three cards
+are the actions next month's review checks.
 
 ### Appendix: LTV by order category and by order type (`app-ltv-category`, `app-ltv-type`)
 

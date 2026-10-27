@@ -128,11 +128,11 @@ and each Action title last.
 
 **Done when** every Trading, Acquisition, Retention & LTV and Order value & product card carries a
 figure from its own Section's slides and an action, a metric to watch and Test, Watch next month or
-Ship; Next month holds the three distinct gaps with the most revenue at stake (a card that duplicates or sits inside a larger one gives way), or fewer where fewer exist;
-every Focus question leads the Executive summary in Performance and Read; a Month context the user
-gave appears on each slide it bears on and in the Read, and no slide states a cause that neither
-the Month context nor the data supports; and every content slide has an Action title of one full
-sentence with a figure.
+Ship; Next month holds the three distinct gaps with the most revenue at stake (a card that
+duplicates or sits inside a larger one gives way), or fewer where fewer exist; every Focus question
+leads the Executive summary in Performance and Read; a Month context the user gave appears on each
+slide it bears on and in the Read, and no slide states a cause that neither the Month context nor
+the data supports; and every content slide has an Action title of one full sentence with a figure.
 
 ## 5. Write
 
