@@ -84,6 +84,12 @@ channels), the slide carries it as one line beneath its content, "You told us: `
 trimmed to one sentence>`.", in place of any guessed cause. The Executive summary's Read uses it the
 same way. A slide it does not bear on carries no such line.
 
+**Measure names.** On a Growth Brain, a slide's title, axis, column header, card and Action title name
+each measure as the brain defines it, with its unit ("margin per customer" where the brain's LTV is
+margin, "users" where its conversion is per user), as `references/sources.md` (Definitions and
+basis) sets out. The wording below ("revenue per customer", "visits") is for a measure the brain
+defines none for, and is replaced by the brain's name for it everywhere it appears.
+
 **Brain slot.** A Brain slot keeps a title that says what the slide would show (it carries no
 figure, since it holds none) and a body of one fixed line, written as given with the data filled
 from the table below:
@@ -273,7 +279,7 @@ the Section's own figures. Its shape, top to bottom:
 
 1. **You asked**: the question in the user's words, in the muted colour, one line.
 2. **Action title**: the answer as a full sentence with a figure ("New-customer conversion slipped
-   9% to 1.1% as visits rose 14% and new orders held at 3,100").
+   9% to 1.1% as traffic rose 14% and new orders held at 3,100").
 3. **Evidence**: one chart or one small table, taken from a slide of its Section that holds the
    figures the question needs, drawn as that slide draws it (24 months with the Current period
    marked for a trend; the comparison columns for a table) and without the Share toggle. Where the
@@ -318,11 +324,13 @@ while returning-customer revenue grew 17% to £720k").
 
 ### Customer base (`trading-customers`)
 
-Columns, one per month for 24 months, no Share toggle. Above the axis, stacked: **active customers
-carried over** (ordered before the month and active at its end, neither new nor reactivated),
-**new** and **reactivated** (ordered in the month, not new, and not active at the previous month's
-end), summing to the active customer base at the month's end. Below the axis, one column: **lapsed**
-(customers whose 12 months since their last order ended in the month). The Current period is
+Columns, one per month for 24 months, no Share toggle. Active, new, reactivated and lapsed are the
+brain's definitions, labelled as it names them, with the glossary's where it defines none, which
+`references/sources.md` reads from the Customers mart or the orders mart. Above the axis, stacked:
+**active customers carried over** (active at the month's end, neither new nor reactivated), **new**
+and **reactivated** (ordered in the month, not new, and not active at the previous month's end),
+summing to the active customer base at the month's end. Below the axis, one column: **lapsed** (on
+the glossary's definition, customers whose 12 months since their last order ended in the month). The Current period is
 marked. Beside the chart, a small table of active, new, reactivated and lapsed customers with the
 comparison columns. Action title: the size of the active base and the net movement ("The active
 customer base grew 3% to 41k as 2,100 new and 600 reactivated customers outran 1,400 lapsing").
@@ -344,14 +352,16 @@ actions are worth about £90k a month, led by recovering new-customer orders").
 
 ### Blended traffic, conversion and CAC (`acq-blended`)
 
-Three small charts side by side, 24 months, one measure each and no dual axis: **traffic** (visits)
-as columns, **new-customer conversion** (new orders ÷ visits) as a line, and **CAC** (marketing
-spend ÷ new orders) as a line, each on its own axis with the Current period marked. CAC is blended:
-all connected ad spend over all new orders, or the brain's own CAC where `list_metrics` defines it.
-Beneath, one small table of visits, new-customer conversion, marketing spend, new orders and CAC
-with the comparison columns (conversion and CAC change as relative %). Action title: the CAC move
-with the traffic or conversion move behind it ("Blended CAC rose 12% to £34 as traffic fell 9% and
-new-customer conversion held at 1.1%").
+Three small charts side by side, 24 months, one measure each and no dual axis: **traffic** as
+columns, **new-customer conversion** as a line, and **CAC** as a line, each on its own axis with the
+Current period marked. Traffic is named for what the brain's conversion divides by ("users" where it
+is per user, else "visits"). Conversion and CAC are the brain's definitions where `list_metrics`
+defines them; otherwise conversion is new orders ÷ visits and CAC is blended, all connected ad spend
+over all new orders. Beneath, one small table of traffic (under its name), new-customer conversion,
+marketing spend, new orders and CAC with the comparison columns (conversion and CAC change as
+relative %). Action title: the CAC move with the traffic or conversion move behind it ("Blended
+CAC rose 12% to £34 as visits fell 9% and new-customer conversion held at 1.1%"; write "users" for
+"visits" where the conversion is per user).
 
 ### Channel mix (`acq-channels`)
 
@@ -370,7 +380,8 @@ columns. Rows, in this order:
    Marketing spend there, in every period shown; its CAC is the blended CAC.
 
 The channel rows, Other channels and the Unknown row add up to the Total row's new orders in every
-period shown. A row's CAC is its spend ÷ its new orders; a row with no spend, or no new orders,
+period shown, on the same basis as the channel CAC: the brain's, modelled channel credit included
+(`references/sources.md`, New orders by channel). A row's CAC is its spend ÷ its new orders; a row with no spend, or no new orders,
 reads "No data" in its spend or CAC cells. A platform's own reported conversions never enter these
 columns. Action title: the channel with the most new orders, its CAC and the Unknown share ("Paid
 search led with 1,100 of 3,100 new orders at a £31 CAC, and 9% of new orders have no known
@@ -408,42 +419,51 @@ per slide: the share of the platform's new orders the ten carry, with the lead c
 ### LTV by acquisition channel (`acq-ltv-channel`)
 
 Ranked horizontal bars, highest first, of **12-month LTV** for each acquisition channel, an all-customer
-bar marked, the **LTV window** below. Beside the bars a small table with the columns: Channel;
+bar marked, the **LTV window** below. Bars, axis and column header name the brain's LTV measure
+("12-month margin per customer" where its LTV is margin). Beside the bars a small table with the columns: Channel;
 customers; 12-month LTV; the same figure a year earlier; change %. This slide has no this month or
 last month column, since LTV is read on a cohort window. A channel's customers are those whose
 first order the Source places on that channel; customers it places on none are an Unknown bar, never
 spread. Action title: the best and worst channel's LTV and the gap ("Email-won customers are worth
-£210 in their first year, 2.4 times the £88 of customers won on paid social").
+£210 in their first year, 2.4 times the £88 of customers won on paid social"; add the measure's
+name where it is not revenue, "£210 of margin").
 
 **LTV window.** The LTV slides here and in the Appendix read customers whose first order fell in the
 12 months ending with the same month a year before the Current period, so every customer has 12
-months behind them. A customer's **12-month LTV** is their cumulative revenue through the end of the
-12th calendar month after their first-order month, first order included, on the revenue basis of
-`trading-kpi`; a group's LTV is the sum over its customers divided by their number. The comparison is
+months behind them. A customer's **12-month LTV** is their cumulative value through the end of the
+12th calendar month after their first-order month, first order included: the brain's LTV measure
+(margin where it defines LTV as margin) on the brain's own grain, else revenue on the revenue basis
+of `trading-kpi`; a group's LTV is the sum over its customers divided by their number. The comparison is
 the 12 months ending a year earlier, on the same definition; a window the history does not reach
 reads "No data". A group of fewer than 30 customers joins one "Other" bar, so no ranking rests on a
-handful of customers. Where the Source's own LTV metric differs, its definition wins and the Notes
-state it.
+handful of customers. The Notes state the LTV definition used.
 
 ### Acquisition Recommendations (`acq-recs`)
 
 Up to three Recommendation cards drawn from the Acquisition slides, ranked by revenue at stake,
-worked one of two ways and the card says which. **CAC gap**: a channel whose CAC sits above the
-blended CAC, sized as the new orders its spend would buy at the blended CAC, less the new orders it
+worked one of two ways and the card says which. **CAC gap**: a paid channel whose CAC sits above the
+reference CAC, sized as the new orders its spend would buy at the reference CAC, less the new orders it
 delivered, times the Current period's new-customer order value (new-customer revenue ÷ new orders on
-`trading-revenue`). **LTV gap**: a channel whose 12-month LTV sits below the all-customer figure,
-sized as its Current period new orders times that gap per customer. Action title: as `trading-recs`.
+`trading-revenue`). The reference CAC is the brain's CAC target where it holds one (a metric, or
+the budget mart's budget for CAC), else **paid CAC**: paid channels' spend ÷ paid channels' new
+orders, on the basis of the channel rows. Blended CAC is never the reference, since it includes
+organic new orders that cost no spend and puts every paid channel above it. A channel at or below
+the reference has no gap. **LTV gap**: a channel whose 12-month LTV sits below the all-customer figure,
+sized as its Current period new orders times that gap per customer; where the brain's LTV is not
+revenue, the gap is in that measure, so the card says so and its revenue at stake is worked on the
+Revenue basis from the same customers. Action title: as `trading-recs`.
 
 ### Cohort retention (`ret-cohort`)
 
 A **cohort** is the customers whose first order fell in one calendar month. A shaded table with one
 row for each of the last 12 monthly cohorts (the Current period's cohort last), labelled by month,
 a Customers column with the cohort's size, then columns for months 0 to 12 after the first-order
-month, holding the **retention %**: the share of the cohort that ordered in that month. Month 0 is
+month, holding the **retention %**: the brain's retention measure where `list_metrics` defines one, else the
+share of the cohort that ordered in that month. Month 0 is
 100% by definition and unshaded; months 1 to 12 are shaded on one scale from the accent colour at
 the lowest cell to its darkest at the highest. An age a cohort has not yet reached is left empty,
 an exception to the cell rule, so the table reads as a staircase. A final row, **Rolling
-average**, holds for each age the customers who ordered ÷ the customers of the 12 most recent
+average**, holds for each age the retained customers ÷ the customers of the 12 most recent
 cohorts to have reached it (those cohorts can include ones older than the 12 shown). The Current
 period's cohort size equals New orders on `trading-kpi`, where the glossary's New customer holds.
 No comparison columns: the rows compare the cohorts. Action title: the latest cohort's retention
@@ -452,15 +472,17 @@ month 3 retained 14% of its customers, 12% above the rolling average").
 
 ### Cohort LTV (`ret-ltv`)
 
-Cumulative lines of **revenue per customer** by months since first order, 0 to 12, one thin line
+Cumulative lines of **LTV per customer** (the brain's LTV measure, named on the axis and in the
+title, "margin per customer" where it is margin; the glossary's revenue per customer where the
+brain defines none) by months since first order, 0 to 12, one thin line
 for each of the last 12 cohorts, each drawn as far as it has aged: the three most recent in series 3
 so the latest buying stands out, the rest in series 2, and the **rolling average** of the heatmap
 slide (the 12 most recent cohorts to have reached each age, weighted by customers) in bold series 1.
 Axes carry the currency and the month's age. Beside the chart, a small table of months 0, 3, 6 and
 12 with the columns: Age; the latest cohort to have reached that age (named); rolling average;
-difference %. Action title: the latest cohort's cumulative revenue per customer against the average
-at the age shown ("By month 6 the latest cohort has earned £62 per customer, 9% below the £68
-rolling average").
+difference %. Action title: the latest cohort's cumulative LTV per customer against the average
+at the age shown ("By month 6 the latest cohort has earned £62 of margin per customer, 9% below
+the £68 rolling average"; "revenue" for "margin" where the glossary's LTV holds).
 
 ### Subscription mix (`ret-subscriptions`, conditional)
 
@@ -474,7 +496,7 @@ month's 14%").
 ### Retention & LTV Recommendations (`ret-recs`)
 
 Up to three Recommendation cards drawn from the Retention & LTV slides, ranked by revenue at stake,
-worked as the Current period's new orders times the per-customer gap in cumulative revenue between
+worked as the Current period's new orders times the per-customer gap in cumulative LTV (converted to revenue on the Revenue basis where the brain's LTV is not revenue) between
 the rolling average and the cohort in question, at the oldest age that cohort has reached. Action
 title: as `trading-recs`.
 
@@ -612,8 +634,9 @@ No Action title. Three headings, always present, in this order:
    spend: your Google Ads export."), and the platforms marketing spend covers.
 2. **Definitions**: with a Growth Brain, one line saying the brain's own definitions are used, then
    the definition of each measure on the deck as that brain gives it (revenue and its basis, new
-   customer, active, lapsed, reactivated, CAC, retention, LTV, the margin rung), the channels
-   counted as paid, and where the deck holds a budget, the Budget basis. Revenue is stated as the
+   customer, new-customer conversion and what it divides by, active, lapsed, reactivated and the mart
+   they read, CAC overall and by channel, retention, LTV and its unit, the margin rung), a
+   glossary definition marked as such where the brain defines none, the channels counted as paid, and where the deck holds a budget, the Budget basis. Revenue is stated as the
    Revenue basis under the brain's name for it, with the AOV metric it comes from or, where the
    brain defines none, that it is the brain's revenue metric. Without one, the glossary's definitions of New customer, CAC, Active customer,
    Lapsed customer, LTV and Unknown row, as written there.
@@ -631,6 +654,8 @@ No Action title. Three headings, always present, in this order:
 | Margin, with margin rows | `<Rung>` % is the margin rate your Growth Brain publishes, dated by order, and `<rung>` is that rate applied to all revenue, so it can differ from a `<rung>` your Growth Brain or a dashboard adds up order by order. Where your Growth Brain publishes no such rate on this revenue, `<rung>` % is `<rung>` divided by revenue on your fully costed orders. |
 | History | The history starts in `<month>`, so trend charts are shorter than 24 months. |
 | A missing source | `<Slides>` could not be built because your `<plain name>` is not in your Growth Brain. |
+| Modelled channels, where channel CAC reads modelled credit | Channels are credited as your Growth Brain models them, so a channel's new orders are its modelled credit and can differ from the orders your orders record against it. |
+| Definition fallback, where a definition cannot be read | Your Growth Brain defines `<measure>` from `<plain name of the data>`, which this review cannot read, so `<measure>` is read as `<its plain glossary definition>` from your orders. |
 | Channel total | The channels' new orders exceed your orders' new orders by `<n>`, so the Unknown row reads 0. |
 | Tracking change | You told us `<the tracking change>`, so comparisons across it may not be like for like. |
 | Spend platforms (no brain) | Marketing spend covers `<platforms>` only. |
@@ -697,14 +722,14 @@ A slide built here uses these only when its Source cannot fill it.
 | `trading-customers` | The active customer base each month, with new, reactivated and lapsed customers | your customers' order history |
 | `trading-markets` | Revenue, orders and order value for each market side by side | your orders by market |
 | `trading-recs` | Up to three Trading actions, each with its evidence and how to validate it | the Trading slides' data |
-| `acq-blended` | Traffic, new-customer conversion and CAC, month by month for 24 months | your visits, orders and ad spend by month |
+| `acq-blended` | Traffic, new-customer conversion and CAC, month by month for 24 months | your traffic, orders and ad spend by month |
 | `acq-channels` | New orders, spend and CAC by channel, against last month | your orders and ad spend by channel |
 | `acq-paid-organic` | The paid and organic share of new orders, now and over the last 12 months | your orders by channel |
 | `acq-campaigns` | The top 10 campaigns on each connected ad platform | your ad platform campaign reports |
 | `acq-ltv-channel` | LTV by acquisition channel, ranked | your customers' order history by acquisition channel |
 | `acq-recs` | Up to three Acquisition actions, each with its evidence and how to validate it | the Acquisition slides' data |
 | `ret-cohort` | How many of each of the last 12 monthly cohorts ordered again, months 0 to 12 | your customers' order history by first-order month |
-| `ret-ltv` | Each cohort's cumulative revenue per customer against the average | your customers' order history by first-order month |
+| `ret-ltv` | Each cohort's cumulative LTV per customer against the average | your customers' order history by first-order month |
 | `ret-subscriptions` | The subscription share of new orders over 24 months | your orders by subscription |
 | `ret-recs` | Up to three Retention & LTV actions, each with its evidence and how to validate it | the Retention & LTV slides' data |
 | `aov-trend` | Average order value for new, returning and all customers over 24 months | your orders by customer type |
