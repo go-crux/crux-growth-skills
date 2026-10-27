@@ -11,7 +11,7 @@ growth equation: trading, then acquisition, retention and LTV, then order value 
 
 - **Action title**: the heading on every content slide, the slide's takeaway as a full sentence with at least one figure, at most two lines. Never the topic ("CAC trend"). _Avoid_: headline, slide title, McKinsey title.
 
-- **Brain slot**: a slide the Sources could not fill. It keeps its action title, saying what it would show, and its body is one fixed line naming the data it needs and that a Growth Brain provides it (gocrux.io/contact). The appendix slides are always Brain slots without a brain. _Avoid_: placeholder, empty slide, upsell slide.
+- **Brain slot**: a slide the Sources could not fill. It keeps its action title, saying what it would show, and its body is one fixed line naming the data it needs and that a Growth Brain provides it (gocrux.io/contact); on a run with a brain, the line names the mart or column the brain lacks instead. The appendix slides are always Brain slots without a brain. _Avoid_: placeholder, empty slide, upsell slide.
 
 - **Brain line**: the one fixed line closing the Notes on a run without a Growth Brain, saying what a brain adds and pointing at gocrux.io/contact. Said once, unlike a Brain slot. _Avoid_: upsell, plug, disclaimer.
 
