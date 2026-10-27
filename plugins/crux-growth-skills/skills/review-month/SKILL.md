@@ -48,22 +48,22 @@ Then settle the timezone and the currency once, as `references/sources.md` sets 
 the Current period and its Comparison periods once, in the `periods` CTE there, from the month the
 intake settled.
 
-**Done when** the one Growth Brain chosen has its roster, its metric index and the definitions for
-the tables the deck reads, and its examples in hand, or there is none and each connector the session offers has had one probe read, with any that
-refused or could not be told to be the brand's named to the user (in the Notes on an Unattended
-run) and any export a figure needs asked for once or its figure marked "No data"; the timezone and
-the currency are set; and the Current period is a calendar
-month set as start and end dates, with the Comparison periods (last month, the same month last
-year) set from it.
+**Done when** the one Growth Brain chosen has its roster, its metric index, the definitions for the
+tables the deck reads and its examples in hand, or there is none and each connector the session
+offers has had one probe read, with any that refused or could not be told to be the brand's named
+to the user (in the Notes on an Unattended run) and any export a figure needs asked for once or its
+figure marked "No data"; the timezone and the currency are set; and the Current period is a
+calendar month set as start and end dates, with the Comparison periods (last month, the same month
+last year) set from it.
 
 ## 3. Read
 
 Read the Trading, Acquisition, Retention & LTV and Order value & product Sections, and the three
 Appendix slides, from the Source, with dates from `periods`. On a Growth Brain compose every query
 for `run_sql` from the columns `list_tables` returns, one mart per call and one pull for every mart
-read, the ad platform marts included, and take each figure's mart
-and basis from `references/sources.md`; without one, read the connectors and files as its
-Connectors and exports section sets out. For each slide `references/deck-layout.md` builds in full, read its
+read, the ad platform marts included, and take each figure's mart and basis from
+`references/sources.md`; without one, read the connectors and files as its Connectors and exports
+section sets out. For each slide `references/deck-layout.md` builds in full, read its
 figures: this month, last month, the same month last year, and a budget only where the Source holds
 one; the 24-month series for the trend charts, the 12 months or 12 cohorts the slide names; and the
 columns of a slide that states its own. Check each total against its own read: the month's
@@ -112,7 +112,7 @@ figures, or its Focus slide is a Brain slot; and:
   and sales equal the KPI table's, and each month's columns add up to that month's revenue;
 - discounted and full-price orders add up to orders in each of the 24 months;
 - the Discount codes slide is present only where an order in the Current period carries a code, its
-  rows are code groups where the orders carry a code group column and codes otherwise, a
+  rows are code groups where `list_tables` shows a code group column on the orders and codes otherwise, a
   free-shipping row reads "free shipping" in its depth cell, and its rows add up to its Total row.
 
 A figure the Source cannot give reads "No data" or its slide is a Brain slot; none is guessed.

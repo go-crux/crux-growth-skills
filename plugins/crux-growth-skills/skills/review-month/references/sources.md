@@ -337,9 +337,11 @@ rule, named as the platform.
   medium is paid; every other placed channel is organic, and the Unknown row stays its own group.
   State the paid channels in the Notes.
 - **Campaigns.** A campaign's new orders are the Shopify new orders whose UTM campaign equals the
-  campaign's name or ID in the platform's report (trimmed, ignoring case). Only campaigns with at
-  least one placed new order are ranked; the "All `<platform>` campaigns" row carries the platform's
-  spend, impressions and clicks and its channel row's new orders.
+  campaign's name or ID in the platform's report (trimmed, ignoring case). Only named campaigns
+  with at least one placed new order are ranked; spend the report holds with no campaign (a blank
+  campaign, or a placeholder such as "Unknown") is the "No campaign" row, below the ranking, and the
+  "All `<platform>` campaigns" row carries the platform's spend, impressions and clicks and its
+  channel row's new orders.
 - **LTV by channel** groups customers by the channel of their first order, on the LTV window.
 
 ### Timezone, currency and periods
