@@ -352,7 +352,15 @@ of revenue, while the US grew 22% to £180k").
 ### Trading Recommendations (`trading-recs`)
 
 Up to three Recommendation cards drawn from the Trading slides above, ranked by revenue at
-stake. Action title: the count and the combined revenue at stake with the lead action ("Three
+stake, worked one of three ways and the card says which. **Budget gap**: revenue below budget,
+sized as the revenue shortfall against budget on the Budget basis (`references/sources.md`,
+Budget), so the card names that basis; a Source with no budget has no budget gap. **Market or
+customer-type fall**: a market (`trading-markets`) or a customer type (new or returning, on
+`trading-revenue`) whose revenue fell, sized as its revenue fall against the same month last year,
+or against last month where the Source holds no figure for last year. **AOV fall**: average order
+value below the comparison, sized as the Current period's orders times the fall in average order
+value, against the same comparison month. A card sized against last year or last month says which.
+Action title: the count and the combined revenue at stake with the lead action ("Three
 actions are worth about £90k a month, led by recovering new-customer orders").
 
 ### Blended traffic, conversion and CAC (`acq-blended`)
@@ -375,7 +383,9 @@ in this order: Channel; **new orders** with this month, last month, MoM %, same 
 and YoY %; **spend** with this month and MoM %; **CAC** with this month and MoM %. No budget
 columns. Rows, in this order:
 
-1. Up to ten channels, ranked by new orders in the Current period, named as the Source names them.
+1. Up to ten channels, ranked by new orders in the Current period, ties by higher spend, then by
+   channel name in alphabetical order, named as the Source names them. The tie-break decides which
+   channel takes the last place of the ten, so the same data always gives the same table.
 2. **Other channels**, when more than ten hold new orders: every channel not named above, in each
    period.
 3. The **Unknown row**: the new orders no channel claims. It is shown as a row of its own and is
@@ -481,9 +491,11 @@ cohorts to have reached it (those cohorts can include ones older than the 12 sho
 period's cohort size equals New orders on `trading-kpi` where the cohort mart counts every order
 and the glossary's New customer holds; a mart that counts customers only carries the Cohort count
 caveat.
-No comparison columns: the rows compare the cohorts. Action title: the latest cohort's retention
-at the latest age it shares with others, against the rolling average ("The latest cohort to reach
-month 3 retained 14% of its customers, 12% above the rolling average").
+No comparison columns: the rows compare the cohorts. Action title: the **latest cohort to have
+reached month 1** (the Current period's cohort is at month 0, so it is never the one named), its
+month 1 retention against the Rolling average row's month 1 cell, the same comparison the Executive
+summary headlines ("The latest cohort to reach month 1, March's, retained 21% of its customers, 8%
+above the rolling average").
 
 ### Cohort LTV (`ret-ltv`)
 
@@ -518,9 +530,13 @@ title: as `trading-recs`.
 ### Next month (`next-month`)
 
 The top three Recommendation cards across every Section that has them, ranked by revenue at stake,
-each card as above with its Section named. Fewer than three Recommendations exist: show those that
-do. Action title: the combined revenue at stake and the lead action. These three cards are the
-actions next month's review checks.
+each card as above with its Section named. Each of the three is a **distinct gap**: where two cards
+size the same gap, or one gap sits inside another (a market's fall inside the revenue shortfall
+against budget, or an AOV fall inside a revenue gap), only the larger reaches Next month and the
+next distinct card, by revenue at stake, takes its place. Cards sized on a different measure or a
+different part of the business are distinct. Fewer than three distinct Recommendations exist: show
+those that do. Action title: the combined revenue at stake and the lead action. These three cards
+are the actions next month's review checks.
 
 ### Appendix: LTV by order category and by order type (`app-ltv-category`, `app-ltv-type`)
 
