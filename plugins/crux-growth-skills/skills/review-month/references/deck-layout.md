@@ -114,7 +114,11 @@ the view on screen.
 **Comparison columns.** Every table, and the small table beside a chart, carries these columns in
 this order: this month, last month, MoM %, same month last year, YoY %. Add budget and v budget %
 (after YoY %) only where the Source holds a budget, on the rows it holds one for; a Source with no
-budget carries no budget column. The Current period supplies "this month"; the Comparison periods
+budget carries no budget column, and a row whose measure has no budget reads "No data" in those two
+cells. The budget cell is the budget mart's figure for the Current period's days, and v budget % is
+that mart's own actual for the same measure against it (`references/sources.md`, Budget), so it is
+the row's this month figure only where the two bases match, and the Budget basis caveat says so
+where they do not. The Current period supplies "this month"; the Comparison periods
 are as `references/sources.md` sets out. Every % change is relative: a rate that moves from 2.0%
 to 1.8% reads "−10%". A year-ago figure the Source does not reach reads "No data". Show a change
 to the nearest whole % at 10% or more and to one decimal below it. A delta cell carries ▲ or ▼
@@ -287,11 +291,12 @@ keeps its Recommendations slide as before.
 
 A KPI table, one row per figure in this order, with the comparison columns:
 
-1. Revenue (the label names the basis: net of returns, ex VAT where `references/sources.md` says so)
+1. Revenue, on the Revenue basis of `references/sources.md` (the label is the name the brain gives it,
+   ex VAT where that file says so)
 2. Orders
 3. New orders
 4. Returning orders
-5. Average order value (revenue ÷ orders)
+5. Average order value, as `references/sources.md` sets it (Order value & product)
 6. Marketing spend
 7. MER (revenue ÷ marketing spend)
 
@@ -503,7 +508,7 @@ revenue, led by one at £96k").
 ### AOV, new / returning / blended (`aov-trend`)
 
 Three lines, one per month for 24 months, on one axis since all three are order value in the same
-currency: **blended** AOV (revenue ÷ orders, bold, series 1), **new-customer** AOV (new-customer
+currency: **blended** AOV (Average order value on `trading-kpi`, bold, series 1), **new-customer** AOV (new-customer
 revenue ÷ new orders, series 3) and **returning-customer** AOV (returning-customer revenue ÷
 returning orders, series 2), the Current period marked on each. Revenue is on the basis of
 `trading-kpi` and the new and returning split is that of `trading-revenue`, so the blended line
@@ -608,8 +613,10 @@ No Action title. Three headings, always present, in this order:
    spend: your Google Ads export."), and the platforms marketing spend covers.
 2. **Definitions**: with a Growth Brain, one line saying the brain's own definitions are used, then
    the definition of each measure on the deck as that brain gives it (revenue and its basis, new
-   customer, active, lapsed, reactivated, CAC, retention, LTV, the margin rung), and the channels
-   counted as paid. Without one, the glossary's definitions of New customer, CAC, Active customer,
+   customer, active, lapsed, reactivated, CAC, retention, LTV, the margin rung), the channels
+   counted as paid, and where the deck holds a budget, the Budget basis. Revenue is stated as the
+   Revenue basis under the brain's name for it, with the AOV metric it comes from or, where the
+   brain defines none, that it is the brain's revenue metric. Without one, the glossary's definitions of New customer, CAC, Active customer,
    Lapsed customer, LTV and Unknown row, as written there.
 3. **Caveats**: one line each, where it applies, in this wording:
 
@@ -619,7 +626,8 @@ No Action title. Three headings, always present, in this order:
 | Currency | Amounts are in `<currency>`. Where no Source states one: Amounts are in the currency your orders are recorded in. |
 | Test orders | Test orders are left out. |
 | Cancelled orders | Cancelled orders are `<left out / counted / not stated>`, as your orders record them. |
-| Returns | Returns are booked on the `<order / refund>` date, so the latest months' revenue can still change as returns arrive. |
+| Returns | Returns are booked on the `<order / refund>` date, so the latest months' revenue can still change as returns arrive. Where the Revenue basis is before returns: `<Revenue name>` is before returns, so the latest months can still change as returns arrive. |
+| Budget basis, where it differs from the Revenue basis | Budget is set on `<basis>`, so the budget column compares your `<basis>` against it, not the revenue above. |
 | Orders not fully costed, where your orders flag them | `<n>` orders (`<share>` of revenue) include a product that has no cost yet. They are counted in every figure. With margin rows, add: Their `<rung>` % is taken to be the same as for your other orders. |
 | Margin, with margin rows | `<Rung>` % is the margin rate your Growth Brain publishes, dated by order, and `<rung>` is that rate applied to all revenue, so it can differ from a `<rung>` your Growth Brain or a dashboard adds up order by order. Where your Growth Brain publishes no such rate on this revenue, `<rung>` % is `<rung>` divided by revenue on your fully costed orders. |
 | History | The history starts in `<month>`, so trend charts are shorter than 24 months. |
