@@ -74,7 +74,7 @@ segment is not weighed, because that segment carries all the change by default; 
 only when every dimension the step offers holds one segment, and then the one listed first is
 collapsed. A qualifying segment is one the volume floor leaves on its own row.
 
-**The descent rule.** Every cut-off is here, and none is named on the page.
+**The descent rule.** Every cut-off on the descent is here, and none is named on the page.
 
 - Go down a level into a segment that carries at least half its parent's change, in the direction
   of the change. Where several do (segments pulling the other way can leave more than one over
@@ -85,8 +85,10 @@ collapsed. A qualifying segment is one the volume floor leaves on its own row.
 - On a ratio lever the floor reads the numerator as well as the volume: a segment joins "Other"
   only when it is under 5% of its parent's volume and under 5% of its parent's numerator in both
   periods. A segment with orders and no visits (Radio, Retail, modelled re-attribution rows)
-  keeps its own row, its rate reading "No data" and its volume 0. Its contribution is still
-  defined, and "New" and "Stopped" follow its numerator there, not its volume.
+  follows the same floor, and its numerator decides it, since its volume is 0: under the floor
+  it joins "Other"; at or above it, it keeps its own row, its rate reading "No data" and its
+  volume 0. Its contribution is still defined, and "New" and
+  "Stopped" follow its numerator there, not its volume.
 - Stop at three levels, or when the Source holds no finer dimension. Say which in the Drivers
   block, and name the finer dimension in the Notes.
 - With no segment carrying half the change, stop at that level: the change is spread, and the
@@ -255,8 +257,10 @@ that fit the lever:
 | margin % | a discount or price change; a supplier cost change; a change in the product mix sold |
 | platform levers | a creative, audience or bidding change; a platform delivery change; for order value, a price or promotion change |
 
-The table words each cause for a fall. On a rise, offer the same cause in its rising form: a
-budget raised, a campaign launched, a flow switched on, a promotion started, a fault fixed.
+The table words each cause for a lever that fell. Where the lever rose, offer the same cause in
+its rising form: a budget raised, a campaign launched, a flow switched on, a promotion started, a
+fault fixed. The lever's own movement sets the form, not the Success KPI's: on a CAC tree,
+conversion that rose takes the rising form though CAC fell.
 
 "Don't know" sets that driver's Cause to "Not confirmed". Any other answer is the Cause, in
 the user's words.
@@ -280,6 +284,10 @@ read.
   segment in the direction of the change at the parent's level other than the one descended
   into. Where neither exists, the driver has fewer recommendations.
 - A segment pulling against the change, and the "Other" row, get no recommendation of their own.
+- The first recommendation is always kept. The second or third is dropped when its KPI at stake,
+  unrounded, is under 10% of the driver's Contribution; each is tested on its own, and a
+  dropped one is not replaced by the next segment. The driver then has fewer recommendations. The
+  page never names this cut-off.
 
 The **KPI at stake** is the Success KPI's change that the recommendation's segment carries: the
 segment's share of the lever's change times the lever's Contribution, in the Success KPI's unit,
@@ -290,7 +298,7 @@ can lift a segment's share of the lever's change past it. Where a recommendation
 use their sum, capped the same way. A capped figure is worded as
 `references/diagnosis-layout.md` sets out, so the reader sees why it is smaller than the
 segment's row in the table. State it as the change at stake, never as a forecast of what the
-action recovers.
+action recovers. Round it as `references/contribution.md` sets out under A KPI at stake.
 
 Each recommendation carries:
 
@@ -308,12 +316,22 @@ confirm the cause (the promotion calendar for these dates, the campaign's change
 checkout's release log), and says what to do on each answer. Ship never applies to a check-first
 action.
 
-**On a rise**, phrase every action for a rise: scale what drove it. A check-first action is
-verify, then scale: the check that confirms what
-drove the rise, then, on each answer, how to scale it or why to hold it.
+**On an improvement** (the Success KPI moved in its good direction, `references/lever-trees.md`),
+phrase every action for an improvement: scale what drove it. A check-first action is verify,
+then scale: the check that confirms what drove the improvement, then, on each answer, how to
+scale it or why to hold it. On a decline, every action fixes what
+drove it.
 
-An Also large lever in step 5 gets one action line, check-first: the first segment or
-level to open and what to look for. An Offset that `SKILL.md` step 5 gives an action line, or the
-lever it gives that line when there is no Main driver, gets the same line, phrased for that
-lever's own direction, not the Success KPI's: verify, then fix a fall or scale a rise. Every
-other Offset gets no action.
+An Also large lever in step 5 gets one action line, check-first: the first level to open and what
+to look for. An Offset that `SKILL.md` step 5 gives an action line, or the lever it gives that
+line when there is no Main driver, gets the same line, phrased for that lever's own Contribution,
+not the Success KPI's change: verify, then scale a lever that improved the Success KPI or fix one
+that worsened it. Every other Offset gets no action.
+
+Each line is worded from the rows under "The action lines" in `references/diagnosis-layout.md`.
+Fill them so:
+
+- **<dimension>**: the first dimension of the lever's path (Paths above).
+- **<likely cause>**: the first cause listed for the lever in the Cause question's table, in its
+  falling or rising form as the lever's own movement sets it.
+- **<fix or scale>**: "scale" where the lever improved the Success KPI, "fix" where it worsened it.
