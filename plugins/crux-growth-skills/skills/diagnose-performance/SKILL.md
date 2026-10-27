@@ -17,26 +17,28 @@ Brain line and Performance diagnosis are those of `references/glossary.md`; use 
 
 ## Unattended run
 
-A run is unattended only on an explicit signal: the message says not to ask ("don't ask me
-anything", "run it without questions"), or the run is a scheduled task or routine. A message that
-names the Success KPI, both periods and the data is not on its own that signal: a person who
-writes it is attended and follows step 2. An unattended run asks the user nothing, at any step,
-and follows these five rules:
+A run is unattended only on an explicit signal: the message says "unattended" or says not to
+ask ("don't ask me anything", "run it without questions"), or the run is a scheduled task or
+routine. A message that names the Success KPI, both periods and the data is not on its own that
+signal: a person who writes it is attended and follows step 2. An unattended run asks the user
+nothing, at any step, and follows these five rules:
 
 - Skip Intake's round and the Lever tree's confirmation, and still resolve the periods as step 2
   sets out; the tree is shown on the page only. A KPI the lever tree catalogue does not hold takes
   the good direction the rule under the catalogue in `references/lever-trees.md` gives, and the
   Notes say it was assumed.
-- With several Growth Brains, take the one the message names. If it names none, stop with one
-  line in the chat naming the brains found, run no query and write no page; the first the
-  session lists is never taken. With one, say in the Notes which it read.
+- With several Growth Brains, take the one the message names: a brain is named by its connector
+  name, or by its whole `<Client>` name (the part before " - Growth Brain", in any case) anywhere
+  in the message. If the message names none, or more than one, stop with the several-brains line
+  (`references/diagnosis-layout.md`, A stopped run), run no query and write no page; the first
+  the session lists is never taken. With one, say in the Notes which it read.
 - Ask for no export: a lever the named Source cannot read reads "No data".
 - Set every Cause to "Not confirmed" and make every action check-first.
 - Where step 3 stops with one line, stop with that line and write no page.
 
 **Done when** no question was asked, every Cause reads "Not confirmed", every action is
 check-first, and the page holds all seven headings (or the run stopped with its one line, for
-several Growth Brains none named or at step 3).
+several Growth Brains none or more than one named, or at step 3).
 
 ## 1. Connect
 
