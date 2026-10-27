@@ -94,7 +94,9 @@ figures, or its Focus slide is a Brain slot; and:
   starts at 100% in month 0, and the cohort LTV lines and the rolling average read the same
   cohorts as the table;
 - every LTV figure reads the LTV window;
-- the blended AOV equals the KPI table's Average order value in every month of the series;
+- the blended AOV equals the KPI table's Average order value in every month of the series (and,
+  where the brain defines an AOV metric, that metric), every revenue figure sits on the Revenue
+  basis, and each budget cell is read from the budget mart on the Budget basis;
 - the Product and category mix rows, No category included, add up to the Total row, whose orders
   and sales equal the KPI table's, and each month's columns add up to that month's revenue;
 - discounted and full-price orders add up to orders in each of the 24 months;

@@ -33,6 +33,7 @@ the Notes name it.
 | Ad platform performance | `<client>-meta_performance`, `<client>-google_ads_performance` | impressions and clicks by campaign where channel reporting lacks them; the platform's own mart, only for a platform the roster lists |
 | LTV retention | `<client>-ltv_retention` | cohort sizes, retention by month since first order and cumulative revenue per customer, where `list_tables` shows it carries them |
 | Order items | `<client>-order_items` | units and revenue by product and variant, for the line-item breakdown; a product category per line, for the order's category only where the orders mart holds none |
+| Budget | `<client>-daily_budget_versus_actuals`, where `list_tables` shows it | each measure's budget and the mart's own actual for the same measure, for "v budget". Read the whole-business row: the grain value the mart's description names as the all-business grain (`all`), never a sum across grains. The window is the Current period's first day to its last complete day (its last day, or yesterday in the brand's timezone where that is earlier), the same days on both sides |
 
 The roster decides which exist, and each step names only the marts its slides need.
 **A mart missing from the roster** makes every slide that reads it a Brain slot, and the Notes name
@@ -75,7 +76,7 @@ mart per call, only the reasons kept.
 
 | Figure | Read from | Rule |
 |---|---|---|
-| AOV, blended, new, returning | `<client>-orders` | Revenue ÷ orders, with new and returning from the orders' customer-type flag. The basis is that of the KPI table, so the blended AOV equals the KPI table's and no two slides disagree. Where `list_metrics` defines AOV, its definition wins and the Notes state it |
+| AOV, blended, new, returning | `<client>-orders` | Blended AOV is the KPI table's revenue ÷ orders: the Revenue basis is the numerator of the brain's AOV metric, so it equals that metric where the brain defines one, and no two slides disagree. New and returning AOV are the same revenue ÷ orders over the orders' customer-type flag. The Notes name the AOV metric where there is one |
 | Order category | `<client>-orders` where `list_tables` shows a category column on it, else `<client>-order_items` | A category is read on the order so each order sits in one category and the rows add to the month's totals. From the order items, the category of the order's highest-revenue line. A product's category is never counted per line, since an order with two categories would count twice. Neither mart holds a category: the slide is a Brain slot and the Notes name it |
 | Category sales and the 24-month mix | `<client>-orders` | Revenue by category on the KPI table's basis, each month classified by the Current period's categories, so the monthly series add to revenue and compare like for like |
 | Discounted orders, discount given, value before discount | `<client>-orders` where `list_tables` shows a discount column on it | A discounted order is one whose discount is above zero. Value before discount is the mart's own pre-discount column where it has one, else the order's revenue plus its discount, both on the same VAT basis. No discount column: `aov-discount` is a Brain slot and the Notes name it |
@@ -84,13 +85,24 @@ mart per call, only the reasons kept.
 
 ## Definitions and basis
 
-**The brain's `list_metrics` definitions win.** Where it defines revenue, new customer, active
-customer, lapsed customer, CAC or a margin rung, use that definition and state it in the Notes.
-Where it does not, the glossary's definitions hold and the Notes state those.
+**The brain's `list_metrics` definitions win.** Where it defines new customer, active customer,
+lapsed customer, CAC or a margin rung, use that definition and state it in the Notes. Where it does
+not, the glossary's definitions hold and the Notes state those. Revenue follows the rule below.
 
-- **Revenue leads.** Revenue is the brain's own revenue measure, read from `<client>-orders` by the
-  order's date, ex VAT where the mart carries it both ways, and named with that basis in the KPI
-  table and the Notes.
+- **Revenue leads, on one Revenue basis.** A brain can offer several revenue measures (before
+  returns, after returns, dated by order or by refund), and the deck reads one of them, chosen in
+  this order from `list_metrics`:
+  1. Where the brain defines an AOV metric, the Revenue basis is the revenue that metric divides by
+     orders, its numerator.
+  2. Where it defines none, the Revenue basis is the brain's revenue metric dated by order (where
+     several are, the one whose name is plain "revenue", else the first listed), and the Notes say
+     the brain defines no AOV metric.
+
+  Read it from `<client>-orders` by the order's date, ex VAT where the mart carries it both ways,
+  and label it in the KPI table and the Notes with the name the brain gives it. Every slide that
+  reads revenue (trend, customer type, market, category, cohort, LTV) reads this one basis, so
+  revenue, AOV and the product table's Total row agree. Where the Revenue basis is before returns,
+  the Returns caveat applies.
 - **Margin adds rows, never replaces them.** Add the CM3 rows when the brain holds CM3, else the
   highest margin rung it holds, labelled as the brain names it. A brain with no margin rung adds no
   margin row.
@@ -113,8 +125,13 @@ Where it does not, the glossary's definitions hold and the Notes state those.
   later one, as the orders mart flags it. Each month's new and returning revenue add to that
   month's revenue.
 - **Market** is the order's shipping country. A mart with no such column counts as one market.
-- **Budget.** A budget is used only when a mart or metric in the roster holds one for the month.
-  Without one, the budget columns are left out entirely.
+- **Budget, on its own basis.** A budget is used only when the roster holds the budget mart (or a
+  metric holds one for the month); without one, the budget columns are left out entirely. The
+  Budget basis is the measure the budget is set on, as the mart names it. "v budget %" compares the
+  budget with the mart's own actual for the same measure (read as the marts table sets out), so
+  both sides sit on the Budget basis: it is not the KPI row's figure unless the two bases are the
+  same. Where they differ, the Notes carry the Budget basis caveat. A measure the mart holds no
+  budget for reads "No data" in its budget cells.
 
 **Timezone and currency**, settled once and reused. Timezone: the brain's instructions where they
 name one, else the timezone the date descriptions of `<client>-orders` name. Where they say only

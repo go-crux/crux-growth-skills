@@ -25,6 +25,12 @@ growth equation: trading, then acquisition, retention and LTV, then order value 
 
 - **Source**: where a figure is read from, the first of: a Growth Brain, the ad account and Shopify connectors, CSV exports the user gives. _Avoid_: data source, feed, input.
 
+## Revenue and budget
+
+- **Revenue basis**: the one revenue measure every revenue figure on a Growth Brain deck is read on: the revenue the brain's AOV metric divides by orders, else the brain's revenue metric dated by order. Named in the KPI table and the Notes as the brain names it. _Avoid_: revenue type, revenue rung.
+
+- **Budget basis**: the measure the budget is set on, as the budget mart names it; "v budget %" compares the budget with that mart's own actual for the same measure, so it can differ from the Revenue basis. _Avoid_: budget type, budget revenue.
+
 ## Intake and actions
 
 - **Month context**: what the user says happened in the month (a promotion, a launch, a stockout, a tracking change), written into the slides' read in place of guessed causes. _Avoid_: notes, commentary.
