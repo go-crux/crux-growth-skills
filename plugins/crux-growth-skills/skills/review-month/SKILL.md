@@ -91,18 +91,18 @@ figures, or its Focus slide is a Brain slot; and:
   reactivated, less lapsed, equals this month's) wherever the glossary's definitions are used;
 - every measure `list_metrics` defines and the deck shows is read as the brain defines it, every
   slide names it as the brain does, and the Notes list each definition used;
-- the Channel mix rows, its Unknown row included, add up to the Total row's new orders, which
+- the Appendix channel table's rows, its Unknown row included, add up to its Total row's new orders, which
   equals the KPI table's new orders, on the same basis as the channel CAC (modelled or measured),
   and its spend equals the KPI table's marketing spend, in every
   period shown (or the Notes carry the Channel total caveat);
 - paid, organic and Unknown new orders add up to new orders in each of the 12 months;
-- each ad platform with spend in the Current period has one campaigns slide of at most ten named
-  campaigns ranked by new orders, its spend with no campaign in a "No campaign" row below the
-  ranking, never in it, and its title counting named campaigns only;
-- the cohort table's Current period cohort size equals the KPI table's new orders where the cohort
-  mart counts every order (otherwise the Cohort count caveat is in the Notes), every cohort
-  starts at 100% in month 0, and the cohort LTV lines and the rolling average read the same
-  cohorts as the table;
+- each ad platform with spend in the Current period has one campaigns slide of its top five named
+  campaigns by new orders and one Appendix slide of its top ten, its spend with no campaign in a "No
+  campaign" row below the ranking, never in it, and each title counting named campaigns only;
+- the Appendix cohort table's Current period cohort size equals the KPI table's new orders where the
+  cohort mart counts every order (otherwise the Cohort count caveat is in the Notes), every cohort
+  starts at 100% in month 0, and the retention curves, the cohort LTV lines and the rolling average
+  read the same cohorts as that table;
 - every LTV figure reads the LTV window and the brain's LTV measure;
 - the margin rows, where shown, are on a rung dated by order, or on the highest mixed-dated rung
   with the Mixed-dated margin caveat in the Notes, and a rung the brain says equals the one below
@@ -110,12 +110,14 @@ figures, or its Focus slide is a Brain slot; and:
 - the blended AOV equals the KPI table's Average order value in every month of the series (and,
   where the brain defines an AOV metric, that metric), every revenue figure sits on the Revenue
   basis, and each budget cell is read from the budget mart on the Budget basis;
-- the Product and category mix rows, No category included, add up to the Total row, whose orders
-  and sales equal the KPI table's, and each month's columns add up to that month's revenue;
+- the Appendix category table's rows, No category included, add up to its Total row, whose orders
+  and sales equal the KPI table's, and the category bars, Other categories and No category included,
+  add up to that month's revenue;
 - discounted and full-price orders add up to orders in each of the 24 months;
-- the Discount codes slide is present only where an order in the Current period carries a code, its
-  rows are code groups where `list_tables` shows a code group column on the orders and codes otherwise, a
-  free-shipping row reads "free shipping" in its depth cell, and its rows add up to its Total row.
+- the Discount codes slide and its Appendix slide are present only where an order in the Current
+  period carries a code, their rows are code groups where `list_tables` shows a code group column on
+  the orders and codes otherwise, a free-shipping row reads "free shipping" in its depth cell, and the
+  Appendix rows add up to its Total row.
 
 A figure the Source cannot give reads "No data" or its slide is a Brain slot; none is guessed.
 
