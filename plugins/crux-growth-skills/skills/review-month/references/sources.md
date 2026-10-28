@@ -273,9 +273,10 @@ is a refusal; a read that returns zero is not.
 
 ### What each figure reads
 
-Customer-level rows are Shopify **order rows**: one row per order with the columns of the Orders
-export below, from a connector or the export. **Reports** are Shopify's sales over time and
-sessions over time, a coarser Source that fills only the first three rows.
+Customer-level rows are Shopify **order rows**: one row per order, its file rows summed, with the
+columns of the Orders over time report below (else the Orders export), from a connector or the
+export. **Reports** are Shopify's sales over time and sessions over time, a coarser Source that
+fills only the first three rows.
 
 | Figure | Reads | Slides |
 |---|---|---|
@@ -290,10 +291,10 @@ sessions over time, a coarser Source that fills only the first three rows.
 No Source here holds a budget or a margin: there are no budget columns and no margin rows.
 
 **Revenue** is Shopify net sales: after discounts and returns, before shipping and taxes where
-the Source separates them. From order rows it is the order's Subtotal less its Refunded Amount,
-booked on the order date; from sales over time it is Net sales, booked on the refund date. One
-basis serves the whole deck, the order rows' where they exist. The KPI table's label and the
-Notes name it, and the Returns caveat takes the matching word.
+the Source separates them. From order rows it is the order's Net sales (from the Orders export,
+its Subtotal less its Refunded Amount), booked on the order date; from sales over time it is Net
+sales, booked on the refund date. One basis serves the whole deck, the order rows' where they
+exist. The KPI table's label and the Notes name it, and the Returns caveat takes the matching word.
 
 ### Definitions without a Growth Brain
 
@@ -314,7 +315,9 @@ Shopify order rows:
 - **Lapsed customer** in a month: the 12 months since their last order ended in that month.
 - **CAC** is all connected ad spend ÷ new customers (the New orders above), blended, in every period. With no ad spend read,
   CAC reads "No data".
-- **Cancelled orders** (a cancelled-at date) are left out of every count.
+- **Cancelled orders** (a cancelled-at date) are left out of every count. The Orders over time
+  report has no cancelled date: there a cancelled order's sales reversal takes its revenue to nil,
+  it still counts as an order, and the Notes carry the Cancelled orders in the report line.
 - **Test orders** are left out where the connector flags them. An export carries no such flag, and
   the Notes carry the Test orders line for exports.
 
@@ -329,9 +332,9 @@ Brain slots, and with them the Appendix slides of the three that have one.
 
 ### Channel mix
 
-A **channel** is placed from the UTM and referrer data on the Shopify orders (the UTM source,
-medium and campaign columns, else the landing site and referring site they come from), taking the
-first that places the order:
+A **channel** is placed from the UTM and referrer data on the Shopify orders (the order UTM source,
+medium and campaign, else the referrer, or in the Orders export the landing site and referring
+site), taking the first that places the order:
 
 | Channel | An order is placed here when |
 |---|---|
@@ -386,11 +389,40 @@ connector and file on them.
 Give the user only the steps for the files the run needs and does not already hold, and name what
 each file feeds. Match column headers loosely: labels vary by report version and language.
 
-**Shopify: Orders export.**
+**Shopify: Orders over time report.** It downloads at once as one file; lead with it.
+
+1. In Shopify admin, open Analytics, then Reports, then "Orders over time".
+2. Set the range to every order up to the end of the Current period, or the 36 months ending with
+   it, and group by day.
+3. Add the dimensions Order ID, Customer ID, New or returning customer, Discount code, Shipping
+   country, Referrer, Order UTM source, Order UTM medium, Order UTM campaign and
+   Product type, and every sales metric.
+4. Export as CSV, choosing all results of the query rather than the rows on screen, and drop the
+   file into this chat.
+
+An order can sit on more than one row: product type splits it across its types, and a return lands
+on its own row on the day of the return. Take an order's date from its earliest row, sum its rows
+for its figures, and count it once.
+
+| Column | Feeds |
+|---|---|
+| Order ID | one order, across its rows |
+| Day | the order's date (its earliest row) |
+| Customer ID | new, active, lapsed customers, cohorts, LTV |
+| New or returning customer | an order the history reads as first but the report calls returning is not a new order (the customer ordered before the history starts) |
+| Orders, Gross sales, Discounts, Sales reversals, Net sales | orders, revenue (Net sales), discounted orders and depth (Discounts, with Gross sales as the value before discount) |
+| Discount code | codes |
+| Shipping country | markets |
+| Order UTM source, medium and campaign; Referrer | channel placement |
+| Product type | the order's category (`references/deck-layout.md`, Category): each product type's rows are a line, and the line with the most Net sales sets it |
+
+**Shopify: Orders export** (the fallback, read when the user already holds it or cannot run the
+report; on a large store it can take hours to arrive by email, in several files). A run never asks
+for it only to fill a figure the report lacks: its tags carry the subscription flag the report has
+none of, so `ret-subscriptions` is built only when this export is held.
 
 1. In Shopify admin, open Orders, then Export.
-2. Choose all orders in the date range (every order up to the end of the Current period, or the 36
-   months ending with it), as a plain CSV file, and drop the file into this chat.
+2. Choose all orders in the same date range, as a plain CSV file, and drop the files into this chat.
 
 Shopify exports one row per line item, with order-level columns filled on an order's first row:
 read each order's totals once.
@@ -409,9 +441,9 @@ read each order's totals once.
 | Lineitem name, Lineitem sku | the order's category, with the Products export |
 | Currency | currency |
 
-**Shopify: Products export** (for the category): Products, Export, CSV, with Title, Type, Product
-Category and Variant SKU. A line's category is its product's Type, else its Product Category,
-joined on the SKU, else the product title the line's name begins with.
+**Shopify: Products export** (for the category from the Orders export): Products, Export, CSV,
+with Title, Type, Product Category and Variant SKU. A line's category is its product's Type, else
+its Product Category, joined on the SKU, else the product title the line's name begins with.
 
 **Shopify: sales over time and sessions over time** (when no order rows are held, and for visits):
 in Analytics, Reports, open "Sales over time", set the range to the 24 months ending with the
