@@ -22,10 +22,11 @@ that are not "No data". Percentages are relative.
 sends at least 2 email campaigns on Black Friday and 1 on each of Saturday, Sunday and Cyber
 Monday, 5 over the weekend.
 
-Without a Growth Brain, the margin that patterns 3, 4 and 10 read is the gross profit of
-`SKILL.md` step 1's Basis bullet ("Gross profit, as Shopify records it"; pattern 10's 180-day
-margin per customer is cumulative gross profit per customer), and a margin that reads "No data"
-stops them firing. Patterns 7 and 9 read no margin; they cannot fire where Retention reads "No
+Where a margin comes from a Shopify Source rather than a Growth Brain, the margin that patterns
+3, 4 and 10 read is the gross profit of `SKILL.md` step 1's Basis bullet ("Gross profit, as
+Shopify records it", in place of the contribution margin they name; pattern 10's 180-day margin
+per customer is cumulative gross profit per customer), and a margin that reads "No data" stops
+them firing. Patterns 7 and 9 read no margin; they cannot fire where Retention reads "No
 data".
 
 Add a row when a season shows a pattern the catalogue missed. A new row carries all three

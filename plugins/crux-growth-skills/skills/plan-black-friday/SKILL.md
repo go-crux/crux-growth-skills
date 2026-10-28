@@ -164,7 +164,7 @@ per unit, and the year before it for the same product. A figure the table lacks 
 
 Where there is no Growth Brain, or its roster lacks `<client>-order_items`, read every product
 figure from one Shopify sales by product report by day (a Shopify connector, else the export;
-`references/exports.md`), the same Source in both years, and cut the windows from its day rows.
+`references/exports.md`) and cut the windows from its day rows.
 Each figure is as above, from the report's columns: revenue is total sales; margin is total sales
 less cost, labelled "Gross profit, as Shopify records it", and reads "No data" where the report
 carries no cost; margin % is margin over revenue; the share of the weekend's margin is the
@@ -200,7 +200,7 @@ part no Source holds reads "No data" with its plain reason.
   "No data".
 - *Retention*: with a Growth Brain whose roster lists `<client>-klaviyo_campaign_summary`, call
   `list_tables` for it. Otherwise read the campaigns from a Klaviyo connector (probed first),
-  else the Klaviyo campaign export (`references/exports.md`), the same Source in both years.
+  else the Klaviyo campaign export (`references/exports.md`).
   Show campaign revenue and sends per day by window, placing each campaign in the window of its
   send date,
   then rank the five campaigns with the most revenue in Black Friday weekend and Festive of
@@ -209,7 +209,7 @@ part no Source holds reads "No data" with its plain reason.
   cadence table. Without the mart, sends are the campaign's recipients and revenue is what
   Klaviyo attributes to the campaign, and the Notes say so. With neither a connector nor an
   export, Retention and the send cadence table read "No data" with the plain reason that no
-  Source in this run holds your email campaigns, so the patterns that read them cannot fire.
+  Source in this run holds your email campaigns.
 - *Repeat customers*: for every window in both years, read returning customers' share of
   orders (orders from customers with an earlier order, from `<client>-orders`) and the 90-day
   reorder of the window's new customers (the share who place a second order within 90 days of
