@@ -83,7 +83,7 @@ mart per call, only the reasons kept.
 | Figure | Read from | Rule |
 |---|---|---|
 | AOV, blended, new, returning | `<client>-orders` | Blended AOV is the KPI table's revenue ÷ orders: the Revenue basis is the numerator of the brain's AOV metric, so it equals that metric where the brain defines one, and no two slides disagree. New and returning AOV are the same revenue ÷ orders over the orders' customer-type flag. The Notes name the AOV metric where there is one |
-| Order category | `<client>-orders` where `list_tables` shows a category column on it, else `<client>-order_items` | A category is read on the order so each order sits in one category and the rows add to the month's totals. From the order items, the category of the order's highest-revenue line. A product's category is never counted per line, since an order with two categories would count twice. Neither mart holds a category: the slide is a Brain slot and the Notes name it |
+| Order category | `<client>-orders` where `list_tables` shows a category column on it, else `<client>-order_items` | A category is read on the order so each order sits in one category and the rows add to the month's totals. From the order items, the category of the order's highest-revenue line. A product's category is never counted per line, since an order with two categories would count twice. Neither mart holds a category: the slide is a Brain slot and the Notes name it. For the Category gap card only, a **single-category order** is an order whose `<client>-order_items` lines all carry one category; read each category's single-category orders and revenue, and the same for all categories together, from the order items. No product category on the order items: no Category gap card |
 | Category sales and the 24-month mix | `<client>-orders` | Revenue by category on the KPI table's basis, each month classified by the Current period's categories, so the monthly series add to revenue and compare like for like |
 | Discounted orders, discount given, value before discount | `<client>-orders` where `list_tables` shows a discount column on it | A discounted order is one whose discount is above zero. Value before discount is the mart's own pre-discount column where it has one, else the order's revenue plus its discount, both on the same VAT basis. No discount column: `aov-discount` is a Brain slot and the Notes name it |
 | Discount rate, discount depth | `<client>-orders` | The glossary's definitions, over the figures above. Where `list_metrics` defines either, its definition wins and the Notes state it |
@@ -153,7 +153,10 @@ and the glossary's alike. Three rules follow from it:
 - **Brain warnings.** Note each warning in the descriptions `list_tables` and `list_metrics` return
   that carries a date (a tracking change, a source switch, a backfill) and touches the Current period
   or a Comparison period, on a mart or metric the deck reads. Each is quoted in the Notes as the Brain
-  warning caveat, whether or not the user gave a Month context.
+  warning caveat, whether or not the user gave a Month context. A warning that says a Comparison
+  period's figure is not comparable with the Current period's (attribution changed mid-month, say)
+  makes every delta against that period on that figure "Not comparable"
+  (`references/deck-layout.md`, Comparison columns).
 - **Test orders** are left out wherever a mart flags them. **Cancelled orders** follow the mart
   (most exclude them upstream); the Notes say whether its descriptions include them, exclude them
   or say nothing.
