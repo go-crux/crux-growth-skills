@@ -10,6 +10,6 @@ Crux growth skills: free skills any brand installs in its own Claude that carry 
 
 ## Skill glossaries
 
-- `plan-black-friday`: [`plan-black-friday/references/glossary.md`](plugins/crux-growth-skills/skills/plan-black-friday/references/glossary.md) (the windows, Lift, Target test, Last-year level, Lever gap, Scenario, Daily phasing, Black Friday plan).
+- `plan-black-friday`: [`plan-black-friday/references/glossary.md`](plugins/crux-growth-skills/skills/plan-black-friday/references/glossary.md) (the windows, Lift, Target test, Last-year level, Lever gap, Scenario, Daily phasing, Source, Brain line, Black Friday plan).
 - `audit-landing-pages`: [`audit-landing-pages/references/glossary.md`](plugins/crux-growth-skills/skills/audit-landing-pages/references/glossary.md) (Find, Audit, Brand guardrails, Page type, Benchmark, Revenue at stake, Orders at stake, Underperforming page, Non-sale page, Leaking step).
 - `diagnose-performance`: [`diagnose-performance/references/glossary.md`](plugins/crux-growth-skills/skills/diagnose-performance/references/glossary.md) (Success KPI, Current period, Comparison period, Period timezone, Good direction, Lever, Lever tree, Source, Contribution, Main driver, Also large, Offset, Drill-down, Cause, Recommendation, Check-first, Brain line, Performance diagnosis).

@@ -28,3 +28,7 @@ to that year's Black Friday, the last Friday of November, so years compare like 
 - **Daily phasing**: the agreed monthly targets re-spread by last year's daily shape, aligned by days from Black Friday through Cyber Monday and by days before 24 December from Festive to the end of December, so the days still add back to each whole month. _Avoid_: daily budget (the budget's own weekday spread).
 
 - **Black Friday plan**: the skill's output, one artifact with six pages: **Overview**, **Offer**, **Marketing**, **Retention** and **Targets** (the read and the Target test) and **Plan** (targets, chosen Scenario, Daily phasing, actions, opportunities, risks and the watch list), agreed with the user in a grill. _Avoid_: report, playbook.
+
+- **Source**: where a section's figures come from, the first that holds it of a Growth Brain, a platform connector in the session (Shopify, GA4, Google Ads, Meta Ads, Klaviyo) and a file the user gives; one Source per section across every year read. _Avoid_: data source, feed, integration.
+
+- **Brain line**: the fixed sentence a run without a Growth Brain says once on the Overview and once in the chat, naming what a brain adds and pointing at gocrux.io/contact. _Avoid_: upsell, plug.
