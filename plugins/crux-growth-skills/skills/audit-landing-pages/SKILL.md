@@ -10,8 +10,8 @@ ingredients, prioritised findings, quick wins and an ICE-scored test backlog, wi
 `references/audit-layout.md` fixes it. Run the steps in order. The user sees only the chat
 and the page, never this skill or its references: say what the page showed, in plain words with
 its evidence, and never cite a file or a rule. The terms Find, Audit, Brand guardrails, Page
-type, Benchmark, Revenue at stake, Orders at stake, Underperforming page, Non-sale page and
-Leaking step are those of
+type, Benchmark, Revenue at stake, Orders at stake, Underperforming page, Non-sale page,
+Leaking step and Page inventory are those of
 `references/glossary.md`; use them as written.
 
 ## 1. Connect
@@ -210,12 +210,15 @@ its primary CTA serves it, is not an online purchase.
 on that, naming the goal; the findings go structural first; and every **Read as** says the
 change is read on the page's own goal, as `references/templates.md` sets it.
 
-**Read.** Choose by what the session offers.
+**Read.** Open `references/page-capture.md` and follow it, whichever way the page is read: the
+Page inventory first, then one screenshot per section, then every widget read. The page's text
+leaves out what sits in an iframe (a review widget, a video, a form), so a check is scored on the
+inventory and the screenshots, never on the text alone. Choose by what the session offers.
 
-- With a browser tool that works, render the page at mobile width first (about 390 px), scroll it end to
-  end, then render it at desktop width. Note the first screen, what sticks, any popup on
-  arrival and how it loads.
-- Without one, fetch the HTML and assess structure and copy. Mark every check tagged *(needs a
+- With a browser tool that works, render the page at mobile width first (about 390 px), take the
+  Page inventory and a screenshot of each section, then render it at desktop width. Note the
+  first screen, what sticks, any popup on arrival and how it loads.
+- Without one, fetch the HTML, take the Page inventory from it, and assess structure and copy. Mark every check tagged *(needs a
   render)* in `references/ingredients.md` as *unassessed*, and say in one line, in the chat and
   in the page's masthead, that mobile screenshots of the first screen and the buy area would
   settle them.
@@ -268,7 +271,10 @@ Tell the user where the page is, give the total and the weakest ingredient in on
 name the top finding and the Leaking step where there is one, and say which checks are *unassessed* and what would settle them.
 
 **Done when** the page type, the goal and the device priority are on the page; the masthead
-says how the page was read, including a browser tool that failed; all sixty checks carry a mark, each n/a and *unassessed* with its
+says how the page was read, including a browser tool that failed, and how many sections and
+widgets the Page inventory holds; every section in the Page inventory has a mobile screenshot
+where a browser rendered the page, or is named in the masthead as *unassessed*; every widget in
+it is read, or its checks are *unassessed* as present but unread, and none is scored as absent; all sixty checks carry a mark, each n/a and *unassessed* with its
 reason, and each check tagged *(needs a render)* is *unassessed* wherever only HTML was read;
 every off-brand lever already on the page is a quick win; no Do breaches a guardrail; every
 recommendation resting on an unconfirmed guardrail carries the assumption mark in its finding or

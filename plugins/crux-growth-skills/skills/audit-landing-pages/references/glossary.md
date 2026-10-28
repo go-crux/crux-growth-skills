@@ -21,3 +21,5 @@ The terms `SKILL.md` and the other references use, each with one meaning.
 - **Non-sale page**: a page whose job is not an online sale (a store locator, stockists, contact, FAQ, careers or about page), matched by `find.sql`'s `not_online_sale` path list. Its goal is something else (finding a stockist, getting in touch, an answer), so online revenue does not measure it: Find never ranks it and no Benchmark counts it, though its visits stay in the site's; an Audit of one reads each change on the page's own goal. _Avoid_: utility page, non-commerce page.
 
 - **Leaking step**: the funnel step where a page's rate falls furthest below the same Page type's, in relative terms, from a Growth Brain. It sets which findings come first; it never skips a check. _Avoid_: drop-off, bottleneck.
+
+- **Page inventory**: the list of a page's sections, in order with their headings and positions, and of every embedded widget (a review app, an iframe, a form, a video) inside them, taken from the page's own markup before any screenshot. The Audit screenshots and reads every row, so nothing the page's text leaves out goes unscored. _Avoid_: page map, section list.
