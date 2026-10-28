@@ -118,10 +118,11 @@ or drop the line.
 Before the deck is handed over, check every slide against this list. A slide that fails any line is
 fixed, never shipped.
 
-- It has one piece of evidence (a data slide never two).
-- A data slide has its Takeaway panel, of up to three lines and about 35 words.
-- It uses one Highlight colour, on the mark its Action title names.
-- Its type is at or above the minimums: Action title 28px, body and Takeaway panel 16px, table
-  14px, footer and source line 12px.
+- It holds at most one piece of evidence, and a data slide exactly one (on a Brain slot, its fixed
+  line).
+- A data slide has its Takeaway panel, within the limits under **The Takeaway panel**. A Brain
+  slot has none.
+- It uses at most one Highlight colour, and only on the mark its Action title names.
+- Its type is at or above every minimum under **Type**.
 - Nothing runs past the 1280×720 slide.
 - It carries the footer.
