@@ -1,7 +1,7 @@
 # Intake: the questions, the brand and last month's review
 
-Step 1 of `SKILL.md` runs this file. The user steers the review here: the deck comes out in their
-brand, explains the month with what they say happened, leads with their Focus questions, and opens
+Step 1 of `SKILL.md` runs this file. The user steers the review here: the deck wears their brand
+where they have one, explains the month with what they say happened, leads with their Focus questions, and opens
 on last month's actions. Everything the intake settles is used by the later steps and is never
 asked again.
 
@@ -31,8 +31,8 @@ nothing left to ask is skipped.
 **Round 2**
 
 3. **Brand**: whose colours and type does the deck wear? Resolve it first as **Brand** below
-   sets out and recommend the result by name: the brand guidelines found in the session, or the
-   neutral default with an invitation to give a file or link.
+   sets out and recommend the result by name: this brand's own skill found in the session, or the
+   Crux default with an invitation to give a brand file.
 4. **Month context**: what happened in the month that the figures alone would not show: a
    promotion, a launch, a stockout, a tracking change? Recommend "Nothing to add", which leaves a
    cause the data does not show as "not yet known".
@@ -66,34 +66,33 @@ review") are all settled, and the Source is stated to the user in one line.
 
 ## Brand
 
-The deck takes a brand's **colours, type stack and logo text** and nothing else. Resolve it in this
-order and stop at the first that gives a result:
+The deck wears the Crux default unless this brand has a look of its own. A brand changes the roles
+`references/crux-brand.md` lists (What a brand changes) and nothing else. Resolve it in this order
+and stop at the first that gives a result:
 
-1. **A brand guidelines skill or design system already in the session.** Look through the skills
-   and design systems the session offers for one that carries the brand's colours and type. With
-   several, take the one for this brand (its name matches the brand's), else the first the session
-   lists. Read it for the three things below.
-2. **A file or link the user gives** (a guidelines document, a style sheet, a design-system page).
-   Read that one file or page for the same three things and follow no other link from it. A link to
-   the brand's storefront or website is not guidelines: say so in one line and use the next step.
-3. **The neutral default**: the skeleton's colours and system font stack in
-   `references/deck-layout.md`.
+1. **A brand skill in the session for this brand.** Look through the skills and design systems the
+   session offers for one whose name or description names this brand. With several for this brand,
+   take the first the session lists. Read it for the roles below.
+2. **A brand file the user gives** (a guidelines document, a style sheet, a design-system page).
+   Read that one file or page for the same roles and follow no other link from it. A link to the
+   brand's storefront or website is not guidelines: say so in one line and use the next step.
+3. **The Crux default** in `references/crux-brand.md`.
 
-Never scrape the brand's website for its look. Take only:
+Never borrow another company's brand skill, Crux's own included, and never scrape the brand's
+website for its look. From a brand skill or file take only:
 
-- **Colours**: the text colour (ink), the page colour (paper), the main brand colour (accent), and
-  up to four chart colours (the four series) in the order the guidelines list them. A role the
-  guidelines leave out keeps its neutral value. A role whose brand value would sit on the page at a
-  contrast below 4.5 to 1 (ink on paper, accent on paper) keeps its neutral value.
-- **Type stack**: the stack of the guidelines' body font. A brand web font that needs a file or a
-  network fetch is not used: the deck takes the system stack the guidelines name for it as the
-  fallback, else the neutral system stack.
-- **Logo text**: the brand's name as the guidelines write it, set as text on the cover. No logo
-  image is used.
+- **Colours**: ink and paper, the Highlight colour (the brand's main colour), the greys, and a
+  category palette of up to five colours in the order the guidelines list them.
+- **Type**: the stack of the guidelines' heading font and of its body font. A brand web font that
+  needs a file or a network fetch is not used: the deck takes the system stack the guidelines name
+  for it, else the Crux stack.
+- **Name**: the brand's name as the guidelines write it, set as text on the cover. No logo image is
+  used.
 
-The brand name on the cover is the guidelines' name for it, else the `<Client>` of the Growth Brain
-connector's name, else the Shopify shop's name, else the user's answer ("Your brand" on an
-Unattended run). Brand values are written into the page's CSS roles as `references/deck-layout.md`
+A role the brand leaves out keeps its Crux value, and so does a role that `references/crux-brand.md`
+says to keep. The brand name on the cover is the guidelines' name for it, else the `<Client>` of the
+Growth Brain connector's name, else the Shopify shop's name, else the user's answer ("Your brand" on
+an Unattended run). The values are written into the page's CSS roles as `references/deck-layout.md`
 sets out, so the page makes no network request.
 
 ## Last month's review
@@ -114,15 +113,15 @@ An Unattended run asks the user nothing, at any step. Each choice is made as fol
   wording from `references/deck-layout.md`.
 - **Focus questions**: none, so no Focus slides.
 - **Month context**: none.
-- **Brand**: a brand guidelines skill or design system in the session, else the neutral default.
-  No file or link is asked for.
+- **Brand**: a brand skill in the session for this brand, else the Crux default. No file or link is
+  asked for.
 - **Last month's actions**: if `monthly-performance-review-<previous YYYY-MM>.html` is in the
   working folder, each of its actions shows as Not updated with what its metric did; otherwise the
   slide says no previous review was found.
 - **The end**: the chat closes on the Not updated prompt, as `SKILL.md` step 6 sets out.
 
 **Done when** the run put no question to the user; the file holds no Focus slide; its brand is a
-session brand skill's or the neutral default; the `last-actions` slide lists every action of the
-previous file as Not updated with its metric movement, or says no previous review was found; the
+session brand skill's for this brand or the Crux default; the `last-actions` slide lists every
+action of the previous file as Not updated with its metric movement, or says no previous review was found; the
 Notes name the Growth Brain where several were connected; and the chat ends on the Not updated
 prompt when any action is Not updated.
