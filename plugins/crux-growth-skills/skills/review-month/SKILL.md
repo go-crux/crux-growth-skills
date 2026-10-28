@@ -149,8 +149,13 @@ period. A file of that name there is replaced. Write every slide of the slide li
 the Focus slides after their Section's divider and Last month's actions after the Executive
 summary, using the skeleton of `references/deck-layout.md` with the brand's values over the roles
 of `references/crux-brand.md`, and each slide built to the craft of `references/slide-craft.md`.
+Then run the Quality check of `references/slide-craft.md` over every slide of the written file, fix
+each slide that fails a line, and run it again until every slide passes.
 
-**Done when** the file holds every slide of the slide list in order (conditional slides only
+**Done when** every slide passes each line of the Quality check in `references/slide-craft.md`:
+one piece of evidence; a Takeaway panel of up to three lines and about 35 words on every data slide;
+one Highlight colour; type at or above 28px for the Action title, 16px for body, 14px for tables and
+12px for the footer and source line; no element past 1280×720; and the footer. And the file holds every slide of the slide list in order (conditional slides only
 where the business has them), each one filled from the Source or a Brain slot, and one Focus slide for each Focus question, every stat and chart slide holding its Takeaway panel, Last month's actions
 holds one row for each action of the previous review or its fixed line, the brand's values are the
 only change to the skeleton's CSS (the Crux default where the brand has no look of its own), every slide has the footer, each built chart marked for a Share

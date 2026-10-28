@@ -115,11 +115,13 @@ or drop the line.
 
 ## Quality check
 
-Before the file is written, check each slide against this list. A slide that fails any line is
+Before the deck is handed over, check every slide against this list. A slide that fails any line is
 fixed, never shipped.
 
-- It has one piece of evidence (a data slide never two), and a Takeaway panel where it is a data
-  slide.
+- It has one piece of evidence (a data slide never two).
+- A data slide has its Takeaway panel, of up to three lines and about 35 words.
 - It uses one Highlight colour, on the mark its Action title names.
-- Its sizes are at or above the minimums under **Type**.
+- Its type is at or above the minimums: Action title 28px, body and Takeaway panel 16px, table
+  14px, footer and source line 12px.
 - Nothing runs past the 1280×720 slide.
+- It carries the footer.
