@@ -32,10 +32,10 @@ reason (`references/plan-layout.md`). Nothing here stops a run without a Growth 
 the connectors and files, and says the Brain line (`references/plan-layout.md`) once on the page
 and once in the chat.
 
-**Discover.** With a Growth Brain, call `list_tables` once with no arguments for the roster. Call it again naming
-only `<client>-orders` and `<client>-channel_reporting` (`<client>` is the prefix the roster
-carries), one table per call: a call naming two marts can overflow the reply. If either is
-missing from the roster, tell the user in one line which one and stop.
+**Discover.** With a Growth Brain, call `list_tables` once with no arguments for the roster.
+Call it again naming only `<client>-orders` and `<client>-channel_reporting` (`<client>` is the
+prefix the roster carries), one table per call: a call naming two marts can overflow the reply.
+If either is missing from the roster, tell the user in one line which one and stop.
 Each section below opens with its own `list_tables` calls, one per mart that section reads. Compose every query from the columns the calls return. A mart absent from the roster
 drops its part of the page, with one line saying so. `meta_performance` and
 `google_ads_performance` are optional: name each in a `list_tables` call only when the roster
@@ -114,8 +114,8 @@ give makes its section read "No data" with its reason.
 growth equation: new customers, returning customer orders, order value and CM3 (or "CM1 less
 marketing"). Read each against that year's Baseline. Returning customer orders are orders less
 new orders: few customers order twice inside one window, so repeat buying shows as returning
-orders, not as orders per customer. Order value is revenue over orders. Without a Growth Brain, these terms are those of the
-Basis bullet for it.
+orders, not as orders per customer. Order value is revenue over orders. Without a Growth Brain,
+these terms are those of the Basis bullet for it.
 
 **Offer.** Read conversion, discount depth, discount rate, order value and margin %, for
 Baseline, Lead-in, Black Friday weekend and Festive in both years.
@@ -283,9 +283,9 @@ single-lever Scenarios.
 
 ## 4. Grill
 
-**Without a Growth Brain**, write the page and give the opening message below, without the
-"Agreeing your plan" block, and stop: there are no targets to agree, so run no rounds and skip
-step 5. Page 6 reads "Not agreed" under every heading and its Summary says no plan was agreed
+**Without a Growth Brain**, run **Start** below to write the page and give its opening message,
+leave out the "Agreeing your plan" block, and then stop: there are no targets to agree, so run
+no rounds and skip step 5. Page 6 reads "Not agreed" under every heading and its Summary says no plan was agreed
 because no Source in this run holds your budget. The opening message ends with the Brain line,
 once, and gives the page's path.
 
