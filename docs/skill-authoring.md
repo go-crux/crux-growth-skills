@@ -97,8 +97,10 @@ description: <leading word first; one trigger per distinct case the skill handle
   analysis framework).
 - **An interview inside a skill** runs in numbered rounds, one recommendation per question. "Yes"
   accepts it, and "just write it" accepts every remaining one. The user answers before the
-  next round. The exception is a question asking for context only the user holds (what happened
-  in the month): it carries no recommendation, so the skill never suggests they skip it.
+  next round. The one exception is an open question for context only the user holds, where no
+  default can stand in for the answer (`review-month`'s Month context: what happened in the month).
+  Ask it plainly, with no recommendation, and offer "Nothing to add" as one option; a bare "yes"
+  or "just write it" settles it as nothing to add, and it is not asked again.
 
 ## Public repo
 
