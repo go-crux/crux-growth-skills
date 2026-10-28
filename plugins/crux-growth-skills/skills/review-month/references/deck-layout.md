@@ -788,9 +788,8 @@ counting named campaigns only, against the platform's measured total ("Ten Meta 
 82% of the platform's 3,100 new orders"; "Four Google campaigns delivered 64% of the platform's 900 new orders" where the platform
 ran four). Impressions and clicks are joined from the platform's mart on the campaign identifier
 where both marts carry one, else on the campaign name; a name match puts the Campaign match by name
-caveat in the Notes; the name is trimmed and stripped of a platform prefix before matching, and a
-campaign that still fails reads "No data" for impressions and clicks (`references/sources.md`,
-Campaigns).
+caveat in the Notes; the name is matched as `references/sources.md` (Campaigns, Name join) sets out,
+and a campaign that still fails reads "No data" for impressions and clicks.
 
 ### LTV by acquisition channel (`acq-ltv-channel`)
 

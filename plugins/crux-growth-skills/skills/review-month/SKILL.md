@@ -109,7 +109,8 @@ figures, or its Focus slide is a Brain slot; and:
   named campaign (attribution placeholders included) in a "No campaign" row below the ranking, never
   in it, so the ranking, that row and the other named campaigns add up to the platform's measured
   total of new orders, each title counting named campaigns only against that total, and the
-  campaigns slide's source line saying campaign rows are measured where the channel row is modelled;
+  campaigns slide's source line saying campaign rows are measured new orders that can differ from a
+  modelled channel row;
 - the Appendix cohort table's Current period cohort size equals the KPI table's new orders where the
   cohort mart counts every order (otherwise the Cohort count caveat is in the Notes), every cohort
   starts at 100% in month 0, and the retention curves, the cohort LTV lines and the rolling average
