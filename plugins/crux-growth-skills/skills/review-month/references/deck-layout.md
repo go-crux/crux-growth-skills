@@ -168,9 +168,10 @@ cover's Highlight bar edge to edge.
 Write the page to this skeleton, filling the slides and keeping the CSS and script as given. The CSS
 holds one grid for each Layout of `references/slide-craft.md`: `.cover` (cover), `.divider` (section
 divider), `.grid` with `.statrow` (stat slide), `.grid` with `.evidence` and `.takeaway` (chart
-slide), `.table-slide` with `table.kpi` (table slide), `.cards` (cards slide) and `.text` (text
-slide). Build each slide from the markup of its Layout in the skeleton below and set no layout of
-your own.
+slide), `table.kpi` on a `.slide.table-slide` (table slide), `.cards` (cards slide) and, on a
+`.slide.text`, `.focus`, `.exfigs`, `.points` or `.notes` (text slide). `table-slide` and `text`
+only name the Layout and carry no rule of their own. Build each slide from the grid of its Layout
+and set no layout of your own.
 
 ```html
 <!doctype html><html lang="en-GB"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -323,8 +324,7 @@ the % SVG as `class="v-share"`. A chart's marks take their colour from the class
 category), so a brand's roles recolour the charts too.
 
 **Colour names in the slide specs below.** The "up colour" and "down colour" are `--positive` and
-`--negative`, the "muted colour" is `--ink-3`, the "accent colour" is the Highlight colour
-(`--signal`), and "series N" is the category palette's `--cat-N`, used as `references/slide-craft.md`
+`--negative`, the "muted colour" is `--ink-3`, the Highlight colour is `--signal`, and "series N" is the category palette's `--cat-N`, used as `references/slide-craft.md`
 sets out: the Highlight colour on the mark the Action title names and grey on the rest, a category
 colour only where categories must be told apart.
 
@@ -332,9 +332,9 @@ colour only where categories must be told apart.
 values over the skeleton's `:root` for the roles of `references/crux-brand.md` (What a brand
 changes) and over nothing else: paper to `--paper`, ink to `--ink-1`, the Highlight colour to
 `--signal`, `--cat-1` and `--signal-tint` (also the cohort shading), the greys to `--ink-2` to
-`--ink-4` and the rule greys, the category palette to `--cat-2`, `--cat-3`, `--cat-4` and `--cat-5`,
-the two stacks to `--display` and `--body`, and the brand's name to the cover. Every other
-value stays as given. The page loads no font file, image or style sheet, so a brand web font is
+`--ink-4` and the rule greys, the category palette to `--cat-2`, `--cat-4` and `--cat-5` (and `--cat-3`, the base grey of every
+unhighlighted mark, only when the guidelines name a mid grey), the two stacks to `--display` and
+`--body`, and the brand's name to the cover. Every other value stays as given. The page loads no font file, image or style sheet, so a brand web font is
 never fetched and its fallback stack is what shows.
 
 ## Slides built here
@@ -609,7 +609,7 @@ row for each of the last 12 monthly cohorts (the Current period's cohort last), 
 a Customers column with the cohort's size, then columns for months 0 to 12 after the first-order
 month, holding the **retention %**: the brain's retention measure where `list_metrics` defines one, else the
 share of the cohort that ordered in that month. Month 0 is
-100% by definition and unshaded; months 1 to 12 are shaded on one scale from the accent colour at
+100% by definition and unshaded; months 1 to 12 are shaded on one scale from the Highlight colour at
 the lowest cell to its darkest at the highest. An age a cohort has not yet reached is left empty,
 an exception to the cell rule, so the table reads as a staircase. A final row, **Rolling
 average**, holds for each age the retained customers ÷ the customers of the 12 most recent
