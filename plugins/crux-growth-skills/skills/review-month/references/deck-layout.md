@@ -333,7 +333,7 @@ svg .row{font-size:16px;fill:var(--ink-2);font-variant-numeric:tabular-nums}svg 
 .contents{list-style:none;padding:0;counter-reset:c;max-width:980px}
 .contents li{counter-increment:c;font-size:16px;line-height:1.3;color:var(--ink-2);padding:9px 0 9px 44px;border-top:1px solid var(--line-soft);position:relative;white-space:nowrap;overflow:hidden;text-overflow:clip}
 .contents li:last-child{border-bottom:1px solid var(--line-soft)}
-.contents.two{columns:2;column-gap:48px;max-width:none}.contents.two li{break-inside:avoid}
+.contents.two{columns:2;column-gap:48px;max-width:none}.contents.two li{break-inside:avoid;white-space:normal}
 .contents li::before{content:counter(c,decimal-leading-zero);position:absolute;left:0;color:var(--ink-4);font-size:13px;font-weight:700;letter-spacing:.08em;top:11px}
 /* cards slide: three columns under hairlines, no boxes */
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;flex:1;min-height:0}
@@ -487,7 +487,8 @@ one-line **verdict**; and the Section's slides as a contents list. No title rule
   Brain: "This Section's slides need data your Growth Brain does not hold."
 - **Contents**: the Action title of every slide of the Section, in order, its Focus slide and its
   Recommendations slide included, one line each (a Brain slot's title is the line it keeps). The
-  Appendix slides are not listed.
+  Appendix slides are not listed. A list of more than 7 lines wraps into two columns
+  (`<ol class="contents two">`), so it never reaches the footer.
 
 **Appendix divider** (`app-divider`): the same section divider, its `data-section` `Appendix`,
 with the eyebrow "Appendix", the name "Appendix", the fixed verdict "The full tables behind the
