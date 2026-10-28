@@ -209,8 +209,8 @@ A Section's Recommendations slide holds up to three cards, ranked by revenue at 
 the action could plausibly recover in a month, worked from the Section's own figures as that
 Section's spec sets out. A card is sized on the move it makes, its own segment's gap and never a
 larger gap that segment sits in. No card is sized on a delta that reads "Not comparable" (Comparison
-columns). A gap worth less than 1% of the Current period's revenue a month is too small to act on
-and is no card, however it ranks. A Section holds one card for each kind of move (a cross-sell, a
+columns). A move whose revenue at stake is less than 1% of the Current period's revenue a month
+is too small to act on and gets no card, however it ranks. A Section holds one card for each kind of move (a cross-sell, a
 cohort win-back, a budget shift between channels, a discount change): where two cards make the same
 kind of move on neighbouring segments (three categories, three cohorts), only the larger stays and
 the next card of a different kind takes the second place, or the Section holds fewer cards. A
@@ -509,7 +509,7 @@ one-line **verdict**; and the Section's slides as a contents list. No title rule
   (`<ol class="contents two">`), so it never reaches the footer.
 
 **Appendix divider** (`app-divider`): the same section divider, its `data-section` `Appendix`,
-with the eyebrow "Appendix", the name "Appendix", the fixed verdict "The full tables behind the
+with the eyebrow "Appendix", the name "Appendix", the fixed line "The full tables behind the
 slides above." and a contents list of every Appendix slide's short name from the slide list ("Channel
 mix", "Cohort retention", a campaigns slide with its platform), in order, in two columns
 (`<ol class="contents two">`). It counts in no "Section n of 4".
@@ -1084,7 +1084,7 @@ Discounted against full-price orders is not charted: the discount rate is that s
 are rates and carry no Share toggle.
 
 The source line counts the near-free orders in the Current period ("12 orders at 100% depth left
-out of depth"), and is silent where there are none. They stay in the rate and in both order series.
+out of depth"), and is silent where there are none. They stay in the rate.
 No table sits beneath: the discount given (the money) and the order counts are the labels and the
 Takeaway panel's. Where the Source defines either rate or depth in its own metrics, its definition
 wins and the Notes state it. Action title: the discount rate and depth and how they moved ("Discounts

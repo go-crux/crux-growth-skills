@@ -183,12 +183,13 @@ each slide that fails a line, and run it again until every slide passes.
 **Done when** every slide passes each line of the Quality check in `references/slide-craft.md`
 (its evidence, its Takeaway panel, one Highlight colour, the type minimums with the label size
 included, nothing past 1280×720, the footer); the file holds every slide of the slide list in order
-(conditional slides only where the business has them), each one filled from the Source or a Brain
+(conditional slides only where the business has them, and `notes-2` only where the Notes
+overflow), each one filled from the Source or a Brain
 slot, and one Focus slide for each Focus question; Last month's actions holds one row for each
 action of the previous review or its fixed line; the brand's values are the only change to the
 skeleton's CSS (the Crux default where the brand has no look of its own); each built chart marked
 for a Share toggle carries one and no other chart does; the Notes carry their fixed title and three
-headings (and the Brain line, once, on a run without a Growth Brain); every Stat figure and table
+headings across `notes` and, where they continue, `notes-2` (and the Brain line, once, on a run without a Growth Brain); every Stat figure and table
 shows the bare symbol where the currency's symbol is longer than one character, with the Notes'
 Currency caveat naming the currency; and the page makes no network request.
 

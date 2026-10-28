@@ -13,7 +13,7 @@ growth equation: trading, then acquisition, retention and LTV, then order value 
 
 - **Stat row**: the headline figures of a slide set large, each with its MoM, YoY and budget deltas, in place of a table; the full table moves to the Appendix. _Avoid_: KPI tiles, scorecards, big numbers.
 
-- **Highlight colour**: the one colour that marks what the action title is about (a bar, line, row or figure), every other mark grey. _Avoid_: accent, emphasis colour.
+- **Highlight colour**: the one colour that marks what the action title is about (a bar, line, row or figure), every other mark grey; a section divider wears it as its ground. _Avoid_: accent, emphasis colour.
 
 - **Section**: one of the deck's four analytical parts (Trading, Acquisition, Retention & LTV, Order value & product), each opened by a divider and closed by its Recommendations slide. _Avoid_: chapter, part.
 

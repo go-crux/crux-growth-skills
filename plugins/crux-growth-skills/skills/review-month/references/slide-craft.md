@@ -71,7 +71,8 @@ and always the Takeaway panel.
 ## Colour
 
 - **Highlight colour** goes only on the bar, line, row or figure the Action title names. Every
-  other mark is grey.
+  other mark is grey. A section divider, which has no Action title, wears it as its whole ground and
+  holds no other mark in it.
 - A **category palette** of at most 5 colours is allowed only where categories must be told apart
   (the groups of a stacked bar). It is not a way to make a chart livelier.
 - **Positive and negative colours** appear only on deltas (▲ or ▼ with a figure), never as a
@@ -109,7 +110,8 @@ and always the Takeaway panel.
 | Footer and source line | 12px |
 
 Text that does not fit is cut, never shrunk. Shorten the sentence, drop the row to the Appendix,
-or drop the line.
+or drop the line. The Notes are the one exception: their Caveats move to `notes-2` rather than
+being cut (`references/deck-layout.md`, Notes, continued).
 
 ## Chrome
 
@@ -126,7 +128,8 @@ fixed, never shipped.
   line).
 - A data slide has its Takeaway panel, within the limits under **The Takeaway panel**. A Brain
   slot has none.
-- It uses at most one Highlight colour, and only on the mark its Action title names.
+- It uses at most one Highlight colour, and only on the mark its Action title names (a section
+  divider wears it as its ground).
 - Its type is at or above every minimum under **Type**.
 - Nothing runs past the 1280×720 slide.
 - It carries the footer.
