@@ -72,14 +72,19 @@ source.
 
 **The one ask.** Run it only when some section's Source is a file. Send one message listing every
 report the run still needs, each with its export steps and date range from `references/exports.md`,
-and the currency where no Source states it; then wait for the reply. A report the user does not
-give makes its section read "No data" with its reason.
+and the currency where no Source states it; then wait for the reply. The reports are the orders
+file, and for each that no probed connector reads: the GA4 sessions by landing page (daily),
+offering the Shopify sessions by landing page (daily) in its place for a brand without GA4; the
+Google Ads campaign report (daily); and the Meta Ads campaign report (daily). A report the user
+does not give makes its section read "No data" with its reason.
 
 **Basis.** Apply to the headline and to every section.
 
-- Compare last year with the year before it, and with nothing from this autumn: visits and
-  channel attribution changed source this year. The one exception is this year's Baseline in
-  step 2, which reads only revenue, orders, new orders and spend.
+- Compare last year with the year before it, and with nothing from this autumn: with a Growth
+  Brain, visits and channel attribution changed source this year; without one, this autumn's
+  windows are not complete, and visits and spend are one Source across every year. The one
+  exception is this year's Baseline in step 2, which reads only revenue, orders, new orders and
+  spend.
 - Put counts (new customers, orders, units, revenue, margin, spend) per day, so a four-day
   window sits against a two-month Baseline. A window's Lift is its per-day figure over the same
   year's Baseline per-day figure; for a ratio (conversion, order value, margin %, CAC), the
@@ -106,9 +111,11 @@ give makes its section read "No data" with its reason.
   flagged new; returning customer orders are orders less new orders; discount depth is discounts
   over gross sales on orders with discounts above zero; discount rate is the share of orders with
   discounts above zero. Where the file carries cost, margin is total sales less cost, labelled
-  "Gross profit, as Shopify records it", and the CM3 row reads "Gross profit less marketing";
-  without cost every margin cell reads "No data", and while spend has no Source the CM3 row does
-  too. Name total sales and the margin label on the page.
+  "Gross profit, as Shopify records it", and the CM3 row reads "Gross profit less marketing":
+  that gross profit less the window's spend from Acquisition below, once spend has a Source (the
+  Google Ads and Meta Ads spend of each platform that has a Source). Without cost every margin cell reads "No
+  data", and while spend has no Source the CM3 row does too. Name total sales and the margin
+  label on the page.
 
 **Headline.** For Black Friday weekend of last year and of the year before it, read the
 growth equation: new customers, returning customer orders, order value and CM3 (or "CM1 less
@@ -129,8 +136,17 @@ Baseline, Lead-in, Black Friday weekend and Festive in both years.
 - List the ten landing pages with the most weekend visits, each with orders, conversion and
   last year's conversion alongside, and the site's conversion above them.
 - Without a Growth Brain, read discount depth, discount rate, order value and margin % from the
-  orders file as the Basis bullet sets out; conversion and the landing pages read "No data", with
-  the plain reason that no Source in this run holds visits.
+  orders file as the Basis bullet sets out. Read visits as sessions, from GA4 (connector, else
+  the GA4 sessions by landing page export), else from Shopify sessions by landing page
+  (connector, else export): the first Source that holds sessions by landing page by day, read
+  across every window in both years, with no mixing of the two. Conversion is orders over
+  sessions, overall and by landing page: overall, the orders file's orders over all the Source's
+  sessions; by landing page, the Source's own orders column (GA4 purchases, or Shopify's orders
+  by landing page) over that page's sessions, and the Notes say which. List the ten landing pages
+  with the most Black Friday weekend sessions, each with orders, conversion and last year's
+  conversion beside it, and the site's conversion above them. With no sessions Source,
+  conversion and the landing pages read "No data", with the plain reason that no Source in this
+  run holds visits.
 
 **Merchandising.** Call `list_tables` for `<client>-order_items`: every product figure comes from
 it. Show units, revenue and margin per day by window, then rank the five
@@ -141,9 +157,9 @@ Growth Brain, the whole section reads "No data" with the plain reason that no So
 holds products.
 
 **Marketing.** Four parts. Acquisition, Retention and Repeat customers each have their own window
-table; Cohorts has its own cohort table. Without a Growth Brain, Acquisition and Retention read
-"No data", each with the plain reason that no Source in this run holds it; Repeat customers and
-Cohorts follow.
+table; Cohorts has its own cohort table. Without a Growth Brain, Retention reads "No data" with
+the plain reason that no Source in this run holds it; Acquisition, Repeat customers and Cohorts
+follow.
 
 - *Acquisition*: visits, new customers, spend and CAC (spend over new customers) per day by
   window, from `<client>-channel_reporting`. Rank the five paid campaigns (spend above
@@ -152,6 +168,20 @@ Cohorts follow.
   `meta_performance` or `google_ads_performance`, add that platform's five best campaigns on its
   own return measure (reported conversion value; a platform with none ranks on reported
   purchases, shown with cost per purchase), labelled platform-reported and shown without a Lift.
+  Without a Growth Brain: visits are the sessions of the Offer's sessions Source; spend per day
+  by window is Google Ads plus Meta Ads, each read from its connector, else its daily campaign
+  report (`references/exports.md`), the same platforms in both years (a platform with a Source
+  for only one year is left out of both); new customers come from the orders file; CAC is that
+  spend over those new customers. Rank the five campaigns, across both platforms, with the most
+  platform-reported purchases in Black Friday weekend of last year, each with its platform, cost
+  per purchase (spend over purchases), purchase value where the platform reports it, its
+  impressions and clicks, and the year before it for the same campaign (by name), labelled
+  platform-reported and shown without a Lift.
+  Name the three landing pages with the most orders from the Offer list. The Notes name the
+  platforms spend covers, and say that it covers those only, the same in every year. With no
+  spend Source, spend, CAC and the campaigns read "No data" with the plain reason that no Source
+  in this run holds your ad spend; with no sessions Source, visits and the landing pages read
+  "No data".
 - *Retention*: call `list_tables` for `<client>-klaviyo_campaign_summary`. Show campaign
   revenue and sends per day by window, placing each campaign in the window of its send date,
   then rank the five campaigns with the most revenue in Black Friday weekend and Festive of
@@ -175,8 +205,8 @@ Cohorts follow.
   `list_tables` only the one you use. 180 days is the longest horizon
   every cohort has completed; a horizon a cohort has not reached reads "Too recent". Without a
   Growth Brain, build the four cohorts from the orders file by customer ID, with the same
-  measures at the same horizons; the CAC beside the 180-day margin reads "No data" while spend
-  has no Source.
+  measures at the same horizons; the CAC beside the 180-day margin is the cohort window's spend
+  (Acquisition above) over its new customers, and reads "No data" while spend has no Source.
 
 **Opportunities.** Open `references/opportunities.md` once the sections are read. Test
 each pattern's trigger against the figures just read, and name the 3 to 5 that fire, largest
@@ -191,9 +221,10 @@ that opportunity number and title are the only way the chat refers to one. Say n
 **Without a Growth Brain, done when** the Sources are named, the one ask (when a file is a Source) is
 answered or its reports marked "No data", the dates are written out, the headline, the Offer
 order figures, Repeat customers and Cohorts each show last year, the year before it and each
-window's Lift over Baseline from one Source, or a one-line reason; every section no Source holds
-reads "No data" with its plain reason; and the Brain line is ready for the Overview's notes and
-the chat.
+window's Lift over Baseline from one Source, or a one-line reason; Offer conversion and the ten
+landing pages name their one sessions Source, and Acquisition names the platforms spend covers
+and the labels of its platform-reported campaigns; every section no Source holds reads "No data"
+with its plain reason; and the Brain line is ready for the Overview's notes and the chat.
 
 **Done when** the headline, Offer, Merchandising, Acquisition, Retention and Repeat customers each show last year, the year
 before it and each window's Lift over Baseline, or a one-line reason it is absent; Cohorts shows
