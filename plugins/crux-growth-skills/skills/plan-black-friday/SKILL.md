@@ -69,20 +69,29 @@ as `CURRENT_DATE('<timezone>')`, so yesterday and this year are the store's own.
 **Windows without a brain.** Compute the dates once from the glossary definitions, for last year
 and the year before it: Black Friday is the last Friday of November; Baseline is 1 September to
 31 October; Lead-in is 1 November to the day before Black Friday; Black Friday weekend is Black
-Friday to Cyber Monday; Festive is the day after Cyber Monday to 24 December. Write the dates out
-as a list (in the one ask where there is one, else in your first message about the read), and read
-every connector and file on them. `references/windows.sql` is the Growth Brain path's only date
-source.
+Friday to Cyber Monday; Festive is the day after Cyber Monday to 24 December. Add for step 2 the
+target months (1 to 30 November and 1 to 31 December, each in full) in this year, last year and
+the year before, and this year's Baseline, which runs to yesterday; add this year's Black Friday
+for step 5. Write the dates out as a list (in the one ask), and read every connector and file on
+them. `references/windows.sql` is the Growth Brain path's only date source.
 
-**The one ask.** Run it only when some section's Source is a file. Send one message listing every
-report the run still needs, each with its export steps and date range from `references/exports.md`,
-and the currency where no Source states it; then wait for the reply. A section a Growth Brain
-holds needs no report. The reports are, for each that no probed connector reads: the orders file;
-the Shopify sales by product by day, one per year (Merchandising); the Klaviyo campaign export,
-one per year (Retention); the GA4 sessions by landing page (daily), offering the Shopify sessions
-by landing page (daily) in its place for a brand without GA4; the Google Ads campaign report
-(daily); and the Meta Ads campaign report (daily). A report the user does not give makes its
-section read "No data" with its reason.
+**The one ask.** Run it on every run without a Growth Brain, and on a run with one only when some
+section's Source is a file. Send one message listing the dates and every report the run still
+needs, each with its export steps and date range from `references/exports.md`, and the currency
+where no Source states it; then wait for the reply. A section a Growth Brain holds needs no
+report. The reports are, for each that no probed connector reads: the orders file; the Shopify
+sales by product by day, one per year (Merchandising); the Klaviyo campaign export, one per year
+(Retention); the GA4 sessions by landing page (daily), offering the Shopify sessions by landing
+page (daily) in its place for a brand without GA4; the Google Ads campaign report (daily); and
+the Meta Ads campaign report (daily). A report the user does not give makes its section read "No
+data" with its reason.
+
+Without a Growth Brain, the ask also carries **the budget**, which no connector holds, so it is
+asked even when every report is read through connectors (the ask is then the budget alone): this
+year's November and December revenue, total orders, new orders and spend. Ask which revenue the
+budget counts: total sales (after discounts and returns), net (after discounts, before returns)
+or gross (before both), recommending total sales. Say that a month or a figure they have no budget for is fine: "no budget" is a valid answer, and
+the Target test proposes figures in its place (`references/no-plan.md`).
 
 **Basis.** Apply to the headline and to every section.
 
@@ -117,11 +126,13 @@ section read "No data" with its reason.
   flagged new; returning customer orders are orders less new orders; discount depth is discounts
   over gross sales on orders with discounts above zero; discount rate is the share of orders with
   discounts above zero. Where the file carries cost, margin is total sales less cost, labelled
-  "Gross profit, as Shopify records it", and the CM3 row reads "Gross profit less marketing":
+  "Gross profit, as Shopify records it" (gross profit % is that margin over total sales), and the
+  CM3 row reads "Gross profit less marketing":
   that gross profit less the window's spend from Acquisition below, once spend has a Source (the
   Google Ads and Meta Ads spend of each platform that has a Source). Without cost every margin cell reads "No
   data", and while spend has no Source the CM3 row does too. Name total sales and the margin
-  label on the page. Product rows take the same rule from the Shopify sales by product report
+  label on the page. Step 2 alone takes revenue on the basis of the user's budget. Product rows
+  take the same rule from the Shopify sales by product report
   (Merchandising below).
 
 **Headline.** For Black Friday weekend of last year and of the year before it, read the
@@ -240,8 +251,9 @@ come back"), its evidence figure, this year's action, the metric to watch on the
 page its evidence sits on. Number the opportunities 1, 2, 3 in the order the Overview lists them;
 that opportunity number and title are the only way the chat refers to one. Say nothing of patterns that did not hold. A pattern whose figures read "No data" did not hold.
 
-**Without a Growth Brain, done when** the Sources are named, the one ask (when a file is a Source) is
-answered or its reports marked "No data", the dates are written out, the headline, the Offer
+**Without a Growth Brain, done when** the Sources are named, the one ask is answered (the budget
+included, or "no budget") or its reports marked "No data", the dates are written out, the
+headline, the Offer
 order figures, Repeat customers and Cohorts each show last year, the year before it and each
 window's Lift over Baseline from one Source, or a one-line reason; Offer conversion and the ten
 landing pages name their one sessions Source, and Acquisition names the platforms spend covers
@@ -263,9 +275,9 @@ each carry evidence, action and metric (fewer only when fewer were found).
 
 ## 2. Target test
 
-**Without a Growth Brain**, no Source in this run holds your budget: every target reads "No data"
-with that reason on page 5, and steps 3 to 5 shorten as each says. The rest of this step is the
-Growth Brain path.
+With a Growth Brain, read the plan and the actuals as "Read the plan" and "Read the actuals" set
+out. Without one, read them as "Read the plan and the actuals without a Growth Brain" sets out,
+after them. Either way, then test each target.
 
 **Read the plan.** Call `list_tables` naming only `<client>-daily_budget_versus_actuals`. Take
 the rows keyed `channel = 'all'` and `country_code = 'all'` (the other rows split the same plan
@@ -290,6 +302,28 @@ December as sums and day counts. Take revenue and spend from
 from `<client>-orders`, the same sources in all three years. This year's Baseline runs to yesterday (`baseline_actual`) and the footnote says so. The
 mart's recorded side holds 12 months, so the plan is the only thing read from it.
 
+**Read the plan and the actuals without a Growth Brain.** Use the dates of step 1's "Windows
+without a brain".
+
+- *The plan* is the budget from the one ask: November and December of this year, each with
+  revenue, orders, new orders and spend, labelled "Your budget". A figure the user gave for no
+  month, or for one month or measure only, opens `references/no-plan.md` for what is missing; a
+  figure given in round 4 is "Team's target".
+- *Revenue* is read for all three years on the basis the user named, from the orders file, so the
+  Lift compares like for like: total sales is the Total sales column; net (after discounts,
+  before returns) is total sales plus the Returns column at its absolute value; gross is the
+  Gross sales column. Where the file lacks the column that basis needs, read total sales and say
+  the budget's basis differs. The footnote names the basis.
+- *The actuals*: for each of the three years, Baseline, November and December as sums and day
+  counts. Revenue as above, orders (the count of orders) and new orders (orders flagged new) come
+  from the orders file, the orders spine Source; spend comes from the spend Source of step 1,
+  of the platforms whose Source holds all three years, the same platforms in each. This year's
+  Baseline runs to yesterday and the footnote says so; the footnote also names the spend
+  platforms.
+- *A figure with no Source*: a target whose actuals no Source holds (new orders and implied CAC
+  without customer type; spend and implied CAC with no spend Source) reads "No data" with the
+  column or Source missing, takes no verdict, and the other targets are tested.
+
 **Test each target.** The targets are revenue, orders, new orders and implied CAC (spend over
 new orders). Spend is the input to CAC and carries no verdict, but takes a Lift. For each
 target and month:
@@ -309,15 +343,18 @@ target and month:
    period (for CAC, Baseline CAC × last year's CAC Lift). Work it out for spend too. For an
    Unrealistic target the last-year level is the revised figure; show it beside the plan.
 
-**Done when** every target carries a verdict, its Lift and last year's Lift; each Unrealistic
-target carries its revised figure; the revenue rung is named; and the plan months sum the
-`all`/`all` rows (or each unplanned target reads "Proposed").
+**Done when** every target carries a verdict, its Lift and last year's Lift (or, without a Growth
+Brain, "No data" with its reason); each Unrealistic target carries its revised figure; the revenue
+rung is named (without a Growth Brain, the basis the user named); and the plan months sum the
+`all`/`all` rows (without a Growth Brain, are the budget's figures), or each unplanned target
+reads "Proposed".
 
 ## 3. Lever gap
 
-Without a Growth Brain, skip this step: page 5's Lever gap and Scenarios sub-headings read "No
-data" with the reason of step 2. Otherwise skip a month in which every target is Achievable and say so in one line. For each month with a
-Stretch or Unrealistic target, build the Lever gap table from the growth equation. Each row is
+Skip a month in which every target is Achievable and say so in one line. Without a Growth Brain,
+the rules are the same, read against the actuals of step 2's no-brain paragraph; a target that
+reads "No data" has no gap. For each month with a Stretch or Unrealistic target, build the Lever
+gap table from the growth equation. Each row is
 read against the last-year level (step 2), and each reads off one target:
 
 | Lever | Figure | Target it reads |
@@ -338,11 +375,12 @@ single-lever Scenarios.
 
 ## 4. Grill
 
-**Without a Growth Brain**, run **Start** below to write the page and give its opening message,
-leave out the "Agreeing your plan" block, and then stop: there are no targets to agree, so run
-no rounds and skip step 5. Page 6 reads "Not agreed" under every heading and its Summary says no plan was agreed
-because no Source in this run holds your budget. The opening message ends with the Brain line,
-once, and gives the page's path.
+**Without a Growth Brain and with no Source for the orders**, there are no actuals to test or
+phase: run **Start** below to write the page and give its opening message, leave out the
+"Agreeing your plan" block, and then stop. Run no rounds and skip step 5. Page 6 reads "Not
+agreed" under every heading and its Summary says no plan was agreed because no Source in this run
+holds your orders. The opening message ends with the Brain line, once, and gives the page's path.
+With the orders, a run without a Growth Brain runs Start, the rounds and step 5 as below.
 
 **Start.** Open `references/plan-layout.md` and write `black-friday-plan.html` in the working
 folder: pages 1 to 5 as steps 1 to 3 produced them, and every Plan heading reading "Not
@@ -356,7 +394,8 @@ done, and we now turn it into this year's plan together in four rounds of questi
 time. Name the rounds and what each decides: 1. Offer (which offer changes to make and which
 discounts may combine), 2. Merchandising (which products to lead with and the stock to secure),
 3. Marketing (which campaigns and email changes to run), 4. Targets (the November and December
-targets, how to close any gap, the margin floor and the numbers to watch on the day). Say that
+targets, how to close any gap, the margin floor (the discount ceiling where margin has no data)
+and the numbers to watch on the day). Say that
 each question gives what the data showed, the decision and our recommendation; that they can
 answer "yes" to accept, give their own answer, or "skip"; that each round ends by setting a
 date for its actions; that the answers fill the Plan page; and that "just write it" at any
@@ -382,29 +421,41 @@ recommendation. Ask the next round only after the user has answered the one befo
 | 1. Offer | One per listed opportunity from catalogue patterns 1, 2, 8 and 10, asked by its opportunity number and title: adopt its action? Recommend yes. Then discount stacking: which discounts may combine over Black Friday weekend? Recommend none that takes the order past last year's weekend discount depth. | Opportunities, Actions, Risks (discount stacking) |
 | 2. Merchandising | One per listed opportunity from catalogue patterns 3 and 4, asked by its opportunity number and title: adopt its action? Recommend yes. Then stock: what units to secure for last year's five weekend products? Recommend last year's weekend units for each, scaled by the November plan revenue over its last-year level, and never below last year's. | Opportunities, Actions, Risks (stock) |
 | 3. Marketing | One per listed opportunity from catalogue patterns 5, 6, 7 and 9, asked by its opportunity number and title: adopt its action? Recommend yes. Then repeats: which best acquisition campaign and best retention campaign run again? Recommend the top-ranked paid acquisition campaign, and the top-ranked retention campaign of Black Friday weekend. | Opportunities, Actions |
-| 4. Targets | Open on each month's Target test verdicts and Scenarios. First, for each target reading "Proposed" (`references/no-plan.md`), ask the user's own figure, recommending the proposed one; a figure they give becomes "Team's target" and goes back through step 2, and through step 3 if it then reads Stretch or Unrealistic. Then (a) the agreed targets: recommend the plan figure for Achievable and Stretch, and the revised figure for Unrealistic. (b) The Scenario, or blend, for each month with a Stretch or Unrealistic target: recommend the one with the smallest required relative change in the Lever gap table (the higher extra spend when the Scenarios are the two new-customer variants). (c) The margin floor: recommend last year's Black Friday weekend order margin % on the order rung (CM2 or CM1), since CM3 is a window figure and no single order carries it. (d) The watch list of 3 to 5 numbers: recommend the metric to watch of each adopted opportunity, then revenue against the day's Daily phasing, up to five. | Agreed targets, Chosen Scenario, Daily phasing (step 5 derives it from the agreed targets), Actions, Risks (margin floor), Watch list |
+| 4. Targets | Open on each month's Target test verdicts and Scenarios. First, for each target reading "Proposed" (`references/no-plan.md`), ask the user's own figure, recommending the proposed one; a figure they give becomes "Team's target" and goes back through step 2, and through step 3 if it then reads Stretch or Unrealistic. Then (a) the agreed targets: recommend the plan figure for Achievable and Stretch, and the revised figure for Unrealistic. (b) The Scenario, or blend, for each month with a Stretch or Unrealistic target: recommend the one with the smallest required relative change in the Lever gap table (the higher extra spend when the Scenarios are the two new-customer variants). (c) The margin floor: recommend last year's Black Friday weekend order margin % on the order rung (CM2 or CM1), since CM3 is a window figure and no single order carries it. Where margin is gross profit, the floor is last year's weekend gross profit % ("Gross profit, as Shopify records it"). Where margin reads "No data", ask a **discount ceiling** instead, the deepest average discount the weekend may run, recommending last year's Black Friday weekend discount depth (without a recommendation where that reads "No data"). (d) The watch list of 3 to 5 numbers: recommend the metric to watch of each adopted opportunity, then revenue against the day's Daily phasing, up to five. | Agreed targets, Chosen Scenario, Daily phasing (step 5 derives it from the agreed targets), Actions, Risks (margin floor, or discount ceiling), Watch list |
 
 A Judgement call joins the round of its section. Keep the agreed list: what is agreed under
 each of the seven Plan headings.
 
-**Without a Growth Brain, done when** the page holds all six pages with every heading in
-`references/plan-layout.md`, each section its figures or its "No data" line, the Brain line once
-in the Overview's notes, and the opening message has given the page's path and the Brain line.
+**Without a Growth Brain and with no Source for the orders, done when** the page holds all six
+pages with every heading in `references/plan-layout.md`, each section its figures or its "No
+data" line, the Brain line once in the Overview's notes, and the opening message has given the
+page's path and the Brain line.
 
 **Done when** all four rounds are answered or accepted by "just write it", and every Plan heading
 is agreed or marked Not agreed.
 
 ## 5. Plan
 
-Without a Growth Brain, skip this step (step 4 ended the run).
+Without a Growth Brain and with no Source for the orders, skip this step (step 4 ended the run).
 
 **Daily phasing.** For each month with agreed targets, compute the Daily phasing in `run_sql`,
 with the agreed targets as literals and the dates from `phasing_days` in
-`references/windows.sql`.
+`references/windows.sql`. Without a Growth Brain, compute it in code instead (no `run_sql`),
+with the agreed targets as literals and the dates below.
 
 - Take last year's daily revenue (the budget rung) and spend from `<client>-channel_reporting`
   and orders and new orders from `<client>-orders`, the sources step 2 used, on each day's
   `shape_date`.
+- Without a Growth Brain, the dates are those of `phasing_days`, restated. Each date of this
+  year's November and December carries its `days_from_black_friday`, this year's Black Friday
+  being 0. Its `shape_date` is, for a date up to Cyber Monday, last year's Black Friday plus the
+  same days from Black Friday (so a date before Black Friday maps to the same days before last
+  year's); and for a later date, last year's 24 December less the days this year's 24 December
+  is ahead of it (so 25 December maps to 25 December), but never earlier than the day after last
+  year's Cyber Monday. Take last year's daily revenue on the basis of step 2, orders and new
+  orders from the orders file, and spend from step 2's spend Source, on each `shape_date`. A
+  measure with no Source for last year's days (spend with no spend Source) reads "No data" in its
+  column, with an empty field in the CSV.
 - A day's figure = the agreed month target × its `shape_date` figure over the sum of the month's
   `shape_date` figures, one share per measure.
 - Round the month target to a whole number (orders, new orders) or to the currency's minor unit
@@ -426,5 +477,6 @@ Brain line.
 **Done when** the page has all six pages, each opening with its Summary, with every heading in `references/plan-layout.md`; every
 table has a cell for each row and column (or "No data"); each section without figures carries
 its one-line reason; each Plan heading with nothing agreed reads "Not agreed"; no cell reads a bare "n/a"; the Daily
-phasing days sum exactly to each agreed month, and Black Friday this year sits on its own date;
+phasing days sum exactly to each agreed month (every measure that has a last-year shape), and
+Black Friday this year sits on its own date;
 the CSV rows match the table; and the user has the page's path.

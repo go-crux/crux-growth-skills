@@ -23,18 +23,23 @@ Offer order figures, Repeat customers, Cohorts) reads one Source as a whole.
 | Acquisition: spend, CAC, platform-reported campaigns | `<client>-channel_reporting`, with `meta_performance` and `google_ads_performance` | Google Ads and Meta Ads campaign reports, by day | Google Ads: campaign report; Meta Ads: campaign report |
 | Merchandising: units, revenue, margin, the product list | `<client>-order_items` | Shopify sales by product, by day | Shopify: sales by product by day |
 | Retention: email campaign revenue and sends, the ranked campaigns, the send cadence table | `<client>-klaviyo_campaign_summary` | Klaviyo campaigns | Klaviyo: campaign export |
+| Target test: the plan | `<client>-daily_budget_versus_actuals` | none | the budget the user gives in the one ask |
+| Target test: revenue, orders, new orders | `<client>-channel_reporting` and `<client>-orders` | Shopify orders | Shopify: orders |
+| Target test: spend, and Daily phasing's spend | `<client>-channel_reporting` | Google Ads and Meta Ads campaign reports, by day | Google Ads: campaign report; Meta Ads: campaign report |
 | CM3 stand-in ("Gross profit less marketing"); Cohorts' CAC | margin from `<client>-orders`, spend from `<client>-channel_reporting` | gross profit from the orders Source, spend from the row above | the orders file and the campaign reports |
 
-Every section with no row (the Target test) has no Source without a Growth Brain: it reads "No
-data" with the plain reason that no Source in this run holds it, in the wording of
-`references/plan-layout.md`. A section whose row has no Source in this run reads the same way.
+A section whose row has no Source in this run reads "No data" with the plain reason that no
+Source in this run holds it, in the wording of `references/plan-layout.md`.
 
 **Visits** are the sessions of the Source that holds sessions by landing page, and the Offer and
 Acquisition read the same Source. It is GA4 where GA4 holds both years (connector, else export),
 else Shopify sessions by landing page (connector, else export), never a mix. **Spend** is Google
 Ads plus Meta Ads, each from its connector, else its campaign report, and covers the platforms
 read only, the same platforms in both years. A platform whose Source holds one year only is left
-out of both, and the Notes name the platforms spend covers.
+out of both, and the Notes name the platforms spend covers. The Target test and Daily phasing read
+the same spend over three years: last year's and the year before's 1 September to 31 December and
+this year's Baseline. A platform whose Source lacks one of those periods is left out of that step
+in every year, and the Notes name the platforms it covers.
 
 ## Shopify: orders
 
@@ -53,9 +58,9 @@ range covers both years' windows, last year's 180-day cohorts and this year's Ba
 | Customer ID | repeat customers and cohorts, matched across years |
 | Order date | the window an order falls in |
 | New or returning customer (Shopify's own customer-type column) | new customers and returning customer orders. A customer whose first order predates the file is returning, not new |
-| Gross sales | discount depth |
+| Gross sales | discount depth, and revenue for a gross budget (Target test) |
 | Discounts | discount depth and discount rate |
-| Returns | nothing alone: total sales already takes them off |
+| Returns | nothing alone, except for a net budget: total sales plus the Returns column (Target test) |
 | Total sales | revenue, order value |
 | Cost (cost of goods sold), where Shopify holds product costs | margin, as total sales less cost |
 
@@ -137,8 +142,9 @@ probe reads one day of sessions through it), taking every page of rows before an
 
 ## Google Ads: connector
 
-Probe it, and read it, through its query tool (Google Ads Query Language), once for each year on
-1 September to 24 December:
+Probe it, and read it, through its query tool (Google Ads Query Language), once for each of last
+year and the year before on 1 September to 31 December, and once for this year's Baseline, 1
+September to 31 October or yesterday if sooner:
 
 - **Rows.** One row per campaign per day: select `segments.date` and `campaign.name` with
   `metrics.cost_micros` (divide by 1,000,000), `metrics.impressions` and `metrics.clicks`.
@@ -154,14 +160,15 @@ Probe it, and read it, through its query tool (Google Ads Query Language), once 
 
 ## Google Ads: campaign report
 
-1. In Google Ads, open Campaigns and set the date range from 1 September to 24 December of last
+1. In Google Ads, open Campaigns and set the date range from 1 September to 31 December of last
    year.
 2. Segment by Time, then Day, and set the status filter to all campaigns (enabled, paused and
    removed).
 3. Add the columns Cost, Impressions, Clicks, Conversions and Conversion value, and keep the
    conversion actions to purchases.
 4. Download as CSV and drop the file into this chat.
-5. Repeat for the same dates of the year before.
+5. Repeat for the same dates of the year before, and once more from 1 September of this year to
+   31 October or yesterday if sooner.
 
 | Column | Feeds |
 |---|---|
@@ -175,8 +182,9 @@ Probe it, and read it, through its query tool (Google Ads Query Language), once 
 
 ## Meta Ads: connector
 
-Probe it, and read it, through its insights tool, once for each year on 1 September to
-24 December:
+Probe it, and read it, through its insights tool, once for each of last year and the year before
+on 1 September to 31 December, and once for this year's Baseline, 1 September to 31 October or
+yesterday if sooner:
 
 - **Rows.** Campaign level with a daily time increment: campaign name, day, amount spent,
   impressions, link clicks, purchases and purchase conversion value.
@@ -186,12 +194,13 @@ Probe it, and read it, through its insights tool, once for each year on 1 Septem
 ## Meta Ads: campaign report
 
 1. In Ads Manager, open the Campaigns tab and set the date range from 1 September to
-   24 December of last year.
+   31 December of last year.
 2. Break down by Time, then Day.
 3. Add the columns Amount spent, Impressions, Link clicks, Purchases and Purchases conversion
    value.
 4. Export as CSV and drop the file into this chat.
-5. Repeat for the same dates of the year before.
+5. Repeat for the same dates of the year before, and once more from 1 September of this year to
+   31 October or yesterday if sooner.
 
 | Column | Feeds |
 |---|---|
@@ -239,14 +248,17 @@ One export per year, covering 1 September to 24 December, for last year and the 
 - Match column headers loosely: labels vary by report version and language. Read numbers as
   counts or amounts, ignoring thousands separators, in the currency the Source reports.
 - **Dates.** Split the rows on the windows' dates from `SKILL.md` step 1. A file that starts after
-  the first date of its range or stops before the last (the orders file's range above, and
-  1 September to 24 December of each year for every other report) is asked for again once, with
+  the first date of its range or stops before the last (the orders file's range above; the
+  campaign reports' ranges above; and 1 September to 24 December of each year for every other
+  report) is asked for again once, with
   the range it missed. A sales by product, sessions or campaign report must hold one row per
   day: a Black Friday
   weekend is four days, so a file grouped by week or month is asked for again once, by day, and
   a day it still lacks reads "No data".
 - **One Source per section across every year read.** Last year, the year before it and this
   year's Baseline all come from the same file or connector, with the same columns and filters.
+  The orders file is one file for all three years, which holds for the Target test as it does for
+  the headline.
   Where GA4 holds only one of the two years, ask once for the other; if it is still missing, read
   both years from Shopify sessions by landing page, or "No data" where that holds neither. A
   campaign report works the same way, platform by platform. Where a Shopify or Klaviyo connector
@@ -287,8 +299,10 @@ One export per year, covering 1 September to 24 December, for last year and the 
 A column missing from the orders file reads "No data" for every figure that needs it, with one
 line naming the column and what it feeds: without customer type, new customers, returning
 customer orders, Repeat customers and Cohorts; without customer ID, Cohorts and the 90-day reorder; without cost,
-every margin cell. The rest of the spine reads on, from that same file. The user is asked for no
-second export; the line names the column to include next time.
+every margin cell; without customer type, also the Target test's new orders and implied CAC;
+without Gross sales, a gross budget reads total sales and the Target test's footnote says the
+basis differs, as it does for a net budget without Returns. The rest of the spine reads on, from
+that same file. The user is asked for no second export; the line names the column to include next time.
 
 A column missing from the sales by product report works the same way: without cost, every
 product margin, margin % and share of the weekend's margin reads "No data" and so does the
