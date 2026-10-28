@@ -24,7 +24,8 @@ chat and fills in here once it is.
 
 1. **Summary**, then **How we read it**: four to six short lines, before any figure, for a reader who has seen
    none of the method:
-   - the four windows with their dates in both years compared (from `references/windows.sql`),
+   - the four windows with their dates in both years compared (from `references/windows.sql`, or the dates step 1 wrote out
+     on a run without a Growth Brain),
      and that Baseline is normal September and October trading;
    - that last year is compared with the year before, never with this autumn, because tracking
      changed this year (without a Growth Brain, because this autumn's windows are not yet
@@ -186,7 +187,7 @@ reads with no exports. Get one at gocrux.io/contact."
 One row per figure per window (Baseline, Lead-in, Black Friday weekend, Festive), and these
 columns in this order: the year before last year, its Lift over Baseline, last year, its Lift
 over Baseline, last year against the year before. Head each with its calendar year from
-`references/windows.sql`. The Baseline row's Lift cells read "Baseline", since every Lift is
+`references/windows.sql` (step 1's written-out dates without a Growth Brain). The Baseline row's Lift cells read "Baseline", since every Lift is
 measured against it. A section no Source holds keeps its heading and one line saying why; on a run
 with a Growth Brain, where its mart is missing from the roster, the line names the mart. A
 ranked list shows last year's Black Friday weekend with the

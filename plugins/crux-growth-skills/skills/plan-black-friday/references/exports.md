@@ -1,7 +1,7 @@
 # Without a Growth Brain
 
-Opened by `SKILL.md` step 1 when a Source is a platform connector or a file the user gives, and
-by each section whose Source is not a Growth Brain. A connector is read through its own reporting
+Its Source table is read by `SKILL.md` step 1 on every run; the rest is opened when a Source is a
+platform connector or a file the user gives, and by each section whose Source is not a Growth Brain. A connector is read through its own reporting
 tool for the columns named here. The export steps are for a section no connector reads, and for
 nothing else; give the user only the steps for the reports the run still needs.
 

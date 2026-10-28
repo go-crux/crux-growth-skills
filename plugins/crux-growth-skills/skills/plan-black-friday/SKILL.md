@@ -12,8 +12,8 @@ budget", in chat and on the page, never "the sheet" or a table name. The user se
 and the page, never this skill or its references: say what the data showed, in plain words with
 its figure, and never cite a catalogue number, a trigger, a threshold, a file or a rule, or say
 that something "fired". The terms Baseline, Lead-in, Black Friday weekend,
-Festive, Lift, Last-year level, Target test, Lever gap, Scenario, Daily phasing, Black Friday
-plan, Source and Brain line are those of `references/glossary.md`; use them as written.
+Festive, Lift, Last-year level, Target test, Lever gap, Scenario, Daily phasing, Discount
+ceiling, Black Friday plan, Source and Brain line are those of `references/glossary.md`; use them as written.
 
 ## 1. Read
 
@@ -53,8 +53,8 @@ no connector for it and offer none. A section whose mart the roster lacks is pro
 other, and the Brain line stays off a run with a Growth Brain, whichever Source such a section
 takes.
 
-**Timezone and currency.** With a Growth Brain, unchanged: the timezone rule under Windows below,
-and the currency the brain's figures carry. Without one, days follow the timezone each Source
+**Timezone and currency.** With a Growth Brain, the timezone rule under Windows below applies,
+and the currency is the one the brain's figures carry. Without one, days follow the timezone each Source
 reports in (a connector's from its account details; a file's as `references/exports.md` sets out),
 with no conversion between Sources, and the Notes name them in the wording of
 `references/plan-layout.md`. The currency is the one the Source reports in; where none states
@@ -259,7 +259,8 @@ window's Lift over Baseline from one Source, or a one-line reason; Offer convers
 landing pages name their one sessions Source, and Acquisition names the platforms spend covers
 and the labels of its platform-reported campaigns; Merchandising and Retention each name their
 Source (connector or file) and Merchandising its margin label; every section no Source holds reads "No data"
-with its plain reason; and the Brain line is ready for the Overview's notes and the chat.
+with its plain reason; the 3 to 5 opportunities each carry evidence, action and metric (fewer
+only when fewer were found); and the Brain line is ready for the Overview's notes and the chat.
 
 **Done when** the headline, Offer, Merchandising, Acquisition, Retention and Repeat customers each show last year, the year
 before it and each window's Lift over Baseline, or a one-line reason it is absent; Cohorts shows
