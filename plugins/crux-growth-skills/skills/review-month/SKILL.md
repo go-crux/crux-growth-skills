@@ -37,8 +37,8 @@ it, starting at the one the intake settled:
 1. **A Growth Brain**: a connector named `<Client> - Growth Brain` that offers `list_tables`,
    `list_metrics`, `search_examples` and `run_sql`; the one the intake settled where several are
    connected. Open `references/sources.md` and make the calls it sets out: `list_tables` with no
-   arguments for the roster; `list_metrics` with no arguments for the index, then naming the tables
-   the deck reads for their definitions; `search_examples` once, with an intent naming the review.
+   arguments for the roster; `list_metrics` with no arguments for the index, then with the `metrics`
+   argument naming the measures the deck shows for their definitions; `search_examples` once, with an intent naming the review.
    A run with a brain reads the brain alone.
 2. **Ad account and Shopify connectors** the session offers, then
 3. **CSV exports the user gives**: with no Growth Brain, open `references/sources.md`, Connectors
@@ -50,7 +50,7 @@ the Current period and its Comparison periods once, in the `periods` CTE there, 
 intake settled.
 
 **Done when** the one Growth Brain chosen has its roster, its metric index, the definitions for the
-tables the deck reads and its examples in hand, or there is none and each connector the session
+measures the deck shows and its examples in hand, or there is none and each connector the session
 offers has had one probe read, with any that refused or could not be told to be the brand's named
 to the user (in the Notes on an Unattended run) and any export a figure needs asked for once or its
 figure marked "No data"; the timezone and the currency are set; and the Current period is a
@@ -76,7 +76,9 @@ the three Appendix slides that are brain only are Brain slots whatever the conne
 and the other Appendix slides are built where their main slide is. Last month's actions is built on every
 Source: read what each action's metric did, last month against this month, as
 `references/deck-layout.md` sets out. For each Focus question, read the figures its Focus slide
-needs, from its Section's own slides where they hold them.
+needs, from its Section's own slides where they hold them. For each Recommendation, read what its
+sizing in `references/deck-layout.md` names that the slides do not hold: the budget's lever split,
+the campaigns with spend and no new orders, and the single-category orders.
 
 **Done when** every Trading, Acquisition, Retention & LTV and Order value & product slide and every
 Appendix slide has its figures or its Brain slot (without a Growth Brain, built where the table
@@ -88,25 +90,39 @@ figures, or its Focus slide is a Brain slot; and:
 - the KPI table's revenue, orders and new orders each equal an unfiltered total for the Current
   period's days read in its own query; new plus returning revenue equals revenue in every month of
   the series; and the customer base rolls forward (last month's active customers, plus new and
-  reactivated, less lapsed, equals this month's) wherever the glossary's definitions are used;
+  reactivated, less lapsed, equals this month's) wherever the glossary's definitions are used or
+  the brain's active includes one-order customers (where its active excludes them the check does
+  not apply and the Notes say so);
 - every measure `list_metrics` defines and the deck shows is read as the brain defines it, every
   slide names it as the brain does, and the Notes list each definition used;
-- the Appendix channel table's rows, its Unknown row included, add up to its Total row's new orders, which
-  equals the KPI table's new orders, on the same basis as the channel CAC (modelled or measured),
-  and its spend equals the KPI table's marketing spend, in every
-  period shown (or the Notes carry the Channel total caveat);
+- each figure sits on one basis, stated in the Notes, so no two slides disagree on a measure: MER
+  as the brain defines it and labelled with its basis, cancelled orders counted or left out as
+  channel reporting does, and a margin rate with margin and revenue on one basis;
+- the Appendix channel table's rows, Other channels and its Unknown row included, are whole numbers
+  that add up to its Total row's new orders, to the digit, which equals the KPI table's new orders,
+  on the same basis as the channel CAC (modelled or measured), and its spend equals the KPI table's
+  marketing spend, in every period shown (or the Notes carry the Channel total caveat); the
+  `acq-channels` bars carry the same whole numbers as that table;
 - paid, organic and Unknown new orders add up to new orders in each of the 12 months;
 - each ad platform with spend in the Current period has one campaigns slide of its top five named
-  campaigns by new orders and one Appendix slide of its top ten, its spend with no campaign in a "No
-  campaign" row below the ranking, never in it, and each title counting named campaigns only;
+  campaigns by new orders and one Appendix slide of its top ten, its orders or spend not tied to a
+  named campaign (attribution placeholders included) in a "No campaign" row below the ranking, never
+  in it, so the ranking, that row and the other named campaigns add up to the platform's measured
+  total of new orders, each title counting named campaigns only against that total, and the
+  campaigns slide's source line saying campaign rows are measured new orders that can differ from a
+  modelled channel row;
 - the Appendix cohort table's Current period cohort size equals the KPI table's new orders where the
   cohort mart counts every order (otherwise the Cohort count caveat is in the Notes), every cohort
   starts at 100% in month 0, and the retention curves, the cohort LTV lines and the rolling average
   read the same cohorts as that table;
-- every LTV figure reads the LTV window and the brain's LTV measure;
-- the margin rows, where shown, are on a rung dated by order, or on the highest mixed-dated rung
-  with the Mixed-dated margin caveat in the Notes, and a rung the brain says equals the one below
+- every LTV figure reads the LTV window and the brain's LTV measure, and no `acq-ltv-channel` bar,
+  best or worst channel or LTV gap rests on a channel of fewer than 30 customers (the source line
+  counts those left off);
+- the margin rows, where shown, are on a rung dated by order by the brain's own label and never net
+  of ad spend, or on the highest such mixed-dated rung with the Mixed-dated margin caveat in the Notes, and a rung the brain says equals the one below
   carries the lower rung's name and the Equal rungs caveat;
+- a Thin costing caveat names the month after the last dip of the fully costed share below half the
+  Current period's;
 - the blended AOV equals the KPI table's Average order value in every month of the series (and,
   where the brain defines an AOV metric, that metric), every revenue figure sits on the Revenue
   basis, and each budget cell is read from the budget mart on the Budget basis;
@@ -114,10 +130,13 @@ figures, or its Focus slide is a Brain slot; and:
   and sales equal the KPI table's, and the category bars, Other categories and No category included,
   add up to that month's revenue;
 - the discount rate's discounted orders and the orders it divides by are read from the same orders
-  in each of the 24 months;
+  in each of the 24 months, and the `aov-discount` source line counts the orders at 100% depth left
+  out of depth (none left in a depth figure);
+- no category row named "No category" holds an order that has a category, a multi-category bucket
+  being a category row;
 - the Discount codes slide and its Appendix slide are present only where an order in the Current
   period carries a code, their rows are code groups where `list_tables` shows a code group column on
-  the orders and codes otherwise, a free-shipping row reads "free shipping" in its depth cell, and the
+  the orders and codes otherwise, a free-shipping row reads "free shipping" and a row of only 100%-depth orders "gifting" in its depth cell, and the
   Appendix rows add up to its Total row.
 
 A figure the Source cannot give reads "No data" or its slide is a Brain slot; none is guessed.
@@ -136,7 +155,13 @@ figure from its own Section's slides, an action that names a segment and a concr
 (never one that restates the gap, such as "close the gap to budget"), a metric to watch and Test,
 Watch next month or Ship, and is worth at least 1% of the Current period's revenue a month; no Section holds two cards
 of the same kind of move; Next month holds the three distinct gaps with the most revenue at stake (a card that
-duplicates or sits inside a larger one gives way), or fewer where fewer exist; every Focus question
+duplicates or sits inside a larger one, as the table in `references/deck-layout.md` defines "inside",
+gives way), or fewer where fewer exist; every Budget gap card names its lever and how it was picked
+and is sized on that lever's share of the shortfall, never the whole shortfall; every title and card
+that names a budget gap is stated on the Budget basis; every Category gap
+card compares single-category orders with single-category orders; every first-order cohort gap is
+a first-order card, never a win-back; every paid channel or named campaign with spend and 0 new
+orders has been checked for a Waste gap; no card is sized on a delta that reads "Not comparable"; every Focus question
 leads the Executive summary; the Executive summary holds the four Stat row figures and one
 takeaway with a figure for each of Acquisition, Retention & LTV, and Order value & product; every
 data slide has a Takeaway panel that restates neither its Action title nor a Recommendation; every
@@ -156,14 +181,16 @@ Then run the Quality check of `references/slide-craft.md` over every slide of th
 each slide that fails a line, and run it again until every slide passes.
 
 **Done when** every slide passes each line of the Quality check in `references/slide-craft.md`
-(its evidence, its Takeaway panel, one Highlight colour, the type minimums, nothing past 1280×720,
-the footer); the file holds every slide of the slide list in order (conditional slides only where
-the business has them), each one filled from the Source or a Brain slot, and one Focus slide for
-each Focus question; Last month's actions holds one row for each action of the previous review or
-its fixed line; the brand's values are the only change to the skeleton's CSS (the Crux default
-where the brand has no look of its own); each built chart marked for a Share toggle carries one
-and no other chart does; the Notes carry their three headings (and the Brain line, once, on a run
-without a Growth Brain); and the page makes no network request.
+(its evidence, its Takeaway panel, one Highlight colour, the type minimums with the label size
+included, nothing past 1280×720, the footer); the file holds every slide of the slide list in order
+(conditional slides only where the business has them), each one filled from the Source or a Brain
+slot, and one Focus slide for each Focus question; Last month's actions holds one row for each
+action of the previous review or its fixed line; the brand's values are the only change to the
+skeleton's CSS (the Crux default where the brand has no look of its own); each built chart marked
+for a Share toggle carries one and no other chart does; the Notes carry their fixed title and three
+headings (and the Brain line, once, on a run without a Growth Brain); every Stat figure and table
+shows the bare symbol where the currency's symbol is longer than one character, with the Notes'
+Currency caveat naming the currency; and the page makes no network request.
 
 ## 6. Close
 

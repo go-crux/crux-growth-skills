@@ -41,7 +41,7 @@ growth equation: trading, then acquisition, retention and LTV, then order value 
 
 - **Budget basis**: the measure the budget is set on, as the budget mart names it; "v budget %" compares the budget with that mart's own actual for the same measure, so it can differ from the Revenue basis. _Avoid_: budget type, budget revenue.
 
-- **Margin rung**: the one level of the brain's margin ladder (CM3, CM2, CM1) whose rows the Trading KPI table shows: the highest held on a mart dated by order, else the highest on a mixed-dated mart with its caveat. _Avoid_: margin tier, profit line.
+- **Margin rung**: the one level of the brain's margin ladder (CM3, CM2, CM1) whose rows the Trading KPI table shows: the highest not net of ad spend and dated by order, by the brain's own label, else the highest on a mixed-dated mart with its caveat. _Avoid_: margin tier, profit line.
 
 ## Intake and actions
 

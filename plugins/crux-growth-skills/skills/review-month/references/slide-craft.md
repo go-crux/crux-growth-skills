@@ -11,7 +11,8 @@ The deck is a **Slidedoc**: read on screen or in print with no presenter, so eac
 itself.
 
 - Every content slide opens on an **Action title**: a full sentence that states the slide's
-  takeaway with at least one figure, never the topic.
+  takeaway with at least one figure, never the topic. The Notes slide keeps a fixed title
+  ("Notes / How this review was built") instead.
 - One idea a slide. A second idea is a second slide.
 - No animation and no transition. The body is readable at the sizes under **Type**.
 
@@ -51,7 +52,7 @@ Every slide maps to one of seven **Layouts**. Each has its fixed grid in the ske
 | chart slide | an Action title, one chart and a Takeaway panel |
 | table slide | an Action title and one table; **Appendix only** |
 | cards slide | an Action title and up to three Recommendation cards |
-| text slide | an Action title and text columns (Executive summary, Notes) |
+| text slide | an Action title and text columns (Executive summary), or the Notes' fixed title and its three columns |
 
 A **Stat row** sets a slide's headline figures large, each with its MoM, YoY and budget deltas, in
 place of a table. The table it replaces moves to the Appendix as a table slide.
@@ -103,6 +104,7 @@ and always the Takeaway panel.
 | Action title | 28 to 32px in the serif, at most two lines |
 | Stat figure | 48 to 56px |
 | Body, Takeaway panel | at least 16px |
+| Labels (eyebrow, stat and Takeaway labels, card footers) | 13px |
 | Table | at least 14px |
 | Footer and source line | 12px |
 

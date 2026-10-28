@@ -9,10 +9,12 @@ for slide.
 
 Crux house style: British English, no em dashes, outcome before mechanism, relative percentage
 changes (2.0% to 1.8% is "−10%"). Money carries the currency the Source's figures are in, with its
-own symbol, never an assumed one, and shows compactly (£1.2m, £84k). The reader may arrive cold:
+own symbol, never an assumed one, and shows compactly (£1.2m, £84k). Where the currency's symbol is
+longer than one character (NZ$, A$, CHF), the Stat figures and tables show the bare symbol ($, and
+no symbol where there is no shorter one) and the Notes' Currency caveat names the currency. The reader may arrive cold:
 speak of "your orders", "your ad spend", never a table, a column, a rule or a threshold. A cell
-holds a figure, "No data" (the Source holds nothing for it) or "New" (the comparison figure is
-zero), never a bare "n/a"; the cohort table and `last-actions` name their own empty cells.
+holds a figure, "No data" (the Source holds nothing for it), "New" (the comparison figure is
+zero) or "Not comparable" (a Brain warning rules the comparison out), never a bare "n/a"; the cohort table and `last-actions` name their own empty cells.
 
 ## The slide list
 
@@ -167,7 +169,11 @@ title, its labels and its Takeaway panel. A budget figure is read as `references
 the budget unless the two bases match, and the Budget basis caveat says so where they do not. The
 Current period supplies "this month"; the Comparison periods are as `references/sources.md` sets
 out. Every % change is relative: a rate that moves from 2.0% to 1.8% reads "−10%". A year-ago
-figure the Source does not reach reads "No data". Show a change to the nearest whole % at 10% or
+figure the Source does not reach reads "No data". Where a Brain warning (`references/sources.md`,
+Brain warnings) says a Comparison period's figure is not comparable with the Current period's (for
+example attribution changed mid-month), every delta against that Comparison period on that figure (a
+table cell, a Stat row line, a bar's change) reads "Not comparable", with no ▲ or ▼ and no colour,
+and no Action title or Recommendation rests on it. Show a change to the nearest whole % at 10% or
 more and to one decimal below it. A delta carries ▲ or ▼ and is coloured: the up colour for a rise,
 the down colour for a fall, neutral for no change. A marketing spend figure is always neutral,
 since spend rising is neither good nor bad alone. A CAC figure is coloured by whether the move is
@@ -200,12 +206,14 @@ side.
 **Recommendation card.** A card has, on its face, a short title, one evidence figure and the
 action; in a footer, the metric to watch and how to validate it: Test, Watch next month or Ship.
 A Section's Recommendations slide holds up to three cards, ranked by revenue at stake: the revenue
-a month of the gap the evidence figure shows is worth, worked from the section's own figures. A gap
-worth less than 1% of the Current period's revenue a month is too small to act on and is no card,
-however it ranks. A Section holds one card for each kind of move (a cross-sell, a cohort win-back,
-a budget shift between channels, a discount change): where two cards make the same kind of move on
-neighbouring segments (three categories, three cohorts), only the larger stays and the next card of
-a different kind takes the second place, or the Section holds fewer cards. A
+the action could plausibly recover in a month, worked from the Section's own figures as that
+Section's spec sets out. A card is sized on the move it makes, its own segment's gap and never a
+larger gap that segment sits in. No card is sized on a delta that reads "Not comparable" (Comparison
+columns). A gap worth less than 1% of the Current period's revenue a month is too small to act on
+and is no card, however it ranks. A Section holds one card for each kind of move (a cross-sell, a
+cohort win-back, a budget shift between channels, a discount change): where two cards make the same
+kind of move on neighbouring segments (three categories, three cohorts), only the larger stays and
+the next card of a different kind takes the second place, or the Section holds fewer cards. A
 move of 10% or more on a headline figure may carry one extra line on its card, "To see why it
 moved, run the diagnose-performance skill for `<month>` against `<comparison month>`."; the
 review itself never drills. Where the evidence supports no action, the slide carries one line
@@ -246,7 +254,7 @@ and set no layout of your own.
 --ink-1:#0E1215;--ink-2:#3A4046;--ink-3:#5A6169;--ink-4:#8A9099;
 --signal:#0F4C81;--signal-tint:#E7EEF4;
 --line:#C9CDD1;--line-soft:#E2E5E8;--line-strong:#0E1215;
---cat-1:#0F4C81;--cat-2:#0E1215;--cat-3:#9AA1A8;--cat-4:#6E93B4;--cat-5:#D3DCE4;
+--cat-1:#6E93B4;--cat-2:#0E1215;--cat-3:#9AA1A8;--cat-4:#D3DCE4;--cat-5:#5A6169;
 --positive:#1E6E45;--negative:#A4271C;
 --display:Georgia,"Times New Roman",serif;
 --body:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
@@ -283,8 +291,8 @@ h2{font-family:var(--display);font-weight:400;font-size:30px;line-height:1.22;co
 svg{display:block;overflow:visible;font-family:var(--body)}
 svg .ax{font-size:12px;fill:var(--ink-4)}svg .ax.cur{fill:var(--ink-1);font-weight:700}
 svg .lab{font-size:14px;fill:var(--ink-3)}svg .lab.hi,svg .hi{fill:var(--signal)}svg .strong{font-weight:700;fill:var(--ink-1)}svg .lab.hi.strong,svg .hi.strong{fill:var(--signal)}
-svg .s-hi{fill:var(--cat-1)}svg .s-base{fill:var(--cat-3)}svg .g{stroke:var(--line-soft)}svg .g-base{stroke:var(--line)}svg .g-mark{stroke:var(--ink-1)}
-svg .l-hi{fill:none;stroke:var(--cat-1);stroke-width:3}svg .l-base{fill:none;stroke:var(--cat-3);stroke-width:2}svg .l-ink{fill:none;stroke:var(--ink-1);stroke-width:3}
+svg .s-hi{fill:var(--signal)}svg .s-base{fill:var(--cat-3)}svg .g{stroke:var(--line-soft)}svg .g-base{stroke:var(--line)}svg .g-mark{stroke:var(--ink-1)}
+svg .l-hi{fill:none;stroke:var(--signal);stroke-width:3}svg .l-base{fill:none;stroke:var(--cat-3);stroke-width:2}svg .l-ink{fill:none;stroke:var(--ink-1);stroke-width:3}
 svg .hd{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;fill:var(--ink-3)}
 svg .row{font-size:16px;fill:var(--ink-2);font-variant-numeric:tabular-nums}svg .row.muted{fill:var(--ink-4)}svg .row.pos{fill:var(--positive)}svg .row.neg{fill:var(--negative)}
 .multi{display:flex;gap:32px}.multi>div{flex:1;min-width:0}
@@ -422,8 +430,9 @@ Each of the others takes its `<header>` (eyebrow and `<h2>` Action title) and fo
   one for each, only where the intake set any), `<div class="exfigs">` of four
   `<div class="exfig">` (the first `exfig hi`; `<p class="eyebrow">`, `<p class="fig">`,
   `<p class="ds">` holding the deltas) and `<ol class="points">` of three `<li>` (`<p class="eyebrow">`
-  Section name, then `<p>` the takeaway). `notes` takes `<section class="slide text">` with
-  `<div class="notes">` of its three `<section>`.
+  Section name, then `<p>` the takeaway). `notes` takes `<section class="slide text">` with its
+  fixed `<header>` (eyebrow "Notes", `<h2>` "How this review was built") and `<div class="notes">`
+  of its three `<section>`.
 - **Table slide**: `<section class="slide table-slide">` with its `<header>`, then
   `<div class="panel"><table class="kpi">` (`<th scope="col">` headings, `<th scope="row">` row labels,
   deltas as `<span class="d pos">`) and the source line. The row the Action title names is
@@ -470,10 +479,12 @@ the classes of the CSS above and sized from the figures, never from a hex value.
 **Brand tokens.** Where `references/intake.md` resolved a brand of this brand's own, write its
 values over the skeleton's `:root` for the roles of `references/crux-brand.md` (What a brand
 changes) and over nothing else: paper to `--paper`, ink to `--ink-1`, the Highlight colour to
-`--signal`, `--cat-1` and `--signal-tint` (also the cohort shading), the greys to `--ink-2` to
-`--ink-4` and the rule greys, the category palette to `--cat-2`, `--cat-4` and `--cat-5` (and `--cat-3`, the base grey of every
+`--signal` and `--signal-tint` (also the cohort shading), the greys to `--ink-2` to
+`--ink-4` and the rule greys, the category palette to `--cat-1`, `--cat-2`, `--cat-4` and `--cat-5` (and `--cat-3`, the base grey of every
 unhighlighted mark, only when the guidelines name a mid grey), the two stacks to `--display` and
-`--body`, and the brand's name to the cover. Every other value stays as given. The page loads no font file, image or style sheet, so a brand web font is
+`--body`, and the brand's name to the cover. Every other value stays as given. Where a brand's
+Highlight colour is too light for white text (a contrast under 4.5 to 1 against `--paper`),
+dividers take `--ink-1` as their ground instead of `--signal`. The page loads no font file, image or style sheet, so a brand web font is
 never fetched and its fallback stack is what shows.
 
 ## Slides built here
@@ -588,7 +599,8 @@ right. The four, in this order, the first in the Highlight colour:
    gives it, ex VAT where that file says so)
 2. **New customers**, which is the New orders figure of the KPI table, labelled as the brain names
    it
-3. **MER** (revenue ÷ marketing spend)
+3. **MER**, as `references/sources.md` sets it, labelled with its basis where the brain defines it
+   ("MER, on `<the brain's revenue name>`")
 4. **The Margin rung's %** of revenue, labelled with the rung's own name (the rung
    `references/sources.md` chooses by its dating, and the lower rung's name where the brain says
    the two are equal), on a Growth Brain that holds a margin rung; else **Orders**
@@ -602,7 +614,9 @@ The figures are read as `app-trading-kpi` reads them, so the two slides agree to
 Action title: the Current period's revenue and its MoM change, with the move behind it: the
 largest among orders, order value and returning orders, or the gap to budget where the Source holds
 a budget ("Revenue rose 8%
-to £1.2m as returning orders grew 13%, but finished 6.7% short of the £1.3m budget").
+to £1.2m as returning orders grew 13%, but finished 6.7% short of the £1.3m budget"). Where the
+Budget basis differs from the Revenue basis, the gap is written on the Budget basis ("Revenue rose
+8% to £1.2m, but gross sales finished 20% short of budget").
 
 ### Appendix: Trading KPIs (`app-trading-kpi`)
 
@@ -616,7 +630,7 @@ columns and, where the Source holds a budget, the budget columns:
 4. Returning orders
 5. Average order value, as `references/sources.md` sets it (Order value & product)
 6. Marketing spend
-7. MER (revenue ÷ marketing spend)
+7. MER, as `trading-kpi` sets it
 
 On a Growth Brain that holds a margin rung, add two rows after MER: the rung's money figure and
 its % of revenue, labelled with the margin rung's own name, as `trading-kpi` names it. Revenue
@@ -625,7 +639,8 @@ relative % per the comparison rule. Revenue is the highlighted row.
 
 Action title: the Current period's revenue, its YoY change and, where the Source holds a budget,
 its gap to budget ("Revenue of £420k was 17% up on last September but 6.7% short of the £450k
-budget"); without a budget, its MoM change and its YoY change.
+budget"), written on the Budget basis where it differs from the Revenue basis, as `trading-kpi`'s;
+without a budget, its MoM change and its YoY change.
 
 ### Revenue, new vs returning (`trading-revenue`)
 
@@ -674,13 +689,21 @@ other seven brought £18k").
 ### Trading Recommendations (`trading-recs`)
 
 Up to three Recommendation cards drawn from the Trading slides above, ranked by revenue at
-stake, worked one of three ways and the card says which. **Budget gap**: revenue below budget,
-sized as the revenue shortfall against budget on the Budget basis (`references/sources.md`,
-Budget), so the card names that basis; a Source with no budget has no budget gap. The shortfall is
-the evidence, never the action: the card names the lever that carries most of it (new customer
-orders, returning customer orders or average order value, from `trading-kpi`) and the segment
-behind that lever on the deck's own slides (the channel on `acq-channels`, the cohort on
-`ret-cohort`, the category on `aov-product`), and its action is a move on that segment. **Market or
+stake, worked one of three ways and the card says which. **Budget gap**: revenue below budget on
+the Budget basis (`references/sources.md`, Budget), acted on through one **lever**: new customer
+orders, returning customer orders or AOV. The lever is the one furthest below its budget, in
+revenue, where the budget mart holds a budget for those measures (its own lever split); else the
+one with the largest relative fall against last month, on `trading-revenue` and `aov-trend`. The
+card is sized as that lever's share of the shortfall: for an orders lever, its orders below the
+budget (or below last month, where there is no split) times that group's Current period revenue per
+order; for AOV, the Current period's orders times the AOV below the budget (or below last month),
+and never more than the shortfall against budget. The card's title and evidence are written on the
+Budget basis, never as a Revenue shortfall where the bases differ ("Gross sales finished 20% short
+of budget"), and the card names the Budget basis, the lever and how it was picked ("by the
+budget's own split" or "by its fall against last month"). The shortfall is the evidence, never the
+action: the card names the segment behind its lever on the deck's own slides (the channel on
+`acq-channels`, the cohort on `ret-cohort`, the category on `aov-product`), and its action is a move
+on that segment. A Source with no budget has no budget gap. **Market or
 customer-type fall**: a market (`trading-markets`) or a customer type (new or returning, on
 `trading-revenue`) whose revenue fell, sized as its revenue fall against the same month last year,
 or against last month where the Source holds no figure for last year. **AOV fall**: average order
@@ -706,7 +729,9 @@ conversion fell 9% to 1.0%"). The Takeaway panel's Why names the traffic move wh
 
 A chart slide. Horizontal bars of the Current period's new orders, ranked, for the top 5 channels by
 new orders (ties by higher spend, then by channel name in alphabetical order, named as the Source
-names them), then the **Unknown row** in grey. The channel the Action title names takes the
+names them), then the **Unknown row** in grey. Channels count here when they hold new orders in the
+Current period, and the bars carry the whole numbers of the Appendix table, rounded as
+`references/sources.md` sets out. The channel the Action title names takes the
 Highlight colour and every other bar, the Unknown row's included, is grey. Each bar is labelled with
 its new orders, and carries at its right two figures: its **CAC** this month and the CAC's MoM
 change, coloured as the comparison rule sets out for CAC. A row with no spend, or no new orders,
@@ -730,17 +755,19 @@ this order:
 1. Up to ten channels, ranked by new orders in the Current period, ties by higher spend, then by
    channel name in alphabetical order, named as the Source names them. The tie-break decides which
    channel takes the last place of the ten, so the same data always gives the same table, and the
-   first five are the bars of `acq-channels`.
-2. **Other channels**, when more than ten hold new orders: every channel not named above, in each
-   period.
+   first five are the bars of `acq-channels`. A channel with new orders only in last month or the
+   same month last year takes a row of its own, below those with Current period new orders and
+   ranked on last month's, then the year-ago, new orders, only while the ten places have room.
+2. **Other channels**, when any channel holding new orders in any period shown is not named above:
+   every such channel, in each period, so each period's column adds to its Total.
 3. The **Unknown row**: the new orders no channel claims, as `acq-channels` shows it. It carries no
    spend, so its spend and CAC cells read "No data".
 4. **Total**: the Total row's new orders equal New orders on `app-trading-kpi` and its spend equals
    Marketing spend there, in every period shown; its CAC is the blended CAC.
 
 The channel rows, Other channels and the Unknown row add up to the Total row's new orders in every
-period shown, on the same basis as the channel CAC: the brain's, modelled channel credit included
-(`references/sources.md`, New orders by channel). A row's CAC is its spend ÷ its new orders; a row
+period shown, to the digit, on the same basis as the channel CAC: the brain's, modelled channel credit
+included, rounded to whole numbers as `references/sources.md` sets out (New orders by channel). A row's CAC is its spend ÷ its new orders before rounding; a row
 with no spend, or no new orders, reads "No data" in its spend or CAC cells. The channel the
 `acq-channels` title names is the highlighted row. Action title: the number of channels, the share of
 new orders the top five carry and the Unknown share ("Eight channels brought 3,100 new orders, the
@@ -765,16 +792,19 @@ brought 58% of new orders, a share 12% above last month's, with 7% from no known
 
 One slide for each ad platform with spend in the Current period. A chart slide of horizontal bars of
 new orders for the platform's top 5 named campaigns, ranked on new orders, ties by higher spend,
-and, below them in grey, a **"No campaign"** row when the platform holds spend with no campaign,
-carrying that spend's new orders. Only named campaigns are ranked. The campaign the Action title
+and, below them in grey, a **"No campaign"** row when the platform holds orders or spend not tied to
+a named campaign, carrying those new orders (`references/sources.md`, Campaigns, says what lands
+there). Only named campaigns are ranked. The campaign the Action title
 names, the lead campaign, takes the Highlight colour and every other bar is grey. Each bar is
 labelled with its new orders, and carries at its right its **CAC** this month and the CAC's MoM
 change as `acq-channels` does ("New" in the change cell for a campaign that did not run last month,
 "No data" in both where the Source cannot give them). New orders are the new orders the Source
 attributes to the campaign, never the platform's own reported conversions. The source line says how
-many named campaigns the platform ran and that the top ten are in the Appendix. Action title, one per
-slide: the share of the platform's new orders the ranked campaigns carry, with the lead campaign's
-CAC, counting named campaigns only, so the "No campaign" row is never in the count ("Five Meta
+many named campaigns the platform ran, that the top ten are in the Appendix, and that campaign rows
+are measured new orders tied to the platform, so they can differ from the platform's channel row on
+the Channel mix where that row is modelled. Action title, one per slide: the share of the platform's measured total of new orders the ranked
+campaigns carry, with the lead campaign's CAC, counting named campaigns only, so the "No campaign"
+row is never in the count though its orders are in the total ("Five Meta
 campaigns delivered 71% of the platform's 3,100 new orders, led by one at a £28 CAC"; "Three Google
 campaigns delivered 64% of the platform's 900 new orders" where the platform ran three).
 
@@ -785,30 +815,34 @@ named campaigns with the most new orders, ranked on that, ties by higher spend. 
 **spend** with this month and MoM %; **impressions**; **clicks**; **CTR** (clicks ÷ impressions);
 **new orders** with this month and MoM %; **CAC** with this month and MoM %. A campaign that did not
 run last month reads "New" in its MoM cells; there is no year-ago column, as campaigns rarely last a
-year. Beneath the ranking, in this order: the **"No campaign"** row, when the platform holds spend
-with no campaign, carrying that spend and its new orders, impressions and clicks; then a last row,
-"All `<platform>` campaigns", carrying the platform's totals so the rows above read against their
-whole. A figure the Source cannot give reads "No data". The lead campaign of `acq-campaigns` is the
-highlighted row. Action title: the share of the platform's new orders the ranked campaigns carry,
-counting named campaigns only ("Ten Meta campaigns delivered 82% of the platform's 3,100 new
-orders"; "Four Google campaigns delivered 64% of the platform's 900 new orders" where the platform
+year. Beneath the ranking, in this order: the **"No campaign"** row, when the platform holds orders or
+spend not tied to a named campaign, carrying that spend and those new orders, impressions and
+clicks; then a last row, "All `<platform>` campaigns", carrying the platform's measured totals so
+the rows above read against their whole. A figure the Source cannot give reads "No data". The lead
+campaign of `acq-campaigns` is the highlighted row. Action title: the share of the platform's new orders the ranked campaigns carry,
+counting named campaigns only, against the platform's measured total ("Ten Meta campaigns delivered
+82% of the platform's 3,100 new orders"; "Four Google campaigns delivered 64% of the platform's 900 new orders" where the platform
 ran four). Impressions and clicks are joined from the platform's mart on the campaign identifier
 where both marts carry one, else on the campaign name; a name match puts the Campaign match by name
-caveat in the Notes.
+caveat in the Notes; the name is matched as `references/sources.md` (Campaigns, Name join) sets out,
+and a campaign that still fails reads "No data" for impressions and clicks.
 
 ### LTV by acquisition channel (`acq-ltv-channel`)
 
 A chart slide. Ranked horizontal bars, highest first, of **12-month LTV** for the 5 acquisition
-channels with the highest, then the one with the lowest as a sixth bar where more than six hold
-customers, so the Action title's best and worst channel are always drawn. The best channel takes
+channels with the highest, then the one with the lowest as a sixth bar where more than six hold 30
+or more customers, so the Action title's best and worst channel are always drawn. A channel with
+fewer than 30 customers is never a bar (**small group**, below). The best channel takes
 the Highlight colour and every other bar is grey. A hairline rule down the chart at the all-customer
 LTV (`g-mark`), labelled "All customers" with its figure, marks the average. Each bar is labelled
 with its LTV, and carries at its right its customer count in the muted colour. Bars, axis and
 labels name the brain's LTV measure ("12-month margin per customer" where its LTV is margin), with
-the **LTV window** in the source line, which says that every channel is in the Appendix. A channel's
+the **LTV window** in the source line, which says that every channel is in the Appendix and, when
+any channel is a small group, how many were left off ("2 channels with fewer than 30 customers left
+off"). A channel's
 customers are those whose first order the Source places on that channel; customers it places on none
 are an Unknown group, never spread, drawn in the Appendix only. Action title: the best and worst
-channel's LTV and the gap ("Email-won customers are worth £210 in their first year, 2.4 times the
+channel's LTV and the gap, ranked among the channels of 30 or more customers ("Email-won customers are worth £210 in their first year, 2.4 times the
 £88 of customers won on paid social"; add the measure's name where it is not revenue, "£210 of
 margin").
 
@@ -819,32 +853,42 @@ months behind them. A customer's **12-month LTV** is their cumulative value thro
 (margin where it defines LTV as margin) on the brain's own grain, else revenue on the revenue basis
 of `app-trading-kpi`; a group's LTV is the sum over its customers divided by their number. The comparison is
 the 12 months ending a year earlier, on the same definition; a window the history does not reach
-reads "No data". A group of fewer than 30 customers joins one "Other" group, so no ranking rests on a
-handful of customers. The Notes state the LTV definition used.
+reads "No data". The Notes state the LTV definition used.
+
+**Small group.** A group of fewer than 30 customers is a small group: it never takes a bar, the best
+or worst place in an Action title, or a Highlight colour, so no ranking rests on a handful of
+customers. It is listed in the Appendix only, and the all-customer LTV still counts its customers.
+Where no channel holds 30 customers, the slide is a Brain slot whose line names the customers it
+would need, and the Appendix lists every channel.
 
 ### Appendix: LTV by acquisition channel (`app-acq-ltv-channel`)
 
-A table slide: one row for each acquisition channel, highest 12-month LTV first, then the Other and
-Unknown groups, then an all-customer row, with the columns Channel; customers; 12-month LTV; the same
+A table slide: one row for each acquisition channel with 30 or more customers, highest 12-month LTV
+first, then a row for each small group (customers shown, ordered by customers, never highlighted),
+then the Unknown group, then an all-customer row, with the columns Channel; customers; 12-month LTV; the same
 figure a year earlier; change %. This slide has no this month or last month column, since LTV is read
-on a cohort window. The best channel is the highlighted row. Action title: the number of channels
-and the spread of their LTV ("Eight channels' first-year LTV ran from £88 to £210 around a £140
+on a cohort window. The best channel (of the 30 or more) is the highlighted row. Action title: the number of channels
+and the spread of the LTV of those with 30 or more customers ("Eight channels' first-year LTV ran from £88 to £210 around a £140
 average across 9,600 customers"; add the measure's name where it is not revenue).
 
 ### Acquisition Recommendations (`acq-recs`)
 
 Up to three Recommendation cards drawn from the Acquisition slides, ranked by revenue at stake,
-worked one of two ways and the card says which. **CAC gap**: a paid channel whose CAC sits above the
+worked one of three ways and the card says which. **CAC gap**: a paid channel whose CAC sits above the
 reference CAC, sized as the new orders its spend would buy at the reference CAC, less the new orders it
 delivered, times the Current period's new-customer order value (new-customer revenue ÷ new orders on
 `trading-revenue`). The reference CAC is the brain's CAC target where it holds one (a metric, or
 the budget mart's budget for CAC), else **paid CAC**: paid channels' spend ÷ paid channels' new
 orders, on the basis of the channel rows. Blended CAC is never the reference, since it includes
 organic new orders that cost no spend and puts every paid channel above it. A channel at or below
-the reference has no gap. **LTV gap**: a channel whose 12-month LTV sits below the all-customer figure,
+the reference has no gap. **LTV gap**: a channel of 30 or more customers whose 12-month LTV sits below the all-customer figure,
 sized as its Current period new orders times that gap per customer; where the brain's LTV is not
 revenue, the gap is in that measure, so the card says so and its revenue at stake is worked on the
-Revenue basis from the same customers. Action title: as `trading-recs`.
+Revenue basis from the same customers. **Waste gap**: a paid channel or a named campaign with spend in
+the Current period and 0 new orders, so its CAC reads "No data" and the CAC gap never reaches it,
+sized as its Current period spend. The "No campaign" row is unallocated spend, never a waste gap,
+and the Unknown row carries no spend. A campaign is read from the same campaign figures as
+`acq-campaigns`, the whole list and not only the ranking. Action title: as `trading-recs`.
 
 ### Cohort retention (`ret-cohort`)
 
@@ -918,26 +962,41 @@ new orders, 29% above last month's 14%").
 ### Retention & LTV Recommendations (`ret-recs`)
 
 Up to three Recommendation cards drawn from the Retention & LTV slides, ranked by revenue at stake,
-worked as the Current period's new orders times the per-customer gap in cumulative LTV (converted to revenue on the Revenue basis where the brain's LTV is not revenue) between
-the rolling average and the cohort in question, at the oldest age that cohort has reached. Action
+worked as the Current period's new orders times the per-customer gap in cumulative LTV (converted to
+revenue on the Revenue basis where the brain's LTV is not revenue) between the rolling average and the
+cohort in question, at the oldest age that cohort has reached, counting only the part of the gap the
+card's action acts on. Split the gap where it opens: its **month-0 part** is the gap in month-0
+revenue per customer (the cohort's first orders were smaller), and its **later part** is the rest,
+opening after month 0. Where the month-0 part is the larger, the card is a first-order card: its
+action is on acquisition or first-order AOV (the entry offer, bundle or product, or the channel mix
+that brought the cohort), sized on the month-0 part, and it is never a win-back email. Where the later
+part is the larger, the card is a win-back or repeat-purchase card, sized on the later part. Action
 title: as `trading-recs`.
 
 ### Next month (`next-month`)
 
 The top three Recommendation cards across every Section that has them, ranked by revenue at stake,
-each card as above with its Section named. Each of the three is a **distinct gap**: where two cards
-size the same gap, or one gap sits inside another (a market's fall inside the revenue shortfall
-against budget, or an AOV fall inside a revenue gap), only the larger reaches Next month and the
-next distinct card, by revenue at stake, takes its place. Cards sized on a different measure or a
-different part of the business are distinct. Fewer than three distinct Recommendations exist: show
-those that do. Action title: the combined revenue at stake and the lead action. These three cards
+each card as above with its Section named. Each of the three is a **distinct gap**. A card **sits
+inside** another when its segment is part of the lever the other acts on:
+
+| A card acting on | Segments that sit inside it |
+|---|---|
+| New customer orders (a Budget gap on that lever) | a customer-type fall on new customers; a channel's CAC gap or LTV gap; a first-order cohort card on `ret-recs` |
+| Returning customer orders (a Budget gap on that lever) | a customer-type fall on returning customers; a win-back or repeat-purchase cohort card on `ret-recs` |
+| AOV (a Budget gap on that lever, or an AOV fall) | an AOV slip; a category gap |
+| A channel (a CAC gap or a Waste gap) | a campaign of that channel |
+
+Two cards that size the same segment on the same measure are one gap. Where two cards are one gap or
+one sits inside another, only the larger reaches Next month and the next distinct card, by revenue at
+stake, takes its place. Every other pair is distinct, a market's fall, a discount card and a Waste gap
+(sized in spend) included. Fewer than three distinct Recommendations exist: show those that do. Action title: the combined revenue at stake and the lead action. These three cards
 are the actions next month's review checks.
 
 ### Appendix: LTV by order category and by order type (`app-ltv-category`, `app-ltv-type`)
 
 Brain only. A table slide: one row for each group, highest 12-month LTV first, with the columns
 Category or Type; customers; 12-month LTV; the same figure a year earlier; change %, on the LTV
-window of `acq-ltv-channel`, grouped by the category (`app-ltv-category`) or the type
+window of `acq-ltv-channel` with its small group rule, grouped by the category (`app-ltv-category`) or the type
 (`app-ltv-type`, for example subscription or one-off) of the customer's **first order**, as the
 Source holds it on the order. An all-customer row closes the table and the best group's row is
 highlighted. Customers with no category or type are an Unknown
@@ -974,7 +1033,9 @@ The grouping is the order's **category**.
 **Category.** The category the Source holds on the order. Where the orders carry none and the order
 items carry a product category, an order's category is that of its highest-revenue line (ties by the
 line listed first), so every order sits in one category and the rows add up. Orders with no category
-are the row **No category**, never spread. A Source with neither makes the slide a Brain slot, and
+are the row **No category**, never spread. A category the Source uses to group orders that span
+several categories is a category row like any other, named as the Source names it and never "No
+category". A Source with neither makes the slide a Brain slot, and
 the Notes name it.
 
 A chart slide. Horizontal bars of the Current period's sales (revenue on the basis of
@@ -1015,12 +1076,15 @@ chart slide of two small charts side by side, 24 months, one measure each, neith
 the Current period marked and labelled with its figure:
 
 - **Discount rate** (discounted orders ÷ orders) as a line in the Highlight colour, in percent.
-- **Discount depth** (discount given on discounted orders ÷ their value before discount) as columns,
+- **Discount depth** (discount given on discounted orders ÷ their value before discount, leaving
+  out the orders discounted at 100%: the near-free orders of `references/sources.md`) as columns,
   in percent, the Current period's column in the Highlight colour and the rest grey.
 
 Discounted against full-price orders is not charted: the discount rate is that split. Both charts
 are rates and carry no Share toggle.
 
+The source line counts the near-free orders in the Current period ("12 orders at 100% depth left
+out of depth"), and is silent where there are none. They stay in the rate and in both order series.
 No table sits beneath: the discount given (the money) and the order counts are the labels and the
 Takeaway panel's. Where the Source defines either rate or depth in its own metrics, its definition
 wins and the Notes state it. Action title: the discount rate and depth and how they moved ("Discounts
@@ -1036,11 +1100,12 @@ top 5 code groups, or codes, ranked by orders, ties by revenue. The row with the
 one the Action title names, takes the Highlight colour and every other bar is grey. Each bar is
 labelled with its orders, and carries at its right its **depth** (discount given ÷ the orders' value
 before discount) and its share of all orders in the month; a row for a free-shipping code, or whose
-depth works out at 0%, reads "free shipping" in its depth cell, never 0%. The source line says how
+depth works out at 0%, reads "free shipping" in its depth cell, never 0%; a row whose every order
+is discounted at 100% and that is not free shipping reads "gifting" (`references/sources.md`, Discount
+rate, discount depth). The source line says how
 many groups or codes were used and that the top ten are in the Appendix. A Source that holds
 discounts but no code on the order writes the slide as a Brain slot, and the Notes name it. Action
-title: the row with the most orders and its depth ("free shipping" in place of a depth for a
-free-shipping row), with the share of orders that used a code ("One welcome code brought 1,200
+title: the row with the most orders and its depth ("free shipping" or "gifting" in place of a depth for such a row), with the share of orders that used a code ("One welcome code brought 1,200
 orders at a 10% depth, and codes touched 24% of all orders").
 
 ### Appendix: Discount codes (`app-aov-codes`, conditional)
@@ -1055,7 +1120,7 @@ being a code group or a code as `aov-codes` has it. Rows, in this order:
 
 Columns, in this order: Code (Code group on a grouped table); **orders** with this month and MoM %;
 **revenue** (on the basis of `app-trading-kpi`) with this month and MoM %; **discount given** with
-this month and MoM %; **depth** with this month, "free shipping" as `aov-codes` has it; **share of
+this month and MoM %; **depth** with this month, "free shipping" and "gifting" as `aov-codes` has them; **share of
 orders** (the row's orders ÷ all orders of the month). A row that was not used last month reads
 "New" in its MoM cells; there is no year-ago column, as codes rarely last a year. The row
 `aov-codes` names is the highlighted row. Action title: the number of codes or groups used and the
@@ -1067,16 +1132,21 @@ of them").
 Up to three Recommendation cards drawn from the Order value & product slides, ranked by revenue at
 stake, worked one of four ways and the card says which. **AOV slip**: new-customer or
 returning-customer AOV below last month's, sized as that group's Current period orders times the
-fall. **Category gap**: a category in `app-aov-product` whose AOV sits below the blended AOV, sized as its
-Current period orders times the gap. **Discount creep**: a discount depth above last month's, sized
+fall. **Category gap**: a category in `app-aov-product` (never a bucket of multi-category orders, which has no single-category orders) whose AOV on single-category orders sits below the
+average AOV of all single-category orders, sized as its Current period single-category orders times
+that gap. A **single-category order** is an order whose lines all sit in one category
+(`references/sources.md`, Order category); the blended AOV and a category's own AOV on
+`app-aov-product` include multi-category baskets, so a category is never compared with them. A Source
+that cannot tell which orders are single-category has no Category gap. **Discount creep**: a discount depth above last month's, sized
 as the discount given in the Current period less what last month's depth would have given on the same
-discounted orders' value. **Code depth**: a code whose depth sits above the depth of all codes,
-sized the same way against the all-codes depth; a free-shipping row has no depth and is not sized.
+discounted orders' value, both leaving out near-free orders. **Code depth**: a code whose depth sits above the depth of all codes,
+sized the same way against the all-codes depth, both leaving out near-free orders; a free-shipping or gifting row has no depth and is not sized.
 Action title: as `trading-recs`.
 
 ### Notes (`notes`)
 
-No Action title. Three headings, always present, in this order:
+A fixed title, not an Action title: the eyebrow "Notes" over the heading "How this review was
+built", on every run. Three headings, always present, in this order:
 
 1. **Sources**: what was read from where, in plain words ("Revenue, orders and customers: your
    orders. Marketing spend: your sales and ad spend by channel. Budget: your budget."), led, when
@@ -1085,7 +1155,7 @@ No Action title. Three headings, always present, in this order:
    spend: your Google Ads export."), and the platforms marketing spend covers.
 2. **Definitions**: with a Growth Brain, one line saying the brain's own definitions are used, then
    the definition of each measure on the deck as that brain gives it (revenue and its basis, new
-   customer, new-customer conversion and what it divides by, active, lapsed, reactivated and the mart
+   customer, new-customer conversion and what it divides by, MER and the revenue it divides, active, lapsed, reactivated and the mart
    they read, CAC overall and by channel, retention, LTV and its unit, the margin rung), a
    glossary definition marked as such where the brain defines none, the channels counted as paid, and where the deck holds a budget, the Budget basis. Revenue is stated as the
    Revenue basis under the brain's name for it, with the AOV metric it comes from or, where the
@@ -1096,13 +1166,13 @@ No Action title. Three headings, always present, in this order:
 | Caveat | Wording |
 |---|---|
 | Days | Days are read in `<timezone>`. Where the brain says only that dates are the store's own timezone: Days are read in your store's own timezone, as your orders record them. |
-| Currency | Amounts are in `<currency>`. Where no Source states one: Amounts are in the currency your orders are recorded in. |
+| Currency | Amounts are in `<currency>`. Where the symbol is longer than one character, name the currency in words: Amounts are in New Zealand dollars, shown as $. Where no Source states one: Amounts are in the currency your orders are recorded in. |
 | Test orders | Test orders are left out. |
-| Cancelled orders | Cancelled orders are `<left out / counted / not stated>`, as your orders record them. |
-| Returns | Returns are booked on the `<order / refund>` date, so the latest months' revenue can still change as returns arrive. Where the Revenue basis is before returns: `<Revenue name>` is before returns, so the latest months can still change as returns arrive. |
+| Cancelled orders | Cancelled orders are `<left out / counted / not stated>`, as your channel reporting counts them, so the figures here tie to it. |
+| Returns | Returns are booked on the `<order / refund>` date, so the latest months' revenue can still change as returns arrive. Where the Revenue basis is before returns: Revenue is before returns, so it does not change as returns arrive; returns show in the margin rows (without margin rows, end at "arrive"). |
 | Budget basis, where it differs from the Revenue basis | Budget is set on `<basis>`, so the budget column compares your `<basis>` against it, not the revenue above. |
 | Orders not fully costed, where your orders flag them | `<n>` orders (`<share>` of revenue) include a product that has no cost yet. They are counted in every figure. With margin rows, add: Their `<rung>` % is taken to be the same as for your other orders. Where `<n>` is 1: 1 order (`<share>` of revenue) includes a product that has no cost yet. It is counted in every figure. With margin rows, add: Its `<rung>` % is taken to be the same as for your other orders. |
-| Margin, with margin rows on a rung dated by order | `<Rung>` % is the margin rate your Growth Brain publishes, dated by order, and `<rung>` is that rate applied to all revenue, so it can differ from a `<rung>` your Growth Brain or a dashboard adds up order by order. Where your Growth Brain publishes no such rate on this revenue, `<rung>` % is `<rung>` divided by revenue on your fully costed orders. |
+| Margin, with margin rows on a rung dated by order | `<Rung>` % is the margin rate your Growth Brain publishes, dated by order, and `<rung>` is that rate applied to all revenue, so it can differ from a `<rung>` your Growth Brain or a dashboard adds up order by order. Where your Growth Brain publishes no such rate on this revenue, `<rung>` % is `<rung>` divided by revenue on your fully costed orders, both `<before / after>` returns and `<ex / including>` shipping. |
 | Mixed-dated margin, with margin rows on a rung dated partly by refund | Your `<plain name of the mart>` dates `<rung>` partly by refund, so `<rung>` % can swing from month to month with the timing of refunds. `<Rung>` is that % applied to all revenue, so it can differ from a `<rung>` your Growth Brain or a dashboard adds up order by order. |
 | Equal rungs, where the brain says the chosen rung equals the one below | Your Growth Brain holds `<higher rung>` equal to `<lower rung>` (`<its reason in plain words>`), so the margin rows are labelled `<lower rung>`. |
 | Thin costing, where the share of fully costed revenue falls sharply in the history shown | Costs are recorded from `<month>`, so margin before then, and year-on-year margin LTV, is not like for like. Where LTV is revenue, read: Costs are recorded from `<month>`, so margin before then is not like for like. |
@@ -1112,6 +1182,7 @@ No Action title. Three headings, always present, in this order:
 | History | The history starts in `<month>`, so trend charts are shorter than 24 months. |
 | A missing source | `<Slides>` could not be built because your Growth Brain holds no `<plain name>`. |
 | Modelled channels, where channel CAC reads modelled credit | Channels are credited as your Growth Brain models them, so a channel's new orders are its modelled credit and can differ from the orders your orders record against it. |
+| Customer base, where the brain's active customer excludes one-order customers | Active customers exclude those with one order, as your Growth Brain defines them, so last month's active customers plus new and reactivated, less lapsed, will not equal this month's. |
 | Definition fallback, where a definition cannot be read | Your Growth Brain defines `<measure>` from `<plain name of the data>`, which this review cannot read, so `<measure>` is read as `<its plain glossary definition>` from your orders. |
 | Channel total | The channels' new orders exceed your orders' new orders by `<n>`, so the Unknown row reads 0. |
 | Tracking change | You told us `<the tracking change>`, so comparisons across it may not be like for like. |
@@ -1120,11 +1191,12 @@ No Action title. Three headings, always present, in this order:
 | Channel placement (no brain) | Channels are placed from the UTM and referrer data on your Shopify orders, so an order without them is in the Unknown row and a channel's CAC can read high. |
 | Customer IDs (no brain) | `<share>` of orders carry no customer ID, so each counts as a new customer of its own. |
 | Test orders in an export (no brain) | Your export does not flag test orders, so none are left out. |
+| Cancelled orders in the report (no brain) | Your orders report does not mark cancelled orders, so each counts as an order with its sales reversed to nil. |
 
 The Thin costing caveat applies where margin is shown (margin rows or margin LTV) and the share of
 fully costed revenue, read for each month of the 24-month series, is below half the Current period's
-share in an earlier month; `<month>` is the first month whose share is at least half the Current
-period's. The Cohort count caveat applies whenever the cohort mart is read and its Current period
+share in an earlier month; `<month>` is the month after the last such month, so a share that dips
+more than once reads from after the final dip. The Cohort count caveat applies whenever the cohort mart is read and its Current period
 cohort size does not equal New orders, or its description says it counts customers or does not say
 it counts every order. A Brain warning is quoted whenever `references/sources.md` found one that
 touches the Current period or a Comparison period, with no Month context needed.
@@ -1164,10 +1236,10 @@ columns or margin rows, since no such Source holds either.
 | `acq-recs` | the Acquisition slides built | all Acquisition slides are Brain slots |
 | `ret-cohort`, `app-ret-cohort` | order rows with customer IDs and history | no customer IDs, or too little history for a cohort |
 | `ret-ltv`, `app-ret-ltv` | as `ret-cohort` | as `ret-cohort` |
-| `ret-subscriptions` | order rows with a subscription flag (conditional) | no order row carries a flag |
+| `ret-subscriptions` | order rows with a subscription flag (conditional; which Sources hold one: `references/sources.md`, The reports to export) | no order row carries a flag |
 | `ret-recs` | the Retention & LTV slides built | all Retention & LTV slides are Brain slots |
 | `aov-trend` | order rows by customer ID, else sales over time by customer type | no orders Source |
-| `aov-product`, `app-aov-product` | order rows with a category, from the products file or connector | no order or no category |
+| `aov-product`, `app-aov-product` | order rows with a category, from the Orders over time report's Product type, the Products export or a connector | no order or no category |
 | `aov-discount` | order rows with a discount amount | no discount column |
 | `aov-codes`, `app-aov-codes` | order rows with a discount code (conditional) | discounts present, no code column |
 | `aov-recs` | the Order value & product slides built | all of them are Brain slots |
