@@ -273,10 +273,10 @@ is a refusal; a read that returns zero is not.
 
 ### What each figure reads
 
-Customer-level rows are Shopify **order rows**: one row per order with the columns of the Orders
-over time report below (else the Orders export), from a connector or the export. **Reports** are
-Shopify's sales over time and sessions over time, a coarser Source that fills only the first three
-rows.
+Customer-level rows are Shopify **order rows**: one row per order, its file rows summed, with the
+columns of the Orders over time report below (else the Orders export), from a connector or the
+export. **Reports** are Shopify's sales over time and sessions over time, a coarser Source that
+fills only the first three rows.
 
 | Figure | Reads | Slides |
 |---|---|---|
@@ -293,8 +293,8 @@ No Source here holds a budget or a margin: there are no budget columns and no ma
 **Revenue** is Shopify net sales: after discounts and returns, before shipping and taxes where
 the Source separates them. From order rows it is the order's Net sales (from the Orders export,
 its Subtotal less its Refunded Amount), booked on the order date; from sales over time it is Net
-sales, booked on the refund date. One basis serves the whole deck, the order
-rows' where they exist. The KPI table's label and the Notes name it, and the Returns caveat takes the matching word.
+sales, booked on the refund date. One basis serves the whole deck, the order rows' where they
+exist. The KPI table's label and the Notes name it, and the Returns caveat takes the matching word.
 
 ### Definitions without a Growth Brain
 
@@ -317,7 +317,7 @@ Shopify order rows:
   CAC reads "No data".
 - **Cancelled orders** (a cancelled-at date) are left out of every count. The Orders over time
   report has no cancelled date: there a cancelled order's sales reversal takes its revenue to nil,
-  and it still counts as an order.
+  it still counts as an order, and the Notes carry the Cancelled orders in the report line.
 - **Test orders** are left out where the connector flags them. An export carries no such flag, and
   the Notes carry the Test orders line for exports.
 
@@ -334,7 +334,10 @@ Brain slots, and with them the Appendix slides of the three that have one.
 
 A **channel** is placed from the UTM and referrer data on the Shopify orders (the order UTM source,
 medium and campaign, else the referrer, or in the Orders export the landing site and referring
-site), taking the first that places the order:
+site), taking the first that places the order. Where the orders carry no UTM medium, no order is
+paid: a google or meta source falls to Another UTM source, and the Notes' Channel placement line
+says paid and organic could not be split. Where they carry no UTM campaign, no campaign matches an
+order:
 
 | Channel | An order is placed here when |
 |---|---|
@@ -409,15 +412,17 @@ for its figures, and count it once.
 | Order ID | one order, across its rows |
 | Day | the order's date (its earliest row) |
 | Customer ID | new, active, lapsed customers, cohorts, LTV |
-| New or returning customer | a check on the first order read from the history |
-| Orders, Gross sales, Discounts, Sales reversals, Net sales | orders, revenue (Net sales), discounted orders and depth (Discounts) |
+| New or returning customer | an order the history reads as first but the report calls returning is not a new order (the customer ordered before the history starts) |
+| Orders, Gross sales, Discounts, Sales reversals, Net sales | orders, revenue (Net sales), discounted orders and depth (Discounts, with Gross sales as the value before discount) |
 | Discount code | codes |
 | Shipping country | markets |
 | Order UTM source, medium and campaign; Referrer | channel placement |
-| Product type | the order's category (`references/deck-layout.md`, Category), each row a line |
+| Product type | the order's category (`references/deck-layout.md`, Category): each product type's rows are a line, and the line with the most Net sales sets it |
 
-**Shopify: Orders export** (the fallback, for a figure the report lacks, such as a subscription
-flag in the order tags; on a large store it can take hours to arrive by email, in several files).
+**Shopify: Orders export** (the fallback, read when the user already holds it or cannot run the
+report; on a large store it can take hours to arrive by email, in several files). A run never asks
+for it only to fill a figure the report lacks: its tags carry the subscription flag the report has
+none of, so `ret-subscriptions` is built only when this export is held.
 
 1. In Shopify admin, open Orders, then Export.
 2. Choose all orders in the same date range, as a plain CSV file, and drop the files into this chat.

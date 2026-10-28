@@ -1157,9 +1157,10 @@ built", on every run. Three headings, always present, in this order:
 | Tracking change | You told us `<the tracking change>`, so comparisons across it may not be like for like. |
 | Spend platforms (no brain) | Marketing spend covers `<platforms>` only. |
 | A connector not read (no brain) | Your `<platform>` `<connector / account>` was not read: `<it refused the read / it could not be told to be your brand's / it reports in a different currency>`. |
-| Channel placement (no brain) | Channels are placed from the UTM and referrer data on your Shopify orders, so an order without them is in the Unknown row and a channel's CAC can read high. |
+| Channel placement (no brain) | Channels are placed from the UTM and referrer data on your Shopify orders, so an order without them is in the Unknown row and a channel's CAC can read high. Where your orders carry no UTM medium, add: Without a UTM medium no order can be told paid, so paid and organic are not split. |
 | Customer IDs (no brain) | `<share>` of orders carry no customer ID, so each counts as a new customer of its own. |
 | Test orders in an export (no brain) | Your export does not flag test orders, so none are left out. |
+| Cancelled orders in the report (no brain) | Your orders report does not mark cancelled orders, so each counts as an order with its sales reversed to nil. |
 
 The Thin costing caveat applies where margin is shown (margin rows or margin LTV) and the share of
 fully costed revenue, read for each month of the 24-month series, is below half the Current period's
@@ -1199,10 +1200,10 @@ columns or margin rows, since no such Source holds either.
 | `acq-recs` | the Acquisition slides built | all Acquisition slides are Brain slots |
 | `ret-cohort`, `app-ret-cohort` | order rows with customer IDs and history | no customer IDs, or too little history for a cohort |
 | `ret-ltv`, `app-ret-ltv` | as `ret-cohort` | as `ret-cohort` |
-| `ret-subscriptions` | order rows with a subscription flag (conditional): the Orders export's tags, since the Orders over time report carries none | no order row carries a flag |
+| `ret-subscriptions` | order rows with a subscription flag (conditional; which Sources hold one: `references/sources.md`, The reports to export) | no order row carries a flag |
 | `ret-recs` | the Retention & LTV slides built | all Retention & LTV slides are Brain slots |
 | `aov-trend` | order rows by customer ID, else sales over time by customer type | no orders Source |
-| `aov-product`, `app-aov-product` | order rows with a category, from the report's product type, the products file or a connector | no order or no category |
+| `aov-product`, `app-aov-product` | order rows with a category, from the Orders over time report's Product type, the Products export or a connector | no order or no category |
 | `aov-discount` | order rows with a discount amount | no discount column |
 | `aov-codes`, `app-aov-codes` | order rows with a discount code (conditional) | discounts present, no code column |
 | `aov-recs` | the Order value & product slides built | all of them are Brain slots |
