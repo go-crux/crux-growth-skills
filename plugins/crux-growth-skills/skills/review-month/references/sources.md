@@ -16,9 +16,12 @@ is the source of truth and a copy here would go stale.
    carry.
 2. **`list_metrics` with no arguments**, once, for the index of the brain's metrics. The index
    names them and may hold no definitions, and a reply that carries every definition at once can be
-   too long to read. Then **`list_metrics` naming the tables the deck reads** (the roster's marts
-   from The marts, by module below), for the definitions the deck relies on; name them in as few
-   calls as keep each reply readable, and split by table when a reply errors or is cut off.
+   too long to read. Then **`list_metrics` with the `metrics` argument** naming the measures the deck
+   shows (revenue and its AOV metric, MER, new customers, new-customer conversion, CAC overall and
+   by channel, active, lapsed and reactivated customers, retention, LTV, and each margin rung with
+   its rate), for their definitions: naming tables returns the tables' descriptions only. Name them
+   in as few calls as keep each reply readable, and split by measure when a reply errors or is cut
+   off.
 3. **`search_examples` once, after the roster**, with an `intent` that names the review: "monthly
    performance review: revenue, orders, spend by channel". Keep what it returns for the queries.
 4. **`list_tables` naming one mart** for each mart a step reads, the ad platform marts included,
@@ -34,7 +37,7 @@ the Notes name it as the Sources heading sets out.
 | Module | Mart | What the slides read from it |
 |---|---|---|
 | Orders | `<client>-orders` | Trading: revenue, orders, new and returning orders, customers (for the customer base, where no customer mart is named below), market, the margin rungs. Acquisition and Retention & LTV: each customer's first order and its date, channel, category and type, subscription flag, revenue by order date. Order value & product: AOV by customer type, order category, discount, discount code |
-| Customers | the customer mart the brain's definition of active or lapsed customer names, where `list_tables` shows it | the customer base: active, new, reactivated and lapsed customers, as the brain defines them |
+| Customers | the customer mart the brain's definition of active or lapsed customer names, where `list_tables` shows it; else the roster's customer profile mart (`<client>-customer_profile`) | the customer base: active, new, reactivated and lapsed customers, as the brain defines them |
 | Channel reporting | `<client>-channel_reporting` | marketing spend; traffic (visits or users, as the brain's conversion reads it); new customers by channel, modelled or measured as the brain's channel CAC reads them, and by campaign; impressions and clicks where it carries them |
 | Ad platform performance | `<client>-meta_performance`, `<client>-google_ads_performance` | impressions and clicks by campaign where channel reporting lacks them; the platform's own mart, only for a platform the roster lists, and only after its own `list_tables` pull |
 | LTV retention | `<client>-ltv_retention` | cohort sizes, retention by month since first order and cumulative LTV per customer in the brain's LTV measure, where `list_tables` shows it carries them |
@@ -104,8 +107,12 @@ and the glossary's alike. Three rules follow from it:
   glossary measure ("revenue per customer", "visits") is for the run where the glossary's holds;
   on a brain definition, write the brain's.
 - **The customer base** reads from the mart the brain's definition of active or lapsed customer
-  names, where `list_tables` shows it (the Customers row of the marts table), else from the orders
-  mart.
+  names, where `list_tables` shows it and `run_sql` can reach it (the Customers row of the marts
+  table). Where that definition names a table `run_sql` cannot reach, read the roster's customer
+  profile mart where it is present, and only then fall back to the glossary's definitions on the
+  orders mart (the Definition fallback caveat). Where the brain's "active" excludes one-order
+  customers, the customer base does not roll forward from new, reactivated and lapsed customers, so
+  the roll-forward check does not apply and the Notes say so (the Customer base caveat).
 - **A definition the run cannot read** (it names a table `list_tables` does not show or `run_sql`
   cannot reach) falls back to the glossary's definition of that measure on the orders mart, and the
   Notes say so, naming the measure (the Definition fallback caveat).
@@ -124,15 +131,25 @@ and the glossary's alike. Three rules follow from it:
   reads revenue (trend, customer type, market, category, cohort, LTV) reads this one basis, so
   revenue, AOV and the product table's Total row agree. Where the Revenue basis is before returns,
   the Returns caveat applies.
+- **MER on the brain's definition.** Where `list_metrics` defines `mer`, the deck reads it as
+  defined, on the revenue the definition names, and the Stat row and the KPI table label it with
+  that basis ("MER, on `<the brain's name for the revenue>`", such as "MER, on gross sales"); the Notes state the
+  definition. Where the brain defines none, and on a run without a brain, MER is the Revenue basis
+  ÷ marketing spend, labelled "MER".
 - **Margin adds rows, never replaces them.** Add the rows of one **margin rung**, chosen from the
-  rungs the brain holds (CM3, then CM2, then CM1, else as the brain names them) by how each is dated:
-  1. The highest rung published **dated by order**: on `<client>-orders`, or on a mart whose
-     description says it is dated by order alone.
+  rungs the brain holds (CM3, then CM2, then CM1, else as the brain names them) that are **not net
+  of ad spend**, by how each is dated. A rung net of ad spend (CM3 on channel reporting, whose margin
+  is after marketing spend) is never chosen: the Trading table shows marketing spend and MER beside
+  it, so the spend would count twice. A rung's dating is the brain's own label for it, in the
+  metric's or the mart's description; only where the brain gives none does a rung on
+  `<client>-orders` count as dated by order.
+  1. The highest rung published **dated by order**: by the brain's own label, a metric or mart
+     whose description says it is dated by order alone.
   2. Where no held rung is dated by order, the highest rung found on a mart dated partly by refund
      (a description that names a refund date beside the order date, or that does not say it is dated
      by order alone), with the Mixed-dated margin caveat of `references/deck-layout.md`. A mixed-dated
      rung above an order-dated one is skipped, so the rows compare like for like with revenue.
-  3. A brain with no margin rung adds no margin row.
+  3. A brain with no margin rung, or whose only rungs are net of ad spend, adds no margin row.
 
   Where the brain's descriptions say the chosen rung equals the one below (for example "fees are not
   connected, so CM2 equals CM1"), label the rows with the lower rung's name and carry the Equal
@@ -143,8 +160,10 @@ and the glossary's alike. Three rules follow from it:
   order not fully costed is never left out of a count or an amount, the rung's money figure
   included. The rung's % of revenue, for a rung dated by order, is the published margin-rate metric
   for the rung on the mart that holds it, quoted as the brain defines it; where the mart publishes none
-  for the rung, or its revenue is on another basis than the KPI table's, take margin ÷ revenue over the
-  fully costed orders on the KPI table's basis instead. For a mixed-dated rung it is the mart's own
+  for the rung on the Revenue basis, take margin ÷ revenue over the fully costed orders instead, with
+  margin and revenue on one basis on both sides: both before returns or both after, and both ex
+  shipping or both including it, as the margin's own definition has them. The Notes say which (the
+  Margin caveat). For a mixed-dated rung it is the mart's own
   margin ÷ its own revenue for the period's days. The rung's money figure is that % × the KPI table's
   revenue, over all orders, so it can differ from a margin the brain or a dashboard sums directly: the
   Notes say so in the Margin caveat (the Mixed-dated margin caveat for a mixed-dated rung). Where `<client>-orders` flags orders that are not fully costed,
@@ -157,9 +176,10 @@ and the glossary's alike. Three rules follow from it:
   period's figure is not comparable with the Current period's (attribution changed mid-month, say)
   makes every delta against that period on that figure "Not comparable"
   (`references/deck-layout.md`, Comparison columns).
-- **Test orders** are left out wherever a mart flags them. **Cancelled orders** follow the mart
-  (most exclude them upstream); the Notes say whether its descriptions include them, exclude them
-  or say nothing.
+- **Test orders** are left out wherever a mart flags them. **Cancelled orders** are counted or left
+  out as the brain's channel reporting mart does (its description says, else its order and
+  new-customer counts show it), so the KPI table ties to channel reporting; read the orders mart's
+  cancelled flag to match it. The Notes say which, or that the descriptions say nothing.
 - **Marketing spend** is read from `<client>-channel_reporting`, never from the orders mart.
 - **Customer type.** A new order is the customer's first ever order and a returning order is any
   later one, as the orders mart flags it. Each month's new and returning revenue add to that
@@ -170,8 +190,10 @@ and the glossary's alike. Three rules follow from it:
   Budget basis is the measure the budget is set on, as the mart names it. "v budget %" compares the
   budget with the mart's own actual for the same measure (read as the marts table sets out), so
   both sides sit on the Budget basis: it is not the KPI row's figure unless the two bases are the
-  same. Where they differ, the Notes carry the Budget basis caveat. A measure the mart holds no
-  budget for reads "No data" in its budget cells.
+  same. Where they differ, the Notes carry the Budget basis caveat, and every title and card that names a
+  budget gap is written on the Budget basis, in its measure's name ("gross sales finished 20% short
+  of budget"), never as a Revenue shortfall. A measure the mart holds no budget for reads "No data"
+  in its budget cells.
 
 **Timezone and currency**, settled once and reused. Timezone: the brain's instructions where they
 name one, else the timezone the date descriptions of `<client>-orders` name. Where they say only

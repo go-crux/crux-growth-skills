@@ -37,8 +37,8 @@ it, starting at the one the intake settled:
 1. **A Growth Brain**: a connector named `<Client> - Growth Brain` that offers `list_tables`,
    `list_metrics`, `search_examples` and `run_sql`; the one the intake settled where several are
    connected. Open `references/sources.md` and make the calls it sets out: `list_tables` with no
-   arguments for the roster; `list_metrics` with no arguments for the index, then naming the tables
-   the deck reads for their definitions; `search_examples` once, with an intent naming the review.
+   arguments for the roster; `list_metrics` with no arguments for the index, then with the `metrics`
+   argument naming the measures the deck shows for their definitions; `search_examples` once, with an intent naming the review.
    A run with a brain reads the brain alone.
 2. **Ad account and Shopify connectors** the session offers, then
 3. **CSV exports the user gives**: with no Growth Brain, open `references/sources.md`, Connectors
@@ -50,7 +50,7 @@ the Current period and its Comparison periods once, in the `periods` CTE there, 
 intake settled.
 
 **Done when** the one Growth Brain chosen has its roster, its metric index, the definitions for the
-tables the deck reads and its examples in hand, or there is none and each connector the session
+measures the deck shows and its examples in hand, or there is none and each connector the session
 offers has had one probe read, with any that refused or could not be told to be the brand's named
 to the user (in the Notes on an Unattended run) and any export a figure needs asked for once or its
 figure marked "No data"; the timezone and the currency are set; and the Current period is a
@@ -90,9 +90,14 @@ figures, or its Focus slide is a Brain slot; and:
 - the KPI table's revenue, orders and new orders each equal an unfiltered total for the Current
   period's days read in its own query; new plus returning revenue equals revenue in every month of
   the series; and the customer base rolls forward (last month's active customers, plus new and
-  reactivated, less lapsed, equals this month's) wherever the glossary's definitions are used;
+  reactivated, less lapsed, equals this month's) wherever the glossary's definitions are used or
+  the brain's active includes one-order customers (where its active excludes them the check does
+  not apply and the Notes say so);
 - every measure `list_metrics` defines and the deck shows is read as the brain defines it, every
   slide names it as the brain does, and the Notes list each definition used;
+- each figure sits on one basis, stated in the Notes, so no two slides disagree on a measure: MER
+  as the brain defines it and labelled with its basis, cancelled orders counted or left out as
+  channel reporting does, and a margin rate with margin and revenue on one basis;
 - the Appendix channel table's rows, its Unknown row included, add up to its Total row's new orders, which
   equals the KPI table's new orders, on the same basis as the channel CAC (modelled or measured),
   and its spend equals the KPI table's marketing spend, in every
@@ -106,8 +111,8 @@ figures, or its Focus slide is a Brain slot; and:
   starts at 100% in month 0, and the retention curves, the cohort LTV lines and the rolling average
   read the same cohorts as that table;
 - every LTV figure reads the LTV window and the brain's LTV measure;
-- the margin rows, where shown, are on a rung dated by order, or on the highest mixed-dated rung
-  with the Mixed-dated margin caveat in the Notes, and a rung the brain says equals the one below
+- the margin rows, where shown, are on a rung dated by order by the brain's own label and never net
+  of ad spend, or on the highest such mixed-dated rung with the Mixed-dated margin caveat in the Notes, and a rung the brain says equals the one below
   carries the lower rung's name and the Equal rungs caveat;
 - the blended AOV equals the KPI table's Average order value in every month of the series (and,
   where the brain defines an AOV metric, that metric), every revenue figure sits on the Revenue
@@ -137,7 +142,8 @@ figure from its own Section's slides and an action, a metric to watch and Test, 
 Ship; Next month holds the three distinct gaps with the most revenue at stake (a card that
 duplicates or sits inside a larger one, as the table in `references/deck-layout.md` defines "inside",
 gives way), or fewer where fewer exist; every Budget gap card names its lever and how it was picked
-and is sized on that lever's share of the shortfall, never the whole shortfall; every Category gap
+and is sized on that lever's share of the shortfall, never the whole shortfall; every title and card
+that names a budget gap is stated on the Budget basis; every Category gap
 card compares single-category orders with single-category orders; every first-order cohort gap is
 a first-order card, never a win-back; every paid channel or named campaign with spend and 0 new
 orders has been checked for a Waste gap; no card is sized on a delta that reads "Not comparable"; every Focus question
