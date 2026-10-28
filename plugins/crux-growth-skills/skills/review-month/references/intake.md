@@ -17,9 +17,9 @@ no round. Any other first message is attended and follows the rounds.
 Put the open questions in numbered rounds, each question with one recommendation (Month context
 alone has none), and wait for the answers before the next round. "Yes" accepts the recommendation of
 every question in the round, and "just write it" accepts every remaining one; either, with no Month
-context given, settles it as nothing to add, and it is not asked again. An answer replaces that question's recommendation. A
-question the first message already answers is stated as understood and not asked. A round with
-nothing left to ask is skipped.
+context given, settles it as nothing to add, and it is not asked again. An answer replaces that
+question's recommendation. A question the first message already answers is stated as understood and
+not asked. A round with nothing left to ask is skipped.
 
 **Round 1**
 
@@ -36,8 +36,8 @@ nothing left to ask is skipped.
    Crux default with an invitation to give a brand file.
 4. **Month context**: what happened in the month that the figures alone would not show: a
    promotion, a launch, a stockout, a tracking change? Ask it plainly, with no recommendation, and
-   say that the more the user adds, the sharper the read. "Nothing to add" is an option, never the
-   suggested answer, and it leaves a cause the data does not show as "not yet known".
+   say that the more the user adds, the sharper the read. "Nothing to add" is one option the user
+   can pick, and it leaves a cause the data does not show as "not yet known".
 
 **Round 3**
 
