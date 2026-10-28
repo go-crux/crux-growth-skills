@@ -11,9 +11,10 @@ across the growth equation, as one HTML deck of 16:9 slides whose slides and ord
 deck, never this skill or its references: say what the data showed, in plain words with its
 figure, and never cite a file, a rule or a threshold. Every line the deck needs has its fixed
 wording in `references/deck-layout.md`; use it as written. The terms Monthly performance review,
-Section, Action title, Brain slot, Brain line, Share toggle, Current period, Comparison period,
-Source, Month context, Focus question, Recommendation, Next month, Last month's actions and
-Unattended run are those of `references/glossary.md`; use them as written.
+Slidedoc, Takeaway panel, Stat row, Highlight colour, Layout, Section, Action title, Brain slot,
+Brain line, Share toggle, Current period, Comparison period, Source, Month context, Focus question,
+Recommendation, Next month, Last month's actions and Unattended run are those of
+`references/glossary.md`; use them as written.
 
 ## 1. Intake
 
@@ -136,16 +137,17 @@ the data supports; and every content slide has an Action title of one full sente
 
 ## 5. Write
 
-Open `references/deck-layout.md` and write `monthly-performance-review-YYYY-MM.html` in the working
-folder, `YYYY-MM` being the Current period. A file of that name there is replaced. Write every
-slide of the slide list in its order, the Focus slides after their Section's divider and Last
-month's actions after the Executive summary, using the skeleton with the brand's values over its
-colours and font stack as `references/deck-layout.md` sets out.
+Open `references/deck-layout.md`, `references/slide-craft.md` and `references/crux-brand.md`, and
+write `monthly-performance-review-YYYY-MM.html` in the working folder, `YYYY-MM` being the Current
+period. A file of that name there is replaced. Write every slide of the slide list in its order,
+the Focus slides after their Section's divider and Last month's actions after the Executive
+summary, using the skeleton of `references/deck-layout.md` with the brand's values over the roles
+of `references/crux-brand.md`, and each slide built to the craft of `references/slide-craft.md`.
 
 **Done when** the file holds every slide of the slide list in order (conditional slides only
 where the business has them), each one filled from the Source or a Brain slot, and one Focus slide for each Focus question, Last month's actions
 holds one row for each action of the previous review or its fixed line, the brand's values are the
-only change to the skeleton's CSS, every slide has the footer, each built chart marked for a Share
+only change to the skeleton's CSS (the Crux default where the brand has no look of its own), every slide has the footer, each built chart marked for a Share
 toggle carries one and no other chart does, the Notes carry their three headings (and the Brain line,
 once, on a run without a Growth Brain), and the page makes no network request.
 

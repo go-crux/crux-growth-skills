@@ -159,35 +159,154 @@ finding alone.
 ## Page mechanics
 
 Inline CSS, inline SVG charts and a few lines of inline script (slide bar, arrow keys, Share
-toggle). The page makes no network request: no web font (use the system stack), library, image
-by URL or fetch. A brand's look changes the CSS values below and nothing else. It prints one slide per page.
+toggle, fit to the window). The page makes no network request: no web font (the fonts are the
+system stacks of `references/crux-brand.md`), library, image by URL or fetch. A brand's look changes
+the values of the roles `references/crux-brand.md` lists and nothing else. It prints one slide per
+page, and on screen it centres the slide in the window, fills the page with paper and runs the
+cover's Highlight bar edge to edge.
 
-Write the page to this skeleton, filling the slides and keeping the CSS and script as given:
+Write the page to this skeleton, filling the slides and keeping the CSS and script as given. The CSS
+holds one grid for each Layout of `references/slide-craft.md`: `.cover` (cover), `.divider` (section
+divider), `.grid` with `.statrow` (stat slide), `.grid` with `.evidence` and `.takeaway` (chart
+slide), `.table-slide` with `table.kpi` (table slide), `.cards` (cards slide) and `.text` (text
+slide). Build each slide from the markup of its Layout in the skeleton below and set no layout of
+your own.
 
 ```html
-<!doctype html><html lang="en-GB"><meta charset="utf-8"><title>Monthly performance review, March 2026</title>
+<!doctype html><html lang="en-GB"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Monthly performance review, March 2026</title>
 <style>
-:root{--ink:#1b1f24;--muted:#6b7280;--paper:#fff;--line:#d9dde3;--accent:#2f5d8a;--up:#1b7f4b;--down:#b3261e;--s1:#2f5d8a;--s2:#8aa9c7;--s3:#c9a24b;--s4:#7a8793;--font:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
-body{margin:0;font-family:var(--font);color:var(--ink);background:#eef0f3}
+:root{
+--paper:#FFFFFF;--paper-2:#F5F6F7;--paper-3:#EDEFF1;
+--ink-1:#0E1215;--ink-2:#3A4046;--ink-3:#5A6169;--ink-4:#8A9099;
+--signal:#0F4C81;--signal-tint:#E7EEF4;
+--line:#C9CDD1;--line-soft:#E2E5E8;--line-strong:#0E1215;
+--cat-1:#0F4C81;--cat-2:#0E1215;--cat-3:#9AA1A8;--cat-4:#6E93B4;--cat-5:#D3DCE4;
+--positive:#1E6E45;--negative:#A4271C;
+--display:Georgia,"Times New Roman",serif;
+--body:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink-2);background:var(--paper)}
+@media screen{html,body{height:100%;overflow:hidden}.slide.cover{overflow:visible}.slide .cover-bar{left:-4000px;right:-4000px}}
+p,h1,h2,h3,ol,dl,dd{margin:0}
 .bar{height:40px;display:flex;gap:4px;align-items:center;padding:0 12px;background:var(--paper);border-bottom:1px solid var(--line)}
-.bar button{border:0;background:none;padding:6px 10px;cursor:pointer;color:var(--muted)}.bar button.on{color:var(--accent);font-weight:600}
-.stage{transform-origin:top left;transform:scale(var(--k,1))}
-.slide{display:none;width:1280px;height:720px;box-sizing:border-box;padding:48px 64px;background:var(--paper);flex-direction:column;position:relative}
+.bar button{border:0;border-bottom:2px solid transparent;background:none;padding:6px 10px;cursor:pointer;color:var(--ink-3);font:inherit;font-size:13px}
+.bar button.on{color:var(--ink-1);font-weight:700;border-bottom-color:var(--signal)}
+.stage{transform-origin:top left;transform:translate(var(--x,0px),var(--y,0px)) scale(var(--k,1))}
+.slide{display:none;width:1280px;height:720px;padding:52px 64px 64px;background:var(--paper);flex-direction:column;position:relative;overflow:hidden}
 .slide.on{display:flex}
-.slide footer{position:absolute;left:64px;bottom:20px;font-size:12px}.slide footer a{color:var(--muted)}
+.slide footer{position:absolute;left:64px;bottom:22px;font-size:12px}
+.slide footer a{color:var(--ink-4);text-decoration:none}
+.slide .pg{position:absolute;right:64px;bottom:22px;font-size:12px;color:var(--ink-4);font-variant-numeric:tabular-nums}
+.eyebrow{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--ink-3)}
+header{margin-bottom:28px}
+header .eyebrow{margin-bottom:10px}
+h2{font-family:var(--display);font-weight:400;font-size:30px;line-height:1.22;color:var(--ink-1);max-width:1100px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.fig{font-family:var(--display);color:var(--ink-1);font-variant-numeric:tabular-nums lining-nums;line-height:1}
+.d{font-variant-numeric:tabular-nums;white-space:nowrap}
+.d.pos,.pos{color:var(--positive);fill:var(--positive)}.d.neg,.neg{color:var(--negative);fill:var(--negative)}.d.flat{color:var(--ink-3)}
+.source{font-size:12px;color:var(--ink-4);margin-top:12px;line-height:1.4}
+/* data slide: evidence left two-thirds, Takeaway panel right third */
+.grid{display:grid;grid-template-columns:2fr 1fr;gap:48px;flex:1;min-height:0}
+.evidence{min-width:0;min-height:0;display:flex;flex-direction:column}
+.panel{border-top:4px solid var(--signal);padding-top:16px;min-height:0;overflow:hidden}
+.takeaway{border-left:1px solid var(--line);padding-left:28px;display:flex;flex-direction:column;gap:22px}
+.takeaway p{font-size:16px;line-height:1.45;color:var(--ink-2)}
+.takeaway b{display:block;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--ink-3);margin-bottom:6px}
+.takeaway p:first-child{color:var(--ink-1)}
+/* charts */
+svg{display:block;overflow:visible;font-family:var(--body)}
+svg .ax{font-size:12px;fill:var(--ink-4)}svg .ax.cur{fill:var(--ink-1);font-weight:700}
+svg .lab{font-size:14px;fill:var(--ink-3)}svg .lab.hi,svg .hi{fill:var(--signal)}svg .strong{font-weight:700;fill:var(--ink-1)}svg .lab.hi.strong,svg .hi.strong{fill:var(--signal)}
+svg .s-hi{fill:var(--cat-1)}svg .s-base{fill:var(--cat-3)}svg .g{stroke:var(--line-soft)}svg .g-base{stroke:var(--line)}svg .g-mark{stroke:var(--ink-1)}
+svg .hd{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;fill:var(--ink-3)}
+svg .row{font-size:16px;fill:var(--ink-2);font-variant-numeric:tabular-nums}svg .row.muted{fill:var(--ink-4)}svg .row.pos{fill:var(--positive)}svg .row.neg{fill:var(--negative)}
+.chart-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.chart-title{font-size:16px;color:var(--ink-3)}
+.toggle{display:flex;gap:0;border:1px solid var(--line)}
+.toggle button{font:inherit;font-size:12px;border:0;background:var(--paper);color:var(--ink-3);padding:5px 10px;cursor:pointer}
+.toggle button+button{border-left:1px solid var(--line)}
+.chart[data-view=absolute] [data-view-set=absolute],.chart[data-view=share] [data-view-set=share]{background:var(--ink-1);color:var(--paper)}
 .chart[data-view=absolute] .v-share,.chart[data-view=share] .v-absolute{display:none}
+/* stat row */
+.statrow{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:12px 20px 12px;border-left:1px solid var(--line-soft)}
+.stat:first-child{padding-left:0;border-left:0}
+.stat .fig{font-size:56px;margin:18px 0 28px}
+.stat.hi .fig{color:var(--signal)}
+.stat dl{display:grid;grid-template-columns:auto 1fr;gap:14px 12px;font-size:16px;align-items:baseline}
+.stat dt{color:var(--ink-4);font-size:13px}
+.stat dd{text-align:right}
+/* executive summary */
+.focus{border-left:4px solid var(--signal);padding:12px 18px;margin-bottom:26px}
+.focus .eyebrow{color:var(--signal);margin-bottom:4px}
+.focus p{font-size:16px;line-height:1.45;color:var(--ink-2)}.focus b{color:var(--ink-1)}
+.exfigs{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line-strong);border-bottom:1px solid var(--line);padding:16px 0 18px;margin-bottom:24px}
+.exfig{padding-left:20px;border-left:1px solid var(--line-soft)}.exfig:first-child{padding-left:0;border-left:0}
+.exfig .fig{font-size:48px;margin:10px 0 10px}.exfig.hi .fig{color:var(--signal)}
+.exfig .ds{font-size:16px;color:var(--ink-3)}
+.points{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;counter-reset:pt}
+.points li{counter-increment:pt;position:relative;padding-left:40px}
+.points li::before{content:counter(pt);position:absolute;left:0;top:-4px;font-family:var(--display);font-size:30px;color:var(--signal);line-height:1}
+.points .eyebrow{margin-bottom:6px}
+.points p:last-child{font-size:16px;line-height:1.45}
+/* cover */
+.cover{padding:0}
+.cover-bar{position:absolute;top:0;left:0;right:0;height:8px;background:var(--signal)}
+.cover-body{position:absolute;left:96px;right:96px;top:250px;border-top:1px solid var(--line-strong);padding-top:22px}
+.cover h1{font-family:var(--display);font-weight:400;font-size:72px;line-height:1.05;color:var(--ink-1);margin:18px 0 18px}
+.cover .period{font-family:var(--display);font-size:30px;color:var(--ink-2)}
+.cover-meta{position:absolute;left:96px;bottom:64px;font-size:16px;color:var(--ink-3)}
+.cover footer{left:96px}
+/* section divider */
+.divider{padding-top:72px}
+.divider-head{border-top:1px solid var(--line-strong);padding-top:20px;margin-bottom:34px}
+.divider-name{font-size:56px;margin:12px 0 14px;-webkit-line-clamp:1}
+.verdict{font-family:var(--display);font-size:22px;line-height:1.35;color:var(--ink-2);max-width:900px}
+.contents{list-style:none;padding:0;counter-reset:c;max-width:980px}
+.contents li{counter-increment:c;font-size:16px;line-height:1.3;color:var(--ink-2);padding:9px 0 9px 44px;border-top:1px solid var(--line-soft);position:relative;white-space:nowrap;overflow:hidden;text-overflow:clip}
+.contents li:last-child{border-bottom:1px solid var(--line-soft)}
+.contents li::before{content:counter(c,decimal-leading-zero);position:absolute;left:0;color:var(--ink-4);font-size:13px;font-weight:700;letter-spacing:.08em;top:11px}
+/* cards slide: three columns under hairlines, no boxes */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;flex:1;min-height:0}
+.card{border-top:1px solid var(--line-strong);padding-top:14px;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.card h3{font-family:var(--display);font-weight:400;font-size:24px;line-height:1.2;color:var(--ink-1);margin:10px 0 16px}
+.card .fig{font-size:48px;color:var(--signal)}
+.card .fignote{font-size:16px;color:var(--ink-3);margin:8px 0 16px}
+.card .act{font-size:16px;line-height:1.45;color:var(--ink-2)}
+.card-foot{margin-top:auto;border-top:1px solid var(--line);padding-top:12px;font-size:16px;color:var(--ink-3);display:grid;gap:4px}
+.card-foot b{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;margin-right:6px}
+.card-foot .stake{font-size:16px;color:var(--ink-1);font-weight:600}
+/* table slide */
+table.kpi{width:100%;border-collapse:collapse;font-size:15px;font-variant-numeric:tabular-nums}
+.kpi th,.kpi td{padding:11px 12px;text-align:right;border-bottom:1px solid var(--line-soft);white-space:nowrap}
+.kpi th[scope=row],.kpi thead th:first-child{text-align:left;padding-left:12px}
+.kpi thead th{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-3);border-bottom:1px solid var(--line-strong);padding-top:4px}
+.kpi tbody th{font-weight:400}
+.kpi tbody tr{color:var(--ink-3)}
+.kpi tbody tr.hi{background:var(--signal-tint);color:var(--ink-1)}
+.kpi tbody tr.hi th{font-weight:700;color:var(--signal)}
+/* notes */
+.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.notes section{border-top:1px solid var(--line-strong);padding-top:14px}
+.notes section .eyebrow{margin-bottom:12px}
+.notes section p:not(.eyebrow){font-size:16px;line-height:1.45;margin-bottom:10px}
+.notes b{color:var(--ink-1)}
+.notes-crux{margin-top:auto;font-size:14px;color:var(--ink-3);border-top:1px solid var(--line);padding-top:12px}
+.notes-crux a{color:var(--signal)}
 @page{size:1280px 720px;margin:0}
-@media print{body{background:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bar{display:none}.stage{transform:none}.slide{display:flex;page-break-after:always}}
+@media print{body{background:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bar{display:none}.stage{transform:none}.slide{display:flex;break-after:page}.slide:last-child{break-after:auto}}
 </style>
 <nav class="bar"></nav>
 <div class="stage">
-<section class="slide" id="trading-kpi" data-section="Trading"><h2>…Action title…</h2> … <footer><a href="https://gocrux.io">Built with Crux growth skills</a></footer></section>
+<section class="slide cover" id="cover" data-section="Summary"><div class="cover-bar"></div><div class="cover-body"><p class="eyebrow">Monthly performance review</p><h1>…Brand name…</h1><p class="period">March 2026</p></div><p class="cover-meta">…Source line…</p><footer><a href="https://gocrux.io">Built with Crux growth skills</a></footer></section>
+<section class="slide" id="trading-revenue" data-section="Trading"><header><p class="eyebrow">Trading</p><h2>…Action title…</h2></header><div class="grid"><div class="evidence"><div class="panel">…one chart, table or Stat row…</div><p class="source">Source: …</p></div><aside class="takeaway"><p><b>So what</b>…</p><p><b>Why</b>…</p><p><b>Watch</b>…</p></aside></div><footer><a href="https://gocrux.io">Built with Crux growth skills</a></footer><span class="pg">4 / 9</span></section>
 </div>
 <script>
 const S=[...document.querySelectorAll('.slide')],B=document.querySelector('.bar');let i=0;
 [...new Set(S.map(s=>s.dataset.section))].forEach(n=>{const b=document.createElement('button');b.textContent=n;b.onclick=()=>go(S.findIndex(s=>s.dataset.section===n));B.append(b)});
 function go(n){i=Math.max(0,Math.min(S.length-1,n));S.forEach((s,k)=>s.classList.toggle('on',k===i));[...B.children].forEach(b=>b.classList.toggle('on',b.textContent===S[i].dataset.section))}
-function fit(){document.documentElement.style.setProperty('--k',Math.min(innerWidth/1280,(innerHeight-40)/720))}
+function fit(){const r=document.documentElement.style,h=innerHeight-40,k=Math.min(innerWidth/1280,h/720);r.setProperty('--k',k);r.setProperty('--x',(innerWidth-1280*k)/2+'px');r.setProperty('--y',(h-720*k)/2+'px')}
 onkeydown=e=>{if(e.key==='ArrowRight'||e.key==='PageDown')go(i+1);if(e.key==='ArrowLeft'||e.key==='PageUp')go(i-1)};
 document.querySelectorAll('.chart [data-view-set]').forEach(b=>b.onclick=()=>b.closest('.chart').dataset.view=b.dataset.viewSet);
 onresize=fit;fit();go(0);
@@ -195,28 +314,35 @@ onresize=fit;fit();go(0);
 ```
 
 Each slide's `data-section` is its Section's name (`Summary` for `cover`, `exec-summary` and
-`last-actions`; `Next month`; `Appendix`; `Notes`), which builds the slide bar. A Share toggle
-chart is `<div class="chart" data-view="absolute">` holding the two buttons
-(`data-view-set="absolute"`, `data-view-set="share"`), the absolute SVG as `class="v-absolute"`
-and the % SVG as `class="v-share"`.
+`last-actions`; `Next month`; `Appendix`; `Notes`), which builds the slide bar. The `pg` span is the
+slide's number and the deck's count, "4 / 9". A Share toggle chart is `<div class="panel chart"
+data-view="absolute">` holding a `chart-head` with the two buttons in a `toggle`
+(`data-view-set="absolute"`, `data-view-set="share"`), the absolute SVG as `class="v-absolute"` and
+the % SVG as `class="v-share"`. A chart's marks take their colour from the classes of the CSS above
+(`s-hi` for the Highlight colour, `s-base` for grey, `style="fill:var(--cat-N)"` for a further
+category), so a brand's roles recolour the charts too.
 
-**Neutral default styling.** The skeleton's colours and system font stack are the default. A
-brand changes only these roles: ink, paper, accent, the four series colours, the font stack and
-the cover's logo text. Up and down colours stay green and red so every deck reads alike.
+**Colour names in the slide specs below.** The "up colour" and "down colour" are `--positive` and
+`--negative`, the "muted colour" is `--ink-3`, the "accent colour" is the Highlight colour
+(`--signal`), and "series N" is the category palette's `--cat-N`, used as `references/slide-craft.md`
+sets out: the Highlight colour on the mark the Action title names and grey on the rest, a category
+colour only where categories must be told apart.
 
-**Brand tokens.** Where `references/intake.md` resolved a brand, write its values over the
-skeleton's custom properties, each role as the intake settled it and every other role as given:
-ink to `--ink`, paper to `--paper`, accent to `--accent` (also the cohort shading), the four series
-colours to `--s1` to `--s4` in the order the guidelines list them, and the stack to `--font`. The
-cover shows the logo text as the brand name set in the accent colour. The page loads no font file,
-image or style sheet, so a brand web font is never fetched and its fallback stack is what shows.
+**Brand tokens.** Where `references/intake.md` resolved a brand of this brand's own, write its
+values over the skeleton's `:root` for the roles of `references/crux-brand.md` (What a brand
+changes) and over nothing else: paper to `--paper`, ink to `--ink-1`, the Highlight colour to
+`--signal`, `--cat-1` and `--signal-tint` (also the cohort shading), the greys to `--ink-2` to
+`--ink-4` and the rule greys, the category palette to `--cat-2`, `--cat-3`, `--cat-4` and `--cat-5`,
+the two stacks to `--display` and `--body`, and the brand's name to the cover. Every other
+value stays as given. The page loads no font file, image or style sheet, so a brand web font is
+never fetched and its fallback stack is what shows.
 
 ## Slides built here
 
 ### Cover and Executive summary
 
-**Cover**: the brand name (the logo text, where the brand supplied one), "Monthly performance
-review" and the Current period as month and year. No title rule applies.
+**Cover**: the Cover layout, with "Monthly performance review" as its eyebrow, the brand's name
+(`references/intake.md`, Brand) and the Current period as month and year. No title rule applies.
 
 **Dividers**: the Section's name large on a plain slide, with one line listing what the Section
 holds ("Revenue, customers and markets"; "Traffic, channels, campaigns and customer value" for
