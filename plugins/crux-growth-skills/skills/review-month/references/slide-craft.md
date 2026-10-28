@@ -91,7 +91,7 @@ and always the Takeaway panel.
 ## Tables
 
 - Figures right-aligned, in tabular numerals.
-- Hairline rows between lines, with no grid borders and no cell fills except the highlighted row.
+- Hairline rows between lines, with no grid borders and no cell fills except the highlighted row (and the shading of a cohort table).
 - The row the Action title names is highlighted and every other row is muted.
 
 ## Type

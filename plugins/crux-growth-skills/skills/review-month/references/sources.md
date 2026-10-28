@@ -257,10 +257,10 @@ sessions over time, a coarser Source that fills only the first three rows.
 | Orders, revenue, average order value | order rows; else the sales over time report | `trading-kpi`, `app-trading-kpi` |
 | New and returning orders and revenue | order rows by customer ID; else sales over time by customer type | `trading-kpi`, `app-trading-kpi`, `trading-revenue`, `aov-trend` |
 | Visits | the sessions over time report, summed by month | `acq-blended` |
-| Marketing spend | every connected ad platform's spend by month, added together | `trading-kpi`, `app-trading-kpi`, `acq-blended`, `acq-channels` |
-| Customers: new, active, reactivated, lapsed; cohorts; LTV | order rows with customer IDs and history | `trading-customers`, `ret-cohort`, `ret-ltv`, `acq-ltv-channel` |
-| New orders by channel and campaign | order rows with UTM or referrer, and the ad platforms' campaign reports | `acq-channels`, `acq-paid-organic`, `acq-campaigns`, `acq-ltv-channel` |
-| Market, category, discount, code, subscription | order rows | `trading-markets`, `app-trading-markets`, `aov-product`, `aov-discount`, `aov-codes`, `ret-subscriptions` |
+| Marketing spend | every connected ad platform's spend by month, added together | `trading-kpi`, `app-trading-kpi`, `acq-blended`, `acq-channels`, `app-acq-channels` |
+| Customers: new, active, reactivated, lapsed; cohorts; LTV | order rows with customer IDs and history | `trading-customers`, `ret-cohort`, `app-ret-cohort`, `ret-ltv`, `app-ret-ltv`, `acq-ltv-channel`, `app-acq-ltv-channel` |
+| New orders by channel and campaign | order rows with UTM or referrer, and the ad platforms' campaign reports | `acq-channels`, `app-acq-channels`, `acq-paid-organic`, `acq-campaigns`, `app-acq-campaigns`, `acq-ltv-channel`, `app-acq-ltv-channel` |
+| Market, category, discount, code, subscription | order rows | `trading-markets`, `app-trading-markets`, `aov-product`, `app-aov-product`, `aov-discount`, `aov-codes`, `app-aov-codes`, `ret-subscriptions` |
 
 No Source here holds a budget or a margin: there are no budget columns and no margin rows.
 
@@ -300,7 +300,7 @@ month; retention % at month *n* is the share of the cohort that ordered in the *
 after it; cumulative revenue per customer sums the cohort's revenue to month *n* over its size. The
 Current period's cohort size equals New orders on `trading-kpi`. Order rows without customer IDs, or
 without enough history, make `ret-cohort`, `ret-ltv`, `trading-customers` and `acq-ltv-channel`
-Brain slots.
+Brain slots, and with them the Appendix slides of the three that have one.
 
 ### Channel mix
 
