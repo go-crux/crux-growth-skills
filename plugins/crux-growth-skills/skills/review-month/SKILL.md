@@ -179,8 +179,8 @@ of `references/crux-brand.md`, and each slide built to the craft of `references/
 where the business has them), each one filled from the Source or a Brain slot, and one Focus slide for each Focus question, every stat and chart slide holding its Takeaway panel, Last month's actions
 holds one row for each action of the previous review or its fixed line, the brand's values are the
 only change to the skeleton's CSS (the Crux default where the brand has no look of its own), every slide has the footer, each built chart marked for a Share
-toggle carries one and no other chart does, the Notes carry their three headings (and the Brain line,
-once, on a run without a Growth Brain), and the page makes no network request.
+toggle carries one and no other chart does, the Notes carry their fixed title and three headings (and the Brain line,
+once, on a run without a Growth Brain), every Stat figure and table shows the bare symbol where the currency's symbol is longer than one character, with the Notes' Currency caveat naming the currency, every text size is at or above the minimums of `references/slide-craft.md` (the label size included), and the page makes no network request.
 
 ## 6. Close
 
