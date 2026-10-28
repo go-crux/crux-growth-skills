@@ -133,13 +133,15 @@ Heading: **Plan for** this year's calendar year. Under it, seven headings in thi
 ## Without a Growth Brain
 
 A run without a Growth Brain keeps every heading. A section no Source holds keeps its heading and
-reads "No data" with its plain reason; the page never says "coming soon". The wording is fixed:
+reads "No data" with its plain reason; the page never says "coming soon". The wording is fixed,
+and also names the Source of a section a Growth Brain run took from a connector or file because
+its roster lacked the mart; such a run carries no Brain line:
 
 | Case | Wording |
 |---|---|
 | Orders, from a file | Orders come from your Shopify orders export. |
 | Orders, from a connector | Orders come from your Shopify account. |
-| A section no Source holds | <Section> has no data in this run: no source here holds <what it needs, in plain words, such as your visits by landing page>. |
+| A section no Source holds | <Section> has no data in this run: no source here holds <what it needs, in plain words, such as your visits by landing page, your sales by product or your email campaigns>. |
 | Targets, with no budget Source | Your targets were not tested: no source here holds your budget. |
 | Revenue | Revenue is total sales, by order date, as <Source in plain words> records it. |
 | Margin, with cost | Gross profit, as Shopify records it. |
@@ -154,6 +156,8 @@ reads "No data" with its plain reason; the page never says "coming soon". The wo
 | A currency no Source states, confirmed by the user | <Source in plain words> does not say which currency it reports in; amounts are in <currency>, as you confirmed. |
 | Visits, conversion and landing pages | Visits are sessions from <GA4 or Shopify>, by landing page, the same in both years. |
 | Landing-page orders | Orders by landing page are <the ecommerce purchases GA4 counts, or the orders Shopify counts by landing page, whichever the sessions Source is>, so they can differ from your store's order count; the site's conversion uses your store's orders. |
+| Products | Products come from your Shopify <sales by product export or account>, by order date, and a product is matched across years by its title. |
+| Email | Email figures come from your <Klaviyo account or Klaviyo campaign export>, by send date; email revenue is as Klaviyo attributes it to each campaign, under its own attribution, so it overlaps your store's revenue and is not added to it. |
 | Marketing spend | Marketing spend covers <platforms> only, the same in every year. |
 | Platform-reported campaigns | Campaign purchases and values are as <platforms> report them, under their own attribution, and are shown without a Lift. |
 | A connector refused a read | <Source in plain words> refused a read, so nothing was taken from it. |
@@ -172,8 +176,9 @@ One row per figure per window (Baseline, Lead-in, Black Friday weekend, Festive)
 columns in this order: the year before last year, its Lift over Baseline, last year, its Lift
 over Baseline, last year against the year before. Head each with its calendar year from
 `references/windows.sql`. The Baseline row's Lift cells read "Baseline", since every Lift is
-measured against it. A section whose mart is missing from the roster keeps its heading and one
-line saying which mart is missing. A ranked list shows last year's Black Friday weekend with the
+measured against it. A section no Source holds keeps its heading and one line saying why; on a run
+with a Growth Brain, where its mart is missing from the roster, the line names the mart. A
+ranked list shows last year's Black Friday weekend with the
 year before alongside, and a platform-reported list is labelled as such.
 
 ## The CSV
