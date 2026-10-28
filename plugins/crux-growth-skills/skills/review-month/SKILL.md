@@ -134,7 +134,8 @@ Month context in place of any cause the figures do not show, and each Action tit
 **Done when** every Trading, Acquisition, Retention & LTV and Order value & product card carries a
 figure from its own Section's slides, an action that names a segment and a concrete move on it
 (never one that restates the gap, such as "close the gap to budget"), a metric to watch and Test,
-Watch next month or Ship, and is worth at least 1% of the Current period's revenue a month; Next month holds the three distinct gaps with the most revenue at stake (a card that
+Watch next month or Ship, and is worth at least 1% of the Current period's revenue a month; no Section holds two cards
+of the same kind of move; Next month holds the three distinct gaps with the most revenue at stake (a card that
 duplicates or sits inside a larger one gives way), or fewer where fewer exist; every Focus question
 leads the Executive summary; the Executive summary holds the four Stat row figures and one
 takeaway with a figure for each of Acquisition, Retention & LTV, and Order value & product; every

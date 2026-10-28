@@ -64,6 +64,7 @@ Section's divider, with an Action title of its own.
 | `app-ltv-type` | Appendix: LTV by order type | table slide | ranked table | no | here, brain only |
 | `app-line-items` | Appendix: line items | table slide | table | no | here, brain only |
 | `notes` | Notes | text slide | Sources, definitions, caveats | no | here |
+| `notes-2` | Notes, continued (only where the Notes overflow) | text slide | caveats | no | here |
 
 The Appendix opens on its own divider, `app-divider`, then the Appendix table slides stand in the order of the main slides they come from (`app-trading-kpi`
 and `app-trading-markets` for Trading, then `app-acq-channels`, `app-acq-campaigns` and
@@ -89,7 +90,7 @@ Brain. The campaigns slide and its Appendix slide repeat once per connected ad p
 
 ## Rules every slide follows
 
-**Action title.** Every content slide (all but `cover`, the dividers and `notes`) opens on one:
+**Action title.** Every content slide (all but `cover`, the dividers, `notes` and `notes-2`) opens on one:
 a full sentence with at least one figure from the slide, at most two lines at the title size
 (about 110 characters), stating the takeaway, never the topic. The one exception is
 `last-actions` when no previous review was found, whose title names the missing month instead. Write each title last, from the
@@ -201,7 +202,10 @@ action; in a footer, the metric to watch and how to validate it: Test, Watch nex
 A Section's Recommendations slide holds up to three cards, ranked by revenue at stake: the revenue
 a month of the gap the evidence figure shows is worth, worked from the section's own figures. A gap
 worth less than 1% of the Current period's revenue a month is too small to act on and is no card,
-however it ranks. A
+however it ranks. A Section holds one card for each kind of move (a cross-sell, a cohort win-back,
+a budget shift between channels, a discount change): where two cards make the same kind of move on
+neighbouring segments (three categories, three cohorts), only the larger stays and the next card of
+a different kind takes the second place, or the Section holds fewer cards. A
 move of 10% or more on a headline figure may carry one extra line on its card, "To see why it
 moved, run the diagnose-performance skill for `<month>` against `<comparison month>`."; the
 review itself never drills. Where the evidence supports no action, the slide carries one line
@@ -356,6 +360,7 @@ table.kpi{width:100%;border-collapse:collapse;font-size:15px;font-variant-numeri
 .kpi tbody tr.hi th{font-weight:700;color:var(--signal)}
 .kpi thead th[colspan]{text-align:center}
 .kpi.dense{font-size:14px}.kpi.dense th,.kpi.dense td{padding:5px 8px}.kpi.dense thead th{padding-top:2px;letter-spacing:.04em}
+.kpi.dense.tight th,.kpi.dense.tight td{padding:3px 8px;line-height:1.25}
 .kpi td.h1{background:color-mix(in srgb,var(--signal) 10%,var(--paper))}.kpi td.h2{background:color-mix(in srgb,var(--signal) 22%,var(--paper))}.kpi td.h3{background:color-mix(in srgb,var(--signal) 36%,var(--paper))}
 .kpi td.h4{background:color-mix(in srgb,var(--signal) 55%,var(--paper));color:var(--paper)}.kpi td.h5{background:var(--signal);color:var(--paper)}
 /* Brain slot: the fixed line in a muted panel where the evidence would stand */
@@ -439,11 +444,13 @@ Takeaway panel and no Share toggle.
 the classes of the CSS above and sized from the figures, never from a hex value.
 
 - **Ranked bars** (`acq-channels`, `acq-campaigns`, `acq-ltv-channel`, `aov-product`, `aov-codes`):
-  `viewBox="0 0 736 H"` with H = 34 + 58 for each row, so six rows are 382 high. A header line of
-  `hd` text at y 14 names the bars' measure at x 150 and each right-hand figure above its column
-  (right-aligned at x 642 and x 736). Each row is 58 high with a hairline (`g`) under it: its label
-  in `row` at x 0 (`row hi strong` on the highlighted row), a 26-high bar from x 150 (`s-hi` on the
-  highlighted bar, `s-base` on the rest), the longest bar 360 long and the others scaled from zero, its value in `row`
+  `viewBox="0 0 736 H"` with H = 34 + the row height for each row: 58 for up to six rows (six rows are
+  382 high), 46 for seven or more. A header line of
+  `hd` text at y 14 names the bars' measure at x 220 and each right-hand figure above its column
+  (right-aligned at x 642 and x 736). Each row has a hairline (`g`) under it: its label
+  in `row` at x 0 (`row hi strong` on the highlighted row), shortened at a word with "…" where it
+  would pass x 210, its full name in a `<title>`; a 26-high bar from x 220 (`s-hi` on the
+  highlighted bar, `s-base` on the rest), the longest bar 290 long and the others scaled from zero, its value in `row`
   8 beyond the bar's end, and its right-hand figures in `row` (deltas `row pos` or `row neg`, "No
   data" and "New" `row muted`). The bars carry no axis.
 - **Lines** (`acq-blended`, `ret-cohort`, `ret-ltv`, `aov-trend`, `aov-discount`): a `<polyline>`
@@ -938,7 +945,8 @@ row. Action title: the best and worst group's LTV and the gap, as `acq-ltv-chann
 
 ### Appendix: line items (`app-line-items`)
 
-Brain only. A table of the 15 product and variant lines with the most revenue in the Current
+Brain only. A table (`table.kpi.dense.tight`, so its 17 rows and footnote fit the slide) of the 15
+product and variant lines with the most revenue in the Current
 period, ranked on that, ties by units. Columns: Product; Variant; **units** with this month and MoM
 %; **revenue** with the comparison columns. Two last rows: "All other lines" and Total, the line
 items' own total. A one-line footnote reads "Line-item revenue is read from your line items, so it
@@ -1127,6 +1135,11 @@ Growth Brain adds every view in this review from one source: channels and campai
 and margin. Get one at gocrux.io/contact." It is the last line of the Notes, said nowhere else on
 the page (the Brain slots carry their own fixed line). A run with a Growth Brain never carries it.
 
+**Notes, continued** (`notes-2`). Where the three headings run past the slide, the Notes go on to a
+second slide of the same layout directly after it, `data-section` `Notes`, its eyebrow "Notes,
+continued": Sources and Definitions stay on `notes`, and the Caveats move whole to `notes-2`, with
+the Brain line closing it. Never more than two Notes slides, and no caveat is cut or shortened.
+
 ## Slides without a Growth Brain
 
 On the ad account and Shopify connectors or CSV exports, every slide of the slide list is still
@@ -1211,5 +1224,5 @@ A slide built here uses these only when its Source cannot fill it.
 | `app-ltv-type` | LTV by the type of a customer's first order | your customers' order history by first-order type |
 | `app-line-items` | Units and revenue by product and variant for the month | your order line items |
 
-The `cover`, the dividers (`app-divider` included), `exec-summary`, `last-actions`, `next-month` and `notes` are never Brain slots. A
+The `cover`, the dividers (`app-divider` included), `exec-summary`, `last-actions`, `next-month`, `notes` and `notes-2` are never Brain slots. A
 Section whose slides are all Brain slots keeps its divider and its Recommendations slot.
