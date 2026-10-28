@@ -34,7 +34,7 @@ chat and fills in here once it is.
      year-on-year change;
    - that this year's targets come from your budget, and are tested against what the last two
      years' Black Fridays actually did (without a Growth Brain, the "Your targets were not
-     tested" line of **Without a Growth Brain** instead);
+     tested" line of **Without a Growth Brain** instead, where no Source holds the orders);
    - the revenue measure and the margin rung, named (without a Growth Brain, total sales and the
      margin wording of **Without a Growth Brain**).
 2. **Headline**: one sentence stating the outcome, for example that last year's Black Friday
@@ -87,7 +87,8 @@ One block per month (November, December) with a **Target test table**, then **Le
 **Scenarios** sub-headings. A sub-heading with no Stretch or Unrealistic target under it reads
 "Not needed: every target is Achievable".
 
-- The Target test table has one row per figure in this order: revenue (name the budget rung),
+- The Target test table has one row per figure in this order: revenue (name the budget rung;
+  without a Growth Brain, the basis the budget counts),
   orders, new orders, spend, implied CAC. Columns, in this order: Source ("Your budget",
   "Team's target" or "Proposed: last year's Lift on this year's Baseline"), this year's target,
   this year's Baseline per day, this year's Lift, last year's Lift, the year before's Lift,
@@ -105,8 +106,9 @@ One block per month (November, December) with a **Target test table**, then **Le
 Heading: **Plan for** this year's calendar year. Under it, seven headings in this order.
 
 1. **Agreed targets**: one table per month (November, December), one row per figure
-   in this order: revenue (name the budget rung), orders, new orders, spend, implied CAC
-   (agreed spend over agreed new orders). Columns, in this order: agreed target, source ("Your
+   in this order: revenue (name the budget rung; without a Growth Brain, the basis the budget
+   counts), orders, new orders, spend, implied CAC (agreed spend over agreed new orders).
+   Columns, in this order: agreed target, source ("Your
    budget", "Revised", "Team's target" or "Proposed: last year's Lift on this year's
    Baseline"), Lift over Baseline, verdict. Spend and implied CAC take their Lift from the Target
    test, and spend's verdict cell reads "Input to CAC".
@@ -114,11 +116,13 @@ Heading: **Plan for** this year's calendar year. Under it, seven headings in thi
    chosen, a blend as one row per part with its share of the gap. Columns: the move, its size,
    its cost or ask, its effect on the other targets. A month whose targets are all Achievable
    reads "Not needed: every target is Achievable".
-3. **Daily phasing**: a caption naming the revenue rung and the year whose daily shape was used,
+3. **Daily phasing**: a caption naming the revenue rung (without a Growth Brain, the basis the
+   budget counts) and the year whose daily shape was used,
    then one table with a row per date, the months one after the other, and a total row under
    each month. Columns, in this order: `date`, `days_from_black_friday`, `revenue`, `orders`,
-   `new_orders`, `spend`. Black Friday this year is the row with `days_from_black_friday` 0, on
-   its own date, and is marked. Under the table a **Download CSV** button, and one line saying
+   `new_orders`, `spend`; a measure with no last-year shape reads "No data" in its column.
+   Black Friday this year is the row with `days_from_black_friday` 0, on its own date, and is
+   marked. Under the table a **Download CSV** button, and one line saying
    the file holds these daily targets, ready to open in a spreadsheet or load into your budget.
 4. **Actions**: one sub-heading per grill round (Offer, Merchandising, Marketing, Targets),
    each a table of action and date. A section with none agreed reads "Not agreed".
@@ -126,7 +130,9 @@ Heading: **Plan for** this year's calendar year. Under it, seven headings in thi
    year's action and the metric to watch on the day.
 6. **Risks**: three rows in this order, **Stock**, **Discount stacking** and **Margin floor**,
    each with the limit agreed (units to secure; the discounts that may combine; the margin %
-   on the named rung) or "Not agreed".
+   on the named rung, or the gross profit % as Shopify records it) or "Not agreed". Where margin
+   has no data, the third row is headed **Discount ceiling** and holds the deepest average
+   discount agreed, as a % of pre-discount value.
 7. **Watch list**: 3 to 5 rows, each a number to watch on the day, what it should read, and last
    year's figure for the same day from Black Friday.
 
@@ -142,7 +148,10 @@ its roster lacked the mart; such a run carries no Brain line:
 | Orders, from a file | Orders come from your Shopify orders export. |
 | Orders, from a connector | Orders come from your Shopify account. |
 | A section no Source holds | <Section> has no data in this run: no source here holds <what it needs, in plain words, such as your visits by landing page, your sales by product or your email campaigns>. |
-| Targets, with no budget Source | Your targets were not tested: no source here holds your budget. |
+| Targets, with no orders Source | Your targets were not tested: no source here holds your orders. |
+| Target revenue, a budget basis | Your budget counts <total sales, net or gross> revenue, and revenue in the Target test is read on that basis from <Source in plain words> in every year. |
+| Target revenue, a basis the Source lacks | Your budget counts <net or gross> revenue, but <Source in plain words> does not hold that measure, so revenue in the Target test is total sales and its Lifts are not like for like with your budget. |
+| Target spend | Target test spend covers <platforms> only, the same in every year, and this year's Baseline runs to yesterday. |
 | Revenue | Revenue is total sales, by order date, as <Source in plain words> records it. |
 | Margin, with cost | Gross profit, as Shopify records it. |
 | The CM3 row, with cost and spend | Gross profit less marketing, where marketing is the spend of <platforms>. |
@@ -162,8 +171,10 @@ its roster lacked the mart; such a run carries no Brain line:
 | Platform-reported campaigns | Campaign purchases and values are as <platforms> report them, under their own attribution, and are shown without a Lift. |
 | A connector refused a read | <Source in plain words> refused a read, so nothing was taken from it. |
 
-Page 5 keeps its month blocks on such a run: every cell of the Target test table reads "No data",
-and the Lever gap and Scenarios sub-headings read "No data: your targets were not tested".
+Where no Source holds the orders, page 5 keeps its month blocks: every cell of the Target test
+table reads "No data", and the Lever gap and Scenarios sub-headings read "No data: your targets
+were not tested". Otherwise the Target test, Lever gap and Scenarios read as on a run with a
+Growth Brain, with "Your budget" for the Source of a figure the user gave.
 
 **The Brain line.** Said once, as the last line of the Overview's notes, and once in the chat, on a
 run without a Growth Brain; never on a run with one. Its words are fixed: "A Growth Brain adds
@@ -193,3 +204,4 @@ network request, and offers it as `black-friday-daily-phasing.csv`.
   currency's minor unit (two decimals for pounds, none for a currency without one).
   No currency symbol and no thousands separator.
 - A month without an agreed target contributes no rows.
+- A measure with no last-year shape leaves its field empty on every row.
