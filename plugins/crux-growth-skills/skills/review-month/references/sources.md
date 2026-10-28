@@ -334,10 +334,7 @@ Brain slots, and with them the Appendix slides of the three that have one.
 
 A **channel** is placed from the UTM and referrer data on the Shopify orders (the order UTM source,
 medium and campaign, else the referrer, or in the Orders export the landing site and referring
-site), taking the first that places the order. Where the orders carry no UTM medium, no order is
-paid: a google or meta source falls to Another UTM source, and the Notes' Channel placement line
-says paid and organic could not be split. Where they carry no UTM campaign, no campaign matches an
-order:
+site), taking the first that places the order:
 
 | Channel | An order is placed here when |
 |---|---|
@@ -398,8 +395,8 @@ each file feeds. Match column headers loosely: labels vary by report version and
 2. Set the range to every order up to the end of the Current period, or the 36 months ending with
    it, and group by day.
 3. Add the dimensions Order ID, Customer ID, New or returning customer, Discount code, Shipping
-   country, Referrer, Order UTM source (and Order UTM medium and Order UTM campaign where offered)
-   and Product type, and every sales metric.
+   country, Referrer, Order UTM source, Order UTM medium, Order UTM campaign and
+   Product type, and every sales metric.
 4. Export as CSV, choosing all results of the query rather than the rows on screen, and drop the
    file into this chat.
 

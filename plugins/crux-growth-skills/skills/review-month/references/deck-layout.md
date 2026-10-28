@@ -1157,7 +1157,7 @@ built", on every run. Three headings, always present, in this order:
 | Tracking change | You told us `<the tracking change>`, so comparisons across it may not be like for like. |
 | Spend platforms (no brain) | Marketing spend covers `<platforms>` only. |
 | A connector not read (no brain) | Your `<platform>` `<connector / account>` was not read: `<it refused the read / it could not be told to be your brand's / it reports in a different currency>`. |
-| Channel placement (no brain) | Channels are placed from the UTM and referrer data on your Shopify orders, so an order without them is in the Unknown row and a channel's CAC can read high. Where your orders carry no UTM medium, add: Without a UTM medium no order can be told paid, so paid and organic are not split. |
+| Channel placement (no brain) | Channels are placed from the UTM and referrer data on your Shopify orders, so an order without them is in the Unknown row and a channel's CAC can read high. |
 | Customer IDs (no brain) | `<share>` of orders carry no customer ID, so each counts as a new customer of its own. |
 | Test orders in an export (no brain) | Your export does not flag test orders, so none are left out. |
 | Cancelled orders in the report (no brain) | Your orders report does not mark cancelled orders, so each counts as an order with its sales reversed to nil. |
