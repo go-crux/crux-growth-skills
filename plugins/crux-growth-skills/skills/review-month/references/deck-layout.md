@@ -208,6 +208,14 @@ review itself never drills. Where the evidence supports no action, the slide car
 saying the Section held and the figure that shows it. A Recommendation is an action, never a
 finding alone.
 
+**An action someone can start on Monday.** The action names the specific segment the evidence
+points at (a channel, campaign, market, product category, customer type, cohort or discount code)
+and one concrete move on it, and the card's face says why, from the evidence ("Move £3k a month
+from Meta prospecting to the two retargeting campaigns whose CAC fell 20%, because…"). An action
+that restates the gap or the metric ("close the gap to budget", "recover new customers",
+"improve AOV", "monitor CAC") is a finding, not an action: trace it to the segment behind it and
+rewrite it, or drop the card.
+
 ## Page mechanics
 
 Inline CSS, inline SVG charts and a few lines of inline script (slide bar, arrow keys, Share
@@ -658,7 +666,11 @@ other seven brought £18k").
 Up to three Recommendation cards drawn from the Trading slides above, ranked by revenue at
 stake, worked one of three ways and the card says which. **Budget gap**: revenue below budget,
 sized as the revenue shortfall against budget on the Budget basis (`references/sources.md`,
-Budget), so the card names that basis; a Source with no budget has no budget gap. **Market or
+Budget), so the card names that basis; a Source with no budget has no budget gap. The shortfall is
+the evidence, never the action: the card names the lever that carries most of it (new customer
+orders, returning customer orders or average order value, from `trading-kpi`) and the segment
+behind that lever on the deck's own slides (the channel on `acq-channels`, the cohort on
+`ret-cohort`, the category on `aov-product`), and its action is a move on that segment. **Market or
 customer-type fall**: a market (`trading-markets`) or a customer type (new or returning, on
 `trading-revenue`) whose revenue fell, sized as its revenue fall against the same month last year,
 or against last month where the Source holds no figure for last year. **AOV fall**: average order
