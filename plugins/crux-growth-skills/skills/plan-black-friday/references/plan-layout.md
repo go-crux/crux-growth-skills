@@ -27,7 +27,8 @@ chat and fills in here once it is.
    - the four windows with their dates in both years compared (from `references/windows.sql`),
      and that Baseline is normal September and October trading;
    - that last year is compared with the year before, never with this autumn, because tracking
-     changed this year;
+     changed this year (without a Growth Brain, because this autumn's windows are not yet
+     complete);
    - that each window is read as its Lift over its own year's Baseline, per day, so a four-day
      weekend sits fairly against two months; and that the last column of each table is the
      year-on-year change;
@@ -61,7 +62,10 @@ chat and fills in here once it is.
 ## Page 3: Marketing
 
 **Acquisition**: a window table, the ranked campaign list, the three best landing pages, and
-any platform-reported lists.
+any platform-reported lists. Without a Growth Brain the window table is visits, new customers,
+spend and CAC, and the one campaign list is platform-reported: the five campaigns with the most
+purchases in last year's Black Friday weekend, each with its platform, cost per purchase,
+purchase value where reported, impressions, clicks and the year before, and no Lift.
 
 ## Page 4: Retention
 
@@ -139,7 +143,8 @@ reads "No data" with its plain reason; the page never says "coming soon". The wo
 | Targets, with no budget Source | Your targets were not tested: no source here holds your budget. |
 | Revenue | Revenue is total sales, by order date, as <Source in plain words> records it. |
 | Margin, with cost | Gross profit, as Shopify records it. |
-| The CM3 row, with cost | Gross profit less marketing, with spend shown as No data until a source holds it. |
+| The CM3 row, with cost and spend | Gross profit less marketing, where marketing is the spend of <platforms>. |
+| The CM3 row, with cost and no spend Source | Gross profit less marketing has no data: no source here holds your ad spend. |
 | Margin, with no cost | Margin has no data: <Source in plain words> carries no product costs. |
 | Timezone, a Source names one | Days follow the timezone <Source in plain words> reports in, <timezone>. |
 | Timezone, no Source names one | <Source in plain words> does not say which timezone it reports in, so days may be cut differently from your store's. |
@@ -147,6 +152,10 @@ reads "No data" with its plain reason; the page never says "coming soon". The wo
 | Test orders, a Source with no flag | <Source in plain words> carries no test-order flag, so any test orders are counted. |
 | Cancelled orders | Cancelled orders are <left out or counted>, as <Source in plain words> records them. |
 | A currency no Source states, confirmed by the user | <Source in plain words> does not say which currency it reports in; amounts are in <currency>, as you confirmed. |
+| Visits, conversion and landing pages | Visits are sessions from <GA4 or Shopify>, by landing page, the same in both years. |
+| Landing-page orders | Orders by landing page are <the ecommerce purchases GA4 counts, or the orders Shopify counts by landing page>, so they can differ from your store's order count; the site's conversion uses your store's orders. |
+| Marketing spend | Marketing spend covers <platforms> only, the same in every year. |
+| Platform-reported campaigns | Campaign purchases and values are as <platforms> report them, under their own attribution, and are shown without a Lift. |
 | A connector refused a read | <Source in plain words> refused a read, so nothing was taken from it. |
 
 Page 5 keeps its month blocks on such a run: every cell of the Target test table reads "No data",
