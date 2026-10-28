@@ -115,20 +115,27 @@ figures, or its Focus slide is a Brain slot; and:
   cohort mart counts every order (otherwise the Cohort count caveat is in the Notes), every cohort
   starts at 100% in month 0, and the retention curves, the cohort LTV lines and the rolling average
   read the same cohorts as that table;
-- every LTV figure reads the LTV window and the brain's LTV measure;
+- every LTV figure reads the LTV window and the brain's LTV measure, and no `acq-ltv-channel` bar,
+  best or worst channel or LTV gap rests on a channel of fewer than 30 customers (the source line
+  counts those left off);
 - the margin rows, where shown, are on a rung dated by order by the brain's own label and never net
   of ad spend, or on the highest such mixed-dated rung with the Mixed-dated margin caveat in the Notes, and a rung the brain says equals the one below
   carries the lower rung's name and the Equal rungs caveat;
+- a Thin costing caveat names the month after the last dip of the fully costed share below half the
+  Current period's;
 - the blended AOV equals the KPI table's Average order value in every month of the series (and,
   where the brain defines an AOV metric, that metric), every revenue figure sits on the Revenue
   basis, and each budget cell is read from the budget mart on the Budget basis;
 - the Appendix category table's rows, No category included, add up to its Total row, whose orders
   and sales equal the KPI table's, and the category bars, Other categories and No category included,
   add up to that month's revenue;
-- discounted and full-price orders add up to orders in each of the 24 months;
+- discounted and full-price orders add up to orders in each of the 24 months, and the `aov-discount`
+  source line counts the orders at 100% depth left out of depth (none left in a depth figure);
+- no category row named "No category" holds an order that has a category, a multi-category bucket
+  being a category row;
 - the Discount codes slide and its Appendix slide are present only where an order in the Current
   period carries a code, their rows are code groups where `list_tables` shows a code group column on
-  the orders and codes otherwise, a free-shipping row reads "free shipping" in its depth cell, and the
+  the orders and codes otherwise, a free-shipping row reads "free shipping" and a row of only 100%-depth orders "gifting" in its depth cell, and the
   Appendix rows add up to its Total row.
 
 A figure the Source cannot give reads "No data" or its slide is a Brain slot; none is guessed.
