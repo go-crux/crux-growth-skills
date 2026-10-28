@@ -23,17 +23,17 @@ them role by role.
 | Rules | `--line` | `#C9CDD1` | hairlines, baseline |
 | | `--line-soft` | `#E2E5E8` | row and gridlines |
 | | `--line-strong` | `#0E1215` | the heavy rule above a block |
-| Category palette | `--cat-1` | `#0F4C81` | first category; equals the Highlight colour |
+| Category palette | `--cat-1` | `#6E93B4` | first category; never the Highlight colour, so a stacked series does not wear it beside the highlighted mark |
 | | `--cat-2` | `#0E1215` | second category |
 | | `--cat-3` | `#9AA1A8` | the base grey every unhighlighted mark wears |
-| | `--cat-4` | `#6E93B4` | fourth category |
-| | `--cat-5` | `#D3DCE4` | fifth category |
+| | `--cat-4` | `#D3DCE4` | fourth category |
+| | `--cat-5` | `#5A6169` | fifth category |
 | Deltas | `--positive` | `#1E6E45` | a favourable delta |
 | | `--negative` | `#A4271C` | an unfavourable delta |
 | Display font | `--display` | `Georgia,"Times New Roman",serif` | Action titles, figures, the cover |
 | Body font | `--body` | `system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif` | everything else |
 
-Chart marks read these tokens through classes, never a hex value: `s-hi` takes `--cat-1`, `s-base`
+Chart marks read these tokens through classes, never a hex value: `s-hi` takes `--signal`, `s-base`
 takes `--cat-3`. A further category mark sets `style="fill:var(--cat-N)"`.
 
 **Fonts.** The page makes no network request and loads no font file, so both stacks are system
@@ -63,9 +63,9 @@ A brand's guidelines can set these roles and no others:
 |---|---|
 | Paper | `--paper`, and the paper greys with it where the guidelines list them |
 | Ink | `--ink-1` |
-| Highlight colour | `--signal`, `--cat-1` and `--signal-tint` (the Highlight colour at about 10% on paper) |
+| Highlight colour | `--signal` and `--signal-tint` (the Highlight colour at about 10% on paper) |
 | Greys | `--ink-2` to `--ink-4` and the rules `--line` and `--line-soft`, in the order the guidelines list them, darkest first |
-| Category palette (up to 5) | `--cat-2`, `--cat-4` and `--cat-5` take the guidelines' colours after the Highlight colour, in the order listed; `--cat-3` takes the guidelines' mid grey, else keeps its Crux value, because every unhighlighted mark wears it |
+| Category palette (up to 5) | `--cat-1`, `--cat-2`, `--cat-4` and `--cat-5` take the guidelines' colours after the Highlight colour, in the order listed, and `--cat-1` never takes the Highlight colour's own value; `--cat-3` takes the guidelines' mid grey, else keeps its Crux value, because every unhighlighted mark wears it |
 | The two font stacks | `--display` and `--body` |
 | The cover's name | the brand's name as the guidelines write it, else as the intake resolved it |
 

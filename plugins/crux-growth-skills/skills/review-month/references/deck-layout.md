@@ -9,7 +9,9 @@ for slide.
 
 Crux house style: British English, no em dashes, outcome before mechanism, relative percentage
 changes (2.0% to 1.8% is "−10%"). Money carries the currency the Source's figures are in, with its
-own symbol, never an assumed one, and shows compactly (£1.2m, £84k). The reader may arrive cold:
+own symbol, never an assumed one, and shows compactly (£1.2m, £84k). Where the currency's symbol is
+longer than one character (NZ$, A$, CHF), the Stat figures and tables show the bare symbol ($, and
+no symbol where there is no shorter one) and the Notes' Currency caveat names the currency. The reader may arrive cold:
 speak of "your orders", "your ad spend", never a table, a column, a rule or a threshold. A cell
 holds a figure, "No data" (the Source holds nothing for it), "New" (the comparison figure is
 zero) or "Not comparable" (a Brain warning rules the comparison out), never a bare "n/a"; the cohort table and `last-actions` name their own empty cells.
@@ -238,7 +240,7 @@ and set no layout of your own.
 --ink-1:#0E1215;--ink-2:#3A4046;--ink-3:#5A6169;--ink-4:#8A9099;
 --signal:#0F4C81;--signal-tint:#E7EEF4;
 --line:#C9CDD1;--line-soft:#E2E5E8;--line-strong:#0E1215;
---cat-1:#0F4C81;--cat-2:#0E1215;--cat-3:#9AA1A8;--cat-4:#6E93B4;--cat-5:#D3DCE4;
+--cat-1:#6E93B4;--cat-2:#0E1215;--cat-3:#9AA1A8;--cat-4:#D3DCE4;--cat-5:#5A6169;
 --positive:#1E6E45;--negative:#A4271C;
 --display:Georgia,"Times New Roman",serif;
 --body:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
@@ -275,8 +277,8 @@ h2{font-family:var(--display);font-weight:400;font-size:30px;line-height:1.22;co
 svg{display:block;overflow:visible;font-family:var(--body)}
 svg .ax{font-size:12px;fill:var(--ink-4)}svg .ax.cur{fill:var(--ink-1);font-weight:700}
 svg .lab{font-size:14px;fill:var(--ink-3)}svg .lab.hi,svg .hi{fill:var(--signal)}svg .strong{font-weight:700;fill:var(--ink-1)}svg .lab.hi.strong,svg .hi.strong{fill:var(--signal)}
-svg .s-hi{fill:var(--cat-1)}svg .s-base{fill:var(--cat-3)}svg .g{stroke:var(--line-soft)}svg .g-base{stroke:var(--line)}svg .g-mark{stroke:var(--ink-1)}
-svg .l-hi{fill:none;stroke:var(--cat-1);stroke-width:3}svg .l-base{fill:none;stroke:var(--cat-3);stroke-width:2}svg .l-ink{fill:none;stroke:var(--ink-1);stroke-width:3}
+svg .s-hi{fill:var(--signal)}svg .s-base{fill:var(--cat-3)}svg .g{stroke:var(--line-soft)}svg .g-base{stroke:var(--line)}svg .g-mark{stroke:var(--ink-1)}
+svg .l-hi{fill:none;stroke:var(--signal);stroke-width:3}svg .l-base{fill:none;stroke:var(--cat-3);stroke-width:2}svg .l-ink{fill:none;stroke:var(--ink-1);stroke-width:3}
 svg .hd{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;fill:var(--ink-3)}
 svg .row{font-size:16px;fill:var(--ink-2);font-variant-numeric:tabular-nums}svg .row.muted{fill:var(--ink-4)}svg .row.pos{fill:var(--positive)}svg .row.neg{fill:var(--negative)}
 .multi{display:flex;gap:32px}.multi>div{flex:1;min-width:0}
@@ -408,8 +410,9 @@ Each of the others takes its `<header>` (eyebrow and `<h2>` Action title) and fo
   one for each, only where the intake set any), `<div class="exfigs">` of four
   `<div class="exfig">` (the first `exfig hi`; `<p class="eyebrow">`, `<p class="fig">`,
   `<p class="ds">` holding the deltas) and `<ol class="points">` of three `<li>` (`<p class="eyebrow">`
-  Section name, then `<p>` the takeaway). `notes` takes `<section class="slide text">` with
-  `<div class="notes">` of its three `<section>`.
+  Section name, then `<p>` the takeaway). `notes` takes `<section class="slide text">` with its
+  fixed `<header>` (eyebrow "Notes", `<h2>` "How this review was built") and `<div class="notes">`
+  of its three `<section>`.
 - **Table slide**: `<section class="slide table-slide">` with its `<header>`, then
   `<div class="panel"><table class="kpi">` (`<th scope="col">` headings, `<th scope="row">` row labels,
   deltas as `<span class="d pos">`) and the source line. The row the Action title names is
@@ -454,10 +457,12 @@ the classes of the CSS above and sized from the figures, never from a hex value.
 **Brand tokens.** Where `references/intake.md` resolved a brand of this brand's own, write its
 values over the skeleton's `:root` for the roles of `references/crux-brand.md` (What a brand
 changes) and over nothing else: paper to `--paper`, ink to `--ink-1`, the Highlight colour to
-`--signal`, `--cat-1` and `--signal-tint` (also the cohort shading), the greys to `--ink-2` to
-`--ink-4` and the rule greys, the category palette to `--cat-2`, `--cat-4` and `--cat-5` (and `--cat-3`, the base grey of every
+`--signal` and `--signal-tint` (also the cohort shading), the greys to `--ink-2` to
+`--ink-4` and the rule greys, the category palette to `--cat-1`, `--cat-2`, `--cat-4` and `--cat-5` (and `--cat-3`, the base grey of every
 unhighlighted mark, only when the guidelines name a mid grey), the two stacks to `--display` and
-`--body`, and the brand's name to the cover. Every other value stays as given. The page loads no font file, image or style sheet, so a brand web font is
+`--body`, and the brand's name to the cover. Every other value stays as given. Where a brand's
+Highlight colour is too light for white text (a contrast under 4.5 to 1 against `--paper`),
+dividers take `--ink-1` as their ground instead of `--signal`. The page loads no font file, image or style sheet, so a brand web font is
 never fetched and its fallback stack is what shows.
 
 ## Slides built here
@@ -1109,7 +1114,8 @@ Action title: as `trading-recs`.
 
 ### Notes (`notes`)
 
-No Action title. Three headings, always present, in this order:
+A fixed title, not an Action title: the eyebrow "Notes" over the heading "How this review was
+built", on every run. Three headings, always present, in this order:
 
 1. **Sources**: what was read from where, in plain words ("Revenue, orders and customers: your
    orders. Marketing spend: your sales and ad spend by channel. Budget: your budget."), led, when
@@ -1129,7 +1135,7 @@ No Action title. Three headings, always present, in this order:
 | Caveat | Wording |
 |---|---|
 | Days | Days are read in `<timezone>`. Where the brain says only that dates are the store's own timezone: Days are read in your store's own timezone, as your orders record them. |
-| Currency | Amounts are in `<currency>`. Where no Source states one: Amounts are in the currency your orders are recorded in. |
+| Currency | Amounts are in `<currency>`. Where the symbol is longer than one character, name the currency in words: Amounts are in New Zealand dollars, shown as $. Where no Source states one: Amounts are in the currency your orders are recorded in. |
 | Test orders | Test orders are left out. |
 | Cancelled orders | Cancelled orders are `<left out / counted / not stated>`, as your channel reporting counts them, so the figures here tie to it. |
 | Returns | Returns are booked on the `<order / refund>` date, so the latest months' revenue can still change as returns arrive. Where the Revenue basis is before returns: Revenue is before returns, so it does not change as returns arrive; returns show in the margin rows (without margin rows, end at "arrive"). |
