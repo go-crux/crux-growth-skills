@@ -566,7 +566,7 @@ right. The four, in this order, the first in the Highlight colour:
 2. **New customers**, which is the New orders figure of the KPI table, labelled as the brain names
    it
 3. **MER**, as `references/sources.md` sets it, labelled with its basis where the brain defines it
-   ("MER, on gross sales")
+   ("MER, on `<the brain's revenue name>`")
 4. **The Margin rung's %** of revenue, labelled with the rung's own name (the rung
    `references/sources.md` chooses by its dating, and the lower rung's name where the brain says
    the two are equal), on a Growth Brain that holds a margin rung; else **Orders**

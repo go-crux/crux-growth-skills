@@ -133,7 +133,7 @@ and the glossary's alike. Three rules follow from it:
   the Returns caveat applies.
 - **MER on the brain's definition.** Where `list_metrics` defines `mer`, the deck reads it as
   defined, on the revenue the definition names, and the Stat row and the KPI table label it with
-  that basis ("MER, on gross sales", in the brain's name for the revenue); the Notes state the
+  that basis ("MER, on `<the brain's name for the revenue>`", such as "MER, on gross sales"); the Notes state the
   definition. Where the brain defines none, and on a run without a brain, MER is the Revenue basis
   ÷ marketing spend, labelled "MER".
 - **Margin adds rows, never replaces them.** Add the rows of one **margin rung**, chosen from the
