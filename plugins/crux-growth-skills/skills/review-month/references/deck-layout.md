@@ -151,7 +151,7 @@ https://gocrux.io.
 "Absolute" and "% of total", absolute by default, switching that chart only. The page holds both
 views as inline SVG (the % view is each column or stacked bar rescaled to a whole of 100%, labelled with
 its percentages; on `aov-product`'s ranked bars it is each bar's share of the whole, the bars adding
-up to 100%) and the script shows one. Only the four charts marked "yes" carry it: never a
+up to 100%) and the script shows one. Only the charts marked "yes" carry it: never a
 rate (conversion, CAC, AOV, discount rate, LTV) and never the customer base. A printed page shows
 the view on screen.
 
@@ -333,6 +333,7 @@ svg .row{font-size:16px;fill:var(--ink-2);font-variant-numeric:tabular-nums}svg 
 .contents{list-style:none;padding:0;counter-reset:c;max-width:980px}
 .contents li{counter-increment:c;font-size:16px;line-height:1.3;color:var(--ink-2);padding:9px 0 9px 44px;border-top:1px solid var(--line-soft);position:relative;white-space:nowrap;overflow:hidden;text-overflow:clip}
 .contents li:last-child{border-bottom:1px solid var(--line-soft)}
+.contents.two{columns:2;column-gap:48px;max-width:none}.contents.two li{break-inside:avoid}
 .contents li::before{content:counter(c,decimal-leading-zero);position:absolute;left:0;color:var(--ink-4);font-size:13px;font-weight:700;letter-spacing:.08em;top:11px}
 /* cards slide: three columns under hairlines, no boxes */
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;flex:1;min-height:0}
@@ -490,8 +491,9 @@ one-line **verdict**; and the Section's slides as a contents list. No title rule
 
 **Appendix divider** (`app-divider`): the same section divider, its `data-section` `Appendix`,
 with the eyebrow "Appendix", the name "Appendix", the fixed verdict "The full tables behind the
-slides above." and the contents list of every Appendix slide's Action title, in order. It counts
-in no "Section n of 4".
+slides above." and a contents list of every Appendix slide's short name from the slide list ("Channel
+mix", "Cohort retention", a campaigns slide with its platform), in order, in two columns
+(`<ol class="contents two">`). It counts in no "Section n of 4".
 
 **Executive summary**: a text slide that a founder reads at a glance, in this order.
 1. **You asked**, for each Focus question, in order, only where the intake set any: one block
