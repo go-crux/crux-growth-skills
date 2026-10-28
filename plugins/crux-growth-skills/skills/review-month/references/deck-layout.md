@@ -693,7 +693,9 @@ conversion fell 9% to 1.0%"). The Takeaway panel's Why names the traffic move wh
 
 A chart slide. Horizontal bars of the Current period's new orders, ranked, for the top 5 channels by
 new orders (ties by higher spend, then by channel name in alphabetical order, named as the Source
-names them), then the **Unknown row** in grey. The channel the Action title names takes the
+names them), then the **Unknown row** in grey. Channels count here when they hold new orders in the
+Current period, and the bars carry the whole numbers of the Appendix table, rounded as
+`references/sources.md` sets out. The channel the Action title names takes the
 Highlight colour and every other bar, the Unknown row's included, is grey. Each bar is labelled with
 its new orders, and carries at its right two figures: its **CAC** this month and the CAC's MoM
 change, coloured as the comparison rule sets out for CAC. A row with no spend, or no new orders,
@@ -717,17 +719,19 @@ this order:
 1. Up to ten channels, ranked by new orders in the Current period, ties by higher spend, then by
    channel name in alphabetical order, named as the Source names them. The tie-break decides which
    channel takes the last place of the ten, so the same data always gives the same table, and the
-   first five are the bars of `acq-channels`.
-2. **Other channels**, when more than ten hold new orders: every channel not named above, in each
-   period.
+   first five are the bars of `acq-channels`. A channel with new orders only in last month or the
+   same month last year takes a row of its own, below those with Current period new orders and
+   ranked on last month's, then the year-ago, new orders, only while the ten places have room.
+2. **Other channels**, when any channel holding new orders in any period shown is not named above:
+   every such channel, in each period, so each period's column adds to its Total.
 3. The **Unknown row**: the new orders no channel claims, as `acq-channels` shows it. It carries no
    spend, so its spend and CAC cells read "No data".
 4. **Total**: the Total row's new orders equal New orders on `app-trading-kpi` and its spend equals
    Marketing spend there, in every period shown; its CAC is the blended CAC.
 
 The channel rows, Other channels and the Unknown row add up to the Total row's new orders in every
-period shown, on the same basis as the channel CAC: the brain's, modelled channel credit included
-(`references/sources.md`, New orders by channel). A row's CAC is its spend ÷ its new orders; a row
+period shown, to the digit, on the same basis as the channel CAC: the brain's, modelled channel credit
+included, rounded to whole numbers as `references/sources.md` sets out (New orders by channel). A row's CAC is its spend ÷ its new orders before rounding; a row
 with no spend, or no new orders, reads "No data" in its spend or CAC cells. The channel the
 `acq-channels` title names is the highlighted row. Action title: the number of channels, the share of
 new orders the top five carry and the Unknown share ("Eight channels brought 3,100 new orders, the
@@ -752,16 +756,19 @@ brought 58% of new orders, a share 12% above last month's, with 7% from no known
 
 One slide for each ad platform with spend in the Current period. A chart slide of horizontal bars of
 new orders for the platform's top 5 named campaigns, ranked on new orders, ties by higher spend,
-and, below them in grey, a **"No campaign"** row when the platform holds spend with no campaign,
-carrying that spend's new orders. Only named campaigns are ranked. The campaign the Action title
+and, below them in grey, a **"No campaign"** row when the platform holds orders or spend not tied to
+a named campaign, carrying those new orders (`references/sources.md`, Campaigns, says what lands
+there). Only named campaigns are ranked. The campaign the Action title
 names, the lead campaign, takes the Highlight colour and every other bar is grey. Each bar is
 labelled with its new orders, and carries at its right its **CAC** this month and the CAC's MoM
 change as `acq-channels` does ("New" in the change cell for a campaign that did not run last month,
 "No data" in both where the Source cannot give them). New orders are the new orders the Source
 attributes to the campaign, never the platform's own reported conversions. The source line says how
-many named campaigns the platform ran and that the top ten are in the Appendix. Action title, one per
-slide: the share of the platform's new orders the ranked campaigns carry, with the lead campaign's
-CAC, counting named campaigns only, so the "No campaign" row is never in the count ("Five Meta
+many named campaigns the platform ran, that the top ten are in the Appendix, and that campaign rows
+are measured new orders tied to the platform, so they can differ from the platform's channel row on
+the Channel mix where that row is modelled. Action title, one per slide: the share of the platform's measured total of new orders the ranked
+campaigns carry, with the lead campaign's CAC, counting named campaigns only, so the "No campaign"
+row is never in the count though its orders are in the total ("Five Meta
 campaigns delivered 71% of the platform's 3,100 new orders, led by one at a £28 CAC"; "Three Google
 campaigns delivered 64% of the platform's 900 new orders" where the platform ran three).
 
@@ -772,16 +779,18 @@ named campaigns with the most new orders, ranked on that, ties by higher spend. 
 **spend** with this month and MoM %; **impressions**; **clicks**; **CTR** (clicks ÷ impressions);
 **new orders** with this month and MoM %; **CAC** with this month and MoM %. A campaign that did not
 run last month reads "New" in its MoM cells; there is no year-ago column, as campaigns rarely last a
-year. Beneath the ranking, in this order: the **"No campaign"** row, when the platform holds spend
-with no campaign, carrying that spend and its new orders, impressions and clicks; then a last row,
-"All `<platform>` campaigns", carrying the platform's totals so the rows above read against their
-whole. A figure the Source cannot give reads "No data". The lead campaign of `acq-campaigns` is the
-highlighted row. Action title: the share of the platform's new orders the ranked campaigns carry,
-counting named campaigns only ("Ten Meta campaigns delivered 82% of the platform's 3,100 new
-orders"; "Four Google campaigns delivered 64% of the platform's 900 new orders" where the platform
+year. Beneath the ranking, in this order: the **"No campaign"** row, when the platform holds orders or
+spend not tied to a named campaign, carrying that spend and those new orders, impressions and
+clicks; then a last row, "All `<platform>` campaigns", carrying the platform's measured totals so
+the rows above read against their whole. A figure the Source cannot give reads "No data". The lead
+campaign of `acq-campaigns` is the highlighted row. Action title: the share of the platform's new orders the ranked campaigns carry,
+counting named campaigns only, against the platform's measured total ("Ten Meta campaigns delivered
+82% of the platform's 3,100 new orders"; "Four Google campaigns delivered 64% of the platform's 900 new orders" where the platform
 ran four). Impressions and clicks are joined from the platform's mart on the campaign identifier
 where both marts carry one, else on the campaign name; a name match puts the Campaign match by name
-caveat in the Notes.
+caveat in the Notes; the name is trimmed and stripped of a platform prefix before matching, and a
+campaign that still fails reads "No data" for impressions and clicks (`references/sources.md`,
+Campaigns).
 
 ### LTV by acquisition channel (`acq-ltv-channel`)
 
