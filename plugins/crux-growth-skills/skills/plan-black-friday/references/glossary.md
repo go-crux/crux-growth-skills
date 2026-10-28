@@ -13,7 +13,7 @@ to that year's Black Friday, the last Friday of November, so years compare like 
 
 - **Lift**: a window's per-day figure over the same year's Baseline per-day figure; for a ratio (conversion, order value, margin %, CAC), the relative change in the ratio. The year-on-year unit every Black Friday comparison uses. _Avoid_: uplift, growth.
 
-- **Target test**: this year's planned November and December, from the client's budget (`daily_budget_versus_actuals`), turned into a Lift and judged against the last two years' actual Lift as Achievable, Stretch or Unrealistic. _Avoid_: feasibility check, sense check.
+- **Target test**: this year's planned November and December, from the client's budget (`daily_budget_versus_actuals`, or, without a Growth Brain, the budget the user gives), turned into a Lift and judged against the last two years' actual Lift as Achievable, Stretch or Unrealistic. _Avoid_: feasibility check, sense check.
 
 - **Last-year level**: what this year's Baseline would deliver at last year's Lift, a figure per target for the month (CAC: Baseline CAC at last year's CAC Lift). The reference every Lever gap and Scenario reads against, and the revised figure for an Unrealistic target. _Avoid_: 2025 level, benchmark.
 
@@ -27,4 +27,10 @@ to that year's Black Friday, the last Friday of November, so years compare like 
 
 - **Daily phasing**: the agreed monthly targets re-spread by last year's daily shape, aligned by days from Black Friday through Cyber Monday and by days before 24 December from Festive to the end of December, so the days still add back to each whole month. _Avoid_: daily budget (the budget's own weekday spread).
 
+- **Discount ceiling**: the deepest average discount Black Friday weekend may run, asked in the grill where margin has no data, in the place of the margin floor. _Avoid_: discount cap, max discount.
+
 - **Black Friday plan**: the skill's output, one artifact with six pages: **Overview**, **Offer**, **Marketing**, **Retention** and **Targets** (the read and the Target test) and **Plan** (targets, chosen Scenario, Daily phasing, actions, opportunities, risks and the watch list), agreed with the user in a grill. _Avoid_: report, playbook.
+
+- **Source**: where a section's figures come from, the first that holds it of a Growth Brain, a platform connector in the session (Shopify, GA4, Google Ads, Meta Ads, Klaviyo) and a file the user gives; one Source per section across every year read. _Avoid_: data source, feed, integration.
+
+- **Brain line**: the fixed sentence a run without a Growth Brain says once on the Overview and once in the chat, naming what a brain adds and pointing at gocrux.io/contact. _Avoid_: upsell, plug.

@@ -1,0 +1,5 @@
+# Black Friday planning runs without a Growth Brain
+
+**Status:** Accepted, 2026-10-28. Amends [ADR-0001](0001-most-skills-run-without-a-growth-brain.md).
+
+ADR-0001 kept Black Friday planning brain-only as the reason to get a brain. We reverse that: the plan's craft (windows, Lift, Target test, Lever gap, grill) holds on figures a brand can export, so `plan-black-friday` takes each section from the first Source that holds it, as `diagnose-performance` does: a Growth Brain, then the platform connectors in the session, then files the user gives. Without a brain it reads one Shopify orders file (one row per order with order ID and customer ID, from 1 September the year before last to yesterday) for the headline, Offer, repeat, cohorts and Target test, plus product, sessions, ad platform and Klaviyo reports, all asked for in one message with the budget. Margin is Shopify's gross profit where product costs are set, else "No data". No skill is brain-only now: the upsell is the Brain line and the exports a brain removes. The cost is a second read path through every step to keep tied to the brain one.

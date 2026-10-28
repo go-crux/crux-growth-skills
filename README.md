@@ -57,9 +57,11 @@ them all. You leave with one page for your team: last year's read across five sh
 every day of each month you agree, which you can download as a CSV. Nothing is changed in your budget
 or your data.
 
-*Needs:* a Crux Growth Brain connected. If your budget is in the brain, the targets come from it;
-if not, it proposes targets from last year for you to confirm or change. Ask Claude to plan Black Friday, or
-send `/plan-black-friday` in Claude Code.
+*Needs:* nothing to start. It is best with a Crux Growth Brain connected, and it also works
+without one, from your Shopify data plus GA4, Google Ads, Meta Ads and Klaviyo, through connectors
+or exports it asks for in one go. If your budget is not in the brain or given, it proposes targets
+from last year for you to confirm or change. Ask Claude to plan Black Friday, or send
+`/plan-black-friday` in Claude Code.
 
 **Audit landing pages** (`audit-landing-pages`) finds the pages that let your traffic down and
 shows what to fix. Ask "which of my landing pages are underperforming?" and it ranks them by what

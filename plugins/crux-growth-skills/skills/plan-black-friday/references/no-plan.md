@@ -2,10 +2,11 @@
 
 Open this when `<client>-daily_budget_versus_actuals` is absent from the roster, has no
 `all`/`all` row for a month, or holds no plan for the revenue, orders, new orders or spend of
-that month.
+that month. On a run without a Growth Brain, open it when the user gives no budget, or none for a
+month or a measure.
 
-1. **Propose.** For each month and measure the budget does not plan, use the last-year level
-   (step 2) as the target and label it "Proposed: last year's Lift on this year's Baseline". It
+1. **Propose.** For each month and measure the budget does not plan (without a Growth Brain, the
+   one ask did not give), use the last-year level (step 2) as the target and label it "Proposed: last year's Lift on this year's Baseline". It
    reads Achievable by construction, so no Lever gap follows for it alone. Ask nothing yet: the
    question waits for the grill.
 2. **Ask in round 4.** Round 4 opens by asking the user's own figure for each Proposed target,

@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "crux-growth-skills",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Growth skills for ecommerce brands by gocrux.io, written by operators who have scaled them. Skills for planning and targets, performance reporting and diagnosis, and conversion, each working from your own pages and data and ending on what to do next. Best with a Crux Growth Brain connected; most skills also run without one.",
   "author": {
     "name": "Crux"
