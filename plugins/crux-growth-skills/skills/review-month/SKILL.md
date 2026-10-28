@@ -98,14 +98,19 @@ figures, or its Focus slide is a Brain slot; and:
 - each figure sits on one basis, stated in the Notes, so no two slides disagree on a measure: MER
   as the brain defines it and labelled with its basis, cancelled orders counted or left out as
   channel reporting does, and a margin rate with margin and revenue on one basis;
-- the Appendix channel table's rows, its Unknown row included, add up to its Total row's new orders, which
-  equals the KPI table's new orders, on the same basis as the channel CAC (modelled or measured),
-  and its spend equals the KPI table's marketing spend, in every
-  period shown (or the Notes carry the Channel total caveat);
+- the Appendix channel table's rows, Other channels and its Unknown row included, are whole numbers
+  that add up to its Total row's new orders, to the digit, which equals the KPI table's new orders,
+  on the same basis as the channel CAC (modelled or measured), and its spend equals the KPI table's
+  marketing spend, in every period shown (or the Notes carry the Channel total caveat); the
+  `acq-channels` bars carry the same whole numbers as that table;
 - paid, organic and Unknown new orders add up to new orders in each of the 12 months;
 - each ad platform with spend in the Current period has one campaigns slide of its top five named
-  campaigns by new orders and one Appendix slide of its top ten, its spend with no campaign in a "No
-  campaign" row below the ranking, never in it, and each title counting named campaigns only;
+  campaigns by new orders and one Appendix slide of its top ten, its orders or spend not tied to a
+  named campaign (attribution placeholders included) in a "No campaign" row below the ranking, never
+  in it, so the ranking, that row and the other named campaigns add up to the platform's measured
+  total of new orders, each title counting named campaigns only against that total, and the
+  campaigns slide's source line saying campaign rows are measured new orders that can differ from a
+  modelled channel row;
 - the Appendix cohort table's Current period cohort size equals the KPI table's new orders where the
   cohort mart counts every order (otherwise the Cohort count caveat is in the Notes), every cohort
   starts at 100% in month 0, and the retention curves, the cohort LTV lines and the rolling average
