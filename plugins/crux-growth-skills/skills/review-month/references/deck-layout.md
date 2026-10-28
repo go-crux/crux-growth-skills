@@ -1199,10 +1199,10 @@ columns or margin rows, since no such Source holds either.
 | `acq-recs` | the Acquisition slides built | all Acquisition slides are Brain slots |
 | `ret-cohort`, `app-ret-cohort` | order rows with customer IDs and history | no customer IDs, or too little history for a cohort |
 | `ret-ltv`, `app-ret-ltv` | as `ret-cohort` | as `ret-cohort` |
-| `ret-subscriptions` | order rows with a subscription flag (conditional) | no order row carries a flag |
+| `ret-subscriptions` | order rows with a subscription flag (conditional): the Orders export's tags, since the Orders over time report carries none | no order row carries a flag |
 | `ret-recs` | the Retention & LTV slides built | all Retention & LTV slides are Brain slots |
 | `aov-trend` | order rows by customer ID, else sales over time by customer type | no orders Source |
-| `aov-product`, `app-aov-product` | order rows with a category, from the products file or connector | no order or no category |
+| `aov-product`, `app-aov-product` | order rows with a category, from the report's product type, the products file or a connector | no order or no category |
 | `aov-discount` | order rows with a discount amount | no discount column |
 | `aov-codes`, `app-aov-codes` | order rows with a discount code (conditional) | discounts present, no code column |
 | `aov-recs` | the Order value & product slides built | all of them are Brain slots |
