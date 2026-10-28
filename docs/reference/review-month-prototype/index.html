@@ -1,0 +1,239 @@
+<!doctype html><html lang="en-GB"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Monthly performance review, September 2026</title>
+<!-- Slide craft prototype for review-month (go-crux/crux-growth-skills#154). Invented brand, round numbers. One slide per Layout. -->
+<style>
+:root{
+--paper:#FFFFFF;--paper-2:#F5F6F7;--paper-3:#EDEFF1;
+--ink-1:#0E1215;--ink-2:#3A4046;--ink-3:#5A6169;--ink-4:#8A9099;
+--signal:#0F4C81;--signal-tint:#E7EEF4;
+--line:#C9CDD1;--line-soft:#E2E5E8;--line-strong:#0E1215;
+--cat-1:#0F4C81;--cat-2:#0E1215;--cat-3:#9AA1A8;--cat-4:#6E93B4;--cat-5:#D3DCE4;
+--positive:#1E6E45;--negative:#A4271C;
+--display:Georgia,"Times New Roman",serif;
+--body:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink-2);background:var(--paper)}
+@media screen{html,body{height:100%;overflow:hidden}.slide.cover{overflow:visible}.slide .cover-bar{left:-4000px;right:-4000px}}
+p,h1,h2,h3,ol,dl,dd{margin:0}
+.bar{height:40px;display:flex;gap:4px;align-items:center;padding:0 12px;background:var(--paper);border-bottom:1px solid var(--line)}
+.bar button{border:0;border-bottom:2px solid transparent;background:none;padding:6px 10px;cursor:pointer;color:var(--ink-3);font:inherit;font-size:13px}
+.bar button.on{color:var(--ink-1);font-weight:700;border-bottom-color:var(--signal)}
+.stage{transform-origin:top left;transform:translate(var(--x,0px),var(--y,0px)) scale(var(--k,1))}
+.slide{display:none;width:1280px;height:720px;padding:52px 64px 64px;background:var(--paper);flex-direction:column;position:relative;overflow:hidden}
+.slide.on{display:flex}
+.slide footer{position:absolute;left:64px;bottom:22px;font-size:12px}
+.slide footer a{color:var(--ink-4);text-decoration:none}
+.slide .pg{position:absolute;right:64px;bottom:22px;font-size:12px;color:var(--ink-4);font-variant-numeric:tabular-nums}
+.eyebrow{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--ink-3)}
+header{margin-bottom:28px}
+header .eyebrow{margin-bottom:10px}
+h2{font-family:var(--display);font-weight:400;font-size:30px;line-height:1.22;color:var(--ink-1);max-width:1100px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.fig{font-family:var(--display);color:var(--ink-1);font-variant-numeric:tabular-nums lining-nums;line-height:1}
+.d{font-variant-numeric:tabular-nums;white-space:nowrap}
+.d.pos,.pos{color:var(--positive);fill:var(--positive)}.d.neg,.neg{color:var(--negative);fill:var(--negative)}.d.flat{color:var(--ink-3)}
+.source{font-size:12px;color:var(--ink-4);margin-top:12px;line-height:1.4}
+/* data slide: evidence left two-thirds, Takeaway panel right third */
+.grid{display:grid;grid-template-columns:2fr 1fr;gap:48px;flex:1;min-height:0}
+.evidence{min-width:0;min-height:0;display:flex;flex-direction:column}
+.panel{border-top:4px solid var(--signal);padding-top:16px;min-height:0;overflow:hidden}
+.takeaway{border-left:1px solid var(--line);padding-left:28px;display:flex;flex-direction:column;gap:22px}
+.takeaway p{font-size:16px;line-height:1.45;color:var(--ink-2)}
+.takeaway b{display:block;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--ink-3);margin-bottom:6px}
+.takeaway p:first-child{color:var(--ink-1)}
+/* charts */
+svg{display:block;overflow:visible;font-family:var(--body)}
+svg .ax{font-size:12px;fill:var(--ink-4)}svg .ax.cur{fill:var(--ink-1);font-weight:700}
+svg .lab{font-size:14px;fill:var(--ink-3)}svg .lab.hi,svg .hi{fill:var(--signal)}svg .strong{font-weight:700;fill:var(--ink-1)}svg .lab.hi.strong,svg .hi.strong{fill:var(--signal)}
+svg .s-hi{fill:var(--cat-1)}svg .s-base{fill:var(--cat-3)}svg .g{stroke:var(--line-soft)}svg .g-base{stroke:var(--line)}svg .g-mark{stroke:var(--ink-1)}
+svg .hd{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;fill:var(--ink-3)}
+svg .row{font-size:16px;fill:var(--ink-2);font-variant-numeric:tabular-nums}svg .row.muted{fill:var(--ink-4)}svg .row.pos{fill:var(--positive)}svg .row.neg{fill:var(--negative)}
+.chart-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.chart-title{font-size:16px;color:var(--ink-3)}
+.toggle{display:flex;gap:0;border:1px solid var(--line)}
+.toggle button{font:inherit;font-size:12px;border:0;background:var(--paper);color:var(--ink-3);padding:5px 10px;cursor:pointer}
+.toggle button+button{border-left:1px solid var(--line)}
+.chart[data-view=absolute] [data-view-set=absolute],.chart[data-view=share] [data-view-set=share]{background:var(--ink-1);color:var(--paper)}
+.chart[data-view=absolute] .v-share,.chart[data-view=share] .v-absolute{display:none}
+/* stat row */
+.statrow{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:12px 20px 12px;border-left:1px solid var(--line-soft)}
+.stat:first-child{padding-left:0;border-left:0}
+.stat .fig{font-size:56px;margin:18px 0 28px}
+.stat.hi .fig{color:var(--signal)}
+.stat dl{display:grid;grid-template-columns:auto 1fr;gap:14px 12px;font-size:16px;align-items:baseline}
+.stat dt{color:var(--ink-4);font-size:13px}
+.stat dd{text-align:right}
+/* executive summary */
+.focus{border-left:4px solid var(--signal);padding:12px 18px;margin-bottom:26px}
+.focus .eyebrow{color:var(--signal);margin-bottom:4px}
+.focus p{font-size:16px;line-height:1.45;color:var(--ink-2)}.focus b{color:var(--ink-1)}
+.exfigs{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line-strong);border-bottom:1px solid var(--line);padding:16px 0 18px;margin-bottom:24px}
+.exfig{padding-left:20px;border-left:1px solid var(--line-soft)}.exfig:first-child{padding-left:0;border-left:0}
+.exfig .fig{font-size:48px;margin:10px 0 10px}.exfig.hi .fig{color:var(--signal)}
+.exfig .ds{font-size:16px;color:var(--ink-3)}
+.points{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;counter-reset:pt}
+.points li{counter-increment:pt;position:relative;padding-left:40px}
+.points li::before{content:counter(pt);position:absolute;left:0;top:-4px;font-family:var(--display);font-size:30px;color:var(--signal);line-height:1}
+.points .eyebrow{margin-bottom:6px}
+.points p:last-child{font-size:16px;line-height:1.45}
+/* cover */
+.cover{padding:0}
+.cover-bar{position:absolute;top:0;left:0;right:0;height:8px;background:var(--signal)}
+.cover-body{position:absolute;left:96px;right:96px;top:250px;border-top:1px solid var(--line-strong);padding-top:22px}
+.cover h1{font-family:var(--display);font-weight:400;font-size:72px;line-height:1.05;color:var(--ink-1);margin:18px 0 18px}
+.cover .period{font-family:var(--display);font-size:30px;color:var(--ink-2)}
+.cover-meta{position:absolute;left:96px;bottom:64px;font-size:16px;color:var(--ink-3)}
+.cover footer{left:96px}
+/* section divider */
+.divider{padding-top:72px}
+.divider-head{border-top:1px solid var(--line-strong);padding-top:20px;margin-bottom:34px}
+.divider-name{font-size:56px;margin:12px 0 14px;-webkit-line-clamp:1}
+.verdict{font-family:var(--display);font-size:22px;line-height:1.35;color:var(--ink-2);max-width:900px}
+.contents{list-style:none;padding:0;counter-reset:c;max-width:980px}
+.contents li{counter-increment:c;font-size:16px;line-height:1.3;color:var(--ink-2);padding:9px 0 9px 44px;border-top:1px solid var(--line-soft);position:relative;white-space:nowrap;overflow:hidden;text-overflow:clip}
+.contents li:last-child{border-bottom:1px solid var(--line-soft)}
+.contents li::before{content:counter(c,decimal-leading-zero);position:absolute;left:0;color:var(--ink-4);font-size:13px;font-weight:700;letter-spacing:.08em;top:11px}
+/* cards slide: three columns under hairlines, no boxes */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;flex:1;min-height:0}
+.card{border-top:1px solid var(--line-strong);padding-top:14px;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.card h3{font-family:var(--display);font-weight:400;font-size:24px;line-height:1.2;color:var(--ink-1);margin:10px 0 16px}
+.card .fig{font-size:48px;color:var(--signal)}
+.card .fignote{font-size:16px;color:var(--ink-3);margin:8px 0 16px}
+.card .act{font-size:16px;line-height:1.45;color:var(--ink-2)}
+.card-foot{margin-top:auto;border-top:1px solid var(--line);padding-top:12px;font-size:16px;color:var(--ink-3);display:grid;gap:4px}
+.card-foot b{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;margin-right:6px}
+.card-foot .stake{font-size:16px;color:var(--ink-1);font-weight:600}
+/* table slide */
+table.kpi{width:100%;border-collapse:collapse;font-size:15px;font-variant-numeric:tabular-nums}
+.kpi th,.kpi td{padding:11px 12px;text-align:right;border-bottom:1px solid var(--line-soft);white-space:nowrap}
+.kpi th[scope=row],.kpi thead th:first-child{text-align:left;padding-left:12px}
+.kpi thead th{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-3);border-bottom:1px solid var(--line-strong);padding-top:4px}
+.kpi tbody th{font-weight:400}
+.kpi tbody tr{color:var(--ink-3)}
+.kpi tbody tr.hi{background:var(--signal-tint);color:var(--ink-1)}
+.kpi tbody tr.hi th{font-weight:700;color:var(--signal)}
+/* notes */
+.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.notes section{border-top:1px solid var(--line-strong);padding-top:14px}
+.notes section .eyebrow{margin-bottom:12px}
+.notes section p:not(.eyebrow){font-size:16px;line-height:1.45;margin-bottom:10px}
+.notes b{color:var(--ink-1)}
+.notes-crux{margin-top:auto;font-size:14px;color:var(--ink-3);border-top:1px solid var(--line);padding-top:12px}
+.notes-crux a{color:var(--signal)}
+@page{size:1280px 720px;margin:0}
+@media print{body{background:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bar{display:none}.stage{transform:none}.slide{display:flex;break-after:page}.slide:last-child{break-after:auto}}
+</style>
+<nav class="bar"></nav>
+<div class="stage">
+<section class="slide cover" id="cover" data-section="Summary">
+<div class="cover-bar"></div>
+<div class="cover-body">
+<p class="eyebrow">Monthly performance review</p>
+<h1>Harbour &amp; Pine</h1>
+<p class="period">September 2026</p>
+</div>
+<p class="cover-meta">Read from your Growth Brain on 3 October 2026 · Prepared with Crux growth skills</p>
+<footer><a href="https://gocrux.io">Built with Crux growth skills</a></footer></section>
+<section class="slide text" id="exec-summary" data-section="Summary">
+<header><p class="eyebrow">Executive summary</p><h2>Revenue rose 7.7% to £420k on returning customers, while new customers fell 4.5% to 2,100</h2></header>
+<div class="focus"><p class="eyebrow">You asked</p><p><b>Why did new customers fall when ad spend rose?</b> Paid social’s CAC rose 22% to £52, so its £23k bought 80 fewer new customers than in August; search held.</p></div>
+<div class="exfigs"><div class="exfig hi"><p class="eyebrow">Revenue</p><p class="fig">£420k</p><p class="ds"><span class="d pos">▲ +7.7%</span> MoM · <span class="d pos">▲ +17%</span> YoY</p></div><div class="exfig"><p class="eyebrow">New customers</p><p class="fig">2,100</p><p class="ds"><span class="d neg">▼ −4.5%</span> MoM · <span class="d pos">▲ +5.0%</span> YoY</p></div><div class="exfig"><p class="eyebrow">MER</p><p class="fig">5.0</p><p class="ds"><span class="d pos">▲ +2.6%</span> MoM · <span class="d neg">▼ −2.8%</span> YoY</p></div><div class="exfig"><p class="eyebrow">CM2 margin</p><p class="fig">30%</p><p class="ds"><span class="d pos">▲ +7.3%</span> MoM · <span class="d pos">▲ +3.8%</span> YoY</p></div></div>
+<ol class="points">
+<li><p class="eyebrow">Acquisition</p><p>Paid social’s CAC rose 22% to £52 and its new orders fell 15%; paid search held at £30.</p></li>
+<li><p class="eyebrow">Retention &amp; LTV</p><p>The July cohort kept 14% of its customers into month 1, 17% above the 12-cohort average.</p></li>
+<li><p class="eyebrow">Order value &amp; product</p><p>Average order value rose 1.9% to £75 as discounted orders fell 8.0% to 23% of orders.</p></li>
+</ol>
+<footer><a href="https://gocrux.io">Built with Crux growth skills</a></footer><span class="pg">2 / 9</span></section>
+<section class="slide" id="trading-kpi" data-section="Trading">
+<header><p class="eyebrow">Trading</p><h2>Revenue rose 7.7% to £420k as returning orders grew 13%, but finished 6.7% short of the £450k budget</h2></header>
+<div class="grid">
+<div class="evidence"><div class="panel"><div class="statrow"><div class="stat hi"><p class="eyebrow">Revenue</p><p class="fig">£420k</p>
+<dl><dt>MoM</dt><dd><span class="d pos">▲ +7.7%</span></dd><dt>YoY</dt><dd><span class="d pos">▲ +17%</span></dd><dt>v budget</dt><dd><span class="d neg">▼ −6.7%</span></dd></dl></div><div class="stat"><p class="eyebrow">New customers</p><p class="fig">2,100</p>
+<dl><dt>MoM</dt><dd><span class="d neg">▼ −4.5%</span></dd><dt>YoY</dt><dd><span class="d pos">▲ +5.0%</span></dd><dt>v budget</dt><dd><span class="d neg">▼ −13%</span></dd></dl></div><div class="stat"><p class="eyebrow">MER</p><p class="fig">5.0</p>
+<dl><dt>MoM</dt><dd><span class="d pos">▲ +2.6%</span></dd><dt>YoY</dt><dd><span class="d neg">▼ −2.8%</span></dd><dt>v budget</dt><dd><span class="d neg">▼ −5.6%</span></dd></dl></div><div class="stat"><p class="eyebrow">CM2 margin</p><p class="fig">30%</p>
+<dl><dt>MoM</dt><dd><span class="d pos">▲ +7.3%</span></dd><dt>YoY</dt><dd><span class="d pos">▲ +3.8%</span></dd><dt>v budget</dt><dd><span class="d neg">▼ −3.6%</span></dd></dl></div></div></div>
+<p class="source">Source: your Growth Brain, orders, ad spend and budget. Revenue ex VAT, net of refunds. The full table is in the Appendix.</p></div>
+<aside class="takeaway"><p><b>So what</b>Existing customers carried the month; new customers fell 4.5% and sit 13% under budget.</p><p><b>Why</b>The autumn range launched on 8 September (your note), and paid social’s CAC rose 22%.</p><p><b>Watch</b>New customers: 2,400 a month closes the budget gap.</p></aside>
+</div>
+<footer><a href="https://gocrux.io">Built with Crux growth skills</a></footer><span class="pg">3 / 9</span></section>
+<section class="slide" id="trading-revenue" data-section="Trading">
+<header><p class="eyebrow">Trading</p><h2>Returning-customer revenue rose 16% to £260k and carried the month, while new-customer revenue slipped 3.0% to £160k</h2></header>
+<div class="grid">
+<div class="evidence"><div class="panel chart" data-view="absolute">
+<div class="chart-head"><p class="chart-title">Revenue by customer type, last 24 months</p><div class="toggle"><button data-view-set="absolute">Absolute</button><button data-view-set="share">% of total</button></div></div>
+<svg class="v-absolute" viewBox="0 0 736 400" width="736" height="400" role="img"><title>Returning-customer revenue rose to £260k in September 2026, the highest outside the festive peak</title><line x1="52" x2="640" y1="370" y2="370" class="g-base"/><text x="42" y="374" text-anchor="end" class="ax">£0</text><line x1="52" x2="640" y1="314" y2="314" class="g"/><text x="42" y="318" text-anchor="end" class="ax">£100k</text><line x1="52" x2="640" y1="258" y2="258" class="g"/><text x="42" y="262" text-anchor="end" class="ax">£200k</text><line x1="52" x2="640" y1="202" y2="202" class="g"/><text x="42" y="206" text-anchor="end" class="ax">£300k</text><line x1="52" x2="640" y1="146" y2="146" class="g"/><text x="42" y="150" text-anchor="end" class="ax">£400k</text><line x1="52" x2="640" y1="90" y2="90" class="g"/><text x="42" y="94" text-anchor="end" class="ax">£500k</text><line x1="52" x2="640" y1="34" y2="34" class="g"/><text x="42" y="38" text-anchor="end" class="ax">£600k</text><rect x="56.583333333333336" y="297.2" width="15" height="72.80000000000001" class="s-base"/><rect x="56.583333333333336" y="196.39999999999998" width="15" height="99.80000000000001" class="s-hi"/><text x="64.08333333333334" y="392" text-anchor="middle" class="ax">Oct</text><rect x="80.75" y="272" width="15" height="98" class="s-base"/><rect x="80.75" y="137.6" width="15" height="133.4" class="s-hi"/><rect x="104.91666666666667" y="263.6" width="15" height="106.39999999999998" class="s-base"/><rect x="104.91666666666667" y="106.80000000000001" width="15" height="155.8" class="s-hi"/><rect x="129.08333333333334" y="302.8" width="15" height="67.19999999999999" class="s-base"/><rect x="129.08333333333334" y="207.6" width="15" height="94.20000000000002" class="s-hi"/><text x="136.58333333333334" y="392" text-anchor="middle" class="ax">Jan 2025</text><rect x="153.25000000000003" y="305.6" width="15" height="64.39999999999998" class="s-base"/><rect x="153.25000000000003" y="213.2" width="15" height="91.40000000000003" class="s-hi"/><rect x="177.41666666666669" y="300" width="15" height="70" class="s-base"/><rect x="177.41666666666669" y="202" width="15" height="97" class="s-hi"/><rect x="201.58333333333334" y="297.2" width="15" height="72.80000000000001" class="s-base"/><rect x="201.58333333333334" y="196.39999999999998" width="15" height="99.80000000000001" class="s-hi"/><text x="209.08333333333334" y="392" text-anchor="middle" class="ax">Apr</text><rect x="225.75000000000003" y="294.4" width="15" height="75.60000000000002" class="s-base"/><rect x="225.75000000000003" y="190.8" width="15" height="102.59999999999997" class="s-hi"/><rect x="249.91666666666669" y="291.6" width="15" height="78.39999999999998" class="s-base"/><rect x="249.91666666666669" y="185.2" width="15" height="105.40000000000003" class="s-hi"/><rect x="274.0833333333333" y="288.8" width="15" height="81.19999999999999" class="s-base"/><rect x="274.0833333333333" y="179.6" width="15" height="108.20000000000002" class="s-hi"/><text x="281.5833333333333" y="392" text-anchor="middle" class="ax">Jul</text><rect x="298.25" y="286" width="15" height="84" class="s-base"/><rect x="298.25" y="174" width="15" height="111" class="s-hi"/><rect x="322.4166666666667" y="286" width="15" height="84" class="s-base"/><rect x="322.4166666666667" y="168.4" width="15" height="116.6" class="s-hi"/><rect x="346.5833333333333" y="288.8" width="15" height="81.19999999999999" class="s-base"/><rect x="346.5833333333333" y="168.4" width="15" height="119.4" class="s-hi"/><text x="354.0833333333333" y="392" text-anchor="middle" class="ax">Oct</text><rect x="370.75" y="266.4" width="15" height="103.60000000000002" class="s-base"/><rect x="370.75" y="115.20000000000002" width="15" height="150.19999999999996" class="s-hi"/><rect x="394.9166666666667" y="258" width="15" height="112" class="s-base"/><rect x="394.9166666666667" y="84.40000000000003" width="15" height="172.59999999999997" class="s-hi"/><rect x="419.0833333333333" y="297.2" width="15" height="72.80000000000001" class="s-base"/><rect x="419.0833333333333" y="188" width="15" height="108.19999999999999" class="s-hi"/><text x="426.5833333333333" y="392" text-anchor="middle" class="ax">Jan 2026</text><rect x="443.25" y="300" width="15" height="70" class="s-base"/><rect x="443.25" y="193.6" width="15" height="105.4" class="s-hi"/><rect x="467.4166666666667" y="294.4" width="15" height="75.60000000000002" class="s-base"/><rect x="467.4166666666667" y="182.4" width="15" height="110.99999999999997" class="s-hi"/><rect x="491.5833333333333" y="291.6" width="15" height="78.39999999999998" class="s-base"/><rect x="491.5833333333333" y="176.8" width="15" height="113.80000000000001" class="s-hi"/><text x="499.0833333333333" y="392" text-anchor="middle" class="ax">Apr</text><rect x="515.75" y="286" width="15" height="84" class="s-base"/><rect x="515.75" y="168.4" width="15" height="116.6" class="s-hi"/><rect x="539.9166666666667" y="283.2" width="15" height="86.80000000000001" class="s-base"/><rect x="539.9166666666667" y="162.79999999999998" width="15" height="119.4" class="s-hi"/><rect x="564.0833333333334" y="280.4" width="15" height="89.60000000000002" class="s-base"/><rect x="564.0833333333334" y="157.20000000000002" width="15" height="122.19999999999996" class="s-hi"/><rect x="588.2500000000001" y="277.6" width="15" height="92.39999999999998" class="s-base"/><rect x="588.2500000000001" y="151.6" width="15" height="125.00000000000003" class="s-hi"/><rect x="612.4166666666667" y="280.4" width="15" height="89.60000000000002" class="s-base"/><rect x="612.4166666666667" y="134.8" width="15" height="144.59999999999997" class="s-hi"/><text x="619.9166666666667" y="392" text-anchor="middle" class="ax cur">Sep 2026</text><line x1="619.9166666666667" x2="619.9166666666667" y1="128.8" y2="120.80000000000001" class="g-mark"/><text x="619.9166666666667" y="114.80000000000001" text-anchor="middle" class="lab strong">£420k</text><text x="637.4166666666667" y="204.6" class="lab hi">Returning</text><text x="637.4166666666667" y="221.6" class="lab hi">£260k</text><text x="637.4166666666667" y="322.2" class="lab">New</text><text x="637.4166666666667" y="339.2" class="lab">£160k</text></svg><svg class="v-share" viewBox="0 0 736 400" width="736" height="400" role="img"><title>Returning customers gave 62% of September revenue, up from 58% a year earlier</title><line x1="52" x2="640" y1="370" y2="370" class="g-base"/><text x="42" y="374" text-anchor="end" class="ax">0%</text><line x1="52" x2="640" y1="286" y2="286" class="g"/><text x="42" y="290" text-anchor="end" class="ax">25%</text><line x1="52" x2="640" y1="202" y2="202" class="g"/><text x="42" y="206" text-anchor="end" class="ax">50%</text><line x1="52" x2="640" y1="118" y2="118" class="g"/><text x="42" y="122" text-anchor="end" class="ax">75%</text><line x1="52" x2="640" y1="34" y2="34" class="g"/><text x="42" y="38" text-anchor="end" class="ax">100%</text><rect x="56.583333333333336" y="229.09677419354838" width="15" height="140.90322580645162" class="s-base"/><rect x="56.583333333333336" y="34" width="15" height="194.09677419354838" class="s-hi"/><text x="64.08333333333334" y="392" text-anchor="middle" class="ax">Oct</text><rect x="80.75" y="228.31325301204816" width="15" height="141.68674698795184" class="s-base"/><rect x="80.75" y="34" width="15" height="193.31325301204816" class="s-hi"/><rect x="104.91666666666667" y="234.17021276595747" width="15" height="135.82978723404253" class="s-base"/><rect x="104.91666666666667" y="34" width="15" height="199.17021276595747" class="s-hi"/><rect x="129.08333333333334" y="230.9655172413793" width="15" height="139.0344827586207" class="s-base"/><rect x="129.08333333333334" y="34" width="15" height="195.9655172413793" class="s-hi"/><text x="136.58333333333334" y="392" text-anchor="middle" class="ax">Jan 2025</text><rect x="153.25000000000003" y="232" width="15" height="138" class="s-base"/><rect x="153.25000000000003" y="34" width="15" height="197" class="s-hi"/><rect x="177.41666666666669" y="229.99999999999997" width="15" height="140.00000000000003" class="s-base"/><rect x="177.41666666666669" y="34" width="15" height="194.99999999999997" class="s-hi"/><rect x="201.58333333333334" y="229.09677419354838" width="15" height="140.90322580645162" class="s-base"/><rect x="201.58333333333334" y="34" width="15" height="194.09677419354838" class="s-hi"/><text x="209.08333333333334" y="392" text-anchor="middle" class="ax">Apr</text><rect x="225.75000000000003" y="228.25" width="15" height="141.75" class="s-base"/><rect x="225.75000000000003" y="34" width="15" height="193.25" class="s-hi"/><rect x="249.91666666666669" y="227.45454545454547" width="15" height="142.54545454545453" class="s-base"/><rect x="249.91666666666669" y="34" width="15" height="192.45454545454547" class="s-hi"/><rect x="274.0833333333333" y="226.70588235294116" width="15" height="143.29411764705884" class="s-base"/><rect x="274.0833333333333" y="34" width="15" height="191.70588235294116" class="s-hi"/><text x="281.5833333333333" y="392" text-anchor="middle" class="ax">Jul</text><rect x="298.25" y="226" width="15" height="144" class="s-base"/><rect x="298.25" y="34" width="15" height="191" class="s-hi"/><rect x="322.4166666666667" y="229.99999999999997" width="15" height="140.00000000000003" class="s-base"/><rect x="322.4166666666667" y="34" width="15" height="194.99999999999997" class="s-hi"/><rect x="346.5833333333333" y="234.66666666666666" width="15" height="135.33333333333334" class="s-base"/><rect x="346.5833333333333" y="34" width="15" height="199.66666666666666" class="s-hi"/><text x="354.0833333333333" y="392" text-anchor="middle" class="ax">Oct</text><rect x="370.75" y="233.3846153846154" width="15" height="136.6153846153846" class="s-base"/><rect x="370.75" y="34" width="15" height="198.3846153846154" class="s-hi"/><rect x="394.9166666666667" y="238.23529411764704" width="15" height="131.76470588235296" class="s-base"/><rect x="394.9166666666667" y="34" width="15" height="203.23529411764704" class="s-hi"/><rect x="419.0833333333333" y="235.6" width="15" height="134.4" class="s-base"/><rect x="419.0833333333333" y="34" width="15" height="200.6" class="s-hi"/><text x="426.5833333333333" y="392" text-anchor="middle" class="ax">Jan 2026</text><rect x="443.25" y="236.66666666666666" width="15" height="133.33333333333334" class="s-base"/><rect x="443.25" y="34" width="15" height="201.66666666666666" class="s-hi"/><rect x="467.4166666666667" y="234.59701492537314" width="15" height="135.40298507462686" class="s-base"/><rect x="467.4166666666667" y="34" width="15" height="199.59701492537314" class="s-hi"/><rect x="491.5833333333333" y="233.65217391304347" width="15" height="136.34782608695653" class="s-base"/><rect x="491.5833333333333" y="34" width="15" height="198.65217391304347" class="s-hi"/><text x="499.0833333333333" y="392" text-anchor="middle" class="ax">Apr</text><rect x="515.75" y="229.99999999999997" width="15" height="140.00000000000003" class="s-base"/><rect x="515.75" y="34" width="15" height="194.99999999999997" class="s-hi"/><rect x="539.9166666666667" y="229.24324324324323" width="15" height="140.75675675675677" class="s-base"/><rect x="539.9166666666667" y="34" width="15" height="194.24324324324323" class="s-hi"/><rect x="564.0833333333334" y="228.5263157894737" width="15" height="141.4736842105263" class="s-base"/><rect x="564.0833333333334" y="34" width="15" height="193.5263157894737" class="s-hi"/><rect x="588.2500000000001" y="227.84615384615384" width="15" height="142.15384615384616" class="s-base"/><rect x="588.2500000000001" y="34" width="15" height="192.84615384615384" class="s-hi"/><rect x="612.4166666666667" y="242" width="15" height="128" class="s-base"/><rect x="612.4166666666667" y="34" width="15" height="207" class="s-hi"/><text x="619.9166666666667" y="392" text-anchor="middle" class="ax cur">Sep 2026</text><line x1="619.9166666666667" x2="619.9166666666667" y1="28" y2="20" class="g-mark"/><text x="619.9166666666667" y="14" text-anchor="middle" class="lab strong">100%</text><text x="637.4166666666667" y="135" class="lab hi">Returning</text><text x="637.4166666666667" y="152" class="lab hi">62%</text><text x="637.4166666666667" y="303" class="lab">New</text><text x="637.4166666666667" y="320" class="lab">38%</text></svg>
+</div><p class="source">Source: your Growth Brain, orders. Revenue ex VAT, net of refunds.</p></div>
+<aside class="takeaway"><p><b>So what</b>Growth leans on existing customers: 62% of revenue, against 58% a year ago, so a weak acquisition month hurts less.</p><p><b>Why</b>The autumn range launched on 8 September (your note).</p><p><b>Watch</b>Returning revenue in October; £250k or more confirms the launch lift.</p></aside>
+</div>
+<footer><a href="https://gocrux.io">Built with Crux growth skills</a></footer><span class="pg">4 / 9</span></section>
+<section class="slide divider" id="acq-divider" data-section="Acquisition">
+<div class="divider-head"><p class="eyebrow">Section 2 of 4</p><h2 class="divider-name">Acquisition</h2>
+<p class="verdict">New customers slipped 4.5% to 2,100 as paid social grew dearer; search held its cost.</p></div>
+<ol class="contents">
+<li>Blended CAC rose 10% to £40 as visits held and new-customer conversion fell 4.0%</li>
+<li>Paid social’s CAC rose 22% to £52, the steepest of the top five channels, as its new orders fell 15% to 450</li>
+<li>Paid channels brought 61% of new orders, a share 3.0% below August’s</li>
+<li>Meta: three prospecting campaigns spent £9k above a £70 CAC</li>
+<li>Google: brand search kept a £14 CAC on 310 new orders</li>
+<li>Customers from email are worth £180 in their first year, the most of any channel</li>
+<li>Three actions are worth about £38k a month, led by moving paid social’s weakest spend into search</li>
+</ol>
+<footer><a href="https://gocrux.io">Built with Crux growth skills</a></footer><span class="pg">5 / 9</span></section>
+<section class="slide" id="acq-channels" data-section="Acquisition">
+<header><p class="eyebrow">Acquisition</p><h2>Paid social’s CAC rose 22% to £52, the steepest of the top five channels, as its new orders fell 15% to 450</h2></header>
+<div class="grid">
+<div class="evidence"><div class="panel"><svg viewBox="0 0 736 382" width="736" height="382" role="img"><title>Paid social’s CAC rose 22% to £52 while its new orders fell 15% to 450</title><text x="150" y="14" class="hd">New orders, September 2026</text><text x="642" y="14" class="hd" text-anchor="end">CAC</text><text x="736" y="14" class="hd" text-anchor="end">CAC MoM</text><line x1="0" x2="736" y1="34" y2="34" class="g"/><text x="0" y="68" class="row">Paid search</text><rect x="150" y="50" width="360" height="26" class="s-base"/><text x="518" y="68" class="row">700</text><text x="642" y="68" text-anchor="end" class="row">£30</text><text x="736" y="68" text-anchor="end" class="row neg">▲ +3.4%</text><line x1="0" x2="736" y1="92" y2="92" class="g"/><text x="0" y="126" class="row hi strong">Paid social</text><rect x="150" y="108" width="231.42857142857144" height="26" class="s-hi"/><text x="389.42857142857144" y="126" class="row hi strong">450</text><text x="642" y="126" text-anchor="end" class="row hi strong">£52</text><text x="736" y="126" text-anchor="end" class="row neg">▲ +22%</text><line x1="0" x2="736" y1="150" y2="150" class="g"/><text x="0" y="184" class="row">Organic search</text><rect x="150" y="166" width="195.42857142857142" height="26" class="s-base"/><text x="353.42857142857144" y="184" class="row">380</text><text x="642" y="184" text-anchor="end" class="row muted">No data</text><text x="736" y="184" text-anchor="end" class="row muted">No data</text><line x1="0" x2="736" y1="208" y2="208" class="g"/><text x="0" y="242" class="row">Email</text><rect x="150" y="224" width="133.71428571428572" height="26" class="s-base"/><text x="291.7142857142857" y="242" class="row">260</text><text x="642" y="242" text-anchor="end" class="row muted">No data</text><text x="736" y="242" text-anchor="end" class="row muted">No data</text><line x1="0" x2="736" y1="266" y2="266" class="g"/><text x="0" y="300" class="row">Affiliates</text><rect x="150" y="282" width="61.714285714285715" height="26" class="s-base"/><text x="219.71428571428572" y="300" class="row">120</text><text x="642" y="300" text-anchor="end" class="row">£25</text><text x="736" y="300" text-anchor="end" class="row pos">▼ −8.1%</text><line x1="0" x2="736" y1="324" y2="324" class="g"/><text x="0" y="358" class="row">Unknown</text><rect x="150" y="340" width="77.14285714285714" height="26" class="s-base"/><text x="235.14285714285714" y="358" class="row">150</text><text x="642" y="358" text-anchor="end" class="row muted">No data</text><text x="736" y="358" text-anchor="end" class="row muted">No data</text><line x1="0" x2="736" y1="381" y2="381" class="g"/></svg></div>
+<p class="source">Source: your Growth Brain, orders and ad spend. Top 5 of 8 channels, plus the new orders with no known channel; the other 3 channels brought 40 more.</p></div>
+<aside class="takeaway"><p><b>So what</b>Each new customer from paid social now costs 1.7 times one from paid search.</p><p><b>Why</b>Its spend rose 3.5% to £23k while its new orders fell from 530 to 450.</p><p><b>Watch</b>Paid social CAC each week; £43 is August’s level.</p></aside>
+</div>
+<footer><a href="https://gocrux.io">Built with Crux growth skills</a></footer><span class="pg">6 / 9</span></section>
+<section class="slide cards-slide" id="acq-recs" data-section="Acquisition">
+<header><p class="eyebrow">Acquisition recommendations</p><h2>Three actions are worth about £38k a month, led by moving paid social’s weakest spend into search</h2></header>
+<div class="cards">
+<article class="card"><p class="eyebrow">01</p><h3>Rebalance paid social</h3>
+<p class="fig">£52</p><p class="fignote">paid social CAC, up 22% on August</p><p class="act">Move the £9k that three prospecting campaigns spend above a £70 CAC into paid search, which holds at £30.</p>
+<div class="card-foot"><p class="stake">£18k a month at stake</p><p><b>Watch</b> paid social CAC</p><p><b>Validate</b> Test</p></div></article>
+<article class="card"><p class="eyebrow">02</p><h3>Win back new-customer volume</h3>
+<p class="fig">2,100</p><p class="fignote">new customers, 13% under budget</p><p class="act">Send the autumn range launch to the 6,000 subscribers who have never bought, with free first delivery.</p>
+<div class="card-foot"><p class="stake">£12k a month at stake</p><p><b>Watch</b> new customers from email</p><p><b>Validate</b> Test</p></div></article>
+<article class="card"><p class="eyebrow">03</p><h3>Place the unknown orders</h3>
+<p class="fig">7%</p><p class="fignote">of new orders have no known channel</p><p class="act">Tag every email and affiliate link with UTMs, so next month’s channel mix places these 150 orders.</p>
+<div class="card-foot"><p class="stake">£8k a month at stake</p><p><b>Watch</b> the unknown share of new orders</p><p><b>Validate</b> Ship</p></div></article>
+</div>
+<footer><a href="https://gocrux.io">Built with Crux growth skills</a></footer><span class="pg">7 / 9</span></section>
+<section class="slide table-slide" id="app-trading-kpi" data-section="Appendix">
+<header><p class="eyebrow">Appendix</p><h2>Revenue of £420k was 17% up on September 2025 but 6.7% short of the £450k budget</h2></header>
+<div class="panel"><table class="kpi">
+<thead><tr><th scope="col">Measure</th><th scope="col">Sep 2026</th><th scope="col">Aug 2026</th><th scope="col">MoM %</th><th scope="col">Sep 2025</th><th scope="col">YoY %</th><th scope="col">Budget</th><th scope="col">v budget %</th></tr></thead>
+<tbody>
+<tr class="hi"><th scope="row">Revenue</th><td>£420k</td><td>£390k</td><td><span class="d pos">▲ +7.7%</span></td><td>£360k</td><td><span class="d pos">▲ +17%</span></td><td>£450k</td><td><span class="d neg">▼ −6.7%</span></td></tr>
+<tr><th scope="row">Orders</th><td>5,600</td><td>5,300</td><td><span class="d pos">▲ +5.7%</span></td><td>5,000</td><td><span class="d pos">▲ +12%</span></td><td>6,000</td><td><span class="d neg">▼ −6.7%</span></td></tr>
+<tr><th scope="row">New orders</th><td>2,100</td><td>2,200</td><td><span class="d neg">▼ −4.5%</span></td><td>2,000</td><td><span class="d pos">▲ +5.0%</span></td><td>2,400</td><td><span class="d neg">▼ −13%</span></td></tr>
+<tr><th scope="row">Returning orders</th><td>3,500</td><td>3,100</td><td><span class="d pos">▲ +13%</span></td><td>3,000</td><td><span class="d pos">▲ +17%</span></td><td>3,600</td><td><span class="d neg">▼ −2.8%</span></td></tr>
+<tr><th scope="row">Average order value</th><td>£75.00</td><td>£73.60</td><td><span class="d pos">▲ +1.9%</span></td><td>£72.00</td><td><span class="d pos">▲ +4.2%</span></td><td>£75.00</td><td><span class="d flat">0.0%</span></td></tr>
+<tr><th scope="row">Marketing spend</th><td>£84k</td><td>£80k</td><td><span class="d flat">▲ +5.0%</span></td><td>£70k</td><td><span class="d flat">▲ +20%</span></td><td>£85k</td><td><span class="d flat">▼ −1.2%</span></td></tr>
+<tr><th scope="row">MER</th><td>5.0</td><td>4.9</td><td><span class="d pos">▲ +2.6%</span></td><td>5.1</td><td><span class="d neg">▼ −2.8%</span></td><td>5.3</td><td><span class="d neg">▼ −5.6%</span></td></tr>
+<tr><th scope="row">CM2</th><td>£126k</td><td>£109k</td><td><span class="d pos">▲ +16%</span></td><td>£104k</td><td><span class="d pos">▲ +21%</span></td><td>£140k</td><td><span class="d neg">▼ −10%</span></td></tr>
+<tr><th scope="row">CM2 % of revenue</th><td>30%</td><td>28%</td><td><span class="d pos">▲ +7.3%</span></td><td>29%</td><td><span class="d pos">▲ +3.8%</span></td><td>31%</td><td><span class="d neg">▼ −3.6%</span></td></tr>
+</tbody></table></div>
+<p class="source">Source: your Growth Brain, orders, ad spend, margin and budget. Revenue ex VAT, net of refunds; the budget is set on the same revenue. Marketing spend carries no colour: spend rising is neither good nor bad alone.</p>
+<footer><a href="https://gocrux.io">Built with Crux growth skills</a></footer><span class="pg">8 / 9</span></section>
+<section class="slide text notes-slide" id="notes" data-section="Notes">
+<header><p class="eyebrow">Notes</p><h2>How this review was built</h2></header>
+<div class="notes">
+<section><p class="eyebrow">Sources</p><p>Your Growth Brain, read on 3 October 2026: orders, customers, ad spend from Meta and Google, margin and budget. History starts in October 2024.</p><p>The Month context is what you told us: the autumn range launched on 8 September.</p></section>
+<section><p class="eyebrow">Definitions</p><p><b>New customer</b>: a first order ever in the month.</p><p><b>CAC</b>: ad spend over new customers, blended.</p><p><b>MER</b>: revenue over marketing spend.</p><p><b>CM2</b>: revenue less product, delivery, payment and marketing costs.</p></section>
+<section><p class="eyebrow">Caveats</p><p>Revenue is ex VAT and net of refunds, dated by order.</p><p>Every % change is relative: a rate moving from 2.0% to 1.8% reads −10%.</p><p>New orders with no known channel are shown as their own row, never spread across channels.</p></section>
+</div>
+<p class="notes-crux">This review was built with Crux growth skills, made by Crux, the data-first growth studio: <a href="https://gocrux.io">gocrux.io</a></p>
+<footer><a href="https://gocrux.io">Built with Crux growth skills</a></footer><span class="pg">9 / 9</span></section>
+</div>
+<script>
+const S=[...document.querySelectorAll('.slide')],B=document.querySelector('.bar');let i=0;
+[...new Set(S.map(s=>s.dataset.section))].forEach(n=>{const b=document.createElement('button');b.textContent=n;b.onclick=()=>go(S.findIndex(s=>s.dataset.section===n));B.append(b)});
+function go(n){i=Math.max(0,Math.min(S.length-1,n));S.forEach((s,k)=>s.classList.toggle('on',k===i));[...B.children].forEach(b=>b.classList.toggle('on',b.textContent===S[i].dataset.section))}
+function fit(){const r=document.documentElement.style,h=innerHeight-40,k=Math.min(innerWidth/1280,h/720);r.setProperty('--k',k);r.setProperty('--x',(innerWidth-1280*k)/2+'px');r.setProperty('--y',(h-720*k)/2+'px')}
+onkeydown=e=>{if(e.key==='ArrowRight'||e.key==='PageDown')go(i+1);if(e.key==='ArrowLeft'||e.key==='PageUp')go(i-1)};
+document.querySelectorAll('.chart [data-view-set]').forEach(b=>b.onclick=()=>b.closest('.chart').dataset.view=b.dataset.viewSet);
+onresize=fit;fit();go(0);
+</script></html>

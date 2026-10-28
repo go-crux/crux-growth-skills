@@ -94,6 +94,22 @@ connector, and it says plainly which levers it could not read. A Crux Growth Bra
 margin, one source for every lever, and the drill-down by channel, product and customer cohort.
 Ask Claude why a number moved, or send `/diagnose-performance` in Claude Code.
 
+**Review month** (`review-month`) writes your monthly performance review. It reads the month just
+gone against the month before and the same month last year, and covers how you traded, where your
+new customers came from and what they cost, how well you keep customers and what they are worth
+over time, and what customers spend and which products they buy. You tell it what happened in the
+month (a promotion, a launch, a stockout), and it can pull out up to two questions you care about.
+You leave with one deck for your team, with a short summary up front, up to three recommendations
+for each part, and the three actions to take next month. Give it last month's review and it checks
+which of those actions were done. Nothing is changed in your ads, your store or your data.
+
+*Needs:* nothing to start, but it is best with a Crux Growth Brain. Without one it reads what
+Claude is connected to (Shopify and your ad accounts) and asks you for a report export where a view
+has no connector. The views only a Growth Brain fills, such as lifetime value by order category and
+the line items behind your products, are marked in the deck as needing one, and so is any view your
+connectors and exports cannot fill. A Crux Growth Brain also adds your budget and profit margin to
+the deck where it holds them. Ask Claude for your monthly review, or send `/review-month` in Claude Code.
+
 ## Getting a Growth Brain
 
 We build each Growth Brain on the brand's own data. To see what one would read for yours, book a
