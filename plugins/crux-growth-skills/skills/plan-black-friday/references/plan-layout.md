@@ -153,7 +153,7 @@ reads "No data" with its plain reason; the page never says "coming soon". The wo
 | Cancelled orders | Cancelled orders are <left out or counted>, as <Source in plain words> records them. |
 | A currency no Source states, confirmed by the user | <Source in plain words> does not say which currency it reports in; amounts are in <currency>, as you confirmed. |
 | Visits, conversion and landing pages | Visits are sessions from <GA4 or Shopify>, by landing page, the same in both years. |
-| Landing-page orders | Orders by landing page are <the ecommerce purchases GA4 counts, or the orders Shopify counts by landing page>, so they can differ from your store's order count; the site's conversion uses your store's orders. |
+| Landing-page orders | Orders by landing page are <the ecommerce purchases GA4 counts, or the orders Shopify counts by landing page, whichever the sessions Source is>, so they can differ from your store's order count; the site's conversion uses your store's orders. |
 | Marketing spend | Marketing spend covers <platforms> only, the same in every year. |
 | Platform-reported campaigns | Campaign purchases and values are as <platforms> report them, under their own attribution, and are shown without a Lift. |
 | A connector refused a read | <Source in plain words> refused a read, so nothing was taken from it. |

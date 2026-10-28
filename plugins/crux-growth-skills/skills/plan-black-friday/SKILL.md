@@ -113,7 +113,7 @@ does not give makes its section read "No data" with its reason.
   discounts above zero. Where the file carries cost, margin is total sales less cost, labelled
   "Gross profit, as Shopify records it", and the CM3 row reads "Gross profit less marketing":
   that gross profit less the window's spend from Acquisition below, once spend has a Source (the
-  Google Ads or Meta Ads read, whichever was read). Without cost every margin cell reads "No
+  Google Ads and Meta Ads spend of each platform that has a Source). Without cost every margin cell reads "No
   data", and while spend has no Source the CM3 row does too. Name total sales and the margin
   label on the page.
 
