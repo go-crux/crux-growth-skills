@@ -76,7 +76,9 @@ the three Appendix slides that are brain only are Brain slots whatever the conne
 and the other Appendix slides are built where their main slide is. Last month's actions is built on every
 Source: read what each action's metric did, last month against this month, as
 `references/deck-layout.md` sets out. For each Focus question, read the figures its Focus slide
-needs, from its Section's own slides where they hold them.
+needs, from its Section's own slides where they hold them. For each Recommendation, read what its
+sizing in `references/deck-layout.md` names that the slides do not hold: the budget's lever split,
+the campaigns with spend and no new orders, and the single-category orders.
 
 **Done when** every Trading, Acquisition, Retention & LTV and Order value & product slide and every
 Appendix slide has its figures or its Brain slot (without a Growth Brain, built where the table
@@ -133,7 +135,12 @@ Month context in place of any cause the figures do not show, and each Action tit
 **Done when** every Trading, Acquisition, Retention & LTV and Order value & product card carries a
 figure from its own Section's slides and an action, a metric to watch and Test, Watch next month or
 Ship; Next month holds the three distinct gaps with the most revenue at stake (a card that
-duplicates or sits inside a larger one gives way), or fewer where fewer exist; every Focus question
+duplicates or sits inside a larger one, as the table in `references/deck-layout.md` defines "inside",
+gives way), or fewer where fewer exist; every Budget gap card names its lever and how it was picked
+and is sized on that lever's share of the shortfall, never the whole shortfall; every Category gap
+card compares single-category orders with single-category orders; every first-order cohort gap is
+a first-order card, never a win-back; every paid channel or named campaign with spend and 0 new
+orders has been checked for a Waste gap; no card is sized on a delta that reads "Not comparable"; every Focus question
 leads the Executive summary; the Executive summary holds the four Stat row figures and one
 takeaway with a figure for each of Acquisition, Retention & LTV, and Order value & product; every
 data slide has a Takeaway panel that restates neither its Action title nor a Recommendation; every

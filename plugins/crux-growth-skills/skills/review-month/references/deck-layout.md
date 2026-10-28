@@ -11,8 +11,8 @@ Crux house style: British English, no em dashes, outcome before mechanism, relat
 changes (2.0% to 1.8% is "−10%"). Money carries the currency the Source's figures are in, with its
 own symbol, never an assumed one, and shows compactly (£1.2m, £84k). The reader may arrive cold:
 speak of "your orders", "your ad spend", never a table, a column, a rule or a threshold. A cell
-holds a figure, "No data" (the Source holds nothing for it) or "New" (the comparison figure is
-zero), never a bare "n/a"; the cohort table and `last-actions` name their own empty cells.
+holds a figure, "No data" (the Source holds nothing for it), "New" (the comparison figure is
+zero) or "Not comparable" (a Brain warning rules the comparison out), never a bare "n/a"; the cohort table and `last-actions` name their own empty cells.
 
 ## The slide list
 
@@ -165,7 +165,11 @@ title, its labels and its Takeaway panel. A budget figure is read as `references
 the budget unless the two bases match, and the Budget basis caveat says so where they do not. The
 Current period supplies "this month"; the Comparison periods are as `references/sources.md` sets
 out. Every % change is relative: a rate that moves from 2.0% to 1.8% reads "−10%". A year-ago
-figure the Source does not reach reads "No data". Show a change to the nearest whole % at 10% or
+figure the Source does not reach reads "No data". Where a Brain warning (`references/sources.md`,
+Brain warnings) says a Comparison period's figure is not comparable with the Current period's (for
+example attribution changed mid-month), every delta against that Comparison period on that figure (a
+table cell, a Stat row line, a bar's change) reads "Not comparable", with no ▲ or ▼ and no colour,
+and no Action title or Recommendation rests on it. Show a change to the nearest whole % at 10% or
 more and to one decimal below it. A delta carries ▲ or ▼ and is coloured: the up colour for a rise,
 the down colour for a fall, neutral for no change. A marketing spend figure is always neutral,
 since spend rising is neither good nor bad alone. A CAC figure is coloured by whether the move is
@@ -198,7 +202,10 @@ side.
 **Recommendation card.** A card has, on its face, a short title, one evidence figure and the
 action; in a footer, the metric to watch and how to validate it: Test, Watch next month or Ship.
 A Section's Recommendations slide holds up to three cards, ranked by revenue at stake: the revenue
-a month of the gap the evidence figure shows is worth, worked from the section's own figures. A
+the action could plausibly recover in a month, worked from the Section's own figures as that
+Section's spec sets out. A card is sized on the move it makes, its own segment's gap and never a
+larger gap that segment sits in. No card is sized on a delta that reads "Not comparable" (Comparison
+columns). A
 move of 10% or more on a headline figure may carry one extra line on its card, "To see why it
 moved, run the diagnose-performance skill for `<month>` against `<comparison month>`."; the
 review itself never drills. Where the evidence supports no action, the slide carries one line
@@ -644,9 +651,17 @@ other seven brought £18k").
 ### Trading Recommendations (`trading-recs`)
 
 Up to three Recommendation cards drawn from the Trading slides above, ranked by revenue at
-stake, worked one of three ways and the card says which. **Budget gap**: revenue below budget,
-sized as the revenue shortfall against budget on the Budget basis (`references/sources.md`,
-Budget), so the card names that basis; a Source with no budget has no budget gap. **Market or
+stake, worked one of three ways and the card says which. **Budget gap**: revenue below budget on
+the Budget basis (`references/sources.md`, Budget), acted on through one **lever**: new customer
+orders, returning customer orders or AOV. The lever is the one furthest below its budget, in
+revenue, where the budget mart holds a budget for those measures (its own lever split); else the
+one with the largest relative fall against last month, on `trading-revenue` and `aov-trend`. The
+card is sized as that lever's share of the shortfall: for an orders lever, its orders below the
+budget (or below last month, where there is no split) times that group's Current period revenue per
+order; for AOV, the Current period's orders times the AOV below the budget (or below last month),
+and never more than the revenue shortfall against budget. The card names the Budget basis, the
+lever and how it was picked ("by the budget's own split" or "by its fall against last month"). A
+Source with no budget has no budget gap. **Market or
 customer-type fall**: a market (`trading-markets`) or a customer type (new or returning, on
 `trading-revenue`) whose revenue fell, sized as its revenue fall against the same month last year,
 or against last month where the Source holds no figure for last year. **AOV fall**: average order
@@ -800,7 +815,7 @@ average across 9,600 customers"; add the measure's name where it is not revenue)
 ### Acquisition Recommendations (`acq-recs`)
 
 Up to three Recommendation cards drawn from the Acquisition slides, ranked by revenue at stake,
-worked one of two ways and the card says which. **CAC gap**: a paid channel whose CAC sits above the
+worked one of three ways and the card says which. **CAC gap**: a paid channel whose CAC sits above the
 reference CAC, sized as the new orders its spend would buy at the reference CAC, less the new orders it
 delivered, times the Current period's new-customer order value (new-customer revenue ÷ new orders on
 `trading-revenue`). The reference CAC is the brain's CAC target where it holds one (a metric, or
@@ -810,7 +825,11 @@ organic new orders that cost no spend and puts every paid channel above it. A ch
 the reference has no gap. **LTV gap**: a channel whose 12-month LTV sits below the all-customer figure,
 sized as its Current period new orders times that gap per customer; where the brain's LTV is not
 revenue, the gap is in that measure, so the card says so and its revenue at stake is worked on the
-Revenue basis from the same customers. Action title: as `trading-recs`.
+Revenue basis from the same customers. **Waste gap**: a paid channel or a named campaign with spend in
+the Current period and 0 new orders, so its CAC reads "No data" and the CAC gap never reaches it,
+sized as its Current period spend. The "No campaign" row is unallocated spend, never a waste gap,
+and the Unknown row carries no spend. A campaign is read from the same campaign figures as
+`acq-campaigns`, the whole list and not only the ranking. Action title: as `trading-recs`.
 
 ### Cohort retention (`ret-cohort`)
 
@@ -884,19 +903,34 @@ new orders, 29% above last month's 14%").
 ### Retention & LTV Recommendations (`ret-recs`)
 
 Up to three Recommendation cards drawn from the Retention & LTV slides, ranked by revenue at stake,
-worked as the Current period's new orders times the per-customer gap in cumulative LTV (converted to revenue on the Revenue basis where the brain's LTV is not revenue) between
-the rolling average and the cohort in question, at the oldest age that cohort has reached. Action
+worked as the Current period's new orders times the per-customer gap in cumulative LTV (converted to
+revenue on the Revenue basis where the brain's LTV is not revenue) between the rolling average and the
+cohort in question, at the oldest age that cohort has reached, counting only the part of the gap the
+card's action acts on. Split the gap where it opens: its **month-0 part** is the gap in month-0
+revenue per customer (the cohort's first orders were smaller), and its **later part** is the rest,
+opening after month 0. Where the month-0 part is the larger, the card is a first-order card: its
+action is on acquisition or first-order AOV (the entry offer, bundle or product, or the channel mix
+that brought the cohort), sized on the month-0 part, and it is never a win-back email. Where the later
+part is the larger, the card is a win-back or repeat-purchase card, sized on the later part. Action
 title: as `trading-recs`.
 
 ### Next month (`next-month`)
 
 The top three Recommendation cards across every Section that has them, ranked by revenue at stake,
-each card as above with its Section named. Each of the three is a **distinct gap**: where two cards
-size the same gap, or one gap sits inside another (a market's fall inside the revenue shortfall
-against budget, or an AOV fall inside a revenue gap), only the larger reaches Next month and the
-next distinct card, by revenue at stake, takes its place. Cards sized on a different measure or a
-different part of the business are distinct. Fewer than three distinct Recommendations exist: show
-those that do. Action title: the combined revenue at stake and the lead action. These three cards
+each card as above with its Section named. Each of the three is a **distinct gap**. A card **sits
+inside** another when its segment is part of the lever the other acts on:
+
+| A card acting on | Segments that sit inside it |
+|---|---|
+| New customer orders (a Budget gap on that lever) | a customer-type fall on new customers; a channel's CAC gap or LTV gap; a first-order cohort card on `ret-recs` |
+| Returning customer orders (a Budget gap on that lever) | a customer-type fall on returning customers; a win-back or repeat-purchase cohort card on `ret-recs` |
+| AOV (a Budget gap on that lever, or an AOV fall) | an AOV slip; a category gap |
+| A channel (a CAC gap or a Waste gap) | a campaign of that channel |
+
+Two cards that size the same segment on the same measure are one gap. Where two cards are one gap or
+one sits inside another, only the larger reaches Next month and the next distinct card, by revenue at
+stake, takes its place. Every other pair is distinct, a market's fall, a discount card and a Waste gap
+(sized in spend) included. Fewer than three distinct Recommendations exist: show those that do. Action title: the combined revenue at stake and the lead action. These three cards
 are the actions next month's review checks.
 
 ### Appendix: LTV by order category and by order type (`app-ltv-category`, `app-ltv-type`)
@@ -1033,8 +1067,12 @@ of them").
 Up to three Recommendation cards drawn from the Order value & product slides, ranked by revenue at
 stake, worked one of four ways and the card says which. **AOV slip**: new-customer or
 returning-customer AOV below last month's, sized as that group's Current period orders times the
-fall. **Category gap**: a category in `app-aov-product` whose AOV sits below the blended AOV, sized as its
-Current period orders times the gap. **Discount creep**: a discount depth above last month's, sized
+fall. **Category gap**: a category in `app-aov-product` whose AOV on single-category orders sits below the
+average AOV of all single-category orders, sized as its Current period single-category orders times
+that gap. A **single-category order** is an order whose lines all sit in one category
+(`references/sources.md`, Order category); the blended AOV and a category's own AOV on
+`app-aov-product` include multi-category baskets, so a category is never compared with them. A Source
+that cannot tell which orders are single-category has no Category gap. **Discount creep**: a discount depth above last month's, sized
 as the discount given in the Current period less what last month's depth would have given on the same
 discounted orders' value. **Code depth**: a code whose depth sits above the depth of all codes,
 sized the same way against the all-codes depth; a free-shipping row has no depth and is not sized.
