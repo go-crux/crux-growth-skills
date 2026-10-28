@@ -53,7 +53,7 @@ wraps:
 | Label | Text |
 |---|---|
 | Page | The page type, the single conversion goal and the device priority (mobile first unless told otherwise). |
-| How it was read | Rendered at mobile width, or fetched HTML only (naming a browser tool that failed, where it did), and any screenshots the user gave. |
+| How it was read | Rendered at mobile width, or fetched HTML only (naming a browser tool that failed, where it did), and any screenshots the user gave; how many sections and widgets the Page inventory holds, and each unread section by number and label. |
 | Unassessed checks | Which checks are unassessed and the input that would settle them, in one line. |
 | Brand guardrails | Confirmed, taken from the user's file, or the ones left unconfirmed. |
 | Traffic | The traffic source and awareness stage where the user named them; otherwise "Traffic source not given". |
