@@ -97,7 +97,8 @@ description: <leading word first; one trigger per distinct case the skill handle
   analysis framework).
 - **An interview inside a skill** runs in numbered rounds, one recommendation per question. "Yes"
   accepts it, and "just write it" accepts every remaining one. The user answers before the
-  next round.
+  next round. The exception is a question asking for context only the user holds (what happened
+  in the month): it carries no recommendation, so the skill never suggests they skip it.
 
 ## Public repo
 
