@@ -5,7 +5,7 @@ working folder. It holds six pages, one shown at a time, with a page bar at the 
 between them. Inline CSS and a few lines of inline script switch the pages and build the CSV;
 the page makes no network request. Crux house style: British English, no em dashes, outcome
 before mechanism, relative percentage changes (2.0% to 1.8% is "−10%"). Money carries the
-currency the brain's figures are in, with its own symbol, never an assumed one.
+currency the Source's figures are in, with its own symbol, never an assumed one.
 
 The reader may arrive cold, with no idea how the plan was made. Speak of the plan figures as
 "your budget", never "the sheet" or a table name. Every heading below is always present. On
@@ -32,8 +32,10 @@ chat and fills in here once it is.
      weekend sits fairly against two months; and that the last column of each table is the
      year-on-year change;
    - that this year's targets come from your budget, and are tested against what the last two
-     years' Black Fridays actually did;
-   - the revenue measure and the margin rung, named.
+     years' Black Fridays actually did (without a Growth Brain, the "Your targets were not
+     tested" line of **Without a Growth Brain** instead);
+   - the revenue measure and the margin rung, named (without a Growth Brain, total sales and the
+     margin wording of **Without a Growth Brain**).
 2. **Headline**: one sentence stating the outcome, for example that last year's Black Friday
    weekend brought more (or fewer) contribution margin per day than the year before it, and which
    term moved it.
@@ -48,6 +50,7 @@ chat and fills in here once it is.
    its evidence sits on, then at most one
    "Judgement call" in its own row.
 5. **Notes**: the footnote, one block holding every method caveat, and no caveat on any other page.
+   On a run without a Growth Brain, the Brain line is the last line of the Notes.
 
 ## Page 2: Offer
 
@@ -122,6 +125,37 @@ Heading: **Plan for** this year's calendar year. Under it, seven headings in thi
    on the named rung) or "Not agreed".
 7. **Watch list**: 3 to 5 rows, each a number to watch on the day, what it should read, and last
    year's figure for the same day from Black Friday.
+
+## Without a Growth Brain
+
+A run without a Growth Brain keeps every heading. A section no Source holds keeps its heading and
+reads "No data" with its plain reason; the page never says "coming soon". The wording is fixed:
+
+| Case | Wording |
+|---|---|
+| Orders, from a file | Orders come from your Shopify orders export. |
+| Orders, from a connector | Orders come from your Shopify account. |
+| A section no Source holds | <Section> has no data in this run: no source here holds <what it needs, in plain words, such as your visits by landing page>. |
+| Targets, with no budget Source | Your targets were not tested: no source here holds your budget. |
+| Revenue | Revenue is total sales, by order date, as <Source in plain words> records it. |
+| Margin, with cost | Gross profit, as Shopify records it. |
+| The CM3 row, with cost | Gross profit less marketing, with spend shown as No data until a source holds it. |
+| Margin, with no cost | Margin has no data: <Source in plain words> carries no product costs. |
+| Timezone, a Source names one | Days follow the timezone <Source in plain words> reports in, <timezone>. |
+| Timezone, no Source names one | <Source in plain words> does not say which timezone it reports in, so days may be cut differently from your store's. |
+| Timezone, Sources differ | Days are read in <timezone> for <Source in plain words> and in <timezone> for <Source in plain words>, the same in both years. |
+| Test orders, a Source with no flag | <Source in plain words> carries no test-order flag, so any test orders are counted. |
+| Cancelled orders | Cancelled orders are <left out or counted>, as <Source in plain words> records them. |
+| A currency no Source states, confirmed by the user | <Source in plain words> does not say which currency it reports in; amounts are in <currency>, as you confirmed. |
+| A connector refused a read | <Source in plain words> refused a read, so nothing was taken from it. |
+
+Page 5 keeps its month blocks on such a run: every cell of the Target test table reads "No data",
+and the Lever gap and Scenarios sub-headings read "No data: your targets were not tested".
+
+**The Brain line.** Said once, as the last line of the Overview's notes, and once in the chat, on a
+run without a Growth Brain; never on a run with one. Its words are fixed: "A Growth Brain adds
+margin after every cost (CM3), one source for every figure, and your budget, Klaviyo and cohort
+reads with no exports. Get one at gocrux.io/contact."
 
 ## The window table
 

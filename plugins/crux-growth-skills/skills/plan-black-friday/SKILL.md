@@ -1,6 +1,6 @@
 ---
 name: plan-black-friday
-description: Black Friday planning on the brand's own Growth Brain. Use when the user asks to plan Black Friday or the festive peak, to check their November targets, or how last year's Black Friday performed.
+description: Plan Black Friday and the festive peak from last year's data. Use when the user asks to plan Black Friday or the festive peak, to check their November targets, or how last year's Black Friday performed. Best on the brand's own Growth Brain; also works without one.
 ---
 
 # Black Friday plan
@@ -12,19 +12,27 @@ budget", in chat and on the page, never "the sheet" or a table name. The user se
 and the page, never this skill or its references: say what the data showed, in plain words with
 its figure, and never cite a catalogue number, a trigger, a threshold, a file or a rule, or say
 that something "fired". The terms Baseline, Lead-in, Black Friday weekend,
-Festive, Lift, Last-year level, Target test, Lever gap, Scenario, Daily phasing and Black Friday
-plan are those of `references/glossary.md`; use them as written.
+Festive, Lift, Last-year level, Target test, Lever gap, Scenario, Daily phasing, Black Friday
+plan, Source and Brain line are those of `references/glossary.md`; use them as written.
 
 ## 1. Read
 
-**Connect.** Look for a connector named `<Client> - Growth Brain` that offers `list_tables`,
-`list_metrics`, `search_examples` and `run_sql`. With none, tell the user in one line that
-Black Friday planning reads their own data through a Crux Growth Brain, which isn't connected in
-this session: if they have one, connect it and ask again; if not, they can get one at
-gocrux.io/contact. Then stop: run no query and call no other tool. With several, ask
-which one.
+**Connect.** Take each section's figures from the first of these Sources that holds it, as the
+table in `references/exports.md` sets out:
 
-**Discover.** Call `list_tables` once with no arguments for the roster. Call it again naming
+1. **A Growth Brain**: a connector named `<Client> - Growth Brain` that offers `list_tables`,
+   `list_metrics`, `search_examples` and `run_sql`. With several, ask which one.
+2. **Platform connectors** in the session: Shopify, GA4, Google Ads, Meta Ads, Klaviyo.
+3. **Files the user gives**: CSV exports. A file already in the conversation counts.
+
+A section takes the first Source that holds it, and reads that one Source across every year. The
+orders spine (the headline, the Offer order figures, Repeat customers and Cohorts) always comes
+from one Source, so its figures tie. A section no Source holds reads "No data" with its plain
+reason (`references/plan-layout.md`). Nothing here stops a run without a Growth Brain: it runs on
+the connectors and files, and says the Brain line (`references/plan-layout.md`) once on the page
+and once in the chat.
+
+**Discover.** With a Growth Brain, call `list_tables` once with no arguments for the roster. Call it again naming
 only `<client>-orders` and `<client>-channel_reporting` (`<client>` is the prefix the roster
 carries), one table per call: a call naming two marts can overflow the reply. If either is
 missing from the roster, tell the user in one line which one and stop.
@@ -33,11 +41,39 @@ drops its part of the page, with one line saying so. `meta_performance` and
 `google_ads_performance` are optional: name each in a `list_tables` call only when the roster
 lists it.
 
+**Probe only what could be a Source.** Before a connector is offered as a Source, make one small
+read from it: a figure for one day inside last year's Baseline (1 September of last year),
+through the tool the section will read it with. Probe each connector that
+`references/exports.md` lets a section read, and no other. An error or a refusal makes it a
+Source for no section: tell the user what it refused. A read that returns zero is not a refusal.
+A Growth Brain whose roster holds a section's marts leaves that section nothing to probe: probe
+no connector for it and offer none.
+
+**Timezone and currency.** With a Growth Brain, unchanged: the timezone rule under Windows below,
+and the currency the brain's figures carry. Without one, days follow the timezone each Source
+reports in (a connector's from its account details; a file's as `references/exports.md` sets out),
+with no conversion between Sources, and the Notes name them in the wording of
+`references/plan-layout.md`. The currency is the one the Source reports in; where none states
+it, the one ask below carries the question.
+
 **Windows.** Open `references/windows.sql`. Put its CTEs ahead of every query and join to them
 for dates, so Baseline, Lead-in, Black Friday weekend and Festive are computed in one place.
 Type no date by hand, and keep the years to last year and the year before it. Where the
 brain's own instructions name the store's timezone, write every `CURRENT_DATE()` in those CTEs
 as `CURRENT_DATE('<timezone>')`, so yesterday and this year are the store's own.
+
+**Windows without a brain.** Compute the dates once from the glossary definitions, for last year
+and the year before it: Black Friday is the last Friday of November; Baseline is 1 September to
+31 October; Lead-in is 1 November to the day before Black Friday; Black Friday weekend is Black
+Friday to Cyber Monday; Festive is the day after Cyber Monday to 24 December. Write the dates out
+as a list (in the one ask where there is one, else in your first message about the read), and read
+every connector and file on them. `references/windows.sql` is the Growth Brain path's only date
+source.
+
+**The one ask.** Run it only when some section's Source is a file. Send one message listing every
+report the run still needs, each with its export steps and date range from `references/exports.md`,
+and the currency where no Source states it; then wait for the reply. A report the user does not
+give makes its section read "No data" with its reason.
 
 **Basis.** Apply to the headline and to every section.
 
@@ -64,12 +100,22 @@ as `CURRENT_DATE('<timezone>')`, so yesterday and this year are the store's own.
 - Leave out test orders in every query, wherever a mart flags them.
 - Express every change as a relative percentage.
 - A window with no rows reads "No data" in its cell.
+- **Without a Growth Brain**, read every figure the brain reads from `<client>-orders` from the
+  orders file or the Shopify connector instead (`references/exports.md`), by order date:
+  revenue is total sales; order value is revenue over orders; new customers are the orders
+  flagged new; returning customer orders are orders less new orders; discount depth is discounts
+  over gross sales on orders with discounts above zero; discount rate is the share of orders with
+  discounts above zero. Where the file carries cost, margin is total sales less cost, labelled
+  "Gross profit, as Shopify records it", and the CM3 row reads "Gross profit less marketing";
+  without cost every margin cell reads "No data", and while spend has no Source the CM3 row does
+  too. Name total sales and the margin label on the page.
 
 **Headline.** For Black Friday weekend of last year and of the year before it, read the
 growth equation: new customers, returning customer orders, order value and CM3 (or "CM1 less
 marketing"). Read each against that year's Baseline. Returning customer orders are orders less
 new orders: few customers order twice inside one window, so repeat buying shows as returning
-orders, not as orders per customer. Order value is revenue over orders.
+orders, not as orders per customer. Order value is revenue over orders. Without a Growth Brain, these terms are those of the
+Basis bullet for it.
 
 **Offer.** Read conversion, discount depth, discount rate, order value and margin %, for
 Baseline, Lead-in, Black Friday weekend and Festive in both years.
@@ -82,15 +128,22 @@ Baseline, Lead-in, Black Friday weekend and Festive in both years.
   `<client>-orders`.
 - List the ten landing pages with the most weekend visits, each with orders, conversion and
   last year's conversion alongside, and the site's conversion above them.
+- Without a Growth Brain, read discount depth, discount rate, order value and margin % from the
+  orders file as the Basis bullet sets out; conversion and the landing pages read "No data", with
+  the plain reason that no Source in this run holds visits.
 
 **Merchandising.** Call `list_tables` for `<client>-order_items`: every product figure comes from
 it. Show units, revenue and margin per day by window, then rank the five
 products with the most revenue in Black Friday weekend of last year. Each product row carries
 units, revenue, margin, margin %, share of the weekend's margin, average discount and margin
-per unit, and the year before it for the same product. A figure the table lacks reads "No data".
+per unit, and the year before it for the same product. A figure the table lacks reads "No data". Without a
+Growth Brain, the whole section reads "No data" with the plain reason that no Source in this run
+holds products.
 
 **Marketing.** Four parts. Acquisition, Retention and Repeat customers each have their own window
-table; Cohorts has its own cohort table.
+table; Cohorts has its own cohort table. Without a Growth Brain, Acquisition and Retention read
+"No data", each with the plain reason that no Source in this run holds it; Repeat customers and
+Cohorts follow.
 
 - *Acquisition*: visits, new customers, spend and CAC (spend over new customers) per day by
   window, from `<client>-channel_reporting`. Rank the five paid campaigns (spend above
@@ -109,7 +162,9 @@ table; Cohorts has its own cohort table.
   orders (orders from customers with an earlier order, from `<client>-orders`) and the 90-day
   reorder of the window's new customers (the share who place a second order within 90 days of
   their first), from `<client>-orders`, or from `<client>-ltv_retention` where that carries the
-  cohort directly. Name in `list_tables` only the one you use.
+  cohort directly. Name in `list_tables` only the one you use. Without a Growth Brain, read both
+  from the orders file: returning customers' share of orders is returning customer orders over
+  orders, and the 90-day reorder is by customer ID.
 - *Cohorts*: Black Friday brings many customers who buy once and never again, so test whether
   last year's weekend customers were worth having. Take the new customers of Black Friday weekend
   and of Baseline, in both years, as four cohorts. For each, at 30, 90 and 180 days from each
@@ -118,7 +173,10 @@ table; Cohorts has its own cohort table.
   cohort window's CAC, and the share who had bought only once by 180 days. Read from
   `<client>-ltv_retention` where it carries these cohorts, else from `<client>-orders`, naming in
   `list_tables` only the one you use. 180 days is the longest horizon
-  every cohort has completed; a horizon a cohort has not reached reads "Too recent".
+  every cohort has completed; a horizon a cohort has not reached reads "Too recent". Without a
+  Growth Brain, build the four cohorts from the orders file by customer ID, with the same
+  measures at the same horizons; the CAC beside the 180-day margin reads "No data" while spend
+  has no Source.
 
 **Opportunities.** Open `references/opportunities.md` once the sections are read. Test
 each pattern's trigger against the figures just read, and name the 3 to 5 that fire, largest
@@ -128,7 +186,14 @@ most one judgement call of your own that no pattern covers, marked "Judgement ca
 opportunity carries a short plain title of what was found (for example "Weekend customers rarely
 come back"), its evidence figure, this year's action, the metric to watch on the day and the
 page its evidence sits on. Number the opportunities 1, 2, 3 in the order the Overview lists them;
-that opportunity number and title are the only way the chat refers to one. Say nothing of patterns that did not hold.
+that opportunity number and title are the only way the chat refers to one. Say nothing of patterns that did not hold. A pattern whose figures read "No data" did not hold.
+
+**Without a Growth Brain, done when** the Sources are named, the one ask (when a file is a Source) is
+answered or its reports marked "No data", the dates are written out, the headline, the Offer
+order figures, Repeat customers and Cohorts each show last year, the year before it and each
+window's Lift over Baseline from one Source, or a one-line reason; every section no Source holds
+reads "No data" with its plain reason; and the Brain line is ready for the Overview's notes and
+the chat.
 
 **Done when** the headline, Offer, Merchandising, Acquisition, Retention and Repeat customers each show last year, the year
 before it and each window's Lift over Baseline, or a one-line reason it is absent; Cohorts shows
@@ -142,6 +207,10 @@ where the roster lists them; and the 3 to 5 opportunities
 each carry evidence, action and metric (fewer only when fewer were found).
 
 ## 2. Target test
+
+**Without a Growth Brain**, no Source in this run holds your budget: every target reads "No data"
+with that reason on page 5, and steps 3 to 5 shorten as each says. The rest of this step is the
+Growth Brain path.
 
 **Read the plan.** Call `list_tables` naming only `<client>-daily_budget_versus_actuals`. Take
 the rows keyed `channel = 'all'` and `country_code = 'all'` (the other rows split the same plan
@@ -191,7 +260,8 @@ target carries its revised figure; the revenue rung is named; and the plan month
 
 ## 3. Lever gap
 
-Skip a month in which every target is Achievable and say so in one line. For each month with a
+Without a Growth Brain, skip this step: page 5's Lever gap and Scenarios sub-headings read "No
+data" with the reason of step 2. Otherwise skip a month in which every target is Achievable and say so in one line. For each month with a
 Stretch or Unrealistic target, build the Lever gap table from the growth equation. Each row is
 read against the last-year level (step 2), and each reads off one target:
 
@@ -212,6 +282,12 @@ gap through one lever with the other two held at the last-year level.
 single-lever Scenarios.
 
 ## 4. Grill
+
+**Without a Growth Brain**, write the page and give the opening message below, without the
+"Agreeing your plan" block, and stop: there are no targets to agree, so run no rounds and skip
+step 5. Page 6 reads "Not agreed" under every heading and its Summary says no plan was agreed
+because no Source in this run holds your budget. The opening message ends with the Brain line,
+once, and gives the page's path.
 
 **Start.** Open `references/plan-layout.md` and write `black-friday-plan.html` in the working
 folder: pages 1 to 5 as steps 1 to 3 produced them, and every Plan heading reading "Not
@@ -256,10 +332,16 @@ recommendation. Ask the next round only after the user has answered the one befo
 A Judgement call joins the round of its section. Keep the agreed list: what is agreed under
 each of the seven Plan headings.
 
+**Without a Growth Brain, done when** the page holds all six pages with every heading in
+`references/plan-layout.md`, each section its figures or its "No data" line, the Brain line once
+in the Overview's notes, and the opening message has given the page's path and the Brain line.
+
 **Done when** all four rounds are answered or accepted by "just write it", and every Plan heading
 is agreed or marked Not agreed.
 
 ## 5. Plan
+
+Without a Growth Brain, skip this step (step 4 ended the run).
 
 **Daily phasing.** For each month with agreed targets, compute the Daily phasing in `run_sql`,
 with the agreed targets as literals and the dates from `phasing_days` in
@@ -283,7 +365,8 @@ agreed spend over the agreed new orders.
 
 Tell the user where the page is, give the agreed plan in one sentence, and name the CSV
 button: it holds the daily targets, ready for a spreadsheet or their budget. Never offer to load
-it for them or say Crux will.
+it for them or say Crux will. On a run without a Growth Brain, the final chat message adds the
+Brain line.
 
 **Done when** the page has all six pages, each opening with its Summary, with every heading in `references/plan-layout.md`; every
 table has a cell for each row and column (or "No data"); each section without figures carries
