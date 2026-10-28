@@ -922,8 +922,8 @@ inside** another when its segment is part of the lever the other acts on:
 
 | A card acting on | Segments that sit inside it |
 |---|---|
-| New customer orders (a Budget gap on that lever) | a customer-type fall on new customers; a channel's CAC gap or LTV gap |
-| Returning customer orders (a Budget gap on that lever) | a customer-type fall on returning customers; a returning-customer cohort's card on `ret-recs` |
+| New customer orders (a Budget gap on that lever) | a customer-type fall on new customers; a channel's CAC gap or LTV gap; a first-order cohort card on `ret-recs` |
+| Returning customer orders (a Budget gap on that lever) | a customer-type fall on returning customers; a win-back or repeat-purchase cohort card on `ret-recs` |
 | AOV (a Budget gap on that lever, or an AOV fall) | an AOV slip; a category gap |
 | A channel (a CAC gap or a Waste gap) | a campaign of that channel |
 
