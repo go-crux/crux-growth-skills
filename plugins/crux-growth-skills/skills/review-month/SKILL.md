@@ -20,9 +20,9 @@ Recommendation, Next month, Last month's actions and Unattended run are those of
 
 Open `references/intake.md` and run it: the month, the Source, the brand, the Month context, up to
 two Focus questions and last month's review with the status of each of its actions, in numbered
-rounds with a recommendation to each question. A first message that names the month and the Source
-is an Unattended run: it asks nothing at this step or any other, and takes every choice from the
-Unattended contract there.
+rounds with a recommendation to each question but the Month context. A first message that names the
+month and the Source is an Unattended run: it asks nothing at this step or any other, and takes
+every choice from the Unattended contract there.
 
 **Done when** the month, the Source, the brand, the Month context (or none), the Focus questions
 (none, one or two, each with its Section) and the previous review's actions with their statuses (or
