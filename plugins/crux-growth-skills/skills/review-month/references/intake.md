@@ -111,7 +111,7 @@ An Unattended run asks the user nothing, at any step. Each choice is made as fol
 
 - **Month and Source**: as the message names them. Several Growth Brains: the one the message
   names, else the first the session lists, and the Notes say which one was read. A currency no
-  Source states shows amounts with no symbol, and the Notes' Currency line takes its no-currency
+  Source states shows amounts with no symbol, and the Notes' Currency caveat takes its no-currency
   wording from `references/deck-layout.md`.
 - **Focus questions**: none, so no Focus slides.
 - **Month context**: none.

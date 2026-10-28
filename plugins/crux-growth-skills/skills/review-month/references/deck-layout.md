@@ -158,7 +158,7 @@ up to 100%) and the script shows one. Only the charts marked "yes" carry it: nev
 rate (conversion, CAC, AOV, discount rate, LTV) and never the customer base. A printed page shows
 the view on screen.
 
-**Comparison columns.** Every table slide, and the table of `last-actions`, carries these columns in
+**Comparison columns.** Every table slide carries these columns in
 this order: this month, last month, MoM %, same month last year, YoY %. Add budget and v budget %
 (after YoY %) only where the Source holds a budget, on the rows it holds one for; a Source with no
 budget carries no budget column. A **Stat row** figure carries the same deltas beneath it as
@@ -178,7 +178,7 @@ more and to one decimal below it. A delta carries ▲ or ▼ and is coloured: th
 the down colour for a fall, neutral for no change. A marketing spend figure is always neutral,
 since spend rising is neither good nor bad alone. A CAC figure is coloured by whether the move is
 good: a fall takes the up colour and a rise the down colour, with ▲ or ▼ still showing the
-direction. A slide that states its own columns below (`app-trading-markets`, `app-acq-channels`,
+direction. A slide that states its own columns below (`last-actions`, `app-trading-markets`, `app-acq-channels`,
 `app-acq-campaigns`, `app-acq-ltv-channel`, `app-ret-cohort`, `app-ret-ltv`, the LTV Appendix
 slides, `app-line-items`, `app-aov-product`, `app-aov-codes`) uses those: it holds too many
 measures for five columns each, or reads a cohort window rather than a month.
@@ -886,7 +886,7 @@ sized as its Current period new orders times that gap per customer; where the br
 revenue, the gap is in that measure, so the card says so and its revenue at stake is worked on the
 Revenue basis from the same customers. **Waste gap**: a paid channel or a named campaign with spend in
 the Current period and 0 new orders, so its CAC reads "No data" and the CAC gap never reaches it,
-sized as its Current period spend. The "No campaign" row is unallocated spend, never a waste gap,
+sized as its Current period spend, which stands as its revenue at stake for ranking and the 1% floor. The "No campaign" row is unallocated spend, never a waste gap,
 and the Unknown row carries no spend. A campaign is read from the same campaign figures as
 `acq-campaigns`, the whole list and not only the ranking. Action title: as `trading-recs`.
 

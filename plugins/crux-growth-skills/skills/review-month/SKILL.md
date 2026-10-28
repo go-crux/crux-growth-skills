@@ -1,6 +1,6 @@
 ---
 name: review-month
-description: Write the monthly performance review, a month-end wrap-up deck of how last month went across trading, acquisition, retention and order value, with what to do next. Use when someone asks for a monthly review, a month-end wrap-up, or "how did last month go". Best on the brand's own Growth Brain; also works without one.
+description: Write the monthly performance review, a slide deck of how last month went across trading, acquisition, retention and order value, with what to do next. Use when the user asks for a monthly review, a month-end wrap-up, or "how did last month go". Best on the brand's own Growth Brain; also works without one.
 ---
 
 # Monthly performance review
@@ -52,7 +52,7 @@ intake settled.
 **Done when** the one Growth Brain chosen has its roster, its metric index, the definitions for the
 measures the deck shows and its examples in hand, or there is none and each connector the session
 offers has had one probe read, with any that refused or could not be told to be the brand's named
-to the user (in the Notes on an Unattended run) and any export a figure needs asked for once or its
+to the user (in the Notes on an Unattended run) and any export a figure needs asked for once (never on an Unattended run) or its
 figure marked "No data"; the timezone and the currency are set; and the Current period is a
 calendar month set as start and end dates, with the Comparison periods (last month, the same month
 last year) set from it.
@@ -167,7 +167,8 @@ takeaway with a figure for each of Acquisition, Retention & LTV, and Order value
 data slide has a Takeaway panel that restates neither its Action title nor a Recommendation; every
 Section divider has a verdict with a figure (or the fixed line where all its slides are Brain slots), and the Appendix divider its fixed line; a Month context the user gave appears on each
 slide it bears on and in the Executive summary's takeaways, and no slide states a cause that neither the Month context nor
-the data supports; and every content slide has an Action title of one full sentence with a figure.
+the data supports; and every content slide has an Action title of one full sentence with a figure, bar the ones
+`references/deck-layout.md` (Action title, Brain slot) exempts.
 
 ## 5. Write
 

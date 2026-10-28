@@ -21,7 +21,7 @@ growth equation: trading, then acquisition, retention and LTV, then order value 
 
 - **Layout**: one of the seven fixed slide shapes every slide maps to: cover, section divider, stat slide, chart slide, table slide (Appendix only), cards slide, text slide. Each has its grid in the skeleton CSS. _Avoid_: template, slide type.
 
-- **Brain slot**: a slide the Sources could not fill. It keeps its action title, saying what it would show, and its body is one fixed line naming the data it needs and that a Growth Brain provides it (gocrux.io/contact); on a run with a brain, the line names the mart or column the brain lacks instead. The appendix slides are always Brain slots without a brain. _Avoid_: placeholder, empty slide, upsell slide.
+- **Brain slot**: a slide the Sources could not fill. It keeps its action title, saying what it would show, and its body is one fixed line naming the data it needs and that a Growth Brain provides it (gocrux.io/contact); on a run with a brain, the line names the mart or column the brain lacks instead. The Appendix slides marked brain only are always Brain slots without a brain. _Avoid_: placeholder, empty slide, upsell slide.
 
 - **Brain line**: the one fixed line closing the Notes on a run without a Growth Brain, saying what a brain adds and pointing at gocrux.io/contact. Said once, unlike a Brain slot. _Avoid_: upsell, plug, disclaimer.
 
