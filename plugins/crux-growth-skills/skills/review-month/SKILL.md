@@ -59,8 +59,8 @@ last year) set from it.
 
 ## 3. Read
 
-Read the Trading, Acquisition, Retention & LTV and Order value & product Sections, and the three
-Appendix slides, from the Source, with dates from `periods`. On a Growth Brain compose every query
+Read the Trading, Acquisition, Retention & LTV and Order value & product Sections, and the Appendix
+slides, from the Source, with dates from `periods`. On a Growth Brain compose every query
 for `run_sql` from the columns `list_tables` returns, one mart per call and one pull for every mart
 read, the ad platform marts included, and take each figure's mart and basis from
 `references/sources.md`; without one, read the connectors and files as its Connectors and exports
@@ -72,14 +72,15 @@ revenue, orders and new orders against an unfiltered total of your orders for th
 marketing spend against channel reporting (without a brain, against each ad platform's own total).
 On a Source that is not a Growth Brain, a slide is built where the Slides without a Growth Brain
 table in `references/deck-layout.md` says that Source fills it and is a Brain slot otherwise, and
-the Appendix is a Brain slot whatever the connectors and files hold. Last month's actions is built on every
+the three Appendix slides that are brain only are Brain slots whatever the connectors and files hold,
+and the other Appendix slides are built where their main slide is. Last month's actions is built on every
 Source: read what each action's metric did, last month against this month, as
 `references/deck-layout.md` sets out. For each Focus question, read the figures its Focus slide
 needs, from its Section's own slides where they hold them.
 
 **Done when** every Trading, Acquisition, Retention & LTV and Order value & product slide and every
 Appendix slide has its figures or its Brain slot (without a Growth Brain, built where the table
-says its Source fills it and a Brain slot otherwise, the Appendix always a Brain slot), a conditional slide (markets, subscriptions,
+says its Source fills it and a Brain slot otherwise, the brain-only Appendix slides always Brain slots), a conditional slide (markets, subscriptions,
 discount codes) being present only where the business has it; every action of the previous review
 has its metric's last month and this month figures or "No data"; every Focus question has its
 figures, or its Focus slide is a Brain slot; and:
@@ -123,16 +124,19 @@ A figure the Source cannot give reads "No data" or its slide is a Brain slot; no
 Write up to three Recommendation cards for each of Trading, Acquisition, Retention & LTV and Order
 value & product from that Section's own figures, each with its title, evidence figure, action,
 metric to watch and how to validate it, ranked by revenue at stake, as `references/deck-layout.md`
-sets out. Then write the Executive summary, led by the Focus questions, and Next month from every
-Section that holds cards, with the Month context in place of any cause the figures do not show,
-and each Action title last.
+sets out. Then write Next month from every Section that holds cards, each data slide's Takeaway
+panel, each divider's verdict, and the Executive summary, led by the Focus questions, with the
+Month context in place of any cause the figures do not show, and each Action title last.
 
 **Done when** every Trading, Acquisition, Retention & LTV and Order value & product card carries a
 figure from its own Section's slides and an action, a metric to watch and Test, Watch next month or
 Ship; Next month holds the three distinct gaps with the most revenue at stake (a card that
 duplicates or sits inside a larger one gives way), or fewer where fewer exist; every Focus question
-leads the Executive summary in Performance and Read; a Month context the user gave appears on each
-slide it bears on and in the Read, and no slide states a cause that neither the Month context nor
+leads the Executive summary; the Executive summary holds the four Stat row figures and one
+takeaway with a figure for each of Acquisition, Retention & LTV, and Order value & product; every
+data slide has a Takeaway panel that restates neither its Action title nor a Recommendation; every
+divider has a verdict with a figure (or the fixed line where all its slides are Brain slots); a Month context the user gave appears on each
+slide it bears on and in the Executive summary's takeaways, and no slide states a cause that neither the Month context nor
 the data supports; and every content slide has an Action title of one full sentence with a figure.
 
 ## 5. Write
@@ -145,7 +149,7 @@ summary, using the skeleton of `references/deck-layout.md` with the brand's valu
 of `references/crux-brand.md`, and each slide built to the craft of `references/slide-craft.md`.
 
 **Done when** the file holds every slide of the slide list in order (conditional slides only
-where the business has them), each one filled from the Source or a Brain slot, and one Focus slide for each Focus question, Last month's actions
+where the business has them), each one filled from the Source or a Brain slot, and one Focus slide for each Focus question, every stat and chart slide holding its Takeaway panel, Last month's actions
 holds one row for each action of the previous review or its fixed line, the brand's values are the
 only change to the skeleton's CSS (the Crux default where the brand has no look of its own), every slide has the footer, each built chart marked for a Share
 toggle carries one and no other chart does, the Notes carry their three headings (and the Brain line,

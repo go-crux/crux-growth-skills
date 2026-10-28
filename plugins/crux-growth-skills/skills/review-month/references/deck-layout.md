@@ -20,51 +20,58 @@ Slide ids are stable names for the build; a slide's position follows the order b
 conditional slide moves the later ones up. A **Focus question** adds one slide directly after its
 Section's divider, with an Action title of its own.
 
-| Id | Slide | Chart | Share toggle | Built |
-|---|---|---|---|---|
-| `cover` | Cover | brand name, "Monthly performance review", the Current period as "March 2026" | no | here |
-| `exec-summary` | Executive summary | three columns: Performance / Read / Actions | no | here |
-| `last-actions` | Last month's actions | table of actions | no | here |
-| `trading-divider` | Trading | divider | no | here |
-| `trading-kpi` | Trading KPIs | KPI table | no | here |
-| `trading-revenue` | Revenue, new vs returning | stacked columns, 24 months | yes | here |
-| `trading-customers` | Customer base | columns above and below the axis, 24 months | no | here |
-| `trading-markets` | Markets (conditional) | markets side by side | no | here |
-| `trading-recs` | Trading Recommendations | up to three cards | no | here |
-| `acq-divider` | Acquisition | divider | no | here |
-| `acq-blended` | Blended traffic, conversion and CAC | small multiples, 24 months | no | here |
-| `acq-channels` | Channel mix | table | no | here |
-| `acq-paid-organic` | Paid vs organic | 100% bar now, 12-month line | yes | here |
-| `acq-campaigns` | Top campaigns, one slide per connected ad platform | tables, top 10 | no | here |
-| `acq-ltv-channel` | LTV by acquisition channel | ranked horizontal bars | no | here |
-| `acq-recs` | Acquisition Recommendations | up to three cards | no | here |
-| `ret-divider` | Retention & LTV | divider | no | here |
-| `ret-cohort` | Cohort retention | shaded table, 12 cohorts by months 0 to 12 | no | here |
-| `ret-ltv` | Cohort LTV against the average | cumulative lines, average in bold | no | here |
-| `ret-subscriptions` | Subscription mix (conditional) | line, 24 months, with a small table | no | here |
-| `ret-recs` | Retention & LTV Recommendations | up to three cards | no | here |
-| `aov-divider` | Order value & product | divider | no | here |
-| `aov-trend` | AOV, new / returning / blended | three lines, 24 months | no | here |
-| `aov-product` | Product and category mix | table, and stacked columns of sales by category, 24 months | yes | here |
-| `aov-discount` | Discount impact | small multiples: discount rate line, discount depth columns, discounted vs full-price orders | yes, on discounted vs full-price orders only | here |
-| `aov-codes` | Discount codes (conditional) | table | no | here |
-| `aov-recs` | Order value & product Recommendations | up to three cards | no | here |
-| `next-month` | Next month | top three cards across Sections | no | here |
-| `app-ltv-category` | Appendix: LTV by order category | ranked horizontal bars | no | here, brain only |
-| `app-ltv-type` | Appendix: LTV by order type | ranked horizontal bars | no | here, brain only |
-| `app-line-items` | Appendix: line items | table | no | here, brain only |
-| `notes` | Notes | Sources, definitions, caveats | no | here |
+| Id | Slide | Layout | Evidence | Share toggle | Built |
+|---|---|---|---|---|---|
+| `cover` | Cover | cover | brand name, "Monthly performance review", the Current period as "March 2026" | no | here |
+| `exec-summary` | Executive summary | text slide | four headline figures with their deltas, three numbered takeaways | no | here |
+| `last-actions` | Last month's actions | cards slide | table of actions | no | here |
+| `trading-divider` | Trading | section divider | verdict, contents | no | here |
+| `trading-kpi` | Trading KPIs | stat slide | Stat row of four | no | here |
+| `trading-revenue` | Revenue, new vs returning | chart slide | stacked columns, 24 months | yes | here |
+| `trading-customers` | Customer base | chart slide | columns above and below the axis, 24 months | no | here |
+| `trading-markets` | Markets (conditional) | chart slide | ranked bars, top 5 markets | no | here |
+| `trading-recs` | Trading Recommendations | cards slide | up to three cards | no | here |
+| `acq-divider` | Acquisition | section divider | verdict, contents | no | here |
+| `acq-blended` | Blended traffic, conversion and CAC | chart slide | small multiples, 24 months | no | here |
+| `acq-channels` | Channel mix | chart slide | table | no | here |
+| `acq-paid-organic` | Paid vs organic | chart slide | 100% bar now, 12-month line | yes | here |
+| `acq-campaigns` | Top campaigns, one slide per connected ad platform | chart slide | tables, top 10 | no | here |
+| `acq-ltv-channel` | LTV by acquisition channel | chart slide | ranked horizontal bars | no | here |
+| `acq-recs` | Acquisition Recommendations | cards slide | up to three cards | no | here |
+| `ret-divider` | Retention & LTV | section divider | verdict, contents | no | here |
+| `ret-cohort` | Cohort retention | chart slide | shaded table, 12 cohorts by months 0 to 12 | no | here |
+| `ret-ltv` | Cohort LTV against the average | chart slide | cumulative lines, average in bold | no | here |
+| `ret-subscriptions` | Subscription mix (conditional) | chart slide | line, 24 months, with a small table | no | here |
+| `ret-recs` | Retention & LTV Recommendations | cards slide | up to three cards | no | here |
+| `aov-divider` | Order value & product | section divider | verdict, contents | no | here |
+| `aov-trend` | AOV, new / returning / blended | chart slide | three lines, 24 months | no | here |
+| `aov-product` | Product and category mix | chart slide | table, and stacked columns of sales by category, 24 months | yes | here |
+| `aov-discount` | Discount impact | chart slide | small multiples: discount rate line, discount depth columns, discounted vs full-price orders | yes, on discounted vs full-price orders only | here |
+| `aov-codes` | Discount codes (conditional) | chart slide | table | no | here |
+| `aov-recs` | Order value & product Recommendations | cards slide | up to three cards | no | here |
+| `next-month` | Next month | cards slide | top three cards across Sections | no | here |
+| `app-trading-kpi` | Appendix: Trading KPIs | table slide | the full KPI table | no | here |
+| `app-trading-markets` | Appendix: Markets (conditional) | table slide | every market | no | here |
+| `app-ltv-category` | Appendix: LTV by order category | table slide | ranked table | no | here, brain only |
+| `app-ltv-type` | Appendix: LTV by order type | table slide | ranked table | no | here, brain only |
+| `app-line-items` | Appendix: line items | table slide | table | no | here, brain only |
+| `notes` | Notes | text slide | Sources, definitions, caveats | no | here |
+
+The Appendix table slides stand in the order of the main slides they come from (`app-trading-kpi`
+and `app-trading-markets` for Trading), ahead of the slides that are Appendix only. Each is a Brain
+slot when its main slide is, and `app-trading-markets` is dropped when `trading-markets` is.
 
 **Focus slides.** Each Focus question the intake settled adds one slide, `focus-1` and `focus-2`,
 directly after its Section's divider, in the order the questions were given; its `data-section` is
-that Section's. A run with no Focus question has none. The Focus slide carries no Share toggle.
+that Section's. A run with no Focus question has none. The Focus slide is a chart slide and carries no Share toggle.
 
 "Built: here" means this file specifies the slide in full below. On a Growth Brain it is built
 from the brain, and where a mart the slide reads is missing from the roster it is written as its
 Brain slot (**Brain slot wording** below). On the ad account and Shopify connectors or CSV exports
 it is built where **Slides without a Growth Brain** below says that Source fills it, and written as
 its Brain slot where it does not. "Here, brain only" is a slide no other Source fills: it is a
-Brain slot on every run without a Growth Brain, whatever the connectors hold (ADR-0002).
+Brain slot on every run without a Growth Brain, whatever the connectors hold (ADR-0002). An
+Appendix table slide with no "brain only" is built wherever its main slide is.
 `last-actions` is built on every Source, since it reads the previous review and not a Growth
 Brain. The campaigns slide repeats once per connected ad platform.
 
@@ -78,11 +85,21 @@ slide's own figures: "Revenue rose 8% to £1.2m as returning customers carried t
 "Revenue trend". A title states what the figures show and no cause the Month context or the data
 does not support.
 
+**Takeaway panel.** Every data slide (a stat slide or a chart slide) carries one in its right third,
+as `references/slide-craft.md` sets out: up to three lines under the labels **So what**, **Why** and
+**Watch**, about 35 words in all, written last from the slide's own figures. Its So what never
+restates the Action title; its Why is left out where neither the data nor the Month context shows a
+cause, and draws on the Month context where one bears on the slide; its Watch names one figure and
+the level that matters. It states no Recommendation. A table slide, a divider, a cards slide, a text
+slide and a Brain slot carry none.
+
 **Month context.** Where the intake settled a Month context that bears on a slide's figures (a
 promotion on the revenue slides, a stockout on a category, a tracking change on traffic and
-channels), the slide carries it as one line beneath its content, "You told us: `<the user's words,
-trimmed to one sentence>`.", in place of any guessed cause. The Executive summary's Read uses it the
-same way. A slide it does not bear on carries no such line.
+channels), the slide carries it in place of any guessed cause. A stat or chart slide puts it in the
+Why of its Takeaway panel, in the user's words trimmed to a clause and followed by "(your note)"; any
+other slide carries it as one line beneath its content, "You told us: `<the user's words, trimmed to
+one sentence>`.". The Executive summary's takeaways use it the same way. A slide it does not bear on
+carries no such line.
 
 **Measure names.** On a Growth Brain, a slide's title, axis, column header, card and Action title name
 each measure as the brain defines it, with its unit ("margin per customer" where the brain's LTV is
@@ -100,11 +117,12 @@ On a run with a Growth Brain the slot names what the brain lacks instead, a mart
 
 > This slide needs `<data>`, and your Growth Brain holds no `<plain name>`.
 
-"gocrux.io/contact" links to https://gocrux.io/contact. The slot is a muted panel; its footer is
-the same as any slide's. Each of the two lines is fixed, and the second belongs only to a run with
+"gocrux.io/contact" links to https://gocrux.io/contact. The slot keeps its Layout's header and
+replaces the Layout's body with a muted panel, with no Takeaway panel; its footer is the same as any
+slide's. Each of the two lines is fixed, and the second belongs only to a run with
 a Growth Brain.
 
-**Conditional slides** (`trading-markets`, `ret-subscriptions`, `aov-codes`) exist only when the
+**Conditional slides** (`trading-markets` and its `app-trading-markets`, `ret-subscriptions`, `aov-codes`) exist only when the
 business has what they show: markets when more than one market holds orders in the Current period
 or its Comparison period; subscription mix when the orders carry a subscription flag with at least
 one subscription order in the Current period; discount codes when at least one order in the
@@ -122,23 +140,26 @@ its percentages) and the script shows one. Only the four charts marked "yes" car
 rate (conversion, CAC, AOV, discount rate, LTV) and never the customer base. A printed page shows
 the view on screen.
 
-**Comparison columns.** Every table, and the small table beside a chart, carries these columns in
+**Comparison columns.** Every table slide, and the table of `last-actions`, carries these columns in
 this order: this month, last month, MoM %, same month last year, YoY %. Add budget and v budget %
 (after YoY %) only where the Source holds a budget, on the rows it holds one for; a Source with no
-budget carries no budget column. A row's budget cells are read as `references/sources.md` (Budget)
-sets out, which also says when they read "No data"; v budget % is not the row's this month figure
-against the budget unless the two bases match, and the Budget basis caveat says so where they do
-not. The Current period supplies "this month"; the Comparison periods
-are as `references/sources.md` sets out. Every % change is relative: a rate that moves from 2.0%
-to 1.8% reads "−10%". A year-ago figure the Source does not reach reads "No data". Show a change
-to the nearest whole % at 10% or more and to one decimal below it. A delta cell carries ▲ or ▼
-and is coloured: the up colour for a rise, the down colour for a fall, neutral for no change. A
-marketing spend row is always neutral, since spend rising is neither good nor bad alone. A CAC
-figure is coloured by whether the move is good: a fall takes the up colour and a rise the down
-colour, with ▲ or ▼ still showing the direction. A slide that states its own columns below
-(Channel mix, Top campaigns, Cohort retention, Cohort LTV, the LTV slides, Subscription mix,
-Line items, Product and category mix, Discount codes) uses those: it holds too many measures for
-five columns each, or reads a cohort window rather than a month.
+budget carries no budget column. A **Stat row** figure carries the same deltas beneath it as
+labelled lines: MoM, YoY and, only where the Source holds a budget, v budget; a Source with no
+budget carries no v budget line. A chart slide carries no side table: its figures sit in its Action
+title, its labels and its Takeaway panel. A budget figure is read as `references/sources.md`
+(Budget) sets out, which also says when it reads "No data"; v budget % is not the figure against
+the budget unless the two bases match, and the Budget basis caveat says so where they do not. The
+Current period supplies "this month"; the Comparison periods are as `references/sources.md` sets
+out. Every % change is relative: a rate that moves from 2.0% to 1.8% reads "−10%". A year-ago
+figure the Source does not reach reads "No data". Show a change to the nearest whole % at 10% or
+more and to one decimal below it. A delta carries ▲ or ▼ and is coloured: the up colour for a rise,
+the down colour for a fall, neutral for no change. A marketing spend figure is always neutral,
+since spend rising is neither good nor bad alone. A CAC figure is coloured by whether the move is
+good: a fall takes the up colour and a rise the down colour, with ▲ or ▼ still showing the
+direction. A slide that states its own columns below (`app-trading-markets`, Channel mix, Top
+campaigns, Cohort retention, Cohort LTV, the LTV slides, Subscription mix, Line items, Product and
+category mix, Discount codes) uses those: it holds too many measures for five columns each, or
+reads a cohort window rather than a month.
 
 **Trend charts.** Show 24 months ending with the Current period, or as far back as the Source
 goes (the Notes say when the history starts). The Current period's column or point is marked.
@@ -169,8 +190,8 @@ Write the page to this skeleton, filling the slides and keeping the CSS and scri
 holds one grid for each Layout of `references/slide-craft.md`: `.cover` (cover), `.divider` (section
 divider), `.grid` with `.statrow` (stat slide), `.grid` with `.evidence` and `.takeaway` (chart
 slide), `table.kpi` on a `.slide.table-slide` (table slide), `.cards` (cards slide) and, on a
-`.slide.text`, `.focus`, `.exfigs`, `.points` or `.notes` (text slide). `table-slide` and `text`
-only name the Layout and carry no rule of their own. Build each slide from the grid of its Layout
+`.slide.text`, `.focus`, `.exfigs`, `.points` or `.notes` (text slide). `table-slide`, `cards-slide`
+and `text` only name the Layout and carry no rule of their own. Build each slide from the grid of its Layout
 and set no layout of your own.
 
 ```html
@@ -328,6 +349,33 @@ category), so a brand's roles recolour the charts too.
 sets out: the Highlight colour on the mark the Action title names and grey on the rest, a category
 colour only where categories must be told apart.
 
+**Markup of the other Layouts.** The chart slide is the `trading-revenue` section of the skeleton.
+Each of the others takes its `<header>` (eyebrow and `<h2>` Action title) and footer from it:
+
+- **Stat slide**: the chart slide's `.grid`, with `<div class="panel"><div class="statrow">` four
+  `<div class="stat">` in the `.evidence` column, the first `stat hi`. A stat is
+  `<p class="eyebrow">Revenue</p><p class="fig">£420k</p><dl><dt>MoM</dt><dd><span class="d pos">▲ +7.7%</span></dd>…</dl>`,
+  one `dt`/`dd` pair for each delta; `d pos`, `d neg` or `d flat` is the delta's colour.
+- **Section divider**: `<section class="slide divider">` with no `<header>`: `<div class="divider-head">`
+  holding `<p class="eyebrow">Section 2 of 4</p>`, `<h2 class="divider-name">Acquisition</h2>` and
+  `<p class="verdict">`, then `<ol class="contents">` with one `<li>` for each slide title.
+- **Text slide** (`exec-summary`): `<section class="slide text">` with its `<header>`, then the
+  `<div class="focus">` of the Focus questions (`<p class="eyebrow">You asked</p><p><b>question</b> answer</p>`,
+  one for each, only where the intake set any), `<div class="exfigs">` of four
+  `<div class="exfig">` (the first `exfig hi`; `<p class="eyebrow">`, `<p class="fig">`,
+  `<p class="ds">` holding the deltas) and `<ol class="points">` of three `<li>` (`<p class="eyebrow">`
+  Section name, then `<p>` the takeaway). `notes` takes `<section class="slide text">` with
+  `<div class="notes">` of its three `<section>`.
+- **Table slide**: `<section class="slide table-slide">` with its `<header>`, then
+  `<div class="panel"><table class="kpi">` (`<th scope="col">` headings, `<th scope="row">` row labels,
+  deltas as `<span class="d pos">`) and the source line. The row the Action title names is
+  `<tr class="hi">`.
+- **Cards slide**: `<section class="slide cards-slide">` with its `<header>`, then `<div class="cards">`
+  of up to three `<article class="card">`: `<p class="eyebrow">01</p><h3>`title`</h3><p class="fig">`
+  evidence figure`</p><p class="fignote">`what it measures`</p><p class="act">`action`</p>` and
+  `<div class="card-foot"><p class="stake">`£18k a month at stake`</p><p><b>Watch</b> …</p><p><b>Validate</b> …</p></div>`.
+  `last-actions` takes the same slide with its table in place of the cards.
+
 **Brand tokens.** Where `references/intake.md` resolved a brand of this brand's own, write its
 values over the skeleton's `:root` for the roles of `references/crux-brand.md` (What a brand
 changes) and over nothing else: paper to `--paper`, ink to `--ink-1`, the Highlight colour to
@@ -344,35 +392,44 @@ never fetched and its fallback stack is what shows.
 **Cover**: the Cover layout, with "Monthly performance review" as its eyebrow, the brand's name
 (`references/intake.md`, Brand) and the Current period as month and year. No title rule applies.
 
-**Dividers**: the Section's name large on a plain slide, with one line listing what the Section
-holds ("Revenue, customers and markets"; "Traffic, channels, campaigns and customer value" for
-Acquisition; "Cohorts, repeat buying and lifetime value" for Retention & LTV; "Order value,
-products and discounts" for Order value & product). No title rule applies.
+**Dividers**: a section divider, stat-free, holding the Section's name large; the eyebrow "Section 2 of 4"
+(its place among Trading, Acquisition, Retention & LTV and Order value & product); the Section's
+one-line **verdict**; and the Section's slides as a contents list. No title rule applies.
+- **Verdict**: one sentence with a figure, the Section in a line, written last from the Section's
+  own slides ("New customers slipped 4.5% to 2,100 as paid social grew dearer; search held its
+  cost."). Where the Month context bears on it, it is used as the Action title rule uses it.
+  Where every slide of the Section is a Brain slot, the verdict is "This Section's slides need data
+  your Source does not hold. A Growth Brain provides it: gocrux.io/contact." On a run with a Growth
+  Brain: "This Section's slides need data your Growth Brain does not hold."
+- **Contents**: the Action title of every slide of the Section, in order, its Focus slide and its
+  Recommendations slide included, one line each (a Brain slot's title is the line it keeps). The
+  Appendix slides are not listed.
 
-**Executive summary**: three columns headed **Performance**, **Read** and **Actions**.
-- **Performance**: one line per Section that holds figures, in Section order, each with its
-  headline figure and MoM and YoY change ("Trading: revenue £1.2m, +8% MoM, +14% YoY"). A Section
-  whose slides are all Brain slots adds no line. The headline figure of Acquisition is new orders
-  with blended CAC; of Retention & LTV, the retention at month 1 of the latest cohort to reach it
-  against the rolling average (a cohort figure carries no MoM or YoY change); of Order value &
-  product, the blended average order value with the discount rate.
-- **Read**: two to four sentences saying what moved and by how much, from the Performance
-  figures. Where the cause is not known, it says so ("the cause is not yet known"), and never
-  guesses one; a Month context replaces that sentence when the user gave one.
-- **Actions**: the three Recommendations of Next month, one line each (title and revenue at
-  stake), the same three and no others.
+**Executive summary**: a text slide that a founder reads at a glance, in this order.
+1. **You asked**, for each Focus question, in order, only where the intake set any: one block
+   with the question in the user's words and one sentence answering it from the Focus slide's own
+   figures, ahead of everything below.
+2. **Four headline figures**, the four of the Stat row of `trading-kpi` in the same order and on
+   the same basis, each with its MoM and YoY change and, where the Source holds a budget for it, its
+   v budget, coloured as the comparison rule sets out. Where `trading-kpi` is a Brain slot, each
+   reads "No data" and carries no deltas.
+3. **Three numbered takeaways**, one each from Acquisition, Retention & LTV, and Order value &
+   product, in that order, each headed by its Section's name and written as one sentence with a
+   figure, from the Section's own slides: the largest move on a Section's headline figure (for
+   Acquisition, new customers or blended CAC; for Retention & LTV, the retention at month 1 of the
+   latest cohort to reach it against the rolling average; for Order value & product, the blended
+   average order value or the discount rate), with the Month context in place of any cause the
+   figures do not show. Where the cause is not known, the sentence says so and never guesses one. A
+   Section whose slides are all Brain slots takes its divider's verdict in the takeaway's place.
 
-**Focus questions lead the Executive summary.** For each Focus slide, in order, **Performance**
-opens with one line headed "You asked: `<the question>`" holding the Focus slide's headline figure
-with its MoM and YoY change where it has them, and **Read** opens with one sentence answering the
-question from the same figures, ahead of the other lines and sentences and in addition to the two to
-four.
+Action title: the Current period's revenue and its MoM change with the largest move behind it, as
+`trading-kpi`'s. The Next month cards stay on `next-month`; the Executive summary lists none.
 
 ### Last month's actions (`last-actions`)
 
 Built on every Source, from the previous review's actions the intake settled (up to three, the
-cards of its Next month slide), after the Executive summary. A table with one row for each action,
-at a smaller type size, columns in this order:
+cards of its Next month slide), after the Executive summary. A cards slide whose body is a table
+with one row for each action, at a smaller type size, columns in this order:
 
 - **Action**: the card's title, with its Section beneath in the muted colour.
 - **Metric to watch**: the card's own words.
@@ -411,13 +468,14 @@ the Section's own figures. Its shape, top to bottom:
 1. **You asked**: the question in the user's words, in the muted colour, one line.
 2. **Action title**: the answer as a full sentence with a figure ("New-customer conversion slipped
    9% to 1.1% as traffic rose 14% and new orders held at 3,100").
-3. **Evidence**: one chart or one small table, taken from a slide of its Section that holds the
-   figures the question needs, drawn as that slide draws it (24 months with the Current period
-   marked for a trend; the comparison columns for a table) and without the Share toggle. Where the
+3. **Evidence**: one chart, in the left two-thirds, taken from a slide of its Section that holds
+   the figures the question needs, drawn as that slide draws it (24 months with the Current period
+   marked for a trend; the top 5 rows of a busy table) and without the Share toggle. Where the
    question needs a figure no slide of its Section holds, one extra query from the Source gives it.
-4. **Month context**: the line of that rule, where one bears on the question.
-5. **What to do**: one sentence naming the action the answer points to, and the metric that
-   shows it worked.
+4. **Takeaway panel**, in the right third: So what is what the answer means for the business, Why
+   the cause, Watch the one figure that shows whether the answer's action worked. The action
+   itself stays on the Section's Recommendations.
+5. **Month context**: the line of that rule, where one bears on the question.
 
 A question the Source cannot answer is written as a Brain slot: its title is "`<the question>`,
 answered from your data" and its data is "the data your question needs". The Focus slide's Section
@@ -425,10 +483,36 @@ keeps its Recommendations slide as before.
 
 ### Trading KPIs (`trading-kpi`)
 
-A KPI table, one row per figure in this order, with the comparison columns:
+A stat slide: a **Stat row** of four figures in the left two-thirds and the Takeaway panel in the
+right. The four, in this order, the first in the Highlight colour:
 
-1. Revenue, on the Revenue basis of `references/sources.md` (the label is the name the brain gives it,
-   ex VAT where that file says so)
+1. **Revenue**, on the Revenue basis of `references/sources.md` (the label is the name the brain
+   gives it, ex VAT where that file says so)
+2. **New customers**, which is the New orders figure of the KPI table, labelled as the brain names
+   it
+3. **MER** (revenue ÷ marketing spend)
+4. **The Margin rung's %** of revenue, labelled with the rung's own name (the rung
+   `references/sources.md` chooses by its dating, and the lower rung's name where the brain says
+   the two are equal), on a Growth Brain that holds a margin rung; else **Orders**
+
+Each figure carries beneath it, as labelled lines, its MoM change, its YoY change and, where the
+Source holds a budget for it, its v budget, coloured as the comparison rule sets out. Rates (MER,
+margin %) change as relative %. The source line says the full table is in the Appendix.
+
+The figures are read as `app-trading-kpi` reads them, so the two slides agree to the digit.
+
+Action title: the Current period's revenue and its MoM change, with the move behind it: the
+largest among orders, order value and returning orders, or the gap to budget where the Source holds
+a budget ("Revenue rose 8%
+to £1.2m as returning orders grew 13%, but finished 6.7% short of the £1.3m budget").
+
+### Appendix: Trading KPIs (`app-trading-kpi`)
+
+A table slide holding the full KPI table, one row per figure in this order, with the comparison
+columns and, where the Source holds a budget, the budget columns:
+
+1. Revenue, on the Revenue basis (the label is the name the brain gives it, ex VAT where
+   `references/sources.md` says so)
 2. Orders
 3. New orders
 4. Returning orders
@@ -437,43 +521,57 @@ A KPI table, one row per figure in this order, with the comparison columns:
 7. MER (revenue ÷ marketing spend)
 
 On a Growth Brain that holds a margin rung, add two rows after MER: the rung's money figure and
-its % of revenue, labelled with the margin rung's own name (the rung `references/sources.md` chooses
-by its dating, and the lower rung's name where the brain says the two are equal). Revenue leads: margin rows add to the table and never replace a row. Rates (MER,
-margin %) change as relative % per the comparison rule.
+its % of revenue, labelled with the margin rung's own name, as `trading-kpi` names it. Revenue
+leads: margin rows add to the table and never replace a row. Rates (MER, margin %) change as
+relative % per the comparison rule. Revenue is the highlighted row.
 
-Action title: the Current period's revenue and its MoM change, with the figure behind the largest
-move among orders and order value ("Revenue rose 8% to £1.2m on 5% more orders and a 3% higher order
-value").
+Action title: the Current period's revenue, its YoY change and, where the Source holds a budget,
+its gap to budget ("Revenue of £420k was 17% up on last September but 6.7% short of the £450k
+budget"); without a budget, its MoM change and its YoY change.
 
 ### Revenue, new vs returning (`trading-revenue`)
 
-Stacked columns, one per month for 24 months: revenue from new customers' orders (series 1) and
-from returning customers' orders (series 2), summing to revenue, with the Share toggle. Beside
-the chart, a small table of new, returning and total revenue with the comparison columns. Action
+A chart slide. Stacked columns, one per month for 24 months: revenue from new customers' orders
+and from returning customers' orders, summing to revenue, with the Share toggle. The series the
+Action title names takes the Highlight colour and the other is grey; each is labelled directly at
+the Current period's column, which also carries the month's total. No table sits beside it. Action
 title: which of the two moved the total and by how much ("New-customer revenue fell 6% to £480k
-while returning-customer revenue grew 17% to £720k").
+while returning-customer revenue grew 17% to £720k"). The Takeaway panel's So what is the mix: the
+returning customers' share of revenue against a year ago.
 
 ### Customer base (`trading-customers`)
 
-Columns, one per month for 24 months, no Share toggle. Active, new, reactivated and lapsed are the
+A chart slide. Columns, one per month for 24 months, no Share toggle. Active, new, reactivated and lapsed are the
 brain's definitions, labelled as it names them, with the glossary's where it defines none, which
 `references/sources.md` reads from the Customers mart or the orders mart. Above the axis, stacked:
 **active customers carried over** (active at the month's end, neither new nor reactivated), **new**
 and **reactivated** (ordered in the month, not new, and not active at the previous month's end),
 summing to the active customer base at the month's end. Below the axis, one column: **lapsed** (on
 the glossary's definition, customers whose 12 months since their last order ended in the month). The Current period is
-marked. Beside the chart, a small table of active, new, reactivated and lapsed customers with the
-comparison columns. Action title: the size of the active base and the net movement ("The active
+marked. The carried-over series is grey and the other three take the category palette, since the
+groups must be told apart; each is labelled directly at the Current period's column with its
+count. No table sits beside it. Action title: the size of the active base and the net movement ("The active
 customer base grew 3% to 41k as 2,100 new and 600 reactivated customers outran 1,400 lapsing").
 
 ### Markets (`trading-markets`, conditional)
 
-Markets side by side as panels: the two markets with the most revenue in the Current period, then
-one panel "Other markets" holding the rest (omitted when only two markets hold orders). A market
-is the order's shipping country. Each panel is a table with rows revenue, orders, new orders and
-average order value, and the comparison columns at a smaller type size; the row labels are shared
-at the left. Action title: the market share and the market that moved most ("The UK delivered 78%
-of revenue, while the US grew 22% to £180k").
+A chart slide. Ranked horizontal bars of revenue in the Current period for the top 5 markets, the
+market the Action title names in the Highlight colour and the rest grey. Each bar is labelled with
+its revenue, and beside it the market's MoM and YoY change in the delta colours. A market is the
+order's shipping country. Where the business has more than 5 markets, the source line says how many
+there are in all and what the others brought together; every market is in `app-trading-markets`.
+Action title: the market share and the market that moved most ("The UK delivered 78% of revenue,
+while the US grew 22% to £180k").
+
+### Appendix: Markets (`app-trading-markets`, conditional)
+
+A table slide with one row for each market, ranked by revenue in the Current period, up to 8, then
+**Other markets** for every market beyond the eighth (omitted when there are 8 or fewer) and a
+**Total** row equal to Revenue on `app-trading-kpi`. It states its own columns: Market; **revenue**
+with the comparison columns; **orders**, **new orders** and **average order value**, each with this
+month and MoM %. The market the Action title names is the highlighted row. Action title: the number
+of markets and the share of revenue the top 5 carry ("Five of 12 markets carried 96% of revenue; the
+other seven brought £18k").
 
 ### Trading Recommendations (`trading-recs`)
 
@@ -517,7 +615,7 @@ columns. Rows, in this order:
 3. The **Unknown row**: the new orders no channel claims. It is shown as a row of its own and is
    never spread across the channels or merged into one (not into Direct). It carries no spend, so
    its spend and CAC cells read "No data".
-4. **Total**: the Total row's new orders equal New orders on `trading-kpi` and its spend equals
+4. **Total**: the Total row's new orders equal New orders on `app-trading-kpi` and its spend equals
    Marketing spend there, in every period shown; its CAC is the blended CAC.
 
 The channel rows, Other channels and the Unknown row add up to the Total row's new orders in every
@@ -582,7 +680,7 @@ name where it is not revenue, "£210 of margin").
 months behind them. A customer's **12-month LTV** is their cumulative value through the end of the
 12th calendar month after their first-order month, first order included: the brain's LTV measure
 (margin where it defines LTV as margin) on the brain's own grain, else revenue on the revenue basis
-of `trading-kpi`; a group's LTV is the sum over its customers divided by their number. The comparison is
+of `app-trading-kpi`; a group's LTV is the sum over its customers divided by their number. The comparison is
 the 12 months ending a year earlier, on the same definition; a window the history does not reach
 reads "No data". A group of fewer than 30 customers joins one "Other" bar, so no ranking rests on a
 handful of customers. The Notes state the LTV definition used.
@@ -614,7 +712,7 @@ the lowest cell to its darkest at the highest. An age a cohort has not yet reach
 an exception to the cell rule, so the table reads as a staircase. A final row, **Rolling
 average**, holds for each age the retained customers ÷ the customers of the 12 most recent
 cohorts to have reached it (those cohorts can include ones older than the 12 shown). The Current
-period's cohort size equals New orders on `trading-kpi` where the cohort mart counts every order
+period's cohort size equals New orders on `app-trading-kpi` where the cohort mart counts every order
 and the glossary's New customer holds; a mart that counts customers only carries the Cohort count
 caveat.
 No comparison columns: the rows compare the cohorts. Action title: the **latest cohort to have
@@ -666,12 +764,13 @@ are the actions next month's review checks.
 
 ### Appendix: LTV by order category and by order type (`app-ltv-category`, `app-ltv-type`)
 
-Brain only. Ranked horizontal bars, highest first, of 12-month LTV, an all-customer bar marked, on
-the LTV window of `acq-ltv-channel`, grouped by the category (`app-ltv-category`) or the type
+Brain only. A table slide: one row for each group, highest 12-month LTV first, with the columns
+Category or Type; customers; 12-month LTV; the same figure a year earlier; change %, on the LTV
+window of `acq-ltv-channel`, grouped by the category (`app-ltv-category`) or the type
 (`app-ltv-type`, for example subscription or one-off) of the customer's **first order**, as the
-Source holds it on the order. Beside the bars the same small table as `acq-ltv-channel` with
-Category or Type in place of Channel. Customers with no category or type are an Unknown bar. Action
-title: the best and worst group's LTV and the gap, as `acq-ltv-channel`.
+Source holds it on the order. An all-customer row closes the table and the best group's row is
+highlighted. Customers with no category or type are an Unknown
+row. Action title: the best and worst group's LTV and the gap, as `acq-ltv-channel`.
 
 ### Appendix: line items (`app-line-items`)
 
@@ -686,11 +785,11 @@ revenue, led by one at £96k").
 ### AOV, new / returning / blended (`aov-trend`)
 
 Three lines, one per month for 24 months, on one axis since all three are order value in the same
-currency: **blended** AOV (Average order value on `trading-kpi`, bold, series 1), **new-customer** AOV (new-customer
+currency: **blended** AOV (Average order value on `app-trading-kpi`, bold, series 1), **new-customer** AOV (new-customer
 revenue ÷ new orders, series 3) and **returning-customer** AOV (returning-customer revenue ÷
 returning orders, series 2), the Current period marked on each. Revenue is on the basis of
-`trading-kpi` and the new and returning split is that of `trading-revenue`, so the blended line
-equals Average order value on `trading-kpi` in every month. Beside the chart, a small table of the
+`app-trading-kpi` and the new and returning split is that of `trading-revenue`, so the blended line
+equals Average order value on `app-trading-kpi` in every month. Beside the chart, a small table of the
 three AOVs with the comparison columns (AOV changes as relative %). No Share toggle: AOV is a rate.
 Action title: the blended AOV and its move, with the customer type that moved it ("Average order
 value rose 4% to £62, as new customers' orders reached £54 and returning customers' £68").
@@ -711,11 +810,11 @@ the Notes name it.
 2. **Other categories**, when more than six hold orders: every category not named above, in each
    period.
 3. **No category**, when any order has none.
-4. **Total**: orders equal Orders and sales equal Revenue on `trading-kpi`, new and returning orders
+4. **Total**: orders equal Orders and sales equal Revenue on `app-trading-kpi`, new and returning orders
    equal theirs, and the rows above add up to it.
 
 Columns, in this order: Category; **orders**, **new orders**, **returning orders**, **sales** (revenue
-on the basis of `trading-kpi`) and **AOV** (sales ÷ orders), each with this month and MoM %; **share of
+on the basis of `app-trading-kpi`) and **AOV** (sales ÷ orders), each with this month and MoM %; **share of
 sales** (the row's sales ÷ the Total row's) with this month and MoM %. A category that had no orders
 last month reads "New" in its MoM cells; a row with no orders reads "No data" in its AOV cells. There
 is no year-ago column: the table holds too many measures, and the chart carries the history.
@@ -765,7 +864,7 @@ ignoring case and spaces. Rows, in this order:
 
 Columns, in this order: Code (Code group on a grouped table); **orders** with this month and MoM %;
 **revenue** (on the basis of
-`trading-kpi`) with this month and MoM %; **discount given** with this month and MoM %; **depth**
+`app-trading-kpi`) with this month and MoM %; **discount given** with this month and MoM %; **depth**
 (discount given ÷ the orders' value before discount) with this month; **share of orders** (the row's
 orders ÷ all orders of the month). A row for a free-shipping code, or whose depth works out at 0%,
 reads "free shipping" in its depth cell, never 0%. A row that was not used last month reads "New" in
@@ -860,10 +959,10 @@ columns or margin rows, since no such Source holds either.
 
 | Id | Filled without a brain by | Brain slot when |
 |---|---|---|
-| `trading-kpi` | order rows or the sales over time report; spend rows and MER from the ad platforms read | no orders Source |
+| `trading-kpi`, `app-trading-kpi` | order rows or the sales over time report; spend rows and MER from the ad platforms read | no orders Source |
 | `trading-revenue` | order rows by customer ID, else sales over time by customer type | no orders Source |
 | `trading-customers` | order rows with customer IDs and history | no customer IDs, or the 12-month history limit leaves no month |
-| `trading-markets` | order rows with a shipping country (conditional) | no order rows |
+| `trading-markets`, `app-trading-markets` | order rows with a shipping country (conditional) | no order rows |
 | `trading-recs` | the Trading slides built | all Trading slides are Brain slots |
 | `acq-blended` | sessions over time for traffic and conversion; connected ad spend and new orders for CAC; each panel reads "No data" for what is not held | neither visits nor ad spend is held |
 | `acq-channels` | order rows with UTM or referrer, spend from the ad platforms read (spend and CAC read "No data" for a channel with none) | no order row carries UTM or referrer |
@@ -896,10 +995,12 @@ A slide built here uses these only when its Source cannot fill it.
 
 | Id | Title | Data |
 |---|---|---|
-| `trading-kpi` | Revenue, orders, new orders, spend and margin against last month, last year and budget | your orders, ad spend and budget |
+| `trading-kpi` | Revenue, new customers, MER and margin against last month, last year and budget | your orders, ad spend and budget |
+| `app-trading-kpi` | Revenue, orders, new orders, spend and margin against last month, last year and budget, in full | your orders, ad spend and budget |
 | `trading-revenue` | Revenue from new and returning customers, month by month for 24 months | your orders by customer type |
 | `trading-customers` | The active customer base each month, with new, reactivated and lapsed customers | your customers' order history |
-| `trading-markets` | Revenue, orders and order value for each market side by side | your orders by market |
+| `trading-markets` | Revenue for the top five markets, with how each moved | your orders by market |
+| `app-trading-markets` | Revenue, orders and order value for every market | your orders by market |
 | `trading-recs` | Up to three Trading actions, each with its evidence and how to validate it | the Trading slides' data |
 | `acq-blended` | Traffic, new-customer conversion and CAC, month by month for 24 months | your traffic, orders and ad spend by month |
 | `acq-channels` | New orders, spend and CAC by channel, against last month | your orders and ad spend by channel |

@@ -254,13 +254,13 @@ sessions over time, a coarser Source that fills only the first three rows.
 
 | Figure | Reads | Slides |
 |---|---|---|
-| Orders, revenue, average order value | order rows; else the sales over time report | `trading-kpi` |
-| New and returning orders and revenue | order rows by customer ID; else sales over time by customer type | `trading-kpi`, `trading-revenue`, `aov-trend` |
+| Orders, revenue, average order value | order rows; else the sales over time report | `trading-kpi`, `app-trading-kpi` |
+| New and returning orders and revenue | order rows by customer ID; else sales over time by customer type | `trading-kpi`, `app-trading-kpi`, `trading-revenue`, `aov-trend` |
 | Visits | the sessions over time report, summed by month | `acq-blended` |
-| Marketing spend | every connected ad platform's spend by month, added together | `trading-kpi`, `acq-blended`, `acq-channels` |
+| Marketing spend | every connected ad platform's spend by month, added together | `trading-kpi`, `app-trading-kpi`, `acq-blended`, `acq-channels` |
 | Customers: new, active, reactivated, lapsed; cohorts; LTV | order rows with customer IDs and history | `trading-customers`, `ret-cohort`, `ret-ltv`, `acq-ltv-channel` |
 | New orders by channel and campaign | order rows with UTM or referrer, and the ad platforms' campaign reports | `acq-channels`, `acq-paid-organic`, `acq-campaigns`, `acq-ltv-channel` |
-| Market, category, discount, code, subscription | order rows | `trading-markets`, `aov-product`, `aov-discount`, `aov-codes`, `ret-subscriptions` |
+| Market, category, discount, code, subscription | order rows | `trading-markets`, `app-trading-markets`, `aov-product`, `aov-discount`, `aov-codes`, `ret-subscriptions` |
 
 No Source here holds a budget or a margin: there are no budget columns and no margin rows.
 
@@ -442,5 +442,5 @@ conversion segment.
 A missing column, a report the user cannot export or a figure with no Source reads "No data", or
 its slide is a Brain slot (`references/deck-layout.md`). Name what is missing to the user with what
 it feeds ("Cohorts need a customer ID on your orders"), and ask for the re-export once; an
-Unattended run asks for none. The Appendix is a Brain slot on every run without a Growth Brain,
-whatever the connectors and files hold.
+Unattended run asks for none. The brain-only Appendix slides (LTV by order category and order type, line items) are Brain slots on every run without a Growth
+Brain, whatever the connectors and files hold.
