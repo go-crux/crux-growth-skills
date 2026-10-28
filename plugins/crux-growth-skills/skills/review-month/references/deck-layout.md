@@ -794,16 +794,19 @@ and a campaign that still fails reads "No data" for impressions and clicks.
 ### LTV by acquisition channel (`acq-ltv-channel`)
 
 A chart slide. Ranked horizontal bars, highest first, of **12-month LTV** for the 5 acquisition
-channels with the highest, then the one with the lowest as a sixth bar where more than six hold
-customers, so the Action title's best and worst channel are always drawn. The best channel takes
+channels with the highest, then the one with the lowest as a sixth bar where more than six hold 30
+or more customers, so the Action title's best and worst channel are always drawn. A channel with
+fewer than 30 customers is never a bar (**small group**, below). The best channel takes
 the Highlight colour and every other bar is grey. A hairline rule down the chart at the all-customer
 LTV (`g-mark`), labelled "All customers" with its figure, marks the average. Each bar is labelled
 with its LTV, and carries at its right its customer count in the muted colour. Bars, axis and
 labels name the brain's LTV measure ("12-month margin per customer" where its LTV is margin), with
-the **LTV window** in the source line, which says that every channel is in the Appendix. A channel's
+the **LTV window** in the source line, which says that every channel is in the Appendix and, when
+any channel is a small group, how many were left off ("2 channels with fewer than 30 customers left
+off"). A channel's
 customers are those whose first order the Source places on that channel; customers it places on none
 are an Unknown group, never spread, drawn in the Appendix only. Action title: the best and worst
-channel's LTV and the gap ("Email-won customers are worth £210 in their first year, 2.4 times the
+channel's LTV and the gap, ranked among the channels of 30 or more customers ("Email-won customers are worth £210 in their first year, 2.4 times the
 £88 of customers won on paid social"; add the measure's name where it is not revenue, "£210 of
 margin").
 
@@ -814,16 +817,22 @@ months behind them. A customer's **12-month LTV** is their cumulative value thro
 (margin where it defines LTV as margin) on the brain's own grain, else revenue on the revenue basis
 of `app-trading-kpi`; a group's LTV is the sum over its customers divided by their number. The comparison is
 the 12 months ending a year earlier, on the same definition; a window the history does not reach
-reads "No data". A group of fewer than 30 customers joins one "Other" group, so no ranking rests on a
-handful of customers. The Notes state the LTV definition used.
+reads "No data". The Notes state the LTV definition used.
+
+**Small group.** A group of fewer than 30 customers is a small group: it never takes a bar, the best
+or worst place in an Action title, or a Highlight colour, so no ranking rests on a handful of
+customers. It is listed in the Appendix only, and the all-customer LTV still counts its customers.
+Where no channel holds 30 customers, the slide is a Brain slot whose line names the customers it
+would need, and the Appendix lists every channel.
 
 ### Appendix: LTV by acquisition channel (`app-acq-ltv-channel`)
 
-A table slide: one row for each acquisition channel, highest 12-month LTV first, then the Other and
-Unknown groups, then an all-customer row, with the columns Channel; customers; 12-month LTV; the same
+A table slide: one row for each acquisition channel with 30 or more customers, highest 12-month LTV
+first, then a row for each small group (customers shown, ordered by customers, never highlighted),
+then the Unknown group, then an all-customer row, with the columns Channel; customers; 12-month LTV; the same
 figure a year earlier; change %. This slide has no this month or last month column, since LTV is read
-on a cohort window. The best channel is the highlighted row. Action title: the number of channels
-and the spread of their LTV ("Eight channels' first-year LTV ran from £88 to £210 around a £140
+on a cohort window. The best channel (of the 30 or more) is the highlighted row. Action title: the number of channels
+and the spread of the LTV of those with 30 or more customers ("Eight channels' first-year LTV ran from £88 to £210 around a £140
 average across 9,600 customers"; add the measure's name where it is not revenue).
 
 ### Acquisition Recommendations (`acq-recs`)
@@ -836,7 +845,7 @@ delivered, times the Current period's new-customer order value (new-customer rev
 the budget mart's budget for CAC), else **paid CAC**: paid channels' spend ÷ paid channels' new
 orders, on the basis of the channel rows. Blended CAC is never the reference, since it includes
 organic new orders that cost no spend and puts every paid channel above it. A channel at or below
-the reference has no gap. **LTV gap**: a channel whose 12-month LTV sits below the all-customer figure,
+the reference has no gap. **LTV gap**: a channel of 30 or more customers whose 12-month LTV sits below the all-customer figure,
 sized as its Current period new orders times that gap per customer; where the brain's LTV is not
 revenue, the gap is in that measure, so the card says so and its revenue at stake is worked on the
 Revenue basis from the same customers. **Waste gap**: a paid channel or a named campaign with spend in
@@ -951,7 +960,7 @@ are the actions next month's review checks.
 
 Brain only. A table slide: one row for each group, highest 12-month LTV first, with the columns
 Category or Type; customers; 12-month LTV; the same figure a year earlier; change %, on the LTV
-window of `acq-ltv-channel`, grouped by the category (`app-ltv-category`) or the type
+window of `acq-ltv-channel` with its small group rule, grouped by the category (`app-ltv-category`) or the type
 (`app-ltv-type`, for example subscription or one-off) of the customer's **first order**, as the
 Source holds it on the order. An all-customer row closes the table and the best group's row is
 highlighted. Customers with no category or type are an Unknown
@@ -987,7 +996,9 @@ The grouping is the order's **category**.
 **Category.** The category the Source holds on the order. Where the orders carry none and the order
 items carry a product category, an order's category is that of its highest-revenue line (ties by the
 line listed first), so every order sits in one category and the rows add up. Orders with no category
-are the row **No category**, never spread. A Source with neither makes the slide a Brain slot, and
+are the row **No category**, never spread. A category the Source uses to group orders that span
+several categories is a category row like any other, named as the Source names it and never "No
+category". A Source with neither makes the slide a Brain slot, and
 the Notes name it.
 
 A chart slide. Horizontal bars of the Current period's sales (revenue on the basis of
@@ -1028,13 +1039,16 @@ chart slide of three small charts side by side, 24 months, one measure each, non
 the Current period marked and labelled with its figure:
 
 - **Discount rate** (discounted orders ÷ orders) as a line in the Highlight colour, in percent.
-- **Discount depth** (discount given on discounted orders ÷ their value before discount) as columns,
+- **Discount depth** (discount given on discounted orders ÷ their value before discount, leaving
+  out the orders discounted at 100%: the near-free orders of `references/sources.md`) as columns,
   in percent, the Current period's column in the Highlight colour and the rest grey.
 - **Discounted vs full-price orders** as stacked columns of order counts (discounted series 1,
   full-price series 3), **with the Share toggle**: absolute shows orders, "% of total" rescales each
   month to 100% and labels the percentages. The toggle sits on this chart only: the rate and the
   depth are rates and carry none.
 
+The source line counts the near-free orders in the Current period ("12 orders at 100% depth left
+out of depth"), and is silent where there are none. They stay in the rate and in both order series.
 No table sits beneath: the discount given (the money) and the order counts are the labels and the
 Takeaway panel's. Where the Source defines either rate or depth in its own metrics, its definition
 wins and the Notes state it. Action title: the discount rate and depth and how they moved ("Discounts
@@ -1050,11 +1064,12 @@ top 5 code groups, or codes, ranked by orders, ties by revenue. The row with the
 one the Action title names, takes the Highlight colour and every other bar is grey. Each bar is
 labelled with its orders, and carries at its right its **depth** (discount given ÷ the orders' value
 before discount) and its share of all orders in the month; a row for a free-shipping code, or whose
-depth works out at 0%, reads "free shipping" in its depth cell, never 0%. The source line says how
+depth works out at 0%, reads "free shipping" in its depth cell, never 0%; a row whose every order
+is discounted at 100% and that is not free shipping reads "gifting" (`references/sources.md`, Discount
+rate, discount depth). The source line says how
 many groups or codes were used and that the top ten are in the Appendix. A Source that holds
 discounts but no code on the order writes the slide as a Brain slot, and the Notes name it. Action
-title: the row with the most orders and its depth ("free shipping" in place of a depth for a
-free-shipping row), with the share of orders that used a code ("One welcome code brought 1,200
+title: the row with the most orders and its depth ("free shipping" or "gifting" in place of a depth for such a row), with the share of orders that used a code ("One welcome code brought 1,200
 orders at a 10% depth, and codes touched 24% of all orders").
 
 ### Appendix: Discount codes (`app-aov-codes`, conditional)
@@ -1069,7 +1084,7 @@ being a code group or a code as `aov-codes` has it. Rows, in this order:
 
 Columns, in this order: Code (Code group on a grouped table); **orders** with this month and MoM %;
 **revenue** (on the basis of `app-trading-kpi`) with this month and MoM %; **discount given** with
-this month and MoM %; **depth** with this month, "free shipping" as `aov-codes` has it; **share of
+this month and MoM %; **depth** with this month, "free shipping" and "gifting" as `aov-codes` has them; **share of
 orders** (the row's orders ÷ all orders of the month). A row that was not used last month reads
 "New" in its MoM cells; there is no year-ago column, as codes rarely last a year. The row
 `aov-codes` names is the highlighted row. Action title: the number of codes or groups used and the
@@ -1081,15 +1096,15 @@ of them").
 Up to three Recommendation cards drawn from the Order value & product slides, ranked by revenue at
 stake, worked one of four ways and the card says which. **AOV slip**: new-customer or
 returning-customer AOV below last month's, sized as that group's Current period orders times the
-fall. **Category gap**: a category in `app-aov-product` whose AOV on single-category orders sits below the
+fall. **Category gap**: a category in `app-aov-product` (never a bucket of multi-category orders, which has no single-category orders) whose AOV on single-category orders sits below the
 average AOV of all single-category orders, sized as its Current period single-category orders times
 that gap. A **single-category order** is an order whose lines all sit in one category
 (`references/sources.md`, Order category); the blended AOV and a category's own AOV on
 `app-aov-product` include multi-category baskets, so a category is never compared with them. A Source
 that cannot tell which orders are single-category has no Category gap. **Discount creep**: a discount depth above last month's, sized
 as the discount given in the Current period less what last month's depth would have given on the same
-discounted orders' value. **Code depth**: a code whose depth sits above the depth of all codes,
-sized the same way against the all-codes depth; a free-shipping row has no depth and is not sized.
+discounted orders' value, both leaving out near-free orders. **Code depth**: a code whose depth sits above the depth of all codes,
+sized the same way against the all-codes depth, both leaving out near-free orders; a free-shipping or gifting row has no depth and is not sized.
 Action title: as `trading-recs`.
 
 ### Notes (`notes`)
@@ -1142,8 +1157,8 @@ No Action title. Three headings, always present, in this order:
 
 The Thin costing caveat applies where margin is shown (margin rows or margin LTV) and the share of
 fully costed revenue, read for each month of the 24-month series, is below half the Current period's
-share in an earlier month; `<month>` is the first month whose share is at least half the Current
-period's. The Cohort count caveat applies whenever the cohort mart is read and its Current period
+share in an earlier month; `<month>` is the month after the last such month, so a share that dips
+more than once reads from after the final dip. The Cohort count caveat applies whenever the cohort mart is read and its Current period
 cohort size does not equal New orders, or its description says it counts customers or does not say
 it counts every order. A Brain warning is quoted whenever `references/sources.md` found one that
 touches the Current period or a Comparison period, with no Month context needed.
