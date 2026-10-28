@@ -113,7 +113,8 @@ figures, or its Focus slide is a Brain slot; and:
 - the Appendix category table's rows, No category included, add up to its Total row, whose orders
   and sales equal the KPI table's, and the category bars, Other categories and No category included,
   add up to that month's revenue;
-- discounted and full-price orders add up to orders in each of the 24 months;
+- the discount rate's discounted orders and the orders it divides by are read from the same orders
+  in each of the 24 months;
 - the Discount codes slide and its Appendix slide are present only where an order in the Current
   period carries a code, their rows are code groups where `list_tables` shows a code group column on
   the orders and codes otherwise, a free-shipping row reads "free shipping" in its depth cell, and the
@@ -131,13 +132,13 @@ panel, each divider's verdict, and the Executive summary, led by the Focus quest
 Month context in place of any cause the figures do not show, and each Action title last.
 
 **Done when** every Trading, Acquisition, Retention & LTV and Order value & product card carries a
-figure from its own Section's slides and an action, a metric to watch and Test, Watch next month or
-Ship; Next month holds the three distinct gaps with the most revenue at stake (a card that
+figure from its own Section's slides, an action, a metric to watch and Test, Watch next month or
+Ship, and is worth at least 1% of the Current period's revenue a month; Next month holds the three distinct gaps with the most revenue at stake (a card that
 duplicates or sits inside a larger one gives way), or fewer where fewer exist; every Focus question
 leads the Executive summary; the Executive summary holds the four Stat row figures and one
 takeaway with a figure for each of Acquisition, Retention & LTV, and Order value & product; every
 data slide has a Takeaway panel that restates neither its Action title nor a Recommendation; every
-divider has a verdict with a figure (or the fixed line where all its slides are Brain slots); a Month context the user gave appears on each
+Section divider has a verdict with a figure (or the fixed line where all its slides are Brain slots), and the Appendix divider its fixed line; a Month context the user gave appears on each
 slide it bears on and in the Executive summary's takeaways, and no slide states a cause that neither the Month context nor
 the data supports; and every content slide has an Action title of one full sentence with a figure.
 

@@ -46,10 +46,11 @@ Section's divider, with an Action title of its own.
 | `aov-divider` | Order value & product | section divider | verdict, contents | no | here |
 | `aov-trend` | AOV, new / returning / blended | chart slide | three lines, 24 months | no | here |
 | `aov-product` | Product and category mix | chart slide | horizontal bars of sales, top 5 categories | yes | here |
-| `aov-discount` | Discount impact | chart slide | three small charts: discount rate line, discount depth columns, discounted vs full-price stacked columns | yes, on discounted vs full-price orders only | here |
+| `aov-discount` | Discount impact | chart slide | two small charts: discount rate line, discount depth columns | no | here |
 | `aov-codes` | Discount codes (conditional) | chart slide | horizontal bars of orders, top 5 codes or code groups | no | here |
 | `aov-recs` | Order value & product Recommendations | cards slide | up to three cards | no | here |
 | `next-month` | Next month | cards slide | top three cards across Sections | no | here |
+| `app-divider` | Appendix | section divider | fixed line, contents | no | here |
 | `app-trading-kpi` | Appendix: Trading KPIs | table slide | the full KPI table | no | here |
 | `app-trading-markets` | Appendix: Markets (conditional) | table slide | every market | no | here |
 | `app-acq-channels` | Appendix: Channel mix | table slide | every channel, with spend and CAC | no | here |
@@ -64,7 +65,7 @@ Section's divider, with an Action title of its own.
 | `app-line-items` | Appendix: line items | table slide | table | no | here, brain only |
 | `notes` | Notes | text slide | Sources, definitions, caveats | no | here |
 
-The Appendix table slides stand in the order of the main slides they come from (`app-trading-kpi`
+The Appendix opens on its own divider, `app-divider`, then the Appendix table slides stand in the order of the main slides they come from (`app-trading-kpi`
 and `app-trading-markets` for Trading, then `app-acq-channels`, `app-acq-campaigns` and
 `app-acq-ltv-channel`, `app-ret-cohort` and `app-ret-ltv`, `app-aov-product` and `app-aov-codes`),
 ahead of the slides that are Appendix only. Each is a Brain slot when its main slide is, and
@@ -198,7 +199,9 @@ side.
 **Recommendation card.** A card has, on its face, a short title, one evidence figure and the
 action; in a footer, the metric to watch and how to validate it: Test, Watch next month or Ship.
 A Section's Recommendations slide holds up to three cards, ranked by revenue at stake: the revenue
-a month of the gap the evidence figure shows is worth, worked from the section's own figures. A
+a month of the gap the evidence figure shows is worth, worked from the section's own figures. A gap
+worth less than 1% of the Current period's revenue a month is too small to act on and is no card,
+however it ranks. A
 move of 10% or more on a headline figure may carry one extra line on its card, "To see why it
 moved, run the diagnose-performance skill for `<month>` against `<comparison month>`."; the
 review itself never drills. Where the evidence supports no action, the slide carries one line
@@ -311,7 +314,11 @@ svg .row{font-size:16px;fill:var(--ink-2);font-variant-numeric:tabular-nums}svg 
 .cover-meta{position:absolute;left:96px;bottom:64px;font-size:16px;color:var(--ink-3)}
 .cover footer{left:96px}
 /* section divider */
-.divider{padding-top:72px}
+.divider{padding-top:72px;background:var(--ink-1);color:var(--paper)}
+.divider .eyebrow,.divider .contents li::before,.divider footer a,.divider .pg{color:var(--ink-4)}
+.divider .divider-name,.divider .verdict,.divider .contents li{color:var(--paper)}
+.divider .divider-head{border-top-color:var(--paper)}
+.divider .contents li,.divider .contents li:last-child{border-color:var(--ink-2)}
 .divider-head{border-top:1px solid var(--line-strong);padding-top:20px;margin-bottom:34px}
 .divider-name{font-size:56px;margin:12px 0 14px;-webkit-line-clamp:1}
 .verdict{font-family:var(--display);font-size:22px;line-height:1.35;color:var(--ink-2);max-width:900px}
@@ -442,7 +449,7 @@ the classes of the CSS above and sized from the figures, never from a hex value.
   period's month label is `ax cur`.
 - **Small charts side by side** (`acq-blended`, `aov-discount`): a `<div class="multi">` holding one
   `<div>` for each chart, each with a `<p class="chart-title">` stating its measure and its own SVG
-  and axis. On `aov-discount` the third chart's `<div>` is the `chart` element with `data-view`, carrying the Share toggle in its `chart-head`; the other two carry none.
+  and axis. A slide holds at most two small charts side by side; neither carries a Share toggle.
 
 **Brand tokens.** Where `references/intake.md` resolved a brand of this brand's own, write its
 values over the skeleton's `:root` for the roles of `references/crux-brand.md` (What a brand
@@ -460,7 +467,7 @@ never fetched and its fallback stack is what shows.
 **Cover**: the Cover layout, with "Monthly performance review" as its eyebrow, the brand's name
 (`references/intake.md`, Brand) and the Current period as month and year. No title rule applies.
 
-**Dividers**: a section divider, stat-free, holding the Section's name large; the eyebrow "Section 2 of 4"
+**Dividers**: a section divider, stat-free, on the ink ground of the skeleton's `.divider` so it stands out on a scan of the deck, holding the Section's name large; the eyebrow "Section 2 of 4"
 (its place among Trading, Acquisition, Retention & LTV and Order value & product); the Section's
 one-line **verdict**; and the Section's slides as a contents list. No title rule applies.
 - **Verdict**: one sentence with a figure, the Section in a line, written last from the Section's
@@ -472,6 +479,11 @@ one-line **verdict**; and the Section's slides as a contents list. No title rule
 - **Contents**: the Action title of every slide of the Section, in order, its Focus slide and its
   Recommendations slide included, one line each (a Brain slot's title is the line it keeps). The
   Appendix slides are not listed.
+
+**Appendix divider** (`app-divider`): the same section divider, its `data-section` `Appendix`,
+with the eyebrow "Appendix", the name "Appendix", the fixed verdict "The full tables behind the
+slides above." and the contents list of every Appendix slide's Action title, in order. It counts
+in no "Section n of 4".
 
 **Executive summary**: a text slide that a founder reads at a glance, in this order.
 1. **You asked**, for each Focus question, in order, only where the intake set any: one block
@@ -976,16 +988,15 @@ the top five carry ("Twelve categories took £420k, the top five 81% of it").
 ### Discount impact (`aov-discount`)
 
 A **discounted order** is an order that carries a discount, as the Source holds it on the order. A
-chart slide of three small charts side by side, 24 months, one measure each, none sharing an axis,
+chart slide of two small charts side by side, 24 months, one measure each, neither sharing an axis,
 the Current period marked and labelled with its figure:
 
 - **Discount rate** (discounted orders ÷ orders) as a line in the Highlight colour, in percent.
 - **Discount depth** (discount given on discounted orders ÷ their value before discount) as columns,
   in percent, the Current period's column in the Highlight colour and the rest grey.
-- **Discounted vs full-price orders** as stacked columns of order counts (discounted series 1,
-  full-price series 3), **with the Share toggle**: absolute shows orders, "% of total" rescales each
-  month to 100% and labels the percentages. The toggle sits on this chart only: the rate and the
-  depth are rates and carry none.
+
+Discounted against full-price orders is not charted: the discount rate is that split. Both charts
+are rates and carry no Share toggle.
 
 No table sits beneath: the discount given (the money) and the order counts are the labels and the
 Takeaway panel's. Where the Source defines either rate or depth in its own metrics, its definition
@@ -1177,7 +1188,7 @@ A slide built here uses these only when its Source cannot fill it.
 | `aov-trend` | Average order value for new, returning and all customers over 24 months | your orders by customer type |
 | `aov-product` | The top five product categories by sales, against last month | your orders by product category |
 | `app-aov-product` | Orders, sales and order value for every product category, against last month | your orders by product category |
-| `aov-discount` | Discounted against full-price orders, with discount rate and depth | your orders with their discounts |
+| `aov-discount` | Discount rate and discount depth over 24 months | your orders with their discounts |
 | `aov-codes` | Orders and discount depth for the top five discount codes | your orders by discount code |
 | `app-aov-codes` | Orders, revenue and discount for the top 10 discount codes | your orders by discount code |
 | `aov-recs` | Up to three Order value & product actions, each with its evidence and how to validate it | the Order value & product slides' data |
@@ -1185,5 +1196,5 @@ A slide built here uses these only when its Source cannot fill it.
 | `app-ltv-type` | LTV by the type of a customer's first order | your customers' order history by first-order type |
 | `app-line-items` | Units and revenue by product and variant for the month | your order line items |
 
-The `cover`, the dividers, `exec-summary`, `last-actions`, `next-month` and `notes` are never Brain slots. A
+The `cover`, the dividers (`app-divider` included), `exec-summary`, `last-actions`, `next-month` and `notes` are never Brain slots. A
 Section whose slides are all Brain slots keeps its divider and its Recommendations slot.

@@ -46,7 +46,7 @@ Every slide maps to one of seven **Layouts**. Each has its fixed grid in the ske
 | Layout | Holds |
 |---|---|
 | cover | the brand or Crux name, the deck's name and the Current period |
-| section divider | the Section's name, a one-sentence verdict, and the contents of the Section |
+| section divider | the Section's name, a one-sentence verdict, and the contents of the Section, on the ink ground so it stands out on a scan |
 | stat slide | an Action title, a Stat row and a Takeaway panel |
 | chart slide | an Action title, one chart and a Takeaway panel |
 | table slide | an Action title and one table; **Appendix only** |
@@ -81,6 +81,8 @@ and always the Takeaway panel.
 ## Charts
 
 - Bars compare categories; lines show trends over time.
+- At most two small charts side by side on a slide. A third measure is a second slide, or is left out
+  where another chart already shows it.
 - Never a pie. Parts of a whole are a stacked bar.
 - Direct labels on the marks, with no legend wherever the labels fit.
 - Horizontal gridlines only, in hairline grey; no axis lines except the baseline. The axis starts

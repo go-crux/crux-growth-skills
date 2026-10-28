@@ -25,7 +25,7 @@ growth equation: trading, then acquisition, retention and LTV, then order value 
 
 - **Brain line**: the one fixed line closing the Notes on a run without a Growth Brain, saying what a brain adds and pointing at gocrux.io/contact. Said once, unlike a Brain slot. _Avoid_: upsell, plug, disclaimer.
 
-- **Share toggle**: the per-chart switch between absolute values and % of total, absolute by default, on charts whose series add up to a whole (revenue new vs returning, paid vs organic, product category mix, discounted vs full-price orders), never on a rate. _Avoid_: percentage view, mix toggle.
+- **Share toggle**: the per-chart switch between absolute values and % of total, absolute by default, on charts whose series add up to a whole (revenue new vs returning, paid vs organic, product category mix), never on a rate. _Avoid_: percentage view, mix toggle.
 
 ## Periods and sources
 
