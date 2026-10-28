@@ -36,10 +36,12 @@ and once in the chat.
 Call it again naming only `<client>-orders` and `<client>-channel_reporting` (`<client>` is the
 prefix the roster carries), one table per call: a call naming two marts can overflow the reply.
 If either is missing from the roster, tell the user in one line which one and stop.
-Each section below opens with its own `list_tables` calls, one per mart that section reads. Compose every query from the columns the calls return. A mart absent from the roster
-drops its part of the page, with one line saying so. `meta_performance` and
-`google_ads_performance` are optional: name each in a `list_tables` call only when the roster
-lists it.
+Each section below opens with its own `list_tables` calls, one per mart that section reads. Compose every query from the columns the calls return. A roster that lacks
+`<client>-order_items` (Merchandising) or `<client>-klaviyo_campaign_summary` (Retention) sends
+that section to the next Source, a connector and then a file, as `references/exports.md` sets
+out. Any other absent mart drops its part of the page, with one line saying so.
+`meta_performance` and `google_ads_performance` are optional: name each in a `list_tables` call
+only when the roster lists it.
 
 **Probe only what could be a Source.** Before a connector is offered as a Source, make one small
 read from it: a figure for one day inside last year's Baseline (1 September of last year),
@@ -47,7 +49,9 @@ through the tool the section will read it with. Probe each connector that
 `references/exports.md` lets a section read, and no other. An error or a refusal makes it a
 Source for no section: tell the user what it refused. A read that returns zero is not a refusal.
 A Growth Brain whose roster holds a section's marts leaves that section nothing to probe: probe
-no connector for it and offer none.
+no connector for it and offer none. A section whose mart the roster lacks is probed like any
+other, and the Brain line stays off a run with a Growth Brain, whichever Source such a section
+takes.
 
 **Timezone and currency.** With a Growth Brain, unchanged: the timezone rule under Windows below,
 and the currency the brain's figures carry. Without one, days follow the timezone each Source
@@ -72,11 +76,13 @@ source.
 
 **The one ask.** Run it only when some section's Source is a file. Send one message listing every
 report the run still needs, each with its export steps and date range from `references/exports.md`,
-and the currency where no Source states it; then wait for the reply. The reports are the orders
-file, and for each that no probed connector reads: the GA4 sessions by landing page (daily),
-offering the Shopify sessions by landing page (daily) in its place for a brand without GA4; the
-Google Ads campaign report (daily); and the Meta Ads campaign report (daily). A report the user
-does not give makes its section read "No data" with its reason.
+and the currency where no Source states it; then wait for the reply. A section a Growth Brain
+holds needs no report. The reports are, for each that no probed connector reads: the orders file;
+the Shopify sales by product by day, one per year (Merchandising); the Klaviyo campaign export,
+one per year (Retention); the GA4 sessions by landing page (daily), offering the Shopify sessions
+by landing page (daily) in its place for a brand without GA4; the Google Ads campaign report
+(daily); and the Meta Ads campaign report (daily). A report the user does not give makes its
+section read "No data" with its reason.
 
 **Basis.** Apply to the headline and to every section.
 
@@ -115,7 +121,8 @@ does not give makes its section read "No data" with its reason.
   that gross profit less the window's spend from Acquisition below, once spend has a Source (the
   Google Ads and Meta Ads spend of each platform that has a Source). Without cost every margin cell reads "No
   data", and while spend has no Source the CM3 row does too. Name total sales and the margin
-  label on the page.
+  label on the page. Product rows take the same rule from the Shopify sales by product report
+  (Merchandising below).
 
 **Headline.** For Black Friday weekend of last year and of the year before it, read the
 growth equation: new customers, returning customer orders, order value and CM3 (or "CM1 less
@@ -148,18 +155,27 @@ Baseline, Lead-in, Black Friday weekend and Festive in both years.
   conversion and the landing pages read "No data", with the plain reason that no Source in this
   run holds visits.
 
-**Merchandising.** Call `list_tables` for `<client>-order_items`: every product figure comes from
-it. Show units, revenue and margin per day by window, then rank the five
+**Merchandising.** With a Growth Brain whose roster lists `<client>-order_items`, call
+`list_tables` for it: every product figure comes from it. Show units, revenue and margin per day
+by window, then rank the five
 products with the most revenue in Black Friday weekend of last year. Each product row carries
 units, revenue, margin, margin %, share of the weekend's margin, average discount and margin
-per unit, and the year before it for the same product. A figure the table lacks reads "No data". Without a
-Growth Brain, the whole section reads "No data" with the plain reason that no Source in this run
-holds products.
+per unit, and the year before it for the same product. A figure the table lacks reads "No data".
+
+Where there is no Growth Brain, or its roster lacks `<client>-order_items`, read every product
+figure from one Shopify sales by product report by day (a Shopify connector, else the export;
+`references/exports.md`), the same Source in both years, and cut the windows from its day rows.
+Each figure is as above, from the report's columns: revenue is total sales; margin is total sales
+less cost, labelled "Gross profit, as Shopify records it", and reads "No data" where the report
+carries no cost; margin % is margin over revenue; the share of the weekend's margin is the
+product's margin over the margin of every product in the report that weekend; average discount
+is discounts over gross sales; margin per unit is margin over units. With no Shopify connector
+and no report given, the section reads "No data" with the plain reason that no Source in this
+run holds your sales by product.
 
 **Marketing.** Four parts. Acquisition, Retention and Repeat customers each have their own window
-table; Cohorts has its own cohort table. Without a Growth Brain, Retention reads "No data" with
-the plain reason that no Source in this run holds it; Acquisition, Repeat customers and Cohorts
-follow.
+table; Cohorts has its own cohort table. Each part takes the first Source that holds it, and a
+part no Source holds reads "No data" with its plain reason.
 
 - *Acquisition*: visits, new customers, spend and CAC (spend over new customers) per day by
   window, from `<client>-channel_reporting`. Rank the five paid campaigns (spend above
@@ -182,12 +198,18 @@ follow.
   spend Source, spend, CAC and the campaigns read "No data" with the plain reason that no Source
   in this run holds your ad spend; with no sessions Source, visits and the landing pages read
   "No data".
-- *Retention*: call `list_tables` for `<client>-klaviyo_campaign_summary`. Show campaign
-  revenue and sends per day by window, placing each campaign in the window of its send date,
+- *Retention*: with a Growth Brain whose roster lists `<client>-klaviyo_campaign_summary`, call
+  `list_tables` for it. Otherwise read the campaigns from a Klaviyo connector (probed first),
+  else the Klaviyo campaign export (`references/exports.md`), the same Source in both years.
+  Show campaign revenue and sends per day by window, placing each campaign in the window of its
+  send date,
   then rank the five campaigns with the most revenue in Black Friday weekend and Festive of
   last year, each with the average revenue of the other campaigns in its window beside it.
   Count the campaigns sent on each day of Black Friday weekend, in both years, for the send
-  cadence table.
+  cadence table. Without the mart, sends are the campaign's recipients and revenue is what
+  Klaviyo attributes to the campaign, and the Notes say so. With neither a connector nor an
+  export, Retention and the send cadence table read "No data" with the plain reason that no
+  Source in this run holds your email campaigns, so the patterns that read them cannot fire.
 - *Repeat customers*: for every window in both years, read returning customers' share of
   orders (orders from customers with an earlier order, from `<client>-orders`) and the 90-day
   reorder of the window's new customers (the share who place a second order within 90 days of
@@ -223,7 +245,8 @@ answered or its reports marked "No data", the dates are written out, the headlin
 order figures, Repeat customers and Cohorts each show last year, the year before it and each
 window's Lift over Baseline from one Source, or a one-line reason; Offer conversion and the ten
 landing pages name their one sessions Source, and Acquisition names the platforms spend covers
-and the labels of its platform-reported campaigns; every section no Source holds reads "No data"
+and the labels of its platform-reported campaigns; Merchandising and Retention each name their
+Source (connector or file) and Merchandising its margin label; every section no Source holds reads "No data"
 with its plain reason; and the Brain line is ready for the Overview's notes and the chat.
 
 **Done when** the headline, Offer, Merchandising, Acquisition, Retention and Repeat customers each show last year, the year
@@ -234,7 +257,8 @@ rung and the revenue measure are named; the headline and every window table carr
 `references/windows.sql`, in the store's timezone where the brain names one, and left out
 flagged test orders; a costed share of revenue under 90% is footnoted; the run has queried
 only the marts named in this step, with `meta_performance` and `google_ads_performance` only
-where the roster lists them; and the 3 to 5 opportunities
+where the roster lists them; a section taken from a connector or file for want of its mart names
+that Source; and the 3 to 5 opportunities
 each carry evidence, action and metric (fewer only when fewer were found).
 
 ## 2. Target test
