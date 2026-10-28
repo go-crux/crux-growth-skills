@@ -129,8 +129,9 @@ figures, or its Focus slide is a Brain slot; and:
 - the Appendix category table's rows, No category included, add up to its Total row, whose orders
   and sales equal the KPI table's, and the category bars, Other categories and No category included,
   add up to that month's revenue;
-- discounted and full-price orders add up to orders in each of the 24 months, and the `aov-discount`
-  source line counts the orders at 100% depth left out of depth (none left in a depth figure);
+- the discount rate's discounted orders and the orders it divides by are read from the same orders
+  in each of the 24 months, and the `aov-discount` source line counts the orders at 100% depth left
+  out of depth (none left in a depth figure);
 - no category row named "No category" holds an order that has a category, a multi-category bucket
   being a category row;
 - the Discount codes slide and its Appendix slide are present only where an order in the Current
@@ -150,8 +151,10 @@ panel, each divider's verdict, and the Executive summary, led by the Focus quest
 Month context in place of any cause the figures do not show, and each Action title last.
 
 **Done when** every Trading, Acquisition, Retention & LTV and Order value & product card carries a
-figure from its own Section's slides and an action, a metric to watch and Test, Watch next month or
-Ship; Next month holds the three distinct gaps with the most revenue at stake (a card that
+figure from its own Section's slides, an action that names a segment and a concrete move on it
+(never one that restates the gap, such as "close the gap to budget"), a metric to watch and Test,
+Watch next month or Ship, and is worth at least 1% of the Current period's revenue a month; no Section holds two cards
+of the same kind of move; Next month holds the three distinct gaps with the most revenue at stake (a card that
 duplicates or sits inside a larger one, as the table in `references/deck-layout.md` defines "inside",
 gives way), or fewer where fewer exist; every Budget gap card names its lever and how it was picked
 and is sized on that lever's share of the shortfall, never the whole shortfall; every title and card
@@ -162,7 +165,7 @@ orders has been checked for a Waste gap; no card is sized on a delta that reads 
 leads the Executive summary; the Executive summary holds the four Stat row figures and one
 takeaway with a figure for each of Acquisition, Retention & LTV, and Order value & product; every
 data slide has a Takeaway panel that restates neither its Action title nor a Recommendation; every
-divider has a verdict with a figure (or the fixed line where all its slides are Brain slots); a Month context the user gave appears on each
+Section divider has a verdict with a figure (or the fixed line where all its slides are Brain slots), and the Appendix divider its fixed line; a Month context the user gave appears on each
 slide it bears on and in the Executive summary's takeaways, and no slide states a cause that neither the Month context nor
 the data supports; and every content slide has an Action title of one full sentence with a figure.
 
@@ -174,13 +177,21 @@ period. A file of that name there is replaced. Write every slide of the slide li
 the Focus slides after their Section's divider and Last month's actions after the Executive
 summary, using the skeleton of `references/deck-layout.md` with the brand's values over the roles
 of `references/crux-brand.md`, and each slide built to the craft of `references/slide-craft.md`.
+Then run the Quality check of `references/slide-craft.md` over every slide of the written file, fix
+each slide that fails a line, and run it again until every slide passes.
 
-**Done when** the file holds every slide of the slide list in order (conditional slides only
-where the business has them), each one filled from the Source or a Brain slot, and one Focus slide for each Focus question, every stat and chart slide holding its Takeaway panel, Last month's actions
-holds one row for each action of the previous review or its fixed line, the brand's values are the
-only change to the skeleton's CSS (the Crux default where the brand has no look of its own), every slide has the footer, each built chart marked for a Share
-toggle carries one and no other chart does, the Notes carry their fixed title and three headings (and the Brain line,
-once, on a run without a Growth Brain), every Stat figure and table shows the bare symbol where the currency's symbol is longer than one character, with the Notes' Currency caveat naming the currency, every text size is at or above the minimums of `references/slide-craft.md` (the label size included), and the page makes no network request.
+**Done when** every slide passes each line of the Quality check in `references/slide-craft.md`
+(its evidence, its Takeaway panel, one Highlight colour, the type minimums with the label size
+included, nothing past 1280×720, the footer); the file holds every slide of the slide list in order
+(conditional slides only where the business has them, and `notes-2` only where the Notes
+overflow), each one filled from the Source or a Brain
+slot, and one Focus slide for each Focus question; Last month's actions holds one row for each
+action of the previous review or its fixed line; the brand's values are the only change to the
+skeleton's CSS (the Crux default where the brand has no look of its own); each built chart marked
+for a Share toggle carries one and no other chart does; the Notes carry their fixed title and three
+headings across `notes` and, where they continue, `notes-2` (and the Brain line, once, on a run without a Growth Brain); every Stat figure and table
+shows the bare symbol where the currency's symbol is longer than one character, with the Notes'
+Currency caveat naming the currency; and the page makes no network request.
 
 ## 6. Close
 

@@ -18,7 +18,7 @@ them role by role.
 | Greys | `--ink-2` | `#3A4046` | body text |
 | | `--ink-3` | `#5A6169` | labels, muted text |
 | | `--ink-4` | `#8A9099` | axis text, footer, source lines |
-| Highlight colour | `--signal` | `#0F4C81` | the one mark the Action title names; the panel rule; the cover bar |
+| Highlight colour | `--signal` | `#0F4C81` | the one mark the Action title names; the panel rule; the cover bar; the section divider ground |
 | | `--signal-tint` | `#E7EEF4` | the highlighted table row |
 | Rules | `--line` | `#C9CDD1` | hairlines, baseline |
 | | `--line-soft` | `#E2E5E8` | row and gridlines |

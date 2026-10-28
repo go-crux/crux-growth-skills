@@ -47,7 +47,7 @@ Every slide maps to one of seven **Layouts**. Each has its fixed grid in the ske
 | Layout | Holds |
 |---|---|
 | cover | the brand or Crux name, the deck's name and the Current period |
-| section divider | the Section's name, a one-sentence verdict, and the contents of the Section |
+| section divider | the Section's name, a one-sentence verdict, and the contents of the Section, on the Highlight colour ground so it stands out on a scan |
 | stat slide | an Action title, a Stat row and a Takeaway panel |
 | chart slide | an Action title, one chart and a Takeaway panel |
 | table slide | an Action title and one table; **Appendix only** |
@@ -71,7 +71,8 @@ and always the Takeaway panel.
 ## Colour
 
 - **Highlight colour** goes only on the bar, line, row or figure the Action title names. Every
-  other mark is grey.
+  other mark is grey. A section divider, which has no Action title, wears it as its whole ground and
+  holds no other mark in it.
 - A **category palette** of at most 5 colours is allowed only where categories must be told apart
   (the groups of a stacked bar). It is not a way to make a chart livelier.
 - **Positive and negative colours** appear only on deltas (▲ or ▼ with a figure), never as a
@@ -82,6 +83,8 @@ and always the Takeaway panel.
 ## Charts
 
 - Bars compare categories; lines show trends over time.
+- At most two small charts side by side on a slide. A third measure is a second slide, or is left out
+  where another chart already shows it.
 - Never a pie. Parts of a whole are a stacked bar.
 - Direct labels on the marks, with no legend wherever the labels fit.
 - Horizontal gridlines only, in hairline grey; no axis lines except the baseline. The axis starts
@@ -107,7 +110,8 @@ and always the Takeaway panel.
 | Footer and source line | 12px |
 
 Text that does not fit is cut, never shrunk. Shorten the sentence, drop the row to the Appendix,
-or drop the line.
+or drop the line. The Notes are the one exception: their Caveats move to `notes-2` rather than
+being cut (`references/deck-layout.md`, Notes, continued).
 
 ## Chrome
 
@@ -117,11 +121,15 @@ or drop the line.
 
 ## Quality check
 
-Before the file is written, check each slide against this list. A slide that fails any line is
+Before the deck is handed over, check every slide against this list. A slide that fails any line is
 fixed, never shipped.
 
-- It has one piece of evidence (a data slide never two), and a Takeaway panel where it is a data
-  slide.
-- It uses one Highlight colour, on the mark its Action title names.
-- Its sizes are at or above the minimums under **Type**.
+- It holds at most one piece of evidence, and a data slide exactly one (on a Brain slot, its fixed
+  line).
+- A data slide has its Takeaway panel, within the limits under **The Takeaway panel**. A Brain
+  slot has none.
+- It uses at most one Highlight colour, and only on the mark its Action title names (a section
+  divider wears it as its ground).
+- Its type is at or above every minimum under **Type**.
 - Nothing runs past the 1280×720 slide.
+- It carries the footer.
