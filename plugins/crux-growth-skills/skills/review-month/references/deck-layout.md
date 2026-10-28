@@ -565,7 +565,8 @@ right. The four, in this order, the first in the Highlight colour:
    gives it, ex VAT where that file says so)
 2. **New customers**, which is the New orders figure of the KPI table, labelled as the brain names
    it
-3. **MER** (revenue ÷ marketing spend)
+3. **MER**, as `references/sources.md` sets it, labelled with its basis where the brain defines it
+   ("MER, on gross sales")
 4. **The Margin rung's %** of revenue, labelled with the rung's own name (the rung
    `references/sources.md` chooses by its dating, and the lower rung's name where the brain says
    the two are equal), on a Growth Brain that holds a margin rung; else **Orders**
@@ -579,7 +580,9 @@ The figures are read as `app-trading-kpi` reads them, so the two slides agree to
 Action title: the Current period's revenue and its MoM change, with the move behind it: the
 largest among orders, order value and returning orders, or the gap to budget where the Source holds
 a budget ("Revenue rose 8%
-to £1.2m as returning orders grew 13%, but finished 6.7% short of the £1.3m budget").
+to £1.2m as returning orders grew 13%, but finished 6.7% short of the £1.3m budget"). Where the
+Budget basis differs from the Revenue basis, the gap is written on the Budget basis ("Revenue rose
+8% to £1.2m, but gross sales finished 20% short of budget").
 
 ### Appendix: Trading KPIs (`app-trading-kpi`)
 
@@ -593,7 +596,7 @@ columns and, where the Source holds a budget, the budget columns:
 4. Returning orders
 5. Average order value, as `references/sources.md` sets it (Order value & product)
 6. Marketing spend
-7. MER (revenue ÷ marketing spend)
+7. MER, as `trading-kpi` sets it
 
 On a Growth Brain that holds a margin rung, add two rows after MER: the rung's money figure and
 its % of revenue, labelled with the margin rung's own name, as `trading-kpi` names it. Revenue
@@ -602,7 +605,8 @@ relative % per the comparison rule. Revenue is the highlighted row.
 
 Action title: the Current period's revenue, its YoY change and, where the Source holds a budget,
 its gap to budget ("Revenue of £420k was 17% up on last September but 6.7% short of the £450k
-budget"); without a budget, its MoM change and its YoY change.
+budget"), written on the Budget basis where it differs from the Revenue basis, as `trading-kpi`'s;
+without a budget, its MoM change and its YoY change.
 
 ### Revenue, new vs returning (`trading-revenue`)
 
@@ -659,8 +663,10 @@ one with the largest relative fall against last month, on `trading-revenue` and 
 card is sized as that lever's share of the shortfall: for an orders lever, its orders below the
 budget (or below last month, where there is no split) times that group's Current period revenue per
 order; for AOV, the Current period's orders times the AOV below the budget (or below last month),
-and never more than the revenue shortfall against budget. The card names the Budget basis, the
-lever and how it was picked ("by the budget's own split" or "by its fall against last month"). A
+and never more than the shortfall against budget. The card's title and evidence are written on the
+Budget basis, never as a Revenue shortfall where the bases differ ("Gross sales finished 20% short
+of budget"), and the card names the Budget basis, the lever and how it was picked ("by the
+budget's own split" or "by its fall against last month"). A
 Source with no budget has no budget gap. **Market or
 customer-type fall**: a market (`trading-markets`) or a customer type (new or returning, on
 `trading-revenue`) whose revenue fell, sized as its revenue fall against the same month last year,
@@ -1089,7 +1095,7 @@ No Action title. Three headings, always present, in this order:
    spend: your Google Ads export."), and the platforms marketing spend covers.
 2. **Definitions**: with a Growth Brain, one line saying the brain's own definitions are used, then
    the definition of each measure on the deck as that brain gives it (revenue and its basis, new
-   customer, new-customer conversion and what it divides by, active, lapsed, reactivated and the mart
+   customer, new-customer conversion and what it divides by, MER and the revenue it divides, active, lapsed, reactivated and the mart
    they read, CAC overall and by channel, retention, LTV and its unit, the margin rung), a
    glossary definition marked as such where the brain defines none, the channels counted as paid, and where the deck holds a budget, the Budget basis. Revenue is stated as the
    Revenue basis under the brain's name for it, with the AOV metric it comes from or, where the
@@ -1102,11 +1108,11 @@ No Action title. Three headings, always present, in this order:
 | Days | Days are read in `<timezone>`. Where the brain says only that dates are the store's own timezone: Days are read in your store's own timezone, as your orders record them. |
 | Currency | Amounts are in `<currency>`. Where no Source states one: Amounts are in the currency your orders are recorded in. |
 | Test orders | Test orders are left out. |
-| Cancelled orders | Cancelled orders are `<left out / counted / not stated>`, as your orders record them. |
-| Returns | Returns are booked on the `<order / refund>` date, so the latest months' revenue can still change as returns arrive. Where the Revenue basis is before returns: `<Revenue name>` is before returns, so the latest months can still change as returns arrive. |
+| Cancelled orders | Cancelled orders are `<left out / counted / not stated>`, as your channel reporting counts them, so the figures here tie to it. |
+| Returns | Returns are booked on the `<order / refund>` date, so the latest months' revenue can still change as returns arrive. Where the Revenue basis is before returns: Revenue is before returns, so it does not change as returns arrive; returns show in the margin rows (without margin rows, end at "arrive"). |
 | Budget basis, where it differs from the Revenue basis | Budget is set on `<basis>`, so the budget column compares your `<basis>` against it, not the revenue above. |
 | Orders not fully costed, where your orders flag them | `<n>` orders (`<share>` of revenue) include a product that has no cost yet. They are counted in every figure. With margin rows, add: Their `<rung>` % is taken to be the same as for your other orders. Where `<n>` is 1: 1 order (`<share>` of revenue) includes a product that has no cost yet. It is counted in every figure. With margin rows, add: Its `<rung>` % is taken to be the same as for your other orders. |
-| Margin, with margin rows on a rung dated by order | `<Rung>` % is the margin rate your Growth Brain publishes, dated by order, and `<rung>` is that rate applied to all revenue, so it can differ from a `<rung>` your Growth Brain or a dashboard adds up order by order. Where your Growth Brain publishes no such rate on this revenue, `<rung>` % is `<rung>` divided by revenue on your fully costed orders. |
+| Margin, with margin rows on a rung dated by order | `<Rung>` % is the margin rate your Growth Brain publishes, dated by order, and `<rung>` is that rate applied to all revenue, so it can differ from a `<rung>` your Growth Brain or a dashboard adds up order by order. Where your Growth Brain publishes no such rate on this revenue, `<rung>` % is `<rung>` divided by revenue on your fully costed orders, both `<before / after>` returns and `<ex / including>` shipping. |
 | Mixed-dated margin, with margin rows on a rung dated partly by refund | Your `<plain name of the mart>` dates `<rung>` partly by refund, so `<rung>` % can swing from month to month with the timing of refunds. `<Rung>` is that % applied to all revenue, so it can differ from a `<rung>` your Growth Brain or a dashboard adds up order by order. |
 | Equal rungs, where the brain says the chosen rung equals the one below | Your Growth Brain holds `<higher rung>` equal to `<lower rung>` (`<its reason in plain words>`), so the margin rows are labelled `<lower rung>`. |
 | Thin costing, where the share of fully costed revenue falls sharply in the history shown | Costs are recorded from `<month>`, so margin before then, and year-on-year margin LTV, is not like for like. Where LTV is revenue, read: Costs are recorded from `<month>`, so margin before then is not like for like. |
@@ -1116,6 +1122,7 @@ No Action title. Three headings, always present, in this order:
 | History | The history starts in `<month>`, so trend charts are shorter than 24 months. |
 | A missing source | `<Slides>` could not be built because your Growth Brain holds no `<plain name>`. |
 | Modelled channels, where channel CAC reads modelled credit | Channels are credited as your Growth Brain models them, so a channel's new orders are its modelled credit and can differ from the orders your orders record against it. |
+| Customer base, where the brain's active customer excludes one-order customers | Active customers exclude those with one order, as your Growth Brain defines them, so last month's active customers plus new and reactivated, less lapsed, will not equal this month's. |
 | Definition fallback, where a definition cannot be read | Your Growth Brain defines `<measure>` from `<plain name of the data>`, which this review cannot read, so `<measure>` is read as `<its plain glossary definition>` from your orders. |
 | Channel total | The channels' new orders exceed your orders' new orders by `<n>`, so the Unknown row reads 0. |
 | Tracking change | You told us `<the tracking change>`, so comparisons across it may not be like for like. |
