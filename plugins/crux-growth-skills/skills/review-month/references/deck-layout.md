@@ -322,11 +322,11 @@ svg .row{font-size:16px;fill:var(--ink-2);font-variant-numeric:tabular-nums}svg 
 .cover-meta{position:absolute;left:96px;bottom:64px;font-size:16px;color:var(--ink-3)}
 .cover footer{left:96px}
 /* section divider */
-.divider{padding-top:72px;background:var(--ink-1);color:var(--paper)}
-.divider .eyebrow,.divider .contents li::before,.divider footer a,.divider .pg{color:var(--ink-4)}
+.divider{padding-top:72px;background:var(--signal);color:var(--paper)}
+.divider .eyebrow,.divider .contents li::before,.divider footer a,.divider .pg{color:var(--signal-tint)}
 .divider .divider-name,.divider .verdict,.divider .contents li{color:var(--paper)}
 .divider .divider-head{border-top-color:var(--paper)}
-.divider .contents li,.divider .contents li:last-child{border-color:var(--ink-2)}
+.divider .contents li,.divider .contents li:last-child{border-color:rgba(255,255,255,.25)}
 .divider-head{border-top:1px solid var(--line-strong);padding-top:20px;margin-bottom:34px}
 .divider-name{font-size:56px;margin:12px 0 14px;-webkit-line-clamp:1}
 .verdict{font-family:var(--display);font-size:22px;line-height:1.35;color:var(--ink-2);max-width:900px}
@@ -476,7 +476,7 @@ never fetched and its fallback stack is what shows.
 **Cover**: the Cover layout, with "Monthly performance review" as its eyebrow, the brand's name
 (`references/intake.md`, Brand) and the Current period as month and year. No title rule applies.
 
-**Dividers**: a section divider, stat-free, on the ink ground of the skeleton's `.divider` so it stands out on a scan of the deck, holding the Section's name large; the eyebrow "Section 2 of 4"
+**Dividers**: a section divider, stat-free, on the Highlight colour ground of the skeleton's `.divider` so it stands out on a scan of the deck, holding the Section's name large; the eyebrow "Section 2 of 4"
 (its place among Trading, Acquisition, Retention & LTV and Order value & product); the Section's
 one-line **verdict**; and the Section's slides as a contents list. No title rule applies.
 - **Verdict**: one sentence with a figure, the Section in a line, written last from the Section's

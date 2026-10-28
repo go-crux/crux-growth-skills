@@ -46,7 +46,7 @@ Every slide maps to one of seven **Layouts**. Each has its fixed grid in the ske
 | Layout | Holds |
 |---|---|
 | cover | the brand or Crux name, the deck's name and the Current period |
-| section divider | the Section's name, a one-sentence verdict, and the contents of the Section, on the ink ground so it stands out on a scan |
+| section divider | the Section's name, a one-sentence verdict, and the contents of the Section, on the Highlight colour ground so it stands out on a scan |
 | stat slide | an Action title, a Stat row and a Takeaway panel |
 | chart slide | an Action title, one chart and a Takeaway panel |
 | table slide | an Action title and one table; **Appendix only** |
