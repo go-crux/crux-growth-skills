@@ -1,0 +1,5 @@
+# A deck with no brand of its own wears the Crux editorial system
+
+**Status:** Accepted, 2026-10-27.
+
+The Monthly performance review used a grey neutral default when the session held no brand skill or file for the brand. It now wears the Crux editorial system instead: paper, ink, one signal-blue highlight, hairline rules, square corners and Economist-style charts, with its tokens copied into the skill and fallback font stacks (a system serif for titles and figures, the system sans for body), since the page makes no network request and so loads no web font. A brand skill or file for this brand, and only this brand, replaces the colour, font and name roles; the layouts, type sizes, rules and the green and red deltas never change. We accept that a prospect's deck looks like Crux's work rather than their own, because a considered default reads as craft where a grey one read as amateur, and the deck is the lead magnet's showcase. A brand skill for another company, Crux's own included, is never borrowed. The other skills' pages keep their own defaults until moved under a separate issue.
