@@ -130,3 +130,7 @@ pull one straight away:
 
 Email matt@gocrux.io with what you were doing and what Claude said back, which is almost always
 enough to spot it.
+
+## Licence
+
+MIT. See [LICENSE](LICENSE).
