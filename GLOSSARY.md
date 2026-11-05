@@ -8,6 +8,16 @@ Crux growth skills: free skills any brand installs in its own Claude that carry 
 
 - **Lever**: one term that, with the others in its tree, rebuilds a KPI exactly; a volume (visits, new customers, spend) or an efficiency (conversion, order value, margin %). The growth equation's three are levers: new customers, returning customer orders and order value. Every skill says lever. _Avoid_: pillar (the docs site and the analysis framework pages still use it), factor, component.
 
+- **Recommendation**: one specific change a skill proposes on its evidence: the lever it moves, its size in £ or KPI terms, the evidence, a confidence, and the metric to watch. In an action skill it also carries a Mode and goes through the Hand-off. _Avoid_: action, suggestion, next step, insight.
+
+- **Action skill**: a skill whose run ends in Recommendations specific enough to make in a platform, closed by the Hand-off (audit-ads, optimise-budget, audit-retention, plan-stock). It recommends and never makes the change itself. _Avoid_: execution skill, agentic skill.
+
+- **Hand-off**: the close of an action skill: it asks what the user wants to do with the Recommendations, implement now, save them to the Handover file, or leave them. Implementing is the user's own session with whatever connector they hold; the skill gives no platform steps. _Avoid_: execution, push, apply step.
+
+- **Mode**: how a Recommendation should go live. Switch (make it and watch the metric; always for new ads and formats), Split test (the platform's own A/B tool, for strategic paid changes, flow and campaign changes and landing pages, only where traffic reads a result) or Holdout (geo or brand-off, to measure incrementality). _Avoid_: test type, rollout.
+
+- **Handover file**: the markdown file the Hand-off gives the user holding every Recommendation they saved, self-contained enough to act on in a later session. The skill never reads it back. _Avoid_: plan, action log, backlog.
+
 ## Skill glossaries
 
 - `plan-black-friday`: [`plan-black-friday/references/glossary.md`](plugins/crux-growth-skills/skills/plan-black-friday/references/glossary.md) (the windows, Lift, Target test, Last-year level, Lever gap, Scenario, Daily phasing, Discount ceiling, Source, Brain line, Black Friday plan).
