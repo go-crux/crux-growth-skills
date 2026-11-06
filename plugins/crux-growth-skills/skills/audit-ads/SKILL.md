@@ -142,7 +142,7 @@ all its fields, or left. With no Recommendation, say so in one line and go to st
 ## 8. Next run
 
 Take the average daily Meta spend over the last 7 complete days: one `run_sql` query summing spend
-over every row of the mart for those days (ads below the Reported floor and rows with no ad
+over every row of the mart for those days (ads that are not Reported ads and rows with no ad
 included), divided by 7. Pick the band:
 
 | Average daily Meta spend | Run again |
