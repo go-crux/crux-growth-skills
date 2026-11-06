@@ -1,6 +1,6 @@
 Every Meta ad is judged on the last 60 complete days, one ad at a time. Here is how.
 
-**1. One measure: CAC.** CAC is an ad's spend divided by the new customers it brought, counted from your own first orders, not from the purchases Meta claims. Each day's CAC is adjusted for the day of the week (some weekdays are always dearer) before any comparison, so a dear weekday is not mistaken for fatigue.
+**1. One measure: CAC.** CAC is an ad's spend divided by the new customers it brought. With a Growth Brain these are counted from your own first orders, not from the purchases Meta claims; without one, they are the purchases Meta reports for the ad, which counts every purchase Meta claims. Each day's CAC is adjusted for the day of the week (some weekdays are always dearer) before any comparison, so a dear weekday is not mistaken for fatigue.
 
 **2. Two windows.** The current window is the last 5 complete days. An ad's Peak CAC is its best (lowest) 7-day CAC on any of the last 42 days, as it stood that day. Fatigue is the current window against the Peak CAC.
 
