@@ -110,6 +110,22 @@ the line items behind your products, are marked in the deck as needing one, and 
 connectors and exports cannot fill. A Crux Growth Brain also adds your budget and profit margin to
 the deck where it holds them. Ask Claude for your monthly review, or send `/review-month` in Claude Code.
 
+**Audit Meta ads** (`audit-ads`) tells you which of your Meta ads to pause, refresh or iterate on.
+It judges every ad on the last 60 complete days, one at a time, by what it costs you to win a new
+customer. It compares each ad with the rest of your account and with the ad's own best run, so it
+can tell an ad that was never efficient from one that has worn out. It asks you which of your
+campaigns are retargeting or aimed at existing customers, because those cost very different
+amounts, and tells you how it judges before it starts. You leave with one page for your team: the
+recommendations ranked by what each is worth a month, and every ad that has spent enough to be
+judged, with its status. It then asks what you want to do with the recommendations, to act on now,
+save to a file or leave, and tells you when to run it again. Nothing is changed in Meta.
+
+*Needs:* nothing to start. It is best with a Crux Growth Brain connected, which counts new
+customers from your own first orders. Without one it reads a Meta Ads connector if Claude has one,
+and otherwise asks you for one export from Ads Manager and tells you the steps; cost per customer
+is then Meta's own cost per purchase, and the page says so. Ask Claude which of your Meta ads to
+pause, or send `/audit-ads` in Claude Code.
+
 ## Getting a Growth Brain
 
 We build each Growth Brain on the brand's own data. To see what one would read for yours, book a
