@@ -36,4 +36,8 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Reported ad**: an ad with at least 100 in the account's currency spent over the last 7 days. Every ad is judged; only Reported ads appear on the page, and above 300 of them the intake warns that the run will be long and token-heavy. _Avoid_: active ad, live ad.
 
+- **Source**: where the ad-by-day rows come from, the first that holds them of a Growth Brain, a Meta connector in the session and one Ads Manager export the user gives. Named on the page. _Avoid_: data source, feed, integration.
+
+- **Brain line**: the fixed sentence, "With a Growth Brain, this judges every ad on a single attribution source rather than every purchase Meta claims.", said as the last line of the page's Notes and Method on a run whose Source is not a Growth Brain and whose session holds none. _Avoid_: upsell, plug.
+
 - **Judged spend share**: the share of the last 7 days' spend in ads past the Eligibility floors. Below 50%, the run opens by saying the method cannot judge most of the account's spend yet. _Avoid_: coverage.

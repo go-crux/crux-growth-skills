@@ -13,7 +13,8 @@ row per label, in this order:
 | Label | Text |
 |---|---|
 | Window | The 60 complete days read, first to last date; the 5-day current window's dates; the 7-day Reported window's dates. |
-| Measure | "CAC: spend over new customers, counted from your own first orders." |
+| Source | The Source the run used: the Growth Brain connector's name, the Meta connector's name, or "Ads Manager export" with the file's name. |
+| Measure | With a Growth Brain: "CAC: spend over new customers, counted from your own first orders." Otherwise: "CAC: Meta spend over the purchases Meta reports for the ad. Platform-attributed: it counts every purchase Meta claims." |
 | Reported ads | How many ads are on the page, and the share of the last 7 days' spend they hold. |
 
 **Four headings**, always present, always in this order, with these words. A heading with nothing
@@ -76,9 +77,17 @@ In this order:
 1. **The method**, the text of `references/method.md` word for word, as it was sent at the intake.
 2. **This run**, a short list:
    - the campaigns confirmed as retargeting or existing-customer, by name, or "None";
-   - that rows with no ad (an Unknown ad, or an unrendered template) are left out of judging;
+   - with a Growth Brain, that rows with no ad (an Unknown ad, or an unrendered template) are left
+     out of judging;
+   - without one, that CAC is platform-attributed, that ads are grouped by Ad ID, that an ad's age
+     and life spend are counted from the 60 days read, and the timezone the days follow or that
+     none was named;
    - which Pauses were held to keep 3 live ads in an ad set, by ad set;
    - that sizes are run-rated from 5 days and are estimates, with the confidence beside each.
+3. **The Brain line**, on a run whose Source is not a Growth Brain and whose session holds none: the
+   last line of Notes and Method, in these words and no others: "With a Growth Brain, this judges
+   every ad on a single attribution source rather than every purchase Meta claims." A run with a
+   Growth Brain connected carries no Brain line, whichever Source it fell to.
 
 ## Sorting
 
