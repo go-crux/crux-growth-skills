@@ -12,10 +12,9 @@ Run the steps in order. The user sees only the chat and the page, never this ski
 references: say what the ads showed, in plain words with the figures, and never cite a file, a
 rule or a query. The terms CAC, Account blend, Peak CAC, Eligibility floors, Ramping, Low
 efficiency, Improving, Fatigued, Fatiguing, Winner, Healthy, Pause, Refresh, Iterate, Keep,
-Minimum live ads, Reported ad, Judged spend share, Source and Brain line are those of
-`references/glossary.md`, and
-Recommendation, Lever, Mode, Hand-off, Handover file and Next run are the repo's shared terms; use
-them as written.
+Minimum live ads, Reported ad, Judged spend share, Unattended run, Source and Brain line are those
+of `references/glossary.md`, and Recommendation, Lever, Mode, Hand-off, Handover file and Next run
+are the repo's shared terms; use them as written.
 
 ## Unattended run
 
