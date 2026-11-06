@@ -7,13 +7,13 @@ description: Meta ad audit. Use when the user asks to audit their Meta ads, whic
 
 Judge every Meta ad on the last 60 complete days and produce `meta-ad-audit-<date>.html`: ranked
 Recommendations (Pause, Refresh, Iterate) and every Reported ad with its status, laid out as
-`references/page-layout.md` fixes it. Run the steps in order. The user sees only the chat and the
-page, never this skill or its references: say what the ads showed, in plain words with the
-figures, and never cite a file, a rule or a query. The terms CAC, Account blend, Peak CAC,
-Eligibility floors, Ramping, Low efficiency, Improving, Fatigued, Fatiguing, Winner, Healthy,
-Pause, Refresh, Iterate, Keep, Minimum live ads and Reported ad are those of
-`references/glossary.md`, and Recommendation, Lever and Mode are the repo's shared terms; use them
-as written.
+`references/page-layout.md` fixes it. Then close in the chat with the Hand-off and the Next run.
+Run the steps in order. The user sees only the chat and the page, never this skill or its
+references: say what the ads showed, in plain words with the figures, and never cite a file, a
+rule or a query. The terms CAC, Account blend, Peak CAC, Eligibility floors, Ramping, Low
+efficiency, Improving, Fatigued, Fatiguing, Winner, Healthy, Pause, Refresh, Iterate, Keep,
+Minimum live ads and Reported ad are those of `references/glossary.md`, and Recommendation, Lever,
+Mode, Hand-off, Handover file and Next run are the repo's shared terms; use them as written.
 
 ## 1. Connect
 
@@ -126,3 +126,35 @@ first Recommendation to do.
 
 **Done when** the page holds the four headings, every Reported ad in Every ad and no other ad, and
 the 7-day spend over its rows equals the Reported spend step 4 returned.
+
+## 7. Hand-off
+
+Open `references/hand-off.md` and close the chat with the Hand-off as it fixes it, offering the
+page's Recommendations to implement now, to save or to leave. Every Mode is Switch. Give no platform
+steps and make no change in Meta, whatever connectors the session holds. When the user saves, write
+`meta-ad-audit-handover-<date>.md` as the reference fixes it, one section per saved Recommendation
+with its lever, size, evidence, confidence, metric to watch and Mode, plus the Pause, Refresh or
+Iterate and the ad it acts on.
+
+**Done when** the user has answered and each Recommendation they named is handed over, saved with
+all its fields, or left. With no Recommendation, say so in one line and go to step 8.
+
+## 8. Next run
+
+Take the average daily Meta spend over the last 7 complete days: one `run_sql` query summing spend
+over every row of the mart for those days (ads that are not Reported ads and rows with no ad
+included), divided by 7. Pick the band:
+
+| Average daily Meta spend | Run again |
+|---|---|
+| Above 4,000 | Daily |
+| 1,000 to 4,000 | Every 3 days |
+| Below 1,000 | Weekly, and say that at this spend each day's read is noisy |
+
+Say the interval, the date it falls on, and the figure behind it. Give the prompt to paste as the
+reference fixes it: `/audit-ads` for the brand's Meta ads on the connector named in step 1 (the
+connector's name, as the source). Where a calendar connector is in the session, offer the date as
+an event carrying that prompt.
+
+**Done when** the chat holds the band's interval, its date, the daily spend figure, the prompt
+and, below 1,000 a day, the noisy-read caveat.
