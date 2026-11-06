@@ -93,8 +93,9 @@ purchases counts as above any CAC. Three changes, because the rows are not the b
 Display names come from the ad's latest row. Campaign type is not held, so it is empty.
 
 The result is the one row per Reported ad that `references/fatigue.sql` returns, with the same
-column names, so every later step reads it without knowing the Source: Ad set name in `ad_group`,
-and Ad ID in `ad_name_key`.
+column names, so every later step reads it without knowing the Source: Campaign name in
+`campaign_name` and `campaign_name_key`, Ad set name in `ad_group` and `adset_name_key`, Ad name in
+`ad`, and Ad ID in `ad_name_key`.
 
 **Done when** every Reported ad has exactly one status, the 7-day spend over the rows equals the
 spend in the file or connector for the same 7 days, and every Reported ad's row carries its

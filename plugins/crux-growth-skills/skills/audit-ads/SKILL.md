@@ -35,18 +35,18 @@ the last 60 complete days.
 **Without a Growth Brain**, read the rows as `references/exports.md` sets out and go to step 3.
 
 **With a Growth Brain**, call `list_tables` once with no arguments, then once naming only
-`<client>-meta_performance` (`<client>` is the prefix the roster carries). If that mart is missing, say in one line that the
-brain holds no Meta ad table and take the next Source from step 1 (a brain is still connected, so
-the page carries no Brain line). The mart is one row per day, campaign, ad set and ad. Read
-its columns from the second call and take these, never assuming one: the date; the three name
+`<client>-meta_performance` (`<client>` is the prefix the roster carries). If that mart is missing,
+say in one line that the brain holds no Meta ad table and take the next Source from step 1 (a brain
+is still connected, so the page carries no Brain line). The mart is one row per day, campaign, ad
+set and ad. Read its columns from the second call and take these, never assuming one: the date; the three name
 keys (campaign, ad set and ad) and the three display names; spend; new orders; ad age; campaign
 type; and the match status. Group by the name keys, never an ad id or a display name. A missing
 column other than campaign type and match status: name it in one line and stop. Without campaign
 type, the intake proposes retargeting campaigns from their names alone.
 
-On a brain, four traps the descriptions do not confess. Spend sits on the serving date and new orders on the
-order date, so read windows and never one day of spend against that day's orders. Use new orders
-as the CAC denominator and never the purchases Meta claims, which are fractional and not the same
+On a brain, four traps the descriptions do not confess. Spend sits on the serving date and new
+orders on the order date, so read windows and never one day of spend against that day's orders. Use
+new orders as the CAC denominator and never the purchases Meta claims, which are fractional and not the same
 count. Never sum reach. Leave out rows with no ad (an ad named "Unknown", or an unrendered
 template).
 
@@ -80,13 +80,13 @@ The answer is confirmed once. "Just run it" and "yes" take the proposal.
 
 **With a Growth Brain**, open `references/fatigue.sql`. Make its two edits: the mart's name and any
 column names from step 2, and the confirmed campaign keys. Run it with `run_sql` as one statement;
-the file computes the windows, the day-of-week index, every status, the sizes and the confidence, so type none of them
-by hand. Where the brain's own instructions name the store's timezone, set it as the file says. A
+the file computes the windows, the day-of-week index, every status, the sizes and the confidence, so
+type none of them by hand. Where the brain's own instructions name the store's timezone, set it as the file says. A
 query error: fix the column from step 2 and run again, and never invent one.
 
 Either way, the result is one row per Reported ad, with its status, spend, CACs, blend,
-`recommendation`, `size_pause`, `size_refresh`, `iterate_cac_gap`, `iterate_spend_share`, `confidence` and
-`ad_set_live_ads` (the ad set's ads past Ramping).
+`recommendation`, `size_pause`, `size_refresh`, `iterate_cac_gap`, `iterate_spend_share`,
+`confidence` and `ad_set_live_ads` (the ad set's ads past Ramping).
 
 **Done when** every row holds exactly one status, and the 7-day spend of the rows is the figure the
 Summary will give.
@@ -169,8 +169,8 @@ included), divided by 7; without a Growth Brain, the same sum over the rows read
 Say the interval, the date it falls on, and the figure behind it. Give the prompt to paste as the
 reference fixes it: `/audit-ads` for the brand's Meta ads on the connector named in step 1 (the
 connector's name, as the source). Where the Source is an export, it asks for the brand's Meta ads
-from a new Ads Manager export attached to that session. Where a calendar connector is in the session, offer the date as
-an event carrying that prompt.
+from a new Ads Manager export attached to that session. Where a calendar connector is in the
+session, offer the date as an event carrying that prompt.
 
 **Done when** the chat holds the band's interval, its date, the daily spend figure, the prompt
 and, below 1,000 a day, the noisy-read caveat.
