@@ -14,6 +14,8 @@ Crux growth skills: free skills any brand installs in its own Claude that carry 
 
 - **Hand-off**: the close of an action skill: it asks what the user wants to do with the Recommendations, implement now, save them to the Handover file, or leave them. Implementing is the user's own session with whatever connector they hold; the skill gives no platform steps. _Avoid_: execution, push, apply step.
 
+- **Next run**: the close after the Hand-off: when to run the skill again, scaled to the brand's data volume, and the prompt to paste into that session. Where a calendar connector is in the session it offers to add the date as an event carrying the prompt. _Avoid_: cadence reminder, schedule.
+
 - **Mode**: how a Recommendation should go live. Switch (make it and watch the metric; always for new ads and formats), Split test (the platform's own A/B tool, for strategic paid changes, flow and campaign changes and landing pages, only where traffic reads a result) or Holdout (geo or brand-off, to measure incrementality). _Avoid_: test type, rollout.
 
 - **Handover file**: the markdown file the Hand-off gives the user holding every Recommendation they saved, self-contained enough to act on in a later session. The skill never reads it back. _Avoid_: plan, action log, backlog.
