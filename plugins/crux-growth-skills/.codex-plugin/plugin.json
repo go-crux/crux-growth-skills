@@ -1,7 +1,7 @@
 {
   "name": "crux-growth-skills",
-  "version": "0.6.1",
-  "description": "Growth skills for ecommerce brands by gocrux.io, written by operators who have scaled them: planning and targets, performance reporting and diagnosis, and conversion. Best with a Crux Growth Brain connected; most skills also run without one.",
+  "version": "0.7.0",
+  "description": "Growth skills for ecommerce brands by gocrux.io, written by operators who have scaled them: planning and targets, performance reporting and diagnosis, conversion, and audits that end in changes to make. Best with a Crux Growth Brain connected; most skills also run without one.",
   "author": {
     "name": "Crux",
     "email": "matt@gocrux.io",
@@ -17,13 +17,14 @@
     "black-friday",
     "planning",
     "landing-pages",
-    "cro"
+    "cro",
+    "meta-ads"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Crux",
-    "shortDescription": "Crux growth skills: planning and targets, performance reporting and diagnosis, and conversion",
-    "longDescription": "Growth skills written by operators who have scaled ecommerce brands, in three kinds: planning and targets, performance reporting and diagnosis, and conversion. Each skill works from your own pages and data and ends on what to do next. Best with a Crux Growth Brain connected; most skills also run without one and say what the brain would add.",
+    "shortDescription": "Crux growth skills: planning and targets, performance reporting and diagnosis, conversion, and audits",
+    "longDescription": "Growth skills written by operators who have scaled ecommerce brands, in four kinds: planning and targets, performance reporting and diagnosis, conversion, and audits that end in changes to make. Each skill works from your own pages and data and ends on what to do next. Best with a Crux Growth Brain connected; most skills also run without one and say what the brain would add.",
     "developerName": "Crux",
     "category": "Productivity",
     "capabilities": [
