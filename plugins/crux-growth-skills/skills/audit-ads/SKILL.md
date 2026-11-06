@@ -12,9 +12,18 @@ Run the steps in order. The user sees only the chat and the page, never this ski
 references: say what the ads showed, in plain words with the figures, and never cite a file, a
 rule or a query. The terms CAC, Account blend, Peak CAC, Eligibility floors, Ramping, Low
 efficiency, Improving, Fatigued, Fatiguing, Winner, Healthy, Pause, Refresh, Iterate, Keep,
-Minimum live ads, Reported ad, Source and Brain line are those of `references/glossary.md`, and
-Recommendation, Lever, Mode, Hand-off, Handover file and Next run are the repo's shared terms; use
-them as written.
+Minimum live ads, Reported ad, Judged spend share, Unattended run, Source and Brain line are those
+of `references/glossary.md`, and Recommendation, Lever, Mode, Hand-off, Handover file and Next run
+are the repo's shared terms; use them as written.
+
+## Unattended run
+
+A run is unattended when its message says so or says not to ask, or when it is a scheduled session
+or routine: nobody is there to answer. It asks nothing at any step. Where a step would ask, it takes
+that step's recommended answer, and only where a step recommends none (several Growth Brains and
+none plainly the brand's, no export attached) does it stop with one line saying what it needed.
+Step 3 sends no message and takes the proposed retargeting campaigns as confirmed, step 7 asks no
+Hand-off question, and the page's Notes and Method says the run was unattended.
 
 ## 1. Connect
 
@@ -50,17 +59,30 @@ new orders as the CAC denominator and never the purchases Meta claims, which are
 count. Never sum reach. Leave out rows with no ad (an ad named "Unknown", or an unrendered
 template).
 
+**Size the account**, from either Source, before the intake. Eligibility reads no retargeting
+campaign, so this needs none. With a Growth Brain, open `references/fatigue.sql`, make its first
+edit (the mart's name and any column names from the second call), leave the campaign list empty and
+run its account check in place of its final statement, as the file says. Without one, take the same
+three figures from the ported rows, as `references/exports.md` sets out. They are `reported_ads`
+(ads with 100 or more spent over the last 7 days), `account_spend_7d` and `judged_spend_7d` (the
+part of it in ads past the Eligibility floors). The Judged spend share is `judged_spend_7d` over
+`account_spend_7d`.
+
 **Done when** every column above is named from the second call, or the run has stopped with a line
-saying which is missing, or the rows are read from a connector or export and cover the 60 days.
+saying which is missing, or the rows are read from a connector or export and cover the 60 days, and
+the run holds the Reported ad count and the Judged spend share.
 
 ## 3. Intake
 
 Send one message, then wait for the reply:
 
-1. One line saying you are about to judge every Meta ad on the last 60 complete days, and that
+1. Where the Judged spend share is below 50%, open the message with a sentence saying the method
+   cannot judge most of the account's spend yet: only <share>% of the last 7 days' spend is in ads
+   past the Eligibility floors, and the rest is in ads still Ramping.
+2. One line saying you are about to judge every Meta ad on the last 60 complete days, and that
    this is how. Without a Growth Brain, add that CAC here is Meta's own cost per purchase.
-2. The text of `references/method.md`, word for word.
-3. The proposed retargeting and existing-customer campaigns: those whose campaign type is `RET`,
+3. The text of `references/method.md`, word for word.
+4. The proposed retargeting and existing-customer campaigns: those whose campaign type is `RET`,
    plus those whose name contains retargeting, RT, remarketing, existing or retention, or reads
    as one of those. Find them with one `run_sql` query listing each campaign's key, name, type
    and spend over the last 7 days, for campaigns with spend in the last 60 complete days (without
@@ -68,10 +90,18 @@ Send one message, then wait for the reply:
    the proposal by name with its recent spend, and ask the user to confirm it, add to it or
    remove from it. Recommend the proposal ("yes" accepts it). With no campaign that fits, say so
    and recommend none.
+5. Above 300 Reported ads, a warning that the run will be long and token-heavy: how many ads
+   spent 100 or more over the last 7 days, that every ad is still judged, and that the page lists
+   those Reported ads only. Ask whether to go on, and recommend going on.
 
-The answer is confirmed once. "Just run it" and "yes" take the proposal.
+The answer is confirmed once. "Just run it" and "yes" take the proposal and go on. If the user
+declines to go on, say in one line that nothing was judged and stop.
 
-**Done when** the user has answered and the run holds the confirmed campaign keys, or none.
+An unattended run sends nothing: it takes the proposal and goes on, whatever the count of Reported
+ads.
+
+**Done when** the user has answered (an unattended run needs no answer) and the run holds the
+confirmed campaign keys, or the proposed ones for an unattended run, or none.
 
 ## 4. Judge
 
@@ -88,8 +118,9 @@ Either way, the result is one row per Reported ad, with its status, spend, CACs,
 `recommendation`, `size_pause`, `size_refresh`, `iterate_cac_gap`, `iterate_spend_share`,
 `confidence` and `ad_set_live_ads` (the ad set's ads past Ramping).
 
-**Done when** every row holds exactly one status, and the 7-day spend of the rows is the figure the
-Summary will give.
+**Done when** every row holds exactly one status, the 7-day spend of the rows is the figure the
+Summary will give, and the 7-day spend of the rows not Ramping equals the `judged_spend_7d` of
+step 2.
 
 ## 5. Recommend
 
@@ -102,9 +133,14 @@ make, and never a budget change.
 |---|---|
 | Low efficiency | Pause, sized by `size_pause`. |
 | Fatigued | Pause, sized by `size_pause`, and a Refresh beside it, sized by `size_refresh`. |
-| Fatiguing | Refresh, sized by `size_refresh`: a new variation of the ad's concept. |
+| Fatiguing | Refresh, sized by `size_refresh`: a new variation of the ad's concept (flexible or dynamic creative: add new assets). |
 | Winner | Iterate: more variations of the concept, labelled a winner, sized as `iterate_cac_gap` and `iterate_spend_share`. |
 | Healthy, Improving, Ramping | Keep, with no Recommendation. |
+
+**Flexible or dynamic creative.** Meta reports such an ad as one ad, so judge it as one unit and
+never split it by asset. No column marks it, so an ad counts as one when its name says flexible,
+dynamic or DCO, or the user said so. Its Refresh, alone or beside a Pause, reads "add new assets to
+the ad" rather than a new variation, with the same size and evidence.
 
 **The Minimum live ads guard.** A Pause never leaves an ad set with fewer than 3 live ads past
 Ramping. For each ad set, take `ad_set_live_ads`, then go through its Pauses from the largest
@@ -122,14 +158,16 @@ An evidence line reads like this (invented brand): "Harbour Roast, Summer Reel: 
 against a Peak CAC of 24, 50% or more worse on each of the last 3 days."
 
 **Done when** every Reported ad is either a Recommendation with all six parts (lever, size, evidence, confidence, metric to watch, Mode) or a Keep, every
-ad set that lost a Pause to the guard shows the held wording, and the list is in ranked order.
+ad set that lost a Pause to the guard shows the held wording, every Refresh on a flexible or dynamic
+creative ad reads "add new assets", and the list is in ranked order.
 
 ## 6. Write the page
 
 Write the page as `references/page-layout.md` fixes it: its four headings (Summary,
 Recommendations, Every ad, Notes and Method), in order, with only Reported ads and every table
 header sorting. Notes and Method carries `references/method.md` word for word, the same text the
-intake sent, and no second wording of it. Save it as `meta-ad-audit-<date>.html` in the working
+intake sent, and no second wording of it. Where the Judged spend share is below 50%, the Summary
+opens with the same caveat as the intake. Save the page as `meta-ad-audit-<date>.html` in the working
 folder; where none persists (a chat), hand it over as a download. The masthead names the Source,
 and a run whose Source is not a Growth Brain, with none connected, labels CAC platform-attributed
 and ends Notes and Method on the Brain line, as the layout fixes them.
@@ -139,8 +177,9 @@ Refreshes and Iterates it holds with the money a month the Pauses and Refreshes 
 first Recommendation to do.
 
 **Done when** the page holds the four headings, every Reported ad in Every ad and no other ad, and
-the 7-day spend over its rows equals the Reported spend step 4 returned, and a run with no Growth
-Brain connected holds the Brain line as its last line.
+the 7-day spend over its rows equals the Reported spend step 4 returned, a Judged spend share below
+50% opens the Summary with the caveat, an unattended run says so in Notes and Method, and a run
+with no Growth Brain connected holds the Brain line as its last line.
 
 ## 7. Hand-off
 
@@ -151,8 +190,12 @@ steps and make no change in Meta, whatever connectors the session holds. When th
 with its lever, size, evidence, confidence, metric to watch and Mode, plus the Pause, Refresh or
 Iterate and the ad it acts on.
 
+An unattended run asks no Hand-off question: it lists the ranked Recommendations as the page gives
+them, saves no Handover file, and goes to step 8.
+
 **Done when** the user has answered and each Recommendation they named is handed over, saved with
-all its fields, or left. With no Recommendation, say so in one line and go to step 8.
+all its fields, or left, or the unattended run has listed them. With no Recommendation, say so in
+one line and go to step 8.
 
 ## 8. Next run
 

@@ -90,6 +90,12 @@ purchases counts as above any CAC. Three changes, because the rows are not the b
   age is the days from its first day with spend to the last day, counting both, and its life spend
   is its spend over the rows read.
 
+**Account check.** `SKILL.md` step 2 sizes the account before the intake. Run the port once with
+no retargeting campaigns (every ad against the one blend: Eligibility reads no campaign) and take
+the three figures the ACCOUNT CHECK at the end of `references/fatigue.sql` returns, from the
+statuses and the 7-day spend the port gives. Step 4 runs the port again with the confirmed
+campaigns. Print the three figures only, never the rows.
+
 Display names come from the ad's latest row. Campaign type is not held, so it is empty.
 
 The result is the one row per Reported ad that `references/fatigue.sql` returns, with the same
@@ -98,5 +104,6 @@ column names, so every later step reads it without knowing the Source: Campaign 
 `ad`, and Ad ID in `ad_name_key`.
 
 **Done when** every Reported ad has exactly one status, the 7-day spend over the rows equals the
-spend in the file or connector for the same 7 days, and every Reported ad's row carries its
-`ad_set_live_ads`.
+spend in the file or connector for the same 7 days, every Reported ad's row carries its
+`ad_set_live_ads`, and the 7-day spend of the rows not Ramping equals the account check's
+`judged_spend_7d`.

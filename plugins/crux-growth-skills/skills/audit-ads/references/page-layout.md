@@ -22,7 +22,10 @@ under it stays on the page, with one line saying why.
 
 ## 1. Summary
 
-Three or four sentences of plain prose, then one table.
+Three or four sentences of plain prose, then one table. Where the Judged spend share is below
+50%, one sentence comes first and opens the section: the method cannot judge most of the account's
+spend yet, as only <share>% of the last 7 days' spend is in ads past the Eligibility floors and the
+rest is still Ramping.
 
 - The sentences: how many Reported ads were judged and how many are Ramping; the Recommendations
   by action, with the sum of the Pause and Refresh sizes in a month (a Fatigued ad's Pause and
@@ -40,7 +43,7 @@ ranks it (Pause and Refresh by size, then Iterate by CAC gap), with these column
 
 | Column | Holds |
 |---|---|
-| Action | Pause, Refresh or Iterate (a Winner's Iterate is labelled "Iterate (winner)"), then on a second line the evidence: the ad's 5-day CAC against the reference it is measured on (the blend, or its Peak CAC), and the run of days where one applies. A held Pause reads "Pause once the Refresh is live". |
+| Action | Pause, Refresh or Iterate (a Winner's Iterate is labelled "Iterate (winner)"), then on a second line the evidence: the ad's 5-day CAC against the reference it is measured on (the blend, or its Peak CAC), and the run of days where one applies. A held Pause reads "Pause once the Refresh is live". A Refresh on a flexible or dynamic creative ad reads "Refresh: add new assets to the ad". |
 | Ad | The ad's name. |
 | Ad set | The ad set's name, with its campaign beneath. |
 | Status | The ad's status. |
@@ -82,6 +85,10 @@ In this order:
    - without one, that CAC is platform-attributed, that ads are grouped by Ad ID, that an ad's age
      and life spend are counted from the 60 days read, and the timezone the days follow or that
      none was named;
+   - an unattended run: that nobody confirmed the retargeting campaigns, so the proposed ones were
+     used, and, above 300 Reported ads, that the run went on without the question to proceed;
+   - the flexible or dynamic creative ads, by name, each judged as one unit with no split by asset,
+     and that their Refresh is to add new assets; omitted where there are none;
    - which Pauses were held to keep 3 live ads in an ad set, by ad set;
    - that sizes are run-rated from 5 days and are estimates, with the confidence beside each.
 3. **The Brain line**, on a run whose Source is not a Growth Brain and whose session holds none: the

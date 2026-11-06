@@ -41,3 +41,5 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 - **Brain line**: the fixed sentence, "With a Growth Brain, this judges every ad on a single attribution source rather than every purchase Meta claims.", said as the last line of the page's Notes and Method on a run whose Source is not a Growth Brain and whose session holds none. _Avoid_: upsell, plug.
 
 - **Judged spend share**: the share of the last 7 days' spend in ads past the Eligibility floors. Below 50%, the run opens by saying the method cannot judge most of the account's spend yet. _Avoid_: coverage.
+
+- **Unattended run**: a run whose message says so or says not to ask, or that is a scheduled session or routine, so nobody is there to answer. It asks nothing at any step, takes each step's recommended answer, uses the proposed retargeting campaigns as confirmed, and says so in the page's Notes and Method. _Avoid_: automatic run, headless run.
