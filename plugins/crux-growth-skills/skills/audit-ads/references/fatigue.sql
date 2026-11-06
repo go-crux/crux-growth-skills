@@ -1,9 +1,11 @@
 -- FATIGUE. Ad x day rows in, one row per Reported ad out: status, 5-day CAC, Peak CAC, Account
 -- blend, Recommendation, size, confidence and 7-day spend. Run it as written with run_sql; the
--- only edits are the two marked <angle-bracket> places below.
+-- only edits are the two marked <angle-bracket> places below, bar the account check.
 -- Edit 1, in `source`: the mart's name, and any column list_tables shows under another name. Where
 -- the mart has no `match_status` column, delete that one condition and nothing else.
 -- Edit 2, in `retargeting`: the confirmed campaign_name_keys (ARRAY<STRING>[] when none).
+-- Account check (SKILL.md step 2): before the intake, run the file with `retargeting` empty and the
+-- final SELECT replaced by the commented ACCOUNT CHECK statement at the end of the file.
 -- Timezone: where the brain's own instructions name the store's timezone, write the one
 -- CURRENT_DATE() in `period` as CURRENT_DATE('<timezone>'), so yesterday is the store's own.
 -- The grain is the three name keys, never ad_id or a display name: a rename keeps its key, and
@@ -318,3 +320,14 @@ FROM sized
 CROSS JOIN cut AS c
 WHERE spend_7 >= c.reported_spend
 ORDER BY spend_7 DESC
+
+-- ACCOUNT CHECK. One row: the Reported ads, and the last 7 days' spend in the account and in ads
+-- past the Eligibility floors (every status but Ramping). The Judged spend share is the second
+-- over the first. Run it in place of the final SELECT above, with `retargeting` empty: the floors
+-- read no campaign.
+-- SELECT
+--   COUNTIF(spend_7 >= c.reported_spend) AS reported_ads,
+--   ROUND(SUM(spend_7), 2) AS account_spend_7d,
+--   ROUND(SUM(IF(status != 'Ramping', spend_7, 0)), 2) AS judged_spend_7d
+-- FROM sized
+-- CROSS JOIN cut AS c
