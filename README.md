@@ -110,6 +110,19 @@ the line items behind your products, are marked in the deck as needing one, and 
 connectors and exports cannot fill. A Crux Growth Brain also adds your budget and profit margin to
 the deck where it holds them. Ask Claude for your monthly review, or send `/review-month` in Claude Code.
 
+**Plan ad volume** (`plan-ad-volume`) works out how many new Meta ads to make each week to hold or
+reach your budget. It reads how long your own ads stay worth running, from the last 180 days of
+your account, and checks whether the ads you have live now are enough for what you spend. It then
+shows how many new ads a week your spend needs, how many each budget level in a ladder of budgets
+would need, and a week-by-week roadmap with the date each batch of ads has to be live by. You can
+give it a split of formats (video, static and so on) and it plans the ads by format. You leave
+with one page for your team, and a short roadmap file to hand to whoever makes the ads. It tells
+you when to run it again, in two weeks. Nothing is changed in your ads, your account or your data.
+
+*Needs:* a way to read your Meta ads: a Crux Growth Brain, a Meta Ads connector in Claude, or one
+Ads Manager export of the last 180 days at ad level, by day, which it tells you how to download.
+Ask Claude how many new Meta ads you need each week, or send `/plan-ad-volume` in Claude Code.
+
 ## Getting a Growth Brain
 
 We build each Growth Brain on the brand's own data. To see what one would read for yours, book a
