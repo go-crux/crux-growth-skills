@@ -1,6 +1,6 @@
 # Glossary
 
-The terms `SKILL.md` and the other references use, each with one meaning. The shared term Next run is in the repo's root `GLOSSARY.md`; this skill is a forecast, not an Action skill, so it has no Recommendation, Mode or Hand-off. The ad statuses (Ramping, Low efficiency, Fatigued, Fatiguing, Improving, Winner, Healthy) and the measures behind them (CAC, Account blend, Peak CAC, Eligibility floors) are judged exactly as `audit-ads` judges them, by the copy in `references/fatigue.sql`.
+The terms `SKILL.md` and the other references use, each with one meaning. The shared term Next run is in the repo's root `GLOSSARY.md`; this skill is a forecast, not an Action skill, so it has no Recommendation, Mode or Hand-off; its Next run is always 2 weeks. The ad statuses (Ramping, Low efficiency, Fatigued, Fatiguing, Improving, Winner, Healthy) and the measures behind them (CAC, Account blend, Peak CAC, Eligibility floors) are judged exactly as `audit-ads` judges them, by the copy in `references/fatigue.sql`.
 
 ## Ad stock
 
@@ -40,6 +40,8 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Roadmap**: one row per ISO week from next week to the Budget week, then 4 weeks held at the Budget: that week's spend, Viable ad stock, Wearing out, new ads to make (by format) and the Live-by date. _Avoid_: plan, schedule, forecast.
 
+- **Roadmap file**: `meta-ad-roadmap-<date>.md`, the Roadmap handed over as markdown for whoever makes the ads: the Budget, the weeks, the new ads by format, the Live-by dates, and one line each on the Viable lifespan and the Spend per viable ad. Offered at the Close; the page does not need it. _Avoid_: handover file (that is the Action skills'), brief, export.
+
 - **Live-by**: the date a Roadmap week's new ads must go live: the week's Monday less the Days to clear Ramping. _Avoid_: launch date, deadline.
 
 - **Waterfall**: the chart of the Roadmap, week by week: stock at the start, less Wearing out, plus new ads (stacked by format), equals stock at the end, with that week's Viable ad stock marked. _Avoid_: bridge, flow chart.
@@ -54,6 +56,6 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Source**: where the ad-by-day rows come from, the first that holds them of a Growth Brain (the last 365 days), a Meta connector in the session and one Ads Manager export (each the last 180 days). Named on the page. _Avoid_: data source, feed.
 
-- **Unattended run**: a run whose message says so or says not to ask, or a scheduled session. It asks nothing, sizes current spend held flat for 4 weeks with no Budget and no Format split, and says so in Notes and Method. _Avoid_: automatic run, headless run.
+- **Unattended run**: a run whose message says so or says not to ask, or a scheduled session. It asks nothing, takes the proposed retargeting campaigns, plans current spend held flat for 4 weeks with no Budget and no Format split, saves the Roadmap file without offering it, and says so in Notes and Method. _Avoid_: automatic run, headless run.
 
 - **Brain line**: the fixed sentence, "With a Growth Brain, the survival curve judges every ad on a single attribution source rather than every purchase Meta claims, and reads a year of history without an export.", said as the last line of Notes and Method on a run whose Source is not a Growth Brain and whose session holds no Growth Brain. _Avoid_: upsell, plug.

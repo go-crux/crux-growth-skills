@@ -19,7 +19,7 @@ The number of new ads a week is worked out from how long your own ads stay good.
 
 **6. The survival curve.** At each age, the survival rate is the viable Launched ads divided by the Launched ads classified that day. An ad is classified on a day when it spent that day and is not Ramping (an ad that spent nothing is Inactive, and one with no status is Unknown; neither counts). An age counts only when 3 or more ads are classified at it, and the rates are used as they come, not smoothed.
 
-**7. Lifespans.** The Viable lifespan is the sum of the survival rates over the ages that count: the average number of days a new ad stays viable. Where the curve is still at 25% or above when the 3-ad floor cuts it off, it is a lower bound. The Healthy lifespan is the first age with a survival rate below 50%, with a quartile range from the first age below 75% to the first age below 25%. Either end reads "not reached" where the curve never gets there. The Days to clear Ramping is the median, over Launched ads, of the age at which an ad first stops being Ramping.
+**7. Lifespans.** The Viable lifespan is the sum of the survival rates over the ages that count: the average number of days a new ad stays viable. Where the curve is still at 25% or above when the 3-ad floor cuts it off, it is a lower bound, and the Steady-state number and the new ads in the Roadmap, which divide by it, are a ceiling. The Healthy lifespan is the first age with a survival rate below 50%, with a quartile range from the first age below 75% to the first age below 25%. Either end reads "not reached" where the curve never gets there. The Days to clear Ramping is the median, over Launched ads, of the age at which an ad first stops being Ramping.
 
 **8. Spend per viable ad.** At each age that counts, take the average daily spend of the ads classified at it. Weight each by its survival rate and divide by the sum of the survival rates: the typical daily spend on one viable ad.
 
@@ -41,7 +41,7 @@ The number of new ads a week is worked out from how long your own ads stay good.
 
 **17. The Format split.** The proposed split is the video and image shares of the Launched ads whose first spend fell in the last 8 complete weeks, in whole percentages that sum to 100. You can keep it, give your own (a video percentage, with image the rest) or turn it off. Each week's new ads are divided by it in whole ads, by largest remainder: each format first takes the whole ads of its share, and the ad left over, if there is one, goes to the format with the larger remainder (on a tie, the larger share; on equal shares, video). The video and image ads always add up to the week's new ads. With no split, only the total is shown.
 
-**18. What the figures describe.** Every figure comes from your ads' own history in the window read, so it describes how your ads have behaved, not how ads behave in general. An account with few Launched ads gives a rough curve.
+**18. What the figures describe.** Every figure comes from your ads' own history in the window read, so it describes how your ads have behaved, not how ads behave in general. An account with few Launched ads gives a rough curve, and one with fewer than 20 in the window is not read at all: it does not yet launch enough ads for a curve.
 
 ## Worked example
 
@@ -78,7 +78,7 @@ An invented brand, Fern & Co, with six Launched ads and a short run of days. Eac
 
 **Viable ad stock.** Say Fern & Co's last complete week cost £4,200, so current spend is £600 a day. The Viable ad stock is 600 ÷ 30.31 = 19.8 viable ads live at once.
 
-**Steady-state number.** 19.8 × 7 ÷ 3.27 = 42.4, which rounds up to 43 new ads a week. As a check, it is also the weekly spend divided by the survival-weighted spend of one ad over its viable life: 4,200 ÷ 99 = 42.4. Because the Viable lifespan is a lower bound, the figure may be a little high.
+**Steady-state number.** 19.8 × 7 ÷ 3.27 = 42.4, which rounds up to 43 new ads a week. As a check, it is also the weekly spend divided by the survival-weighted spend of one ad over its viable life: 4,200 ÷ 99 = 42.4. Because the Viable lifespan is a lower bound, the figure is a ceiling and may be a little high.
 
 **The check.** At 19.8, Short is below 15.8 viable ads (80%) and Over-stocked is above 29.7 live ads past Ramping (150%). If today 12 ads are viable and 22 are live past Ramping, Fern & Co is Short and not Over-stocked.
 
@@ -113,8 +113,16 @@ Every week ties: start, less Wearing out, plus New, is the end stock, and each e
 | 1 | £440 | 14.7 | 12 | 6 | ⌈14.7 − 6⌉ = 9 | 12 − 6 + 9 = 15 |
 | 2 | £280 | 9.3 | 15 | 7.5 | ⌈9.3 − 7.5⌉ = 2 | 15 − 7.5 + 2 = 9.5 |
 | 3 | £120 | 4 | 9.5 | 4.75 | max(0, ⌈4 − 4.75⌉) = 0 | 9.5 − 4.75 + 0 = 4.75 |
+| 4 | £120 | 4 | 4.75 | 2.375 | ⌈4 − 2.375⌉ = 2 | 4.75 − 2.375 + 2 = 4.375 |
 
-In week 3 the stock left after Wearing out (4.75) is already above the 4 spend needs, so no new ads are made, and the surplus wears out in the weeks after. New is never negative.
+In week 3 the stock left after Wearing out (4.75) is already above the 4 spend needs, so no new ads are made (the Roadmap reads "None needed") and the surplus wears out on its own. New is never negative. In week 4 the stock after Wearing out (2.375) has fallen below the 4 needed, so new ads resume and bring the end stock to 4.375, close to the line. In the Waterfall of the scale-down, the stock runs down to the line:
+
+| Week | Starts at | Down | Up | Ends at | Line at |
+|---|---|---|---|---|---|
+| 1 | 12 | 6 | 9 | 15 | 14.7 |
+| 2 | 15 | 7.5 | 2 | 9.5 | 9.3 |
+| 3 | 9.5 | 4.75 | 0 | 4.75 | 4 |
+| 4 | 4.75 | 2.375 | 2 | 4.375 | 4 |
 
 **The Format split.** Fern & Co's last 8 weeks were 30% video and 70% image, and the ad names gave the format of 82% of those ads. Dividing 7 new ads at 30/70 by largest remainder: video is 7 × 0.30 = 2.1 and image is 7 × 0.70 = 4.9. Each format takes its whole ads, 2 and 4, which is 6, so one ad is left. The remainders are 0.1 and 0.9, so the ad goes to image: 2 video and 5 image, which add up to 7. Rounding each share on its own can overshoot: 25 new ads at 30/70 would round 7.5 and 17.5 up to 8 and 18, which is 26. Largest remainder never does. The ramp's weeks divide as follows.
 

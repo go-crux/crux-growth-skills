@@ -8,13 +8,14 @@ description: Meta ad volume forecast. Use when the user asks how many new Meta a
 Work out how many new Meta ads a week the account's spend needs, from the account's own Survival
 curve, and produce `meta-ad-volume-<date>.html`: the Ad stock check, The gap, the Churn cycle, Ads
 a week, the Roadmap with its Waterfall, the Budget ladder, and Notes and Method, laid out as
-`references/page-layout.md` fixes it. Run the steps in order. The user sees only the chat and the
+`references/page-layout.md` fixes it, then offer the Roadmap as `meta-ad-roadmap-<date>.md` for the
+creative brief and say when to run it again. Run the steps in order. The user sees only the chat and the
 page, never this skill or its references: say what the ads showed, in plain words with the figures,
 and never cite a file, a rule or a query. The terms
 Viable ad, Viable ad stock, Launched ad, Survival curve, Viable lifespan, Healthy lifespan, Spend per
 viable ad, Days to clear Ramping, Ad stock check, Worn out now, Wearing out, Current pipeline, Churn
 cycle, Steady-state number, Budget, Roadmap, Live-by, Waterfall, Budget ladder, Format, Name coverage,
-Format split, Unattended run, Source and Brain line are those of `references/glossary.md`, and Next
+Format split, Roadmap file, Unattended run, Source and Brain line are those of `references/glossary.md`, and Next
 run is the repo's shared term; use them as written. The ad statuses and CAC are judged exactly as `references/fatigue.sql` judges
 them.
 
@@ -24,8 +25,16 @@ A run is unattended when its message says so or says not to ask, or when it is a
 or routine: nobody is there to answer. It asks nothing at any step. Where a step would ask, it takes
 that step's recommended answer, and only where a step recommends none (several Growth Brains and
 none plainly the brand's, no export attached) does it stop with one line saying what it needed.
-Step 3 sends no message, takes the proposed retargeting campaigns as confirmed, gives no Budget
-and no Format split, and the page's Notes and Method says the run was unattended.
+Its defaults, every one of them:
+
+- Step 3 sends no message and takes the proposed retargeting campaigns as confirmed.
+- It plans current spend held flat for 4 weeks: no Budget is asked for or used, so the Budget ladder
+  shows its three rungs at current spend, +25% and +50%.
+- It uses no Format split, so the Roadmap shows new ads as a total.
+- The page's Notes and Method says the run was unattended, in the words `references/page-layout.md`
+  gives.
+- The Close asks nothing: it saves the Roadmap file beside the page without offering it, and gives
+  the Next run without the calendar offer.
 
 ## 1. Connect
 
@@ -66,11 +75,20 @@ On a brain, use new orders as the CAC denominator and never the purchases Meta c
 fractional and not the same count. Never sum reach. Leave out rows with no ad (an ad named
 "Unknown", or an unrendered template).
 
+**Count the Launched ads** before anything else is asked: the ads whose first day of spend falls
+after the window's first day. Without a Growth Brain, count them from the rows. With a Growth
+Brain, run one `run_sql` query counting the distinct name-key triples whose first day of spend in
+the window falls after the window's first day. With fewer than 20, stop here, before step 3, with
+one line: "<Brand> does not yet launch enough ads to read a curve: <n> Launched
+ads in the last <365 or 180> days, and a curve needs 20." Write no page and ask nothing more. This
+holds for an unattended run too.
+
 **Done when** the rows are read from a connector or export and grouped by Ad ID and Day, the
 window's first and last dates are named, the run holds the campaign names with their spend over
-the last 7 complete days, and every ad carries a Format (step 4 sets the rule); or, with a Growth
-Brain, every column above is named from the second call, or the run has stopped with a line saying
-which is missing, or has moved to the next Source.
+the last 7 complete days, every ad carries a Format (step 4 sets the rule), and the Launched ads
+are counted at 20 or more, or the run has stopped with that one line; or, with a Growth Brain,
+every column above is named from the second call, or the run has stopped with a line saying which
+is missing, or has moved to the next Source.
 
 ## 3. Intake
 
@@ -140,7 +158,10 @@ each figure once, from these definitions:
 - **Survival curve**: at each age, the viable Launched ads over the Launched ads classified that
   day (spent that day and not Ramping, Inactive or Unknown). An age counts only with 3 or more ads.
   The rates are raw, never smoothed.
-- **Viable lifespan** (W) is the sum of the survival rates over the ages that count.
+- **Viable lifespan** (W) is the sum of the survival rates over the ages that count. W is a **lower
+  bound** when the survival rate at the last age that counts (the last with 3 or more ads) is 25% or
+  above (`w_is_lower_bound` on a brain): the curve was cut short while ads were still viable, so the
+  ads to make are a ceiling.
 - **Spend per viable ad** is the sum of survival times the average daily spend per ad at that age,
   over the sum of survival.
 - **Healthy lifespan** is the first age with survival below 50%; the quartile range runs from the
@@ -173,12 +194,15 @@ so next week is week 1. Carry every stock unrounded; only New is a whole number.
 - **Daily spend(w)** steps linearly from current spend to the daily Budget: for w from 1 to B, current
   spend plus (daily Budget less current spend) times w over B; then the daily Budget for the 4 weeks
   after B. With no Budget it is current spend for w from 1 to 4. The Roadmap has one row for each w.
-  A Budget below current spend is allowed.
+  A Budget below current spend is allowed: daily spend steps down, and the weeks that follow work
+  as below.
 - **L(w)** is daily spend(w) over the Spend per viable ad. **S(0)** is the viable ads live on the last
   complete day.
 - **Wearing out(w)** is the smaller of S(w−1) and S(w−1) times 7 over W.
 - **New(w)** is the larger of 0 and L(w) less (S(w−1) less Wearing out(w)), rounded up. It is never
-  negative.
+  negative. In a scale-down, a week whose stock after Wearing out is already above L(w) has New(w)
+  of 0 (the Roadmap reads "None needed"), and the stock runs down on its own, week by week, until
+  it meets L(w).
 - **Video(w) and image(w)** divide New(w) by the confirmed Format split, by largest remainder: each
   format first takes the whole ads of its share of New(w), and the one ad left over, if any, goes to
   the format with the larger remainder (on a tie, the larger share; on equal shares, video). The two
@@ -203,7 +227,7 @@ counts, and the Format split default with its Name coverage, each from one calcu
 survival table (age, ads classified, viable, survival, average daily spend per ad) sums to W. The Roadmap holds a row for each of its weeks, with start,
 less Wearing out, plus New equal to the end stock in every row, no New below 0, video plus image
 equal to New in every row (with a split), and the Waterfall's bars taken from those rows, and the
-Budget ladder and the growth are computed.
+Budget ladder and the growth are computed, and the run knows whether W is a lower bound.
 
 ## 5. Write the page
 
@@ -214,19 +238,38 @@ otherwise About right. Where both hold, or any ad is Worn out now, the Ad stock 
 `/audit-ads` for which ads to pause and names no ad. Notes and Method carries `references/method.md`
 word for word, and no second wording of it, names the Source and the CAC basis, and ends on the
 Brain line only on a run that page-layout gives one (the Source is not a Growth Brain and the
-session holds none). Save the page as `meta-ad-volume-<date>.html` in the working folder; where
+session holds none). Where W is a lower bound, Notes and Method says so, and says the ad counts are a ceiling, in the words
+`references/page-layout.md` gives; the Churn cycle shows "not reached" for a quartile the curve does
+not reach. Save the page as `meta-ad-volume-<date>.html` in the working folder; where
 none persists (a chat), hand it over as a download.
 
 **Done when** the page holds the seven headings in order, the Ad stock check names Short,
 Over-stocked or About right with the counts behind it, the Steady-state number stands against the
 Current pipeline, the Roadmap table and the Waterfall hold the same weeks and the same video and
-image figures (or the total alone with no split), the Budget ladder states its assumption, an
-unattended run says so in Notes and Method, and the Brain line, where the run has one, is the last
+image figures (or the total alone with no split), the Budget ladder states its assumption, a lower
+bound W is said in Notes and Method, an unattended run says so in Notes and Method, and the Brain line, where the run has one, is the last
 line.
 
 ## 6. Close
 
-Tell the user in one line where the page is, the Ad stock check's verdict, and the Steady-state
-number against the Current pipeline.
+In chat, after the page, in this order:
 
-**Done when** the chat holds that line.
+1. One line: where the page is, the Ad stock check's verdict, and the Steady-state number against
+   the Current pipeline.
+2. **The Roadmap file.** Offer the Roadmap as `meta-ad-roadmap-<date>.md`, to hand to whoever makes
+   the ads, and say what it holds: the Budget, the weeks, the new ads by format, the Live-by dates,
+   and one line each on the Viable lifespan and the Spend per viable ad. On "yes", write it as
+   `references/page-layout.md` fixes it and save it in the working folder; where none persists (a
+   chat), hand it over as a download. It is self-contained: someone who has not seen the page can
+   brief from it.
+3. **The Next run.** Tell the user to run this again in 2 weeks, with its date (14 days from today),
+   and give the prompt to paste into that session, in a block: "Plan my Meta ad volume again.
+   Monthly Meta budget: <the Budget, or "no change to current spend">. Format split: <the split
+   used, or "none">. Retargeting campaigns: <the confirmed names, or "none">." Add "Run it
+   unattended." when this run was. Without a Growth Brain, add "I'll attach a fresh Ads Manager
+   export." Where a calendar connector is in the session, offer to add the date as an event
+   carrying the prompt; with none, say nothing about a calendar.
+
+**Done when** the chat holds the line, the Roadmap file offered with its contents named (or, on an
+unattended run, saved), and the Next run with its date, its prompt, and the calendar offer where a
+calendar connector is in the session.
