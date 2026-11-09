@@ -32,7 +32,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Keep**: a Healthy, Improving or Ramping ad, listed with no Recommendation. _Avoid_: hold, leave.
 
-- **Minimum live ads**: 3 ads past Ramping in an ad set. The floor a Pause is held to. _Avoid_: ad stock (that is the forecast-ad-stock skill's term).
+- **Minimum live ads**: 3 ads past Ramping in an ad set. The floor a Pause is held to. _Avoid_: ad stock, Viable ad stock (that is the plan-ad-volume skill's term).
 
 - **Reported ad**: an ad with at least 100 in the account's currency spent over the last 7 days. Every ad is judged; only Reported ads appear on the page, and above 300 of them the intake warns that the run will be long and token-heavy. _Avoid_: active ad, live ad.
 
