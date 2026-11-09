@@ -13,9 +13,9 @@ page, never this skill or its references: say what the ads showed, in plain word
 and never cite a file, a rule or a query. The terms
 Viable ad, Viable ad stock, Launched ad, Survival curve, Viable lifespan, Healthy lifespan, Spend per
 viable ad, Days to clear Ramping, Ad stock check, Worn out now, Wearing out, Current pipeline, Churn
-cycle, Steady-state number, Budget, Roadmap, Live-by, Waterfall, Budget ladder, Unattended run,
-Source and Brain line are those of `references/glossary.md`, and Next run is the repo's shared term;
-use them as written. The ad statuses and CAC are judged exactly as `references/fatigue.sql` judges
+cycle, Steady-state number, Budget, Roadmap, Live-by, Waterfall, Budget ladder, Format, Name coverage,
+Format split, Unattended run, Source and Brain line are those of `references/glossary.md`, and Next
+run is the repo's shared term; use them as written. The ad statuses and CAC are judged exactly as `references/fatigue.sql` judges
 them.
 
 ## Unattended run
@@ -23,8 +23,9 @@ them.
 A run is unattended when its message says so or says not to ask, or when it is a scheduled session
 or routine: nobody is there to answer. It asks nothing at any step. Where a step would ask, it takes
 that step's recommended answer, and only where a step recommends none (no export attached) does it
-stop with one line saying what it needed. Step 3 sends no message and takes the proposed retargeting
-campaigns as confirmed, and the page's Notes and Method says the run was unattended.
+stop with one line saying what it needed. Step 3 sends no message, takes the proposed retargeting
+campaigns as confirmed, gives no Budget and no Format split, and the page's Notes and Method says
+the run was unattended.
 
 ## 1. Connect
 
@@ -41,7 +42,8 @@ Read the rows as `references/exports.md` sets out. A session with no code or ana
 one line that the plan needs one, and stop.
 
 **Done when** the rows are grouped by Ad ID and Day, the window's first and last dates are named,
-and the run holds the campaign names with their spend over the last 7 complete days.
+the run holds the campaign names with their spend over the last 7 complete days, and every ad
+carries a Format (step 4 sets the rule).
 
 ## 3. Intake
 
@@ -64,18 +66,25 @@ Send one message, then wait for the reply:
    week 4 weeks from now, named with its Monday date; with no Budget, current spend held flat for 4
    weeks. A Budget below current spend is allowed. Recommend no Budget
    ("yes" takes that).
+4. The Format split, in these words with the figures filled in: "Your last 8 weeks were 30% video,
+   70% image (names gave the format of 82% of ads). Split the roadmap that way, give your own split,
+   or no split?" The proposal is the Format split default and the coverage is the Name coverage, both
+   from step 4. Recommend the proposal ("yes" keeps it). A split of the user's own is a video
+   percentage, with image the rest. With no Launched ad in the last 8 complete weeks there is no
+   proposal: say so and recommend no split.
 
 The answer is confirmed once. "Just run it" and "yes" take the proposal and go on.
 
 When the user asks about the method, at this step or any later one, answer from
 `references/method.md`, and only as much of it as the question needs.
 
-An unattended run sends nothing: it takes the proposal and the recommended answer (no Budget) and
-goes on.
+An unattended run sends nothing: it takes the proposed campaigns, no Budget and no Format split,
+and goes on.
 
 **Done when** the user has answered (an unattended run needs no answer) and the run holds the
-confirmed campaign names, or the proposed ones for an unattended run, or none, and the Budget as a
-monthly figure with its Budget week (given, or the default), or no Budget.
+confirmed campaign names, or the proposed ones for an unattended run, or none, the Budget as a
+monthly figure with its Budget week (given, or the default), or no Budget, and the Format split as
+a video and image percentage, or no split.
 
 ## 4. Model
 
@@ -97,6 +106,16 @@ each figure once, from these definitions:
   first age below 75% to the first age below 25%. Either end can read "not reached".
 - **Days to clear Ramping** is the median, over Launched ads, of the age at which an ad first
   stops being Ramping.
+- **Format** is read for every ad from its ad name alone, never its ad set or campaign name. Split
+  the name into words at every character that is not a letter or a digit, and compare each word
+  with these, ignoring case. Video: `video`, `vid`, `reel`. Image: `image`, `img`, `static`,
+  `still`, `carousel`. A name with words of one kind only decides the Format. A name with neither
+  kind, or both, leaves the ad video if it had any 3-second video plays in the rows read, and image
+  otherwise.
+- **Format split default** is the video and image shares of the Launched ads whose first spend fell
+  in the last 8 complete ISO weeks, as whole percentages that sum to 100 (video rounded, image the
+  rest). **Name coverage** is the share of those same ads whose name decided the Format, as a whole
+  percentage. These are the figures step 3 puts to the user.
 - **Current spend** is the last complete ISO week's spend over 7. **Current pipeline** is the
   Launched ads per week, averaged over the last 8 complete ISO weeks.
 - **L**, the Viable ad stock, is current spend over the Spend per viable ad. The **Steady-state
@@ -119,11 +138,16 @@ so next week is week 1. Carry every stock unrounded; only New is a whole number.
 - **Wearing out(w)** is the smaller of S(w−1) and S(w−1) times 7 over W.
 - **New(w)** is the larger of 0 and L(w) less (S(w−1) less Wearing out(w)), rounded up. It is never
   negative.
+- **Video(w) and image(w)** divide New(w) by the confirmed Format split, by largest remainder: each
+  format first takes the whole ads of its share of New(w), and the one ad left over, if any, goes to
+  the format with the larger remainder (on a tie, the larger share; on equal shares, video). The two
+  always sum to New(w). With no split there is only New(w).
 - **S(w)** is S(w−1) less Wearing out(w) plus New(w).
 - **Live-by(w)** is the Monday of week w less the Days to clear Ramping, a date.
 - **Waterfall.** The start bar is the live ads past Ramping today, dropped by the difference from S(0)
   (Worn out now, and any Improving ads) down to S(0). Each week then has a down bar of Wearing out(w),
-  an up bar of New(w), the end stock S(w) and L(w) as a mark.
+  an up bar of New(w) stacked as video(w) and image(w), or one bar of New(w) with no split, the end
+  stock S(w) and L(w) as a mark.
 - **Budget ladder.** The Steady-state number at current spend, at 1.25 times it, at 1.5 times it and
   at the daily Budget (left out with no Budget), each with its L.
 - **Growth** is L at the daily Budget less L at current spend, and 0 with no Budget.
@@ -133,11 +157,12 @@ how many Launched ads the export holds and that it is too few to draw a curve, a
 page.
 
 **Done when** the run holds W, Spend per viable ad, the Healthy lifespan with its quartile range,
-Days to clear Ramping, current spend, the Current pipeline, L, the Steady-state number and today's
-counts, each from one calculation, and the survival table (age, ads classified, viable, survival,
-average daily spend per ad) sums to W. The Roadmap holds a row for each of its weeks, with start,
-less Wearing out, plus New equal to the end stock in every row, no New below 0 and the Waterfall's
-bars taken from those rows, and the Budget ladder and the growth are computed.
+Days to clear Ramping, current spend, the Current pipeline, L, the Steady-state number, today's
+counts, and the Format split default with its Name coverage, each from one calculation, and the
+survival table (age, ads classified, viable, survival, average daily spend per ad) sums to W. The Roadmap holds a row for each of its weeks, with start,
+less Wearing out, plus New equal to the end stock in every row, no New below 0, video plus image
+equal to New in every row (with a split), and the Waterfall's bars taken from those rows, and the
+Budget ladder and the growth are computed.
 
 ## 5. Write the page
 
@@ -151,8 +176,9 @@ working folder; where none persists (a chat), hand it over as a download.
 
 **Done when** the page holds the seven headings in order, the Ad stock check names Short,
 Over-stocked or About right with the counts behind it, the Steady-state number stands against the
-Current pipeline, the Roadmap table and the Waterfall hold the same weeks, the Budget ladder states
-its assumption, an unattended run says so in Notes and Method, and the Brain line is the last line.
+Current pipeline, the Roadmap table and the Waterfall hold the same weeks and the same video and
+image figures (or the total alone with no split), the Budget ladder states its assumption, an
+unattended run says so in Notes and Method, and the Brain line is the last line.
 
 ## 6. Close
 

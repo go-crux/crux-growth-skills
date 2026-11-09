@@ -37,7 +37,11 @@ The number of new ads a week is worked out from how long your own ads stay good.
 
 **15. The Budget ladder.** The Steady-state number, worked out as in item 10, at your current spend, at 25% more, at 50% more and at your Budget. It assumes the Spend per viable ad holds as spend grows. If the extra spend goes into each ad rather than into more ads, fewer new ads are needed.
 
-**16. What the figures describe.** Every figure comes from your ads' own history in the export, so it describes how your ads have behaved, not how ads behave in general. An account with few Launched ads gives a rough curve.
+**16. Format.** Each ad is read as video or image from its ad name alone, never its ad set or campaign name. The name is split into words at every character that is not a letter or a digit, and each word is compared with these, ignoring case. Video: video, vid, reel. Image: image, img, static, still, carousel. A name with words of one kind only decides the Format. A name with neither kind, or both, leaves the ad video if it had any 3-second video plays in the rows read, and image otherwise. The Name coverage is the share of those same Launched ads (first spend in the last 8 complete weeks) whose name decided the Format.
+
+**17. The Format split.** The proposed split is the video and image shares of the Launched ads whose first spend fell in the last 8 complete weeks, in whole percentages that sum to 100. You can keep it, give your own (a video percentage, with image the rest) or turn it off. Each week's new ads are divided by it in whole ads, by largest remainder: each format first takes the whole ads of its share, and the ad left over, if there is one, goes to the format with the larger remainder (on a tie, the larger share; on equal shares, video). The video and image ads always add up to the week's new ads. With no split, only the total is shown.
+
+**18. What the figures describe.** Every figure comes from your ads' own history in the export, so it describes how your ads have behaved, not how ads behave in general. An account with few Launched ads gives a rough curve.
 
 ## Worked example
 
@@ -111,6 +115,16 @@ Every week ties: start, less Wearing out, plus New, is the end stock, and each e
 | 3 | £120 | 4 | 9.5 | 4.75 | max(0, ⌈4 − 4.75⌉) = 0 | 9.5 − 4.75 + 0 = 4.75 |
 
 In week 3 the stock left after Wearing out (4.75) is already above the 4 spend needs, so no new ads are made, and the surplus wears out in the weeks after. New is never negative.
+
+**The Format split.** Fern & Co's last 8 weeks were 30% video and 70% image, and the ad names gave the format of 82% of those ads. Dividing 7 new ads at 30/70 by largest remainder: video is 7 × 0.30 = 2.1 and image is 7 × 0.70 = 4.9. Each format takes its whole ads, 2 and 4, which is 6, so one ad is left. The remainders are 0.1 and 0.9, so the ad goes to image: 2 video and 5 image, which add up to 7. Rounding each share on its own can overshoot: 25 new ads at 30/70 would round 7.5 and 17.5 up to 8 and 18, which is 26. Largest remainder never does. The ramp's weeks divide as follows.
+
+| Week | New | Video | Image |
+|---|---|---|---|
+| 1 | 24 | 24 × 0.30 = 7.2, whole 7 | 24 × 0.70 = 16.8, whole 16, plus the ad left over: 17 |
+| 2 | 25 | 25 × 0.30 = 7.5, whole 7 | 25 × 0.70 = 17.5, whole 17, plus the ad left over (equal remainders, the larger share): 18 |
+| 3 | 30 | 9 | 21 |
+
+Each row adds up: 7 + 17 = 24, 7 + 18 = 25 and 9 + 21 = 30. In the Waterfall, each week's up bar is stacked with the video ads and the image ads, and the total is unchanged.
 
 **The Budget ladder.** The Steady-state number at £600 a day is 10. At 25% more, £750 a day, the stock needed is 25 and the number is ⌈25 × 7 ÷ 14⌉ = 13. At 50% more, £900 a day, it is 30 and 15. At the £1,500 Budget it is 50 and 25.
 

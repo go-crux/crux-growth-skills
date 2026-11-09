@@ -46,9 +46,11 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Budget ladder**: the Steady-state number at current spend, +25%, +50% and the Budget, on the stated assumption that Spend per viable ad holds as spend grows. _Avoid_: scenarios, sensitivity.
 
-- **Format**: video or image, per ad. Read from the ad name first (whole-word tokens: video, vid, reel; image, img, static, still, carousel), and where the name gives neither or both, video if the ad had any video views in its life. _Avoid_: creative type, asset type.
+- **Format**: video or image, per ad. Read from the ad name alone first (whole-word tokens: video, vid, reel; image, img, static, still, carousel), and where the name gives neither or both, video if the ad had any video views in its life (3-second video plays on an export). _Avoid_: creative type, asset type.
 
-- **Format split**: the video and image share the Roadmap divides new ads by: by default the Launched ads of the last 8 weeks, which the user keeps, replaces or turns off. _Avoid_: creative mix.
+- **Name coverage**: the share of ads whose name decided their Format, quoted beside the proposed Format split: the ads are the Launched ads whose first spend fell in the last 8 complete weeks, which the split rests on. _Avoid_: match rate, tagging rate.
+
+- **Format split**: the video and image share the Roadmap divides new ads by, in whole ads by largest remainder so the two sum to the total: by default the shares of the Launched ads whose first spend fell in the last 8 complete weeks, which the user keeps, replaces or turns off. _Avoid_: creative mix.
 
 - **Source**: where the ad-by-day rows come from, the first that holds them of a Growth Brain (the last 365 days), a Meta connector in the session and one Ads Manager export (each the last 180 days). Named on the page. _Avoid_: data source, feed.
 

@@ -109,8 +109,17 @@ the Budget (4 weeks in all with no Budget). Its columns, in this order:
 | Daily spend | That week's daily spend, in whole units. |
 | Viable ad stock | L(w): the daily spend over the Spend per viable ad, one decimal. |
 | Wearing out | Viable ads expected to stop being viable that week, one decimal. |
-| New ads | The ads to make: a whole number, never below 0; "None needed" where it is 0. |
+| Video | The week's new ads that are video: a whole number. Only with a Format split. |
+| Image | The week's new ads that are image: a whole number. Only with a Format split. |
+| New ads | The ads to make, the total: a whole number, never below 0; "None needed" where it is 0. |
 | Live-by | The week's Monday less the Days to clear Ramping, as a date; "Already due" where that date has passed. |
+
+**The Format split line** sits between the first line and the table: the split the table uses
+("Format split: 30% video, 70% image", with the Name coverage beside it, "names gave the format of
+82% of ads"), or "No Format split: new ads are shown as a total." The Video and Image columns are
+present only with a split. They divide each week's New ads by largest remainder, so in every row
+video plus image equals New ads. With no split, the table has the Video and Image columns left out
+entirely and the New ads column alone.
 
 **The Waterfall** follows the table, as inline SVG covering the Roadmap weeks only. Along the bottom
 is one group for each week, labelled with its Monday. Up the side is a count of ads from 0, with
@@ -120,11 +129,15 @@ gridlines. The bars, left to right:
    difference from the viable ads today (S(0)), labelled "Worn out now" with its count, and with the
    Improving ads' count beside it where there are any, so the bar comes down to S(0).
 2. **For each week**, three bars: a down bar for Wearing out, from the week's start stock; an up bar
-   for New ads, from where the down bar ends; and the end stock, a bar from 0. The next week's down
+   for New ads, from where the down bar ends; and the end stock, a bar from 0. With a Format split
+   the up bar is stacked: the video ads from where the down bar ends, the image ads on top of them,
+   each segment labelled with its count and the total New ads labelled above the bar. A segment of 0
+   is left out. With no split, the up bar is a single bar labelled with the total. The next week's down
    bar starts at that end stock.
 3. **L(w)**, drawn as a line across the week's group and labelled in the legend as the Viable ad stock.
 
-Give the three kinds of bar distinct fills, each labelled with its figure, so the chart does not
+Give the kinds of bar (down, up as video, up as image, end stock; with no split, up as one kind)
+distinct fills, each labelled with its figure, so the chart does not
 depend on colour alone. Label both axes, give the chart a title and a text alternative, and write
 the figures in the labels in the same format as the table. For every week, the start stock less
 Wearing out plus New ads is the end stock, to one decimal.
@@ -158,13 +171,17 @@ In this order:
      claims;
    - the Budget, as the monthly figure, its daily equivalent and the Budget week, or "None given";
      the Roadmap's weeks are ISO weeks counted from next week, and its dates are Mondays;
+   - the Format split used, as "30% video, 70% image" and whether it was the proposal or the user's
+     own, with the Name coverage, or "None"; Format is read from the ad name alone, then from
+     3-second video plays where the name gives neither or both kinds;
    - the window: the first and last date read, the last complete ISO week used for current spend,
      the 8 weeks behind the Current pipeline, and the timezone the days follow or that none was
      named;
    - ads are grouped by Ad ID, and an ad's age and life spend are counted from the window read;
    - the campaigns confirmed as retargeting or existing-customer, by name, or "None";
    - an unattended run: that nobody confirmed the retargeting campaigns, so the proposed ones were
-     used, and that no Budget was asked for, so current spend was held flat for 4 weeks.
+     used, and that no Budget was asked for, so current spend was held flat for 4 weeks, and that no Format split
+     was asked for, so new ads are shown as a total.
 2. **The method**, the text of `references/method.md` word for word, worked example included.
 3. **The Brain line**, the last line of Notes and Method, in these words and no others: "With a
    Growth Brain, the survival curve judges every ad on a single attribution source rather than every
