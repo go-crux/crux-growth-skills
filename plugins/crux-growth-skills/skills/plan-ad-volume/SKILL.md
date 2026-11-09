@@ -14,8 +14,8 @@ and never cite a file, a rule or a query. The terms
 Viable ad, Viable ad stock, Launched ad, Survival curve, Viable lifespan, Healthy lifespan, Spend per
 viable ad, Days to clear Ramping, Ad stock check, Worn out now, Wearing out, Current pipeline, Churn
 cycle, Steady-state number, Budget, Roadmap, Live-by, Waterfall, Budget ladder, Format, Name coverage,
-Format split, Unattended run, Source and Brain line are those of `references/glossary.md`, and Next run is the repo's shared term;
-use them as written. The ad statuses and CAC are judged exactly as `references/fatigue.sql` judges
+Format split, Unattended run, Source and Brain line are those of `references/glossary.md`, and Next
+run is the repo's shared term; use them as written. The ad statuses and CAC are judged exactly as `references/fatigue.sql` judges
 them.
 
 ## Unattended run
@@ -158,10 +158,11 @@ page.
 
 **Done when** the run holds W, Spend per viable ad, the Healthy lifespan with its quartile range,
 Days to clear Ramping, current spend, the Current pipeline, L, the Steady-state number, today's
-counts, and the Format split default with its Name coverage, each from one calculation, and the survival table (age, ads classified, viable, survival,
-average daily spend per ad) sums to W. The Roadmap holds a row for each of its weeks, with start,
+counts, and the Format split default with its Name coverage, each from one calculation, and the
+survival table (age, ads classified, viable, survival, average daily spend per ad) sums to W. The Roadmap holds a row for each of its weeks, with start,
 less Wearing out, plus New equal to the end stock in every row, no New below 0, video plus image
-equal to New in every row (with a split), and the Waterfall's bars taken from those rows, and the Budget ladder and the growth are computed.
+equal to New in every row (with a split), and the Waterfall's bars taken from those rows, and the
+Budget ladder and the growth are computed.
 
 ## 5. Write the page
 
@@ -176,8 +177,8 @@ working folder; where none persists (a chat), hand it over as a download.
 **Done when** the page holds the seven headings in order, the Ad stock check names Short,
 Over-stocked or About right with the counts behind it, the Steady-state number stands against the
 Current pipeline, the Roadmap table and the Waterfall hold the same weeks and the same video and
-image figures (or the total alone with no split), the Budget ladder states
-its assumption, an unattended run says so in Notes and Method, and the Brain line is the last line.
+image figures (or the total alone with no split), the Budget ladder states its assumption, an
+unattended run says so in Notes and Method, and the Brain line is the last line.
 
 ## 6. Close
 
