@@ -1,6 +1,6 @@
-The number of new ads a week is worked out from how long your own ads stay good. Every Meta ad is judged on every day of the last 180 complete days, and the ads you launched in that time show how long a new one lasts. Here is how.
+The number of new ads a week is worked out from how long your own ads stay good. Every Meta ad is judged on every day of the window read, and the ads you launched in that time show how long a new one lasts. The window is the last 365 complete days from a Growth Brain, and the last 180 from a Meta connector or an Ads Manager export. Here is how.
 
-**1. Judging each ad each day.** Each ad is judged by its CAC, which is its spend divided by the new customers it brought. Without a Growth Brain these are the purchases Meta reports for the ad, which counts every purchase Meta claims. Each day's CAC is adjusted for the day of the week (some weekdays are always dearer) before any comparison. The current window is the 5 days to that day. An ad's Peak CAC is its best (lowest) 7-day CAC in the 42 days to that day. The Account blend is the CAC of all live ads together over the same 5 days; ads in your retargeting and existing-customer campaigns are judged against the blend of those campaigns alone, and every other ad against the rest.
+**1. Judging each ad each day.** Each ad is judged by its CAC, which is its spend divided by the new customers it brought. With a Growth Brain these are your own first-time orders; otherwise they are the purchases Meta reports for the ad, which counts every purchase Meta claims. Each day's CAC is adjusted for the day of the week (some weekdays are always dearer) before any comparison. The current window is the 5 days to that day. An ad's Peak CAC is its best (lowest) 7-day CAC in the 42 days to that day. The Account blend is the CAC of all live ads together over the same 5 days; ads in your retargeting and existing-customer campaigns are judged against the blend of those campaigns alone, and every other ad against the rest.
 
 **2. Ramping.** An ad needs all three of: 300 spent in its life, at least 2 days old, and 30 a day on average over the 5-day window (all in the account's currency). Below any of them it is Ramping, with no verdict.
 
@@ -15,7 +15,7 @@ The number of new ads a week is worked out from how long your own ads stay good.
 
 **4. Viable.** An ad is viable on a day when its status is Healthy or Winner. Improving, Fatiguing, Fatigued and Low efficiency are not viable, and nor is Ramping.
 
-**5. Launched ads and age.** A Launched ad is one whose first day of spend falls after the first day of the 180 days, so its age is known. Only Launched ads feed the curve below. An ad's age is the number of days since its first day of spend: the first day is age 0.
+**5. Launched ads and age.** A Launched ad is one whose first day of spend falls after the first day of the window, so its age is known. Only Launched ads feed the curve below. An ad's age is the number of days since its first day of spend: the first day is age 0.
 
 **6. The survival curve.** At each age, the survival rate is the viable Launched ads divided by the Launched ads classified that day. An ad is classified on a day when it spent that day and is not Ramping (an ad that spent nothing is Inactive, and one with no status is Unknown; neither counts). An age counts only when 3 or more ads are classified at it, and the rates are used as they come, not smoothed.
 
@@ -41,7 +41,7 @@ The number of new ads a week is worked out from how long your own ads stay good.
 
 **17. The Format split.** The proposed split is the video and image shares of the Launched ads whose first spend fell in the last 8 complete weeks, in whole percentages that sum to 100. You can keep it, give your own (a video percentage, with image the rest) or turn it off. Each week's new ads are divided by it in whole ads, by largest remainder: each format first takes the whole ads of its share, and the ad left over, if there is one, goes to the format with the larger remainder (on a tie, the larger share; on equal shares, video). The video and image ads always add up to the week's new ads. With no split, only the total is shown.
 
-**18. What the figures describe.** Every figure comes from your ads' own history in the export, so it describes how your ads have behaved, not how ads behave in general. An account with few Launched ads gives a rough curve.
+**18. What the figures describe.** Every figure comes from your ads' own history in the window read, so it describes how your ads have behaved, not how ads behave in general. An account with few Launched ads gives a rough curve.
 
 ## Worked example
 
