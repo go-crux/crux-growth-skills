@@ -8,14 +8,15 @@ description: Meta ad volume forecast. Use when the user asks how many new Meta a
 Work out how many new Meta ads a week the account's spend needs, from the account's own Survival
 curve, and produce `meta-ad-volume-<date>.html`: the Ad stock check, The gap, the Churn cycle, Ads
 a week, the Roadmap with its Waterfall, the Budget ladder, and Notes and Method, laid out as
-`references/page-layout.md` fixes it. Run the steps in order. The user sees only the chat and the page, never this skill or its references: say what the
-ads showed, in plain words with the figures, and never cite a file, a rule or a query. The terms
+`references/page-layout.md` fixes it. Run the steps in order. The user sees only the chat and the
+page, never this skill or its references: say what the ads showed, in plain words with the figures,
+and never cite a file, a rule or a query. The terms
 Viable ad, Viable ad stock, Launched ad, Survival curve, Viable lifespan, Healthy lifespan, Spend per
 viable ad, Days to clear Ramping, Ad stock check, Worn out now, Wearing out, Current pipeline, Churn
 cycle, Steady-state number, Budget, Roadmap, Live-by, Waterfall, Budget ladder, Unattended run,
-Source and Brain line are those of
-`references/glossary.md`, and Next run is the repo's shared term; use them as written. The ad
-statuses and CAC are judged exactly as `references/fatigue.sql` judges them.
+Source and Brain line are those of `references/glossary.md`, and Next run is the repo's shared term;
+use them as written. The ad statuses and CAC are judged exactly as `references/fatigue.sql` judges
+them.
 
 ## Unattended run
 
@@ -51,8 +52,8 @@ Send one message, then wait for the reply:
    time to see how long a new ad stays viable. That tells me how many viable ads your spend needs
    live at once, and so how many new ads a week it takes to hold them. CAC here is Meta's own cost
    per purchase. If you give me a monthly budget, I'll step your spend to it week by week and work
-   out the new ads each week." Then the offer, in these words: "Ask me about the method if you want the detail."
-   The method stops there; `references/method.md` holds its windows and thresholds.
+   out the new ads each week." Then the offer, in these words: "Ask me about the method if you want
+   the detail." The method stops there; `references/method.md` holds its windows and thresholds.
 2. The proposed retargeting and existing-customer campaigns: those whose name contains retargeting,
    RT, remarketing, existing or retention, or reads as one of those. List the proposal by name with
    its spend over the last 7 complete days, and ask the user to confirm it, add to it or remove from
@@ -61,8 +62,8 @@ Send one message, then wait for the reply:
 3. The Budget: the monthly Meta budget the user wants to reach and, if they like, the week to reach
    it by (an ISO week, or a date in it). State the defaults in the message: with no week, the ISO
    week 4 weeks from now, named with its Monday date; with no Budget, current spend held flat for 4
-   weeks. A Budget below current spend is allowed. Recommend no Budget unless the user already has a
-   figure ("yes" takes that).
+   weeks. A Budget below current spend is allowed. Recommend no Budget
+   ("yes" takes that).
 
 The answer is confirmed once. "Just run it" and "yes" take the proposal and go on.
 
@@ -141,8 +142,8 @@ bars taken from those rows, and the Budget ladder and the growth are computed.
 ## 5. Write the page
 
 Write the page as `references/page-layout.md` fixes it: its seven headings (Ad stock check, The gap,
-Churn cycle, Ads a week, Roadmap, Budget ladder, Notes and Method), in order, with the Ad stock check read off today's
-counts against L: Short below 80% of L, Over-stocked above 150% of L, otherwise About right. Where
+Churn cycle, Ads a week, Roadmap, Budget ladder, Notes and Method), in order, with the Ad stock
+check read off today's counts against L: Short below 80% of L, Over-stocked above 150% of L, otherwise About right. Where
 both hold, or any ad is Worn out now, the Ad stock check says to run `/audit-ads` for which ads to
 pause and names no ad. Notes and Method carries `references/method.md` word for word, and no second
 wording of it, and ends on the Brain line. Save the page as `meta-ad-volume-<date>.html` in the
