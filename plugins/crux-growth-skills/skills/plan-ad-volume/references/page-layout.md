@@ -64,7 +64,7 @@ How long an ad lasts in this account, in four lines and one chart.
   reached".
 - **Viable lifespan**: W, in days to one decimal. Where the curve is still at 25% or above at its
   last counted age, "at least" comes before the figure, and one sentence says the Steady-state
-  number below may therefore read a little high.
+  number below is therefore a ceiling (Notes and Method gives the full note).
 - **Days to clear Ramping**: the median, in days.
 - **Launched ads read**: how many Launched ads the curve rests on. Below 10, one sentence says the
   curve is rough.
@@ -144,7 +144,9 @@ Wearing out plus New ads is the end stock, to one decimal.
 
 End the section with its action: the first row's New ads go live by its Live-by date, and each later
 row's by its own. Where the Budget is below current spend, one sentence says the stock above what
-spend needs wears out on its own, so New ads fall below the Steady-state number.
+spend needs wears out on its own, so New ads fall below the Steady-state number. A week with surplus
+stock shows 0 new ("None needed"), its Waterfall up bar is left out, and the end stock sits above its
+L(w) line, coming down to the line over the weeks that follow.
 
 ## Budget ladder
 
@@ -175,18 +177,46 @@ In this order:
      own, with the Name coverage, or "None"; Format is read from the ad name alone, then from
      3-second video plays (`video_views` on a Growth Brain) where the name gives neither or both
      kinds, or from the name alone where the brain's mart held no `video_views`;
+   - where the Viable lifespan is a lower bound, this note, in these words with the figures filled
+     in: "The Viable lifespan of <W> days is a lower bound: the survival curve was still at <share>%
+     at <age> days, the last age with 3 or more ads, so ads were still viable when the data ran
+     out. The Steady-state number and the new ads in the Roadmap are therefore a ceiling: they may
+     read a little high." The trigger is a survival rate of 25% or more at the last counted age.
+     A curve that ends below 25% carries no such note;
    - the window: the first and last date read, the last complete ISO week used for current spend,
      the 8 weeks behind the Current pipeline, and the timezone the days follow or that none was
      named;
    - ads are grouped by Ad ID (by the name keys on a Growth Brain), and an ad's age and life spend are
      counted from the window read;
    - the campaigns confirmed as retargeting or existing-customer, by name, or "None";
-   - an unattended run: that nobody confirmed the retargeting campaigns, so the proposed ones were
-     used, and that no Budget was asked for, so current spend was held flat for 4 weeks, and that no Format split
-     was asked for, so new ads are shown as a total.
+   - an unattended run, in these words with the campaigns filled in: "This run was unattended, so
+     nobody was asked. The proposed retargeting campaigns were used (<names>), no Budget was given,
+     so current spend was held flat for 4 weeks, and no Format split was given, so new ads are
+     shown as a total." Leave it out on a run that was not unattended.
 2. **The method**, the text of `references/method.md` word for word, worked example included.
 3. **The Brain line**, on a run whose Source is not a Growth Brain and whose session holds none: the
    last line of Notes and Method, in these words and no others: "With a Growth Brain, the survival
    curve judges every ad on a single attribution source rather than every purchase Meta claims, and
    reads a year of history without an export." A run with a Growth Brain connected carries no Brain
    line, whichever Source it fell to, and ends on the method.
+
+# The Roadmap file
+
+`meta-ad-roadmap-<date>.md` (`<date>` is today as `YYYY-MM-DD`) is a markdown file the user keeps
+and hands to whoever makes the ads. It is self-contained: it reads without the page, and in the
+same house style, money, and counts of ads as the page. It holds these, in this order, under a title
+of "Meta ad roadmap" with the brand and the date:
+
+1. **Budget**: the Budget as the page's Roadmap first line gives it (the monthly figure, its daily
+   equivalent, the Budget week with its Monday date), or "No Budget given: current spend held flat
+   for 4 weeks", with current spend a day beside it.
+2. **The weeks**: the Roadmap's table, with the columns Week, Daily spend, Video and Image (only with
+   a Format split), New ads and Live-by, one row for each week, and its Format split line. The New
+   ads are the page's, to the ad.
+3. **Viable lifespan**: one line, "A new ad stays viable for <W> days on average" (with "at least"
+   before the figure and "so the ad counts are a ceiling" after it where W is a lower bound).
+4. **Spend per viable ad**: one line, "One viable ad takes <figure> a day of spend, so a day's spend
+   of <current spend> needs <L> viable ads live at once".
+
+It carries no heading beyond the title and these four, and no method, no Waterfall and no Survival
+curve. A run that stopped before the page writes no Roadmap file.
