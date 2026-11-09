@@ -48,8 +48,8 @@ already in the conversation counts.
 ## Reading the rows
 
 - Match column headers loosely: labels vary by report version and language. Read numbers as
-  amounts, ignoring thousands separators, in the currency the export reports. A blank Purchases is
-  0.
+  amounts, ignoring thousands separators, in the currency the export reports. A blank Purchases or
+  3-second video plays is 0.
 - Leave out any total or summary row, any row with no Ad ID, and any row dated today.
 - **Dates.** The 180 complete days end yesterday. A file that starts after the first of them or
   stops before the last is asked for again once, with the range it missed; if the user cannot give
