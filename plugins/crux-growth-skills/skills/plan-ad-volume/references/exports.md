@@ -91,9 +91,9 @@ Ramping* when it spent that day and its status is not Ramping. An ad that spent 
 Inactive, and an ad the port gives no status is Unknown: neither is classified.
 
 **The model.** From the statuses, the spend per ad per day and the rows' first spend days, compute
-every figure of the Model step of `SKILL.md` as `references/method.md` defines it. Print the
-figures and the survival table (age, ads classified, viable, survival, average daily spend per ad),
-never the rows.
+every figure of the Model step of `SKILL.md`, the plan included, as `references/method.md` defines it.
+Print the figures, the survival table (age, ads classified, viable, survival, average daily spend per
+ad) and the Roadmap rows, never the rows of the export.
 
 **Done when** every ad that spent on a day carries exactly one status for that day, the spend over
 the rows read equals the spend in the file for the same days, and the survival table lists each age
