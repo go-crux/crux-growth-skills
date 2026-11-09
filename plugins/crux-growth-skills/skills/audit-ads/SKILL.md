@@ -79,9 +79,14 @@ Send one message, then wait for the reply:
 1. Where the Judged spend share is below 50%, open the message with a sentence saying the method
    cannot judge most of the account's spend yet: only <share>% of the last 7 days' spend is in ads
    past the Eligibility floors, and the rest is in ads still Ramping.
-2. One line saying you are about to judge every Meta ad on the last 60 complete days, and that
-   this is how. Without a Growth Brain, add that CAC here is Meta's own cost per purchase.
-3. The text of `references/method.md`, word for word.
+2. The method in two sentences, then an offer, in these words: "I'll judge every Meta ad on the
+   last 60 complete days by CAC, comparing each ad's last 5 days with its own best week to catch
+   fatigue and with the rest of the account to catch waste, then recommend what to pause, refresh
+   or build on. Ads too new or too small to judge are listed but left alone. Ask me about the
+   method if you want the detail." Without a Growth Brain, add that CAC here is Meta's own cost
+   per purchase. The user runs this often, so send no more of the method here.
+3. When the user asks about the method, at this step or any later one, answer from
+   `references/method.md`, and only as much of it as the question needs.
 4. The proposed retargeting and existing-customer campaigns: those whose campaign type is `RET`,
    plus those whose name contains retargeting, RT, remarketing, existing or retention, or reads
    as one of those. Find them with one `run_sql` query listing each campaign's key, name, type
@@ -165,8 +170,8 @@ creative ad reads "add new assets", and the list is in ranked order.
 
 Write the page as `references/page-layout.md` fixes it: its four headings (Summary,
 Recommendations, Every ad, Notes and Method), in order, with only Reported ads and every table
-header sorting. Notes and Method carries `references/method.md` word for word, the same text the
-intake sent, and no second wording of it. Where the Judged spend share is below 50%, the Summary
+header sorting. Notes and Method carries `references/method.md` word for word, and no second
+wording of it. Where the Judged spend share is below 50%, the Summary
 opens with the same caveat as the intake. Save the page as `meta-ad-audit-<date>.html` in the working
 folder; where none persists (a chat), hand it over as a download. The masthead names the Source,
 and a run whose Source is not a Growth Brain, with none connected, labels CAC platform-attributed
