@@ -5,7 +5,7 @@ is today as `YYYY-MM-DD`), written to the working folder, with inline CSS and in
 and no network request. Crux house style: British English, no em dashes, outcome before mechanism,
 relative percentage changes (2.0% to 1.8% is "−10%"). Money is in the export's currency, rounded to
 whole units; CAC and Spend per viable ad to two decimals; counts of ads to one decimal for the
-Viable ad stock and whole numbers for every other count.
+Viable ad stock and Wearing out in the Roadmap and whole numbers for every other count.
 
 **The masthead** sits above the first heading, with no heading of its own: the title "Meta ad
 volume", the brand, then one two-column table, a label on the left and its text on the right, one
@@ -18,7 +18,7 @@ row per label, in this order:
 | Measure | "CAC: Meta spend over the purchases Meta reports for the ad. Platform-attributed: it counts every purchase Meta claims." |
 | Current spend | The last complete ISO week's dates, its spend, and that spend a day. |
 
-**Five headings**, always present, always in this order, with these words. A heading with nothing
+**Seven headings**, always present, always in this order, with these words. A heading with nothing
 under it stays on the page, with one line saying why.
 
 ## Ad stock check
@@ -50,10 +50,10 @@ One table of three rows, each a count of ads with the line that says what it is:
 |---|---|
 | Worn out now | Live ads past Ramping that are Fatiguing, Fatigued or Low efficiency, today. |
 | Wearing out over the next 2 weeks | Viable ads times 14 over the Viable lifespan, rounded to a whole number. |
-| Growth | 0, with the words "no Budget given". |
+| Growth | The Viable ad stock at the daily Budget less the Viable ad stock at current spend, one decimal; with no Budget, 0 and the words "no Budget given". |
 
 Under the table, one sentence of action: the ads to make to cover what is Worn out now and Wearing
-out, and that the Steady-state number below is the rate to hold.
+out, and that the Roadmap below gives the ads to make each week, including the growth.
 
 ## Churn cycle
 
@@ -92,6 +92,62 @@ The Steady-state number at current spend, against the Current pipeline, in one t
 One sentence under the table says what it means in the brand's words, and ends on the action: the
 number of ads a week to make, and the Difference to close.
 
+## Roadmap
+
+The new ads to make each week, then the Waterfall of how the stock gets there.
+
+**First line.** The Budget as the user gave it (the monthly figure, its daily equivalent, and the
+Budget week with its Monday date, saying when the week was the default of 4 weeks from now), or "No
+Budget given: current spend held flat for 4 weeks."
+
+**The table.** One row for each ISO week, from next week to the Budget week and then 4 weeks held at
+the Budget (4 weeks in all with no Budget). Its columns, in this order:
+
+| Column | Holds |
+|---|---|
+| Week | The week's Monday, as a date. |
+| Daily spend | That week's daily spend, in whole units. |
+| Viable ad stock | L(w): the daily spend over the Spend per viable ad, one decimal. |
+| Wearing out | Viable ads expected to stop being viable that week, one decimal. |
+| New ads | The ads to make: a whole number, never below 0; "None needed" where it is 0. |
+| Live-by | The week's Monday less the Days to clear Ramping, as a date; "Already due" where that date has passed. |
+
+**The Waterfall** follows the table, as inline SVG covering the Roadmap weeks only. Along the bottom
+is one group for each week, labelled with its Monday. Up the side is a count of ads from 0, with
+gridlines. The bars, left to right:
+
+1. **The start bar**: the live ads past Ramping today, drawn already dropped. The drop is the
+   difference from the viable ads today (S(0)), labelled "Worn out now" with its count, and with the
+   Improving ads' count beside it where there are any, so the bar comes down to S(0).
+2. **For each week**, three bars: a down bar for Wearing out, from the week's start stock; an up bar
+   for New ads, from where the down bar ends; and the end stock, a bar from 0. The next week's down
+   bar starts at that end stock.
+3. **L(w)**, drawn as a line across the week's group and labelled in the legend as the Viable ad stock.
+
+Give the three kinds of bar distinct fills, each labelled with its figure, so the chart does not
+depend on colour alone. Label both axes, give the chart a title and a text alternative, and write
+the figures in the labels in the same format as the table. For every week, the start stock less
+Wearing out plus New ads is the end stock, to one decimal.
+
+End the section with its action: the first row's New ads go live by its Live-by date, and each later
+row's by its own. Where the Budget is below current spend, one sentence says the stock above what
+spend needs wears out on its own, so New ads fall below the Steady-state number.
+
+## Budget ladder
+
+The Steady-state number at four levels of spend, in one table:
+
+| Rung | Daily spend | Viable ad stock | Steady-state number |
+|---|---|---|---|
+| Current spend | Current spend a day. | L at that spend. | New ads a week to hold it. |
+| +25% | 1.25 times current spend. | L at that spend. | As above. |
+| +50% | 1.5 times current spend. | L at that spend. | As above. |
+| Budget | The daily Budget. | L at that spend. | As above. |
+
+With no Budget the last rung is left out, with one line saying "no Budget given". Under the table,
+the sentence: "This assumes the Spend per viable ad holds as spend grows." Then the action: the ads a week
+the next level of spend asks for over today's.
+
 ## Notes and Method
 
 In this order:
@@ -100,13 +156,15 @@ In this order:
    - the Source, the file named;
    - the CAC basis: platform-attributed, Meta's own cost per purchase, counting every purchase Meta
      claims;
+   - the Budget, as the monthly figure, its daily equivalent and the Budget week, or "None given";
+     the Roadmap's weeks are ISO weeks counted from next week, and its dates are Mondays;
    - the window: the first and last date read, the last complete ISO week used for current spend,
      the 8 weeks behind the Current pipeline, and the timezone the days follow or that none was
      named;
    - ads are grouped by Ad ID, and an ad's age and life spend are counted from the window read;
    - the campaigns confirmed as retargeting or existing-customer, by name, or "None";
    - an unattended run: that nobody confirmed the retargeting campaigns, so the proposed ones were
-     used.
+     used, and that no Budget was asked for, so current spend was held flat for 4 weeks.
 2. **The method**, the text of `references/method.md` word for word, worked example included.
 3. **The Brain line**, the last line of Notes and Method, in these words and no others: "With a
    Growth Brain, the survival curve judges every ad on a single attribution source rather than every

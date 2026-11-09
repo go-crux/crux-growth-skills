@@ -29,7 +29,15 @@ The number of new ads a week is worked out from how long your own ads stay good.
 
 **11. The check on today's ads.** Today means the last complete day. Short: viable ads below 80% of the Viable ad stock. Over-stocked: live ads past Ramping above 150% of it. Both can hold. Worn out now: live ads past Ramping that are Fatiguing, Fatigued or Low efficiency. Wearing out over the next 2 weeks: viable ads times 14, divided by the Viable lifespan.
 
-**12. What the figures describe.** Every figure comes from your ads' own history in the export, so it describes how your ads have behaved, not how ads behave in general. An account with few Launched ads gives a rough curve.
+**12. The Budget and the ramp.** A Budget is a monthly figure, so the daily Budget is the month times 12, divided by 365. Your spend does not jump to it. It steps in equal amounts week by week, from your current spend to the daily Budget, and lands in the Budget week you name, or the week 4 weeks from now if you name none. It then holds there for 4 more weeks. The Roadmap starts next week and has one row for each of those weeks. A Budget below your current spend steps down the same way. With no Budget, current spend is held flat for 4 weeks.
+
+**13. The stock, week by week.** The Viable ad stock a week needs is that week's daily spend divided by the Spend per viable ad. The plan starts from the viable ads you have live on the last complete day. Each week some of that stock stops being viable: Wearing out is the stock times 7, divided by the Viable lifespan, and never more than the whole stock. New ads then fill what is missing: the stock needed, less the stock left after Wearing out, rounded up to a whole ad and never below zero. The stock at the end of the week is the stock at its start, less Wearing out, plus the new ads. At a flat budget, once the stock matches what spend needs, the new ads each week are the Steady-state number. When spend steps down, the stock needed can fall faster than ads wear out: a week may then need no new ads, and the stock above what spend needs wears out on its own. Where the Viable lifespan is under 7 days, the whole stock wears out within a week, so the new ads are the stock needed, rounded up, which sits below the Steady-state number: the plan never makes more ads a week than spend needs live at once.
+
+**14. Live-by.** A new ad needs the Days to clear Ramping before it earns a verdict, so each week's new ads should be live that many days before the week's Monday. That date is the Live-by.
+
+**15. The Budget ladder.** The Steady-state number, worked out as in item 10, at your current spend, at 25% more, at 50% more and at your Budget. It assumes the Spend per viable ad holds as spend grows. If the extra spend goes into each ad rather than into more ads, fewer new ads are needed.
+
+**16. What the figures describe.** Every figure comes from your ads' own history in the export, so it describes how your ads have behaved, not how ads behave in general. An account with few Launched ads gives a rough curve.
 
 ## Worked example
 
@@ -69,3 +77,41 @@ An invented brand, Fern & Co, with six Launched ads and a short run of days. Eac
 **Steady-state number.** 19.8 × 7 ÷ 3.27 = 42.4, which rounds up to 43 new ads a week. As a check, it is also the weekly spend divided by the survival-weighted spend of one ad over its viable life: 4,200 ÷ 99 = 42.4. Because the Viable lifespan is a lower bound, the figure may be a little high.
 
 **The check.** At 19.8, Short is below 15.8 viable ads (80%) and Over-stocked is above 29.7 live ads past Ramping (150%). If today 12 ads are viable and 22 are live past Ramping, Fern & Co is Short and not Over-stocked.
+
+## The Roadmap, worked
+
+The ten-day table above is too short to show a stock wearing out over weeks, so the Roadmap takes the figures Fern & Co's full 180 days would give instead: a Viable lifespan of 14 days and a Spend per viable ad of £30 a day, with the same 4 days to clear Ramping and the same current spend of £600 a day. The Viable ad stock is 600 ÷ 30 = 20, and the Steady-state number is 20 × 7 ÷ 14 = 10 new ads a week. Today, Monday 9 November, 22 ads are live past Ramping: 12 are viable, 8 are Worn out now and 2 are Improving. So the starting stock is 12, and Wearing out each week is the stock × 7 ÷ 14, half of it.
+
+**A ramp.** Fern & Co gives a Budget of £45,625 a month, which is 45,625 × 12 ÷ 365 = £1,500 a day, to be reached in the week of Monday 30 November, 3 weeks from now. Daily spend steps by (1,500 − 600) ÷ 3 = £300 a week. Live-by is the Monday less 4 days.
+
+| Week (Monday) | Daily spend | Stock needed | Start | Wearing out | New | End | Live-by |
+|---|---|---|---|---|---|---|---|
+| 1 (16 Nov) | £900 | 900 ÷ 30 = 30 | 12 | 12 × 7 ÷ 14 = 6 | ⌈30 − (12 − 6)⌉ = 24 | 12 − 6 + 24 = 30 | Thu 12 Nov |
+| 2 (23 Nov) | £1,200 | 1,200 ÷ 30 = 40 | 30 | 15 | ⌈40 − 15⌉ = 25 | 30 − 15 + 25 = 40 | Thu 19 Nov |
+| 3 (30 Nov) | £1,500 | 1,500 ÷ 30 = 50 | 40 | 20 | ⌈50 − 20⌉ = 30 | 40 − 20 + 30 = 50 | Thu 26 Nov |
+
+Every week ties: start, less Wearing out, plus New, is the end stock, and each end stock lands on the stock needed. The Roadmap goes on for 4 more weeks at £1,500 a day; the first of them (week 4) has a start of 50, Wearing out of 25 and New of ⌈50 − 25⌉ = 25, which is the Steady-state number at £1,500: 50 × 7 ÷ 14 = 25.
+
+**The Waterfall of the ramp.** The start bar is the 22 live ads past Ramping, drawn already dropped by the 10 that are Worn out now (8) or Improving (2), down to 12. Then, for each week, a down bar for Wearing out, an up bar for New, and the end stock, with the stock needed marked as a line:
+
+| Week | Starts at | Down | Up | Ends at | Line at |
+|---|---|---|---|---|---|
+| 1 | 12 | 6 | 24 | 30 | 30 |
+| 2 | 30 | 15 | 25 | 40 | 40 |
+| 3 | 40 | 20 | 30 | 50 | 50 |
+
+**A flat budget.** Held at £600 a day, the stock needed is 20 every week. Week 1: Wearing out is 6, New is ⌈20 − (12 − 6)⌉ = 14, and the end stock is 20. Week 2: Wearing out is 10, New is ⌈20 − (20 − 10)⌉ = 10, and the end stock is 20. From week 2 the new ads equal the Steady-state number, 10. Week 1 is higher because today's 12 viable ads are short of the 20 needed.
+
+**A scale-down.** Give a Budget of £3,650 a month, which is £120 a day, reached in week 3. Daily spend steps down by £160 a week.
+
+| Week | Daily spend | Stock needed | Start | Wearing out | New | End |
+|---|---|---|---|---|---|---|
+| 1 | £440 | 14.7 | 12 | 6 | ⌈14.7 − 6⌉ = 9 | 12 − 6 + 9 = 15 |
+| 2 | £280 | 9.3 | 15 | 7.5 | ⌈9.3 − 7.5⌉ = 2 | 15 − 7.5 + 2 = 9.5 |
+| 3 | £120 | 4 | 9.5 | 4.75 | max(0, ⌈4 − 4.75⌉) = 0 | 9.5 − 4.75 + 0 = 4.75 |
+
+In week 3 the stock left after Wearing out (4.75) is already above the 4 spend needs, so no new ads are made, and the surplus wears out in the weeks after. New is never negative.
+
+**The Budget ladder.** The Steady-state number at £600 a day is 10. At 25% more, £750 a day, the stock needed is 25 and the number is ⌈25 × 7 ÷ 14⌉ = 13. At 50% more, £900 a day, it is 30 and 15. At the £1,500 Budget it is 50 and 25.
+
+**The gap.** The growth is the stock needed at the Budget less the stock needed now: 50 − 20 = 30.
