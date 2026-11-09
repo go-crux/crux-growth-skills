@@ -2,12 +2,20 @@
 -- audit-ads' (the same copy, which must change together with it); this file adds only the day it is
 -- read as of. The code port (references/exports.md) follows it, and runs it once for each day of
 -- the window to give every ad's status on every day.
+-- The file has two parts. The CLASSIFICATION above `judged` judges the ads as of one day, and the
+-- code port (references/exports.md) follows it. THE BRAIN PATH below `judged` judges every day of
+-- the last 365 in one pass, then draws the curve and works the scalars, so a brain runs the whole
+-- file as one statement and the final SELECT is its result. The code port stops at `judged`.
 -- Edit 1, in `source`: the mart's name, and any column list_tables shows under another name. Where
--- the mart has no `match_status` column, delete that one condition and nothing else.
+-- the mart has no `match_status` column, delete that one condition and nothing else. On the brain
+-- path the mart's name is also written in `video_plays`, and a mart with no `video_views` column
+-- takes 0 there, in place of `video_views`.
 -- Edit 2, in `retargeting`: the confirmed campaign_name_keys (ARRAY<STRING>[] when none).
--- Edit 3, in `period`: the as-of day. Replace the one CURRENT_DATE() with
--- DATE_ADD(DATE '<as_of_date>', INTERVAL 1 DAY), so the day judged is <as_of_date>.
--- Timezone: where the brain's own instructions name the store's timezone, write the as-of day in it.
+-- Edit 3, in `period`: the as-of day, for the code port only; the brain path leaves it. Replace the
+-- one CURRENT_DATE() with DATE_ADD(DATE '<as_of_date>', INTERVAL 1 DAY), so the day judged is
+-- <as_of_date>.
+-- Timezone: where the brain's own instructions name the store's timezone, write the as-of day in it,
+-- and on the brain path write it in the one CURRENT_DATE() of `win`.
 -- The grain is the three name keys, never ad_id or a display name: a rename keeps its key, and
 -- one key can hold many ids. `reach` is never summed. `purchases` is never read.
 -- CAC is spend over new_orders. Day-of-week normalising divides each day's spend by that
@@ -284,7 +292,370 @@ judged AS (
    AND d.adset_name_key = s.adset_name_key
    AND d.ad_name_key = s.ad_name_key
    AND d.day = p.date_to
+),
+-- THE BRAIN PATH. It reads `cut`, `source` and `retargeting` from the shared block and nothing
+-- else of it: every window and floor is `cut`'s, and the lines below add only the plan's own. It
+-- restates `status` for every day in one pass instead of one day, so the CASE in `ad_day_status`
+-- must change together with `status` above and with audit-ads. Everything is bounded to the window.
+plan_cut AS (
+  SELECT
+    365 AS window_days,
+    3 AS curve_min_ads,
+    8 AS pipeline_weeks
+),
+-- The last 365 complete days, ending yesterday. `this_monday` starts the ISO week holding today.
+win AS (
+  SELECT
+    DATE_SUB(CURRENT_DATE(), INTERVAL p.window_days DAY) AS date_from,
+    DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY) AS date_to,
+    DATE_TRUNC(CURRENT_DATE(), ISOWEEK) AS this_monday
+  FROM plan_cut AS p
+),
+win_rows AS (
+  SELECT
+    s.day, s.campaign_name_key,
+    TO_JSON_STRING([s.campaign_name_key, s.adset_name_key, s.ad_name_key]) AS ad_key,
+    s.ad, s.spend, s.new_orders, s.ad_age
+  FROM source AS s
+  CROSS JOIN win AS w
+  WHERE s.day BETWEEN w.date_from AND w.date_to
+),
+-- The first day the mart holds inside the window: an ad first spending after it is a Launched ad.
+first_day AS (
+  SELECT MIN(day) AS day
+  FROM win_rows
+),
+-- One row per ad per day; life_spend is the ad's spend over the window up to that day.
+daily_win AS (
+  SELECT
+    ad_key, campaign_name_key, day,
+    SUM(spend) AS spend, SUM(new_orders) AS new_orders, MAX(ad_age) AS ad_age,
+    SUM(SUM(spend)) OVER (PARTITION BY ad_key ORDER BY day) AS life_spend
+  FROM win_rows
+  GROUP BY ad_key, campaign_name_key, day
+),
+spent AS (
+  SELECT *
+  FROM daily_win
+  WHERE spend > 0
+),
+-- For each day as the day judged, the account's CAC on each weekday over its CAC on all history_days
+-- days to that day; the index every day in that day's windows is divided by.
+dow_totals AS (
+  SELECT
+    d AS as_of, k AS dow,
+    COALESCE(SUM(a.spend), 0) AS spend, COALESCE(SUM(a.new_orders), 0) AS new_orders
+  FROM win AS w
+  CROSS JOIN cut AS c
+  CROSS JOIN UNNEST(GENERATE_DATE_ARRAY(w.date_from, w.date_to)) AS d
+  CROSS JOIN UNNEST(GENERATE_ARRAY(1, 7)) AS k
+  LEFT JOIN (
+    SELECT day, EXTRACT(DAYOFWEEK FROM day) AS dow, SUM(spend) AS spend, SUM(new_orders) AS new_orders
+    FROM daily_win
+    GROUP BY day
+  ) AS a
+    ON a.dow = k AND a.day BETWEEN DATE_SUB(d, INTERVAL (c.history_days - 1) DAY) AND d
+  GROUP BY d, k
+),
+dow_index AS (
+  SELECT
+    as_of, dow,
+    COALESCE(
+      SAFE_DIVIDE(
+        SAFE_DIVIDE(spend, new_orders),
+        SAFE_DIVIDE(SUM(spend) OVER (PARTITION BY as_of), SUM(new_orders) OVER (PARTITION BY as_of))
+      ),
+      1
+    ) AS dow_index
+  FROM dow_totals
+),
+-- Every ad with spend in the reported_days to a day, for each such day.
+judged_days AS (
+  SELECT DISTINCT s.ad_key, d AS as_of
+  FROM spent AS s
+  CROSS JOIN win AS w
+  CROSS JOIN cut AS c
+  CROSS JOIN UNNEST(GENERATE_DATE_ARRAY(s.day, LEAST(DATE_ADD(s.day, INTERVAL (c.reported_days - 1) DAY), w.date_to))) AS d
+),
+-- Each such ad's dense days back to the start of its Peak CAC lookback, divided by that day's
+-- weekday index. The windows start where the mart starts; there the rows that exist are read.
+ad_grid AS (
+  SELECT
+    j.ad_key, j.as_of, g AS day,
+    COALESCE(dw.spend, 0) AS spend,
+    COALESCE(dw.new_orders, 0) AS new_orders,
+    COALESCE(dw.spend, 0) / x.dow_index AS adj_spend
+  FROM judged_days AS j
+  CROSS JOIN win AS w
+  CROSS JOIN cut AS c
+  CROSS JOIN UNNEST(GENERATE_DATE_ARRAY(GREATEST(w.date_from, DATE_SUB(j.as_of, INTERVAL ((c.peak_lookback_days - 1) + (c.reported_days - 1)) DAY)), j.as_of)) AS g
+  LEFT JOIN daily_win AS dw ON dw.ad_key = j.ad_key AND dw.day = g
+  JOIN dow_index AS x ON x.as_of = j.as_of AND x.dow = EXTRACT(DAYOFWEEK FROM g)
+),
+grid_rolling AS (
+  SELECT
+    ad_key, as_of, day, spend,
+    SUM(adj_spend) OVER r5 AS adj_spend_5,
+    SUM(new_orders) OVER r5 AS orders_5,
+    SUM(spend) OVER r5 AS spend_5,
+    SUM(adj_spend) OVER r7 AS adj_spend_7,
+    SUM(new_orders) OVER r7 AS orders_7
+  FROM ad_grid
+  WINDOW
+    r5 AS (PARTITION BY ad_key, as_of ORDER BY day ROWS BETWEEN 4 PRECEDING AND CURRENT ROW),
+    r7 AS (PARTITION BY ad_key, as_of ORDER BY day ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)
+),
+-- The ad as it stood on each day it was judged: the 5-day window on that day (d0) and the two days
+-- before it (d1, d2), and the Peak CAC over the peak_lookback_days to it.
+ad_day AS (
+  SELECT
+    r.ad_key, r.as_of,
+    MAX(IF(r.day = r.as_of, r.spend_5, NULL)) AS spend_5,
+    MAX(IF(r.day = r.as_of, r.adj_spend_5, NULL)) AS adj_d0,
+    MAX(IF(r.day = r.as_of, r.orders_5, NULL)) AS ord_d0,
+    MAX(IF(r.day = DATE_SUB(r.as_of, INTERVAL 1 DAY), r.adj_spend_5, NULL)) AS adj_d1,
+    MAX(IF(r.day = DATE_SUB(r.as_of, INTERVAL 1 DAY), r.orders_5, NULL)) AS ord_d1,
+    MAX(IF(r.day = DATE_SUB(r.as_of, INTERVAL 2 DAY), r.adj_spend_5, NULL)) AS adj_d2,
+    MAX(IF(r.day = DATE_SUB(r.as_of, INTERVAL 2 DAY), r.orders_5, NULL)) AS ord_d2,
+    MIN(IF(r.day > DATE_SUB(r.as_of, INTERVAL c.peak_lookback_days DAY),
+           SAFE_DIVIDE(r.adj_spend_7, r.orders_7), NULL)) AS peak_cac
+  FROM grid_rolling AS r
+  CROSS JOIN cut AS c
+  GROUP BY r.ad_key, r.as_of
+),
+ad_campaign AS (
+  SELECT DISTINCT
+    ad_key,
+    campaign_name_key IN (SELECT campaign_name_key FROM retargeting) AS is_retargeting
+  FROM daily_win
+),
+-- Account blend on each day: every ad judged that day, retargeting ads together and all others.
+blend_day AS (
+  SELECT a.as_of, k.is_retargeting, SAFE_DIVIDE(SUM(a.adj_d0), SUM(a.ord_d0)) AS blend_cac
+  FROM ad_day AS a
+  JOIN ad_campaign AS k USING (ad_key)
+  GROUP BY a.as_of, k.is_retargeting
+),
+day_flags AS (
+  SELECT
+    s.ad_key, s.day, s.spend,
+    b.blend_cac,
+    (
+      s.life_spend >= c.floor_life_spend
+      AND s.ad_age >= c.floor_age_days
+      AND a.spend_5 >= c.floor_daily_spend * c.current_days
+    ) AS eligible,
+    a.adj_d0 >= c.low_efficiency * b.blend_cac * a.ord_d0 AS is_low_efficiency,
+    a.adj_d0 <= c.winner * b.blend_cac * a.ord_d0 AS is_winner,
+    a.adj_d0 * a.ord_d2 < a.adj_d2 * a.ord_d0 AS is_falling,
+    (
+      a.adj_d0 >= c.fatigued * a.peak_cac * a.ord_d0
+      AND a.adj_d1 >= c.fatigued * a.peak_cac * a.ord_d1
+      AND a.adj_d2 >= c.fatigued * a.peak_cac * a.ord_d2
+    ) AS over_fatigued,
+    (
+      a.adj_d0 >= c.fatiguing * a.peak_cac * a.ord_d0
+      AND a.adj_d1 >= c.fatiguing * a.peak_cac * a.ord_d1
+    ) AS over_fatiguing,
+    a.adj_d0 >= c.improving * a.peak_cac * a.ord_d0 AS over_improving
+  FROM spent AS s
+  JOIN ad_day AS a ON a.ad_key = s.ad_key AND a.as_of = s.day
+  JOIN ad_campaign AS k ON k.ad_key = s.ad_key
+  JOIN blend_day AS b ON b.as_of = s.day AND b.is_retargeting = k.is_retargeting
+  CROSS JOIN cut AS c
+),
+-- Every ad's status on every day it spent. First match wins.
+ad_day_status AS (
+  SELECT
+    f.ad_key, f.day, f.spend,
+    CASE
+      WHEN f.eligible IS NOT TRUE THEN 'Ramping'
+      WHEN f.is_low_efficiency THEN 'Low efficiency'
+      WHEN f.over_fatigued AND NOT f.is_falling THEN 'Fatigued'
+      WHEN f.over_fatiguing AND NOT f.is_falling THEN 'Fatiguing'
+      WHEN f.over_improving AND f.is_falling THEN 'Improving'
+      WHEN f.is_winner THEN 'Winner'
+      ELSE 'Healthy'
+    END AS status
+  FROM day_flags AS f
+),
+-- Display names as the ad's latest row shows them, and whether it had any 3-second video plays in
+-- the rows read. Format reads these two.
+ad_names AS (
+  SELECT ad_key, ARRAY_AGG(ad IGNORE NULLS ORDER BY day DESC LIMIT 1)[SAFE_OFFSET(0)] AS ad_name
+  FROM win_rows
+  GROUP BY ad_key
+),
+video_plays AS (
+  SELECT
+    TO_JSON_STRING([campaign_name_key, adset_name_key, ad_name_key]) AS ad_key,
+    SUM(COALESCE(video_views, 0)) > 0 AS had_video
+  FROM `<client>-meta_performance`
+  CROSS JOIN win AS w
+  WHERE date BETWEEN w.date_from AND w.date_to
+  GROUP BY ad_key
+),
+-- BEGIN model
+-- Reads only ad_day_status, daily_win, ad_names, video_plays, win, first_day and plan_cut.
+-- A Launched ad: its first day of spend falls after the window's first day. Age is the days since
+-- that day, so the first day is age 0.
+launched AS (
+  SELECT ad_key, MIN(day) AS first_spend
+  FROM ad_day_status
+  GROUP BY ad_key
+  HAVING MIN(day) > (SELECT day FROM first_day)
+),
+-- The Survival curve: at each age, the Launched ads classified (spent and not Ramping) and the
+-- viable ones (Healthy or Winner), with the average spend of the classified ads.
+ages AS (
+  SELECT
+    DATE_DIFF(s.day, l.first_spend, DAY) AS age,
+    COUNT(*) AS classified,
+    COUNTIF(s.status IN ('Healthy', 'Winner')) AS viable,
+    AVG(s.spend) AS avg_spend
+  FROM ad_day_status AS s
+  JOIN launched AS l USING (ad_key)
+  WHERE s.status != 'Ramping'
+  GROUP BY age
+),
+curve AS (
+  SELECT a.age, a.classified, a.viable, SAFE_DIVIDE(a.viable, a.classified) AS survival, a.avg_spend
+  FROM ages AS a
+  CROSS JOIN plan_cut AS p
+  WHERE a.classified >= p.curve_min_ads
+),
+-- W (viable_lifespan), Spend per viable ad and the Healthy lifespan with its quartile range. The thresholds compare
+-- whole counts (viable x 2 < classified is survival below 50%), so a rate of exactly 50% is not below.
+lifespans AS (
+  SELECT
+    COUNT(*) AS curve_ages,
+    SUM(survival) AS viable_lifespan,
+    SAFE_DIVIDE(SUM(survival * avg_spend), SUM(survival)) AS spend_per_viable_ad,
+    MIN(IF(viable * 2 < classified, age, NULL)) AS healthy_lifespan,
+    MIN(IF(viable * 4 < classified * 3, age, NULL)) AS age_below_75,
+    MIN(IF(viable * 4 < classified, age, NULL)) AS age_below_25,
+    ARRAY_AGG(viable * 4 >= classified ORDER BY age DESC LIMIT 1)[SAFE_OFFSET(0)] AS w_is_lower_bound
+  FROM curve
+),
+-- Days to clear Ramping: the median, over Launched ads, of the age of the first day not Ramping.
+cleared AS (
+  SELECT
+    l.ad_key,
+    DATE_DIFF(MIN(s.day), l.first_spend, DAY) AS age_cleared
+  FROM launched AS l
+  JOIN ad_day_status AS s USING (ad_key)
+  WHERE s.status != 'Ramping'
+  GROUP BY l.ad_key, l.first_spend
+),
+cleared_ranked AS (
+  SELECT age_cleared, ROW_NUMBER() OVER (ORDER BY age_cleared) AS rn, COUNT(*) OVER () AS n
+  FROM cleared
+),
+clear_ramping AS (
+  SELECT AVG(age_cleared) AS days_to_clear_ramping
+  FROM cleared_ranked
+  WHERE rn IN (DIV(n + 1, 2), DIV(n + 2, 2))
+),
+-- The ads on the last complete day.
+today_counts AS (
+  SELECT
+    COUNTIF(s.status IN ('Healthy', 'Winner')) AS viable_ads,
+    COUNTIF(s.status != 'Ramping') AS live_past_ramping,
+    COUNTIF(s.status IN ('Fatiguing', 'Fatigued', 'Low efficiency')) AS worn_out_now,
+    COUNTIF(s.status = 'Improving') AS improving_now
+  FROM ad_day_status AS s
+  CROSS JOIN win AS w
+  WHERE s.day = w.date_to
+),
+-- Current spend: the last complete ISO week's spend over 7.
+current_spend AS (
+  SELECT SUM(d.spend) / 7 AS daily_spend
+  FROM daily_win AS d
+  CROSS JOIN win AS w
+  WHERE d.day >= DATE_SUB(w.this_monday, INTERVAL 7 DAY) AND d.day < w.this_monday
+),
+-- The last complete ISO weeks (pipeline_weeks, or fewer where the window holds fewer) that the
+-- Current pipeline and the Format split default read.
+recent_weeks AS (
+  SELECT
+    LEAST(p.pipeline_weeks, DIV(DATE_DIFF(w.this_monday, f.day, DAY), 7)) AS weeks_used,
+    w.this_monday
+  FROM win AS w
+  CROSS JOIN first_day AS f
+  CROSS JOIN plan_cut AS p
+),
+-- Format from the ad name alone: whole words, any other character a break. A name with neither
+-- kind of word, or both, takes video where the ad had any 3-second video plays, else image.
+recent_words AS (
+  SELECT
+    COALESCE(REGEXP_CONTAINS(LOWER(n.ad_name), r'(^|[^\p{L}\p{N}])(video|vid|reel)([^\p{L}\p{N}]|$)'), FALSE) AS video_word,
+    COALESCE(REGEXP_CONTAINS(LOWER(n.ad_name), r'(^|[^\p{L}\p{N}])(image|img|static|still|carousel)([^\p{L}\p{N}]|$)'), FALSE) AS image_word,
+    COALESCE(v.had_video, FALSE) AS had_video
+  FROM launched AS l
+  CROSS JOIN recent_weeks AS r
+  LEFT JOIN ad_names AS n USING (ad_key)
+  LEFT JOIN video_plays AS v USING (ad_key)
+  WHERE l.first_spend >= DATE_SUB(r.this_monday, INTERVAL (r.weeks_used * 7) DAY)
+    AND l.first_spend < r.this_monday
+),
+recent_formats AS (
+  SELECT
+    video_word != image_word AS named,
+    CASE
+      WHEN video_word AND NOT image_word THEN 'video'
+      WHEN image_word AND NOT video_word THEN 'image'
+      WHEN had_video THEN 'video'
+      ELSE 'image'
+    END AS format
+  FROM recent_words
+),
+format_split AS (
+  SELECT
+    COUNT(*) AS recent_launched_ads,
+    CAST(ROUND(100 * SAFE_DIVIDE(COUNTIF(format = 'video'), COUNT(*))) AS INT64) AS video_pct,
+    CAST(ROUND(100 * SAFE_DIVIDE(COUNTIF(named), COUNT(*))) AS INT64) AS name_coverage_pct
+  FROM recent_formats
 )
-SELECT *
-FROM judged
-ORDER BY spend_on_day DESC
+-- END model
+SELECT
+  w.date_from AS window_from,
+  w.date_to AS window_to,
+  f.day AS first_day,
+  DATE_SUB(w.this_monday, INTERVAL 7 DAY) AS current_week_from,
+  DATE_SUB(w.this_monday, INTERVAL 1 DAY) AS current_week_to,
+  (SELECT COUNT(*) FROM launched) AS launched_ads,
+  ls.curve_ages,
+  ls.viable_lifespan,
+  ls.w_is_lower_bound,
+  ls.spend_per_viable_ad,
+  ls.healthy_lifespan,
+  ls.age_below_75,
+  ls.age_below_25,
+  cr.days_to_clear_ramping,
+  cs.daily_spend AS current_spend,
+  SAFE_DIVIDE(fs.recent_launched_ads, r.weeks_used) AS current_pipeline,
+  r.weeks_used AS pipeline_weeks_used,
+  SAFE_DIVIDE(cs.daily_spend, ls.spend_per_viable_ad) AS viable_ad_stock,
+  CEIL(ROUND(SAFE_DIVIDE(SAFE_DIVIDE(cs.daily_spend, ls.spend_per_viable_ad) * 7, ls.viable_lifespan), 9)) AS steady_state_number,
+  tc.viable_ads,
+  tc.live_past_ramping,
+  tc.worn_out_now,
+  tc.improving_now,
+  SAFE_DIVIDE(tc.viable_ads * 14, ls.viable_lifespan) AS wearing_out_2_weeks,
+  fs.video_pct,
+  100 - fs.video_pct AS image_pct,
+  fs.name_coverage_pct,
+  ARRAY(
+    SELECT AS STRUCT c.age, c.classified, c.viable, c.survival, c.avg_spend
+    FROM curve AS c
+    ORDER BY c.age
+  ) AS survival_table
+FROM win AS w
+CROSS JOIN first_day AS f
+CROSS JOIN lifespans AS ls
+CROSS JOIN clear_ramping AS cr
+CROSS JOIN current_spend AS cs
+CROSS JOIN recent_weeks AS r
+CROSS JOIN today_counts AS tc
+CROSS JOIN format_split AS fs
+

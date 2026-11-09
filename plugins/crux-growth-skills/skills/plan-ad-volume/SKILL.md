@@ -1,6 +1,6 @@
 ---
 name: plan-ad-volume
-description: Meta ad volume forecast. Use when the user asks how many new Meta ads they need a week, how many ads their spend needs, or how long their ads last, or how many ads a bigger Meta budget needs. Runs on one Ads Manager export.
+description: Meta ad volume forecast. Use when the user asks how many new Meta ads they need a week, how many ads their spend needs, or how long their ads last, or how many ads a bigger Meta budget needs. Runs on the brand's Growth Brain, else a Meta connector, else one Ads Manager export.
 ---
 
 # Meta ad volume forecast
@@ -22,44 +22,75 @@ them.
 
 A run is unattended when its message says so or says not to ask, or when it is a scheduled session
 or routine: nobody is there to answer. It asks nothing at any step. Where a step would ask, it takes
-that step's recommended answer, and only where a step recommends none (no export attached) does it
-stop with one line saying what it needed. Step 3 sends no message, takes the proposed retargeting
-campaigns as confirmed, gives no Budget and no Format split, and the page's Notes and Method says
-the run was unattended.
+that step's recommended answer, and only where a step recommends none (several Growth Brains and
+none plainly the brand's, no export attached) does it stop with one line saying what it needed.
+Step 3 sends no message, takes the proposed retargeting campaigns as confirmed, gives no Budget
+and no Format split, and the page's Notes and Method says the run was unattended.
 
 ## 1. Connect
 
-Take the ad-by-day rows from one Ads Manager export the user gives, and say so in a line. A file
-already in the conversation counts; else ask for it in one message, with the steps of
-`references/exports.md` in plain words, and wait.
+Take the ad-by-day rows from the first of these Sources that holds them, and say which in a line:
 
-**Done when** the run names its Source and holds the rows for the last 180 complete days, or for
-the days the file holds when the user cannot give more.
+1. **A Growth Brain**: a connector named `<Client> - Growth Brain` that offers `list_tables` and
+   `run_sql`. With several, use the one whose client name plainly matches the brand the user
+   named; ask which one only when none match or more than one does.
+2. **A Meta connector** in the session, probed as `references/exports.md` sets out.
+3. **One Ads Manager export** the user gives: a file already in the conversation counts, else ask
+   for it in one message, with the steps of `references/exports.md` in plain words, and wait.
+
+A Growth Brain is read for the last 365 complete days; a Meta connector or an export for the last
+180.
+
+**Done when** the run names its Source, and for a Meta connector or an export holds the rows for
+the last 180 complete days, or for the days it holds when the user cannot give more.
 
 ## 2. Read
 
-Read the rows as `references/exports.md` sets out. A session with no code or analysis tool: say in
-one line that the plan needs one, and stop.
+A session with no code or analysis tool: say in one line that the plan needs one, and stop.
 
-**Done when** the rows are grouped by Ad ID and Day, the window's first and last dates are named,
-the run holds the campaign names with their spend over the last 7 complete days, and every ad
-carries a Format (step 4 sets the rule).
+**Without a Growth Brain**, read the rows as `references/exports.md` sets out and go to step 3.
+
+**With a Growth Brain**, call `list_tables` once with no arguments, then once naming only
+`<client>-meta_performance` (`<client>` is the prefix the roster carries). If that mart is missing,
+say in one line that the brain holds no Meta ad table and take the next Source from step 1 (a brain
+is still connected, so the page carries no Brain line). The mart is one row per day, campaign, ad
+set and ad. Read its columns from the second call and take these, never assuming one: the date; the
+three name keys (campaign, ad set and ad) and the three display names; spend; new orders; ad age;
+campaign type; the match status; and `video_views`. Group by the name keys, never an ad id or a
+display name, and read the last 365 complete days. A missing column other than campaign type, match
+status and `video_views`: name it in one line and stop. Without campaign type, the intake proposes
+retargeting campaigns from their names alone. Without `video_views`, Format falls back to the name
+only, and an ad whose name decides nothing counts as image.
+
+On a brain, use new orders as the CAC denominator and never the purchases Meta claims, which are
+fractional and not the same count. Never sum reach. Leave out rows with no ad (an ad named
+"Unknown", or an unrendered template).
+
+**Done when** the rows are read from a connector or export and grouped by Ad ID and Day, the
+window's first and last dates are named, the run holds the campaign names with their spend over
+the last 7 complete days, and every ad carries a Format (step 4 sets the rule); or, with a Growth
+Brain, every column above is named from the second call, or the run has stopped with a line saying
+which is missing, or has moved to the next Source.
 
 ## 3. Intake
 
 Send one message, then wait for the reply:
 
-1. The method in brief, in these words: "I'll judge every Meta ad on every day of the last 180 days
-   by its CAC, the way an ad audit does, then draw a survival curve from the ads you launched in that
-   time to see how long a new ad stays viable. That tells me how many viable ads your spend needs
-   live at once, and so how many new ads a week it takes to hold them. CAC here is Meta's own cost
-   per purchase. If you give me a monthly budget, I'll step your spend to it week by week and work
-   out the new ads each week." Then the offer, in these words: "Ask me about the method if you want
+1. The method in brief, in these words with the days filled in (365 from a Growth Brain, 180
+   otherwise): "I'll judge every Meta ad on every day of the last 365 days by its CAC, the way an ad
+   audit does, then draw a survival curve from the ads you launched in that time to see how long a
+   new ad stays viable. That tells me how many viable ads your spend needs live at once, and so how
+   many new ads a week it takes to hold them. CAC here is <basis>. If you give me a monthly budget,
+   I'll step your spend to it week by week and work out the new ads each week." The basis is "spend
+   over your own new orders" from a Growth Brain, and "Meta's own cost per purchase" otherwise. Then
+   the offer, in these words: "Ask me about the method if you want
    the detail." The method stops there; `references/method.md` holds its windows and thresholds.
 2. The proposed retargeting and existing-customer campaigns: those whose name contains retargeting,
-   RT, remarketing, existing or retention, or reads as one of those. List the proposal by name with
-   its spend over the last 7 complete days, and ask the user to confirm it, add to it or remove from
-   it. Recommend the proposal ("yes" accepts it). With no campaign that fits, say so and recommend
+   RT, remarketing, existing or retention, or reads as one of those, plus, with a Growth Brain, those
+   whose campaign type is `RET`. With a Growth Brain, find them with one `run_sql` query listing each
+   campaign's key, name, type and spend over the last 7 complete days, for campaigns with spend in
+   the window. List the proposal by name with its spend over the last 7 complete days, and ask the
+   user to confirm it, add to it or remove from it. Recommend the proposal ("yes" accepts it). With no campaign that fits, say so and recommend
    none.
 3. The Budget: the monthly Meta budget the user wants to reach and, if they like, the week to reach
    it by (an ISO week, or a date in it). State the defaults in the message: with no week, the ISO
@@ -88,8 +119,18 @@ a video and image percentage, or no split.
 
 ## 4. Model
 
-Judge every ad on every day of the window and compute the figures, in code, as
-`references/exports.md` and `references/method.md` set out. The method is fixed there; compute
+Judge every ad on every day of the window and compute the figures from these definitions, which
+`references/method.md` sets out in words. **Without a Growth Brain**, judge and compute in code, as
+`references/exports.md` sets out. **With a Growth Brain**, open `references/fatigue.sql`, make its
+edits 1 and 2 (the mart's name, in `source` and in `video_plays`, with any column names from step
+2, and the confirmed campaign keys), leave edit 3, and run the whole file with `run_sql` as one
+statement. It judges every ad on every day of the 365, and returns one row holding `viable_lifespan`
+(W), `spend_per_viable_ad`, `healthy_lifespan` with `age_below_75` and `age_below_25`,
+`days_to_clear_ramping`, `current_spend`, `current_pipeline`, `viable_ad_stock` (L),
+`steady_state_number`, today's counts, the Format split default (`video_pct`, `image_pct`) with its
+`name_coverage_pct`, and the `survival_table`. Type none of them by hand. Where the brain's own
+instructions name the store's timezone, set it as the file says. A query error: fix the column from
+step 2 and run again, and never invent one. The plan below is worked in code from that row. Compute
 each figure once, from these definitions:
 
 - **Viable** is Healthy or Winner on that day.
@@ -110,8 +151,8 @@ each figure once, from these definitions:
   the name into words at every character that is not a letter or a digit, and compare each word
   with these, ignoring case. Video: `video`, `vid`, `reel`. Image: `image`, `img`, `static`,
   `still`, `carousel`. A name with words of one kind only decides the Format. A name with neither
-  kind, or both, leaves the ad video if it had any 3-second video plays in the rows read, and image
-  otherwise.
+  kind, or both, leaves the ad video if it had any 3-second video plays (`video_views` on a brain) in the rows
+  read, and image otherwise.
 - **Format split default** is the video and image shares of the Launched ads whose first spend fell
   in the last 8 complete ISO weeks, as whole percentages that sum to 100 (video rounded, image the
   rest). **Name coverage** is the share of those same ads whose name decided the Format, as a whole
@@ -153,7 +194,7 @@ so next week is week 1. Carry every stock unrounded; only New is a whole number.
 - **Growth** is L at the daily Budget less L at current spend, and 0 with no Budget.
 
 When no age has 3 or more classified Launched ads, or every counted age reads 0%, say in one line
-how many Launched ads the export holds and that it is too few to draw a curve, and stop with no
+how many Launched ads the Source holds and that it is too few to draw a curve, and stop with no
 page.
 
 **Done when** the run holds W, Spend per viable ad, the Healthy lifespan with its quartile range,
@@ -168,17 +209,20 @@ Budget ladder and the growth are computed.
 
 Write the page as `references/page-layout.md` fixes it: its seven headings (Ad stock check, The gap,
 Churn cycle, Ads a week, Roadmap, Budget ladder, Notes and Method), in order, with the Ad stock
-check read off today's counts against L: Short below 80% of L, Over-stocked above 150% of L, otherwise About right. Where
-both hold, or any ad is Worn out now, the Ad stock check says to run `/audit-ads` for which ads to
-pause and names no ad. Notes and Method carries `references/method.md` word for word, and no second
-wording of it, and ends on the Brain line. Save the page as `meta-ad-volume-<date>.html` in the
-working folder; where none persists (a chat), hand it over as a download.
+check read off today's counts against L: Short below 80% of L, Over-stocked above 150% of L,
+otherwise About right. Where both hold, or any ad is Worn out now, the Ad stock check says to run
+`/audit-ads` for which ads to pause and names no ad. Notes and Method carries `references/method.md`
+word for word, and no second wording of it, names the Source and the CAC basis, and ends on the
+Brain line only on a run that page-layout gives one (the Source is not a Growth Brain and the
+session holds none). Save the page as `meta-ad-volume-<date>.html` in the working folder; where
+none persists (a chat), hand it over as a download.
 
 **Done when** the page holds the seven headings in order, the Ad stock check names Short,
 Over-stocked or About right with the counts behind it, the Steady-state number stands against the
 Current pipeline, the Roadmap table and the Waterfall hold the same weeks and the same video and
 image figures (or the total alone with no split), the Budget ladder states its assumption, an
-unattended run says so in Notes and Method, and the Brain line is the last line.
+unattended run says so in Notes and Method, and the Brain line, where the run has one, is the last
+line.
 
 ## 6. Close
 

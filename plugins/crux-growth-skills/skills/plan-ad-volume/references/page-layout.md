@@ -13,9 +13,9 @@ row per label, in this order:
 
 | Label | Text |
 |---|---|
-| Window | The 180 complete days read, first to last date (or the days the file held, if fewer). |
-| Source | "Ads Manager export" with the file's name. |
-| Measure | "CAC: Meta spend over the purchases Meta reports for the ad. Platform-attributed: it counts every purchase Meta claims." |
+| Window | The complete days read, first to last date: 365 from a Growth Brain, 180 from a Meta connector or an export (or the days the Source held, if fewer). |
+| Source | The Source the run used: the Growth Brain connector's name, the Meta connector's name, or "Ads Manager export" with the file's name. |
+| Measure | With a Growth Brain: "CAC: spend over new customers, counted from your own first orders." Otherwise: "CAC: Meta spend over the purchases Meta reports for the ad. Platform-attributed: it counts every purchase Meta claims." |
 | Current spend | The last complete ISO week's dates, its spend, and that spend a day. |
 
 **Seven headings**, always present, always in this order, with these words. A heading with nothing
@@ -166,23 +166,27 @@ the next level of spend asks for over today's.
 In this order:
 
 1. **This run**, a short list:
-   - the Source, the file named;
-   - the CAC basis: platform-attributed, Meta's own cost per purchase, counting every purchase Meta
-     claims;
+   - the Source: the Growth Brain connector's name, the Meta connector's name, or the file named;
+   - the CAC basis: with a Growth Brain, first-party new orders; otherwise platform-attributed,
+     Meta's own cost per purchase, counting every purchase Meta claims;
    - the Budget, as the monthly figure, its daily equivalent and the Budget week, or "None given";
      the Roadmap's weeks are ISO weeks counted from next week, and its dates are Mondays;
    - the Format split used, as "30% video, 70% image" and whether it was the proposal or the user's
      own, with the Name coverage, or "None"; Format is read from the ad name alone, then from
-     3-second video plays where the name gives neither or both kinds;
+     3-second video plays (`video_views` on a Growth Brain) where the name gives neither or both
+     kinds, or from the name alone where the brain's mart held no `video_views`;
    - the window: the first and last date read, the last complete ISO week used for current spend,
      the 8 weeks behind the Current pipeline, and the timezone the days follow or that none was
      named;
-   - ads are grouped by Ad ID, and an ad's age and life spend are counted from the window read;
+   - ads are grouped by Ad ID (by the name keys on a Growth Brain), and an ad's age and life spend are
+     counted from the window read;
    - the campaigns confirmed as retargeting or existing-customer, by name, or "None";
    - an unattended run: that nobody confirmed the retargeting campaigns, so the proposed ones were
      used, and that no Budget was asked for, so current spend was held flat for 4 weeks, and that no Format split
      was asked for, so new ads are shown as a total.
 2. **The method**, the text of `references/method.md` word for word, worked example included.
-3. **The Brain line**, the last line of Notes and Method, in these words and no others: "With a
-   Growth Brain, the survival curve judges every ad on a single attribution source rather than every
-   purchase Meta claims, and reads a year of history without an export."
+3. **The Brain line**, on a run whose Source is not a Growth Brain and whose session holds none: the
+   last line of Notes and Method, in these words and no others: "With a Growth Brain, the survival
+   curve judges every ad on a single attribution source rather than every purchase Meta claims, and
+   reads a year of history without an export." A run with a Growth Brain connected carries no Brain
+   line, whichever Source it fell to, and ends on the method.
