@@ -77,7 +77,7 @@ every Reported ad, ranked by 7-day spend, highest first, with these columns:
 
 In this order:
 
-1. **The method**, the text of `references/method.md` word for word, as it was sent at the intake.
+1. **The method**, the text of `references/method.md` word for word.
 2. **This run**, a short list:
    - the campaigns confirmed as retargeting or existing-customer, by name, or "None";
    - with a Growth Brain, that rows with no ad (an Unknown ad, or an unrendered template) are left

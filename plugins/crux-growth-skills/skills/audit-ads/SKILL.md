@@ -79,10 +79,14 @@ Send one message, then wait for the reply:
 1. Where the Judged spend share is below 50%, open the message with a sentence saying the method
    cannot judge most of the account's spend yet: only <share>% of the last 7 days' spend is in ads
    past the Eligibility floors, and the rest is in ads still Ramping.
-2. One line saying you are about to judge every Meta ad on the last 60 complete days, and that
-   this is how. Without a Growth Brain, add that CAC here is Meta's own cost per purchase.
-3. The text of `references/method.md`, word for word.
-4. The proposed retargeting and existing-customer campaigns: those whose campaign type is `RET`,
+2. The method in two sentences, in these words: "I'll judge every Meta ad by CAC, comparing each
+   ad's recent CAC with its own best spell to catch fatigue, and with the other ads of its kind in
+   the account to catch waste and spot winners, then recommend what to pause, refresh or iterate
+   on. Ads too new or too small to judge get no verdict." Without a Growth Brain, follow them
+   with one sentence saying CAC here is Meta's own cost per purchase. Then the offer, in these
+   words: "Ask me about the method if you want the detail." The user runs this often, so the
+   method stops there; `references/method.md` holds its windows and thresholds.
+3. The proposed retargeting and existing-customer campaigns: those whose campaign type is `RET`,
    plus those whose name contains retargeting, RT, remarketing, existing or retention, or reads
    as one of those. Find them with one `run_sql` query listing each campaign's key, name, type
    and spend over the last 7 days, for campaigns with spend in the last 60 complete days (without
@@ -90,12 +94,15 @@ Send one message, then wait for the reply:
    the proposal by name with its recent spend, and ask the user to confirm it, add to it or
    remove from it. Recommend the proposal ("yes" accepts it). With no campaign that fits, say so
    and recommend none.
-5. Above 300 Reported ads, a warning that the run will be long and token-heavy: how many ads
+4. Above 300 Reported ads, a warning that the run will be long and token-heavy: how many ads
    spent 100 or more over the last 7 days, that every ad is still judged, and that the page lists
    those Reported ads only. Ask whether to go on, and recommend going on.
 
 The answer is confirmed once. "Just run it" and "yes" take the proposal and go on. If the user
 declines to go on, say in one line that nothing was judged and stop.
+
+When the user asks about the method, at this step or any later one, answer from
+`references/method.md`, and only as much of it as the question needs.
 
 An unattended run sends nothing: it takes the proposal and goes on, whatever the count of Reported
 ads.
@@ -165,8 +172,8 @@ creative ad reads "add new assets", and the list is in ranked order.
 
 Write the page as `references/page-layout.md` fixes it: its four headings (Summary,
 Recommendations, Every ad, Notes and Method), in order, with only Reported ads and every table
-header sorting. Notes and Method carries `references/method.md` word for word, the same text the
-intake sent, and no second wording of it. Where the Judged spend share is below 50%, the Summary
+header sorting. Notes and Method carries `references/method.md` word for word, and no second
+wording of it. Where the Judged spend share is below 50%, the Summary
 opens with the same caveat as the intake. Save the page as `meta-ad-audit-<date>.html` in the working
 folder; where none persists (a chat), hand it over as a download. The masthead names the Source,
 and a run whose Source is not a Growth Brain, with none connected, labels CAC platform-attributed
