@@ -108,8 +108,8 @@ Send one message, then wait for the reply:
 2. The proposed retargeting and existing-customer campaigns: those whose name contains retargeting,
    RT, remarketing, existing or retention, or reads as one of those, plus, with a Growth Brain, those
    whose campaign type is `RET`. With a Growth Brain, find them with one `run_sql` query listing each
-   campaign's key (its id, or its name without one), name, type and spend over the last 7 complete days, for campaigns with spend in
-   the window. List the proposal by name with its spend over the last 7 complete days, and ask the
+   campaign's key (its id, or its name without one), name, type and spend over the last 7 complete
+   days, for campaigns with spend in the window. List the proposal by name with its spend over the last 7 complete days, and ask the
    user to confirm it, add to it or remove from it. Recommend the proposal ("yes" accepts it). With no campaign that fits, say so and recommend
    none.
 3. The Budget: the monthly Meta budget the user wants to reach and, if they like, the week to reach
@@ -133,7 +133,7 @@ An unattended run sends nothing: it takes the proposed campaigns, no Budget and 
 and goes on.
 
 **Done when** the user has answered (an unattended run needs no answer) and the run holds the
-confirmed campaign names, or the proposed ones for an unattended run, or none, the Budget as a
+confirmed campaign keys, or the proposed ones for an unattended run, or none, the Budget as a
 monthly figure with its Budget week (given, or the default), or no Budget, and the Format split as
 a video and image percentage, or no split.
 

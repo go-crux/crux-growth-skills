@@ -9,7 +9,7 @@
 -- Edit 1, in `source`: the mart's name, and any column list_tables shows under another name. Where
 -- the mart has no `adset_id`, write `ad_group` in its place; where it has no `campaign_id`, write
 -- `campaign_name` in its place. Nothing else in `source` changes. On the brain path the mart's name
--- is also written in `video_plays`, and a mart with no `video_views` column takes 0 there, in place
+-- and its ad id column are also written in `video_plays`, and a mart with no `video_views` column takes 0 there, in place
 -- of `video_views`.
 -- Edit 2, in `retargeting`: the confirmed campaign_keys (ARRAY<STRING>[] when none).
 -- Edit 3, in `period`: the as-of day, for the code port only; the brain path leaves it. Replace the
@@ -330,11 +330,13 @@ first_day AS (
   SELECT MIN(day) AS day
   FROM win_rows
 ),
--- One row per ad per day; life_spend is the ad's spend over the window up to that day.
+-- One row per ad per day; life_spend is the ad's spend over the window up to that day, and ad_age
+-- the highest on any row up to that day, as `ad_info` reads it: a row with no impressions reads 0.
 daily_win AS (
   SELECT
     ad_key, day,
-    SUM(spend) AS spend, SUM(new_orders) AS new_orders, MAX(ad_age) AS ad_age,
+    SUM(spend) AS spend, SUM(new_orders) AS new_orders,
+    MAX(MAX(ad_age)) OVER (PARTITION BY ad_key ORDER BY day) AS ad_age,
     SUM(SUM(spend)) OVER (PARTITION BY ad_key ORDER BY day) AS life_spend
   FROM win_rows
   GROUP BY ad_key, day
