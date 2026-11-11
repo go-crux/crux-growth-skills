@@ -92,8 +92,8 @@ exist. The result is every ad's status on every day it was judged. Three changes
 are not the brain's mart:
 
 - **Grain and keys.** Group by Ad ID, and sum the rows that share an Ad ID and a Day. Where the SQL
-  reads the three name keys, the campaign key is the Campaign name, the ad set key the Ad set
-  name and the ad key the Ad ID. The retargeting campaigns are matched by Campaign name.
+  reads its three keys, the campaign key is the Campaign name, the ad set key the Ad set name and
+  the ad key the Ad ID. The retargeting campaigns are matched by Campaign name.
 - **Orders.** Purchases stand where the SQL reads `new_orders`, so CAC is Amount spent over
   Purchases, Meta's own cost per purchase: platform-attributed, counting every purchase Meta
   claims.

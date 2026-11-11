@@ -186,8 +186,9 @@ In this order:
    - the window: the first and last date read, the last complete ISO week used for current spend,
      the 8 weeks behind the Current pipeline, and the timezone the days follow or that none was
      named;
-   - ads are grouped by Ad ID (by the name keys on a Growth Brain), and an ad's age and life spend are
-     counted from the window read;
+   - ads are grouped by Ad ID, on every Source; an ad's life spend is counted from the window
+     read, and its age from its first day of spend there, or on a Growth Brain the highest age the
+     brain records for it;
    - the campaigns confirmed as retargeting or existing-customer, by name, or "None";
    - an unattended run, in these words with the campaigns filled in: "This run was unattended, so
      nobody was asked. The proposed retargeting campaigns were used (<names>), no Budget was given,
