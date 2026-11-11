@@ -1,6 +1,6 @@
 -- FATIGUE. Ad x day rows in, one row per Reported ad out: status, 5-day CAC, Peak CAC, Account
 -- blend, Recommendation, size, confidence and 7-day spend. Run it as written with run_sql; the
--- only edits are the two marked <angle-bracket> places below, bar the account check.
+-- only edits are Edit 1 and Edit 2 below, each marked where it falls, bar the account check.
 -- Edit 1, in `source`: the mart's name, and any column list_tables shows under another name. Where
 -- the mart has no `adset_id`, write `ad_group` in its place; where it has no `campaign_id`, write
 -- `campaign_name` in its place. Nothing else in `source` changes.
@@ -50,8 +50,8 @@ period AS (
 source AS (
   SELECT
     date AS day,
-    campaign_id AS campaign_key,
-    adset_id AS adset_key,
+    campaign_id AS campaign_key,  -- Edit 1: campaign_name where the mart has no campaign_id
+    adset_id AS adset_key,        -- Edit 1: ad_group where the mart has no adset_id
     ad_id AS ad_key,
     campaign_name,
     ad_group,
@@ -60,14 +60,14 @@ source AS (
     COALESCE(spend, 0) AS spend,
     COALESCE(new_orders, 0) AS new_orders,
     ad_age
-  FROM `<client>-meta_performance`
+  FROM `<client>-meta_performance`  -- Edit 1: the mart's name
   WHERE COALESCE(ad_id, 'Unknown') != 'Unknown'
 ),
 -- The campaigns the user confirmed as retargeting or existing-customer. Judged against their own
 -- Account blend; every other ad against the rest.
 retargeting AS (
   SELECT campaign_key
-  FROM UNNEST(ARRAY<STRING>['<campaign_key>', '<campaign_key>']) AS campaign_key
+  FROM UNNEST(ARRAY<STRING>['<campaign_key>', '<campaign_key>']) AS campaign_key  -- Edit 2
 ),
 daily AS (
   SELECT

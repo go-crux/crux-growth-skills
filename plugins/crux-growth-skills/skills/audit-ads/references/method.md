@@ -19,7 +19,7 @@ Every Meta ad is judged on the last 60 complete days, one ad at a time. Here is 
 
 **6. What each status leads to.**
 
-- **Pause**: every Low efficiency ad, and every Fatigued ad alongside its Refresh. A Low efficiency ad is paused however few ads its set holds, because it is losing money now. A Fatigued ad's Pause never leaves its ad set with fewer than 3 live ads past Ramping; where it would, it reads "Pause once the Refresh is live".
+- **Pause**: every Low efficiency ad, and every Fatigued ad alongside its Refresh. A Low efficiency ad is paused however few ads its set holds, because it is losing money now. A Fatigued ad's Pause never leaves its ad set with fewer than 3 live ads past Ramping; where it would, it reads "Pause once the Refresh is live". A Pause that leaves its ad set with no ad past Ramping says so.
 - **Refresh**: a new variation of a Fatiguing or Fatigued ad's concept.
 - **Iterate**: more variations of a Winner's concept. Never a budget change.
 - **Keep**: Healthy, Improving and Ramping ads, with no Recommendation.

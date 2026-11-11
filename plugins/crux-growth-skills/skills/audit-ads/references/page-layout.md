@@ -43,7 +43,7 @@ ranks it (Pause and Refresh by size, then Iterate by CAC gap), with these column
 
 | Column | Holds |
 |---|---|
-| Action | Pause, Refresh or Iterate (a Winner's Iterate is labelled "Iterate (winner)"), then on a second line the evidence: the ad's 5-day CAC against the reference it is measured on (the blend, or its Peak CAC), and the run of days where one applies. A held Pause, only ever a Fatigued ad's, reads "Pause once the Refresh is live"; a Pause that leaves its ad set with no live ad past Ramping says so. A Refresh on a flexible or dynamic creative ad reads "Refresh: add new assets to the ad". |
+| Action | Pause, Refresh or Iterate (a Winner's Iterate is labelled "Iterate (winner)"), then on a second line the evidence: the ad's 5-day CAC against the reference it is measured on (the blend, or its Peak CAC), and the run of days where one applies. A held Pause, only ever a Fatigued ad's, reads "Pause once the Refresh is live"; a Pause that leaves its ad set with no ad past Ramping says so. A Refresh on a flexible or dynamic creative ad reads "Refresh: add new assets to the ad". |
 | Ad | The ad's name. |
 | Ad set | The ad set's name, with its campaign beneath. |
 | Status | The ad's status. |
