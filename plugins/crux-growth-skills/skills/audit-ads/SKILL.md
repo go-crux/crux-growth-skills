@@ -198,19 +198,19 @@ with no Growth Brain connected holds the Brain line as its last line.
 
 Open `references/hand-off.md` and close the chat with the Hand-off as it fixes it, offering the
 page's Recommendations to implement now, to save or to leave. Every Mode is Switch. Where a Meta
-connector is in the session, implementing now means making the Pauses in Meta once the user
-confirms them, leaving a held Pause until its Refresh is live; a Refresh or an Iterate waits on new creative, so build one only from creative the
-user supplies. When the user saves, write
-`meta-ad-audit-handover-<date>.md` as the reference fixes it, one section per saved Recommendation
-with its lever, size, evidence, confidence, metric to watch and Mode, plus the Pause, Refresh or
-Iterate and the ad it acts on.
+connector that can pause ads is in the session, implementing now means the agent makes the Pauses
+in Meta once the user confirms them, leaving a held Pause until its Refresh is live. A Refresh or an
+Iterate needs new creative the skill does not make, so it stays the user's to make, or to save.
+When the user saves, write `meta-ad-audit-handover-<date>.md` as the reference fixes it, one
+section per saved Recommendation with its lever, size, evidence, confidence, metric to watch and
+Mode, plus the Pause, Refresh or Iterate and the ad it acts on.
 
 An unattended run asks no Hand-off question: it lists the ranked Recommendations as the page gives
 them, saves no Handover file, makes no change in Meta, and goes to step 8.
 
-**Done when** the user has answered and each Recommendation they named is made, handed over, saved
-with all its fields, or left, or the unattended run has listed them. With no Recommendation, say so in
-one line and go to step 8.
+**Done when** the user has answered and each Recommendation they named is made, left for the user
+to make, saved with all its fields, or left, or the unattended run has listed them. With no
+Recommendation, say so in one line and go to step 8.
 
 ## 8. Next run
 

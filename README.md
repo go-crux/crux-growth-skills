@@ -117,8 +117,10 @@ can tell an ad that was never efficient from one that has worn out. It asks you 
 campaigns are retargeting or aimed at existing customers, because those cost very different
 amounts, and tells you how it judges before it starts. You leave with one page for your team: the
 recommendations ranked by what each is worth a month, and every ad that has spent enough to be
-judged, with its status. It then asks what you want to do with the recommendations, to act on now,
-save to a file or leave, and tells you when to run it again. Nothing is changed in Meta.
+judged, with its status. It then asks what you want to do with the recommendations: act on them
+now (Claude can make the pauses for you, once you confirm them, if it has a Meta connector that can
+change your ads), save them to a file to act on later or pass to a teammate, or leave them. It
+then tells you when to run it again.
 
 *Needs:* nothing to start. It is best with a Crux Growth Brain connected, which counts new
 customers from your own first orders. Without one it reads a Meta Ads connector if Claude has one,
