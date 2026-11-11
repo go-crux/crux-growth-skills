@@ -63,22 +63,24 @@ A session with no code or analysis tool: say in one line that the plan needs one
 `<client>-meta_performance` (`<client>` is the prefix the roster carries). If that mart is missing,
 say in one line that the brain holds no Meta ad table and take the next Source from step 1 (a brain
 is still connected, so the page carries no Brain line). The mart is one row per day, campaign, ad
-set and ad. Read its columns from the second call and take these, never assuming one: the date; the
-three name keys (campaign, ad set and ad) and the three display names; spend; new orders; ad age;
-campaign type; the match status; and `video_views`. Group by the name keys, never an ad id or a
-display name, and read the last 365 complete days. A missing column other than campaign type, match
-status and `video_views`: name it in one line and stop. Without campaign type, the intake proposes
-retargeting campaigns from their names alone. Without `video_views`, Format falls back to the name
-only, and an ad whose name decides nothing counts as image.
+set and ad. Read its columns from the second call and take these, never assuming one: the date;
+the ad id; the ad set id and the campaign id; the three display names (campaign, ad set and ad);
+spend; new orders; ad age; campaign type; and `video_views`. Group by the ad id, never a display
+name: a rename keeps the id, and two ads can share a name. Read the last 365 complete days.
+Without an ad set id or a campaign id, that display name stands in as its key. A missing column
+other than those two ids, campaign type and `video_views`: name it in one line and stop. Without
+campaign type, the intake proposes retargeting campaigns from their names alone. Without
+`video_views`, Format falls back to the name only, and an ad whose name decides nothing counts as
+image.
 
 On a brain, use new orders as the CAC denominator and never the purchases Meta claims, which are
-fractional and not the same count. Never sum reach. Leave out rows with no ad (an ad named
-"Unknown", or an unrendered template).
+fractional and not the same count. Never sum reach. Leave out rows with no ad (an ad id of
+"Unknown", which takes in unrendered templates).
 
 **Count the Launched ads** before anything else is asked: the ads whose first day of spend falls
 after the window's first day. Without a Growth Brain, count them from the rows. With a Growth
-Brain, run one `run_sql` query counting the distinct name-key triples whose first day of spend in
-the window falls after the window's first day. With fewer than 20, stop here, before step 3, with
+Brain, run one `run_sql` query counting the distinct ad ids whose first day of spend in the
+window falls after the window's first day. With fewer than 20, stop here, before step 3, with
 one line: "<Brand> does not yet launch enough ads to read a curve: <n> Launched
 ads in the last <365 or 180> days, and a curve needs 20." Write no page and ask nothing more. This
 holds for an unattended run too.
@@ -106,7 +108,7 @@ Send one message, then wait for the reply:
 2. The proposed retargeting and existing-customer campaigns: those whose name contains retargeting,
    RT, remarketing, existing or retention, or reads as one of those, plus, with a Growth Brain, those
    whose campaign type is `RET`. With a Growth Brain, find them with one `run_sql` query listing each
-   campaign's key, name, type and spend over the last 7 complete days, for campaigns with spend in
+   campaign's key (its id, or its name without one), name, type and spend over the last 7 complete days, for campaigns with spend in
    the window. List the proposal by name with its spend over the last 7 complete days, and ask the
    user to confirm it, add to it or remove from it. Recommend the proposal ("yes" accepts it). With no campaign that fits, say so and recommend
    none.
