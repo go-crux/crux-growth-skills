@@ -179,15 +179,16 @@ ad_now AS (
   CROSS JOIN cut AS c
   GROUP BY 1, 2, 3
 ),
--- Display names and campaign type as the ad's latest row shows them. Age is the highest on any
--- row, never the latest row's: a row carrying only orders or visits, with no impressions, reads
+-- Display names and campaign type as the ad's latest row shows them, a serving row first where
+-- that day has several. Age is the highest on any row in the 60 days, across every id under the
+-- key, never the latest row's: a row carrying only orders or visits, with no impressions, reads
 -- an age of zero, and is often the latest.
 ad_info AS (
   SELECT
     s.campaign_name_key, s.adset_name_key, s.ad_name_key,
     ARRAY_AGG(
       STRUCT(s.campaign_name, s.ad_group, s.ad, s.campaign_type)
-      ORDER BY s.day DESC LIMIT 1
+      ORDER BY s.day DESC, s.spend DESC, s.ad_age DESC, s.campaign_name, s.ad_group, s.ad LIMIT 1
     )[OFFSET(0)] AS latest,
     MAX(s.ad_age) AS ad_age
   FROM source AS s
