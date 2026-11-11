@@ -47,17 +47,19 @@ the last 60 complete days.
 `<client>-meta_performance` (`<client>` is the prefix the roster carries). If that mart is missing,
 say in one line that the brain holds no Meta ad table and take the next Source from step 1 (a brain
 is still connected, so the page carries no Brain line). The mart is one row per day, campaign, ad
-set and ad. Read its columns from the second call and take these, never assuming one: the date; the three name
-keys (campaign, ad set and ad) and the three display names; spend; new orders; ad age; campaign
-type; and the match status. Group by the name keys, never an ad id or a display name. A missing
-column other than campaign type and match status: name it in one line and stop. Without campaign
-type, the intake proposes retargeting campaigns from their names alone.
+set and ad. Read its columns from the second call and take these, never assuming one: the date;
+the ad id; the ad set id and the campaign id; the three display names (campaign, ad set and ad);
+spend; new orders; ad age; and campaign type. Group by the ad id, never a display name: a rename
+keeps the id, and two ads can share a name. Without an ad set id or a campaign id, that display
+name stands in as its key. A missing column other than those two ids and campaign type: name it
+in one line and stop. Without campaign type, the intake proposes retargeting campaigns from their
+names alone.
 
 On a brain, four traps the descriptions do not confess. Spend sits on the serving date and new
-orders on the order date, so read windows and never one day of spend against that day's orders. Use
-new orders as the CAC denominator and never the purchases Meta claims, which are fractional and not the same
-count. Never sum reach. Leave out rows with no ad (an ad named "Unknown", or an unrendered
-template).
+orders on the order date, so read windows and never one day of spend against that day's orders.
+Use new orders as the CAC denominator and never the purchases Meta claims, which are fractional
+and not the same count. Never sum reach. Leave out rows with no ad (an ad id of "Unknown", which takes in unrendered
+templates).
 
 **Size the account**, from either Source, before the intake. Eligibility reads no retargeting
 campaign, so this needs none. With a Growth Brain, open `references/fatigue.sql`, make its first
@@ -88,9 +90,10 @@ Send one message, then wait for the reply:
    method stops there; `references/method.md` holds its windows and thresholds.
 3. The proposed retargeting and existing-customer campaigns: those whose campaign type is `RET`,
    plus those whose name contains retargeting, RT, remarketing, existing or retention, or reads
-   as one of those. Find them with one `run_sql` query listing each campaign's key, name, type
-   and spend over the last 7 days, for campaigns with spend in the last 60 complete days (without
-   a Growth Brain, list them from the rows read, by name alone, as no campaign type is held). List
+   as one of those. Find them with one `run_sql` query listing each campaign's key (its id, or
+   its name without one), name, type and spend over the last 7 days, for campaigns with spend in
+   the last 60 complete days (without a Growth Brain, list them from the rows read, by name alone,
+   as no campaign type is held). List
    the proposal by name with its recent spend, and ask the user to confirm it, add to it or
    remove from it. Recommend the proposal ("yes" accepts it). With no campaign that fits, say so
    and recommend none.
@@ -149,11 +152,13 @@ never split it by asset. No column marks it, so an ad counts as one when its nam
 dynamic or DCO, or the user said so. Its Refresh, alone or beside a Pause, reads "add new assets to
 the ad" rather than a new variation, with the same size and evidence.
 
-**The Minimum live ads guard.** A Pause never leaves an ad set with fewer than 3 live ads past
-Ramping. For each ad set, take `ad_set_live_ads`, then go through its Pauses from the largest
-size down: a Pause stands while the ad set would still hold 3 live ads past Ramping once it and
-the Pauses already standing are made, and every other Pause in the set reads "Pause once the
-Refresh is live", with its size unchanged. A Fatigued ad's Pause goes through the same count.
+**The Minimum live ads guard.** A Fatigued ad's Pause never leaves an ad set with fewer than 3 live
+ads past Ramping; a Low efficiency Pause always stands, as a losing ad wastes spend however few ads
+its set holds. For each ad set, take `ad_set_live_ads` and take off its Low efficiency Pauses. Then
+go through its Fatigued Pauses from the largest size down: one stands while the ad set would still
+hold 3 live ads past Ramping once it and the Pauses already standing are made, and every other
+reads "Pause once the Refresh is live", with its size unchanged. Where the Pauses that stand leave
+an ad set with no ad past Ramping, every one of those Pauses says so in its evidence.
 
 **Ranking.** List Pause and Refresh Recommendations by size in money a month, largest first, then
 Iterate by CAC gap, largest first. There is no cap on how many.
@@ -164,9 +169,10 @@ new ad's CAC after Ramping against the source ad's Peak CAC, with that figure.
 An evidence line reads like this (invented brand): "Harbour Roast, Summer Reel: 5-day CAC 42
 against a Peak CAC of 24, 50% or more worse on each of the last 3 days."
 
-**Done when** every Reported ad is either a Recommendation with all six parts (lever, size, evidence, confidence, metric to watch, Mode) or a Keep, every
-ad set that lost a Pause to the guard shows the held wording, every Refresh on a flexible or dynamic
-creative ad reads "add new assets", and the list is in ranked order.
+**Done when** every Reported ad is either a Recommendation with all six parts (lever, size,
+evidence, confidence, metric to watch, Mode) or a Keep, every ad set that lost a Pause to the
+guard shows the held wording on a Fatigued ad and on no Low efficiency ad, every Refresh on a
+flexible or dynamic creative ad reads "add new assets", and the list is in ranked order.
 
 ## 6. Write the page
 

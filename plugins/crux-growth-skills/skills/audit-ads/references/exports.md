@@ -80,8 +80,8 @@ the file writes it (spend against a multiple of CAC times purchases), so an ad w
 purchases counts as above any CAC. Three changes, because the rows are not the brain's mart:
 
 - **Grain and keys.** Group by Ad ID, and sum the rows that share an Ad ID and a Day. Where the SQL
-  reads the three name keys, the campaign key is the Campaign name, the ad set key the Ad set
-  name and the ad key the Ad ID. The ad set count of live ads past Ramping and the retargeting
+  reads the three keys, the campaign key is the Campaign name, the ad set key the Ad set name and
+  the ad key the Ad ID. The ad set count of live ads past Ramping and the retargeting
   campaigns (matched by Campaign name) read those.
 - **Orders.** Purchases stand where the SQL reads `new_orders`, so CAC is Amount spent over
   Purchases, Meta's own cost per purchase: platform-attributed, counting every purchase Meta
@@ -100,8 +100,8 @@ Display names come from the ad's latest row. Campaign type is not held, so it is
 
 The result is the one row per Reported ad that `references/fatigue.sql` returns, with the same
 column names, so every later step reads it without knowing the Source: Campaign name in
-`campaign_name` and `campaign_name_key`, Ad set name in `ad_group` and `adset_name_key`, Ad name in
-`ad`, and Ad ID in `ad_name_key`.
+`campaign_name` and `campaign_key`, Ad set name in `ad_group` and `adset_key`, Ad name in `ad`, and
+Ad ID in `ad_key`.
 
 **Done when** every Reported ad has exactly one status, the 7-day spend over the rows equals the
 spend in the file or connector for the same 7 days, every Reported ad's row carries its

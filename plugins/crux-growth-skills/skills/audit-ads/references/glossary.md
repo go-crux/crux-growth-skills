@@ -24,7 +24,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Healthy**: an eligible ad with none of the statuses above that is not a Winner. _Avoid_: good, stable.
 
-- **Pause**: turn an ad off: every Low efficiency ad, and every Fatigued ad alongside its Refresh. Never leaves an ad set with fewer than 3 live ads past Ramping; where it would, it reads "Pause once the Refresh is live". _Avoid_: kill, stop, turn off.
+- **Pause**: turn an ad off: every Low efficiency ad, and every Fatigued ad alongside its Refresh. A Low efficiency Pause always stands; a Fatigued ad's Pause is held to Minimum live ads, and where held it reads "Pause once the Refresh is live". _Avoid_: kill, stop, turn off.
 
 - **Refresh**: make a new variation of a Fatiguing or Fatigued ad's concept to replace it as it wears out; for a flexible or dynamic creative ad, add new assets to it. Names the ad and its evidence, never the creative to make. _Avoid_: new creative, replace.
 
@@ -32,7 +32,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Keep**: a Healthy, Improving or Ramping ad, listed with no Recommendation. _Avoid_: hold, leave.
 
-- **Minimum live ads**: 3 ads past Ramping in an ad set. The floor a Pause is held to. _Avoid_: ad stock, Viable ad stock (that is the plan-ad-volume skill's term).
+- **Minimum live ads**: 3 ads past Ramping in an ad set. The floor a Fatigued ad's Pause is held to; a Low efficiency Pause is not. _Avoid_: ad stock, Viable ad stock (that is the plan-ad-volume skill's term).
 
 - **Reported ad**: an ad with at least 100 in the account's currency spent over the last 7 days. Every ad is judged; only Reported ads appear on the page, and above 300 of them the intake warns that the run will be long and token-heavy. _Avoid_: active ad, live ad.
 
