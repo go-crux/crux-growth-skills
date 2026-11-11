@@ -75,6 +75,10 @@ session, so it runs from Matt's own Claude, never from a cold run. Method in
   columns from `list_tables` on every run. This repo has no CI link to `mcp_brain`, so a renamed
   tool or column breaks a skill silently; treat a brain rename as a change with an out-of-repo
   caller (ADR-0026).
+- **`audit-ads` and `plan-ad-volume` share one ad classification.** Both carry it between
+  `-- BEGIN shared classification` and `-- END shared classification` in their `references/fatigue.sql`.
+  The two blocks change together, and `/code-review` diffs them. `audit-ads` is not on every branch yet:
+  whichever PRD promotes second adds the fence to `audit-ads`' copy.
 - **Both hosts read the plugin's `skills/`.** Keep a skill free of Claude-only syntax the Codex host cannot
   follow, and keep the plugin's Claude manifest under `.claude-plugin/` working.
 - **Anyone reads the README.** It is written for a non-technical reader at any ecommerce brand, client or not (founder, head of growth, ecommerce or marketing manager), leads with the desktop app's plugin install, and says what each skill needs. It is in Crux house style
