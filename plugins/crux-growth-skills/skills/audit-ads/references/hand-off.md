@@ -24,28 +24,33 @@ too thin for a Split test to read, the Recommendation is a Switch.
 ## Hand-off
 
 Ask one question: what does the user want to do with the Recommendations? Offer three choices and
-recommend saving them ("yes" accepts the recommendation):
+recommend the first where a connector that can make changes in the platform is in the session, else
+the second ("yes" accepts the recommendation):
 
-1. **Implement now.** The user makes the changes in their own session, with whatever connector
-   they hold. Hand them the ranked Recommendations to start from, each as written on the page,
-   and say which to do first. Give no platform steps (no menu paths, settings or clicks), and
-   never make a change yourself, whatever connectors this session holds.
+1. **Implement now.** Make the changes, by whatever route the user and the agent settle on. Where
+   a connector that can make changes in the platform is in the session, the agent makes them: list
+   the changes it will make, in the page's ranked order, and make each one only once the user has
+   confirmed that list. Otherwise the user makes them in the platform, starting from the ranked
+   Recommendations as the page writes them, with whatever help they ask for. Say which to do first
+   either way.
 2. **Save to the Handover file.** Write every Recommendation the user names, or all of them, to the
-   Handover file, as below.
+   Handover file, as below: to act on later, or to pass to a teammate who will.
 3. **Leave them.** Close with the page and nothing saved.
 
 The user may split the Recommendations between the choices ("do the first two now, save the
-rest"). The choice is confirmed once; "just save them" takes the recommendation.
+rest"). The choice is confirmed once; "just save them" takes the recommendation. A "yes" to the
+choice never confirms the agent's list of changes: that list is confirmed on its own, after it is
+shown.
 
-**Done when** the user has answered and each Recommendation they named is handed over, saved or
-left.
+**Done when** the user has answered and each Recommendation they named is made, left for the user
+to make, saved or left.
 
 ## Handover file
 
 A markdown file holding every Recommendation the user saved, self-contained enough that a later
-session with no memory of this run can act on it. The skill never reads it back. Its name is fixed
-in the skill's `SKILL.md`. Save it to the working folder; where none persists (a chat), hand it
-over as a download.
+session with no memory of this run, or a teammate who never saw the page, can act on it. The skill
+never reads it back. Its name is fixed in the skill's `SKILL.md`. Save it to the working folder;
+where none persists (a chat), hand it over as a download.
 
 It opens with the skill, the brand, the date, the window read and the source (the Growth Brain
 connector's name, or the export or connector used). Then one section per saved Recommendation, in
