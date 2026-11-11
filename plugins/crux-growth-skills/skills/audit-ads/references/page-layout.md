@@ -43,7 +43,7 @@ ranks it (Pause and Refresh by size, then Iterate by CAC gap), with these column
 
 | Column | Holds |
 |---|---|
-| Action | Pause, Refresh or Iterate (a Winner's Iterate is labelled "Iterate (winner)"), then on a second line the evidence: the ad's 5-day CAC against the reference it is measured on (the blend, or its Peak CAC), and the run of days where one applies. A held Pause reads "Pause once the Refresh is live". A Refresh on a flexible or dynamic creative ad reads "Refresh: add new assets to the ad". |
+| Action | Pause, Refresh or Iterate (a Winner's Iterate is labelled "Iterate (winner)"), then on a second line the evidence: the ad's 5-day CAC against the reference it is measured on (the blend, or its Peak CAC), and the run of days where one applies. A held Pause, only ever a Fatigued ad's, reads "Pause once the Refresh is live"; a Pause that leaves its ad set with no live ad past Ramping says so. A Refresh on a flexible or dynamic creative ad reads "Refresh: add new assets to the ad". |
 | Ad | The ad's name. |
 | Ad set | The ad set's name, with its campaign beneath. |
 | Status | The ad's status. |
@@ -80,8 +80,8 @@ In this order:
 1. **The method**, the text of `references/method.md` word for word.
 2. **This run**, a short list:
    - the campaigns confirmed as retargeting or existing-customer, by name, or "None";
-   - with a Growth Brain, that rows with no ad (an Unknown ad, or an unrendered template) are left
-     out of judging;
+   - with a Growth Brain, that ads are grouped by their Meta ad id, and that rows with no ad (an
+     Unknown ad id, which takes in unrendered templates) are left out of judging;
    - without one, that CAC is platform-attributed, that ads are grouped by Ad ID, that an ad's age
      and life spend are counted from the 60 days read, and the timezone the days follow or that
      none was named;
@@ -89,7 +89,8 @@ In this order:
      used, and, above 300 Reported ads, that the run went on without the question to proceed;
    - the flexible or dynamic creative ads, by name, each judged as one unit with no split by asset,
      and that their Refresh is to add new assets; omitted where there are none;
-   - which Pauses were held to keep 3 live ads in an ad set, by ad set;
+   - which Fatigued ads' Pauses were held to keep 3 live ads in an ad set, by ad set, and that a
+     Low efficiency Pause is never held;
    - that sizes are run-rated from 5 days and are estimates, with the confidence beside each.
 3. **The Brain line**, on a run whose Source is not a Growth Brain and whose session holds none: the
    last line of Notes and Method, in these words and no others: "With a Growth Brain, this judges

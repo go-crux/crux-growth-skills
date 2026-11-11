@@ -2,14 +2,15 @@
 -- blend, Recommendation, size, confidence and 7-day spend. Run it as written with run_sql; the
 -- only edits are the two marked <angle-bracket> places below, bar the account check.
 -- Edit 1, in `source`: the mart's name, and any column list_tables shows under another name. Where
--- the mart has no `match_status` column, delete that one condition and nothing else.
--- Edit 2, in `retargeting`: the confirmed campaign_name_keys (ARRAY<STRING>[] when none).
+-- the mart has no `adset_id`, write `ad_group` in its place; where it has no `campaign_id`, write
+-- `campaign_name` in its place. Nothing else in `source` changes.
+-- Edit 2, in `retargeting`: the confirmed campaign_keys (ARRAY<STRING>[] when none).
 -- Account check (SKILL.md step 2): before the intake, run the file with `retargeting` empty and the
 -- final SELECT replaced by the commented ACCOUNT CHECK statement at the end of the file.
 -- Timezone: where the brain's own instructions name the store's timezone, write the one
 -- CURRENT_DATE() in `period` as CURRENT_DATE('<timezone>'), so yesterday is the store's own.
--- The grain is the three name keys, never ad_id or a display name: a rename keeps its key, and
--- one key can hold many ids. `reach` is never summed. `purchases` is never read.
+-- The grain is the ad's Meta id (ad_key), never a display name: a rename keeps its id, and two ads
+-- can share one name. `reach` is never summed. `purchases` is never read.
 -- CAC is spend over new_orders. Day-of-week normalising divides each day's spend by that
 -- weekday's index, which is the same as dividing each day's CAC by it, so every window's CAC
 -- below is adj_spend over new_orders. Each comparison is written as spend >= multiple x CAC x
@@ -42,14 +43,16 @@ period AS (
     DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY) AS date_to
   FROM cut AS c
 ),
--- The one place that names mart columns. Rows with no ad drop out of judging and out of every
--- blend.
+-- The one place that names mart columns. The three keys: the ad is its Meta id, and its ad set and
+-- campaign are their Meta ids where the mart holds them, else their display names (Edit 1). Rows
+-- with no ad (an ad_id of Unknown, which takes in unrendered templates) drop out of judging and
+-- out of every blend.
 source AS (
   SELECT
     date AS day,
-    campaign_name_key,
-    adset_name_key,
-    ad_name_key,
+    campaign_id AS campaign_key,
+    adset_id AS adset_key,
+    ad_id AS ad_key,
     campaign_name,
     ad_group,
     ad,
@@ -58,18 +61,17 @@ source AS (
     COALESCE(new_orders, 0) AS new_orders,
     ad_age
   FROM `<client>-meta_performance`
-  WHERE COALESCE(ad, '') != 'Unknown'
-    AND COALESCE(match_status, '') != 'unrendered_template'
+  WHERE COALESCE(ad_id, 'Unknown') != 'Unknown'
 ),
 -- The campaigns the user confirmed as retargeting or existing-customer. Judged against their own
 -- Account blend; every other ad against the rest.
 retargeting AS (
-  SELECT campaign_name_key
-  FROM UNNEST(ARRAY<STRING>['<campaign_name_key>', '<campaign_name_key>']) AS campaign_name_key
+  SELECT campaign_key
+  FROM UNNEST(ARRAY<STRING>['<campaign_key>', '<campaign_key>']) AS campaign_key
 ),
 daily AS (
   SELECT
-    s.day, s.campaign_name_key, s.adset_name_key, s.ad_name_key,
+    s.day, s.campaign_key, s.adset_key, s.ad_key,
     SUM(s.spend) AS spend, SUM(s.new_orders) AS new_orders
   FROM source AS s
   CROSS JOIN period AS p
@@ -78,7 +80,7 @@ daily AS (
 ),
 -- Spend over the ad's whole life, for the first Eligibility floor.
 lifetime AS (
-  SELECT campaign_name_key, adset_name_key, ad_name_key, SUM(spend) AS life_spend
+  SELECT campaign_key, adset_key, ad_key, SUM(spend) AS life_spend
   FROM daily
   GROUP BY 1, 2, 3
 ),
@@ -109,7 +111,7 @@ dow AS (
 -- Every ad with spend in the last 7 days. An eligible ad spends at least 150 in 5 days, so it is
 -- always in here, and so is every Reported ad.
 judged_ads AS (
-  SELECT w.campaign_name_key, w.adset_name_key, w.ad_name_key
+  SELECT w.campaign_key, w.adset_key, w.ad_key
   FROM window_days AS w
   CROSS JOIN period AS p
   CROSS JOIN cut AS c
@@ -120,7 +122,7 @@ judged_ads AS (
 -- A dense ad x day grid, so a rolling frame of 5 rows is 5 days.
 ad_days AS (
   SELECT
-    a.campaign_name_key, a.adset_name_key, a.ad_name_key,
+    a.campaign_key, a.adset_key, a.ad_key,
     grid_day AS day,
     COALESCE(w.spend, 0) AS spend,
     COALESCE(w.new_orders, 0) AS new_orders,
@@ -129,32 +131,32 @@ ad_days AS (
   CROSS JOIN period AS p
   CROSS JOIN UNNEST(GENERATE_DATE_ARRAY(p.date_from, p.date_to)) AS grid_day
   LEFT JOIN window_days AS w
-    ON w.campaign_name_key = a.campaign_name_key
-   AND w.adset_name_key = a.adset_name_key
-   AND w.ad_name_key = a.ad_name_key
+    ON w.campaign_key = a.campaign_key
+   AND w.adset_key = a.adset_key
+   AND w.ad_key = a.ad_key
    AND w.day = grid_day
   JOIN dow AS x ON x.dow = EXTRACT(DAYOFWEEK FROM grid_day)
 ),
 -- Rolling 5-day (the current window) and 7-day (the Peak CAC window) sums, as each day stood.
 rolling AS (
   SELECT
-    campaign_name_key, adset_name_key, ad_name_key, day, spend, new_orders, adj_spend,
+    campaign_key, adset_key, ad_key, day, spend, new_orders, adj_spend,
     SUM(adj_spend) OVER r5 AS adj_spend_5,
     SUM(new_orders) OVER r5 AS orders_5,
     SUM(adj_spend) OVER r7 AS adj_spend_7,
     SUM(new_orders) OVER r7 AS orders_7
   FROM ad_days
   WINDOW
-    r5 AS (PARTITION BY campaign_name_key, adset_name_key, ad_name_key ORDER BY day
+    r5 AS (PARTITION BY campaign_key, adset_key, ad_key ORDER BY day
            ROWS BETWEEN 4 PRECEDING AND CURRENT ROW),
-    r7 AS (PARTITION BY campaign_name_key, adset_name_key, ad_name_key ORDER BY day
+    r7 AS (PARTITION BY campaign_key, adset_key, ad_key ORDER BY day
            ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)
 ),
 -- Peak CAC: the lowest rolling 7-day CAC on any of the last 42 days. A window with no new orders
 -- has no CAC and is skipped.
 peak AS (
   SELECT
-    r.campaign_name_key, r.adset_name_key, r.ad_name_key,
+    r.campaign_key, r.adset_key, r.ad_key,
     MIN(SAFE_DIVIDE(r.adj_spend_7, r.orders_7)) AS peak_cac
   FROM rolling AS r
   CROSS JOIN period AS p
@@ -165,7 +167,7 @@ peak AS (
 -- The 5-day window as it stood on the last day (d0) and the two days before it (d1, d2).
 ad_now AS (
   SELECT
-    r.campaign_name_key, r.adset_name_key, r.ad_name_key,
+    r.campaign_key, r.adset_key, r.ad_key,
     SUM(IF(r.day > DATE_SUB(p.date_to, INTERVAL c.current_days DAY), r.spend, 0)) AS spend_5,
     SUM(IF(r.day > DATE_SUB(p.date_to, INTERVAL c.reported_days DAY), r.spend, 0)) AS spend_7,
     MAX(IF(r.day = p.date_to, r.adj_spend_5, NULL)) AS adj_d0,
@@ -180,12 +182,12 @@ ad_now AS (
   GROUP BY 1, 2, 3
 ),
 -- Display names and campaign type as the ad's latest row shows them, a serving row first where
--- that day has several. Age is the highest on any row in the 60 days, across every id under the
--- key, never the latest row's: a row carrying only orders or visits, with no impressions, reads
--- an age of zero, and is often the latest.
+-- that day has several. Age is the highest on any row in the 60 days, never the latest row's: a
+-- row carrying only orders or visits, with no impressions, reads an age of zero, and is often
+-- the latest.
 ad_info AS (
   SELECT
-    s.campaign_name_key, s.adset_name_key, s.ad_name_key,
+    s.campaign_key, s.adset_key, s.ad_key,
     ARRAY_AGG(
       STRUCT(s.campaign_name, s.ad_group, s.ad, s.campaign_type)
       ORDER BY s.day DESC, s.spend DESC, s.ad_age DESC, s.campaign_name, s.ad_group, s.ad LIMIT 1
@@ -198,21 +200,21 @@ ad_info AS (
 ),
 facts AS (
   SELECT
-    n.campaign_name_key, n.adset_name_key, n.ad_name_key,
+    n.campaign_key, n.adset_key, n.ad_key,
     i.latest.campaign_name AS campaign_name,
     i.latest.ad_group AS ad_group,
     i.latest.ad AS ad,
     i.latest.campaign_type AS campaign_type,
     i.ad_age,
     l.life_spend,
-    n.campaign_name_key IN (SELECT campaign_name_key FROM retargeting) AS is_retargeting,
+    n.campaign_key IN (SELECT campaign_key FROM retargeting) AS is_retargeting,
     n.spend_5, n.spend_7,
     n.adj_d0, n.ord_d0, n.adj_d1, n.ord_d1, n.adj_d2, n.ord_d2,
     pk.peak_cac
   FROM ad_now AS n
-  JOIN ad_info AS i USING (campaign_name_key, adset_name_key, ad_name_key)
-  JOIN lifetime AS l USING (campaign_name_key, adset_name_key, ad_name_key)
-  LEFT JOIN peak AS pk USING (campaign_name_key, adset_name_key, ad_name_key)
+  JOIN ad_info AS i USING (campaign_key, adset_key, ad_key)
+  JOIN lifetime AS l USING (campaign_key, adset_key, ad_key)
+  LEFT JOIN peak AS pk USING (campaign_key, adset_key, ad_key)
 ),
 -- Account blend: every live ad's CAC over the 5-day window, retargeting ads together and all
 -- other ads together.
@@ -268,7 +270,7 @@ status AS (
 sized AS (
   SELECT
     s.*,
-    COUNTIF(s.status != 'Ramping') OVER (PARTITION BY s.campaign_name_key, s.adset_name_key)
+    COUNTIF(s.status != 'Ramping') OVER (PARTITION BY s.campaign_key, s.adset_key)
       AS ad_set_live_ads,
     SUM(s.spend_7) OVER () AS account_spend_7,
     CASE s.status
@@ -300,9 +302,9 @@ SELECT
   ad_group,
   ad,
   campaign_type,
-  campaign_name_key,
-  adset_name_key,
-  ad_name_key,
+  campaign_key,
+  adset_key,
+  ad_key,
   is_retargeting,
   status,
   ROUND(spend_7, 2) AS spend_7d,
