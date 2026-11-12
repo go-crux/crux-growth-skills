@@ -4,7 +4,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **CAC**: an ad's Meta spend over the new customers it brought: first-party new orders from a Growth Brain, else Meta's cost per purchase, named on the page as platform-attributed and counting every purchase. Day-of-week normalised before any comparison. The one measure every verdict reads. _Avoid_: CPA, cost per result, ROAS.
 
-- **Account blend**: the CAC of all live ads together, over the same window as the ad. Ads in the campaigns the user names as retargeting or existing-customer are judged against their own blend, every other ad against the whole account's. _Avoid_: account average, benchmark.
+- **Account blend**: the CAC of all live ads together, outside the Awareness campaigns, over the same window as the ad. Ads in the campaigns the user names as retargeting or existing-customer are judged against their own blend, every other ad against the whole account's. _Avoid_: account average, benchmark.
 
 - **Peak CAC**: an ad's best 7-day CAC in the last 42 days, as it stood each day. What Fatiguing and Fatigued measure against. _Avoid_: best CAC, baseline.
 
@@ -33,6 +33,8 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 - **Keep**: a Healthy, Improving or Ramping ad, listed with no Recommendation. _Avoid_: hold, leave.
 
 - **Minimum live ads**: 3 ads past Ramping in an ad set. The floor a Fatigued ad's Pause is held to; a Low efficiency Pause is not. _Avoid_: ad stock, Viable ad stock (that is the plan-ad-volume skill's term).
+
+- **Awareness campaign**: a campaign the user confirms at the intake as bought for awareness, reach, video views, engagement or traffic rather than purchases. Left out of the audit whole: no verdict, no blend, no Reported spend; named with its spend in Notes and Method. _Avoid_: brand campaign, upper funnel, TOF.
 
 - **Reported ad**: an ad with at least 100 in the account's currency spent over the last 7 days. Every ad is judged; only Reported ads appear on the page, and above 300 of them the intake warns that the run will be long and token-heavy. _Avoid_: active ad, live ad.
 
