@@ -39,7 +39,8 @@ through its insights tool.
 - **Account.** Use only an ad account that is plainly the brand's; with several, ask which.
 - **Pages.** Take every page of rows before any sum. A first page alone understates spend.
 - **Objective.** Read each campaign's objective once, through its campaigns tool where it has one,
-  for the awareness proposal: any objective other than sales proposes the campaign. Without one,
+  for the awareness proposal: any objective other than sales (or the older conversions or catalogue
+  sales objectives) proposes the campaign. Without one,
   propose by name alone.
 
 ## Ads Manager export

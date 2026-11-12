@@ -1,9 +1,9 @@
 -- FATIGUE. Ad x day rows in, one row per Reported ad out: status, 5-day CAC, Peak CAC, Account
 -- blend, Recommendation, size, confidence and 7-day spend. Run it as written with run_sql; the
 -- only edits are Edit 1, Edit 2 and Edit 3 below, each marked where it falls, bar the account check.
--- Edit 1, in `source`: the mart's name, and any column list_tables shows under another name. Where
--- the mart has no `adset_id`, write `ad_group` in its place; where it has no `campaign_id`, write
--- `campaign_name` in its place. Nothing else in `source` changes.
+-- Edit 1, in `mart_rows`: the mart's name, and any column list_tables shows under another name.
+-- Where the mart has no `adset_id`, write `ad_group` in its place; where it has no `campaign_id`,
+-- write `campaign_name` in its place. Nothing else in `mart_rows` changes.
 -- Edit 2, in `retargeting`: the confirmed campaign_keys (ARRAY<STRING>[] when none).
 -- Edit 3, in `awareness`: the campaign_keys of the awareness campaigns, the proposed ones for the
 -- account check and the confirmed ones after the intake (ARRAY<STRING>[] when none). Their rows are

@@ -13,9 +13,8 @@ references: say what the ads showed, in plain words with the figures, and never 
 rule or a query. The terms CAC, Account blend, Peak CAC, Eligibility floors, Ramping, Low
 efficiency, Improving, Fatigued, Fatiguing, Winner, Healthy, Pause, Refresh, Iterate, Keep,
 Minimum live ads, Reported ad, Judged spend share, Awareness campaign, Unattended run, Source and
-Brain line are those
-of `references/glossary.md`, and Recommendation, Lever, Mode, Hand-off, Handover file and Next run
-are the repo's shared terms; use them as written.
+Brain line are those of `references/glossary.md`, and Recommendation, Lever, Mode, Hand-off,
+Handover file and Next run are the repo's shared terms; use them as written.
 
 ## Unattended run
 
@@ -23,8 +22,8 @@ A run is unattended when its message says so or says not to ask, or when it is a
 or routine: nobody is there to answer. It asks nothing at any step. Where a step would ask, it takes
 that step's recommended answer, and only where a step recommends none (several Growth Brains and
 none plainly the brand's, no export attached) does it stop with one line saying what it needed.
-Step 3 sends no message and takes the proposed retargeting and awareness campaigns as confirmed, step 7 asks no
-Hand-off question, and the page's Notes and Method says the run was unattended.
+Step 3 sends no message and takes the proposed retargeting and awareness campaigns as confirmed,
+step 7 asks no Hand-off question, and the page's Notes and Method says the run was unattended.
 
 ## 1. Connect
 
@@ -124,7 +123,8 @@ An unattended run sends nothing: it takes the proposals and goes on, whatever th
 ads.
 
 Where the reply changes the awareness campaigns, size the account again with the confirmed ones, as
-step 2 does, before step 4.
+step 2 does, before step 4. Where the new Judged spend share falls below 50%, say so in one line,
+as item 1 would have.
 
 **Done when** the user has answered (an unattended run needs no answer) and the run holds the
 confirmed retargeting and awareness campaign keys, or the proposed ones for an unattended run, or
@@ -135,10 +135,9 @@ none, and an account check run on the awareness campaigns it holds.
 **Without a Growth Brain**, judge the rows in code as `references/exports.md` sets out: it ports
 `references/fatigue.sql` and returns the same rows, so the rest of the run reads them alike.
 
-**With a Growth Brain**, open `references/fatigue.sql`. Make its three edits: the mart's name and any
-column names from step 2, the confirmed retargeting campaign keys, and the confirmed awareness
-campaign keys. Run it with `run_sql` as one statement;
-the file computes the windows, the day-of-week index, every status, the sizes and the confidence, so
+**With a Growth Brain**, open `references/fatigue.sql`. Make its three edits: the mart's name and
+any column names from step 2, the confirmed retargeting campaign keys, and the confirmed awareness
+campaign keys. Run it with `run_sql` as one statement; the file computes the windows, the day-of-week index, every status, the sizes and the confidence, so
 type none of them by hand. Where the brain's own instructions name the store's timezone, set it as the file says. A
 query error: fix the column from step 2 and run again, and never invent one.
 
@@ -147,8 +146,8 @@ Either way, the result is one row per Reported ad, with its status, spend, CACs,
 `confidence` and `ad_set_live_ads` (the ad set's ads past Ramping).
 
 **Done when** every row holds exactly one status, the 7-day spend of the rows is the figure the
-Summary will give, and the 7-day spend of the rows not Ramping equals the `judged_spend_7d` of
-step 2.
+Summary will give, and the 7-day spend of the rows not Ramping equals the `judged_spend_7d` of the
+last account check (step 2's, or step 3's where the reply changed the awareness campaigns).
 
 ## 5. Recommend
 
