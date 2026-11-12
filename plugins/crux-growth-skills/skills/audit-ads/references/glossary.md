@@ -1,10 +1,10 @@
 # Glossary
 
-The terms `SKILL.md` and the other references use, each with one meaning. The shared terms (Recommendation, Action skill, Hand-off, Handover file, Next run, Mode) are in the repo's root `GLOSSARY.md`.
+The terms `SKILL.md` and the other references use, each with one meaning.
 
 - **CAC**: an ad's Meta spend over the new customers it brought: first-party new orders from a Growth Brain, else Meta's cost per purchase, named on the page as platform-attributed and counting every purchase. Day-of-week normalised before any comparison. The one measure every verdict reads. _Avoid_: CPA, cost per result, ROAS.
 
-- **Account blend**: the CAC of all live ads together, outside the Awareness campaigns, over the same window as the ad. Ads in the campaigns the user names as retargeting or existing-customer are judged against their own blend, every other ad against the whole account's. _Avoid_: account average, benchmark.
+- **Account blend**: the CAC of all live ads together, outside the Awareness campaigns, over the same window as the ad. Ads in the campaigns the user names as retargeting or existing-customer are judged against their own blend, every other ad against the blend of the rest. _Avoid_: account average, benchmark.
 
 - **Peak CAC**: an ad's best 7-day CAC in the last 42 days, as it stood each day. What Fatiguing and Fatigued measure against. _Avoid_: best CAC, baseline.
 
@@ -14,7 +14,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Low efficiency**: an eligible ad whose 5-day CAC is 20% or more above its Account blend. Checked first, before any fatigue status. _Avoid_: underperforming, loser.
 
-- **Improving**: an eligible ad 20% or more off its Peak CAC whose CAC has fallen over the last 3 days. Kept, with no Recommendation. _Avoid_: recovering.
+- **Improving**: an eligible ad 20% or more above its Peak CAC whose CAC has fallen over the last 3 days. Kept, with no Recommendation. _Avoid_: recovering.
 
 - **Fatigued**: an eligible ad 50% or more worse than its Peak CAC on each of the last 3 days and not improving. _Avoid_: dead, burnt out.
 
@@ -44,4 +44,18 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Judged spend share**: the share of the last 7 days' spend in ads past the Eligibility floors. Below 50%, the run opens by saying the method cannot judge most of the account's spend yet. _Avoid_: coverage.
 
-- **Unattended run**: a run whose message says so or says not to ask, or that is a scheduled session or routine, so nobody is there to answer. It asks nothing at any step, takes each step's recommended answer, uses the proposed retargeting campaigns as confirmed, and says so in the page's Notes and Method. _Avoid_: automatic run, headless run.
+- **Unattended run**: a run whose message says so or says not to ask, or that is a scheduled session or routine, so nobody is there to answer. It asks nothing at any step, takes each step's recommended answer, uses the proposed retargeting and awareness campaigns as confirmed, and says so in the page's Notes and Method. _Avoid_: automatic run, headless run.
+
+## The close
+
+- **Recommendation**: one change the audit proposes on its evidence, a Pause, a Refresh or an Iterate on one ad: the Lever it moves, its size, the evidence, a confidence, the metric to watch and its Mode. _Avoid_: action, suggestion, next step, insight.
+
+- **Lever**: what a Recommendation moves. In this skill always new customers, through CAC. _Avoid_: pillar, factor, driver.
+
+- **Mode**: how a Recommendation should go live. Switch (make it and watch the metric), Split test (the platform's own A/B tool, only where traffic reads a result) or Holdout (geo or brand-off, to measure incrementality). Every Recommendation here is Switch. _Avoid_: test type, rollout.
+
+- **Hand-off**: the close of the run: it asks what the user wants to do with the Recommendations, implement now, save them to the Handover file, or leave them. Implementing is done however the user and the agent decide: the agent makes the changes through a connector in the session that can make them, once the user confirms them, or the user makes them in the platform. _Avoid_: execution, push, apply step.
+
+- **Handover file**: the markdown file the Hand-off gives the user holding every Recommendation they saved, self-contained enough to act on in a later session or to pass to a teammate. The skill never reads it back. _Avoid_: plan, action log, backlog.
+
+- **Next run**: the close after the Hand-off: when to run the skill again, scaled to the brand's data volume, and the prompt to paste into that session. _Avoid_: cadence reminder, schedule.

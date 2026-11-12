@@ -4,7 +4,7 @@
 
 The rules every action skill closes its run on. After the page is written, the run closes in the
 chat with the Hand-off, then the Next run, in that order. The terms Recommendation, Hand-off,
-Handover file, Next run and Mode are the repo's shared terms; use them as written. The skill's own
+Handover file, Next run and Mode are those of the skill's own `references/glossary.md`; use them as written. The skill's own
 `SKILL.md` fixes what is specific to it: which Mode its Recommendations carry, the Next run bands,
 and the Handover file's name.
 

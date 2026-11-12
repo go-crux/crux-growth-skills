@@ -1,6 +1,7 @@
 -- FATIGUE. Ad x day rows in, one row per Reported ad out: status, 5-day CAC, Peak CAC, Account
 -- blend, Recommendation, size, confidence and 7-day spend. Run it as written with run_sql; the
--- only edits are Edit 1, Edit 2 and Edit 3 below, each marked where it falls, bar the account check.
+-- only edits are Edit 1, Edit 2 and Edit 3 below, each marked where it falls, the timezone and the
+-- account check, both set out below.
 -- Edit 1, in `mart_rows`: the mart's name, and any column list_tables shows under another name.
 -- Where the mart has no `adset_id`, write `ad_group` in its place; where it has no `campaign_id`,
 -- write `campaign_name` in its place. Nothing else in `mart_rows` changes.
@@ -14,7 +15,8 @@
 -- Timezone: where the brain's own instructions name the store's timezone, write the one
 -- CURRENT_DATE() in `period` as CURRENT_DATE('<timezone>'), so yesterday is the store's own.
 -- The grain is the ad's Meta id (ad_key), never a display name: a rename keeps its id, and two ads
--- can share one name. `reach` is never summed. `purchases` is never read.
+-- can share one name. Its ad set and campaign keys are the ones on its latest row (`keyed`), so a
+-- renamed ad set or campaign, where a display name stands in as the key, never splits an ad. `reach` is never summed. `purchases` is never read.
 -- CAC is spend over new_orders. Day-of-week normalising divides each day's spend by that
 -- weekday's index, which is the same as dividing each day's CAC by it, so every window's CAC
 -- below is adj_spend over new_orders. Each comparison is written as spend >= multiple x CAC x
@@ -85,11 +87,26 @@ retargeting AS (
   SELECT campaign_key
   FROM UNNEST(ARRAY<STRING>['<campaign_key>', '<campaign_key>']) AS campaign_key  -- Edit 2
 ),
+-- Each ad's ad set and campaign keys as its latest row shows them, a serving row first.
+ad_keys AS (
+  SELECT
+    ad_key,
+    ARRAY_AGG(STRUCT(campaign_key, adset_key)
+      ORDER BY day DESC, spend DESC, campaign_key, adset_key LIMIT 1)[OFFSET(0)] AS k
+  FROM source
+  GROUP BY 1
+),
+-- Every row the audit reads, carrying its ad's one ad set and campaign key.
+keyed AS (
+  SELECT s.* REPLACE (k.k.campaign_key AS campaign_key, k.k.adset_key AS adset_key)
+  FROM source AS s
+  JOIN ad_keys AS k USING (ad_key)
+),
 daily AS (
   SELECT
     s.day, s.campaign_key, s.adset_key, s.ad_key,
     SUM(s.spend) AS spend, SUM(s.new_orders) AS new_orders
-  FROM source AS s
+  FROM keyed AS s
   CROSS JOIN period AS p
   WHERE s.day <= p.date_to
   GROUP BY 1, 2, 3, 4
@@ -209,7 +226,7 @@ ad_info AS (
       ORDER BY s.day DESC, s.spend DESC, s.ad_age DESC, s.campaign_name, s.ad_group, s.ad LIMIT 1
     )[OFFSET(0)] AS latest,
     MAX(s.ad_age) AS ad_age
-  FROM source AS s
+  FROM keyed AS s
   CROSS JOIN period AS p
   WHERE s.day BETWEEN p.date_from AND p.date_to
   GROUP BY 1, 2, 3

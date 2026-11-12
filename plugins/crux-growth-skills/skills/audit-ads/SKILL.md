@@ -12,9 +12,9 @@ Run the steps in order. The user sees only the chat and the page, never this ski
 references: say what the ads showed, in plain words with the figures, and never cite a file, a
 rule or a query. The terms CAC, Account blend, Peak CAC, Eligibility floors, Ramping, Low
 efficiency, Improving, Fatigued, Fatiguing, Winner, Healthy, Pause, Refresh, Iterate, Keep,
-Minimum live ads, Reported ad, Judged spend share, Awareness campaign, Unattended run, Source and
-Brain line are those of `references/glossary.md`, and Recommendation, Lever, Mode, Hand-off,
-Handover file and Next run are the repo's shared terms; use them as written.
+Minimum live ads, Reported ad, Judged spend share, Awareness campaign, Unattended run, Source,
+Brain line, Recommendation, Lever, Mode, Hand-off, Handover file and Next run are those of
+`references/glossary.md`; use them as written.
 
 ## Unattended run
 
@@ -51,7 +51,7 @@ set and ad. Read its columns from the second call and take these, never assuming
 the ad id; the ad set id and the campaign id; the three display names (campaign, ad set and ad);
 spend; new orders; ad age; and campaign type. Group by the ad id, never a display name: a rename
 keeps the id, and two ads can share a name. Without an ad set id or a campaign id, that display
-name stands in as its key. A missing column other than those two ids and campaign type: name it
+name stands in as its key, each ad taking the one on its latest row. A missing column other than those two ids and campaign type: name it
 in one line and stop. Without campaign type, the intake proposes retargeting campaigns from their
 names alone.
 
@@ -217,7 +217,7 @@ Open `references/hand-off.md` and close the chat with the Hand-off as it fixes i
 page's Recommendations to implement now, to save or to leave. Every Mode is Switch. Where a Meta
 connector that can pause ads is in the session, implementing now means the agent makes the Pauses
 in Meta once the user confirms them, leaving a held Pause until its Refresh is live. A Refresh or an
-Iterate needs new creative the skill does not make, so it stays the user's to make, or to save.
+Iterate needs a new ad the skill does not make, so it stays the user's to make, or to save.
 When the user saves, write `meta-ad-audit-handover-<date>.md` as the reference fixes it, one
 section per saved Recommendation with its lever, size, evidence, confidence, metric to watch and
 Mode, plus the Pause, Refresh or Iterate and the ad it acts on.

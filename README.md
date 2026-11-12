@@ -115,9 +115,10 @@ It judges every ad on the last 60 complete days, one at a time, by what it costs
 customer. It compares each ad with the rest of your account and with the ad's own best run, so it
 can tell an ad that was never efficient from one that has worn out. It asks you which of your
 campaigns are retargeting or aimed at existing customers, because those cost very different
-amounts, and tells you how it judges before it starts. You leave with one page for your team: the
-recommendations ranked by what each is worth a month, and every ad that has spent enough to be
-judged, with its status. It then asks what you want to do with the recommendations: act on them
+amounts, and which are bought for awareness rather than sales, which it leaves out. It tells you
+how it judges before it starts. You leave with one page for your team: the
+recommendations ranked by what each is worth a month, and every ad that spent at least 100 (in your
+currency) in the last week, with its status. It then asks what you want to do with the recommendations: act on them
 now (Claude can make the pauses for you, once you confirm them, if it has a Meta connector that can
 change your ads), save them to a file to act on later or pass to a teammate, or leave them. It
 then tells you when to run it again.

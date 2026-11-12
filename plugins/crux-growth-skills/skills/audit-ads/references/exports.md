@@ -1,6 +1,6 @@
 # Without a Growth Brain
 
-Opened by `SKILL.md` steps 1, 2, 3, 4 and 8 when the Source is a Meta connector or an Ads Manager
+Opened by `SKILL.md` steps 1, 2 and 4 when the Source is a Meta connector or an Ads Manager
 export. It holds how the user downloads the export, how a connector is read, and how the rows are
 judged in code. The judging itself is `references/fatigue.sql`, ported: nothing here restates a
 threshold, a window or the order of the statuses.
@@ -69,7 +69,7 @@ file already in the conversation counts.
   before the last is asked for again once, with the range it missed; a day an ad has no row for is
   a day with no spend.
 - **Timezone.** A file that names a timezone is read in it; a connector's is the ad account's. Where
-  none is named, say so in the Notes. Days are not converted.
+  none is named, say so in the Notes and Method. Days are not converted.
 - **Currency.** The one the Source reports in. Where a file names none, ask once.
 
 ## Judging in code
@@ -81,12 +81,13 @@ Port `references/fatigue.sql` CTE by CTE and apply it to the rows. Take every th
 multiple from its `cut` CTE and every status and size from its later CTEs; `references/method.md`
 and the glossary say the same in words, and neither is restated here. Keep each comparison as
 the file writes it (spend against a multiple of CAC times purchases), so an ad with no
-purchases counts as above any CAC. Three changes, because the rows are not the brain's mart:
+purchases counts as above any CAC. Four changes, because the rows are not the brain's mart:
 
 - **Grain and keys.** Group by Ad ID, and sum the rows that share an Ad ID and a Day. Where the SQL
   reads the three keys, the campaign key is the Campaign name, the ad set key the Ad set name and
-  the ad key the Ad ID. The ad set count of live ads past Ramping and the retargeting
-  campaigns (matched by Campaign name) read those.
+  the ad key the Ad ID, each ad taking the names on its latest row as the SQL's `keyed` does. The
+  ad set count of live ads past Ramping and the retargeting campaigns (matched by Campaign name)
+  read those.
 - **Awareness campaigns.** Drop the rows of the awareness campaigns (matched by Campaign name)
   before anything else, as the SQL's `source` does.
 - **Orders.** Purchases stand where the SQL reads `new_orders`, so CAC is Amount spent over
