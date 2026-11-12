@@ -1,0 +1,5 @@
+# An action skill can make the changes at its Hand-off
+
+**Status:** Accepted, 2026-11-11.
+
+The growth skills were read only: a skill wrote nothing the brain could not write, and an action skill's Hand-off handed the user its Recommendations to make themselves, with no platform steps and no change made by the agent, whatever connectors the session held. That made the skill read as recommendation only, when the natural close of an audit is getting the changes made. The Hand-off's first choice, implement now, is now done however the user and the agent decide: where the session holds a connector that can make changes in the platform (for `audit-ads`, a Meta connector that can pause ads), the agent lists the changes it will make and makes them once the user confirms that list; otherwise the user makes them. The brain stays read only, an unattended run changes nothing, and a change that needs new creative stays the user's. We accept that a skill can now change a live ad account, guarded by one explicit confirmation of the listed changes, because a free skill that ends in action is worth more to a brand than one that ends in a list.

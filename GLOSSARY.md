@@ -10,18 +10,19 @@ Crux growth skills: free skills any brand installs in its own Claude that carry 
 
 - **Recommendation**: one specific change a skill proposes on its evidence: the lever it moves, its size in £ or KPI terms, the evidence, a confidence, and the metric to watch. In an action skill it also carries a Mode and goes through the Hand-off. _Avoid_: action, suggestion, next step, insight.
 
-- **Action skill**: a skill whose run ends in Recommendations specific enough to make in a platform, closed by the Hand-off (audit-ads, optimise-budget, audit-retention, plan-stock). It recommends and never makes the change itself. _Avoid_: execution skill, agentic skill.
+- **Action skill**: a skill whose run ends in Recommendations specific enough to make in a platform, closed by the Hand-off (audit-ads, optimise-budget, audit-retention, plan-stock). Its Hand-off can go straight on to making the changes, through a connector the session holds that can make changes in the platform. _Avoid_: execution skill, agentic skill.
 
-- **Hand-off**: the close of an action skill: it asks what the user wants to do with the Recommendations, implement now, save them to the Handover file, or leave them. Implementing is the user's own session with whatever connector they hold; the skill gives no platform steps. _Avoid_: execution, push, apply step.
+- **Hand-off**: the close of an action skill: it asks what the user wants to do with the Recommendations, implement now, save them to the Handover file, or leave them. Implementing is done however the user and the agent decide: the agent makes the changes through a connector the session holds that can make changes in the platform, once the user confirms them, or the user makes them in the platform. _Avoid_: execution, push, apply step.
 
 - **Next run**: the close after the Hand-off: when to run the skill again, scaled to the brand's data volume, and the prompt to paste into that session. Where a calendar connector is in the session it offers to add the date as an event carrying the prompt. _Avoid_: cadence reminder, schedule.
 
 - **Mode**: how a Recommendation should go live. Switch (make it and watch the metric; always for new ads and formats), Split test (the platform's own A/B tool, for strategic paid changes, flow and campaign changes and landing pages, only where traffic reads a result) or Holdout (geo or brand-off, to measure incrementality). _Avoid_: test type, rollout.
 
-- **Handover file**: the markdown file the Hand-off gives the user holding every Recommendation they saved, self-contained enough to act on in a later session. The skill never reads it back. _Avoid_: plan, action log, backlog.
+- **Handover file**: the markdown file the Hand-off gives the user holding every Recommendation they saved, self-contained enough to act on in a later session or to pass to a teammate. The skill never reads it back. _Avoid_: plan, action log, backlog.
 
 ## Skill glossaries
 
+- `audit-ads`: [`audit-ads/references/glossary.md`](plugins/crux-growth-skills/skills/audit-ads/references/glossary.md) (CAC, Account blend, Peak CAC, Eligibility floors, Ramping, Low efficiency, Improving, Fatigued, Fatiguing, Winner, Healthy, Pause, Refresh, Iterate, Keep, Minimum live ads, Awareness campaign, Reported ad, Source, Brain line, Judged spend share, Unattended run).
 - `plan-black-friday`: [`plan-black-friday/references/glossary.md`](plugins/crux-growth-skills/skills/plan-black-friday/references/glossary.md) (the windows, Lift, Target test, Last-year level, Lever gap, Scenario, Daily phasing, Discount ceiling, Source, Brain line, Black Friday plan).
 - `audit-landing-pages`: [`audit-landing-pages/references/glossary.md`](plugins/crux-growth-skills/skills/audit-landing-pages/references/glossary.md) (Find, Audit, Brand guardrails, Page type, Benchmark, Revenue at stake, Orders at stake, Underperforming page, Non-sale page, Leaking step, Page inventory).
 - `diagnose-performance`: [`diagnose-performance/references/glossary.md`](plugins/crux-growth-skills/skills/diagnose-performance/references/glossary.md) (Success KPI, Current period, Comparison period, Period timezone, Good direction, Lever, Lever tree, Source, Contribution, Main driver, Also large, Offset, Drill-down, Cause, Recommendation, Check-first, Brain line, Performance diagnosis).
