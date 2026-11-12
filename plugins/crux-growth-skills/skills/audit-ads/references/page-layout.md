@@ -15,7 +15,7 @@ row per label, in this order:
 | Window | The 60 complete days read, first to last date; the 5-day current window's dates; the 7-day Reported window's dates. |
 | Source | The Source the run used: the Growth Brain connector's name, the Meta connector's name, or "Ads Manager export" with the file's name. |
 | Measure | With a Growth Brain: "CAC: spend over new customers, counted from your own first orders." Otherwise: "CAC: Meta spend over the purchases Meta reports for the ad. Platform-attributed: it counts every purchase Meta claims." |
-| Reported ads | How many ads are on the page, and the share of the last 7 days' spend they hold. |
+| Reported ads | How many ads are on the page, and the share of the last 7 days' spend they hold, outside the awareness campaigns. |
 
 **Four headings**, always present, always in this order, with these words. A heading with nothing
 under it stays on the page, with one line saying why.
@@ -80,12 +80,14 @@ In this order:
 1. **The method**, the text of `references/method.md` word for word.
 2. **This run**, a short list:
    - the campaigns confirmed as retargeting or existing-customer, by name, or "None";
+   - the campaigns left out as awareness, by name with their spend over the last 7 days, or
+     "None";
    - with a Growth Brain, that ads are grouped by their Meta ad id, and that rows with no ad (an
      Unknown ad id, which takes in unrendered templates) are left out of judging;
    - without one, that CAC is platform-attributed, that ads are grouped by Ad ID, that an ad's age
      and life spend are counted from the 60 days read, and the timezone the days follow or that
      none was named;
-   - an unattended run: that nobody confirmed the retargeting campaigns, so the proposed ones were
+   - an unattended run: that nobody confirmed the retargeting or awareness campaigns, so the proposed ones were
      used, and, above 300 Reported ads, that the run went on without the question to proceed;
    - the flexible or dynamic creative ads, by name, each judged as one unit with no split by asset,
      and that their Refresh is to add new assets; omitted where there are none;
