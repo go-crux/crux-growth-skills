@@ -122,12 +122,20 @@ every figure of the Model step of `SKILL.md`, the plan included, as `references/
 it, and each once: the survival curve over every Launched ad at every age it has reached (the
 denominator), the Viable lifespan, the Hit rate over the Launched ads whose first spend is at least
 27 days before the last complete day, the Days viable per hit, and the Spend per viable ad over the
-viable ad-days. Print the figures, the survival table (age, ads reached, viable, survival, spend on
+viable ad-days. Compute the Viable share target once, as `SKILL.md`'s Model step defines it, from
+the statuses of every ad on every day it spent (not only the Launched ads), outside the awareness and
+lead campaigns: each complete ISO week from the first Monday on or after the window's first day to
+the last Sunday on or before its last day (a week with no spend is still a week), its spend on viable
+ad-days over its spend, then the warm-up and thin-week rules, P90 by nearest rank (the share at rank
+⌈0.9 × weeks counted⌉ from the lowest), the target as the smaller of 100% and P90 × 1.2, and the median
+weekly shares of spend on Ramping ads and on Fatiguing, Fatigued and Low efficiency ads over the weeks
+counted. Print the figures, the survival table (age, ads reached, viable, survival, spend on
 that age's viable ad-days) and the Roadmap rows, never the rows of the export.
 
 **Done when** every ad that spent on a day carries exactly one status for that day, the spend over
 the rows read equals the spend in the file for the same days outside the awareness and lead campaigns (each
 ad by its latest row's campaign), and the survival table lists each age with the ads reached and the viable count that give its rate, its
 rates sum to the Viable lifespan, the Hit rate times the Days viable per hit equals the Viable
-lifespan to two decimals, and the Spend per viable ad is the spend on viable ad-days over their
-number.
+lifespan to two decimals, the Spend per viable ad is the spend on viable ad-days over their
+number, and the weekly viable shares, the weeks counted and left out, P90 and the Viable share target
+(at most 100%) are printed, the run having stopped on its line where no week is counted.

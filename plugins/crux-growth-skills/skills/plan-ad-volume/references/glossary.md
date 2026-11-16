@@ -6,7 +6,11 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Viable ad**: an ad whose status that day is Healthy, Winners included. Every other status, Improving included, is not viable. _Avoid_: active ad, live ad, good ad.
 
-- **Viable ad stock**: the number of viable ads a level of daily spend needs live at once: daily spend over Spend per viable ad. The L of Little's law. _Avoid_: ad stock alone (that is MMM carryover), ad inventory, creative stock.
+- **Viable share**: a week's spend on viable ads over its spend, every ad counted (Launched or not) outside the Awareness and Lead campaigns. Read for each complete ISO week of the window. _Avoid_: efficiency, share of voice.
+
+- **Viable share target**: the share of spend the plan aims to put on viable ads: the smaller of 100% and the 90th-percentile weekly Viable share times 1.2. The weeks read leave out the window's first 6 complete weeks, which lean towards Ramping, and any week whose spend is below 25% of the median of the rest; with fewer than 8 left, those there are, and with none the run stops. No account puts every pound on a viable ad, so the target is the account's own best plus 20% for running creative production well. _Avoid_: benchmark, goal, best share.
+
+- **Viable ad stock**: the number of viable ads a level of daily spend needs live at once: daily spend times the Viable share target over Spend per viable ad. The L of Little's law. _Avoid_: ad stock alone (that is MMM carryover), ad inventory, creative stock.
 
 - **Launched ad**: an ad whose first day of spend falls inside the window after its first day. Only Launched ads feed the Survival curve, because an ad already live on day one has an unknown age. _Avoid_: new ad.
 
@@ -58,7 +62,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Waterfall**: the chart of the Roadmap, week by week: stock at the start, less Wearing out, plus new ads (stacked by format), equals stock at the end, with that week's Viable ad stock marked. _Avoid_: bridge, flow chart.
 
-- **Budget ladder**: the Steady-state number at current spend, +25%, +50% and the Budget, on the stated assumption that Spend per viable ad holds as spend grows. _Avoid_: scenarios, sensitivity.
+- **Budget ladder**: the Steady-state number at current spend, +25%, +50% and the Budget, on the stated assumption that Spend per viable ad and the Viable share target hold as spend grows. _Avoid_: scenarios, sensitivity.
 
 - **Hit-rate scenarios**: the Steady-state number at today's Hit rate, 20% higher and 30% higher, each with Days viable per hit held fixed, so only the share of launches that work moves; with a Budget, also the launches a week at the Budget. Your plan shows them as "If more of your ads work". _Avoid_: what-ifs, improvement targets.
 

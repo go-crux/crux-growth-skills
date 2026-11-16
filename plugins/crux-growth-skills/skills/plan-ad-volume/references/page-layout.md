@@ -27,7 +27,8 @@ Term, Says), so a reader can match the two.
 | Term (glossary) | Label on Your plan | Says, at first use |
 |---|---|---|
 | Viable ad | viable ad | its CAC holding up: under 20% above your account average and not climbing off its best |
-| Viable ad stock (L) | Viable ads needed (on the tile and the bar, "needed") | the viable ads your spend needs live at once to spend well |
+| Viable ad stock (L) | Viable ads needed (on the tile and the bar, "needed") | the viable ads your spend needs live at once, at the share of spend the plan aims to put on them |
+| Viable share target | Viable share target | the share of your spend the plan aims to put on viable ads |
 | Ramping | test phase | too new, or too little spend, to judge yet |
 | Short | Short | fewer viable ads than your spend needs |
 | About right | About right | within the range your spend needs |
@@ -111,8 +112,21 @@ depend on colour alone. The other three tiles carry none.
 
 ## Do you have the right number of ads?
 
-One sentence of what it means: "To spend <current spend a day> well, your account needs about <L>
-viable ads live at once (viable: <the Says of viable ad, in short>)."
+Two lines, before the bar. Percentages are whole numbers, each rounded once from its source figure,
+and L is the whole figure the tiles show.
+
+**The target sentence**, in these words: "Your best weeks put <P90>% of your spend on viable ads. The
+plan aims for <target>%, so your spend needs <L> viable ads." The P90 is the 90th-percentile weekly
+Viable share, the target is the Viable share target; the sentence is that label's Says at its first use
+on Your plan.
+
+**Where the rest goes**, in these words, ending on the lever: "Most weeks, <ramping>% of spend sits on
+ads still in their test phase and <worn>% on ads that have stopped working: <lever>." The two
+figures are the ramping share and the worn out share. The lever is the larger of the two, as shown
+(on a tie, the test phase):
+
+- Test phase larger: "launch fewer, stronger ads".
+- Stopped working larger: "pause what has stopped working: run `/audit-ads`".
 
 **The bar** is inline SVG: one horizontal bar of counts of ads, from 0 on the left to the larger of
 1.5 times L and the viable ads today, plus 10% of that, with ticks every 10 ads (every 20 where the
@@ -192,7 +206,7 @@ the Budget (4 weeks in all with no Budget). Its columns, in this order:
 |---|---|
 | Week | The week's Monday, as a date. |
 | Daily spend | That week's daily spend, in whole units. |
-| Viable ads needed | L(w): the daily spend over the Spend per viable ad, one decimal. |
+| Viable ads needed | L(w): the daily spend times the Viable share target over the Spend per viable ad, one decimal. |
 | Expected to wear out | Wearing out(w), one decimal. |
 | Video | The week's Ads to launch that are video: a whole number. Only with a Format split. |
 | Image | The week's Ads to launch that are image: a whole number. Only with a Format split. |
@@ -268,7 +282,8 @@ Launches a week to keep up at four levels of spend, in one table:
 | Your Budget | The daily Budget. | L at that spend. | As above. |
 
 With no Budget the last rung is left out, with one line saying "no Budget given". Under the table,
-the sentence: "This assumes each viable ad carries the same spend as you grow." Then the action: the
+the sentence: "This assumes each viable ad carries the same spend, and the same share of your spend
+sits on viable ads, as you grow." Then the action: the
 launches a week the next level of spend asks for over today's.
 
 **The lower-bound line.** Where the Viable lifespan is a lower bound, the last line of Your plan, in
@@ -300,6 +315,11 @@ A short list:
   viable, with its quartile range ("a quarter by day 9, three quarters by day 40"; an end the
   curve did not reach reads "not reached"), and the Viable lifespan to one decimal, with "at least"
   before it where it is a lower bound;
+- the Viable share, as one line in these words with the figures filled in: "Viable share: your best
+  weeks (the 90th percentile of <n> weeks counted) put <P90>% of spend on viable ads, so the target is
+  <target>% (<P90>% times 1.2, never above 100%). <m> weeks were left out: the first 6 for warm-up and
+  <m less 6> for thin spend." Where fewer than 8 weeks were counted, add "Only <n> weeks were counted,
+  so the target is rough." The P90 and the target are the figures Your plan shows;
 - the Self-check, as one line in these words with the figures filled in (the Current pipeline for
   the launches a week, the Hit rate as a percentage, the Current pipeline times the Viable lifespan
   over 7 to one decimal, and today's viable ads): "Check: launching <pipeline> a week at a hit rate
@@ -357,8 +377,8 @@ a title of "Meta ad roadmap" with the brand and the date:
    per hit, to the whole day> days" (with "at least" before the figure and "so the ad counts may
    read a little high" after it where the Viable lifespan is a lower bound).
 4. **Spend one viable ad carries**: one line, "One viable ad carries <figure> a day of spend, so a
-   day's spend of <current spend> needs <L> viable ads live at once, and <the Steady-state number>
-   launches a week keep up".
+   day's spend of <current spend>, aiming at <target>% of it on viable ads, needs <L> viable ads
+   live at once, and <the Steady-state number> launches a week keep up".
 
 It carries no heading beyond the title and these four, and no method, no bar, no Waterfall and no
 survival chart. A run that stopped before the page writes no Roadmap file.
