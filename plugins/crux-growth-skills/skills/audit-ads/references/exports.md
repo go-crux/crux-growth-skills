@@ -15,7 +15,7 @@ columns and no others.
 | Ad ID | the ad: the grain every figure is grouped on |
 | Ad name | the ad's name on the page |
 | Ad set name | the ad set's name on the page, and the Minimum live ads count |
-| Campaign name | the campaign's name on the page, the Account blend's two groups, and the retargeting and awareness proposals |
+| Campaign name | the campaign's name on the page, the Account blend's two groups, and the retargeting, awareness and lead proposals |
 | Day | the window a row falls in |
 | Amount spent | spend |
 | Impressions | nothing in the verdict |
@@ -39,9 +39,9 @@ through its insights tool.
 - **Account.** Use only an ad account that is plainly the brand's; with several, ask which.
 - **Pages.** Take every page of rows before any sum. A first page alone understates spend.
 - **Objective.** Read each campaign's objective once, through its campaigns tool where it has one,
-  for the awareness proposal: any objective other than sales (or the older conversions or catalogue
-  sales objectives) proposes the campaign. Without one,
-  propose by name alone.
+  for the awareness and lead proposals: a leads objective proposes the campaign as a lead campaign,
+  and any objective other than sales (or the older conversions or catalogue sales objectives) or
+  leads proposes it as awareness. Without one, propose by name alone.
 
 ## Ads Manager export
 
@@ -88,9 +88,9 @@ purchases counts as above any CAC. Four changes, because the rows are not the br
   the ad key the Ad ID, each ad taking the names on its latest row as the SQL's `keyed` does. The
   ad set count of live ads past Ramping and the retargeting campaigns (matched by Campaign name)
   read those.
-- **Awareness campaigns.** Drop the ads of the awareness campaigns, matched by the Campaign name
-  on each ad's latest row, as the SQL's `keyed` does: an ad whose campaign was renamed is left out
-  whole, its rows under the old name too.
+- **Awareness and lead campaigns.** Drop the ads of the awareness and lead campaigns together, matched
+  by the Campaign name on each ad's latest row, as the SQL's `keyed` does: an ad whose campaign was
+  renamed is left out whole, its rows under the old name too.
 - **Orders.** Purchases stand where the SQL reads `new_orders`, so CAC is Amount spent over
   Purchases, Meta's own cost per purchase: platform-attributed, counting every purchase Meta
   claims. Confidence reads the same count.
@@ -100,7 +100,7 @@ purchases counts as above any CAC. Four changes, because the rows are not the br
 
 **Account check.** `SKILL.md` step 2 sizes the account before the intake. Run the port once with
 no retargeting campaigns (every ad against the one blend: Eligibility reads no retargeting
-campaign) and the proposed awareness campaigns dropped, and take
+campaign) and the proposed awareness and lead campaigns dropped, and take
 the three figures the ACCOUNT CHECK at the end of `references/fatigue.sql` returns, from the
 statuses and the 7-day spend the port gives. Step 4 runs the port again with the confirmed
 campaigns. Print the three figures only, never the rows.
@@ -113,7 +113,7 @@ column names, so every later step reads it without knowing the Source: Campaign 
 Ad ID in `ad_key`.
 
 **Done when** every Reported ad has exactly one status, the 7-day spend over the rows equals the
-spend in the file or connector for the same 7 days outside the awareness campaigns (each ad by its
+spend in the file or connector for the same 7 days outside the awareness and lead campaigns (each ad by its
 latest row's campaign), every Reported ad's row carries its
 `ad_set_live_ads`, and the 7-day spend of the rows not Ramping equals the account check's
 `judged_spend_7d`.

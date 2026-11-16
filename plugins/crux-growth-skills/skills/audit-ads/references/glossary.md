@@ -4,7 +4,7 @@ The terms `SKILL.md` and the other references use, each with one meaning.
 
 - **CAC**: an ad's Meta spend over the new customers it brought: first-party new orders from a Growth Brain, else Meta's cost per purchase, named on the page as platform-attributed and counting every purchase. Day-of-week normalised before any comparison. The one measure every verdict reads. _Avoid_: CPA, cost per result, ROAS.
 
-- **Account blend**: the CAC of all live ads together, outside the Awareness campaigns, over the same window as the ad. Ads in the campaigns the user names as retargeting or existing-customer are judged against their own blend, every other ad against the blend of the rest. _Avoid_: account average, benchmark.
+- **Account blend**: the CAC of all live ads together, outside the Awareness and Lead campaigns, over the same window as the ad. Ads in the campaigns the user names as retargeting or existing-customer are judged against their own blend, every other ad against the blend of the rest. _Avoid_: account average, benchmark.
 
 - **Peak CAC**: an ad's best 7-day CAC in the last 42 days, as it stood each day. What Fatiguing and Fatigued measure against. _Avoid_: best CAC, baseline.
 
@@ -36,6 +36,8 @@ The terms `SKILL.md` and the other references use, each with one meaning.
 
 - **Awareness campaign**: a campaign the user confirms at the intake as bought for awareness, reach, video views, engagement or traffic rather than purchases. Left out of the audit whole: no verdict, no blend, no Reported spend; named with its spend in Notes and Method. _Avoid_: brand campaign, upper funnel, TOF.
 
+- **Lead campaign**: a campaign the user confirms at the intake as bought for leads, sign-ups, giveaways or competitions rather than purchases. Left out of the audit whole, like an Awareness campaign: no verdict, no blend, no Reported spend; named with its spend in Notes and Method. _Avoid_: lead gen, TOF.
+
 - **Reported ad**: an ad with at least 100 in the account's currency spent over the last 7 days. Every ad is judged; only Reported ads appear on the page, and above 300 of them the intake warns that the run will be long and token-heavy. _Avoid_: active ad, live ad.
 
 - **Source**: where the ad-by-day rows come from, the first that holds them of a Growth Brain, a Meta connector in the session and one Ads Manager export the user gives. Named on the page. _Avoid_: data source, feed, integration.
@@ -44,7 +46,7 @@ The terms `SKILL.md` and the other references use, each with one meaning.
 
 - **Judged spend share**: the share of the last 7 days' spend in ads past the Eligibility floors. Below 50%, the run opens by saying the method cannot judge most of the account's spend yet. _Avoid_: coverage.
 
-- **Unattended run**: a run whose message says so or says not to ask, or that is a scheduled session or routine, so nobody is there to answer. It asks nothing at any step, takes each step's recommended answer, uses the proposed retargeting and awareness campaigns as confirmed, and says so in the page's Notes and Method. _Avoid_: automatic run, headless run.
+- **Unattended run**: a run whose message says so or says not to ask, or that is a scheduled session or routine, so nobody is there to answer. It asks nothing at any step, takes each step's recommended answer, uses the proposed retargeting, awareness and lead campaigns as confirmed, and says so in the page's Notes and Method. _Avoid_: automatic run, headless run.
 
 ## The close
 

@@ -12,8 +12,8 @@
 -- mart's name and its ad id column are also written in `video_plays`, and a mart with no
 -- `video_views` column takes 0 there, in place of `video_views`.
 -- Edit 2, in `retargeting`: the confirmed campaign_keys (ARRAY<STRING>[] when none).
--- Edit 3, in `awareness`: the campaign_keys of the awareness campaigns the intake confirmed
--- (ARRAY<STRING>[] when none). Their rows get no status and feed no curve and no spend.
+-- Edit 3, in `left_out`: the campaign_keys of the awareness and lead campaigns the intake confirmed,
+-- together (ARRAY<STRING>[] when none). Their rows get no status and feed no curve and no spend.
 -- Edit 4, in `period`: the as-of day, for the code port only; the brain path leaves it. Replace the
 -- one CURRENT_DATE() with DATE_ADD(DATE '<as_of_date>', INTERVAL 1 DAY), so the day judged is
 -- <as_of_date>.
@@ -79,10 +79,11 @@ mart_rows AS (
   FROM `<client>-meta_performance`  -- Edit 1: the mart's name
   WHERE COALESCE(ad_id, 'Unknown') != 'Unknown'
 ),
--- The campaigns bought for awareness, reach, video views, engagement or traffic rather than
--- purchases. CAC is the wrong measure for them, so they are left out whole, each ad by its latest
--- row's campaign key (`keyed`), so a renamed awareness campaign takes its old-name rows with it.
-awareness AS (
+-- The campaigns bought for awareness, reach, video views, engagement or traffic, or for leads,
+-- sign-ups, giveaways or competitions, rather than purchases. CAC is the wrong measure for them, so
+-- they are left out whole, each ad by its latest row's campaign key (`keyed`), so a renamed
+-- campaign takes its old-name rows with it. One list holds both kinds.
+left_out AS (
   SELECT campaign_key
   FROM UNNEST(ARRAY<STRING>['<campaign_key>']) AS campaign_key  -- Edit 3
 ),
@@ -101,13 +102,13 @@ ad_keys AS (
   FROM mart_rows
   GROUP BY 1
 ),
--- Every row read, carrying its ad's one ad set and campaign key, less the ads of the awareness
--- campaigns.
+-- Every row read, carrying its ad's one ad set and campaign key, less the ads of the awareness and
+-- lead campaigns.
 keyed AS (
   SELECT s.* REPLACE (k.k.campaign_key AS campaign_key, k.k.adset_key AS adset_key)
   FROM mart_rows AS s
   JOIN ad_keys AS k USING (ad_key)
-  WHERE k.k.campaign_key IS NULL OR k.k.campaign_key NOT IN (SELECT campaign_key FROM awareness)
+  WHERE k.k.campaign_key IS NULL OR k.k.campaign_key NOT IN (SELECT campaign_key FROM left_out)
 ),
 daily AS (
   SELECT

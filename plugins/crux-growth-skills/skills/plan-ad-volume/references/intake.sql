@@ -1,7 +1,7 @@
 -- THE INTAKE QUERY, for a Growth Brain. Read before the intake message goes out: the Launched ads
--- outside the awareness campaigns, and the Format split default with its Name coverage, so the
--- intake quotes figures the run already holds. It is run with the proposed awareness campaigns, and
--- again with the confirmed ones where the reply changes them. A connector or an export computes the
+-- outside the awareness and lead campaigns, and the Format split default with its Name coverage, so the
+-- intake quotes figures the run already holds. It is run with the proposed awareness and lead
+-- campaigns, and again with the confirmed ones where the reply changes them. A connector or an export computes the
 -- same figures in code (references/exports.md).
 -- One row: launched_ads, hit_rate_ads, recent_launched_ads, video_pct, image_pct, name_coverage_pct.
 -- hit_rate_ads is the Launched ads at least 28 days old (first spend at least 27 days before the last
@@ -12,12 +12,12 @@
 -- under another name. Where the mart has no `adset_id`, write `ad_group` in its place; where it has
 -- no `campaign_id`, write `campaign_name` in its place; a mart with no `video_views` column takes 0
 -- in `video_plays`, in place of `video_views`.
--- Edit 2, in `awareness`: the campaign_keys of the proposed (or confirmed) awareness campaigns
--- (ARRAY<STRING>[] when none).
+-- Edit 2, in `left_out`: the campaign_keys of the proposed (or confirmed) awareness and lead
+-- campaigns together (ARRAY<STRING>[] when none).
 -- Timezone: where the brain's own instructions name the store's timezone, write it in the one
 -- CURRENT_DATE() of `win`, as references/fatigue.sql does.
 -- The windows, the Launched ad, the ad keys and the Format below are references/fatigue.sql's, so
--- the figures match what its run returns for the same awareness campaigns. The block fenced as
+-- the figures match what its run returns for the same awareness and lead campaigns. The block fenced as
 -- shared format below is the same in both files and changes together with it.
 WITH
 plan_cut AS (
@@ -45,7 +45,7 @@ mart_rows AS (
   FROM `<client>-meta_performance`  -- Edit 1: the mart's name
   WHERE COALESCE(ad_id, 'Unknown') != 'Unknown'
 ),
-awareness AS (
+left_out AS (
   SELECT campaign_key
   FROM UNNEST(ARRAY<STRING>['<campaign_key>']) AS campaign_key  -- Edit 2
 ),
@@ -58,13 +58,13 @@ ad_keys AS (
   FROM mart_rows
   GROUP BY 1
 ),
--- Every row read in the window, less the ads of the awareness campaigns.
+-- Every row read in the window, less the ads of the awareness and lead campaigns.
 win_rows AS (
   SELECT s.day, s.ad_key, s.ad, s.spend
   FROM mart_rows AS s
   JOIN ad_keys AS k USING (ad_key)
   CROSS JOIN win AS w
-  WHERE (k.k.campaign_key IS NULL OR k.k.campaign_key NOT IN (SELECT campaign_key FROM awareness))
+  WHERE (k.k.campaign_key IS NULL OR k.k.campaign_key NOT IN (SELECT campaign_key FROM left_out))
     AND s.day BETWEEN w.date_from AND w.date_to
 ),
 -- The first day the mart holds inside the window: an ad first spending after it is a Launched ad.
