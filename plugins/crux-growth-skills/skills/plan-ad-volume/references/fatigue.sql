@@ -338,7 +338,10 @@ plan_cut AS (
     365 AS window_days,
     3 AS curve_min_ads,
     28 AS hit_days,
-    8 AS pipeline_weeks
+    8 AS pipeline_weeks,
+    6 AS warmup_weeks,
+    0.25 AS thin_week_share,
+    1.20 AS viable_share_headroom
 ),
 -- The last 365 complete days, ending yesterday. `this_monday` starts the ISO week holding today.
 win AS (
@@ -658,6 +661,86 @@ current_spend AS (
   CROSS JOIN win AS w
   WHERE d.day >= DATE_SUB(w.this_monday, INTERVAL 7 DAY) AND d.day < w.this_monday
 ),
+-- The Viable share. A week's viable share is its spend on viable ad-days (Healthy or Winner) over its
+-- spend, counting every ad, Launched or not; `ad_day_status` already leaves out the awareness and lead
+-- campaigns through `keyed`. The weeks are the complete ISO weeks of the window: Monday to Sunday, both
+-- inside it, the first Monday on or after `first_day` to the last Sunday on or before `date_to`. A week
+-- with no spend still counts as a week, so the median below reads it.
+week_spend AS (
+  SELECT
+    DATE_TRUNC(s.day, ISOWEEK) AS week_start,
+    SUM(s.spend) AS spend,
+    SUM(IF(s.status IN ('Healthy', 'Winner'), s.spend, 0)) AS viable_spend,
+    SUM(IF(s.status = 'Ramping', s.spend, 0)) AS ramping_spend,
+    SUM(IF(s.status IN ('Fatiguing', 'Fatigued', 'Low efficiency'), s.spend, 0)) AS worn_out_spend
+  FROM ad_day_status AS s
+  GROUP BY week_start
+),
+complete_weeks AS (
+  SELECT
+    m AS week_start,
+    ROW_NUMBER() OVER (ORDER BY m) AS week_no,
+    COALESCE(k.spend, 0) AS spend,
+    COALESCE(k.viable_spend, 0) AS viable_spend,
+    COALESCE(k.ramping_spend, 0) AS ramping_spend,
+    COALESCE(k.worn_out_spend, 0) AS worn_out_spend
+  FROM win AS w
+  CROSS JOIN first_day AS f
+  CROSS JOIN UNNEST(GENERATE_DATE_ARRAY(
+    DATE_TRUNC(DATE_ADD(f.day, INTERVAL 6 DAY), ISOWEEK),
+    DATE_SUB(DATE_TRUNC(DATE_ADD(w.date_to, INTERVAL 1 DAY), ISOWEEK), INTERVAL 7 DAY),
+    INTERVAL 7 DAY)) AS m
+  LEFT JOIN week_spend AS k ON k.week_start = m
+),
+-- The window's first warmup_weeks complete weeks are left out: the weekday index, life spend and Peak
+-- CAC warm up from the window's first day, so those weeks lean towards Ramping. Of the weeks left, one
+-- below thin_week_share of their median weekly spend is left out too: a thin week gives a noisy share.
+-- The weeks counted are what remains. Shares are fractions of 1, like `hit_rate`.
+counted_weeks AS (
+  SELECT
+    k.week_start,
+    SAFE_DIVIDE(k.viable_spend, k.spend) AS viable_share,
+    SAFE_DIVIDE(k.ramping_spend, k.spend) AS ramping_share,
+    SAFE_DIVIDE(k.worn_out_spend, k.spend) AS worn_out_share
+  FROM (
+    SELECT c.*, PERCENTILE_CONT(c.spend, 0.5) OVER () AS median_spend
+    FROM complete_weeks AS c
+    CROSS JOIN plan_cut AS p
+    WHERE c.week_no > p.warmup_weeks
+  ) AS k
+  CROSS JOIN plan_cut AS p
+  WHERE k.spend > 0 AND k.spend >= p.thin_week_share * k.median_spend
+),
+-- P90 is the nearest-rank 90th percentile: the weekly viable share at rank ceil(0.9 x n) from the
+-- lowest, counted in whole numbers. `ramping_share` and `worn_out_share` are the median weekly shares
+-- of spend on Ramping ads and on Fatiguing, Fatigued and Low efficiency ads over the same weeks.
+share_ranked AS (
+  SELECT
+    viable_share,
+    ROW_NUMBER() OVER (ORDER BY viable_share) AS rn,
+    COUNT(*) OVER () AS n,
+    PERCENTILE_CONT(ramping_share, 0.5) OVER () AS median_ramping,
+    PERCENTILE_CONT(worn_out_share, 0.5) OVER () AS median_worn_out
+  FROM counted_weeks
+),
+share_stats AS (
+  SELECT
+    (SELECT COUNT(*) FROM complete_weeks) AS complete_weeks,
+    COUNT(*) AS weeks_counted,
+    MAX(IF(rn = DIV(9 * n + 9, 10), viable_share, NULL)) AS p90,
+    MAX(median_ramping) AS ramping_share,
+    MAX(median_worn_out) AS worn_out_share
+  FROM share_ranked
+),
+-- The Viable share target: the smaller of 1 and the P90 times the headroom. Null with no week counted,
+-- where the run stops.
+share_target AS (
+  SELECT
+    v.*,
+    LEAST(1, v.p90 * p.viable_share_headroom) AS viable_share_target
+  FROM share_stats AS v
+  CROSS JOIN plan_cut AS p
+),
 -- The block fenced below as shared format is, byte for byte, in references/intake.sql, which gives
 -- the intake the Format split default before this file runs. The two change together.
 -- BEGIN shared format
@@ -726,8 +809,14 @@ SELECT
   cs.daily_spend AS current_spend,
   SAFE_DIVIDE(fs.recent_launched_ads, r.weeks_used) AS current_pipeline,
   r.weeks_used AS pipeline_weeks_used,
-  SAFE_DIVIDE(cs.daily_spend, ls.spend_per_viable_ad) AS viable_ad_stock,
-  CEIL(ROUND(SAFE_DIVIDE(SAFE_DIVIDE(cs.daily_spend, ls.spend_per_viable_ad) * 7, ls.viable_lifespan), 9)) AS steady_state_number,
+  st.p90 AS viable_share_p90,
+  st.viable_share_target,
+  st.weeks_counted AS viable_share_weeks,
+  st.complete_weeks - st.weeks_counted AS viable_share_weeks_left_out,
+  st.ramping_share,
+  st.worn_out_share,
+  SAFE_DIVIDE(cs.daily_spend * st.viable_share_target, ls.spend_per_viable_ad) AS viable_ad_stock,
+  CEIL(ROUND(SAFE_DIVIDE(SAFE_DIVIDE(cs.daily_spend * st.viable_share_target, ls.spend_per_viable_ad) * 7, ls.viable_lifespan), 9)) AS steady_state_number,
   tc.viable_ads,
   tc.live_past_ramping,
   tc.worn_out_now,
@@ -750,4 +839,5 @@ CROSS JOIN current_spend AS cs
 CROSS JOIN recent_weeks AS r
 CROSS JOIN today_counts AS tc
 CROSS JOIN format_split AS fs
+CROSS JOIN share_target AS st
 

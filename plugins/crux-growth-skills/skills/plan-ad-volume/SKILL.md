@@ -13,7 +13,7 @@ How it's worked out, laid out as `references/page-layout.md` fixes it, then offe
 creative brief and say when to run it again. Run the steps in order. The user sees only the chat and the
 page, never this skill or its references: say what the ads showed, in plain words with the figures,
 and never cite a file, a rule or a query. The terms
-Viable ad, Viable ad stock, Launched ad, Survival curve, Viable lifespan, Hit rate, Days viable per
+Viable ad, Viable share, Viable share target, Viable ad stock, Launched ad, Survival curve, Viable lifespan, Hit rate, Days viable per
 hit, Healthy lifespan, Spend per viable ad, Days to clear Ramping, Self-check, Ad stock check, Worn out
 now, Wearing out, Current pipeline, Churn cycle, Steady-state number, Budget, Roadmap, Catch-up, Ads to
 launch, Expected to work, Live-by, Waterfall, Hit-rate scenarios, Budget ladder, Format, Name coverage, Format split,
@@ -132,7 +132,8 @@ Send one message, then wait for the reply:
    ad audit does. Then, from every ad you launched in that time, I'll work out your hit rate (how
    many of your new ads become viable: their CAC holding up, under 20% above your account average
    and not climbing off its best) and how long the ones that work stay viable. That tells me how many
-   viable ads your spend needs live at once, and so how many new ads a week it takes to hold them.
+   viable ads your spend needs live at once, aiming at the best share of your spend your account has
+   put on viable ads, and so how many new ads a week it takes to hold them.
    CAC here is <basis>. If you give me a monthly budget, I'll step your spend to it week by week and
    work out the new ads each week." The basis is "spend over your own new orders" from a Growth Brain,
    and "Meta's own cost per purchase" otherwise. Then the offer, in these words: "Ask me about the
@@ -194,8 +195,9 @@ edits 1 to 3 (the mart's name, in `mart_rows` and in `video_plays`, with any col
 4, and run the whole file with `run_sql` as one statement. It judges every ad on every day of the
 365, and returns one row holding `viable_lifespan` (W), `hit_rate` (h), `days_viable_per_hit` (D) and
 `hit_rate_ads`, `spend_per_viable_ad`, `healthy_lifespan` with `age_below_75` and `age_below_25`,
-`days_to_clear_ramping`, `current_spend`, `current_pipeline`, `viable_ad_stock` (L),
-`steady_state_number`, today's counts, the Format split default (`video_pct`, `image_pct`) with its
+`days_to_clear_ramping`, `current_spend`, `current_pipeline`, `viable_share_p90`,
+`viable_share_target`, `viable_share_weeks` (the weeks counted), `viable_share_weeks_left_out`,
+`ramping_share` and `worn_out_share` (fractions of 1), `viable_ad_stock` (L), `steady_state_number`, today's counts, the Format split default (`video_pct`, `image_pct`) with its
 `name_coverage_pct`, and the `survival_table` (age, reached, viable, survival, viable_spend). Type
 none of them by hand. Where the brain's own instructions name the store's timezone, set it as the
 file says. A query error: fix the column from step 2 and run again, and never invent one. The plan
@@ -242,16 +244,32 @@ below is worked in code from that row. Compute each figure once, from these defi
 - **Current spend** is the last complete ISO week's spend over 7, outside the awareness and lead campaigns,
   as is every spend the plan reads. **Current pipeline** is the Launched ads per week, averaged over
   the last 8 complete ISO weeks.
-- **L**, the Viable ad stock, is current spend over the Spend per viable ad. The **Steady-state
-  number** is L times 7 over W, rounded up, which is L times 7 over h times D.
+- **Weekly viable share**: for each complete ISO week of the window (Monday to Sunday, both inside
+  it; the window's first day is the first day of the window read), the spend on viable ad-days over
+  that week's spend. Count every ad, Launched or not, outside the awareness and lead campaigns.
+- **Weeks counted**: leave out the window's first 6 complete weeks (the weekday index, life spend and
+  Peak CAC warm up from the window's first day, so those weeks lean towards Ramping). Of the weeks
+  that remain, leave out any whose spend is below 25% of their median weekly spend (an even count
+  takes the mean of the middle two): a thin week gives a noisy share. The weeks left are the weeks
+  counted. With fewer than 8, use those there are and say how many in This run.
+- **P90** is the 90th percentile of the weekly viable shares counted, by nearest rank: with them
+  sorted from lowest to highest, the share at rank 0.9 times their number, rounded up.
+  `viable_share_p90` is the same value.
+- **Viable share target** is the smaller of 100% and P90 times 1.2 (`viable_share_target`).
+- **Ramping share** and **worn out share** are the median weekly shares of spend, over the same
+  weeks counted, on Ramping ads and on Fatiguing, Fatigued and Low efficiency ads.
+- **L**, the Viable ad stock, is current spend times the Viable share target over the Spend per
+  viable ad. The **Steady-state number** is L times 7 over W, rounded up, which is L times 7 over h
+  times D.
 - **Today's counts**, on the last complete day: viable ads; live ads past Ramping; Worn out now
   (live ads past Ramping that are Fatiguing, Fatigued or Low efficiency).
 - **Self-check**: predicted viable ads is the Current pipeline times W over 7. It passes when it is
   within 25% of today's viable ads (the difference over today's viable ads).
 
 **Stop** where h is 0, with one line and no page: "None of the <n> ads launched at least 28 days ago
-became viable, so there is no hit rate to plan from." (n is `hit_rate_ads`.) This holds for an
-unattended run too.
+became viable, so there is no hit rate to plan from." (n is `hit_rate_ads`.) **Stop** too where no
+week is counted, with one line and no page: "<Brand>'s weekly spend is too uneven to read a viable
+share." Both hold for an unattended run too.
 
 **The plan.** Weeks are ISO weeks, counted from the current week (the one holding today) as week 0,
 so next week is week 1. Carry every stock unrounded; only Ads to launch is a whole number.
@@ -263,7 +281,7 @@ so next week is week 1. Carry every stock unrounded; only Ads to launch is a who
   after B. With no Budget it is current spend for w from 1 to 4 (B is 4). The Roadmap has one row for each w.
   A Budget below current spend is allowed: daily spend steps down, and the weeks that follow work
   as below.
-- **L(w)** is daily spend(w) over the Spend per viable ad. **S(0)** is the viable ads live on the last
+- **L(w)** is daily spend(w) times the Viable share target over the Spend per viable ad. **S(0)** is the viable ads live on the last
   complete day.
 - **Gap0** is L at current spend less S(0).
 - **Wearing out(w)** is the smaller of S(w−1) and S(w−1) times 7 over D.
@@ -289,8 +307,9 @@ so next week is week 1. Carry every stock unrounded; only Ads to launch is a who
   to launch(w) less that, which is below 0 in a week where the stock runs down on its own. The
   **total catch-up launches** is their sum over weeks 1 to B, worked only where Gap0 is above 0.
 - **Budget ladder.** The Steady-state number at current spend, at 1.25 times it, at 1.5 times it and
-  at the daily Budget (left out with no Budget), each with its L and each the Steady-state number's
-  formula, the ceiling of L times 7 over h times D, at that spend.
+  at the daily Budget (left out with no Budget), each with its L (worked at that spend, with the
+  same Viable share target) and each the Steady-state number's formula, the ceiling of L times 7 over
+  h times D, at that spend.
 - **Hit-rate scenarios.** Three rows, Today (h), +20% (h times 1.2) and +30% (h times 1.3), each
   with its hit rate h'. Each row's launches a week to keep up is the ceiling of L times 7 over h'
   times D, with L at current spend and D unchanged. Its change against today is relative, worked on
@@ -298,7 +317,11 @@ so next week is week 1. Carry every stock unrounded; only Ads to launch is a who
   at the Budget: the ceiling of L at the daily Budget times 7 over h' times D.
 
 **Done when** the run holds W, h, D, Spend per viable ad, the Healthy lifespan with its quartile
-range, Days to clear Ramping, current spend, the Current pipeline, L, the Steady-state number, today's
+range, Days to clear Ramping, current spend, the Current pipeline, the weekly viable shares and the
+weeks counted (6 left out for warm-up, then the thin ones, the run stopped on its line where none
+is left), P90, the Viable share target (at most 100%), the ramping share and the worn out share, L
+(current spend times the Viable share target over the Spend per viable ad, the same at every L(w)
+and every Budget ladder rung), the Steady-state number, today's
 counts, the Self-check, and the Format split default with its Name coverage, each from one calculation;
 the survival table (age, ads reached, viable, survival, spend on viable ad-days) has rates that sum to
 W, h times D equals W to two decimals, and the Spend per viable ad is the spend on viable ad-days over
@@ -316,14 +339,16 @@ Write the page as `references/page-layout.md` fixes it: two tabs switched by CSS
 Your plan. Your plan reads as one story and holds the four headline tiles (Where you are, Why, To
 keep up, Next week) and its five headings, in order, in the Page labels, each label explained at its
 first use: Do you have the right number of ads?, How your ads perform, Week-by-week plan, If more of
-your ads work, If you spend more. Its verdict is read off today's viable ads against L: Short below 80% of L,
+your ads work, If you spend more. Do you have the right number of ads? opens, before the bar, with
+the sentence that gives the P90 and the Viable share target, and the line that says where the rest
+of the spend goes and ends on its lever, in the words `references/page-layout.md` gives. Its verdict is read off today's viable ads against L: Short below 80% of L,
 Ahead above 150% of L, otherwise About right. It is shown on one bar, with the gap as a count of
 ads, and colours tile 1 only. Where any ad is Worn out now, it says to run `/audit-ads` for
 which ads to pause and names no ad. Every figure on Your plan is its source figure from step 4,
 shown rounded once and used rounded in every sentence beside it. How it's worked out holds its three
 headings (Terms on the plan, This run, The method): it carries `references/method.md` word for word,
 and no second wording of it, names the Source and the CAC basis, carries the Self-check line (the
-words `references/page-layout.md` gives), and ends on the Brain line only on a run that page-layout
+words `references/page-layout.md` gives), lists the P90, the Viable share target, the weeks counted and the weeks left out, and ends on the Brain line only on a run that page-layout
 gives one (the Source is not a Growth Brain and the session holds none). Where W is a lower bound,
 This run says so, and says the ad counts are a ceiling, in the words `references/page-layout.md`
 gives, and Your plan ends on its lower-bound line; the tiles and How your ads perform say "at least"
@@ -333,7 +358,8 @@ none persists (a chat), hand it over as a download.
 **Done when** the page opens on Your plan with the four tiles and its five headings in this order,
 Do you have the right number of ads?, How your ads perform, Week-by-week plan, If more of your ads
 work, If you spend more, and How it's worked out holds its three; tile 4's launches to keep up plus
-to catch up equal the first Week-by-week plan row's Ads to launch; the bar has one viable marker,
+to catch up equal the first Week-by-week plan row's Ads to launch; Do you have the right number of ads? carries, before the bar, the P90 and Viable share target
+sentence and the line on where the rest goes with the larger of its two shares as the lever; the bar has one viable marker,
 one target mark and the gap, and the verdict names Short, About right or Ahead with the gap as a
 count, read on viable ads only; no verdict word other than those three, and no marker for running
 ads, shows anywhere on the page; no glossary term shows on Your plan where page-layout gives it a
@@ -341,7 +367,7 @@ Page label; If more of your ads work holds Today, +20% and +30%, each row's laun
 ceiling of L times 7 over h' times D, and a Budget column only with a Budget; the Week-by-week
 plan's table and its chart hold the same weeks and the same video and image figures (or the total
 alone with no split); If you spend more states its assumption; a lower bound W is said on both
-tabs; the Self-check line is in This run, with its fail clause where the check failed; an
+tabs; the Self-check line is in This run, with its fail clause where the check failed, and so are the P90, the Viable share target, the weeks counted and the weeks left out (and the number of weeks where fewer than 8 were counted); an
 unattended run says so in This run; and the Brain line, where the run has one, is the last line of
 How it's worked out.
 
