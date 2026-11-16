@@ -133,7 +133,7 @@ Each row ties: start, less Wearing out, plus Expected to work, is the end stock.
 | 2 | £280 | 9.3 | 15.5 | 5.5 | 0 | 0.0 | 15.5 − 5.5 + 0.0 = 10.0 |
 | 3 | £120 | 4.0 | 10.0 | 3.5 | 0 | 0.0 | 10.0 − 3.5 + 0.0 = 6.5 |
 | 4 | £120 | 4.0 | 6.5 | 2.3 | 0 | 0.0 | 6.5 − 2.3 + 0.0 = 4.2 |
-| 5 | £120 | 4.0 | 4.2 | 1.5 | ⌈(4.0 − (4.2 − 1.5)) ÷ 0.40⌉ = ⌈3.19⌉ = 4 | 1.6 | 4.2 − 1.5 + 1.6 = 4.3 |
+| 5 | £120 | 4.0 | 4.2 | 1.5 | ⌈(4.0 − (4.2 − 1.5)) ÷ 0.40⌉ = ⌈3.25⌉ = 4 | 1.6 | 4.2 − 1.5 + 1.6 = 4.3 |
 
 For four weeks the stock left after Wearing out is already above the stock needed, so no ads are launched (the Roadmap reads "None needed") and the surplus wears out on its own. Ads to launch is never negative. In week 5 the stock after Wearing out (2.7) has fallen below the 4 needed, so launches resume.
 
