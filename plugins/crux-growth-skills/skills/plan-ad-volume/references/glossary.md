@@ -22,7 +22,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 ## The check
 
-- **Ad stock check**: today's counts against the Viable ad stock at current spend. **Short**: viable ads below 80% of it. **Over-stocked**: live ads past Ramping above 150% of it. **About right**: neither. Short and Over-stocked can both hold. _Avoid_: health check, ad audit.
+- **Ad stock check**: today's counts against the Viable ad stock at current spend. **Short**: viable ads below 80% of it. **Over-stocked**: live ads past Ramping above 150% of it. **About right**: neither. Short and Over-stocked can both hold. Your plan shows it as "Do you have the right number of ads?", with Too few, About right and Too many on a gauge and the gap as a count of ads. _Avoid_: health check, ad audit.
 
 - **Worn out now**: live ads past Ramping that are Fatiguing, Fatigued or Low efficiency. They take spend but are not stock. _Avoid_: dead ads, fatigued ads.
 
@@ -30,7 +30,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Current pipeline**: Launched ads per week, averaged over the last 8 complete weeks. What the steady-state number is compared with. _Avoid_: launch rate, creative velocity.
 
-- **Churn cycle**: the page's panel on how long an ad lasts in this account: Healthy lifespan, its quartile range, Viable lifespan, Days to clear Ramping and the Survival curve chart. _Avoid_: lifecycle, fatigue profile.
+- **Churn cycle**: how long an ad lasts in this account, the Your plan section of that name: Healthy lifespan, its quartile range, Viable lifespan, Days to clear Ramping and the Survival curve chart. _Avoid_: lifecycle, fatigue profile.
 
 ## The plan
 
@@ -54,10 +54,18 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Format split**: the video and image share the Roadmap divides new ads by, in whole ads by largest remainder so the two sum to the total: by default the shares of the Launched ads whose first spend fell in the last 8 complete weeks, which the user keeps, replaces or turns off. Worked out before the intake, from the Launched ads outside the proposed awareness campaigns, and again where the reply changes those campaigns. _Avoid_: creative mix.
 
-- **Awareness campaign**: a campaign the user confirms at the intake as bought for awareness, reach, video views, engagement or traffic rather than purchases. Left out of the plan whole: no status, no curve, no spend, no new ads; named with its spend in Notes and Method. _Avoid_: brand campaign, upper funnel, TOF.
+- **Awareness campaign**: a campaign the user confirms at the intake as bought for awareness, reach, video views, engagement or traffic rather than purchases. Left out of the plan whole: no status, no curve, no spend, no new ads; named with its spend in This run on How it's worked out. _Avoid_: brand campaign, upper funnel, TOF.
 
 - **Source**: where the ad-by-day rows come from, the first that holds them of a Growth Brain (the last 365 days), a Meta connector in the session and one Ads Manager export (each the last 180 days). Named on the page. _Avoid_: data source, feed.
 
-- **Unattended run**: a run whose message says so or says not to ask, or a scheduled session. It asks nothing, takes the proposed retargeting and awareness campaigns, plans current spend held flat for 4 weeks with no Budget and no Format split, saves the Roadmap file without offering it, and says so in Notes and Method. _Avoid_: automatic run, headless run.
+- **Unattended run**: a run whose message says so or says not to ask, or a scheduled session. It asks nothing, takes the proposed retargeting and awareness campaigns, plans current spend held flat for 4 weeks with no Budget and no Format split, saves the Roadmap file without offering it, and says so in This run on How it's worked out. _Avoid_: automatic run, headless run.
 
-- **Brain line**: the fixed sentence, "With a Growth Brain, the survival curve judges every ad on a single attribution source rather than every purchase Meta claims, and reads a year of history without an export.", said as the last line of Notes and Method on a run whose Source is not a Growth Brain and whose session holds no Growth Brain. _Avoid_: upsell, plug.
+- **Brain line**: the fixed sentence, "With a Growth Brain, the survival curve judges every ad on a single attribution source rather than every purchase Meta claims, and reads a year of history without an export.", said as the last line of How it's worked out on a run whose Source is not a Growth Brain and whose session holds no Growth Brain. _Avoid_: upsell, plug.
+
+## The page
+
+- **Your plan**: the page's first tab, the one it opens on: the headline tiles, then the verdict on a gauge, how long an ad lasts, new ads a week, the Week-by-week plan and If you spend more, all in Page labels. _Avoid_: dashboard tab, summary.
+
+- **How it's worked out**: the page's second tab: Terms on the plan, This run, the method word for word, and the Brain line where the run has one. _Avoid_: Notes and Method, appendix.
+
+- **Page label**: the plain words Your plan, the Roadmap file and the chat use for a term, fixed once in the Page labels table of `references/page-layout.md`, each explained at its first use. The terms themselves stay on How it's worked out. _Avoid_: display name, friendly name.
