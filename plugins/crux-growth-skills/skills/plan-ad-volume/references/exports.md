@@ -17,7 +17,7 @@ columns and no others.
 | Ad ID | the ad: the grain every figure is grouped on |
 | Ad name | the ad's name |
 | Ad set name | the ad set's name |
-| Campaign name | the campaign's name, the Account blend's two groups, and the retargeting and awareness proposals |
+| Campaign name | the campaign's name, the Account blend's two groups, and the retargeting, awareness and lead proposals |
 | Day | the window a row falls in, and each ad's age |
 | Amount spent | spend |
 | Impressions | nothing in the verdict or the curve |
@@ -42,8 +42,9 @@ through its insights tool.
 - **Account.** Use only an ad account that is plainly the brand's; with several, ask which.
 - **Pages.** Take every page of rows before any sum. A first page alone understates spend.
 - **Objective.** Read each campaign's objective once, through its campaigns tool where it has one,
-  for the awareness proposal: any objective other than sales (or the older conversions or catalogue
-  sales objectives) proposes the campaign. Without one, propose by name alone.
+  for the awareness and lead proposals: a leads objective proposes the campaign as a lead campaign,
+  and any objective other than sales (or the older conversions or catalogue sales objectives) or
+  leads proposes it as awareness. Without one, propose by name alone.
 
 ## Ads Manager export
 
@@ -98,9 +99,9 @@ are not the brain's mart:
   reads its three keys, the campaign key is the Campaign name, the ad set key the Ad set name and
   the ad key the Ad ID, each ad taking the names on its latest row as the SQL's `keyed` does. The
   retargeting campaigns are matched by Campaign name.
-- **Awareness campaigns.** Drop the ads of the awareness campaigns, matched by the Campaign name
-  on each ad's latest row, as the SQL's `keyed` does: an ad whose campaign was renamed is left out
-  whole, its rows under the old name too. Drop the proposed campaigns for the Launched-ad count and the Format split default of
+- **Awareness and lead campaigns.** Drop the ads of the awareness and lead campaigns together,
+  matched by the Campaign name on each ad's latest row, as the SQL's `keyed` does: an ad whose
+  campaign was renamed is left out whole, its rows under the old name too. Drop the proposed campaigns for the Launched-ad count and the Format split default of
   `SKILL.md` step 2, and the confirmed ones once step 3's reply is in.
 - **Orders.** Purchases stand where the SQL reads `new_orders`, so CAC is Amount spent over
   Purchases, Meta's own cost per purchase: platform-attributed, counting every purchase Meta
@@ -125,7 +126,7 @@ viable ad-days. Print the figures, the survival table (age, ads reached, viable,
 that age's viable ad-days) and the Roadmap rows, never the rows of the export.
 
 **Done when** every ad that spent on a day carries exactly one status for that day, the spend over
-the rows read equals the spend in the file for the same days outside the awareness campaigns (each
+the rows read equals the spend in the file for the same days outside the awareness and lead campaigns (each
 ad by its latest row's campaign), and the survival table lists each age with the ads reached and the viable count that give its rate, its
 rates sum to the Viable lifespan, the Hit rate times the Days viable per hit equals the Viable
 lifespan to two decimals, and the Spend per viable ad is the spend on viable ad-days over their

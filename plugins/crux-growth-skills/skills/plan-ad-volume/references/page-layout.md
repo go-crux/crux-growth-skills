@@ -64,7 +64,7 @@ on the right, one row per label, in this order:
 | Window | The complete days read, first to last date: 365 from a Growth Brain, 180 from a Meta connector or an export (or the days the Source held, if fewer). |
 | Source | The Source the run used: the Growth Brain connector's name, the Meta connector's name, or "Ads Manager export" with the file's name. |
 | Measure | With a Growth Brain: "CAC: spend over new customers, counted from your own first orders." Otherwise: "CAC: Meta spend over the purchases Meta reports for the ad. Platform-attributed: it counts every purchase Meta claims." |
-| Current spend | The last complete ISO week's dates, its spend outside the awareness campaigns, and that spend a day. |
+| Current spend | The last complete ISO week's dates, its spend outside the awareness and lead campaigns, and that spend a day. |
 
 # Your plan
 
@@ -320,9 +320,11 @@ A short list:
 - the campaigns confirmed as retargeting or existing-customer, by name, or "None";
 - the campaigns left out as awareness, by name with their spend over the last 7 complete days, or
   "None";
+- the campaigns left out as lead campaigns, by name with their spend over the last 7 complete days,
+  or "None";
 - an unattended run, in these words with the campaigns filled in: "This run was unattended, so
-  nobody was asked. The proposed retargeting campaigns (<names>) and awareness campaigns (<names>)
-  were used, no Budget was given, so current spend was held flat for 4 weeks, and no Format split
+  nobody was asked. The proposed retargeting campaigns (<names>), awareness campaigns (<names>) and lead
+  campaigns (<names>) were used, no Budget was given, so current spend was held flat for 4 weeks, and no Format split
   was given, so new ads are shown as a total." Leave it out on a run that was not unattended.
 
 ## The method

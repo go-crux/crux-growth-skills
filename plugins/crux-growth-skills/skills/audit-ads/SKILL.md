@@ -12,7 +12,7 @@ Run the steps in order. The user sees only the chat and the page, never this ski
 references: say what the ads showed, in plain words with the figures, and never cite a file, a
 rule or a query. The terms CAC, Account blend, Peak CAC, Eligibility floors, Ramping, Low
 efficiency, Improving, Fatigued, Fatiguing, Winner, Healthy, Pause, Refresh, Iterate, Keep,
-Minimum live ads, Reported ad, Judged spend share, Awareness campaign, Unattended run, Source,
+Minimum live ads, Reported ad, Judged spend share, Awareness campaign, Lead campaign, Unattended run, Source,
 Brain line, Recommendation, Lever, Mode, Hand-off, Handover file and Next run are those of
 `references/glossary.md`; use them as written.
 
@@ -22,7 +22,7 @@ A run is unattended when its message says so or says not to ask, or when it is a
 or routine: nobody is there to answer. It asks nothing at any step. Where a step would ask, it takes
 that step's recommended answer, and only where a step recommends none (several Growth Brains and
 none plainly the brand's, no export attached) does it stop with one line saying what it needed.
-Step 3 sends no message and takes the proposed retargeting and awareness campaigns as confirmed,
+Step 3 sends no message and takes the proposed retargeting, awareness and lead campaigns as confirmed,
 step 7 asks no Hand-off question, and the page's Notes and Method says the run was unattended.
 
 ## 1. Connect
@@ -64,28 +64,32 @@ templates).
 **List the campaigns**, from either Source, before the account is sized. With a Growth Brain, one
 `run_sql` query listing each campaign's key (its id, or its name without one), name, type and spend
 over the last 7 days, for campaigns with spend in the last 60 complete days; without one, the same
-list from the rows read, by name alone, as no campaign type is held. From it, propose two sets for
+list from the rows read, by name alone, as no campaign type is held. From it, propose three sets for
 the intake:
 
 - **Awareness campaigns**: those whose name contains awareness, reach, video views, VV, engagement
-  or traffic, or reads as one of those, or, through a Meta connector, whose objective is not sales.
+  or traffic, or reads as one of those, or, through a Meta connector, whose objective is neither
+  sales nor leads.
+- **Lead campaigns**: those whose name contains lead, leads, giveaway, competition, comp, signup,
+  sign-up or sign up (whole words, ignoring case), or reads as one of those, or, through a Meta
+  connector, whose objective is leads. A campaign proposed as awareness is not proposed here too.
 - **Retargeting and existing-customer campaigns**: those whose campaign type is `RET`, plus those
   whose name contains retargeting, RT, remarketing, existing or retention, or reads as one of
-  those. A campaign proposed as awareness is not proposed here too.
+  those. A campaign proposed as awareness or as a lead campaign is not proposed here too.
 
 **Size the account**, from either Source, before the intake. Eligibility reads no retargeting
-campaign, so this needs none, but it leaves out the proposed awareness campaigns. With a Growth
-Brain, open `references/fatigue.sql`, make its first edit (the mart's name and any column names from
-the second call), leave the retargeting list empty, put the proposed awareness campaigns in its
-third edit and run its account check in place of its final statement, as the file says. Without
+campaign, so this needs none, but it leaves out the proposed awareness and lead campaigns. With a
+Growth Brain, open `references/fatigue.sql`, make its first edit (the mart's name and any column
+names from the second call), leave the retargeting list empty, put the proposed awareness and lead
+campaigns together in its third edit and run its account check in place of its final statement, as the file says. Without
 one, take the same three figures from the ported rows, as `references/exports.md` sets out. They
 are `reported_ads` (ads with 100 or more spent over the last 7 days), `account_spend_7d` (outside
-the awareness campaigns) and `judged_spend_7d` (the part of it in ads past the Eligibility
+the awareness and lead campaigns) and `judged_spend_7d` (the part of it in ads past the Eligibility
 floors). The Judged spend share is `judged_spend_7d` over `account_spend_7d`.
 
 **Done when** every column above is named from the second call, or the run has stopped with a line
 saying which is missing, or the rows are read from a connector or export and cover the 60 days, and
-the run holds both proposed sets of campaigns, the Reported ad count and the Judged spend share.
+the run holds all three proposed sets of campaigns, the Reported ad count and the Judged spend share.
 
 ## 3. Intake
 
@@ -105,11 +109,15 @@ Send one message, then wait for the reply:
    awareness, reach or video views rather than purchases, so CAC is the wrong measure for them and
    the audit leaves them out. Ask the user to confirm the list, add to it or remove from it.
    Recommend the proposal. With no campaign that fits, say so and recommend none.
-4. The proposed retargeting and existing-customer campaigns, by name with their spend over the last
+4. The proposed lead campaigns, by name with their spend over the last 7 days: bought for leads,
+   sign-ups, giveaways or competitions rather than purchases, so CAC is the wrong measure for them
+   and the audit leaves them out. Ask the user to confirm the list, add to it or remove from it.
+   Recommend the proposal. With no campaign that fits, say so and recommend none.
+5. The proposed retargeting and existing-customer campaigns, by name with their spend over the last
    7 days, judged against their own blend. Ask the user to confirm it, add to it or remove from it.
-   Recommend the proposal ("yes" accepts both proposals). With no campaign that fits, say so and
+   Recommend the proposal ("yes" accepts every proposal). With no campaign that fits, say so and
    recommend none.
-5. Above 300 Reported ads, a warning that the run will be long and token-heavy: how many ads
+6. Above 300 Reported ads, a warning that the run will be long and token-heavy: how many ads
    spent 100 or more over the last 7 days, that every ad is still judged, and that the page lists
    those Reported ads only. Ask whether to go on, and recommend going on.
 
@@ -122,13 +130,13 @@ When the user asks about the method, at this step or any later one, answer from
 An unattended run sends nothing: it takes the proposals and goes on, whatever the count of Reported
 ads.
 
-Where the reply changes the awareness campaigns, size the account again with the confirmed ones, as
+Where the reply changes the awareness or lead campaigns, size the account again with the confirmed ones, as
 step 2 does, before step 4. Where the new Judged spend share falls below 50%, say so in one line,
 as item 1 would have.
 
 **Done when** the user has answered (an unattended run needs no answer) and the run holds the
-confirmed retargeting and awareness campaign keys, or the proposed ones for an unattended run, or
-none, and an account check run on the awareness campaigns it holds.
+confirmed retargeting, awareness and lead campaign keys, or the proposed ones for an unattended run,
+or none, and an account check run on the awareness and lead campaigns it holds.
 
 ## 4. Judge
 
@@ -137,7 +145,7 @@ none, and an account check run on the awareness campaigns it holds.
 
 **With a Growth Brain**, open `references/fatigue.sql`. Make its three edits: the mart's name and
 any column names from step 2, the confirmed retargeting campaign keys, and the confirmed awareness
-campaign keys. Run it with `run_sql` as one statement; the file computes the windows, the day-of-week index, every status, the sizes and the confidence, so
+and lead campaign keys together. Run it with `run_sql` as one statement; the file computes the windows, the day-of-week index, every status, the sizes and the confidence, so
 type none of them by hand. Where the brain's own instructions name the store's timezone, set it as the file says. A
 query error: fix the column from step 2 and run again, and never invent one.
 
@@ -147,7 +155,7 @@ Either way, the result is one row per Reported ad, with its status, spend, CACs,
 
 **Done when** every row holds exactly one status, the 7-day spend of the rows is the figure the
 Summary will give, and the 7-day spend of the rows not Ramping equals the `judged_spend_7d` of the
-last account check (step 2's, or step 3's where the reply changed the awareness campaigns).
+last account check (step 2's, or step 3's where the reply changed the awareness or lead campaigns).
 
 ## 5. Recommend
 
