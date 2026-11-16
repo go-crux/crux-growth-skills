@@ -378,7 +378,7 @@ spent AS (
 ),
 -- For each day as the day judged, the account's CAC on each weekday over its CAC on all history_days
 -- days to that day; the index every day in that day's windows is divided by.
-dow_totals AS (
+brain_dow_totals AS (
   SELECT
     d AS as_of, k AS dow,
     COALESCE(SUM(a.spend), 0) AS spend, COALESCE(SUM(a.new_orders), 0) AS new_orders
@@ -404,7 +404,7 @@ dow_index AS (
       ),
       1
     ) AS dow_index
-  FROM dow_totals
+  FROM brain_dow_totals
 ),
 -- Every ad with spend in the reported_days to a day, for each such day.
 judged_days AS (
@@ -600,7 +600,7 @@ hit_rate AS (
   FROM hit_ads
 ),
 -- The curve's peak: its highest rate, at the first such age. The Healthy lifespan reads from there.
-peak AS (
+brain_peak AS (
   SELECT ARRAY_AGG(STRUCT(age, viable, reached) ORDER BY SAFE_DIVIDE(viable, reached) DESC, age LIMIT 1)[SAFE_OFFSET(0)] AS p
   FROM curve
 ),
@@ -618,7 +618,7 @@ lifespans AS (
     MIN(IF(c.age > k.p.age AND c.viable * 4 * k.p.reached < c.reached * k.p.viable, c.age, NULL)) AS age_below_25,
     ARRAY_AGG(c.viable * 4 >= c.reached ORDER BY c.age DESC LIMIT 1)[SAFE_OFFSET(0)] AS w_is_lower_bound
   FROM curve AS c
-  CROSS JOIN peak AS k
+  CROSS JOIN brain_peak AS k
 ),
 -- Days to clear Ramping: the median, over Launched ads, of the age of the first day not Ramping.
 cleared AS (
