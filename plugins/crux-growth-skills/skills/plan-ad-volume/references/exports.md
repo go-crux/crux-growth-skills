@@ -75,7 +75,7 @@ already in the conversation counts.
   user cannot give it, the window is the days it holds, and the page says so. A day an ad has no
   row for is a day with no spend. The window's first day is the first day of the window read.
 - **Timezone.** A file that names a timezone is read in it; a connector's is the ad account's.
-  Where none is named, say so in the Notes and Method. Days are not converted.
+  Where none is named, say so in How it's worked out. Days are not converted.
 - **Currency.** The one the Source reports in. Where a file names none, ask once.
 
 ## Judging in code

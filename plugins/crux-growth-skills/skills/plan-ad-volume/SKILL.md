@@ -6,17 +6,21 @@ description: Meta ad volume forecast. Use when the user asks how many new Meta a
 # Meta ad volume forecast
 
 Work out how many new Meta ads a week the account's spend needs, from the account's own Survival
-curve, and produce `meta-ad-volume-<date>.html`: the Ad stock check, The gap, the Churn cycle, Ads
-a week, the Roadmap with its Waterfall, the Budget ladder, and Notes and Method, laid out as
-`references/page-layout.md` fixes it, then offer the Roadmap as `meta-ad-roadmap-<date>.md` for the
+curve, and produce `meta-ad-volume-<date>.html`: a dashboard whose Your plan tab says whether the
+account runs too few, about the right number or too many ads and by how many, then how long an ad
+lasts, new ads a week, the Week-by-week plan and If you spend more, with the method on a second tab,
+How it's worked out, laid out as `references/page-layout.md` fixes it, then offer the Roadmap as `meta-ad-roadmap-<date>.md` for the
 creative brief and say when to run it again. Run the steps in order. The user sees only the chat and the
 page, never this skill or its references: say what the ads showed, in plain words with the figures,
 and never cite a file, a rule or a query. The terms
 Viable ad, Viable ad stock, Launched ad, Survival curve, Viable lifespan, Healthy lifespan, Spend per
 viable ad, Days to clear Ramping, Ad stock check, Worn out now, Wearing out, Current pipeline, Churn
 cycle, Steady-state number, Budget, Roadmap, Live-by, Waterfall, Budget ladder, Format, Name coverage,
-Format split, Roadmap file, Awareness campaign, Unattended run, Source and Brain line are those of
-`references/glossary.md`, and Next run is the repo's shared term; use them as written. The ad
+Format split, Roadmap file, Awareness campaign, Unattended run, Source, Brain line, Your plan, How
+it's worked out and Page label are those of
+`references/glossary.md`, and Next run is the repo's shared term; use them as written here and on
+How it's worked out. Your plan, the Roadmap file and the chat's close speak to the user in the Page labels
+`references/page-layout.md` gives each term instead. The ad
 statuses and CAC are judged exactly as `references/fatigue.sql` judges them.
 
 ## Unattended run
@@ -31,7 +35,7 @@ Its defaults, every one of them:
 - It plans current spend held flat for 4 weeks: no Budget is asked for or used, so the Budget ladder
   shows its three rungs at current spend, +25% and +50%.
 - It uses no Format split, so the Roadmap shows new ads as a total.
-- The page's Notes and Method says the run was unattended, in the words `references/page-layout.md`
+- The page's How it's worked out says the run was unattended, in the words `references/page-layout.md`
   gives.
 - The Close asks nothing: it saves the Roadmap file beside the page without offering it, and gives
   the Next run without the calendar offer.
@@ -119,7 +123,8 @@ Send one message, then wait for the reply:
 1. The method in brief, in these words with the days filled in (365 from a Growth Brain, 180
    otherwise): "I'll judge every Meta ad on every day of the last 365 days by its CAC, the way an ad
    audit does, then draw a survival curve from the ads you launched in that time to see how long a
-   new ad stays viable. That tells me how many viable ads your spend needs live at once, and so how
+   new ad stays viable (its CAC holding up: under 20% above your account average and not climbing
+   off its best). That tells me how many viable ads your spend needs live at once, and so how
    many new ads a week it takes to hold them. CAC here is <basis>. If you give me a monthly budget,
    I'll step your spend to it week by week and work out the new ads each week." The basis is "spend
    over your own new orders" from a Growth Brain, and "Meta's own cost per purchase" otherwise. Then
@@ -265,34 +270,40 @@ Budget ladder and the growth are computed, and the run knows whether W is a lowe
 
 ## 5. Write the page
 
-Write the page as `references/page-layout.md` fixes it: its seven headings (Ad stock check, The gap,
-Churn cycle, Ads a week, Roadmap, Budget ladder, Notes and Method), in order, with the Ad stock
-check read off today's counts against L: Short below 80% of L, Over-stocked above 150% of L,
-otherwise About right. Where both hold, or any ad is Worn out now, the Ad stock check says to run
-`/audit-ads` for which ads to pause and names no ad. Notes and Method carries `references/method.md`
-word for word, and no second wording of it, names the Source and the CAC basis, and ends on the
-Brain line only on a run that page-layout gives one (the Source is not a Growth Brain and the
-session holds none). Where W is a lower bound, Notes and Method says so, and says the ad counts are a ceiling, in the words
-`references/page-layout.md` gives; the Churn cycle shows "not reached" for a quartile the curve does
+Write the page as `references/page-layout.md` fixes it: two tabs switched by CSS alone, opening on
+Your plan. Your plan holds the four headline tiles and its five headings (Do you have the right
+number of ads?, How long an ad lasts, New ads a week, Week-by-week plan, If you spend more), in
+order, in the Page labels, each label explained at its first use. Its verdict is read off today's
+counts against L: Short (Too few) below 80% of L in viable ads, Over-stocked (Too many) above 150% of
+L in live ads past Ramping, otherwise About right, shown on the gauge with the gap as a count of ads.
+Where both hold, or any ad is Worn out now, it says to run `/audit-ads` for which ads to pause and
+names no ad. How it's worked out holds its three headings (Terms on the plan, This run, The
+method): it carries `references/method.md` word for word, and no second wording of it, names the
+Source and the CAC basis, and ends on the Brain line only on a run that page-layout gives one (the
+Source is not a Growth Brain and the session holds none). Where W is a lower bound, This run says so,
+and says the ad counts are a ceiling, in the words `references/page-layout.md` gives, and Your plan
+ends on its lower-bound line; How long an ad lasts shows "not reached" for a quartile the curve does
 not reach. Save the page as `meta-ad-volume-<date>.html` in the working folder; where
 none persists (a chat), hand it over as a download.
 
-**Done when** the page holds the seven headings in order, the Ad stock check names Short,
-Over-stocked or About right with the counts behind it, the Steady-state number stands against the
-Current pipeline, the Roadmap table and the Waterfall hold the same weeks and the same video and
-image figures (or the total alone with no split), the Budget ladder states its assumption, a lower
-bound W is said in Notes and Method, an unattended run says so in Notes and Method, and the Brain line, where the run has one, is the last
-line.
+**Done when** the page opens on Your plan with the four tiles and its five headings in order, and
+How it's worked out holds its three; the verdict names Too few, Too many or About right with the gap
+as a count, on the gauge under Do you have the right number of ads?; no glossary term shows on Your plan where page-layout gives it a Page
+label; New ads a week to keep up stands against You launch now; the Week-by-week plan's table and
+its chart hold the same weeks and the same video and image figures (or the total alone with no
+split); If you spend more states its assumption; a lower bound W is said on both tabs; an
+unattended run says so in This run; and the Brain line, where the run has one, is the last line of
+How it's worked out.
 
 ## 6. Close
 
 In chat, after the page, in this order:
 
-1. One line: where the page is, the Ad stock check's verdict, and the Steady-state number against
-   the Current pipeline.
-2. **The Roadmap file.** Offer the Roadmap as `meta-ad-roadmap-<date>.md`, to hand to whoever makes
-   the ads, and say what it holds: the Budget, the weeks, the new ads by format, the Live-by dates,
-   and one line each on the Viable lifespan and the Spend per viable ad. On "yes", write it as
+1. One line, in the Page labels: where the page is, the verdict with its gap ("12 viable ads
+   short"), and New ads a week to keep up against You launch now.
+2. **The Roadmap file.** Offer the Week-by-week plan as a file, `meta-ad-roadmap-<date>.md`, to hand to whoever makes
+   the ads, and say what it holds: the Budget, the weeks, the new ads by format, the Go live by
+   dates, and one line each on how long an ad lasts and the spend one viable ad carries. On "yes", write it as
    `references/page-layout.md` fixes it and save it in the working folder; where none persists (a
    chat), hand it over as a download. It is self-contained: someone who has not seen the page can
    brief from it.
