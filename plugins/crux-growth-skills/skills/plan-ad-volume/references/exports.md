@@ -121,5 +121,5 @@ Print the figures, the survival table (age, ads classified, viable, survival, av
 ad) and the Roadmap rows, never the rows of the export.
 
 **Done when** every ad that spent on a day carries exactly one status for that day, the spend over
-the rows read equals the spend in the file for the same days outside the awareness campaigns, and
-the survival table lists each age with the ads classified and the viable count that give its rate.
+the rows read equals the spend in the file for the same days outside the awareness campaigns (each
+ad by its latest row's campaign), and the survival table lists each age with the ads classified and the viable count that give its rate.

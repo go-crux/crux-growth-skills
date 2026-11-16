@@ -113,6 +113,7 @@ column names, so every later step reads it without knowing the Source: Campaign 
 Ad ID in `ad_key`.
 
 **Done when** every Reported ad has exactly one status, the 7-day spend over the rows equals the
-spend in the file or connector for the same 7 days outside the awareness campaigns, every Reported ad's row carries its
+spend in the file or connector for the same 7 days outside the awareness campaigns (each ad by its
+latest row's campaign), every Reported ad's row carries its
 `ad_set_live_ads`, and the 7-day spend of the rows not Ramping equals the account check's
 `judged_spend_7d`.
