@@ -88,8 +88,9 @@ purchases counts as above any CAC. Four changes, because the rows are not the br
   the ad key the Ad ID, each ad taking the names on its latest row as the SQL's `keyed` does. The
   ad set count of live ads past Ramping and the retargeting campaigns (matched by Campaign name)
   read those.
-- **Awareness campaigns.** Drop the rows of the awareness campaigns (matched by Campaign name)
-  before anything else, as the SQL's `source` does.
+- **Awareness campaigns.** Drop the ads of the awareness campaigns, matched by the Campaign name
+  on each ad's latest row, as the SQL's `keyed` does: an ad whose campaign was renamed is left out
+  whole, its rows under the old name too.
 - **Orders.** Purchases stand where the SQL reads `new_orders`, so CAC is Amount spent over
   Purchases, Meta's own cost per purchase: platform-attributed, counting every purchase Meta
   claims. Confidence reads the same count.
@@ -112,6 +113,7 @@ column names, so every later step reads it without knowing the Source: Campaign 
 Ad ID in `ad_key`.
 
 **Done when** every Reported ad has exactly one status, the 7-day spend over the rows equals the
-spend in the file or connector for the same 7 days outside the awareness campaigns, every Reported ad's row carries its
+spend in the file or connector for the same 7 days outside the awareness campaigns (each ad by its
+latest row's campaign), every Reported ad's row carries its
 `ad_set_live_ads`, and the 7-day spend of the rows not Ramping equals the account check's
 `judged_spend_7d`.
