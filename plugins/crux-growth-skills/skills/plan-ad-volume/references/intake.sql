@@ -3,9 +3,11 @@
 -- intake quotes figures the run already holds. It is run with the proposed awareness campaigns, and
 -- again with the confirmed ones where the reply changes them. A connector or an export computes the
 -- same figures in code (references/exports.md).
--- One row: launched_ads, recent_launched_ads, video_pct, image_pct, name_coverage_pct. The video and
--- image percentages and the Name coverage are NULL where no Launched ad's first spend fell in the
--- last 8 complete weeks.
+-- One row: launched_ads, hit_rate_ads, recent_launched_ads, video_pct, image_pct, name_coverage_pct.
+-- hit_rate_ads is the Launched ads at least 28 days old (first spend at least 27 days before the last
+-- complete day), the count the first guard of SKILL.md step 2 reads and the denominator of the Hit
+-- rate in references/fatigue.sql. The video and image percentages and the Name coverage are NULL
+-- where no Launched ad's first spend fell in the last 8 complete weeks.
 -- Edit 1: the mart's name in `mart_rows` and in `video_plays`, and any column list_tables shows
 -- under another name. Where the mart has no `adset_id`, write `ad_group` in its place; where it has
 -- no `campaign_id`, write `campaign_name` in its place; a mart with no `video_views` column takes 0
@@ -15,13 +17,13 @@
 -- Timezone: where the brain's own instructions name the store's timezone, write it in the one
 -- CURRENT_DATE() of `win`, as references/fatigue.sql does.
 -- The windows, the Launched ad, the ad keys and the Format below are references/fatigue.sql's, so
--- the figures match what its run returns for the same awareness campaigns. The block between
--- `-- BEGIN shared format` and `-- END shared format` is the same in both files and changes
--- together with it.
+-- the figures match what its run returns for the same awareness campaigns. The block fenced as
+-- shared format below is the same in both files and changes together with it.
 WITH
 plan_cut AS (
   SELECT
     365 AS window_days,
+    28 AS hit_days,
     8 AS pipeline_weeks
 ),
 -- The last 365 complete days, ending yesterday. `this_monday` starts the ISO week holding today.
@@ -142,6 +144,13 @@ format_split AS (
 -- END shared format
 SELECT
   (SELECT COUNT(*) FROM launched) AS launched_ads,
+  (
+    SELECT COUNT(*)
+    FROM launched AS l
+    CROSS JOIN win AS w
+    CROSS JOIN plan_cut AS p
+    WHERE l.first_spend <= DATE_SUB(w.date_to, INTERVAL (p.hit_days - 1) DAY)
+  ) AS hit_rate_ads,
   fs.recent_launched_ads,
   fs.video_pct,
   100 - fs.video_pct AS image_pct,

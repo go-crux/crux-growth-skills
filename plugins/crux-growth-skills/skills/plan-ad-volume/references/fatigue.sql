@@ -27,8 +27,9 @@
 -- weekday's index, which is the same as dividing each day's CAC by it, so every window's CAC
 -- below is adj_spend over new_orders. Each comparison is written as spend >= multiple x CAC x
 -- orders, so an ad with no new orders in the window counts as infinitely above any CAC.
--- Viable is Healthy or Winner. An ad is classified on a day when it spent that day and its status
--- is not Ramping; the model in references/method.md reads `spend_on_day` for that.
+-- Viable is Healthy or Winner. A day with no spend (Inactive), Ramping, Unknown or any other status
+-- is not viable. The model in references/method.md counts every Launched ad at every age it has
+-- reached, and reads `spend_on_day` for the day's spend.
 WITH
 -- BEGIN shared classification
 -- Every threshold, stated once. The rolling frames in `rolling` are the 5 and 7 day windows.
@@ -335,6 +336,7 @@ plan_cut AS (
   SELECT
     365 AS window_days,
     3 AS curve_min_ads,
+    28 AS hit_days,
     8 AS pipeline_weeks
 ),
 -- The last 365 complete days, ending yesterday. `this_monday` starts the ISO week holding today.
@@ -543,37 +545,80 @@ launched AS (
   GROUP BY ad_key
   HAVING MIN(day) > (SELECT day FROM first_day)
 ),
--- The Survival curve: at each age, the Launched ads classified (spent and not Ramping) and the
--- viable ones (Healthy or Winner), with the average spend of the classified ads.
-ages AS (
+-- The Survival curve. A Launched ad has reached age a when its first spend is at least a days before
+-- the last complete day, so `age_reach` counts every Launched ad at every age it has reached inside
+-- the window. An ad that stopped spending or is still Ramping stays in the count.
+age_reach AS (
+  SELECT a AS age, COUNT(*) AS reached
+  FROM launched AS l
+  CROSS JOIN win AS w
+  CROSS JOIN UNNEST(GENERATE_ARRAY(0, DATE_DIFF(w.date_to, l.first_spend, DAY))) AS a
+  GROUP BY a
+),
+-- The viable ad-days (Healthy or Winner) at each age, with their spend. A day with no spend has no
+-- row in ad_day_status, so it is not viable.
+viable_days AS (
   SELECT
     DATE_DIFF(s.day, l.first_spend, DAY) AS age,
-    COUNT(*) AS classified,
-    COUNTIF(s.status IN ('Healthy', 'Winner')) AS viable,
-    AVG(s.spend) AS avg_spend
+    COUNT(*) AS viable,
+    SUM(s.spend) AS viable_spend
   FROM ad_day_status AS s
   JOIN launched AS l USING (ad_key)
-  WHERE s.status != 'Ramping'
+  WHERE s.status IN ('Healthy', 'Winner')
   GROUP BY age
 ),
 curve AS (
-  SELECT a.age, a.classified, a.viable, SAFE_DIVIDE(a.viable, a.classified) AS survival, a.avg_spend
-  FROM ages AS a
+  SELECT
+    r.age,
+    r.reached,
+    COALESCE(v.viable, 0) AS viable,
+    SAFE_DIVIDE(COALESCE(v.viable, 0), r.reached) AS survival,
+    COALESCE(v.viable_spend, 0) AS viable_spend
+  FROM age_reach AS r
+  LEFT JOIN viable_days AS v USING (age)
   CROSS JOIN plan_cut AS p
-  WHERE a.classified >= p.curve_min_ads
+  WHERE r.reached >= p.curve_min_ads
 ),
--- W (viable_lifespan), Spend per viable ad and the Healthy lifespan with its quartile range. The thresholds compare
--- whole counts (viable x 2 < classified is survival below 50%), so a rate of exactly 50% is not below.
+-- The Hit rate: over the Launched ads whose first spend is at least hit_days - 1 days before the last
+-- complete day (ages 0 to 27 all inside the window), the share viable on at least one of those days.
+hit_ads AS (
+  SELECT
+    l.ad_key,
+    COALESCE(LOGICAL_OR(s.status IN ('Healthy', 'Winner')
+                        AND DATE_DIFF(s.day, l.first_spend, DAY) < p.hit_days), FALSE) AS was_viable
+  FROM launched AS l
+  CROSS JOIN win AS w
+  CROSS JOIN plan_cut AS p
+  LEFT JOIN ad_day_status AS s ON s.ad_key = l.ad_key
+  WHERE l.first_spend <= DATE_SUB(w.date_to, INTERVAL (p.hit_days - 1) DAY)
+  GROUP BY l.ad_key
+),
+hit_rate AS (
+  SELECT
+    COUNT(*) AS hit_rate_ads,
+    SAFE_DIVIDE(COUNTIF(was_viable), COUNT(*)) AS hit_rate
+  FROM hit_ads
+),
+-- The curve's peak: its highest rate, at the first such age. The Healthy lifespan reads from there.
+peak AS (
+  SELECT ARRAY_AGG(STRUCT(age, viable, reached) ORDER BY SAFE_DIVIDE(viable, reached) DESC, age LIMIT 1)[SAFE_OFFSET(0)] AS p
+  FROM curve
+),
+-- W (viable_lifespan), Spend per viable ad and the Healthy lifespan with its quartile range. The
+-- Healthy lifespan is the first age after the peak at which the rate is below half the peak rate, and
+-- the quartiles the first ages below 75% and 25% of it. The thresholds compare whole counts
+-- (viable x 2 x peak reached < reached x peak viable), so a rate of exactly half is not below.
 lifespans AS (
   SELECT
     COUNT(*) AS curve_ages,
-    SUM(survival) AS viable_lifespan,
-    SAFE_DIVIDE(SUM(survival * avg_spend), SUM(survival)) AS spend_per_viable_ad,
-    MIN(IF(viable * 2 < classified, age, NULL)) AS healthy_lifespan,
-    MIN(IF(viable * 4 < classified * 3, age, NULL)) AS age_below_75,
-    MIN(IF(viable * 4 < classified, age, NULL)) AS age_below_25,
-    ARRAY_AGG(viable * 4 >= classified ORDER BY age DESC LIMIT 1)[SAFE_OFFSET(0)] AS w_is_lower_bound
-  FROM curve
+    SUM(c.survival) AS viable_lifespan,
+    SAFE_DIVIDE(SUM(c.viable_spend), SUM(c.viable)) AS spend_per_viable_ad,
+    MIN(IF(c.age > k.p.age AND c.viable * 2 * k.p.reached < c.reached * k.p.viable, c.age, NULL)) AS healthy_lifespan,
+    MIN(IF(c.age > k.p.age AND c.viable * 4 * k.p.reached < c.reached * k.p.viable * 3, c.age, NULL)) AS age_below_75,
+    MIN(IF(c.age > k.p.age AND c.viable * 4 * k.p.reached < c.reached * k.p.viable, c.age, NULL)) AS age_below_25,
+    ARRAY_AGG(c.viable * 4 >= c.reached ORDER BY c.age DESC LIMIT 1)[SAFE_OFFSET(0)] AS w_is_lower_bound
+  FROM curve AS c
+  CROSS JOIN peak AS k
 ),
 -- Days to clear Ramping: the median, over Launched ads, of the age of the first day not Ramping.
 cleared AS (
@@ -612,9 +657,9 @@ current_spend AS (
   CROSS JOIN win AS w
   WHERE d.day >= DATE_SUB(w.this_monday, INTERVAL 7 DAY) AND d.day < w.this_monday
 ),
+-- The block fenced below as shared format is, byte for byte, in references/intake.sql, which gives
+-- the intake the Format split default before this file runs. The two change together.
 -- BEGIN shared format
--- The same block, byte for byte, is in references/intake.sql, which gives the intake the Format split
--- default before this file runs. The two change together.
 -- The last complete ISO weeks (pipeline_weeks, or fewer where the window holds fewer) that the
 -- Current pipeline and the Format split default read.
 recent_weeks AS (
@@ -669,6 +714,9 @@ SELECT
   ls.curve_ages,
   ls.viable_lifespan,
   ls.w_is_lower_bound,
+  hr.hit_rate,
+  SAFE_DIVIDE(ls.viable_lifespan, hr.hit_rate) AS days_viable_per_hit,
+  hr.hit_rate_ads,
   ls.spend_per_viable_ad,
   ls.healthy_lifespan,
   ls.age_below_75,
@@ -683,18 +731,19 @@ SELECT
   tc.live_past_ramping,
   tc.worn_out_now,
   tc.improving_now,
-  SAFE_DIVIDE(tc.viable_ads * 14, ls.viable_lifespan) AS wearing_out_2_weeks,
+  SAFE_DIVIDE(tc.viable_ads * 14, SAFE_DIVIDE(ls.viable_lifespan, hr.hit_rate)) AS wearing_out_2_weeks,
   fs.video_pct,
   100 - fs.video_pct AS image_pct,
   fs.name_coverage_pct,
   ARRAY(
-    SELECT AS STRUCT c.age, c.classified, c.viable, c.survival, c.avg_spend
+    SELECT AS STRUCT c.age, c.reached, c.viable, c.survival, c.viable_spend
     FROM curve AS c
     ORDER BY c.age
   ) AS survival_table
 FROM win AS w
 CROSS JOIN first_day AS f
 CROSS JOIN lifespans AS ls
+CROSS JOIN hit_rate AS hr
 CROSS JOIN clear_ramping AS cr
 CROSS JOIN current_spend AS cs
 CROSS JOIN recent_weeks AS r
