@@ -22,6 +22,7 @@
 -- below is adj_spend over new_orders. Each comparison is written as spend >= multiple x CAC x
 -- orders, so an ad with no new orders in the window counts as infinitely above any CAC.
 WITH
+-- BEGIN shared classification
 -- Every threshold, stated once. The rolling frames in `rolling` are the 5 and 7 day windows.
 cut AS (
   SELECT
@@ -70,12 +71,12 @@ mart_rows AS (
   WHERE COALESCE(ad_id, 'Unknown') != 'Unknown'
 ),
 -- The campaigns bought for awareness, reach, video views, engagement or traffic rather than
--- purchases. CAC is the wrong measure for them, so the audit leaves them out whole.
+-- purchases. CAC is the wrong measure for them, so they are left out whole.
 awareness AS (
   SELECT campaign_key
   FROM UNNEST(ARRAY<STRING>['<campaign_key>']) AS campaign_key  -- Edit 3
 ),
--- Every row the audit reads: the mart's, less the awareness campaigns.
+-- Every row read: the mart's, less the awareness campaigns.
 source AS (
   SELECT m.*
   FROM mart_rows AS m
@@ -96,7 +97,7 @@ ad_keys AS (
   FROM source
   GROUP BY 1
 ),
--- Every row the audit reads, carrying its ad's one ad set and campaign key.
+-- Every row read, carrying its ad's one ad set and campaign key.
 keyed AS (
   SELECT s.* REPLACE (k.k.campaign_key AS campaign_key, k.k.adset_key AS adset_key)
   FROM source AS s
@@ -298,6 +299,7 @@ status AS (
     END AS status
   FROM flags AS f
 ),
+-- END shared classification
 -- Sizes in a month: (ad CAC - reference CAC) x new orders in the window = adj_spend - reference x
 -- orders, run-rated from the 5 days to 30. Never below 0.
 sized AS (

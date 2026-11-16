@@ -15,9 +15,9 @@ and never cite a file, a rule or a query. The terms
 Viable ad, Viable ad stock, Launched ad, Survival curve, Viable lifespan, Healthy lifespan, Spend per
 viable ad, Days to clear Ramping, Ad stock check, Worn out now, Wearing out, Current pipeline, Churn
 cycle, Steady-state number, Budget, Roadmap, Live-by, Waterfall, Budget ladder, Format, Name coverage,
-Format split, Roadmap file, Unattended run, Source and Brain line are those of `references/glossary.md`, and Next
-run is the repo's shared term; use them as written. The ad statuses and CAC are judged exactly as `references/fatigue.sql` judges
-them.
+Format split, Roadmap file, Awareness campaign, Unattended run, Source and Brain line are those of
+`references/glossary.md`, and Next run is the repo's shared term; use them as written. The ad
+statuses and CAC are judged exactly as `references/fatigue.sql` judges them.
 
 ## Unattended run
 
@@ -27,7 +27,7 @@ that step's recommended answer, and only where a step recommends none (several G
 none plainly the brand's, no export attached) does it stop with one line saying what it needed.
 Its defaults, every one of them:
 
-- Step 3 sends no message and takes the proposed retargeting campaigns as confirmed.
+- Step 3 sends no message and takes the proposed retargeting and awareness campaigns as confirmed.
 - It plans current spend held flat for 4 weeks: no Budget is asked for or used, so the Budget ladder
   shows its three rungs at current spend, +25% and +50%.
 - It uses no Format split, so the Roadmap shows new ads as a total.
@@ -57,7 +57,8 @@ the last 180 complete days, or for the days it holds when the user cannot give m
 
 A session with no code or analysis tool: say in one line that the plan needs one, and stop.
 
-**Without a Growth Brain**, read the rows as `references/exports.md` sets out and go to step 3.
+**Without a Growth Brain**, read the rows as `references/exports.md` sets out, then list the
+campaigns and count the Launched ads as below.
 
 **With a Growth Brain**, call `list_tables` once with no arguments, then once naming only
 `<client>-meta_performance` (`<client>` is the prefix the roster carries). If that mart is missing,
@@ -67,28 +68,40 @@ set and ad. Read its columns from the second call and take these, never assuming
 the ad id; the ad set id and the campaign id; the three display names (campaign, ad set and ad);
 spend; new orders; ad age; campaign type; and `video_views`. Group by the ad id, never a display
 name: a rename keeps the id, and two ads can share a name. Read the last 365 complete days.
-Without an ad set id or a campaign id, that display name stands in as its key. A missing column
-other than those two ids, campaign type and `video_views`: name it in one line and stop. Without
-campaign type, the intake proposes retargeting campaigns from their names alone. Without
-`video_views`, Format falls back to the name only, and an ad whose name decides nothing counts as
-image.
+Without an ad set id or a campaign id, that display name stands in as its key, each ad taking the
+one on its latest row. A missing column other than those two ids, campaign type and `video_views`:
+name it in one line and stop. Without campaign type, the intake proposes retargeting campaigns from
+their names alone. Without `video_views`, Format falls back to the name only, and an ad whose name
+decides nothing counts as image.
 
 On a brain, use new orders as the CAC denominator and never the purchases Meta claims, which are
 fractional and not the same count. Never sum reach. Leave out rows with no ad (an ad id of
 "Unknown", which takes in unrendered templates).
 
-**Count the Launched ads** before anything else is asked: the ads whose first day of spend falls
-after the window's first day. Without a Growth Brain, count them from the rows. With a Growth
-Brain, run one `run_sql` query counting the distinct ad ids whose first day of spend in the
-window falls after the window's first day. With fewer than 20, stop here, before step 3, with
-one line: "<Brand> does not yet launch enough ads to read a curve: <n> Launched
-ads in the last <365 or 180> days, and a curve needs 20." Write no page and ask nothing more. This
-holds for an unattended run too.
+**List the campaigns**, from either Source, before the Launched ads are counted. With a Growth
+Brain, one `run_sql` query listing each campaign's key (its id, or its name without one), name,
+type and spend over the last 7 complete days, for campaigns with spend in the window; without one,
+the same list from the rows read, by name alone, as no campaign type is held. From it, propose two
+sets for the intake:
+
+- **Awareness campaigns**: those whose name contains awareness, reach, video views, VV, engagement
+  or traffic, or reads as one of those, or, through a Meta connector, whose objective is not sales.
+- **Retargeting and existing-customer campaigns**: those whose campaign type is `RET`, plus those
+  whose name contains retargeting, RT, remarketing, existing or retention, or reads as one of
+  those. A campaign proposed as awareness is not proposed here too.
+
+**Count the Launched ads** before anything else is asked, leaving out the proposed awareness
+campaigns: the ads whose first day of spend falls after the window's first day. Without a Growth
+Brain, count them from the rows. With a Growth Brain, run one `run_sql` query counting the distinct
+ad ids outside the proposed awareness campaigns whose first day of spend in the window falls after
+the window's first day. With fewer than 20, stop here, before step 3, with one line: "<Brand> does
+not yet launch enough ads to read a curve: <n> Launched ads in the last <365 or 180> days, and a
+curve needs 20." Write no page and ask nothing more. This holds for an unattended run too.
 
 **Done when** the rows are read from a connector or export and grouped by Ad ID and Day, the
 window's first and last dates are named, the run holds the campaign names with their spend over
-the last 7 complete days, every ad carries a Format (step 4 sets the rule), and the Launched ads
-are counted at 20 or more, or the run has stopped with that one line; or, with a Growth Brain,
+the last 7 complete days and both proposed sets of campaigns, every ad carries a Format (step 4
+sets the rule), and the Launched ads are counted at 20 or more, or the run has stopped with that one line; or, with a Growth Brain,
 every column above is named from the second call, or the run has stopped with a line saying which
 is missing, or has moved to the next Source.
 
@@ -105,26 +118,28 @@ Send one message, then wait for the reply:
    over your own new orders" from a Growth Brain, and "Meta's own cost per purchase" otherwise. Then
    the offer, in these words: "Ask me about the method if you want
    the detail." The method stops there; `references/method.md` holds its windows and thresholds.
-2. The proposed retargeting and existing-customer campaigns: those whose name contains retargeting,
-   RT, remarketing, existing or retention, or reads as one of those, plus, with a Growth Brain, those
-   whose campaign type is `RET`. With a Growth Brain, find them with one `run_sql` query listing each
-   campaign's key (its id, or its name without one), name, type and spend over the last 7 complete
-   days, for campaigns with spend in the window. List the proposal by name with its spend over the last 7 complete days, and ask the
-   user to confirm it, add to it or remove from it. Recommend the proposal ("yes" accepts it). With no campaign that fits, say so and recommend
-   none.
-3. The Budget: the monthly Meta budget the user wants to reach and, if they like, the week to reach
-   it by (an ISO week, or a date in it). State the defaults in the message: with no week, the ISO
+2. The proposed awareness campaigns, by name with their spend over the last 7 complete days:
+   bought for awareness, reach or video views rather than purchases, so CAC is the wrong measure
+   for them and the plan leaves them out, their spend included. Ask the user to confirm the list,
+   add to it or remove from it. Recommend the proposal. With no campaign that fits, say so and
+   recommend none.
+3. The proposed retargeting and existing-customer campaigns, by name with their spend over the last
+   7 complete days, judged against their own blend. Ask the user to confirm it, add to it or remove
+   from it. Recommend the proposal ("yes" accepts both proposals). With no campaign that fits, say
+   so and recommend none.
+4. The Budget: the monthly Meta budget the user wants to reach, outside the awareness campaigns,
+   and, if they like, the week to reach it by (an ISO week, or a date in it). State the defaults in the message: with no week, the ISO
    week 4 weeks from now, named with its Monday date; with no Budget, current spend held flat for 4
    weeks. A Budget below current spend is allowed. Recommend no Budget
    ("yes" takes that).
-4. The Format split, in these words with the figures filled in: "Your last 8 weeks were 30% video,
+5. The Format split, in these words with the figures filled in: "Your last 8 weeks were 30% video,
    70% image (names gave the format of 82% of ads). Split the roadmap that way, give your own split,
    or no split?" The proposal is the Format split default and the coverage is the Name coverage, both
    from step 4. Recommend the proposal ("yes" keeps it). A split of the user's own is a video
    percentage, with image the rest. With no Launched ad in the last 8 complete weeks there is no
    proposal: say so and recommend no split.
 
-The answer is confirmed once. "Just run it" and "yes" take the proposal and go on.
+The answer is confirmed once. "Just run it" and "yes" take the proposals and go on.
 
 When the user asks about the method, at this step or any later one, answer from
 `references/method.md`, and only as much of it as the question needs.
@@ -132,8 +147,12 @@ When the user asks about the method, at this step or any later one, answer from
 An unattended run sends nothing: it takes the proposed campaigns, no Budget and no Format split,
 and goes on.
 
+Where the reply changes the awareness campaigns, count the Launched ads again with the confirmed
+ones, as step 2 does, and stop the same way where they are now fewer than 20.
+
 **Done when** the user has answered (an unattended run needs no answer) and the run holds the
-confirmed campaign keys, or the proposed ones for an unattended run, or none, the Budget as a
+confirmed retargeting and awareness campaign keys, or the proposed ones for an unattended run, or
+none, a Launched-ad count of 20 or more outside the awareness campaigns it holds, the Budget as a
 monthly figure with its Budget week (given, or the default), or no Budget, and the Format split as
 a video and image percentage, or no split.
 
@@ -142,16 +161,16 @@ a video and image percentage, or no split.
 Judge every ad on every day of the window and compute the figures from these definitions, which
 `references/method.md` sets out in words. **Without a Growth Brain**, judge and compute in code, as
 `references/exports.md` sets out. **With a Growth Brain**, open `references/fatigue.sql`, make its
-edits 1 and 2 (the mart's name, in `source` and in `video_plays`, with any column names from step
-2, and the confirmed campaign keys), leave edit 3, and run the whole file with `run_sql` as one
-statement. It judges every ad on every day of the 365, and returns one row holding `viable_lifespan`
-(W), `spend_per_viable_ad`, `healthy_lifespan` with `age_below_75` and `age_below_25`,
-`days_to_clear_ramping`, `current_spend`, `current_pipeline`, `viable_ad_stock` (L),
-`steady_state_number`, today's counts, the Format split default (`video_pct`, `image_pct`) with its
-`name_coverage_pct`, and the `survival_table`. Type none of them by hand. Where the brain's own
-instructions name the store's timezone, set it as the file says. A query error: fix the column from
-step 2 and run again, and never invent one. The plan below is worked in code from that row. Compute
-each figure once, from these definitions:
+edits 1 to 3 (the mart's name, in `mart_rows` and in `video_plays`, with any column names from step
+2; the confirmed retargeting campaign keys; and the confirmed awareness campaign keys), leave edit
+4, and run the whole file with `run_sql` as one statement. It judges every ad on every day of the
+365, and returns one row holding `viable_lifespan` (W), `spend_per_viable_ad`, `healthy_lifespan`
+with `age_below_75` and `age_below_25`, `days_to_clear_ramping`, `current_spend`,
+`current_pipeline`, `viable_ad_stock` (L), `steady_state_number`, today's counts, the Format split
+default (`video_pct`, `image_pct`) with its `name_coverage_pct`, and the `survival_table`. Type none
+of them by hand. Where the brain's own instructions name the store's timezone, set it as the file
+says. A query error: fix the column from step 2 and run again, and never invent one. The plan below
+is worked in code from that row. Compute each figure once, from these definitions:
 
 - **Viable** is Healthy or Winner on that day.
 - A **Launched ad** is one whose first day of spend falls after the window's first day. Only
@@ -180,8 +199,9 @@ each figure once, from these definitions:
   in the last 8 complete ISO weeks, as whole percentages that sum to 100 (video rounded, image the
   rest). **Name coverage** is the share of those same ads whose name decided the Format, as a whole
   percentage. These are the figures step 3 puts to the user.
-- **Current spend** is the last complete ISO week's spend over 7. **Current pipeline** is the
-  Launched ads per week, averaged over the last 8 complete ISO weeks.
+- **Current spend** is the last complete ISO week's spend over 7, outside the awareness campaigns,
+  as is every spend the plan reads. **Current pipeline** is the Launched ads per week, averaged over
+  the last 8 complete ISO weeks.
 - **L**, the Viable ad stock, is current spend over the Spend per viable ad. The **Steady-state
   number** is L times 7 over W, rounded up.
 - **Today's counts**, on the last complete day: viable ads; live ads past Ramping; Worn out now
@@ -267,10 +287,11 @@ In chat, after the page, in this order:
 3. **The Next run.** Tell the user to run this again in 2 weeks, with its date (14 days from today),
    and give the prompt to paste into that session, in a block: "Plan my Meta ad volume again.
    Monthly Meta budget: <the Budget, or "no change to current spend">. Format split: <the split
-   used, or "none">. Retargeting campaigns: <the confirmed names, or "none">." Add "Run it
-   unattended." when this run was. Without a Growth Brain, add "I'll attach a fresh Ads Manager
-   export." Where a calendar connector is in the session, offer to add the date as an event
-   carrying the prompt; with none, say nothing about a calendar.
+   used, or "none">. Retargeting campaigns: <the confirmed names, or "none">. Awareness
+   campaigns: <the confirmed names, or "none">." Add "Run it unattended." when this run was.
+   Without a Growth Brain, add "I'll attach a fresh Ads Manager export." Where a calendar connector
+   is in the session, offer to add the date as an event carrying the prompt; with none, say nothing
+   about a calendar.
 
 **Done when** the chat holds the line, the Roadmap file offered with its contents named (or, on an
 unattended run, saved), and the Next run with its date, its prompt, and the calendar offer where a

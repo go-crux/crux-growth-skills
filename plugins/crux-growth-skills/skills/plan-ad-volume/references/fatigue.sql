@@ -6,19 +6,24 @@
 -- code port (references/exports.md) follows it. THE BRAIN PATH below `judged` judges every day of
 -- the last 365 in one pass, then draws the curve and works the scalars, so a brain runs the whole
 -- file as one statement and the final SELECT is its result. The code port stops at `judged`.
--- Edit 1, in `source`: the mart's name, and any column list_tables shows under another name. Where
--- the mart has no `adset_id`, write `ad_group` in its place; where it has no `campaign_id`, write
--- `campaign_name` in its place. Nothing else in `source` changes. On the brain path the mart's name
--- and its ad id column are also written in `video_plays`, and a mart with no `video_views` column takes 0 there, in place
--- of `video_views`.
+-- Edit 1, in `mart_rows`: the mart's name, and any column list_tables shows under another name.
+-- Where the mart has no `adset_id`, write `ad_group` in its place; where it has no `campaign_id`,
+-- write `campaign_name` in its place. Nothing else in `mart_rows` changes. On the brain path the
+-- mart's name and its ad id column are also written in `video_plays`, and a mart with no
+-- `video_views` column takes 0 there, in place of `video_views`.
 -- Edit 2, in `retargeting`: the confirmed campaign_keys (ARRAY<STRING>[] when none).
--- Edit 3, in `period`: the as-of day, for the code port only; the brain path leaves it. Replace the
+-- Edit 3, in `awareness`: the campaign_keys of the awareness campaigns, the proposed ones for the
+-- Launched-ad count and the confirmed ones after the intake (ARRAY<STRING>[] when none). Their rows
+-- are left out of everything below: no status, no curve, no spend.
+-- Edit 4, in `period`: the as-of day, for the code port only; the brain path leaves it. Replace the
 -- one CURRENT_DATE() with DATE_ADD(DATE '<as_of_date>', INTERVAL 1 DAY), so the day judged is
 -- <as_of_date>.
 -- Timezone: where the brain's own instructions name the store's timezone, write the as-of day in it,
 -- and on the brain path write it in the one CURRENT_DATE() of `win`.
 -- The grain is the ad's Meta id (ad_key), never a display name: a rename keeps its id, and two ads
--- can share one name. `reach` is never summed. `purchases` is never read.
+-- can share one name. Its ad set and campaign keys are the ones on its latest row (`keyed`), so a
+-- renamed ad set or campaign, where a display name stands in as the key, never splits an ad.
+-- `reach` is never summed. `purchases` is never read.
 -- CAC is spend over new_orders. Day-of-week normalising divides each day's spend by that
 -- weekday's index, which is the same as dividing each day's CAC by it, so every window's CAC
 -- below is adj_spend over new_orders. Each comparison is written as spend >= multiple x CAC x
@@ -58,7 +63,7 @@ period AS (
 -- campaign are their Meta ids where the mart holds them, else their display names (Edit 1). Rows
 -- with no ad (an ad_id of Unknown, which takes in unrendered templates) drop out of judging and
 -- out of every blend.
-source AS (
+mart_rows AS (
   SELECT
     date AS day,
     campaign_id AS campaign_key,  -- Edit 1: campaign_name where the mart has no campaign_id
@@ -74,17 +79,44 @@ source AS (
   FROM `<client>-meta_performance`  -- Edit 1: the mart's name
   WHERE COALESCE(ad_id, 'Unknown') != 'Unknown'
 ),
+-- The campaigns bought for awareness, reach, video views, engagement or traffic rather than
+-- purchases. CAC is the wrong measure for them, so they are left out whole.
+awareness AS (
+  SELECT campaign_key
+  FROM UNNEST(ARRAY<STRING>['<campaign_key>']) AS campaign_key  -- Edit 3
+),
+-- Every row read: the mart's, less the awareness campaigns.
+source AS (
+  SELECT m.*
+  FROM mart_rows AS m
+  WHERE m.campaign_key IS NULL OR m.campaign_key NOT IN (SELECT campaign_key FROM awareness)
+),
 -- The campaigns the user confirmed as retargeting or existing-customer. Judged against their own
 -- Account blend; every other ad against the rest.
 retargeting AS (
   SELECT campaign_key
   FROM UNNEST(ARRAY<STRING>['<campaign_key>', '<campaign_key>']) AS campaign_key  -- Edit 2
 ),
+-- Each ad's ad set and campaign keys as its latest row shows them, a serving row first.
+ad_keys AS (
+  SELECT
+    ad_key,
+    ARRAY_AGG(STRUCT(campaign_key, adset_key)
+      ORDER BY day DESC, spend DESC, campaign_key, adset_key LIMIT 1)[OFFSET(0)] AS k
+  FROM source
+  GROUP BY 1
+),
+-- Every row read, carrying its ad's one ad set and campaign key.
+keyed AS (
+  SELECT s.* REPLACE (k.k.campaign_key AS campaign_key, k.k.adset_key AS adset_key)
+  FROM source AS s
+  JOIN ad_keys AS k USING (ad_key)
+),
 daily AS (
   SELECT
     s.day, s.campaign_key, s.adset_key, s.ad_key,
     SUM(s.spend) AS spend, SUM(s.new_orders) AS new_orders
-  FROM source AS s
+  FROM keyed AS s
   CROSS JOIN period AS p
   WHERE s.day <= p.date_to
   GROUP BY 1, 2, 3, 4
@@ -204,7 +236,7 @@ ad_info AS (
       ORDER BY s.day DESC, s.spend DESC, s.ad_age DESC, s.campaign_name, s.ad_group, s.ad LIMIT 1
     )[OFFSET(0)] AS latest,
     MAX(s.ad_age) AS ad_age
-  FROM source AS s
+  FROM keyed AS s
   CROSS JOIN period AS p
   WHERE s.day BETWEEN p.date_from AND p.date_to
   GROUP BY 1, 2, 3
@@ -299,7 +331,7 @@ judged AS (
    AND d.ad_key = s.ad_key
    AND d.day = p.date_to
 ),
--- THE BRAIN PATH. It reads `cut`, `source` and `retargeting` from the shared block and nothing
+-- THE BRAIN PATH. It reads `cut`, `keyed` and `retargeting` from the shared block and nothing
 -- else of it: every window and floor is `cut`'s, and the lines below add only the plan's own. It
 -- restates `status` for every day in one pass instead of one day, so the CASE in `ad_day_status`
 -- must change together with `status` above and with audit-ads. Everything is bounded to the window.
@@ -321,7 +353,7 @@ win_rows AS (
   SELECT
     s.day, s.campaign_key, s.ad_key,
     s.ad, s.spend, s.new_orders, s.ad_age
-  FROM source AS s
+  FROM keyed AS s
   CROSS JOIN win AS w
   WHERE s.day BETWEEN w.date_from AND w.date_to
 ),
@@ -430,8 +462,7 @@ ad_day AS (
   CROSS JOIN cut AS c
   GROUP BY r.ad_key, r.as_of
 ),
--- One row per ad. Where the campaign key is a display name, a renamed campaign holds one ad under
--- two keys, so the ad counts as retargeting when any of them is confirmed.
+-- One row per ad: `keyed` gives each ad one campaign key, its latest row's.
 ad_campaign AS (
   SELECT
     ad_key,
