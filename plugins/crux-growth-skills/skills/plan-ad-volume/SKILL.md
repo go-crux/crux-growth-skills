@@ -101,9 +101,9 @@ curve needs 20." Write no page and ask nothing more. This holds for an unattende
 **Done when** the rows are read from a connector or export and grouped by Ad ID and Day, the
 window's first and last dates are named, the run holds the campaign names with their spend over
 the last 7 complete days and both proposed sets of campaigns, every ad carries a Format (step 4
-sets the rule), and the Launched ads are counted at 20 or more, or the run has stopped with that one line; or, with a Growth Brain,
-every column above is named from the second call, or the run has stopped with a line saying which
-is missing, or has moved to the next Source.
+sets the rule), and the Launched ads are counted at 20 or more, or the run has stopped with that
+one line; or, with a Growth Brain, every column above is named from the second call, or the run
+has stopped with a line saying which is missing, or has moved to the next Source.
 
 ## 3. Intake
 
@@ -128,10 +128,10 @@ Send one message, then wait for the reply:
    from it. Recommend the proposal ("yes" accepts both proposals). With no campaign that fits, say
    so and recommend none.
 4. The Budget: the monthly Meta budget the user wants to reach, outside the awareness campaigns,
-   and, if they like, the week to reach it by (an ISO week, or a date in it). State the defaults in the message: with no week, the ISO
-   week 4 weeks from now, named with its Monday date; with no Budget, current spend held flat for 4
-   weeks. A Budget below current spend is allowed. Recommend no Budget
-   ("yes" takes that).
+   and, if they like, the week to reach it by (an ISO week, or a date in it). State the defaults in
+   the message: with no week, the ISO week 4 weeks from now, named with its Monday date; with no
+   Budget, current spend held flat for 4 weeks. A Budget below current spend is allowed. Recommend
+   no Budget ("yes" takes that).
 5. The Format split, in these words with the figures filled in: "Your last 8 weeks were 30% video,
    70% image (names gave the format of 82% of ads). Split the roadmap that way, give your own split,
    or no split?" The proposal is the Format split default and the coverage is the Name coverage, both

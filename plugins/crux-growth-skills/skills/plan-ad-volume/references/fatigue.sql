@@ -12,9 +12,8 @@
 -- mart's name and its ad id column are also written in `video_plays`, and a mart with no
 -- `video_views` column takes 0 there, in place of `video_views`.
 -- Edit 2, in `retargeting`: the confirmed campaign_keys (ARRAY<STRING>[] when none).
--- Edit 3, in `awareness`: the campaign_keys of the awareness campaigns, the proposed ones for the
--- Launched-ad count and the confirmed ones after the intake (ARRAY<STRING>[] when none). Their rows
--- are left out of everything below: no status, no curve, no spend.
+-- Edit 3, in `awareness`: the campaign_keys of the awareness campaigns the intake confirmed
+-- (ARRAY<STRING>[] when none). Their rows get no status and feed no curve and no spend.
 -- Edit 4, in `period`: the as-of day, for the code port only; the brain path leaves it. Replace the
 -- one CURRENT_DATE() with DATE_ADD(DATE '<as_of_date>', INTERVAL 1 DAY), so the day judged is
 -- <as_of_date>.
