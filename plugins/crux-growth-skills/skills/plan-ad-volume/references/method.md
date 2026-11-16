@@ -27,7 +27,7 @@ The number of new ads a week is worked out from how long your own ads stay good.
 
 **10. Ads a week.** Hold the Viable ad stock, and the viable ads that stop being viable have to be replaced, but a launch adds the Hit rate in viable ads, not one. The Steady-state number is the Viable ad stock times 7, divided by the Viable lifespan, rounded up. That is the same as the Viable ad stock times 7, divided by the Hit rate times the Days viable per hit: the viable ads that wear out in a week, over the viable ads a launch adds. The Current pipeline is the Launched ads a week, averaged over the last 8 complete weeks.
 
-**11. The check on today's ads.** Today means the last complete day, and the check reads viable ads only. Short: viable ads below 80% of the Viable ad stock. About right: from 80% to 150% of it. Ahead: viable ads above 150% of it. Worn out now: live ads past Ramping that are Fatiguing, Fatigued or Low efficiency; they take spend but are not stock. Wearing out over the next 2 weeks: viable ads times 14, divided by the Days viable per hit.
+**11. The check on today's ads.** Today means the last complete day, and the check reads viable ads only. Short: viable ads below 80% of the Viable ad stock. About right: from 80% to 150% of it. Ahead: viable ads above 150% of it. Worn out now: live ads past Ramping that are Fatiguing, Fatigued or Low efficiency; they take spend but are not stock.
 
 **12. The Budget and the ramp.** A Budget is a monthly figure, so the daily Budget is the month times 12, divided by 365. Your spend does not jump to it. It steps in equal amounts week by week, from your current spend to the daily Budget, and lands in the Budget week you name, or the week 4 weeks from now if you name none. It then holds there for 4 more weeks. The Roadmap starts next week and has one row for each of those weeks. A Budget below your current spend steps down the same way. With no Budget, current spend is held flat for 4 weeks.
 
@@ -36,6 +36,8 @@ The number of new ads a week is worked out from how long your own ads stay good.
 **14. Live-by.** A new ad needs the Days to clear Ramping before it earns a verdict, so each week's new ads should be live that many days before the week's Monday. That date is the Live-by.
 
 **15. The Budget ladder.** The Steady-state number, worked out as in item 10, at your current spend, at 25% more, at 50% more and at your Budget. It assumes the Spend per viable ad holds as spend grows. If the extra spend goes into each ad rather than into more ads, fewer new ads are needed.
+
+The same sum is also run at a better Hit rate: today's, 20% higher (the Hit rate times 1.2) and 30% higher (times 1.3). Each row is the Viable ad stock times 7, divided by that Hit rate times the Days viable per hit, rounded up, and the Days viable per hit is held fixed, so only the share of launches that work moves. The change against today is relative, on the whole launches shown. With a Budget, each row is worked again at the Budget's stock. The point is how many launches a week a better hit rate saves, which better briefs and testing are what raise.
 
 **16. Format.** Each ad is read as video or image from its ad name alone, never its ad set or campaign name. The name is split into words at every character that is not a letter or a digit, and each word is compared with these, ignoring case. Video: video, vid, reel. Image: image, img, static, still, carousel. A name with words of one kind only decides the Format. A name with neither kind, or both, leaves the ad video if it had any 3-second video plays in the rows read, and image otherwise. The Name coverage is the share of those same Launched ads (first spend in the last 8 complete weeks) whose name decided the Format.
 
@@ -90,7 +92,7 @@ Age 28 has not been reached by any ad, so it does not count. Every counted age h
 
 **Steady-state number.** 20 × 7 ÷ 7.93 = 17.65, which rounds up to 18 launches a week. It is also 20 × 7 ÷ (0.40 × 19.83): 18 launches add 18 × 0.40 = 7.2 viable ads a week, and 20 viable ads wear out at 20 × 7 ÷ 19.83 = 7.06 a week.
 
-**The check on today's ads.** At 20, Short is below 16 viable ads (80%) and Ahead is above 30 (150%). Today, Monday 9 November, 22 ads are live past Ramping: 15 are viable, 5 are Worn out now and 2 are Improving. Fern & Co is Short, by 5 viable ads. Wearing out over the next 2 weeks is 15 × 14 ÷ 19.83 = 10.6.
+**The check on today's ads.** At 20, Short is below 16 viable ads (80%) and Ahead is above 30 (150%). Today, Monday 9 November, 22 ads are live past Ramping: 15 are viable, 5 are Worn out now and 2 are Improving. Fern & Co is Short, by 5 viable ads.
 
 **The self-check.** Say Fern & Co launched 14 a week over the last 8 weeks. Launching 14 a week predicts 14 × 7.93 ÷ 7 = 15.9 viable ads, and today it has 15, a difference of (15.9 − 15) ÷ 15 = 6%, inside 25%. The run says: "Check: launching 14 a week at a hit rate of 40% predicts 15.9 viable ads; you have 15." Had today's count been 10, the difference would be 59%, and the run would add that the curve and today's count disagree by 59%, so the plan is a guide.
 
@@ -150,4 +152,4 @@ Each row adds up: 9 + 20 = 29, 10 + 25 = 35, 12 + 28 = 40 and 14 + 32 = 46. In t
 
 **The Budget ladder.** The Steady-state number at £600 a day is 18. At 25% more, £750 a day, the stock needed is 25 and the number is ⌈25 × 7 ÷ 7.93⌉ = ⌈22.06⌉ = 23. At 50% more, £900 a day, it is 30 and ⌈26.47⌉ = 27. At the £1,200 Budget it is 40 and ⌈35.29⌉ = 36.
 
-**The growth.** The growth is the stock needed at the Budget less the stock needed now: 40 − 20 = 20.
+**The Hit-rate scenarios.** Fern & Co's Hit rate is 0.40 and its Days viable per hit is 19.83, fixed, with 20 viable ads needed at £600 a day. At 20% higher the Hit rate is 0.48 (48%) and the Viable lifespan 0.48 × 19.83 = 9.52, so the launches a week to keep up are ⌈20 × 7 ÷ 9.52⌉ = ⌈14.71⌉ = 15, against 18 today: −17%, and 3 launches a week saved. At 30% higher the Hit rate is 0.52 (52%) and the Viable lifespan 10.31, so ⌈13.58⌉ = 14: −22%, and 4 saved. At the £1,200 Budget, with 40 viable ads needed, the three rows are 36, ⌈280 ÷ 9.52⌉ = 30 and ⌈280 ÷ 10.31⌉ = 28.

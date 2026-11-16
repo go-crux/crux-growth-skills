@@ -18,7 +18,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Days viable per hit**: the Viable lifespan over the Hit rate: how long an ad that works stays viable. Today's viable ads wear out at 1 over it. _Avoid_: winner lifespan, hit lifespan.
 
-- **Healthy lifespan**: the age by which half the ads viable at the Survival curve's peak have stopped being viable, with the quartile range (the ages at 75% and 25% of the peak). The figure the Churn cycle quotes. _Avoid_: median life, half-life.
+- **Healthy lifespan**: the age by which half the ads viable at the Survival curve's peak have stopped being viable, with the quartile range (the ages at 75% and 25% of the peak). Quoted on How it's worked out. _Avoid_: median life, half-life.
 
 - **Spend per viable ad**: the account's typical daily spend on one viable ad: spend on viable ad-days over the number of viable ad-days. _Avoid_: spend per ad, ad budget.
 
@@ -36,7 +36,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Current pipeline**: Launched ads per week, averaged over the last 8 complete weeks. What the steady-state number is compared with. _Avoid_: launch rate, creative velocity.
 
-- **Churn cycle**: how long an ad lasts in this account, shown on Your plan as "How long an ad lasts": Healthy lifespan, its quartile range, Viable lifespan, Days to clear Ramping and the Survival curve chart. _Avoid_: lifecycle, fatigue profile.
+- **Churn cycle**: how ads perform in this account, shown on Your plan as "How your ads perform": Hit rate with the Launched ads it rests on, Days viable per hit, Days to clear Ramping and the Survival curve chart. _Avoid_: lifecycle, fatigue profile.
 
 ## The plan
 
@@ -48,7 +48,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Roadmap file**: `meta-ad-roadmap-<date>.md`, the Roadmap handed over as markdown for whoever makes the ads: the Budget, the weeks, the new ads by format, the Live-by dates, and one line each on the Viable lifespan and the Spend per viable ad. Offered at the Close; the page does not need it. _Avoid_: handover file (that is the Action skills'), brief, export.
 
-- **Catch-up**: the launches that close today's gap: the viable ads short of the Viable ad stock over the Hit rate, spread evenly over the weeks to the Budget week (4 with no Budget). _Avoid_: backlog, top-up.
+- **Catch-up**: the launches above keeping up in the weeks to the Budget week (4 with no Budget): each week's Ads to launch less Wearing out over the Hit rate, rounded up. They close today's gap, the viable ads short of the Viable ad stock over the Hit rate spread evenly, and where the Budget is above current spend they also grow the stock. _Avoid_: backlog, top-up.
 
 - **Expected to work**: a week's launches times the Hit rate: the viable ads they add, and the Waterfall's up bar. _Avoid_: expected winners, yield.
 
@@ -59,6 +59,8 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 - **Waterfall**: the chart of the Roadmap, week by week: stock at the start, less Wearing out, plus new ads (stacked by format), equals stock at the end, with that week's Viable ad stock marked. _Avoid_: bridge, flow chart.
 
 - **Budget ladder**: the Steady-state number at current spend, +25%, +50% and the Budget, on the stated assumption that Spend per viable ad holds as spend grows. _Avoid_: scenarios, sensitivity.
+
+- **Hit-rate scenarios**: the Steady-state number at today's Hit rate, 20% higher and 30% higher, each with Days viable per hit held fixed, so only the share of launches that work moves; with a Budget, also the launches a week at the Budget. Your plan shows them as "If more of your ads work". _Avoid_: what-ifs, improvement targets.
 
 - **Format**: video or image, per ad. Read from the ad name alone first (whole-word tokens: video, vid, reel; image, img, static, still, carousel), and where the name gives neither or both, video if the ad had any video views in its life (3-second video plays on an export). _Avoid_: creative type, asset type.
 
@@ -76,7 +78,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 ## The page
 
-- **Your plan**: the page's first tab, the one it opens on: the headline tiles, then the verdict on a gauge, how long an ad lasts, new ads a week, the Week-by-week plan and If you spend more, all in Page labels. _Avoid_: dashboard tab, summary.
+- **Your plan**: the page's first tab, the one it opens on: the four headline tiles, then Do you have the right number of ads? (one bar), How your ads perform, the Week-by-week plan, If more of your ads work and If you spend more, all in Page labels. _Avoid_: dashboard tab, summary.
 
 - **How it's worked out**: the page's second tab: Terms on the plan, This run, the method word for word, and the Brain line where the run has one. _Avoid_: Notes and Method, appendix.
 
