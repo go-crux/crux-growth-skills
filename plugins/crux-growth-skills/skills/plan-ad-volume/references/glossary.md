@@ -52,7 +52,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Name coverage**: the share of ads whose name decided their Format, quoted beside the proposed Format split: the ads are the Launched ads whose first spend fell in the last 8 complete weeks, which the split rests on. _Avoid_: match rate, tagging rate.
 
-- **Format split**: the video and image share the Roadmap divides new ads by, in whole ads by largest remainder so the two sum to the total: by default the shares of the Launched ads whose first spend fell in the last 8 complete weeks, which the user keeps, replaces or turns off. _Avoid_: creative mix.
+- **Format split**: the video and image share the Roadmap divides new ads by, in whole ads by largest remainder so the two sum to the total: by default the shares of the Launched ads whose first spend fell in the last 8 complete weeks, which the user keeps, replaces or turns off. Worked out before the intake, from the Launched ads outside the proposed awareness campaigns, and again where the reply changes those campaigns. _Avoid_: creative mix.
 
 - **Awareness campaign**: a campaign the user confirms at the intake as bought for awareness, reach, video views, engagement or traffic rather than purchases. Left out of the plan whole: no status, no curve, no spend, no new ads; named with its spend in Notes and Method. _Avoid_: brand campaign, upper funnel, TOF.
 

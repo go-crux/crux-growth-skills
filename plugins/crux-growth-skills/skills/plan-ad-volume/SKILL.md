@@ -58,7 +58,7 @@ the last 180 complete days, or for the days it holds when the user cannot give m
 A session with no code or analysis tool: say in one line that the plan needs one, and stop.
 
 **Without a Growth Brain**, read the rows as `references/exports.md` sets out, then list the
-campaigns and count the Launched ads as below.
+campaigns, count the Launched ads and work out the Format split default as below.
 
 **With a Growth Brain**, call `list_tables` once with no arguments, then once naming only
 `<client>-meta_performance` (`<client>` is the prefix the roster carries). If that mart is missing,
@@ -90,20 +90,27 @@ sets for the intake:
   whose name contains retargeting, RT, remarketing, existing or retention, or reads as one of
   those. A campaign proposed as awareness is not proposed here too.
 
-**Count the Launched ads** before anything else is asked, leaving out the proposed awareness
-campaigns: the ads whose first day of spend falls after the window's first day. Without a Growth
-Brain, count them from the rows. With a Growth Brain, run one `run_sql` query counting the distinct
-ad ids outside the proposed awareness campaigns whose first day of spend in the window falls after
-the window's first day. With fewer than 20, stop here, before step 3, with one line: "<Brand> does
-not yet launch enough ads to read a curve: <n> Launched ads in the last <365 or 180> days, and a
-curve needs 20." Write no page and ask nothing more. This holds for an unattended run too.
+**Count the Launched ads and work out the Format split default** before anything else is asked,
+leaving out the proposed awareness campaigns: the Launched ads are those whose first day of spend
+falls after the window's first day, and the Format split default and its Name coverage are step 4's
+definitions, held here so the intake quotes real figures. Without a Growth Brain, compute them from
+the rows. With a Growth Brain, open `references/intake.sql`, make its edits 1 and 2 (the mart's
+name, in `mart_rows` and in `video_plays`, with any column names from the second call; and the
+proposed awareness campaign keys), and run it with `run_sql` as one statement. It returns
+`launched_ads` and the Format split default (`video_pct`, `image_pct`) with its `name_coverage_pct`,
+all three null where no Launched ad's first spend fell in the last 8 complete weeks. With fewer than
+20 Launched ads, stop here, before step 3, with one line: "<Brand> does not yet launch enough ads to
+read a curve: <n> Launched ads in the last <365 or 180> days, and a curve needs 20." Write no page
+and ask nothing more. This holds for an unattended run too.
 
 **Done when** the rows are read from a connector or export and grouped by Ad ID and Day, the
 window's first and last dates are named, the run holds the campaign names with their spend over
 the last 7 complete days and both proposed sets of campaigns, every ad carries a Format (step 4
-sets the rule), and the Launched ads are counted at 20 or more, or the run has stopped with that
-one line; or, with a Growth Brain, every column above is named from the second call, or the run
-has stopped with a line saying which is missing, or has moved to the next Source.
+sets the rule), and the Launched ads are counted at 20 or more with the Format split default and
+its Name coverage worked out for the proposed awareness campaigns (or no proposal, where no Launched
+ad is recent), or the run has stopped with that one line; or, with a Growth Brain, every column
+above is named from the second call, or the run has stopped with a line saying which is missing, or
+has moved to the next Source.
 
 ## 3. Intake
 
@@ -135,9 +142,9 @@ Send one message, then wait for the reply:
 5. The Format split, in these words with the figures filled in: "Your last 8 weeks were 30% video,
    70% image (names gave the format of 82% of ads). Split the roadmap that way, give your own split,
    or no split?" The proposal is the Format split default and the coverage is the Name coverage, both
-   from step 4. Recommend the proposal ("yes" keeps it). A split of the user's own is a video
-   percentage, with image the rest. With no Launched ad in the last 8 complete weeks there is no
-   proposal: say so and recommend no split.
+   as step 2 worked them out for the proposed awareness campaigns. Recommend the proposal ("yes"
+   keeps it). A split of the user's own is a video percentage, with image the rest. With no Launched
+   ad in the last 8 complete weeks there is no proposal: say so and recommend no split.
 
 The answer is confirmed once. "Just run it" and "yes" take the proposals and go on.
 
@@ -147,8 +154,11 @@ When the user asks about the method, at this step or any later one, answer from
 An unattended run sends nothing: it takes the proposed campaigns, no Budget and no Format split,
 and goes on.
 
-Where the reply changes the awareness campaigns, count the Launched ads again with the confirmed
-ones, as step 2 does, and stop the same way where they are now fewer than 20.
+Where the reply changes the awareness campaigns, count the Launched ads and work out the Format
+split default and Name coverage again with the confirmed ones, as step 2 does, and stop the same way
+where the Launched ads are now fewer than 20. A split of the user's own stands, with the new Name
+coverage. Where the user kept the proposal and the new figures differ from the ones quoted, say the
+new split and coverage in one line and use them.
 
 **Done when** the user has answered (an unattended run needs no answer) and the run holds the
 confirmed retargeting and awareness campaign keys, or the proposed ones for an unattended run, or
@@ -198,7 +208,9 @@ is worked in code from that row. Compute each figure once, from these definition
 - **Format split default** is the video and image shares of the Launched ads whose first spend fell
   in the last 8 complete ISO weeks, as whole percentages that sum to 100 (video rounded, image the
   rest). **Name coverage** is the share of those same ads whose name decided the Format, as a whole
-  percentage. These are the figures step 3 puts to the user.
+  percentage. Step 2 works these out for the intake with the proposed awareness campaigns, by the
+  same definition (on a brain, `references/intake.sql` carries the same block as `references/fatigue.sql`);
+  this step gives them again with the confirmed ones, and the page quotes these.
 - **Current spend** is the last complete ISO week's spend over 7, outside the awareness campaigns,
   as is every spend the plan reads. **Current pipeline** is the Launched ads per week, averaged over
   the last 8 complete ISO weeks.
