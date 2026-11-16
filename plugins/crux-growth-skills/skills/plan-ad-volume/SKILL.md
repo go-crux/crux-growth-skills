@@ -142,9 +142,9 @@ Send one message, then wait for the reply:
 5. The Format split, in these words with the figures filled in: "Your last 8 weeks were 30% video,
    70% image (names gave the format of 82% of ads). Split the roadmap that way, give your own split,
    or no split?" The proposal is the Format split default and the coverage is the Name coverage, both
-   as step 2 worked them out for the proposed awareness campaigns. Recommend the proposal ("yes" keeps it). A split of the user's own is a video
-   percentage, with image the rest. With no Launched ad in the last 8 complete weeks there is no
-   proposal: say so and recommend no split.
+   as step 2 worked them out for the proposed awareness campaigns. Recommend the proposal ("yes"
+   keeps it). A split of the user's own is a video percentage, with image the rest. With no Launched
+   ad in the last 8 complete weeks there is no proposal: say so and recommend no split.
 
 The answer is confirmed once. "Just run it" and "yes" take the proposals and go on.
 
