@@ -110,16 +110,23 @@ are not the brain's mart:
   life spend is its spend over the rows up to that day. This is the port's `ad_age`; the model's
   age (`references/method.md`) is one less.
 
-**Classified, viable, live.** On a day, an ad is *classified* when it spent that day and its
-status is not Ramping; it is *viable* when its status is Healthy or Winner; it is *live past
-Ramping* when it spent that day and its status is not Ramping. An ad that spent nothing that day is
-Inactive, and an ad the port gives no status is Unknown: neither is classified.
+**Viable, live, reached.** On a day, an ad is *viable* when its status is Healthy or Winner; it is
+*live past Ramping* when it spent that day and its status is not Ramping. An ad that spent nothing
+that day is Inactive, an ad the port gives no status is Unknown, and Ramping and every status that
+is not viable are not viable either: all of them count as not viable. A Launched ad has *reached*
+age a when its first spend is at least a days before the last complete day.
 
 **The model.** From the statuses, the spend per ad per day and the rows' first spend days, compute
-every figure of the Model step of `SKILL.md`, the plan included, as `references/method.md` defines it.
-Print the figures, the survival table (age, ads classified, viable, survival, average daily spend per
-ad) and the Roadmap rows, never the rows of the export.
+every figure of the Model step of `SKILL.md`, the plan included, as `references/method.md` defines
+it, and each once: the survival curve over every Launched ad at every age it has reached (the
+denominator), the Viable lifespan, the Hit rate over the Launched ads whose first spend is at least
+27 days before the last complete day, the Days viable per hit, and the Spend per viable ad over the
+viable ad-days. Print the figures, the survival table (age, ads reached, viable, survival, spend on
+that age's viable ad-days) and the Roadmap rows, never the rows of the export.
 
 **Done when** every ad that spent on a day carries exactly one status for that day, the spend over
 the rows read equals the spend in the file for the same days outside the awareness campaigns (each
-ad by its latest row's campaign), and the survival table lists each age with the ads classified and the viable count that give its rate.
+ad by its latest row's campaign), and the survival table lists each age with the ads reached and the viable count that give its rate, its
+rates sum to the Viable lifespan, the Hit rate times the Days viable per hit equals the Viable
+lifespan to two decimals, and the Spend per viable ad is the spend on viable ad-days over their
+number.

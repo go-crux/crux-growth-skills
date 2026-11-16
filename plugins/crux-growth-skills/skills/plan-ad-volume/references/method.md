@@ -17,21 +17,21 @@ The number of new ads a week is worked out from how long your own ads stay good.
 
 **5. Launched ads and age.** A Launched ad is one whose first day of spend falls after the first day of the window, so its age is known. Only Launched ads feed the curve below. An ad's age is the number of days since its first day of spend: the first day is age 0.
 
-**6. The survival curve.** At each age, the survival rate is the viable Launched ads divided by the Launched ads classified that day. An ad is classified on a day when it spent that day and is not Ramping (an ad that spent nothing is Inactive, and one with no status is Unknown; neither counts). An age counts only when 3 or more ads are classified at it, and the rates are used as they come, not smoothed.
+**6. The survival curve.** At each age, the denominator is every Launched ad that has reached that age inside the window: its first spend is at least that many days before the last complete day. The numerator is those of them that are viable on their day at that age. A day with no spend (the ad is Inactive), a day in Ramping, a day with no status, and any status that is not viable all count as not viable. So an ad that stops spending, or never leaves Ramping, stays in the count as not viable, and does not drop out. An age counts only when 3 or more ads have reached it, and the rates are used as they come, not smoothed.
 
-**7. Lifespans.** The Viable lifespan is the sum of the survival rates over the ages that count: the average number of days a new ad stays viable. Where the curve is still at 25% or above when the 3-ad floor cuts it off, it is a lower bound, and the Steady-state number and the new ads in the Roadmap, which divide by it, are a ceiling. The Healthy lifespan is the first age with a survival rate below 50%, with a quartile range from the first age below 75% to the first age below 25%. Either end reads "not reached" where the curve never gets there. The Days to clear Ramping is the median, over Launched ads, of the age at which an ad first stops being Ramping.
+**7. Lifespans and the Hit rate.** The Viable lifespan is the sum of the survival rates over the ages that count: the average number of days one Launched ad is viable, the ones that never work included. Where the curve is still at 25% or above when the 3-ad floor cuts it off, it is a lower bound, and the Steady-state number and the Ads to launch in the Roadmap, which divide by it, are a ceiling. The Hit rate is, of the Launched ads whose first spend is at least 27 days before the last complete day (ages 0 to 27 all inside the window), the share that were viable on at least one of those 28 days. The Days viable per hit is the Viable lifespan divided by the Hit rate: how long an ad that works stays viable. So the Hit rate times the Days viable per hit is the Viable lifespan exactly. The Healthy lifespan reads from the curve's peak, its highest rate (the first age that holds it): it is the first age after the peak at which the rate is below half the peak rate, with a quartile range from the first age after the peak below 75% of the peak rate to the first below 25% of it. Either end reads "not reached" where the curve never gets there. The Days to clear Ramping is the median, over Launched ads that leave Ramping, of the age at which an ad first stops being Ramping.
 
-**8. Spend per viable ad.** At each age that counts, take the average daily spend of the ads classified at it. Weight each by its survival rate and divide by the sum of the survival rates: the typical daily spend on one viable ad.
+**8. Spend per viable ad.** Add up the spend on every viable ad-day of the Launched ads, at the ages that count, and divide by the number of those viable ad-days: the typical daily spend on one viable ad.
 
 **9. Viable ad stock.** The Viable ad stock is the number of viable ads your spend needs live at once: your current spend a day divided by the Spend per viable ad. Current spend is the last complete week's spend (Monday to Sunday), outside the awareness campaigns, divided by 7.
 
-**10. Ads a week.** Hold the Viable ad stock, and a new ad is needed for each one that stops being viable. The Steady-state number is the Viable ad stock times 7, divided by the Viable lifespan, rounded up. The Current pipeline is the Launched ads a week, averaged over the last 8 complete weeks.
+**10. Ads a week.** Hold the Viable ad stock, and the viable ads that stop being viable have to be replaced, but a launch adds the Hit rate in viable ads, not one. The Steady-state number is the Viable ad stock times 7, divided by the Viable lifespan, rounded up. That is the same as the Viable ad stock times 7, divided by the Hit rate times the Days viable per hit: the viable ads that wear out in a week, over the viable ads a launch adds. The Current pipeline is the Launched ads a week, averaged over the last 8 complete weeks.
 
-**11. The check on today's ads.** Today means the last complete day. Short: viable ads below 80% of the Viable ad stock. Over-stocked: live ads past Ramping above 150% of it. Both can hold. Worn out now: live ads past Ramping that are Fatiguing, Fatigued or Low efficiency. Wearing out over the next 2 weeks: viable ads times 14, divided by the Viable lifespan.
+**11. The check on today's ads.** Today means the last complete day, and the check reads viable ads only. Short: viable ads below 80% of the Viable ad stock. About right: from 80% to 150% of it. Ahead: viable ads above 150% of it. Worn out now: live ads past Ramping that are Fatiguing, Fatigued or Low efficiency; they take spend but are not stock. Wearing out over the next 2 weeks: viable ads times 14, divided by the Days viable per hit.
 
 **12. The Budget and the ramp.** A Budget is a monthly figure, so the daily Budget is the month times 12, divided by 365. Your spend does not jump to it. It steps in equal amounts week by week, from your current spend to the daily Budget, and lands in the Budget week you name, or the week 4 weeks from now if you name none. It then holds there for 4 more weeks. The Roadmap starts next week and has one row for each of those weeks. A Budget below your current spend steps down the same way. With no Budget, current spend is held flat for 4 weeks.
 
-**13. The stock, week by week.** The Viable ad stock a week needs is that week's daily spend divided by the Spend per viable ad. The plan starts from the viable ads you have live on the last complete day. Each week some of that stock stops being viable: Wearing out is the stock times 7, divided by the Viable lifespan, and never more than the whole stock. New ads then fill what is missing: the stock needed, less the stock left after Wearing out, rounded up to a whole ad and never below zero. The stock at the end of the week is the stock at its start, less Wearing out, plus the new ads. At a flat budget, once the stock matches what spend needs, the new ads each week are the Steady-state number. When spend steps down, the stock needed can fall faster than ads wear out: a week may then need no new ads, and the stock above what spend needs wears out on its own. Where the Viable lifespan is under 7 days, the whole stock wears out within a week, so the new ads are the stock needed, rounded up, which sits below the Steady-state number: the plan never makes more ads a week than spend needs live at once.
+**13. The stock, week by week.** The Viable ad stock a week needs is that week's daily spend divided by the Spend per viable ad. The plan starts from the viable ads you have live on the last complete day, today's stock. The gap is the Viable ad stock at current spend less today's stock. Each week some of the stock stops being viable: Wearing out is the stock at the start of the week times 7, divided by the Days viable per hit, and never more than the whole stock. A gap above zero is closed by the Catch-up: each week's target is the stock needed less a share of the gap that shrinks evenly to nothing at the Budget week (week 4 with no Budget), so by then the target is the stock needed in full. In week w of B weeks to the Budget week, the target is the stock needed less the gap times (B less w) over B; after the Budget week, and where there is no gap, it is the stock needed. The Ads to launch are whole ads: the target, less the stock left after Wearing out, divided by the Hit rate, rounded up and never below zero. Expected to work is the Ads to launch times the Hit rate, left unrounded: the viable ads those launches are likely to add. The stock at the end of the week is the stock at its start, less Wearing out, plus Expected to work. At a flat budget with no gap, the Ads to launch each week are the Steady-state number, give or take one ad for rounding. When spend steps down, the stock needed can fall faster than ads wear out: a week may then need no launches, and the stock above what spend needs wears out on its own. Where the Days viable per hit is under 7 days, the whole stock wears out within a week, so the Ads to launch are the target over the Hit rate, which sits below the Steady-state number.
 
 **14. Live-by.** A new ad needs the Days to clear Ramping before it earns a verdict, so each week's new ads should be live that many days before the week's Monday. That date is the Live-by.
 
@@ -41,99 +41,113 @@ The number of new ads a week is worked out from how long your own ads stay good.
 
 **17. The Format split.** The proposed split is the video and image shares of the Launched ads whose first spend fell in the last 8 complete weeks, in whole percentages that sum to 100. You can keep it, give your own (a video percentage, with image the rest) or turn it off. Each week's new ads are divided by it in whole ads, by largest remainder: each format first takes the whole ads of its share, and the ad left over, if there is one, goes to the format with the larger remainder (on a tie, the larger share; on equal shares, video). The video and image ads always add up to the week's new ads. With no split, only the total is shown.
 
-**18. What the figures describe.** Every figure comes from your ads' own history in the window read, so it describes how your ads have behaved, not how ads behave in general. An account with few Launched ads gives a rough curve, and one with fewer than 20 in the window is not read at all: it does not yet launch enough ads for a curve.
+**18. What the figures describe.** Every figure comes from your ads' own history in the window read, so it describes how your ads have behaved, not how ads behave in general. An account with few Launched ads gives a rough curve, and one with fewer than 20 launched at least 28 days ago is not read at all: it does not yet launch enough ads to read a hit rate. Nor is one in which none of those ads became viable, because there is then no Hit rate to plan from.
+
+**19. The self-check.** Every run tests its own curve against the account. The Viable lifespan is the viable ad-days one launch delivers, so the Current pipeline times the Viable lifespan, divided by 7, is the number of viable ads that launching at that rate should leave live. That is the predicted viable ads, and it is set against today's viable ads. The check passes when the two are within 25% of each other, taken relative to today's viable ads. The run states the check either way, and where it fails it says the curve and today's count disagree, so the plan is a guide. A failed check does not stop the run.
 
 ## Worked example
 
-An invented brand, Fern & Co, with six Launched ads and a short run of days. Each row is one ad, each column its age in days, and the cell is its status that day: R is Ramping, V is viable (Healthy or Winner), X is not viable (Fatiguing, Fatigued, Improving or Low efficiency), and a dash is an age the ad has not reached yet.
+An invented brand, Fern & Co, with six Launched ads. Each ad is one line of its status on each day of its life, from age 0 to the last complete day: R is Ramping, V is viable (Healthy or Winner), X is a spending day that is not viable (Fatiguing, Fatigued, Improving or Low efficiency), a dot is a day with no spend, and a dash is an age the ad has not reached yet. The last complete day is 27 days after the first spend of ads A to E, and 19 days after the first spend of ad F.
 
-| Ad | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
-|---|---|---|---|---|---|---|---|---|---|---|
-| A | R | R | R | V | V | X | X | X | X | X |
-| B | R | R | R | V | V | V | V | V | V | – |
-| C | R | R | R | R | V | V | X | X | X | – |
-| D | R | R | R | R | V | V | V | V | – | – |
-| E | R | R | R | R | V | V | V | – | – | – |
-| F | R | R | R | R | R | V | – | – | – | – |
+```
+Age   0123456789 0123456789 01234567
+A     RRRVVVVVVV VVVVVVXXXX ........
+B     RRRVVVVVVV VVVVVVVVVV VVVVVVVV
+C     RRRRXXXXXX XXXXXXXXXX XXXXXXXX
+D     RRRRRRRRRR RRRRRRRRRR RRRRRRRR
+E     RRRRXXXXXX XX........ ........
+F     RRRRRVVVVV VVVXXXXXXX --------
+```
 
-**The curve.** Count the ads that are not Ramping at each age, and how many of them are viable.
+Ads A and E stop spending, and ad D never leaves Ramping. They stay in the count as not viable. A real run needs 20 Launched ads at least 28 days old; six keep the arithmetic readable.
 
-| Age | Classified | Viable | Survival |
-|---|---|---|---|
-| 3 | 2 (A, B) | 2 | does not count: fewer than 3 ads |
-| 4 | 5 | 5 | 5 ÷ 5 = 1.00 |
-| 5 | 6 | 5 | 5 ÷ 6 = 5/6 (0.83) |
-| 6 | 5 | 3 | 3 ÷ 5 = 3/5 (0.60) |
-| 7 | 4 | 2 | 2 ÷ 4 = 1/2 (0.50) |
-| 8 | 3 | 1 | 1 ÷ 3 = 1/3 (0.33) |
-| 9 | 1 (A) | 0 | does not count: fewer than 3 ads |
+**The curve.** At each age, count the ads that have reached it, and how many of them are viable. Ads A to E have reached every age to 27, and ad F every age to 19, so 6 ads have reached ages 0 to 19 and 5 have reached ages 20 to 27. The last column is the spend on those viable ad-days, each ad's day spend in whole pounds.
 
-**Viable lifespan.** 1 + 5/6 + 3/5 + 1/2 + 1/3 = 98 ÷ 30 = 3.27 days. The curve is still at 33% at age 8, above 25%, so this is a lower bound.
+| Age | Reached | Viable | Survival | Spend on viable ad-days |
+|---|---|---|---|---|
+| 0 to 2 | 6 | 0 | 0 | £0 |
+| 3 and 4 (each) | 6 | 2 (A, B) | 2 ÷ 6 = 1/3 (0.33) | £40 |
+| 5 to 12 (each) | 6 | 3 (A, B, F) | 3 ÷ 6 = 1/2 (0.50) | £90 |
+| 13 to 15 (each) | 6 | 2 (A, B) | 2 ÷ 6 = 1/3 (0.33) | £60 |
+| 16 to 19 (each) | 6 | 1 (B) | 1 ÷ 6 = 1/6 (0.17) | £40 |
+| 20 to 27 (each) | 5 | 1 (B) | 1 ÷ 5 = 1/5 (0.20) | £30 |
 
-**Healthy lifespan.** 0.50 is not below 50%, so the first age below 50% is 8. The first age below 75% is 6. The curve never gets below 25%, so the top of the quartile range reads "not reached".
+Age 28 has not been reached by any ad, so it does not count. Every counted age has 3 or more ads.
 
-**Days to clear Ramping.** The ads stop Ramping at ages 3, 3, 4, 4, 4 and 5, so the median is 4 days.
+**Viable lifespan.** The sum of the survival rates: 0 + 2 × 1/3 + 8 × 1/2 + 3 × 1/3 + 4 × 1/6 + 8 × 1/5 = 2/3 + 4 + 1 + 2/3 + 8/5 = 119 ÷ 15 = 7.93 days. The curve ends at 20%, below 25%, so this is not a lower bound. Had it ended at 25% or above, W would be a lower bound and the weekly figures a ceiling.
 
-**Spend per viable ad.** The average daily spend of the ads classified at each age is £20 at age 4, £30 at age 5, £40 at age 6, £40 at age 7 and £30 at age 8. Weight each by its survival rate: 20 × 1 + 30 × 5/6 + 40 × 3/5 + 40 × 1/2 + 30 × 1/3 = 20 + 25 + 24 + 20 + 10 = 99. Divide by the sum of the survival rates: 99 ÷ 3.27 = £30.31 a day (99 × 30 ÷ 98).
+**Hit rate.** Ads A to E first spent at least 27 days before the last complete day, so their ages 0 to 27 are all inside the window; ad F is only 19 days old and is left out. A and B were viable on at least one of those 28 days, and C, D and E were not: the Hit rate is 2 ÷ 5 = 0.40, which is 2 in 5.
 
-**Viable ad stock.** Say Fern & Co's last complete week cost £4,200, so current spend is £600 a day. The Viable ad stock is 600 ÷ 30.31 = 19.8 viable ads live at once.
+**Days viable per hit.** 7.93 ÷ 0.40 = 19.83 days. As a check, 0.40 × 19.83 = 7.93, the Viable lifespan.
 
-**Steady-state number.** 19.8 × 7 ÷ 3.27 = 42.4, which rounds up to 43 new ads a week. As a check, it is also the weekly spend divided by the survival-weighted spend of one ad over its viable life: 4,200 ÷ 99 = 42.4. Because the Viable lifespan is a lower bound, the figure is a ceiling and may be a little high.
+**Healthy lifespan.** The peak is 0.50, first reached at age 5. Half of it is 0.25, and the first age after the peak below that is 16 (0.17). 75% of it is 0.375, and the first age below that is 13 (0.33). Nothing falls below 0.125, a quarter of the peak, so the top of the quartile range reads "not reached".
 
-**The check.** At 19.8, Short is below 15.8 viable ads (80%) and Over-stocked is above 29.7 live ads past Ramping (150%). If today 12 ads are viable and 22 are live past Ramping, Fern & Co is Short and not Over-stocked.
+**Days to clear Ramping.** The ads leave Ramping at ages 3, 3, 4, 4 and 5 (ad D never does and is left out), so the median is 4 days.
+
+**Spend per viable ad.** The spend on viable ad-days is 2 × £40 + 8 × £90 + 3 × £60 + 4 × £40 + 8 × £30 = 80 + 720 + 180 + 160 + 240 = £1,380. The viable ad-days are 2 + 2 + 8 × 3 + 3 × 2 + 4 + 8 = 46. So the Spend per viable ad is 1,380 ÷ 46 = £30 a day.
+
+**Viable ad stock.** Say Fern & Co's last complete week cost £4,200, so current spend is £600 a day. The Viable ad stock is 600 ÷ 30 = 20 viable ads live at once.
+
+**Steady-state number.** 20 × 7 ÷ 7.93 = 17.65, which rounds up to 18 launches a week. It is also 20 × 7 ÷ (0.40 × 19.83): 18 launches add 18 × 0.40 = 7.2 viable ads a week, and 20 viable ads wear out at 20 × 7 ÷ 19.83 = 7.06 a week.
+
+**The check on today's ads.** At 20, Short is below 16 viable ads (80%) and Ahead is above 30 (150%). Today, Monday 9 November, 22 ads are live past Ramping: 15 are viable, 5 are Worn out now and 2 are Improving. Fern & Co is Short, by 5 viable ads. Wearing out over the next 2 weeks is 15 × 14 ÷ 19.83 = 10.6.
+
+**The self-check.** Say Fern & Co launched 14 a week over the last 8 weeks. Launching 14 a week predicts 14 × 7.93 ÷ 7 = 15.9 viable ads, and today it has 15, a difference of (15.9 − 15) ÷ 15 = 6%, inside 25%. The run says: "Check: launching 14 a week at a hit rate of 40% predicts 15.9 viable ads; you have 15." Had today's count been 10, the difference would be 59%, and the run would add that the curve and today's count disagree by 59%, so the plan is a guide.
 
 ## The Roadmap, worked
 
-The ten-day table above is too short to show a stock wearing out over weeks, so the Roadmap takes the figures Fern & Co's full 180 days would give instead: a Viable lifespan of 14 days and a Spend per viable ad of £30 a day, with the same 4 days to clear Ramping and the same current spend of £600 a day. The Viable ad stock is 600 ÷ 30 = 20, and the Steady-state number is 20 × 7 ÷ 14 = 10 new ads a week. Today, Monday 9 November, 22 ads are live past Ramping: 12 are viable, 8 are Worn out now and 2 are Improving. So the starting stock is 12, and Wearing out each week is the stock × 7 ÷ 14, half of it.
+Fern & Co gives a Budget of £36,500 a month, which is 36,500 × 12 ÷ 365 = £1,200 a day, to be reached in the week of Monday 7 December, 4 weeks from now. Daily spend steps by (1,200 − 600) ÷ 4 = £150 a week. The gap is 20 − 15 = 5 viable ads, so the Catch-up lifts the target by a share of 5 that shrinks evenly to nothing by week 4: the target is the stock needed less 5 × (4 − w) ÷ 4. Wearing out each week is the stock × 7 ÷ 19.83, which is 6/17 of it. Live-by is the Monday less 4 days.
 
-**A ramp.** Fern & Co gives a Budget of £45,625 a month, which is 45,625 × 12 ÷ 365 = £1,500 a day, to be reached in the week of Monday 30 November, 3 weeks from now. Daily spend steps by (1,500 − 600) ÷ 3 = £300 a week. Live-by is the Monday less 4 days.
-
-| Week (Monday) | Daily spend | Stock needed | Start | Wearing out | New | End | Live-by |
-|---|---|---|---|---|---|---|---|
-| 1 (16 Nov) | £900 | 900 ÷ 30 = 30 | 12 | 12 × 7 ÷ 14 = 6 | ⌈30 − (12 − 6)⌉ = 24 | 12 − 6 + 24 = 30 | Thu 12 Nov |
-| 2 (23 Nov) | £1,200 | 1,200 ÷ 30 = 40 | 30 | 15 | ⌈40 − 15⌉ = 25 | 30 − 15 + 25 = 40 | Thu 19 Nov |
-| 3 (30 Nov) | £1,500 | 1,500 ÷ 30 = 50 | 40 | 20 | ⌈50 − 20⌉ = 30 | 40 − 20 + 30 = 50 | Thu 26 Nov |
-
-Every week ties: start, less Wearing out, plus New, is the end stock, and each end stock lands on the stock needed. The Roadmap goes on for 4 more weeks at £1,500 a day; the first of them (week 4) has a start of 50, Wearing out of 25 and New of ⌈50 − 25⌉ = 25, which is the Steady-state number at £1,500: 50 × 7 ÷ 14 = 25.
-
-**The Waterfall of the ramp.** The start bar is the 22 live ads past Ramping, drawn already dropped by the 10 that are Worn out now (8) or Improving (2), down to 12. Then, for each week, a down bar for Wearing out, an up bar for New, and the end stock, with the stock needed marked as a line:
-
-| Week | Starts at | Down | Up | Ends at | Line at |
-|---|---|---|---|---|---|
-| 1 | 12 | 6 | 24 | 30 | 30 |
-| 2 | 30 | 15 | 25 | 40 | 40 |
-| 3 | 40 | 20 | 30 | 50 | 50 |
-
-**A flat budget.** Held at £600 a day, the stock needed is 20 every week. Week 1: Wearing out is 6, New is ⌈20 − (12 − 6)⌉ = 14, and the end stock is 20. Week 2: Wearing out is 10, New is ⌈20 − (20 − 10)⌉ = 10, and the end stock is 20. From week 2 the new ads equal the Steady-state number, 10. Week 1 is higher because today's 12 viable ads are short of the 20 needed.
-
-**A scale-down.** Give a Budget of £3,650 a month, which is £120 a day, reached in week 3. Daily spend steps down by £160 a week.
-
-| Week | Daily spend | Stock needed | Start | Wearing out | New | End |
-|---|---|---|---|---|---|---|
-| 1 | £440 | 14.7 | 12 | 6 | ⌈14.7 − 6⌉ = 9 | 12 − 6 + 9 = 15 |
-| 2 | £280 | 9.3 | 15 | 7.5 | ⌈9.3 − 7.5⌉ = 2 | 15 − 7.5 + 2 = 9.5 |
-| 3 | £120 | 4 | 9.5 | 4.75 | max(0, ⌈4 − 4.75⌉) = 0 | 9.5 − 4.75 + 0 = 4.75 |
-| 4 | £120 | 4 | 4.75 | 2.375 | ⌈4 − 2.375⌉ = 2 | 4.75 − 2.375 + 2 = 4.375 |
-
-In week 3 the stock left after Wearing out (4.75) is already above the 4 spend needs, so no new ads are made (the Roadmap reads "None needed") and the surplus wears out on its own. New is never negative. In week 4 the stock after Wearing out (2.375) has fallen below the 4 needed, so new ads resume and bring the end stock to 4.375, close to the line. In the Waterfall of the scale-down, the stock runs down to the line:
-
-| Week | Starts at | Down | Up | Ends at | Line at |
-|---|---|---|---|---|---|
-| 1 | 12 | 6 | 9 | 15 | 14.7 |
-| 2 | 15 | 7.5 | 2 | 9.5 | 9.3 |
-| 3 | 9.5 | 4.75 | 0 | 4.75 | 4 |
-| 4 | 4.75 | 2.375 | 2 | 4.375 | 4 |
-
-**The Format split.** Fern & Co's last 8 weeks were 30% video and 70% image, and the ad names gave the format of 82% of those ads. Dividing 7 new ads at 30/70 by largest remainder: video is 7 × 0.30 = 2.1 and image is 7 × 0.70 = 4.9. Each format takes its whole ads, 2 and 4, which is 6, so one ad is left. The remainders are 0.1 and 0.9, so the ad goes to image: 2 video and 5 image, which add up to 7. Rounding each share on its own can overshoot: 25 new ads at 30/70 would round 7.5 and 17.5 up to 8 and 18, which is 26. Largest remainder never does. The ramp's weeks divide as follows.
-
-| Week | New | Video | Image |
+| Week (Monday) | Daily spend | Stock needed | Target |
 |---|---|---|---|
-| 1 | 24 | 24 × 0.30 = 7.2, whole 7 | 24 × 0.70 = 16.8, whole 16, plus the ad left over: 17 |
-| 2 | 25 | 25 × 0.30 = 7.5, whole 7 | 25 × 0.70 = 17.5, whole 17, plus the ad left over (equal remainders, the larger share): 18 |
-| 3 | 30 | 9 | 21 |
+| 1 (16 Nov) | £750 | 750 ÷ 30 = 25 | 25 − 5 × 3 ÷ 4 = 21.25 |
+| 2 (23 Nov) | £900 | 900 ÷ 30 = 30 | 30 − 5 × 2 ÷ 4 = 27.5 |
+| 3 (30 Nov) | £1,050 | 1,050 ÷ 30 = 35 | 35 − 5 × 1 ÷ 4 = 33.75 |
+| 4 (7 Dec) | £1,200 | 1,200 ÷ 30 = 40 | 40 |
 
-Each row adds up: 7 + 17 = 24, 7 + 18 = 25 and 9 + 21 = 30. In the Waterfall, each week's up bar is stacked with the video ads and the image ads, and the total is unchanged.
+| Week | Start | Wearing out | Launches needed | Ads to launch | Expected to work | End | Live-by |
+|---|---|---|---|---|---|---|---|
+| 1 | 15.0 | 15 × 6 ÷ 17 = 5.3 | (21.25 − (15.0 − 5.3)) ÷ 0.40 = 28.86 | 29 | 29 × 0.40 = 11.6 | 15.0 − 5.3 + 11.6 = 21.3 | Thu 12 Nov |
+| 2 | 21.3 | 7.5 | (27.5 − (21.3 − 7.5)) ÷ 0.40 = 34.28 | 35 | 14.0 | 21.3 − 7.5 + 14.0 = 27.8 | Thu 19 Nov |
+| 3 | 27.8 | 9.8 | (33.75 − (27.8 − 9.8)) ÷ 0.40 = 39.43 | 40 | 16.0 | 27.8 − 9.8 + 16.0 = 34.0 | Thu 26 Nov |
+| 4 | 34.0 | 12.0 | (40 − (34.0 − 12.0)) ÷ 0.40 = 45.03 | 46 | 18.4 | 34.0 − 12.0 + 18.4 = 40.4 | Thu 3 Dec |
 
-**The Budget ladder.** The Steady-state number at £600 a day is 10. At 25% more, £750 a day, the stock needed is 25 and the number is ⌈25 × 7 ÷ 14⌉ = 13. At 50% more, £900 a day, it is 30 and 15. At the £1,500 Budget it is 50 and 25.
+Each row ties: start, less Wearing out, plus Expected to work, is the end stock. The figures are carried unrounded and shown to one decimal, so a launches-needed figure such as 45.03 rounds up to 46 whole ads. The end stock in week 4 is 40.4, above the 40 that spend then needs, and the Catch-up spread the 5 missing viable ads evenly over weeks 1 to 4: the target sits 3.75, 2.5, 1.25 and 0 below the stock needed. The Roadmap goes on for 4 more weeks at £1,200 a day.
 
-**The gap.** The growth is the stock needed at the Budget less the stock needed now: 50 − 20 = 30.
+**The Waterfall of the ramp.** The start bar is the 22 live ads past Ramping, drawn already dropped by the 7 that are Worn out now (5) or Improving (2), down to 15. Then, for each week, a down bar for Wearing out, an up bar for Expected to work, and the end stock, with the stock needed marked as a line:
+
+| Week | Starts at | Down | Up | Ends at | Line at |
+|---|---|---|---|---|---|
+| 1 | 15.0 | 5.3 | 11.6 | 21.3 | 25 |
+| 2 | 21.3 | 7.5 | 14.0 | 27.8 | 30 |
+| 3 | 27.8 | 9.8 | 16.0 | 34.0 | 35 |
+| 4 | 34.0 | 12.0 | 18.4 | 40.4 | 40 |
+
+**A flat budget.** Say Fern & Co held £600 a day with 20 viable ads today, so there is no gap. The stock needed is 20 every week. Week 1: Wearing out is 20 × 6 ÷ 17 = 7.06, Ads to launch is ⌈(20 − (20 − 7.06)) ÷ 0.40⌉ = ⌈17.65⌉ = 18, Expected to work is 7.2, and the end stock is 20.1. Week 2 is ⌈17.42⌉ = 18 again. Every week is the Steady-state number, 18. With today's 15 viable ads there is a gap, and the Catch-up raises the early weeks above it for 4 weeks.
+
+**A scale-down.** Say instead Fern & Co had 24 viable ads today, and gives a Budget of £3,650 a month, which is £120 a day, reached in week 3. Daily spend steps down by £160 a week. There is no gap, so the target is the stock needed.
+
+| Week | Daily spend | Stock needed | Start | Wearing out | Ads to launch | Expected to work | End |
+|---|---|---|---|---|---|---|---|
+| 1 | £440 | 14.7 | 24.0 | 8.5 | max(0, ⌈(14.7 − (24.0 − 8.5)) ÷ 0.40⌉) = 0 | 0.0 | 24.0 − 8.5 + 0.0 = 15.5 |
+| 2 | £280 | 9.3 | 15.5 | 5.5 | 0 | 0.0 | 15.5 − 5.5 + 0.0 = 10.0 |
+| 3 | £120 | 4.0 | 10.0 | 3.5 | 0 | 0.0 | 10.0 − 3.5 + 0.0 = 6.5 |
+| 4 | £120 | 4.0 | 6.5 | 2.3 | 0 | 0.0 | 6.5 − 2.3 + 0.0 = 4.2 |
+| 5 | £120 | 4.0 | 4.2 | 1.5 | ⌈(4.0 − (4.2 − 1.5)) ÷ 0.40⌉ = ⌈3.19⌉ = 4 | 1.6 | 4.2 − 1.5 + 1.6 = 4.3 |
+
+For four weeks the stock left after Wearing out is already above the stock needed, so no ads are launched (the Roadmap reads "None needed") and the surplus wears out on its own. Ads to launch is never negative. In week 5 the stock after Wearing out (2.7) has fallen below the 4 needed, so launches resume.
+
+**The Format split.** Fern & Co's last 8 weeks were 30% video and 70% image, and the ad names gave the format of 82% of those ads. Dividing 29 Ads to launch at 30/70 by largest remainder: video is 29 × 0.30 = 8.7 and image is 29 × 0.70 = 20.3. Each format takes its whole ads, 8 and 20, which is 28, so one ad is left. The remainders are 0.7 and 0.3, so the ad goes to video: 9 video and 20 image, which add up to 29. Rounding each share on its own can overshoot: 25 ads at 30/70 would round 7.5 and 17.5 up to 8 and 18, which is 26. Largest remainder never does. The ramp's weeks divide as follows.
+
+| Week | Ads to launch | Video | Image |
+|---|---|---|---|
+| 1 | 29 | 8.7, whole 8, plus the ad left over (the larger remainder): 9 | 20.3, whole 20: 20 |
+| 2 | 35 | 10.5, whole 10 | 24.5, whole 24, plus the ad left over (equal remainders, the larger share): 25 |
+| 3 | 40 | 12 | 28 |
+| 4 | 46 | 13.8, whole 13, plus the ad left over (the larger remainder): 14 | 32.2, whole 32: 32 |
+
+Each row adds up: 9 + 20 = 29, 10 + 25 = 35, 12 + 28 = 40 and 14 + 32 = 46. In the Waterfall, each week's up bar is Expected to work, split between video and image in proportion to those launches.
+
+**The Budget ladder.** The Steady-state number at £600 a day is 18. At 25% more, £750 a day, the stock needed is 25 and the number is ⌈25 × 7 ÷ 7.93⌉ = ⌈22.06⌉ = 23. At 50% more, £900 a day, it is 30 and ⌈26.47⌉ = 27. At the £1,200 Budget it is 40 and ⌈35.29⌉ = 36.
+
+**The growth.** The growth is the stock needed at the Budget less the stock needed now: 40 − 20 = 20.

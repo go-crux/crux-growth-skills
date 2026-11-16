@@ -18,13 +18,15 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Days viable per hit**: the Viable lifespan over the Hit rate: how long an ad that works stays viable. Today's viable ads wear out at 1 over it. _Avoid_: winner lifespan, hit lifespan.
 
-- **Healthy lifespan**: the age by which half the Launched ads have stopped being viable, with the quartile range (the ages at 75% and 25%). The figure the Churn cycle quotes. _Avoid_: median life, half-life.
+- **Healthy lifespan**: the age by which half the ads viable at the Survival curve's peak have stopped being viable, with the quartile range (the ages at 75% and 25% of the peak). The figure the Churn cycle quotes. _Avoid_: median life, half-life.
 
 - **Spend per viable ad**: the account's typical daily spend on one viable ad: spend on viable ad-days over the number of viable ad-days. _Avoid_: spend per ad, ad budget.
 
 - **Days to clear Ramping**: the median number of days a Launched ad spends Ramping before its first status. Sets the Live-by date. _Avoid_: learning phase, ramp time.
 
 ## The check
+
+- **Self-check**: the test of the Survival curve against the account on every run: Current pipeline times Viable lifespan over 7 predicts today's viable ads, and it passes within 25% of them. A fail is said on How it's worked out and does not stop the run. _Avoid_: validation, sanity check.
 
 - **Ad stock check**: today's viable ads against the Viable ad stock at current spend. **Short**: below 80% of it. **Ahead**: above 150% of it. **About right**: between. Your plan shows it as "Do you have the right number of ads?", one bar with the gap as a count of ads. _Avoid_: health check, ad audit, over-stocked.
 
@@ -42,13 +44,15 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Steady-state number**: new ads a week to hold a level of spend: Viable ad stock times 7 over the Viable lifespan. _Avoid_: run rate, replacement rate.
 
-- **Roadmap**: one row per ISO week from next week to the Budget week, then 4 weeks held at the Budget: that week's spend, Viable ad stock, Wearing out, new ads to make (by format) and the Live-by date. _Avoid_: plan, schedule, forecast.
+- **Roadmap**: one row per ISO week from next week to the Budget week, then 4 weeks held at the Budget: that week's spend, Viable ad stock, Wearing out, Ads to launch (by format), Expected to work and the Live-by date. _Avoid_: plan, schedule, forecast.
 
 - **Roadmap file**: `meta-ad-roadmap-<date>.md`, the Roadmap handed over as markdown for whoever makes the ads: the Budget, the weeks, the new ads by format, the Live-by dates, and one line each on the Viable lifespan and the Spend per viable ad. Offered at the Close; the page does not need it. _Avoid_: handover file (that is the Action skills'), brief, export.
 
 - **Catch-up**: the launches that close today's gap: the viable ads short of the Viable ad stock over the Hit rate, spread evenly over the weeks to the Budget week (4 with no Budget). _Avoid_: backlog, top-up.
 
 - **Expected to work**: a week's launches times the Hit rate: the viable ads they add, and the Waterfall's up bar. _Avoid_: expected winners, yield.
+
+- **Ads to launch**: the whole ads a Roadmap week launches: the week's target, less the stock left after Wearing out, over the Hit rate, rounded up and never below 0. _Avoid_: new ads to make, New.
 
 - **Live-by**: the date a Roadmap week's new ads must go live: the week's Monday less the Days to clear Ramping. _Avoid_: launch date, deadline.
 
