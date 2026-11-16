@@ -78,6 +78,8 @@ session, so it runs from Matt's own Claude, never from a cold run. Method in
 - **`audit-ads` and `plan-ad-volume` share one ad classification.** Both carry it between
   `-- BEGIN shared classification` and `-- END shared classification` in their `references/fatigue.sql`.
   The two blocks change together, byte for byte, and `/code-review` diffs them.
+  `plan-ad-volume`'s `references/intake.sql` and `references/fatigue.sql` likewise carry one
+  `-- BEGIN shared format` block, which changes together byte for byte.
 - **Both hosts read the plugin's `skills/`.** Keep a skill free of Claude-only syntax the Codex host cannot
   follow, and keep the plugin's Claude manifest under `.claude-plugin/` working.
 - **Anyone reads the README.** It is written for a non-technical reader at any ecommerce brand, client or not (founder, head of growth, ecommerce or marketing manager), leads with the desktop app's plugin install, and says what each skill needs. It is in Crux house style

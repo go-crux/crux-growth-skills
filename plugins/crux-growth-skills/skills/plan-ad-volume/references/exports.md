@@ -100,7 +100,7 @@ are not the brain's mart:
   retargeting campaigns are matched by Campaign name.
 - **Awareness campaigns.** Drop the ads of the awareness campaigns, matched by the Campaign name
   on each ad's latest row, as the SQL's `keyed` does: an ad whose campaign was renamed is left out
-  whole, its rows under the old name too. Drop the proposed campaigns for the Launched-ad count of
+  whole, its rows under the old name too. Drop the proposed campaigns for the Launched-ad count and the Format split default of
   `SKILL.md` step 2, and the confirmed ones once step 3's reply is in.
 - **Orders.** Purchases stand where the SQL reads `new_orders`, so CAC is Amount spent over
   Purchases, Meta's own cost per purchase: platform-attributed, counting every purchase Meta

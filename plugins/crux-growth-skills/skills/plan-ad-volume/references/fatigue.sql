@@ -612,6 +612,9 @@ current_spend AS (
   CROSS JOIN win AS w
   WHERE d.day >= DATE_SUB(w.this_monday, INTERVAL 7 DAY) AND d.day < w.this_monday
 ),
+-- BEGIN shared format
+-- The same block, byte for byte, is in references/intake.sql, which gives the intake the Format split
+-- default before this file runs. The two change together.
 -- The last complete ISO weeks (pipeline_weeks, or fewer where the window holds fewer) that the
 -- Current pipeline and the Format split default read.
 recent_weeks AS (
@@ -654,6 +657,7 @@ format_split AS (
     CAST(ROUND(100 * SAFE_DIVIDE(COUNTIF(named), COUNT(*))) AS INT64) AS name_coverage_pct
   FROM recent_formats
 )
+-- END shared format
 -- END model
 SELECT
   w.date_from AS window_from,
