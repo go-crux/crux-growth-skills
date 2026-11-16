@@ -98,7 +98,7 @@ Age 28 has not been reached by any ad, so it does not count. Every counted age h
 
 **The check on today's ads.** At 12, Short is below 9.6 viable ads (80%) and Ahead is above 18 (150%). Today, Monday 9 November, 16 ads are live past Ramping: 8 are viable, 5 are Worn out now and 3 are Improving. Fern & Co is Short, by 4 viable ads.
 
-**The self-check.** Say Fern & Co launched 8 a week over the last 8 weeks. Launching 8 a week predicts 8 × 7.93 ÷ 7 = 9.1 viable ads, and today it has 8, a difference of (9.07 − 8) ÷ 8 = 13%, inside 25%. The run says: "Check: launching 8 a week at a hit rate of 40% predicts 9.1 viable ads; you have 8." Had today's count been 5, the difference would be 81%, and the run would add that the curve and today's count disagree by 81%, so the plan is a guide. The self-check does not read the Viable share target.
+**The self-check.** Say Fern & Co launched 8 a week over the last 8 weeks. Launching 8 a week predicts 8 × 7.93 ÷ 7 = 9.1 viable ads, and today it has 8, a difference of (9.06 − 8) ÷ 8 = 13%, inside 25%. The run says: "Check: launching 8 a week at a hit rate of 40% predicts 9.1 viable ads; you have 8." Had today's count been 5, the difference would be 81%, and the run would add that the curve and today's count disagree by 81%, so the plan is a guide. The self-check does not read the Viable share target.
 
 ## The Roadmap, worked
 
