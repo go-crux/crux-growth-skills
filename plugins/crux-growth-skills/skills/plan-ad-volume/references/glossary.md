@@ -30,7 +30,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Current pipeline**: Launched ads per week, averaged over the last 8 complete weeks. What the steady-state number is compared with. _Avoid_: launch rate, creative velocity.
 
-- **Churn cycle**: how long an ad lasts in this account, the Your plan section of that name: Healthy lifespan, its quartile range, Viable lifespan, Days to clear Ramping and the Survival curve chart. _Avoid_: lifecycle, fatigue profile.
+- **Churn cycle**: how long an ad lasts in this account, shown on Your plan as "How long an ad lasts": Healthy lifespan, its quartile range, Viable lifespan, Days to clear Ramping and the Survival curve chart. _Avoid_: lifecycle, fatigue profile.
 
 ## The plan
 

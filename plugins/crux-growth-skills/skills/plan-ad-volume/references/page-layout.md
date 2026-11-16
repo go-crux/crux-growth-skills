@@ -18,8 +18,9 @@ Your plan first. The masthead sits above the tabs and shows with either.
 
 ## Page labels
 
-Your plan speaks to the user in these labels, never in the term on the left. Each label is
-explained in a few words where it first appears on Your plan (the "Says" column gives the words).
+Your plan speaks to the user in these labels, never in the term on the left. Each label with a
+Says is explained in those words where it first appears on Your plan; a label with none is a
+heading or a chart title and needs no gloss.
 How it's worked out uses the terms, and opens with this table as **Terms on the plan** (Label,
 Term, Says), so a reader can match the two.
 
@@ -32,14 +33,15 @@ Term, Says), so a reader can match the two.
 | Short | Too few | fewer viable ads than your spend needs |
 | Over-stocked | Too many | far more ads running than your spend needs, so each gets too little |
 | About right | About right | within the range your spend needs |
-| Worn out now | Stopped working, still running | ads past their test phase whose CAC has slipped; they take spend but do not count |
-| Wearing out | Expected to wear out | viable ads likely to stop being viable in that time |
+| Worn out now | Stopped working but still running | ads past their test phase whose CAC has slipped; they take spend but do not count |
+| Wearing out | Expected to wear out (in the gap: Expected to stop working in the next 2 weeks) | viable ads likely to stop being viable in that time |
 | Growth | Extra for your Budget | the further viable ads your Budget will need |
 | Healthy lifespan | Half stop being viable by | the age by which half your new ads have stopped being viable |
 | Viable lifespan | Average days viable | how long a new ad stays viable, on average |
-| Days to clear Ramping | Test phase | the days a new ad needs before it can be judged |
+| Days to clear Ramping | Days in the test phase | the days a new ad needs before it can be judged |
 | Survival curve | Share of new ads still viable | of the ads you launched, the share still viable at each age |
 | Launched ads | New ads read | ads first launched inside the window, the ones the curve rests on |
+| Improving | recovering | not viable today, but its CAC has fallen over the last 3 days |
 | Steady-state number | New ads a week to keep up | the new ads a week that replace the viable ads wearing out, at that spend |
 | Current pipeline | You launch now | new ads a week, averaged over your last 8 weeks |
 | Spend per viable ad | Spend one viable ad carries | the typical daily spend on one viable ad |
@@ -48,6 +50,7 @@ Term, Says), so a reader can match the two.
 | Live-by | Go live by | the date a week's new ads must go live to be judged in time |
 | Budget ladder | If you spend more | |
 | Format split | Video and image split | |
+| Name coverage | names gave the format of | the share of ads whose name said video or image |
 
 ## The masthead
 
@@ -64,8 +67,8 @@ on the right, one row per label, in this order:
 # Your plan
 
 Four headline tiles, then five headings, always present, always in this order, with these words. A
-heading with nothing under it stays on the page, with one line saying why. Every section ends on
-its action.
+heading with nothing under it stays on the page, with one line saying why. Every section under a
+heading ends on its action; the lower-bound line, where the run has one, follows the last.
 
 ## The headline tiles
 
@@ -83,17 +86,19 @@ it:
 4. **Ads to make next week**: the first Week-by-week plan row's New ads, or "None needed". The small
    line: "go live by <date>", or "already due".
 
-The tiles carry the page's colour for the verdict only: one colour each for Too few, About right and
+Under the row, one small line gives the first use of viable its Says: "Viable: <the Says of
+viable ad>." The tiles carry the page's colour for the verdict only: one colour each for Too few, About right and
 Too many, always with the words, so the tile does not depend on colour alone.
 
 ## Do you have the right number of ads?
 
 One sentence of what it means: "To spend <current spend a day> well, your account needs about <L>
-viable ads (<the Says of viable ad>) live at once."
+viable ads live at once."
 
-**The gauge** is inline SVG: one horizontal bar, a count of ads from 0 on the left to the largest of
-1.5 times L, the viable ads today and the ads running past their test phase, plus 15%, with a few
-round ticks. Three zones shade it, each labelled: **Too few** from 0 to 80% of L, **About right**
+**The gauge** is inline SVG: one horizontal bar, a count of ads from 0 on the left to the right-hand end:
+the largest of 1.5 times L, the viable ads today and the ads running past their test phase, plus
+15% of that largest figure, rounded up to the next tick. Ticks every 10 ads, or every 20 where the
+end passes 100. Three zones shade it, each labelled: **Too few** from 0 to 80% of L, **About right**
 from 80% to 150% of L, **Too many** above 150% of L. A line marks L, labelled "Needed: <L>". Two
 markers sit on it, each labelled with its count: **Viable now** (today's viable ads) and **Running
 past their test phase** (today's live ads past Ramping). Give the gauge a title and a text
@@ -115,13 +120,13 @@ Says:
 
 | Label | Holds |
 |---|---|
-| Stopped working, still running | Worn out now: live ads past Ramping that are Fatiguing, Fatigued or Low efficiency, today. |
+| Stopped working but still running | Worn out now: live ads past Ramping that are Fatiguing, Fatigued or Low efficiency, today. |
 | Expected to stop working in the next 2 weeks | Wearing out: viable ads times 14 over the Viable lifespan, a whole number. |
 | Extra for your Budget | Growth: the Viable ad stock at the daily Budget less at current spend, one decimal; with no Budget, 0 and "no Budget given". |
 
 The action: the ads to make to cover what has stopped and what will stop, and that the
 Week-by-week plan below gives them week by week, growth included. Where Too few and Too many both
-hold, or any ad has Stopped working, still running, one sentence says to run `/audit-ads` for which
+hold, or any ad has stopped working but is still running, one sentence says to run `/audit-ads` for which
 ads to pause. The page names no ad.
 
 ## How long an ad lasts
@@ -132,14 +137,14 @@ How long a new ad stays viable in this account, in four lines and one chart.
   by day 9, three quarters by day 40"). An end that was not reached reads "not reached".
 - **Average days viable**: W, in days to one decimal, with "at least" before it where W is a lower
   bound.
-- **Test phase**: Days to clear Ramping, the median, in days, with its Says.
+- **Days in the test phase**: Days to clear Ramping, the median, in days, with its Says.
 - **New ads read**: how many Launched ads the curve rests on. Below 10, one sentence says the curve
   is rough.
 
 **The chart, "Share of new ads still viable"**, is inline SVG: age in days along the bottom, the
 share of Launched ads still viable up the side from 0% to 100%, with gridlines at 25%, 50% and 75%.
 Draw one point per age that counts, joined by a line, and no point for an age under the 3-ad floor.
-Mark Half stop being viable by with a vertical line and its label, and the Test phase with a second.
+Mark Half stop being viable by with a vertical line and its label, and Days in the test phase with a second.
 Label both axes in plain words ("Days since the ad launched", "Still viable"), give the chart a
 title and a text alternative, and write the figures in the labels in the same format as the lines
 above.
@@ -192,9 +197,9 @@ inline SVG covering the plan's weeks only. Along the bottom is one group for eac
 its Monday. Up the side is a count of viable ads from 0, with gridlines. The bars, left to right:
 
 1. **The start bar**: the ads running past their test phase today, drawn already dropped. The drop
-   is the difference from the viable ads today (S(0)), labelled "Stopped working" with its count,
-   and with the Improving ads' count beside it where there are any ("recovering"), so the bar comes
-   down to S(0).
+   is the difference from the viable ads today (S(0)), so the bar comes down to S(0). Label the drop
+   with its parts: "Stopped working but still running" with its count, and, where there are any,
+   "recovering" with the Improving ads' count; the two sum to the drop.
 2. **For each week**, three bars: a down bar for Expected to wear out, from the week's start stock;
    an up bar for New ads to make, from where the down bar ends; and the end stock, a bar from 0.
    With a Format split the up bar is stacked: the video ads from where the down bar ends, the image

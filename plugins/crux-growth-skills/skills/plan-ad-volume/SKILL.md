@@ -19,7 +19,7 @@ cycle, Steady-state number, Budget, Roadmap, Live-by, Waterfall, Budget ladder, 
 Format split, Roadmap file, Awareness campaign, Unattended run, Source, Brain line, Your plan, How
 it's worked out and Page label are those of
 `references/glossary.md`, and Next run is the repo's shared term; use them as written here and on
-How it's worked out. Your plan, the Roadmap file and the chat speak to the user in the Page labels
+How it's worked out. Your plan, the Roadmap file and the chat's close speak to the user in the Page labels
 `references/page-layout.md` gives each term instead. The ad
 statuses and CAC are judged exactly as `references/fatigue.sql` judges them.
 
@@ -288,7 +288,7 @@ none persists (a chat), hand it over as a download.
 
 **Done when** the page opens on Your plan with the four tiles and its five headings in order, and
 How it's worked out holds its three; the verdict names Too few, Too many or About right with the gap
-as a count, on the gauge; no glossary term shows on Your plan where page-layout gives it a Page
+as a count, on the gauge under Do you have the right number of ads?; no glossary term shows on Your plan where page-layout gives it a Page
 label; New ads a week to keep up stands against You launch now; the Week-by-week plan's table and
 its chart hold the same weeks and the same video and image figures (or the total alone with no
 split); If you spend more states its assumption; a lower bound W is said on both tabs; an
@@ -301,7 +301,7 @@ In chat, after the page, in this order:
 
 1. One line, in the Page labels: where the page is, the verdict with its gap ("12 viable ads
    short"), and New ads a week to keep up against You launch now.
-2. **The Roadmap file.** Offer the Roadmap as `meta-ad-roadmap-<date>.md`, to hand to whoever makes
+2. **The Roadmap file.** Offer the Week-by-week plan as a file, `meta-ad-roadmap-<date>.md`, to hand to whoever makes
    the ads, and say what it holds: the Budget, the weeks, the new ads by format, the Go live by
    dates, and one line each on how long an ad lasts and the spend one viable ad carries. On "yes", write it as
    `references/page-layout.md` fixes it and save it in the working folder; where none persists (a
