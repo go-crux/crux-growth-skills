@@ -82,9 +82,11 @@ description: <leading word first; one trigger per distinct case the skill handle
   and the conversation's project files. Save it to the working folder where one persists (Claude
   Code, Cowork); in a chat, hand it over as a download with one line: add it to a Claude
   Project's files, or attach it next time.
-- **Read only.** A skill writes nothing the brain cannot write. A plan the user wants loaded
-  somewhere (a budget, a schedule) leaves as a file they load themselves; the page never
-  promises that Crux will load it.
+- **Read only, until the Hand-off.** A skill writes nothing the brain cannot write. A plan the
+  user wants loaded somewhere (a budget, a schedule) leaves as a file they load themselves; the
+  page never promises that Crux will load it. The one exception is an action skill's Hand-off:
+  where the session holds a connector that can make changes in the platform, the agent may make
+  the changes the user confirms there (ADR-0007).
 
 ## The page the skill produces
 
