@@ -16,7 +16,7 @@ row per label, in this order:
 | Window | The complete days read, first to last date: 365 from a Growth Brain, 180 from a Meta connector or an export (or the days the Source held, if fewer). |
 | Source | The Source the run used: the Growth Brain connector's name, the Meta connector's name, or "Ads Manager export" with the file's name. |
 | Measure | With a Growth Brain: "CAC: spend over new customers, counted from your own first orders." Otherwise: "CAC: Meta spend over the purchases Meta reports for the ad. Platform-attributed: it counts every purchase Meta claims." |
-| Current spend | The last complete ISO week's dates, its spend, and that spend a day. |
+| Current spend | The last complete ISO week's dates, its spend outside the awareness campaigns, and that spend a day. |
 
 **Seven headings**, always present, always in this order, with these words. A heading with nothing
 under it stays on the page, with one line saying why.
@@ -190,10 +190,13 @@ In this order:
      read, and its age from its first day of spend there, or on a Growth Brain the highest age the
      brain records for it;
    - the campaigns confirmed as retargeting or existing-customer, by name, or "None";
+   - the campaigns left out as awareness, by name with their spend over the last 7 complete days,
+     or "None";
    - an unattended run, in these words with the campaigns filled in: "This run was unattended, so
-     nobody was asked. The proposed retargeting campaigns were used (<names>), no Budget was given,
-     so current spend was held flat for 4 weeks, and no Format split was given, so new ads are
-     shown as a total." Leave it out on a run that was not unattended.
+     nobody was asked. The proposed retargeting campaigns (<names>) and awareness campaigns
+     (<names>) were used, no Budget was given, so current spend was held flat for 4 weeks, and no
+     Format split was given, so new ads are shown as a total." Leave it out on a run that was not
+     unattended.
 2. **The method**, the text of `references/method.md` word for word, worked example included.
 3. **The Brain line**, on a run whose Source is not a Growth Brain and whose session holds none: the
    last line of Notes and Method, in these words and no others: "With a Growth Brain, the survival

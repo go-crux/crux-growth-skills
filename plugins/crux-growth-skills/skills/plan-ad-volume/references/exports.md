@@ -17,7 +17,7 @@ columns and no others.
 | Ad ID | the ad: the grain every figure is grouped on |
 | Ad name | the ad's name |
 | Ad set name | the ad set's name |
-| Campaign name | the campaign's name, the Account blend's two groups and the retargeting proposal |
+| Campaign name | the campaign's name, the Account blend's two groups, and the retargeting and awareness proposals |
 | Day | the window a row falls in, and each ad's age |
 | Amount spent | spend |
 | Impressions | nothing in the verdict or the curve |
@@ -41,6 +41,9 @@ through its insights tool.
 - **Attribution.** Leave the account's default attribution setting, the same for every day.
 - **Account.** Use only an ad account that is plainly the brand's; with several, ask which.
 - **Pages.** Take every page of rows before any sum. A first page alone understates spend.
+- **Objective.** Read each campaign's objective once, through its campaigns tool where it has one,
+  for the awareness proposal: any objective other than sales (or the older conversions or catalogue
+  sales objectives) proposes the campaign. Without one, propose by name alone.
 
 ## Ads Manager export
 
@@ -72,7 +75,7 @@ already in the conversation counts.
   user cannot give it, the window is the days it holds, and the page says so. A day an ad has no
   row for is a day with no spend. The window's first day is the first day of the window read.
 - **Timezone.** A file that names a timezone is read in it; a connector's is the ad account's.
-  Where none is named, say so in the Notes. Days are not converted.
+  Where none is named, say so in the Notes and Method. Days are not converted.
 - **Currency.** The one the Source reports in. Where a file names none, ask once.
 
 ## Judging in code
@@ -88,12 +91,16 @@ writes it (spend against a multiple of CAC times purchases), so an ad with no pu
 above any CAC. Run the port once for each day of the window, as of that day: the rows up to and
 including the day stand in for the rows the file reads, and the day stands for the last complete
 day. The windows behind a day that reach back before the window's first day read the rows that
-exist. The result is every ad's status on every day it was judged. Three changes, because the rows
+exist. The result is every ad's status on every day it was judged. Four changes, because the rows
 are not the brain's mart:
 
 - **Grain and keys.** Group by Ad ID, and sum the rows that share an Ad ID and a Day. Where the SQL
   reads its three keys, the campaign key is the Campaign name, the ad set key the Ad set name and
-  the ad key the Ad ID. The retargeting campaigns are matched by Campaign name.
+  the ad key the Ad ID, each ad taking the names on its latest row as the SQL's `keyed` does. The
+  retargeting campaigns are matched by Campaign name.
+- **Awareness campaigns.** Drop the rows of the awareness campaigns (matched by Campaign name)
+  before anything else, as the SQL's `source` does: the proposed ones for the Launched-ad count of
+  `SKILL.md` step 2, the confirmed ones once step 3's reply is in.
 - **Orders.** Purchases stand where the SQL reads `new_orders`, so CAC is Amount spent over
   Purchases, Meta's own cost per purchase: platform-attributed, counting every purchase Meta
   claims.
@@ -113,5 +120,5 @@ Print the figures, the survival table (age, ads classified, viable, survival, av
 ad) and the Roadmap rows, never the rows of the export.
 
 **Done when** every ad that spent on a day carries exactly one status for that day, the spend over
-the rows read equals the spend in the file for the same days, and the survival table lists each age
-with the ads classified and the viable count that give its rate.
+the rows read equals the spend in the file for the same days outside the awareness campaigns, and
+the survival table lists each age with the ads classified and the viable count that give its rate.
