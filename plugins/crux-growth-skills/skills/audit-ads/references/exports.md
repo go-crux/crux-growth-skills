@@ -88,8 +88,9 @@ purchases counts as above any CAC. Four changes, because the rows are not the br
   the ad key the Ad ID, each ad taking the names on its latest row as the SQL's `keyed` does. The
   ad set count of live ads past Ramping and the retargeting campaigns (matched by Campaign name)
   read those.
-- **Awareness campaigns.** Drop the rows of the awareness campaigns (matched by Campaign name)
-  before anything else, as the SQL's `source` does.
+- **Awareness campaigns.** Drop the ads of the awareness campaigns, matched by the Campaign name
+  on each ad's latest row, as the SQL's `keyed` does: an ad whose campaign was renamed is left out
+  whole, its rows under the old name too.
 - **Orders.** Purchases stand where the SQL reads `new_orders`, so CAC is Amount spent over
   Purchases, Meta's own cost per purchase: platform-attributed, counting every purchase Meta
   claims. Confidence reads the same count.

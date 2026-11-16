@@ -79,16 +79,11 @@ mart_rows AS (
   WHERE COALESCE(ad_id, 'Unknown') != 'Unknown'
 ),
 -- The campaigns bought for awareness, reach, video views, engagement or traffic rather than
--- purchases. CAC is the wrong measure for them, so they are left out whole.
+-- purchases. CAC is the wrong measure for them, so they are left out whole, each ad by its latest
+-- row's campaign key (`keyed`), so a renamed awareness campaign takes its old-name rows with it.
 awareness AS (
   SELECT campaign_key
   FROM UNNEST(ARRAY<STRING>['<campaign_key>']) AS campaign_key  -- Edit 3
-),
--- Every row read: the mart's, less the awareness campaigns.
-source AS (
-  SELECT m.*
-  FROM mart_rows AS m
-  WHERE m.campaign_key IS NULL OR m.campaign_key NOT IN (SELECT campaign_key FROM awareness)
 ),
 -- The campaigns the user confirmed as retargeting or existing-customer. Judged against their own
 -- Account blend; every other ad against the rest.
@@ -102,14 +97,16 @@ ad_keys AS (
     ad_key,
     ARRAY_AGG(STRUCT(campaign_key, adset_key)
       ORDER BY day DESC, spend DESC, campaign_key, adset_key LIMIT 1)[OFFSET(0)] AS k
-  FROM source
+  FROM mart_rows
   GROUP BY 1
 ),
--- Every row read, carrying its ad's one ad set and campaign key.
+-- Every row read, carrying its ad's one ad set and campaign key, less the ads of the awareness
+-- campaigns.
 keyed AS (
   SELECT s.* REPLACE (k.k.campaign_key AS campaign_key, k.k.adset_key AS adset_key)
-  FROM source AS s
+  FROM mart_rows AS s
   JOIN ad_keys AS k USING (ad_key)
+  WHERE k.k.campaign_key IS NULL OR k.k.campaign_key NOT IN (SELECT campaign_key FROM awareness)
 ),
 daily AS (
   SELECT
