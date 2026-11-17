@@ -8,15 +8,15 @@ description: Meta ad volume forecast. Use when the user asks how many new Meta a
 Work out how many new Meta ads a week the account's spend needs, from the account's own Survival
 curve and Hit rate, and produce `meta-ad-volume-<date>.html`: a dashboard whose Your plan tab tells one story (where the account is, why, what to launch to keep up and
 what next week asks for): whether it is Short, About right or Ahead on viable ads and by how many, how
-its ads perform, the Week-by-week plan, If more of your ads work and If you spend more, with the method on a second tab,
+its ads perform, the Week-by-week plan and If you spend more, with the method on a second tab,
 How it's worked out, laid out as `references/page-layout.md` fixes it, then offer the Roadmap as `meta-ad-roadmap-<date>.md` for the
 creative brief and say when to run it again. Run the steps in order. The user sees only the chat and the
 page, never this skill or its references: say what the ads showed, in plain words with the figures,
 and never cite a file, a rule or a query. The terms
 Viable ad, Viable share, Viable share target, Viable ad stock, Launched ad, Survival curve, Viable lifespan, Hit rate, Days viable per
-hit, Healthy lifespan, Spend per viable ad, Days to clear Ramping, Self-check, Ad stock check, Focus, Worn out
-now, Wearing out, Current pipeline, Churn cycle, Steady-state number, Budget, Roadmap, Catch-up, Ads to
-launch, Expected to work, Live-by, Waterfall, Hit-rate scenarios, Budget ladder, Format, Name coverage, Format split,
+hit, Healthy lifespan, Spend per viable ad, Days to clear Ramping, Self-check, Ad stock check, Lever, Lever best,
+Limiting factor, On the table, Worn out now, Wearing out, Current pipeline, Churn cycle, Steady-state number, Budget,
+Roadmap, Catch-up, Ads to launch, Expected to work, Live-by, Waterfall, Budget ladder, Format, Name coverage, Format split,
 Roadmap file, Awareness campaign, Lead campaign, Unattended run, Source, Brain line, Your plan, How it's worked out
 and Page label are those of
 `references/glossary.md`, and Next run is the repo's shared term; use them as written here and on
@@ -34,7 +34,7 @@ Its defaults, every one of them:
 
 - Step 3 sends no message and takes the proposed retargeting, awareness and lead campaigns as confirmed.
 - It plans current spend held flat for 4 weeks: no Budget is asked for or used, so the Budget ladder
-  shows its three rungs at current spend, +25% and +50%.
+  shows its three rungs at current spend, 1.5 times and 2 times it.
 - It uses no Format split, so the Roadmap shows new ads as a total.
 - The page's How it's worked out says the run was unattended, in the words `references/page-layout.md`
   gives.
@@ -131,7 +131,7 @@ Send one message, then wait for the reply:
    180 otherwise): "I'll judge every Meta ad on every day of the last 365 days by its CAC, the way an
    ad audit does. Then, from every ad you launched in that time, I'll work out your hit rate (how
    many of your new ads become viable: their CAC holding up, under 20% above your account average
-   and not climbing off its best) and how long the ones that work stay viable. That tells me how many
+   and not climbing off its best, or recovering towards it) and how long the ones that work stay viable. That tells me how many
    viable ads your spend needs live at once, aiming at the best share of your spend your account has
    put on viable ads, and so how many new ads a week it takes to hold them.
    CAC here is <basis>. If you give me a monthly budget, I'll step your spend to it week by week and
@@ -197,13 +197,26 @@ edits 1 to 3 (the mart's name, in `mart_rows` and in `video_plays`, with any col
 `hit_rate_ads`, `spend_per_viable_ad`, `healthy_lifespan` with `age_below_75` and `age_below_25`,
 `days_to_clear_ramping`, `current_spend`, `current_pipeline`, `viable_share_p90`,
 `viable_share_target`, `viable_share_weeks` (the weeks counted), `viable_share_weeks_left_out`,
-`ramping_share` and `worn_out_share` (fractions of 1), `viable_ad_stock` (L), `steady_state_number`, today's counts, the Format split default (`video_pct`, `image_pct`) with its
-`name_coverage_pct`, and the `survival_table` (age, reached, viable, survival, viable_spend). Type
+`ramping_share` and `worn_out_share` (fractions of 1), `viable_ad_stock` (L), `steady_state_number`
+(N0), `today_date` with today's counts, the Format split default (`video_pct`, `image_pct`) with its
+`name_coverage_pct`, the `survival_table` (age, reached, viable, survival, viable_spend), the Scorecard
+figures (`launches_best`; `hit_rate_best` with `hit_rate_months`; `days_viable_per_hit_best` with
+`dvph_quarters`; `limiting_factor` with `launches_at_best_hit_rate` (N1), `hit_rate_needed`,
+`days_viable_per_hit_needed` and their `_beyond_best` flags; the `budget_ladder` table, one row for each of
+current spend, 1.5 times and 2 times it, with `multiple`, `daily_spend`, `viable_ad_stock`,
+`steady_state_number` and `steady_state_over_pipeline`; and On the table: the `share_`, `customers_` and
+`cac_` figures for `viable`, `test_phase`, `worn_out` and `other`, `groups_without_customers`,
+`nothing_on_the_table`, `customers_week`, `customers_week_at_target`, `customers_week_gain`,
+`blended_cac`, `blended_cac_at_target`, `blended_cac_change` and `biggest_waste`). Type
 none of them by hand. Where the brain's own instructions name the store's timezone, set it as the
 file says. A query error: fix the column from step 2 and run again, and never invent one. The plan
 below is worked in code from that row. Compute each figure once, from these definitions:
 
-- **Viable** is Healthy or Winner on that day.
+- **Viable** is Healthy, Winner or Improving on that day. The statuses are judged as audit-ads judges
+  them; this skill reads Improving, an ad recovering towards viable, as viable because it converts like
+  Healthy, and it widens the test where the plan reads the status, never in the classification. Every
+  count and share below that tests a viable status takes the three: the Survival curve, the Hit rate,
+  Spend per viable ad, the weekly Viable share, today's viable ads and On the table.
 - A **Launched ad** is one whose first day of spend falls after the window's first day. Only
   Launched ads feed the Survival curve. An ad's **age** is the days since its first spend (the
   first day is age 0). A Launched ad has **reached** age a when its first spend is at least a days
@@ -261,8 +274,13 @@ below is worked in code from that row. Compute each figure once, from these defi
 - **L**, the Viable ad stock, is current spend times the Viable share target over the Spend per
   viable ad. The **Steady-state number** is L times 7 over W, rounded up, which is L times 7 over h
   times D.
-- **Today's counts**, on the last complete day: viable ads; live ads past Ramping; Worn out now
-  (live ads past Ramping that are Fatiguing, Fatigued or Low efficiency).
+- **Today** is the window's last complete day, the one every count named today reads, never a day the
+  Source is still loading, which reads no orders and so no viable ads. A day is loaded when its spend and
+  its new orders (purchases without a brain) are each at least half their mean over the 7 days before it.
+  Today is the latest loaded day of the window's last 14 days, which is yesterday unless that is still
+  loading, and yesterday where none is. Name its date in This run.
+- **Today's counts**, on today: viable ads (S(0)); live ads past Ramping; Worn out now (live ads past
+  Ramping that are Fatiguing, Fatigued or Low efficiency).
 - **Self-check**: predicted viable ads is the Current pipeline times W over 7. It passes when it is
   within 25% of today's viable ads (the difference over today's viable ads).
 
@@ -301,72 +319,96 @@ number in the working. The page shows every ad count as a whole ad, rounded up (
   launch(w).
 - **Live-by(w)** is the Monday of week w less the Days to clear Ramping, a date.
 - **Waterfall.** The start bar is the live ads past Ramping today, dropped by the difference from S(0)
-  (Worn out now, and any Improving ads) down to S(0). Each week then has a down bar of Wearing out(w),
+  (Worn out now) down to S(0). Each week then has a down bar of Wearing out(w),
   an up bar of Expected to work(w) stacked as video(w) and image(w) in proportion to the launches
   (one bar with no split), the end stock S(w) and L(w) as a mark.
 - **Launches to keep up(w)** is Wearing out(w) over h, rounded up. **Launches to catch up(w)** is Ads
   to launch(w) less that, which is below 0 in a week where the stock runs down on its own. The
   **total catch-up launches** is their sum over weeks 1 to B, worked only where Gap0 is above 0.
-- **Budget ladder.** The Steady-state number at current spend, at 1.25 times it, at 1.5 times it and
-  at the daily Budget (left out with no Budget), each with its L (worked at that spend, with the
-  same Viable share target) and each the Steady-state number's formula, the ceiling of L times 7 over
-  h times D, at that spend.
-- **Hit-rate scenarios.** Three rows, Today (h), +20% (h times 1.2) and +30% (h times 1.3), each
-  with its hit rate h'. Each row's launches a week to keep up is the ceiling of L times 7 over h'
-  times D, with L at current spend and D unchanged. Its change against today is relative, worked on
-  the whole launches (Today's row is the base). With a Budget, each row also has the launches a week
-  at the Budget: the ceiling of L at the daily Budget times 7 over h' times D. Where the ask (below)
-  is above 1.5, a fourth row, **At 1.5× your launches**, gives the hit rate needed to keep up at 1.5
-  times the Current pipeline, the most production can stretch to: **h needed** is L times 7 over D
-  times 1.5 times the Current pipeline, unrounded, so h needed times D times 1.5 times the Current
-  pipeline over 7 is L. Its launches a week to keep up are the ceiling of 1.5 times the Current
-  pipeline, its change against today is h needed against h, relative and in whole percent (the one
-  change in the table that compares hit rates), and with a Budget its last cell is the hit rate
-  needed at the Budget's L over the same 1.5 times the Current pipeline. A hit rate needed above
-  100% is "not reachable at this spend". With a Current pipeline of 0 there is no row. The plan
-  itself stays uncapped: the Roadmap still launches the full Ads to launch.
-- **Focus.** The **ask** is the Steady-state number over the Current pipeline, unrounded; a Current
-  pipeline of 0 counts as an ask above 1.5. h is the Hit rate, unrounded. The Focus is read once, here:
+- **Budget ladder.** The rungs are current spend, 1.5 times and 2 times current spend, and the Budget
+  (as a daily spend) where the user gave one that differs from those three. For each rung: L at that
+  spend (with the same Viable share target and Spend per viable ad), N0 at that spend (the ceiling of
+  L times 7 over W), and N0 over the Current pipeline to one decimal. A brain returns the three fixed
+  rungs in `budget_ladder`; the Budget rung, and every rung without a brain, is worked in code from
+  those formulas.
+- **Lever best.** Each Lever's best is what the account has done, with the periods it counted. Take
+  percentiles by nearest rank, written `APPROX_QUANTILES(x, 100)[OFFSET(90)]` on a brain and, in code,
+  the value at rank 0.9 times their number rounded up with the values sorted from lowest to highest.
+  - **Launches (B)** is the highest average of Launched ads a week over any 8 complete ISO weeks in a
+    row in the window; none with fewer than 8 complete weeks.
+  - **Hit rate (h_best).** For each calendar launch month (by first spend), the month's Hit rate. A
+    month counts when its last day is at least 28 days before today, it has 10 or more Launched ads,
+    and it starts after the window's first 6 weeks. h_best is the 90th percentile of the months
+    counted (`hit_rate_months` of them); with fewer than 4 months, there is no best (null).
+  - **Days viable per hit (D_best).** For each calendar launch quarter, D_q is W_q over h_q, worked
+    from that quarter's Launched ads alone: W_q is the sum of that cohort's survival rates over the
+    ages that 3 or more of its ads have reached, and h_q the cohort's Hit rate. A quarter counts when
+    its last day is at least 60 days before today and it has 10 or more hits. D_best is the highest
+    D_q (`dvph_quarters` counted); with fewer than 2 quarters, there is no best (null).
+- **Limiting factor.** First work out L, h, D, W and P (the Current pipeline) as above, N0 (the
+  Steady-state number, the ceiling of L times 7 over W) and, where h_best exists, N1, the ceiling of L
+  times 7 over h_best times D. The factor is the first of these that holds, with what it needs the
+  account to hit:
 
-  | | h under 8% | h 8% to under 15% | h 15% and over |
-  |---|---|---|---|
-  | Ask above 1.5 | Hit rate first | Hit rate first | Volume |
-  | Ask 1.5 or less | Hit rate first | Both | Volume |
+  | Limiting factor | When | To hit |
+  |---|---|---|
+  | **On track** | S(0) is 0.8 times L or more, and N0 is P or less | none |
+  | **Volume** | N0 is 1.2 times B or less | launches N0 a week |
+  | **Both** | h_best exists and N1 is 1.2 times B or less | hit rate h_best and launches N1 a week |
+  | **Finding winners** | room_h is room_D or more | hit rate h_need, L times 7 over D times B, "beyond your best" where h_need is above h_best |
+  | **Keeping winners** | room_D is above room_h | days viable per hit D_need, L times 7 over h times B, "beyond your best" where D_need is above D_best |
 
-  The page, the chat and the Roadmap file take the Focus from this table and state no threshold of
-  their own. A **Low** hit rate is h under 8%, a **Fair** one 8% to under 15%, a **Strong** one 15%
-  and over.
+  room_h is h_best over h and room_D is D_best over D, a null best giving a room of 0. With both bests
+  null the factor is Finding winners, and This run says "not enough history to compare". Where B is
+  null, Volume and Both do not hold. Keep each of N0, N1, the rooms and the figures to hit unrounded
+  until the page shows them.
+- **On the table**, over the last 90 complete days to today, on the skill's CAC basis (new orders, or
+  Meta's purchases without a brain). Every ad-day falls in one group by its status: **viable** (Healthy,
+  Winner and Improving), **test phase** (Ramping), **worn out** (Fatiguing, Fatigued and Low
+  efficiency), and **other** (any status left). For each group: spend, new customers and CAC (spend
+  over customers). Today's v0 is the viable group's spend over total spend.
+  - Where v0 is the Viable share target v\* or more, there is nothing on the table (the brain's
+    `nothing_on_the_table`).
+  - Otherwise set viable spend to v\* times total spend, and scale every non-viable group pro rata so
+    they sum to (1 less v\*) times total spend. customers' is the sum, over the groups, of spend' over
+    that group's CAC. Report per week (over 90, times 7): today's customers, customers', the gain,
+    the blended CAC today (total spend over customers) and at target (total spend over customers'),
+    and the change between them as a relative percentage.
+  - A group that spent and has no customers in the 90 days takes the CAC of the next-worse group,
+    in the order viable, test phase, worn out, other; where none is left, it is left out of the
+    customers and This run says so (`groups_without_customers` names them).
+  - The **biggest waste** is whichever of test phase and worn out has the larger share of spend (worn
+    out on a tie).
 
 **Done when** the run holds W, h, D, Spend per viable ad, the Healthy lifespan with its quartile
 range, Days to clear Ramping, current spend, the Current pipeline, the weekly viable shares and the
 weeks counted (6 left out for warm-up, then the thin ones, the run stopped on its line where none
 is left), P90, the Viable share target (at most 100%), the ramping share and the worn out share, L
 (current spend times the Viable share target over the Spend per viable ad, the same at every L(w)
-and every Budget ladder rung), the Steady-state number, today's
-counts, the Self-check, and the Format split default with its Name coverage, each from one calculation;
+and every Budget ladder rung), the Steady-state number (N0), today's date and
+counts (read on the last complete day, and not a day still loading), the Self-check, and the Format split default with its Name coverage, each from one calculation;
 the survival table (age, ads reached, viable, survival, spend on viable ad-days) has rates that sum to
 W, h times D equals W to two decimals, and the Spend per viable ad is the spend on viable ad-days over
-their number; the run holds its ask and its Focus, read off the table above on the unrounded h and
-ask; and the run has not stopped on a guard. The Roadmap holds a row for each of its weeks,
+their number; the run holds the three Lever bests, each with the months or quarters it counted (or
+null, where fewer than 4 months or 2 quarters counted), the Limiting factor read off the table above
+on the unrounded figures (N0 at most 1.2 times B and N1 at most 1.2 times B for Both, which needs N0 above
+1.2 times B), with what it needs the account to hit, the Budget ladder's rungs each with L, N0 and N0 over
+the Current pipeline, and On the table, its groups' spend, customers and CAC and its figures per week, or
+"nothing" where v0 is the Viable share target or more; and the run has not stopped on a guard. The Roadmap holds a row for each of its weeks,
 with start, less Wearing out, plus Expected to work equal to the end stock on the unrounded figures, to one decimal, in every row,
 no Ads to launch below 0, video plus image equal to Ads to launch in every row (with a split), and the
 Waterfall's bars taken from those rows. Where Gap0 is above 0, the end stock at the Budget week is at or
 above L(B) and the Catch-up is spread evenly over weeks 1 to B. At a flat budget with S(0) equal to L,
-every week's Ads to launch is the Steady-state number, give or take one ad. The Budget ladder and the
-Hit-rate scenarios are computed (Today's row equal to the Steady-state number, and where the ask is
-above 1.5 a 1.5× row whose h needed times D times 1.5 times the Current pipeline over 7 equals L to
-two decimals), the launches to keep up and to catch up for week 1 sum to its Ads to launch, and the run knows whether W is a lower bound.
+every week's Ads to launch is the Steady-state number, give or take one ad. The Budget ladder's current-spend rung
+has the Steady-state number as its N0, the launches to keep up and to catch up for week 1 sum to its Ads to launch, and the run knows whether W is a lower bound.
 
 ## 5. Write the page
 
 Write the page as `references/page-layout.md` fixes it: two tabs switched by CSS alone, opening on
 Your plan. Your plan reads as one story and holds the four headline tiles (Where you are, Why, To
-keep up, Next week), under them one Focus sentence on every run (in the words `references/page-layout.md`
-gives for the Focus step 4 reads), and its five headings, in the Page labels, each label explained at its
-first use: Do you have the right number of ads?, How your ads perform, Week-by-week plan, If more of
-your ads work, If you spend more. They run in that order, except under a Focus of Hit rate first, where
-If more of your ads work comes first, straight after the Focus sentence, ahead of Do you have the
-right number of ads?; under Both and Volume the order is as listed. Do you have the right number of ads? opens, before the bar, with
+keep up, Next week) and its four headings, in the Page labels, each label explained at its
+first use: Do you have the right number of ads?, How your ads perform, Week-by-week plan, If you spend
+more. They run in that order. Do you have the right number of ads? opens, before the bar, with
 the sentence that gives the P90 and the Viable share target, and the line that says where the rest
 of the spend goes and ends on its lever, in the words `references/page-layout.md` gives. Its verdict is read off today's viable ads against L: Short below 80% of L,
 Ahead above 150% of L, otherwise About right. It is shown on one bar, with the gap as a count of
@@ -389,19 +431,17 @@ gives, and Your plan ends on its lower-bound line; the tiles and How your ads pe
 before a lasting figure. Save the page as `meta-ad-volume-<date>.html` in the working folder; where
 none persists (a chat), hand it over as a download.
 
-**Done when** the page opens on Your plan with the four tiles, one Focus sentence under them and
-its five headings in this order, Do you have the right number of ads?, How your ads perform,
-Week-by-week plan, If more of your ads work, If you spend more (under a Focus of Hit rate first, If
-more of your ads work sits straight after the Focus sentence and the other four follow in that
-order), and How it's worked out holds its three, with This run naming the Focus with its h and ask; tile 4's launches to keep up plus
+**Done when** the page opens on Your plan with the four tiles and its four headings in this order,
+Do you have the right number of ads?, How your ads perform, Week-by-week plan, If you spend more, and
+How it's worked out holds its three, with This run naming today's date and the Limiting factor with its
+figures, the number of months and quarters each Lever best counted, and the groups left out of On the
+table where there are any; tile 4's launches to keep up plus
 to catch up equal the first Week-by-week plan row's Ads to launch; Do you have the right number of ads? carries, before the bar, the P90 and Viable share target
 sentence and the line on where the rest goes with the larger of its two shares as the lever; the bar has one viable marker,
 one target mark and the gap, and the verdict names Short, About right or Ahead with the gap as a
 count, read on viable ads only; no verdict word other than those three, and no marker for running
 ads, shows anywhere on the page; no glossary term shows on Your plan where page-layout gives it a
-Page label; If more of your ads work holds Today, +20% and +30%, each row's launches equal to the
-ceiling of L times 7 over h' times D, a fourth row (At 1.5× your launches) only where the ask is
-above 1.5, and a Budget column only with a Budget; the Week-by-week
+Page label; the Week-by-week
 plan's table and its chart hold the same weeks and the same video and image figures (or the total
 alone with no split); If you spend more states its assumption; a lower bound W is said on both
 tabs; the Self-check line is in This run, with its fail clause where the check failed, and so are the P90, the Viable share target, the weeks counted and the weeks left out (and the number of weeks where fewer than 8 were counted); an
@@ -413,12 +453,12 @@ How it's worked out.
 In chat, after the page, in this order:
 
 1. One line, in the Page labels: where the page is, the verdict with its gap ("21 viable ads
-   short"), the Focus ("focus on your hit rate", "work on both" or "focus on volume"), then
+   short"), the Limiting factor in plain words, then
    launches a week to keep up against what you launch now ("22 a week keeps up; you launch 36
    now").
 2. **The Roadmap file.** Offer the Week-by-week plan as a file, `meta-ad-roadmap-<date>.md`, to hand to whoever makes
    the ads, and say what it holds: the Budget, the weeks, the new ads by format, the Go live by
-   dates, the Focus sentence, and one line each on how your ads perform and the spend one viable ad carries. On "yes", write it as
+   dates, the Limiting factor and what it needs to hit, and one line each on how your ads perform and the spend one viable ad carries. On "yes", write it as
    `references/page-layout.md` fixes it and save it in the working folder; where none persists (a
    chat), hand it over as a download. It is self-contained: someone who has not seen the page can
    brief from it.
@@ -431,6 +471,6 @@ In chat, after the page, in this order:
    is in the session, offer to add the date as an event carrying the prompt; with none, say nothing
    about a calendar.
 
-**Done when** the chat holds the line (with the Focus in it), the Roadmap file offered with its contents named (or, on an
+**Done when** the chat holds the line (with the Limiting factor in it), the Roadmap file offered with its contents named (or, on an
 unattended run, saved), and the Next run with its date, its prompt, and the calendar offer where a
 calendar connector is in the session.
