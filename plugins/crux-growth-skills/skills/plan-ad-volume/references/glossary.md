@@ -4,7 +4,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 ## Ad stock
 
-- **Viable ad**: an ad whose status that day is Healthy, Winners included. Every other status, Improving included, is not viable. _Avoid_: active ad, live ad, good ad.
+- **Viable ad**: an ad whose status that day is Healthy (Winners included) or Improving, which converts like Healthy. Every other status is not viable. Read on the last complete day for today's count. Wider than audit-ads, where Improving means recovering and stays out. _Avoid_: active ad, live ad, good ad.
 
 - **Viable share**: a week's spend on viable ads over its spend, every ad counted (Launched or not) outside the Awareness and Lead campaigns. Read for each complete ISO week of the window. _Avoid_: efficiency, share of voice.
 
@@ -32,17 +32,21 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Self-check**: the test of the Survival curve against the account on every run: Current pipeline times Viable lifespan over 7 predicts today's viable ads, and it passes within 25% of them. A fail is said on How it's worked out and does not stop the run. _Avoid_: validation, sanity check.
 
-- **Ad stock check**: today's viable ads against the Viable ad stock at current spend. **Short**: below 80% of it. **Ahead**: above 150% of it. **About right**: between. Your plan shows it as "Do you have the right number of ads?", one bar with the gap as a count of ads. _Avoid_: health check, ad audit, over-stocked.
+- **Ad stock check**: today's viable ads against the Viable ad stock at current spend. **Short**: below 80% of it. **Ahead**: above 150% of it. **About right**: between. The Scorecard shows it as "Do you have the right number of ads?", one bar with the gap as a count of ads. _Avoid_: health check, ad audit, over-stocked.
 
-- **Focus**: what the plan tells the brand to work on first, read from the Hit rate and the ask (Launches a week to keep up over the Current pipeline). **Hit rate first**: Hit rate under 8%, or under 15% with an ask above 1.5. **Both**: Hit rate 8% to under 15% with an ask of 1.5 or less. **Volume**: Hit rate 15% or above. Said in one sentence under the tiles. _Avoid_: health check, priority, verdict.
+- **Lever**: one of the three things today's viable ads come from, which multiply: Current pipeline (launches a week), Hit rate (finding winners) and Days viable per hit (keeping winners). Closing a gap by any one alone takes the same multiple, so the gap's size never says which lever is short. _Avoid_: driver, factor.
+
+- **Lever best**: the best the account has done on a Lever. Launches: the highest rolling 8-week Current pipeline. Hit rate: the 90th-percentile launch month (months at least 28 days old with 10 or more Launched ads, outside the first 6 weeks; fewer than 4, no best). Days viable per hit: the highest launch quarter whose ads are all 60 days old with 10 or more hits (fewer than 2, no best). _Avoid_: benchmark, target, potential.
+
+- **Limiting factor**: the Lever the Scorecard names as holding the account back, B being the launches Lever best. **On track**: viable ads at 80% of needed or more, and the Steady-state number within the Current pipeline. **Volume**: the Steady-state number within 1.2 times B. **Both**: within it at the best Hit rate. Else **Finding winners** or **Keeping winners**, whichever Lever has more room below its best. _Avoid_: focus, bottleneck, constraint.
+
+- **On the table**: the extra new customers a week at today's spend if the Viable share rose to the Viable share target, from new-customer CAC by status over the last 90 days, with the blended CAC change beside it. Assumes the CAC gap holds; at or above target, nothing. _Avoid_: opportunity, upside, prize.
 
 - **Worn out now**: live ads past Ramping that are Fatiguing, Fatigued or Low efficiency. They take spend but are not stock. _Avoid_: dead ads, fatigued ads.
 
 - **Wearing out**: viable ads expected to stop being viable over a period: the stock times the period's days over Days viable per hit. _Avoid_: churn, decay, losing.
 
 - **Current pipeline**: Launched ads per week, averaged over the last 8 complete weeks. What the steady-state number is compared with. _Avoid_: launch rate, creative velocity.
-
-- **Churn cycle**: how ads perform in this account, shown on Your plan as "How your ads perform": Hit rate with the Launched ads it rests on, Days viable per hit, Days to clear Ramping and the Survival curve chart. _Avoid_: lifecycle, fatigue profile.
 
 ## The plan
 
@@ -56,17 +60,13 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Catch-up**: the launches above keeping up in the weeks to the Budget week (4 with no Budget): each week's Ads to launch less Wearing out over the Hit rate, rounded up. They close today's gap, the viable ads short of the Viable ad stock over the Hit rate spread evenly, and where the Budget is above current spend they also grow the stock. _Avoid_: backlog, top-up.
 
-- **Expected to work**: a week's launches times the Hit rate: the viable ads they add, and the Waterfall's up bar. _Avoid_: expected winners, yield.
+- **Expected to work**: a week's launches times the Hit rate: the viable ads they add. _Avoid_: expected winners, yield.
 
 - **Ads to launch**: the whole ads a Roadmap week launches: the week's target, less the stock left after Wearing out, over the Hit rate, rounded up and never below 0. _Avoid_: new ads to make, New.
 
 - **Live-by**: the date a Roadmap week's new ads must go live: the week's Monday less the Days to clear Ramping. _Avoid_: launch date, deadline.
 
-- **Waterfall**: the chart of the Roadmap, week by week: stock at the start, less Wearing out, plus new ads (stacked by format), equals stock at the end, with that week's Viable ad stock marked. _Avoid_: bridge, flow chart.
-
-- **Budget ladder**: the Steady-state number at current spend, +25%, +50% and the Budget, on the stated assumption that Spend per viable ad and the Viable share target hold as spend grows. _Avoid_: scenarios, sensitivity.
-
-- **Hit-rate scenarios**: the Steady-state number at today's Hit rate, 20% higher and 30% higher, each with Days viable per hit held fixed, so only the share of launches that work moves; with a Budget, also the launches a week at the Budget. Where the ask is above 1.5, a fourth row gives the Hit rate needed to keep up at 1.5 times the Current pipeline (the most production can stretch to): Viable ad stock times 7 over Days viable per hit times 1.5 times the Current pipeline, or "not reachable at this spend" above 100%. Your plan shows them as "If more of your ads work". _Avoid_: what-ifs, improvement targets.
+- **Budget ladder**: Viable ad stock and the Steady-state number at current spend, 1.5 times and 2 times it, and the Budget, each with its multiple of the Current pipeline, on the stated assumption that Spend per viable ad and the Viable share target hold as spend grows. _Avoid_: scenarios, sensitivity.
 
 - **Format**: video or image, per ad. Read from the ad name alone first (whole-word tokens: video, vid, reel; image, img, static, still, carousel), and where the name gives neither or both, video if the ad had any video views in its life (3-second video plays on an export). _Avoid_: creative type, asset type.
 
@@ -86,8 +86,8 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 ## The page
 
-- **Your plan**: the page's first tab, the one it opens on: the four headline tiles and the Focus sentence, then Do you have the right number of ads? (one bar), How your ads perform, the Week-by-week plan, If more of your ads work and If you spend more, all in Page labels; under a Focus of Hit rate first, If more of your ads work comes straight after the Focus sentence. _Avoid_: dashboard tab, summary.
+- **Scorecard**: the page's first tab, the one it opens on: three answer cards (Enough ads?, Holding you back, On the table), then three panels, each one chart and one action line: the Budget ladder as viable ads now against needed, the Levers now against Lever best and needed with the Limiting factor named, and spend by status today against the target. Labels only, no definitions. _Avoid_: dashboard tab, Your plan, summary.
 
-- **How it's worked out**: the page's second tab: Terms on the plan, This run, the method word for word, and the Brain line where the run has one. _Avoid_: Notes and Method, appendix.
+- **How it's worked out**: the page's second tab: the Week-by-week plan table, the Survival curve, the figures behind the Scorecard, Terms, This run, the method word for word, and the Brain line where the run has one. _Avoid_: Notes and Method, appendix.
 
-- **Page label**: the plain words Your plan, the Roadmap file and the chat use for a term, fixed once in the Page labels table of `references/page-layout.md`, each explained at its first use. The terms themselves stay on How it's worked out. _Avoid_: display name, friendly name.
+- **Page label**: the plain words the Scorecard, the Roadmap file and the chat use for a term, fixed once in the Page labels table of `references/page-layout.md`, each explained at its first use. The terms themselves stay on How it's worked out. _Avoid_: display name, friendly name.
