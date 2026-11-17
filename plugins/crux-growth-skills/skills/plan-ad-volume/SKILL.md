@@ -272,7 +272,8 @@ week is counted, with one line and no page: "<Brand>'s weekly spend is too uneve
 share." Both hold for an unattended run too.
 
 **The plan.** Weeks are ISO weeks, counted from the current week (the one holding today) as week 0,
-so next week is week 1. Carry every stock unrounded; only Ads to launch is a whole number.
+so next week is week 1. Carry every stock unrounded, and check every tie on the unrounded figures; only Ads to launch is a whole
+number in the working. The page shows every ad count as a whole ad, rounded up (step 5).
 
 - **Daily Budget** is the monthly Budget times 12 over 365. **B** is the Budget week counted this way:
   the week the user gave, else week 4; a week before week 1 is week 1.
@@ -326,7 +327,7 @@ counts, the Self-check, and the Format split default with its Name coverage, eac
 the survival table (age, ads reached, viable, survival, spend on viable ad-days) has rates that sum to
 W, h times D equals W to two decimals, and the Spend per viable ad is the spend on viable ad-days over
 their number; and the run has not stopped on a guard. The Roadmap holds a row for each of its weeks,
-with start, less Wearing out, plus Expected to work equal to the end stock to one decimal in every row,
+with start, less Wearing out, plus Expected to work equal to the end stock on the unrounded figures, to one decimal, in every row,
 no Ads to launch below 0, video plus image equal to Ads to launch in every row (with a split), and the
 Waterfall's bars taken from those rows. Where Gap0 is above 0, the end stock at the Budget week is at or
 above L(B) and the Catch-up is spread evenly over weeks 1 to B. At a flat budget with S(0) equal to L,
@@ -345,7 +346,14 @@ of the spend goes and ends on its lever, in the words `references/page-layout.md
 Ahead above 150% of L, otherwise About right. It is shown on one bar, with the gap as a count of
 ads, and colours tile 1 only. Where any ad is Worn out now, it says to run `/audit-ads` for
 which ads to pause and names no ad. Every figure on Your plan is its source figure from step 4,
-shown rounded once and used rounded in every sentence beside it. How it's worked out holds its three
+shown rounded once and used rounded in every sentence beside it, and every ad count is a whole ad,
+rounded up: the Viable ads needed, Expected to wear out and Expected to work in the Week-by-week plan
+(with the line "Figures are rounded up to whole ads, so a row can be one out."), the Waterfall's
+labels (its bars still drawn at the unrounded values), tile 1 and the Roadmap file. The survival
+chart's vertical axis tops out at the first of 5%, 10%, 20%, 25%, 50% and 100% at or above the
+curve's highest point, with four gridlines at quarters of it. Tile 2's small line gives the Hit rate
+as a percentage, and tile 3 leads with "+<n> a week" (the Steady-state number less the Current
+pipeline) or "On pace", with both figures on its small line. How it's worked out holds its three
 headings (Terms on the plan, This run, The method): it carries `references/method.md` word for word,
 and no second wording of it, names the Source and the CAC basis, carries the Self-check line (the
 words `references/page-layout.md` gives), lists the P90, the Viable share target, the weeks counted and the weeks left out, and ends on the Brain line only on a run that page-layout
