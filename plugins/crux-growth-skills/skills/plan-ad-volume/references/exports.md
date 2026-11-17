@@ -111,7 +111,9 @@ are not the brain's mart:
   life spend is its spend over the rows up to that day. This is the port's `ad_age`; the model's
   age (`references/method.md`) is one less.
 
-**Viable, live, reached.** On a day, an ad is *viable* when its status is Healthy or Winner; it is
+**Viable, live, reached.** On a day, an ad is *viable* when its status is Healthy, Winner or
+Improving (the port reads the widening where it tests the status, never in the classification, which
+audit-ads carries unchanged); it is
 *live past Ramping* when it spent that day and its status is not Ramping. An ad that spent nothing
 that day is Inactive, an ad the port gives no status is Unknown, and Ramping and every status that
 is not viable are not viable either: all of them count as not viable. A Launched ad has *reached*
@@ -129,8 +131,42 @@ the last Sunday on or before its last day (a week with no spend is still a week)
 ad-days over its spend, then the warm-up and thin-week rules, P90 by nearest rank (the share at rank
 ⌈0.9 × weeks counted⌉ from the lowest), the target as the smaller of 100% and P90 × 1.2, and the median
 weekly shares of spend on Ramping ads and on Fatiguing, Fatigued and Low efficiency ads over the weeks
-counted. Print the figures, the survival table (age, ads reached, viable, survival, spend on
-that age's viable ad-days) and the Roadmap rows, never the rows of the export.
+counted.
+
+**The Scorecard figures.** Compute each once, in code, as `SKILL.md` step 4 defines it and the SQL
+below `-- END shared classification` in `references/fatigue.sql` works it. Take percentiles by nearest
+rank: with the values sorted from lowest to highest, the value at rank ⌈0.9 × their number⌉ (what
+`APPROX_QUANTILES(x, 100)[OFFSET(90)]` gives a brain).
+
+- **Today and its counts.** Today is the window's last complete day, as step 4 defines it: yesterday,
+  or the latest loaded day of the last 14 where yesterday is still loading (a day is loaded when its
+  spend and its purchases are each at least half their mean over the 7 days before it). Read viable
+  ads, live ads past Ramping and Worn out now on it, and name its date.
+- **Launches (B).** Launched ads for each complete ISO week of the window, the Current pipeline their
+  last 8 weeks' average, and B the highest average over any 8 complete weeks in a row (none with fewer
+  than 8 weeks).
+- **Hit rate (h_best).** For each calendar month of first spend, the Hit rate of that month's Launched
+  ads. Keep a month whose last day is at least 28 days before the last complete day, with 10 or more
+  Launched ads, that starts after the window's first 6 weeks; the 90th percentile of those months, none
+  with fewer than 4. Keep the number of months counted.
+- **Days viable per hit (D_best).** For each calendar quarter of first spend, build the survival curve
+  from that quarter's Launched ads alone (the ads reached at each age, and those viable on their day),
+  W_q the sum of its rates over the ages that 3 or more of them have reached, and D_q = W_q ÷ the
+  quarter's Hit rate. Keep a quarter whose last day is at least 60 days before the last complete day,
+  with 10 or more hits; D_best is the highest D_q, none with fewer than 2. Keep the number of quarters
+  counted.
+- **Limiting factor.** L, N0 and N1 and the five rules in order, as step 4 gives them, with each room
+  and each "to hit" figure (the launches, the Hit rate needed, the Days viable per hit needed, and
+  whether either is beyond its best).
+- **Budget ladder.** At current spend, 1.5 times and 2 times it, and the Budget where it differs: each
+  rung's L, N0 and N0 over the Current pipeline to one decimal.
+- **On the table.** Over the last 90 complete days, every ad-day grouped by its status (viable: Healthy,
+  Winner and Improving; test phase: Ramping; worn out: Fatiguing, Fatigued and Low efficiency; other:
+  any status left, and any ad-day with no status), each group's spend, purchases and CAC, then the
+  share-to-target maths of step 4, with the groups that spent and brought no purchases named.
+
+Print the figures, the survival table (age, ads reached, viable, survival, spend on that age's viable
+ad-days) and the Roadmap rows, never the rows of the export.
 
 **Done when** every ad that spent on a day carries exactly one status for that day, the spend over
 the rows read equals the spend in the file for the same days outside the awareness and lead campaigns (each
@@ -138,4 +174,7 @@ ad by its latest row's campaign), and the survival table lists each age with the
 rates sum to the Viable lifespan, the Hit rate times the Days viable per hit equals the Viable
 lifespan to two decimals, the Spend per viable ad is the spend on viable ad-days over their
 number, and the weekly viable shares, the weeks counted and left out, P90 and the Viable share target
-(at most 100%) are printed, the run having stopped on its line where no week is counted.
+(at most 100%) are printed, the run having stopped on its line where no week is counted; the last
+complete day is named; and the three Lever bests (each with the months or quarters it counted, or
+none), the Limiting factor with its figures, the Budget ladder's rungs and On the table (or
+"nothing") are printed.

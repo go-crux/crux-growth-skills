@@ -27,9 +27,11 @@
 -- weekday's index, which is the same as dividing each day's CAC by it, so every window's CAC
 -- below is adj_spend over new_orders. Each comparison is written as spend >= multiple x CAC x
 -- orders, so an ad with no new orders in the window counts as infinitely above any CAC.
--- Viable is Healthy or Winner. A day with no spend (Inactive), Ramping, Unknown or any other status
--- is not viable. The model in references/method.md counts every Launched ad at every age it has
--- reached, and reads `spend_on_day` for the day's spend.
+-- Viable, in this skill, is Healthy, Winner or Improving; audit-ads reads Improving as recovering and
+-- keeps it out, so the widening sits below the shared block, where the plan reads the status. A day
+-- with no spend (Inactive), Ramping, Unknown or any other status is not viable. The model in
+-- references/method.md counts every Launched ad at every age it has reached, and reads `spend_on_day`
+-- for the day's spend.
 WITH
 -- BEGIN shared classification
 -- Every threshold, stated once. The rolling frames in `rolling` are the 5 and 7 day windows.
@@ -341,7 +343,17 @@ plan_cut AS (
     8 AS pipeline_weeks,
     6 AS warmup_weeks,
     0.25 AS thin_week_share,
-    1.20 AS viable_share_headroom
+    1.20 AS viable_share_headroom,
+    0.50 AS loaded_share,
+    10 AS best_min_ads,
+    4 AS best_min_months,
+    60 AS quarter_age_days,
+    10 AS best_min_hits,
+    2 AS best_min_quarters,
+    0.80 AS on_track_share,
+    1.20 AS volume_reach,
+    90 AS table_days,
+    [1.0, 1.5, 2.0] AS ladder_multiples
 ),
 -- The last 365 complete days, ending yesterday. `this_monday` starts the ISO week holding today.
 win AS (
@@ -540,7 +552,7 @@ video_plays AS (
   GROUP BY ad_key
 ),
 -- BEGIN model
--- Reads only ad_day_status, daily_win, ad_names, video_plays, win, first_day and plan_cut.
+-- Reads only ad_day_status, daily_win, ad_names, video_plays, win, first_day, today and plan_cut.
 -- A Launched ad: its first day of spend falls after the window's first day. Age is the days since
 -- that day, so the first day is age 0.
 launched AS (
@@ -559,7 +571,7 @@ age_reach AS (
   CROSS JOIN UNNEST(GENERATE_ARRAY(0, DATE_DIFF(w.date_to, l.first_spend, DAY))) AS a
   GROUP BY a
 ),
--- The viable ad-days (Healthy or Winner) at each age, with their spend. A day with no spend has no
+-- The viable ad-days (Healthy, Winner or Improving) at each age, with their spend. A day with no spend has no
 -- row in ad_day_status, so it is not viable.
 viable_days AS (
   SELECT
@@ -568,7 +580,7 @@ viable_days AS (
     SUM(s.spend) AS viable_spend
   FROM ad_day_status AS s
   JOIN launched AS l USING (ad_key)
-  WHERE s.status IN ('Healthy', 'Winner')
+  WHERE s.status IN ('Healthy', 'Winner', 'Improving')
   GROUP BY age
 ),
 curve AS (
@@ -588,7 +600,7 @@ curve AS (
 hit_ads AS (
   SELECT
     l.ad_key,
-    COALESCE(LOGICAL_OR(s.status IN ('Healthy', 'Winner')
+    COALESCE(LOGICAL_OR(s.status IN ('Healthy', 'Winner', 'Improving')
                         AND DATE_DIFF(s.day, l.first_spend, DAY) < p.hit_days), FALSE) AS was_viable
   FROM launched AS l
   CROSS JOIN win AS w
@@ -643,16 +655,41 @@ clear_ramping AS (
   FROM cleared_ranked
   WHERE rn IN (DIV(n + 1, 2), DIV(n + 2, 2))
 ),
--- The ads on the last complete day.
+-- Today is the window's last complete day. The window's last day is yesterday, but a day the mart is
+-- still loading reads no orders and so no viable ads: a day is loaded when its spend and its new
+-- orders are each at least loaded_share of their mean over the 7 days before it.
+-- Today is the latest loaded day of the window's last 14 days, and yesterday where none is.
+recent_totals AS (
+  SELECT d AS day, COALESCE(SUM(a.spend), 0) AS spend, COALESCE(SUM(a.new_orders), 0) AS new_orders
+  FROM win AS w
+  CROSS JOIN UNNEST(GENERATE_DATE_ARRAY(DATE_SUB(w.date_to, INTERVAL 20 DAY), w.date_to)) AS d
+  LEFT JOIN daily_win AS a ON a.day = d
+  GROUP BY d
+),
+loaded_days AS (
+  SELECT
+    t.day,
+    t.spend >= p.loaded_share * AVG(t.spend) OVER prior
+      AND t.new_orders >= p.loaded_share * AVG(t.new_orders) OVER prior AS is_loaded
+  FROM recent_totals AS t
+  CROSS JOIN plan_cut AS p
+  WINDOW prior AS (ORDER BY t.day ROWS BETWEEN 7 PRECEDING AND 1 PRECEDING)
+),
+today AS (
+  SELECT COALESCE(MAX(IF(l.is_loaded, l.day, NULL)), ANY_VALUE(w.date_to)) AS day
+  FROM loaded_days AS l
+  CROSS JOIN win AS w
+  WHERE l.day > DATE_SUB(w.date_to, INTERVAL 14 DAY)
+),
+-- The ads on today.
 today_counts AS (
   SELECT
-    COUNTIF(s.status IN ('Healthy', 'Winner')) AS viable_ads,
+    COUNTIF(s.status IN ('Healthy', 'Winner', 'Improving')) AS viable_ads,
     COUNTIF(s.status != 'Ramping') AS live_past_ramping,
-    COUNTIF(s.status IN ('Fatiguing', 'Fatigued', 'Low efficiency')) AS worn_out_now,
-    COUNTIF(s.status = 'Improving') AS improving_now
+    COUNTIF(s.status IN ('Fatiguing', 'Fatigued', 'Low efficiency')) AS worn_out_now
   FROM ad_day_status AS s
-  CROSS JOIN win AS w
-  WHERE s.day = w.date_to
+  CROSS JOIN today AS t
+  WHERE s.day = t.day
 ),
 -- Current spend: the last complete ISO week's spend over 7.
 current_spend AS (
@@ -661,7 +698,7 @@ current_spend AS (
   CROSS JOIN win AS w
   WHERE d.day >= DATE_SUB(w.this_monday, INTERVAL 7 DAY) AND d.day < w.this_monday
 ),
--- The Viable share. A week's viable share is its spend on viable ad-days (Healthy or Winner) over its
+-- The Viable share. A week's viable share is its spend on viable ad-days (Healthy, Winner or Improving) over its
 -- spend, counting every ad, Launched or not; `ad_day_status` already leaves out the awareness and lead
 -- campaigns through `keyed`. The weeks are the complete ISO weeks of the window: Monday to Sunday, both
 -- inside it, the first Monday on or after `first_day` to the last Sunday on or before `date_to`. A week
@@ -670,7 +707,7 @@ week_spend AS (
   SELECT
     DATE_TRUNC(s.day, ISOWEEK) AS week_start,
     SUM(s.spend) AS spend,
-    SUM(IF(s.status IN ('Healthy', 'Winner'), s.spend, 0)) AS viable_spend,
+    SUM(IF(s.status IN ('Healthy', 'Winner', 'Improving'), s.spend, 0)) AS viable_spend,
     SUM(IF(s.status = 'Ramping', s.spend, 0)) AS ramping_spend,
     SUM(IF(s.status IN ('Fatiguing', 'Fatigued', 'Low efficiency'), s.spend, 0)) AS worn_out_spend
   FROM ad_day_status AS s
@@ -741,6 +778,241 @@ share_target AS (
   FROM share_stats AS v
   CROSS JOIN plan_cut AS p
 ),
+-- THE SCORECARD. Everything below reads the model above and adds the Levers, their bests, the Limiting
+-- factor, the Budget ladder and what is On the table. Nothing in it reads a Budget: the Budget rung of
+-- the ladder, where the user gave one that differs, is worked in code from this row.
+-- Launched ads a week, for each complete ISO week of the window. The Current pipeline is the average
+-- of the last pipeline_weeks of them, and Launches (B), the first Lever best, is the highest average
+-- over any pipeline_weeks complete weeks in a row (the frame is that many rows: 7 preceding and the
+-- current one).
+launch_weeks AS (
+  SELECT
+    c.week_start,
+    COUNTIF(l.ad_key IS NOT NULL) AS launches
+  FROM complete_weeks AS c
+  LEFT JOIN launched AS l ON DATE_TRUNC(l.first_spend, ISOWEEK) = c.week_start
+  GROUP BY c.week_start
+),
+launch_rolling AS (
+  SELECT
+    week_start, launches,
+    ROW_NUMBER() OVER (ORDER BY week_start DESC) AS recency,
+    AVG(launches) OVER r8 AS avg_launches,
+    COUNT(*) OVER r8 AS weeks_in_frame
+  FROM launch_weeks
+  WINDOW r8 AS (ORDER BY week_start ROWS BETWEEN 7 PRECEDING AND CURRENT ROW)
+),
+pipeline AS (
+  SELECT
+    SAFE_DIVIDE(SUM(IF(r.recency <= p.pipeline_weeks, r.launches, 0)), COUNTIF(r.recency <= p.pipeline_weeks)) AS current_pipeline,
+    COUNTIF(r.recency <= p.pipeline_weeks) AS weeks_used,
+    MAX(IF(r.weeks_in_frame = p.pipeline_weeks, r.avg_launches, NULL)) AS launches_best
+  FROM launch_rolling AS r
+  CROSS JOIN plan_cut AS p
+),
+-- Hit rate (h_best), the second Lever best: for each calendar launch month (by first spend), the
+-- month's Hit rate. A month counts when its last day is at least hit_days before today, it has
+-- best_min_ads or more Launched ads, and it starts after the window's first warmup_weeks weeks. The
+-- best is the 90th percentile of the months counted, null with fewer than best_min_months.
+-- `hit_ads` holds every Launched ad old enough, which every ad of a counted month is.
+hit_months AS (
+  SELECT
+    DATE_TRUNC(l.first_spend, MONTH) AS month_start,
+    COUNT(*) AS launched_ads,
+    SAFE_DIVIDE(COUNTIF(h.was_viable), COUNT(*)) AS month_hit_rate
+  FROM hit_ads AS h
+  JOIN launched AS l USING (ad_key)
+  GROUP BY month_start
+),
+counted_months AS (
+  SELECT m.month_hit_rate
+  FROM hit_months AS m
+  CROSS JOIN today AS t
+  CROSS JOIN first_day AS f
+  CROSS JOIN plan_cut AS p
+  WHERE LAST_DAY(m.month_start, MONTH) <= DATE_SUB(t.day, INTERVAL p.hit_days DAY)
+    AND m.launched_ads >= p.best_min_ads
+    AND m.month_start >= DATE_ADD(f.day, INTERVAL (p.warmup_weeks * 7) DAY)
+),
+hit_rate_best AS (
+  SELECT
+    COUNT(*) AS hit_rate_months,
+    IF(COUNT(*) >= ANY_VALUE(p.best_min_months), APPROX_QUANTILES(m.month_hit_rate, 100)[OFFSET(90)], NULL) AS hit_rate_best
+  FROM counted_months AS m
+  CROSS JOIN plan_cut AS p
+),
+-- Days viable per hit (D_best), the third: for each calendar launch quarter (by first spend), D_q is
+-- W_q over h_q, worked from that quarter's Launched ads alone. W_q is the sum of the cohort's survival
+-- rates over the ages that curve_min_ads or more of the cohort have reached. A quarter counts when its
+-- last day is at least quarter_age_days before today and it has best_min_hits or more hits. The best is
+-- the highest D_q, null with fewer than best_min_quarters.
+quarter_reach AS (
+  SELECT DATE_TRUNC(l.first_spend, QUARTER) AS quarter_start, a AS age, COUNT(*) AS reached
+  FROM launched AS l
+  CROSS JOIN win AS w
+  CROSS JOIN UNNEST(GENERATE_ARRAY(0, DATE_DIFF(w.date_to, l.first_spend, DAY))) AS a
+  GROUP BY quarter_start, age
+),
+quarter_viable AS (
+  SELECT
+    DATE_TRUNC(l.first_spend, QUARTER) AS quarter_start,
+    DATE_DIFF(s.day, l.first_spend, DAY) AS age,
+    COUNT(*) AS viable
+  FROM ad_day_status AS s
+  JOIN launched AS l USING (ad_key)
+  WHERE s.status IN ('Healthy', 'Winner', 'Improving')
+  GROUP BY quarter_start, age
+),
+quarter_w AS (
+  SELECT r.quarter_start, SUM(SAFE_DIVIDE(COALESCE(v.viable, 0), r.reached)) AS quarter_lifespan
+  FROM quarter_reach AS r
+  LEFT JOIN quarter_viable AS v USING (quarter_start, age)
+  CROSS JOIN plan_cut AS p
+  WHERE r.reached >= p.curve_min_ads
+  GROUP BY r.quarter_start
+),
+quarter_hits AS (
+  SELECT
+    DATE_TRUNC(l.first_spend, QUARTER) AS quarter_start,
+    SAFE_DIVIDE(COUNTIF(h.was_viable), COUNT(*)) AS quarter_hit_rate,
+    COUNTIF(h.was_viable) AS hits
+  FROM hit_ads AS h
+  JOIN launched AS l USING (ad_key)
+  GROUP BY quarter_start
+),
+counted_quarters AS (
+  SELECT SAFE_DIVIDE(w.quarter_lifespan, h.quarter_hit_rate) AS quarter_days_per_hit
+  FROM quarter_hits AS h
+  JOIN quarter_w AS w USING (quarter_start)
+  CROSS JOIN today AS t
+  CROSS JOIN plan_cut AS p
+  WHERE LAST_DAY(h.quarter_start, QUARTER) <= DATE_SUB(t.day, INTERVAL p.quarter_age_days DAY)
+    AND h.hits >= p.best_min_hits
+),
+dvph_best AS (
+  SELECT
+    COUNT(*) AS dvph_quarters,
+    IF(COUNT(*) >= ANY_VALUE(p.best_min_quarters), MAX(q.quarter_days_per_hit), NULL) AS days_viable_per_hit_best
+  FROM counted_quarters AS q
+  CROSS JOIN plan_cut AS p
+),
+-- The Limiting factor. L, N0 (the Steady-state number) and N1 (the launches at the best Hit rate) first,
+-- then each Lever's room (its best over today's figure, 0 with no best) and what hitting needs, then
+-- the first factor that holds.
+scorecard_1 AS (
+  SELECT
+    ls.viable_lifespan AS w,
+    hr.hit_rate AS h,
+    SAFE_DIVIDE(ls.viable_lifespan, hr.hit_rate) AS d,
+    SAFE_DIVIDE(cs.daily_spend * st.viable_share_target, ls.spend_per_viable_ad) AS l,
+    tc.viable_ads AS s0,
+    pl.current_pipeline AS pipe,
+    pl.launches_best AS b,
+    hb.hit_rate_best AS h_best,
+    db.days_viable_per_hit_best AS d_best
+  FROM lifespans AS ls
+  CROSS JOIN hit_rate AS hr
+  CROSS JOIN current_spend AS cs
+  CROSS JOIN share_target AS st
+  CROSS JOIN today_counts AS tc
+  CROSS JOIN pipeline AS pl
+  CROSS JOIN hit_rate_best AS hb
+  CROSS JOIN dvph_best AS db
+),
+scorecard_2 AS (
+  SELECT
+    s.*,
+    CEIL(ROUND(SAFE_DIVIDE(s.l * 7, s.w), 9)) AS n0,
+    CEIL(ROUND(SAFE_DIVIDE(s.l * 7, s.h_best * s.d), 9)) AS n1,
+    COALESCE(SAFE_DIVIDE(s.h_best, s.h), 0) AS room_h,
+    COALESCE(SAFE_DIVIDE(s.d_best, s.d), 0) AS room_d,
+    SAFE_DIVIDE(s.l * 7, s.d * s.b) AS h_need,
+    SAFE_DIVIDE(s.l * 7, s.h * s.b) AS d_need
+  FROM scorecard_1 AS s
+),
+scorecard AS (
+  SELECT
+    s.*,
+    CASE
+      WHEN s.s0 >= p.on_track_share * s.l AND s.n0 <= s.pipe THEN 'On track'
+      WHEN s.n0 <= p.volume_reach * s.b THEN 'Volume'
+      WHEN s.n1 <= p.volume_reach * s.b THEN 'Both'
+      WHEN s.room_h >= s.room_d THEN 'Finding winners'
+      ELSE 'Keeping winners'
+    END AS limiting_factor
+  FROM scorecard_2 AS s
+  CROSS JOIN plan_cut AS p
+),
+-- On the table, over the table_days complete days to today, on the skill's CAC basis (new orders).
+-- Every ad-day falls in one group: viable (Healthy, Winner, Improving), test phase (Ramping), worn out
+-- (Fatiguing, Fatigued, Low efficiency) or other.
+status_groups AS (
+  SELECT
+    CASE
+      WHEN s.status IN ('Healthy', 'Winner', 'Improving') THEN 'viable'
+      WHEN s.status = 'Ramping' THEN 'test_phase'
+      WHEN s.status IN ('Fatiguing', 'Fatigued', 'Low efficiency') THEN 'worn_out'
+      ELSE 'other'
+    END AS grp,
+    SUM(s.spend) AS spend,
+    SUM(d.new_orders) AS customers
+  FROM ad_day_status AS s
+  JOIN daily_win AS d ON d.ad_key = s.ad_key AND d.day = s.day
+  CROSS JOIN today AS t
+  CROSS JOIN plan_cut AS p
+  WHERE s.day BETWEEN DATE_SUB(t.day, INTERVAL (p.table_days - 1) DAY) AND t.day
+  GROUP BY grp
+),
+group_wide AS (
+  SELECT
+    SUM(IF(grp = 'viable', spend, 0)) AS spend_viable,
+    SUM(IF(grp = 'test_phase', spend, 0)) AS spend_test_phase,
+    SUM(IF(grp = 'worn_out', spend, 0)) AS spend_worn_out,
+    SUM(IF(grp = 'other', spend, 0)) AS spend_other,
+    SUM(IF(grp = 'viable', customers, 0)) AS customers_viable,
+    SUM(IF(grp = 'test_phase', customers, 0)) AS customers_test_phase,
+    SUM(IF(grp = 'worn_out', customers, 0)) AS customers_worn_out,
+    SUM(IF(grp = 'other', customers, 0)) AS customers_other,
+    SUM(spend) AS spend_total,
+    SUM(customers) AS customers_total
+  FROM status_groups
+),
+-- Each group's CAC, and the CAC it is read at: its own, else the next-worse group's in the order viable,
+-- test phase, worn out, other (a group with none and no worse group is left out). v0 is today's viable
+-- share of spend, and `non_viable_scale` takes every non-viable group to its share of the rest at the target.
+table_1 AS (
+  SELECT
+    g.*,
+    SAFE_DIVIDE(g.spend_viable, g.customers_viable) AS cac_viable,
+    SAFE_DIVIDE(g.spend_test_phase, g.customers_test_phase) AS cac_test_phase,
+    SAFE_DIVIDE(g.spend_worn_out, g.customers_worn_out) AS cac_worn_out,
+    SAFE_DIVIDE(g.spend_other, g.customers_other) AS cac_other,
+    SAFE_DIVIDE(g.spend_viable, g.spend_total) AS v0,
+    SAFE_DIVIDE((1 - st.viable_share_target) * g.spend_total, g.spend_total - g.spend_viable) AS non_viable_scale,
+    st.viable_share_target AS target
+  FROM group_wide AS g
+  CROSS JOIN share_target AS st
+),
+table_2 AS (
+  SELECT
+    t.*,
+    COALESCE(t.cac_viable, t.cac_test_phase, t.cac_worn_out, t.cac_other) AS used_viable,
+    COALESCE(t.cac_test_phase, t.cac_worn_out, t.cac_other) AS used_test_phase,
+    COALESCE(t.cac_worn_out, t.cac_other) AS used_worn_out,
+    t.cac_other AS used_other
+  FROM table_1 AS t
+),
+on_the_table AS (
+  SELECT
+    t.*,
+    t.v0 >= t.target AS nothing_on_the_table,
+    IF(t.v0 >= t.target, NULL,
+       SAFE_DIVIDE(t.target * t.spend_total, t.used_viable)
+       + COALESCE(SAFE_DIVIDE(t.spend_test_phase * t.non_viable_scale, t.used_test_phase), 0)
+       + COALESCE(SAFE_DIVIDE(t.spend_worn_out * t.non_viable_scale, t.used_worn_out), 0)
+       + COALESCE(SAFE_DIVIDE(t.spend_other * t.non_viable_scale, t.used_other), 0)) AS customers_target
+  FROM table_2 AS t
+),
 -- The block fenced below as shared format is, byte for byte, in references/intake.sql, which gives
 -- the intake the Format split default before this file runs. The two change together.
 -- BEGIN shared format
@@ -791,6 +1063,7 @@ format_split AS (
 SELECT
   w.date_from AS window_from,
   w.date_to AS window_to,
+  td.day AS today_date,
   f.day AS first_day,
   DATE_SUB(w.this_monday, INTERVAL 7 DAY) AS current_week_from,
   DATE_SUB(w.this_monday, INTERVAL 1 DAY) AS current_week_to,
@@ -807,21 +1080,71 @@ SELECT
   ls.age_below_25,
   cr.days_to_clear_ramping,
   cs.daily_spend AS current_spend,
-  SAFE_DIVIDE(fs.recent_launched_ads, r.weeks_used) AS current_pipeline,
-  r.weeks_used AS pipeline_weeks_used,
+  pl.current_pipeline,
+  pl.weeks_used AS pipeline_weeks_used,
   st.p90 AS viable_share_p90,
   st.viable_share_target,
   st.weeks_counted AS viable_share_weeks,
   st.complete_weeks - st.weeks_counted AS viable_share_weeks_left_out,
   st.ramping_share,
   st.worn_out_share,
-  SAFE_DIVIDE(cs.daily_spend * st.viable_share_target, ls.spend_per_viable_ad) AS viable_ad_stock,
-  CEIL(ROUND(SAFE_DIVIDE(SAFE_DIVIDE(cs.daily_spend * st.viable_share_target, ls.spend_per_viable_ad) * 7, ls.viable_lifespan), 9)) AS steady_state_number,
+  sc.l AS viable_ad_stock,
+  sc.n0 AS steady_state_number,
   tc.viable_ads,
   tc.live_past_ramping,
   tc.worn_out_now,
-  tc.improving_now,
   SAFE_DIVIDE(tc.viable_ads * 14, SAFE_DIVIDE(ls.viable_lifespan, hr.hit_rate)) AS wearing_out_2_weeks,
+  pl.launches_best,
+  hb.hit_rate_best,
+  hb.hit_rate_months,
+  db.days_viable_per_hit_best,
+  db.dvph_quarters,
+  sc.limiting_factor,
+  sc.n1 AS launches_at_best_hit_rate,
+  sc.h_need AS hit_rate_needed,
+  sc.h_need > sc.h_best AS hit_rate_needed_beyond_best,
+  sc.d_need AS days_viable_per_hit_needed,
+  sc.d_need > sc.d_best AS days_viable_per_hit_needed_beyond_best,
+  ARRAY(
+    SELECT AS STRUCT
+      m AS multiple,
+      cs.daily_spend * m AS daily_spend,
+      sc.l * m AS viable_ad_stock,
+      CEIL(ROUND(SAFE_DIVIDE(sc.l * m * 7, sc.w), 9)) AS steady_state_number,
+      ROUND(SAFE_DIVIDE(CEIL(ROUND(SAFE_DIVIDE(sc.l * m * 7, sc.w), 9)), sc.pipe), 1) AS steady_state_over_pipeline
+    FROM UNNEST(lp.ladder_multiples) AS m
+    ORDER BY m
+  ) AS budget_ladder,
+  ot.spend_viable / ot.spend_total AS share_viable,
+  ot.spend_test_phase / ot.spend_total AS share_test_phase,
+  ot.spend_worn_out / ot.spend_total AS share_worn_out,
+  ot.spend_other / ot.spend_total AS share_other,
+  ot.customers_viable,
+  ot.customers_test_phase,
+  ot.customers_worn_out,
+  ot.customers_other,
+  ot.cac_viable,
+  ot.cac_test_phase,
+  ot.cac_worn_out,
+  ot.cac_other,
+  ARRAY(
+    SELECT grp.g
+    FROM UNNEST([
+      STRUCT('viable' AS g, ot.spend_viable AS spend, ot.customers_viable AS customers),
+      STRUCT('test phase', ot.spend_test_phase, ot.customers_test_phase),
+      STRUCT('worn out', ot.spend_worn_out, ot.customers_worn_out),
+      STRUCT('other', ot.spend_other, ot.customers_other)
+    ]) AS grp
+    WHERE grp.spend > 0 AND grp.customers = 0
+  ) AS groups_without_customers,
+  ot.nothing_on_the_table,
+  ot.customers_total / lp.table_days * 7 AS customers_week,
+  ot.customers_target / lp.table_days * 7 AS customers_week_at_target,
+  (ot.customers_target - ot.customers_total) / lp.table_days * 7 AS customers_week_gain,
+  SAFE_DIVIDE(ot.spend_total, ot.customers_total) AS blended_cac,
+  SAFE_DIVIDE(ot.spend_total, ot.customers_target) AS blended_cac_at_target,
+  SAFE_DIVIDE(ot.customers_total, ot.customers_target) - 1 AS blended_cac_change,
+  IF(ot.spend_test_phase > ot.spend_worn_out, 'test phase', 'worn out') AS biggest_waste,
   fs.video_pct,
   100 - fs.video_pct AS image_pct,
   fs.name_coverage_pct,
@@ -831,13 +1154,18 @@ SELECT
     ORDER BY c.age
   ) AS survival_table
 FROM win AS w
+CROSS JOIN today AS td
 CROSS JOIN first_day AS f
 CROSS JOIN lifespans AS ls
 CROSS JOIN hit_rate AS hr
 CROSS JOIN clear_ramping AS cr
 CROSS JOIN current_spend AS cs
-CROSS JOIN recent_weeks AS r
+CROSS JOIN pipeline AS pl
 CROSS JOIN today_counts AS tc
 CROSS JOIN format_split AS fs
 CROSS JOIN share_target AS st
-
+CROSS JOIN hit_rate_best AS hb
+CROSS JOIN dvph_best AS db
+CROSS JOIN scorecard AS sc
+CROSS JOIN on_the_table AS ot
+CROSS JOIN plan_cut AS lp
