@@ -5,9 +5,9 @@ is today as `YYYY-MM-DD`), written to the working folder, with inline CSS and in
 and no network request. It reads as a dashboard for someone who has never seen the method: the
 answer first, as a picture, in plain words. Crux house style: British English, no em dashes, outcome
 before mechanism, relative percentage changes (2.0% to 1.8% is "−10%"). Money is in the export's
-currency, rounded to whole units; CAC and Spend per viable ad to two decimals; counts of ads to one
-decimal for Viable ads needed, Expected to wear out and Expected to work in the Week-by-week plan, and
-whole numbers for every other count.
+currency, rounded to whole units; CAC and Spend per viable ad to two decimals; and every count of ads
+a whole number, rounded up (⌈x⌉) where it is worked out as a stock or a flow. The maths underneath
+keeps every figure unrounded, and each tie is checked on those, to one decimal.
 
 ## Two tabs
 
@@ -42,6 +42,8 @@ Term, Says), so a reader can match the two.
 | Launched ad | New ads read | ads first launched inside the window, the ones the curve rests on |
 | Improving | recovering | not viable today, but its CAC has fallen over the last 3 days |
 | Steady-state number | Launches a week to keep up | the new ads a week that replace the viable ads wearing out, at that spend |
+| Steady-state number less Current pipeline | +<n> a week | the new ads a week you need on top of what you launch now |
+| Steady-state number at or below Current pipeline | On pace | what you launch now already keeps up with what your spend needs |
 | Catch-up | Catch-up | the extra launches that close today's gap by your Budget week |
 | Ads to launch | Ads to launch | the new ads to make in a week |
 | Expected to work | Expected to work | the launches likely to become viable |
@@ -81,22 +83,24 @@ beside it uses.
 
 One row of four tiles (two by two on a narrow screen), read left to right as one sentence. Each has
 a caption, a big figure and one small line under it. Ads are whole ads throughout: the viable ads
-today and the Viable ads needed are each rounded to a whole ad once, and the gap is the difference
-between those two whole figures.
+today are a count already, the Viable ads needed is ⌈L⌉ (the figure the Week-by-week plan's table
+uses for week 1's stock needed), and the gap is the difference between those two whole figures.
 
 1. **Where you are**: "8 viable ads, 29 needed". The small line is the gap: "21 short" for Short,
    "within range" for About right, "11 ahead" for Ahead.
 2. **Why**: the Hit rate as "1 in 8 new ads works" (N the whole number nearest 1 over the Hit rate).
-   The small line: "and lasts about 30 days", the Days viable per hit to the whole day, with
-   "at least" before the figure ("and lasts at least 30 days") where the Viable lifespan is a lower
-   bound.
-3. **To keep up**: the Steady-state number as "22 a week". The small line is "you launch 36 now"
-   (the Current pipeline to the whole ad; fewer than 8 weeks said, "over 5 weeks") followed by one
-   plain meaning, chosen by this rule:
-   - Steady-state number above the Current pipeline: "launch more, or raise your hit rate".
-   - At or below the Current pipeline, and Short: "you launch enough to keep up, and the plan adds
-     the catch-up".
-   - At or below the Current pipeline, and not Short: "you launch enough".
+   The small line: "<x>% of launches; a working ad lasts about <D> days". x is the Hit rate as a
+   percentage, to one decimal below 10% ("6.5%") and otherwise a whole number ("12%"); D is the Days
+   viable per hit to the whole day. Where the Viable lifespan is a lower bound, "at least" replaces
+   "about".
+3. **To keep up**: S is the Steady-state number and P the Current pipeline, both whole ads.
+   - S above P: the big figure is the difference, "+57 a week" (S less P), and the small line is
+     "<S> a week to keep up; you launch <P> now".
+   - S at or below P: the big figure is "On pace", and the small line is "<S> a week keeps up; you
+     launch <P> now". Where the verdict is Short, it adds "; the plan adds the catch-up".
+
+   Where P rests on fewer than 8 weeks, the small line ends "over <n> weeks" ("you launch 36 now, over
+   5 weeks").
 4. **Next week**: the first Week-by-week plan row's Ads to launch ("None needed" where it is 0).
    The small line splits it in two. **k**, the launches to keep up, is week 1's Wearing out over the
    Hit rate, rounded up. **c**, the launches to catch up, is week 1's Ads to launch less k. The line
@@ -105,7 +109,7 @@ between those two whole figures.
    (fewer than usual: you are ahead)".
 
 Under the row, one small line for each label the tiles use, giving its Says: viable, Hit rate,
-Launches a week to keep up and, where tile 4 shows a catch-up, Catch-up (where it does not, the
+Launches a week to keep up, "+<n> a week" or "On pace" (whichever tile 3 shows) and, where tile 4 shows a catch-up, Catch-up (where it does not, the
 Week-by-week plan's first line gives the Catch-up its Says at first use). The verdict colour sits on tile 1
 only: one colour each for Short, About right and Ahead, always with the words, so the tile does not
 depend on colour alone. The other three tiles carry none.
@@ -163,19 +167,22 @@ launches fewer until the viable ads wear down (for Ahead).
 How a new ad does in this account, in three lines and one chart.
 
 - **Hit rate**, as a big figure: "1 in 8, 12%" (N the whole number nearest 1 over the Hit rate, then
-  the percentage), with the Says of Hit rate under it and **New ads read** beside it: how many
+  the percentage x as tile 2 gives it), with the Says of Hit rate under it and **New ads read** beside it: how many
   Launched ads the curve rests on. Below 10, one sentence says the curve is rough.
 - **How a working ad lasts**: the Days viable per hit, in days to one decimal, with "at least"
   before it where the Viable lifespan is a lower bound.
 - **Days in the test phase**: Days to clear Ramping, the median, in days, with its Says.
 
 **The chart, "Share of your launched ads still viable, by age"**, is inline SVG: age in days along
-the bottom, the share of Launched ads still viable up the side from 0% to 100%, with gridlines at
-25%, 50% and 75%. Draw one point per age that counts, joined by a line, and no point for an age
-under the 3-ad floor. Mark the test phase with a vertical line at Days in the test phase, labelled
-"Test phase: <n> days". Label both axes in plain words ("Days since the ad launched", "Still
-viable"), give the chart a title and a text alternative, and write the figures in the labels in the
-same format as the lines above.
+the bottom, the share of Launched ads still viable up the side from 0% to a top that fits the curve.
+The top is the first of 5%, 10%, 20%, 25%, 50% and 100% that is at or above the curve's highest
+point, so a curve that peaks at 4.2% has an axis to 5% and one that peaks at 60% has an axis to 100%.
+Four gridlines sit at quarters of that top (for an axis to 5%: 1.25%, 2.5%, 3.75% and 5%), each
+labelled to as few decimals as it needs. Draw one point per age that counts, joined by a line, and no
+point for an age under the 3-ad floor. Mark the test phase with a vertical line at Days in the test
+phase, labelled "Test phase: <n> days". Label both axes in plain words ("Days since the ad launched",
+"Still viable"), give the chart a title and a text alternative, and write the figures in the labels in
+the same format as the lines above.
 
 The action: "Raise the hit rate and every number below falls; see If more of your ads work."
 
@@ -206,31 +213,34 @@ the Budget (4 weeks in all with no Budget). Its columns, in this order:
 |---|---|
 | Week | The week's Monday, as a date. |
 | Daily spend | That week's daily spend, in whole units. |
-| Viable ads needed | L(w): the daily spend times the Viable share target over the Spend per viable ad, one decimal. |
-| Expected to wear out | Wearing out(w), one decimal. |
+| Viable ads needed | ⌈L(w)⌉: the daily spend times the Viable share target over the Spend per viable ad, rounded up to a whole ad. |
+| Expected to wear out | ⌈Wearing out(w)⌉, a whole number. |
 | Video | The week's Ads to launch that are video: a whole number. Only with a Format split. |
 | Image | The week's Ads to launch that are image: a whole number. Only with a Format split. |
 | Ads to launch | Ads to launch(w), the total: a whole number, never below 0; "None needed" where it is 0. |
-| Expected to work | Expected to work(w): the Ads to launch times the Hit rate, one decimal. |
+| Expected to work | ⌈Expected to work(w)⌉: the Ads to launch times the Hit rate, rounded up to a whole ad. |
 | Go live by | The Live-by date; "Already due" where that date has passed. |
 
 The Video and Image columns are present only with a split. They divide each week's Ads to launch by
 largest remainder, so in every row video plus image equals Ads to launch. With no split, the
 table has the Video and Image columns left out entirely.
 
+One line under the table, in these words: "Figures are rounded up to whole ads, so a row can be one
+out."
+
 **The chart, "How your viable ads change, week by week"** (the Waterfall), follows the table, as
 inline SVG covering the plan's weeks only. Along the bottom is one group for each week, labelled with
 its Monday. Up the side is a count of viable ads from 0, with gridlines. The bars, left to right:
 
 1. **The start bar**: the ads running past their test phase today, drawn already dropped. The drop
-   is the difference from the viable ads today (S(0)), so the bar comes down to S(0). Label the drop
+   is the difference from the viable ads today (S(0)), so the bar comes down to S(0). Label the start stock, rounded up to a whole ad, and label the drop
    with its parts: "Stopped working but still running" with its count, and, where there are any,
    "recovering" with the Improving ads' count; the two sum to the drop.
 2. **For each week**, three bars: a down bar for Expected to wear out, from the week's start stock;
    an up bar for Expected to work, from where the down bar ends; and the end stock, a bar from 0.
    With a Format split the up bar is stacked in proportion to the Ads to launch: the video share from
    where the down bar ends, the image share on top of it, each segment labelled with the launches it
-   stands for and the Expected to work labelled above the bar. A segment of 0 is left out. With no
+   stands for and the Expected to work (⌈x⌉) labelled above the bar. A segment of 0 is left out. With no
    split, the up bar is a single bar labelled with Expected to work. The
    next week's down bar starts at that end stock.
 3. **Viable ads needed**, L(w), drawn as a line across the week's group and named in the legend.
@@ -238,8 +248,10 @@ its Monday. Up the side is a count of viable ads from 0, with gridlines. The bar
 Give the kinds of bar (wearing out, new as video, new as image, end; with no split, new as one kind)
 distinct fills, each labelled with its figure and named in the legend in plain words, so the chart
 does not depend on colour alone. Label both axes, give the chart a title and a text alternative,
-and write the figures in the labels in the same format as the table. For every week, the start
-stock less Expected to wear out plus Expected to work is the end stock, to one decimal.
+and write the figures in the labels in the same format as the table: the start stock, end stock,
+wear-out, up-bar and L(w) labels are whole numbers, each rounded up, while the bars are drawn at the
+unrounded values. For every week, the start stock less Expected to wear out plus Expected to work is
+the end stock on the unrounded figures, to one decimal; a label can be one out, as the table can.
 
 The action: the first row's new ads go live by its Go live by date, and each later row's by its own.
 Where you are Ahead, or the Budget is below current spend, one sentence says the viable ads above
@@ -253,13 +265,13 @@ The launches a week to keep up at today's Hit rate and at two better ones, in on
 
 | Row | Hit rate | Launches a week to keep up | Change against today | Launches a week at your Budget |
 |---|---|---|---|---|
-| Today | h, as "1 in 8 (12%)". | ⌈L × 7 ÷ (h × D)⌉, the Steady-state number. | None (the row is the base). | ⌈L at the daily Budget × 7 ÷ (h × D)⌉. |
+| Today | h, as "1 in 8 (12%)", x as tile 2 gives it. | ⌈L × 7 ÷ (h × D)⌉, the Steady-state number. | None (the row is the base). | ⌈L at the daily Budget × 7 ÷ (h × D)⌉. |
 | +20% | h × 1.2, as "1 in N (x%)". | ⌈L × 7 ÷ (h × 1.2 × D)⌉. | Relative to Today's launches, "−17%". | The same formula at the daily Budget. |
 | +30% | h × 1.3, as "1 in N (x%)". | ⌈L × 7 ÷ (h × 1.3 × D)⌉. | As above. | As above. |
 
 L is the Viable ad stock at current spend and D is the Days viable per hit, both fixed down the
-table. In each row N is the whole number nearest 1 over that row's hit rate, and x the percentage to
-a whole number. The change is worked from the launches as shown, whole ads, in whole percent. The
+table. In each row N is the whole number nearest 1 over that row's hit rate, and x its percentage as
+tile 2 gives it. The change is worked from the launches as shown, whole ads, in whole percent. The
 last column is present only with a Budget, and each cell is worked at the daily Budget with that
 row's hit rate.
 
@@ -276,10 +288,10 @@ Launches a week to keep up at four levels of spend, in one table:
 
 | Rung | Daily spend | Viable ads needed | Launches a week to keep up |
 |---|---|---|---|
-| Today | Current spend a day. | L at that spend. | ⌈L × 7 ÷ (h × D)⌉ at it, the Steady-state number. |
-| +25% | 1.25 times current spend. | L at that spend. | As above. |
-| +50% | 1.5 times current spend. | L at that spend. | As above. |
-| Your Budget | The daily Budget. | L at that spend. | As above. |
+| Today | Current spend a day. | ⌈L⌉ at that spend. | ⌈L × 7 ÷ (h × D)⌉ at it, the Steady-state number. |
+| +25% | 1.25 times current spend. | ⌈L⌉ at that spend. | As above. |
+| +50% | 1.5 times current spend. | ⌈L⌉ at that spend. | As above. |
+| Your Budget | The daily Budget. | ⌈L⌉ at that spend. | As above. |
 
 With no Budget the last rung is left out, with one line saying "no Budget given". Under the table,
 the sentence: "This assumes each viable ad carries the same spend, and the same share of your spend
@@ -371,13 +383,14 @@ a title of "Meta ad roadmap" with the brand and the date:
    the page's words.
 2. **The weeks**: the Week-by-week plan's table, with the columns Week, Daily spend, Video and Image
    (only with a Format split), Ads to launch, Expected to work and Go live by, one row for each week,
-   and its Video and image split line. The Ads to launch are the page's, to the ad.
+   and its Video and image split line, then the table's rounding line ("Figures are rounded up to
+   whole ads, so a row can be one out."). Every figure is the page's whole number.
 3. **How your ads perform**: one line, "<1 in N, x%> of your new ads work (Hit rate: <the Says of
    Hit rate>), and a working ad stays viable (<the Says of viable ad>) for about <the Days viable
-   per hit, to the whole day> days" (with "at least" before the figure and "so the ad counts may
+   per hit, to the whole day> days" (x as tile 2 gives it; with "at least" before the figure and "so the ad counts may
    read a little high" after it where the Viable lifespan is a lower bound).
 4. **Spend one viable ad carries**: one line, "One viable ad carries <figure> a day of spend, so a
-   day's spend of <current spend>, aiming at <target>% of it on viable ads, needs <L> viable ads
+   day's spend of <current spend>, aiming at <target>% of it on viable ads, needs <⌈L⌉> viable ads
    live at once, and <the Steady-state number> launches a week keep up".
 
 It carries no heading beyond the title and these four, and no method, no bar, no Waterfall and no

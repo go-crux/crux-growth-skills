@@ -118,7 +118,18 @@ Fern & Co gives a Budget of £36,500 a month, which is 36,500 × 12 ÷ 365 = £1
 | 3 | 16.01 | 5.65 | (20 − (16.01 − 5.65)) ÷ 0.40 = 24.10 | 25 | 10.00 | 16.01 − 5.65 + 10.00 = 20.36 | Thu 26 Nov |
 | 4 | 20.36 | 7.19 | (24 − (20.36 − 7.19)) ÷ 0.40 = 27.07 | 28 | 11.20 | 20.36 − 7.19 + 11.20 = 24.37 | Thu 3 Dec |
 
-Each row ties: start, less Wearing out, plus Expected to work, is the end stock. The figures are carried unrounded and shown here to two decimals so each row can be added up, so a launches-needed figure such as 27.07 rounds up to 28 whole ads (the page shows one decimal). The end stock in week 4 is 24.37, above the 24 that spend then needs, and the Catch-up spread the 4 missing viable ads evenly over weeks 1 to 4: the target sits 3, 2, 1 and 0 below the stock needed. The Roadmap goes on for 4 more weeks at £1,200 a day.
+Each row ties: start, less Wearing out, plus Expected to work, is the end stock. The figures are carried unrounded and shown here to two decimals so each row can be added up, so a launches-needed figure such as 27.07 rounds up to 28 whole ads. The end stock in week 4 is 24.37, above the 24 that spend then needs, and the Catch-up spread the 4 missing viable ads evenly over weeks 1 to 4: the target sits 3, 2, 1 and 0 below the stock needed. The Roadmap goes on for 4 more weeks at £1,200 a day.
+
+**What the page shows.** Every ad count on the page is the unrounded figure above rounded up to a whole ad, and the ties above stay checked on the unrounded figures. The Week-by-week plan and the Waterfall labels read:
+
+| Week | Viable ads needed | Expected to wear out | Ads to launch | Expected to work | Waterfall start | Waterfall end |
+|---|---|---|---|---|---|---|
+| 1 | 15 | 3 | 18 | 8 | 8 | 13 |
+| 2 | 18 | 5 | 20 | 8 | 13 | 17 |
+| 3 | 21 | 6 | 25 | 10 | 17 | 21 |
+| 4 | 24 | 8 | 28 | 12 | 21 | 25 |
+
+Week 2 reads 13 − 5 + 8 = 16 against an end of 17: a row can be one out, because each figure is rounded up on its own, which is why the table carries the line "Figures are rounded up to whole ads, so a row can be one out." The bars are drawn at the unrounded heights.
 
 **The Waterfall of the ramp.** The start bar is the 16 live ads past Ramping, drawn already dropped by the 8 that are Worn out now (5) or Improving (3), down to 8. Then, for each week, a down bar for Wearing out, an up bar for Expected to work, and the end stock, with the stock needed marked as a line:
 
