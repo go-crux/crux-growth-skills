@@ -34,6 +34,8 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Ad stock check**: today's viable ads against the Viable ad stock at current spend. **Short**: below 80% of it. **Ahead**: above 150% of it. **About right**: between. Your plan shows it as "Do you have the right number of ads?", one bar with the gap as a count of ads. _Avoid_: health check, ad audit, over-stocked.
 
+- **Focus**: what the plan tells the brand to work on first, read from the Hit rate and the ask (Launches a week to keep up over the Current pipeline). **Hit rate first**: Hit rate under 8%, or under 15% with an ask above 1.5. **Both**: Hit rate 8% to under 15% with an ask of 1.5 or less. **Volume**: Hit rate 15% or above. Said in one sentence under the tiles. _Avoid_: health check, priority, verdict.
+
 - **Worn out now**: live ads past Ramping that are Fatiguing, Fatigued or Low efficiency. They take spend but are not stock. _Avoid_: dead ads, fatigued ads.
 
 - **Wearing out**: viable ads expected to stop being viable over a period: the stock times the period's days over Days viable per hit. _Avoid_: churn, decay, losing.
@@ -64,7 +66,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Budget ladder**: the Steady-state number at current spend, +25%, +50% and the Budget, on the stated assumption that Spend per viable ad and the Viable share target hold as spend grows. _Avoid_: scenarios, sensitivity.
 
-- **Hit-rate scenarios**: the Steady-state number at today's Hit rate, 20% higher and 30% higher, each with Days viable per hit held fixed, so only the share of launches that work moves; with a Budget, also the launches a week at the Budget. Your plan shows them as "If more of your ads work". _Avoid_: what-ifs, improvement targets.
+- **Hit-rate scenarios**: the Steady-state number at today's Hit rate, 20% higher and 30% higher, each with Days viable per hit held fixed, so only the share of launches that work moves; with a Budget, also the launches a week at the Budget. Where the ask is above 1.5, a fourth row gives the Hit rate needed to keep up at 1.5 times the Current pipeline (the most production can stretch to): Viable ad stock times 7 over Days viable per hit times 1.5 times the Current pipeline, or "not reachable at this spend" above 100%. Your plan shows them as "If more of your ads work". _Avoid_: what-ifs, improvement targets.
 
 - **Format**: video or image, per ad. Read from the ad name alone first (whole-word tokens: video, vid, reel; image, img, static, still, carousel), and where the name gives neither or both, video if the ad had any video views in its life (3-second video plays on an export). _Avoid_: creative type, asset type.
 
