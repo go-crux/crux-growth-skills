@@ -14,7 +14,7 @@ creative brief and say when to run it again. Run the steps in order. The user se
 page, never this skill or its references: say what the ads showed, in plain words with the figures,
 and never cite a file, a rule or a query. The terms
 Viable ad, Viable share, Viable share target, Viable ad stock, Launched ad, Survival curve, Viable lifespan, Hit rate, Days viable per
-hit, Healthy lifespan, Spend per viable ad, Days to clear Ramping, Self-check, Ad stock check, Worn out
+hit, Healthy lifespan, Spend per viable ad, Days to clear Ramping, Self-check, Ad stock check, Focus, Worn out
 now, Wearing out, Current pipeline, Churn cycle, Steady-state number, Budget, Roadmap, Catch-up, Ads to
 launch, Expected to work, Live-by, Waterfall, Hit-rate scenarios, Budget ladder, Format, Name coverage, Format split,
 Roadmap file, Awareness campaign, Lead campaign, Unattended run, Source, Brain line, Your plan, How it's worked out
@@ -315,7 +315,27 @@ number in the working. The page shows every ad count as a whole ad, rounded up (
   with its hit rate h'. Each row's launches a week to keep up is the ceiling of L times 7 over h'
   times D, with L at current spend and D unchanged. Its change against today is relative, worked on
   the whole launches (Today's row is the base). With a Budget, each row also has the launches a week
-  at the Budget: the ceiling of L at the daily Budget times 7 over h' times D.
+  at the Budget: the ceiling of L at the daily Budget times 7 over h' times D. Where the ask (below)
+  is above 1.5, a fourth row, **At 1.5× your launches**, gives the hit rate needed to keep up at 1.5
+  times the Current pipeline, the most production can stretch to: **h needed** is L times 7 over D
+  times 1.5 times the Current pipeline, unrounded, so h needed times D times 1.5 times the Current
+  pipeline over 7 is L. Its launches a week to keep up are the ceiling of 1.5 times the Current
+  pipeline, its change against today is h needed against h, relative and in whole percent (the one
+  change in the table that compares hit rates), and with a Budget its last cell is the hit rate
+  needed at the Budget's L over the same 1.5 times the Current pipeline. A hit rate needed above
+  100% is "not reachable at this spend". With a Current pipeline of 0 there is no row. The plan
+  itself stays uncapped: the Roadmap still launches the full Ads to launch.
+- **Focus.** The **ask** is the Steady-state number over the Current pipeline, unrounded; a Current
+  pipeline of 0 counts as an ask above 1.5. h is the Hit rate, unrounded. The Focus is read once, here:
+
+  | | h under 8% | h 8% to under 15% | h 15% and over |
+  |---|---|---|---|
+  | Ask above 1.5 | Hit rate first | Hit rate first | Volume |
+  | Ask 1.5 or less | Hit rate first | Both | Volume |
+
+  The page, the chat and the Roadmap file take the Focus from this table and state no threshold of
+  their own. A **Low** hit rate is h under 8%, a **Fair** one 8% to under 15%, a **Strong** one 15%
+  and over.
 
 **Done when** the run holds W, h, D, Spend per viable ad, the Healthy lifespan with its quartile
 range, Days to clear Ramping, current spend, the Current pipeline, the weekly viable shares and the
@@ -326,21 +346,27 @@ and every Budget ladder rung), the Steady-state number, today's
 counts, the Self-check, and the Format split default with its Name coverage, each from one calculation;
 the survival table (age, ads reached, viable, survival, spend on viable ad-days) has rates that sum to
 W, h times D equals W to two decimals, and the Spend per viable ad is the spend on viable ad-days over
-their number; and the run has not stopped on a guard. The Roadmap holds a row for each of its weeks,
+their number; the run holds its ask and its Focus, read off the table above on the unrounded h and
+ask; and the run has not stopped on a guard. The Roadmap holds a row for each of its weeks,
 with start, less Wearing out, plus Expected to work equal to the end stock on the unrounded figures, to one decimal, in every row,
 no Ads to launch below 0, video plus image equal to Ads to launch in every row (with a split), and the
 Waterfall's bars taken from those rows. Where Gap0 is above 0, the end stock at the Budget week is at or
 above L(B) and the Catch-up is spread evenly over weeks 1 to B. At a flat budget with S(0) equal to L,
 every week's Ads to launch is the Steady-state number, give or take one ad. The Budget ladder and the
-Hit-rate scenarios are computed (Today's row equal to the Steady-state number), the launches to keep up and to catch up for week 1 sum to its Ads to launch, and the run knows whether W is a lower bound.
+Hit-rate scenarios are computed (Today's row equal to the Steady-state number, and where the ask is
+above 1.5 a 1.5× row whose h needed times D times 1.5 times the Current pipeline over 7 equals L to
+two decimals), the launches to keep up and to catch up for week 1 sum to its Ads to launch, and the run knows whether W is a lower bound.
 
 ## 5. Write the page
 
 Write the page as `references/page-layout.md` fixes it: two tabs switched by CSS alone, opening on
 Your plan. Your plan reads as one story and holds the four headline tiles (Where you are, Why, To
-keep up, Next week) and its five headings, in order, in the Page labels, each label explained at its
+keep up, Next week), under them one Focus sentence on every run (in the words `references/page-layout.md`
+gives for the Focus step 4 reads), and its five headings, in the Page labels, each label explained at its
 first use: Do you have the right number of ads?, How your ads perform, Week-by-week plan, If more of
-your ads work, If you spend more. Do you have the right number of ads? opens, before the bar, with
+your ads work, If you spend more. They run in that order, except under a Focus of Hit rate first, where
+If more of your ads work comes first, straight after the Focus sentence, ahead of Do you have the
+right number of ads?; under Both and Volume the order is as listed. Do you have the right number of ads? opens, before the bar, with
 the sentence that gives the P90 and the Viable share target, and the line that says where the rest
 of the spend goes and ends on its lever, in the words `references/page-layout.md` gives. Its verdict is read off today's viable ads against L: Short below 80% of L,
 Ahead above 150% of L, otherwise About right. It is shown on one bar, with the gap as a count of
@@ -363,16 +389,19 @@ gives, and Your plan ends on its lower-bound line; the tiles and How your ads pe
 before a lasting figure. Save the page as `meta-ad-volume-<date>.html` in the working folder; where
 none persists (a chat), hand it over as a download.
 
-**Done when** the page opens on Your plan with the four tiles and its five headings in this order,
-Do you have the right number of ads?, How your ads perform, Week-by-week plan, If more of your ads
-work, If you spend more, and How it's worked out holds its three; tile 4's launches to keep up plus
+**Done when** the page opens on Your plan with the four tiles, one Focus sentence under them and
+its five headings in this order, Do you have the right number of ads?, How your ads perform,
+Week-by-week plan, If more of your ads work, If you spend more (under a Focus of Hit rate first, If
+more of your ads work sits straight after the Focus sentence and the other four follow in that
+order), and How it's worked out holds its three, with This run naming the Focus with its h and ask; tile 4's launches to keep up plus
 to catch up equal the first Week-by-week plan row's Ads to launch; Do you have the right number of ads? carries, before the bar, the P90 and Viable share target
 sentence and the line on where the rest goes with the larger of its two shares as the lever; the bar has one viable marker,
 one target mark and the gap, and the verdict names Short, About right or Ahead with the gap as a
 count, read on viable ads only; no verdict word other than those three, and no marker for running
 ads, shows anywhere on the page; no glossary term shows on Your plan where page-layout gives it a
 Page label; If more of your ads work holds Today, +20% and +30%, each row's launches equal to the
-ceiling of L times 7 over h' times D, and a Budget column only with a Budget; the Week-by-week
+ceiling of L times 7 over h' times D, a fourth row (At 1.5× your launches) only where the ask is
+above 1.5, and a Budget column only with a Budget; the Week-by-week
 plan's table and its chart hold the same weeks and the same video and image figures (or the total
 alone with no split); If you spend more states its assumption; a lower bound W is said on both
 tabs; the Self-check line is in This run, with its fail clause where the check failed, and so are the P90, the Viable share target, the weeks counted and the weeks left out (and the number of weeks where fewer than 8 were counted); an
@@ -384,11 +413,12 @@ How it's worked out.
 In chat, after the page, in this order:
 
 1. One line, in the Page labels: where the page is, the verdict with its gap ("21 viable ads
-   short"), then launches a week to keep up against what you launch now ("22 a week keeps up; you
-   launch 36 now").
+   short"), the Focus ("focus on your hit rate", "work on both" or "focus on volume"), then
+   launches a week to keep up against what you launch now ("22 a week keeps up; you launch 36
+   now").
 2. **The Roadmap file.** Offer the Week-by-week plan as a file, `meta-ad-roadmap-<date>.md`, to hand to whoever makes
    the ads, and say what it holds: the Budget, the weeks, the new ads by format, the Go live by
-   dates, and one line each on how your ads perform and the spend one viable ad carries. On "yes", write it as
+   dates, the Focus sentence, and one line each on how your ads perform and the spend one viable ad carries. On "yes", write it as
    `references/page-layout.md` fixes it and save it in the working folder; where none persists (a
    chat), hand it over as a download. It is self-contained: someone who has not seen the page can
    brief from it.
@@ -401,6 +431,6 @@ In chat, after the page, in this order:
    is in the session, offer to add the date as an event carrying the prompt; with none, say nothing
    about a calendar.
 
-**Done when** the chat holds the line, the Roadmap file offered with its contents named (or, on an
+**Done when** the chat holds the line (with the Focus in it), the Roadmap file offered with its contents named (or, on an
 unattended run, saved), and the Next run with its date, its prompt, and the calendar offer where a
 calendar connector is in the session.
