@@ -32,7 +32,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Self-check**: the test of the Survival curve against the account on every run: Current pipeline times Viable lifespan over 7 predicts today's viable ads, and it passes within 25% of them. A fail is said on How it's worked out and does not stop the run. _Avoid_: validation, sanity check.
 
-- **Ad stock check**: today's viable ads against the Viable ad stock at current spend. **Short**: below 80% of it. **Ahead**: above 150% of it. **About right**: between. The Scorecard shows it as "Do you have the right number of ads?", one bar with the gap as a count of ads. _Avoid_: health check, ad audit, over-stocked.
+- **Ad stock check**: today's viable ads against the Viable ad stock at current spend. **Short**: below 80% of it. **Ahead**: above 150% of it. **About right**: between. The Scorecard shows it as the pill on its Enough ads? card, with the gap as a count of ads. _Avoid_: health check, ad audit, over-stocked.
 
 - **Lever**: one of the three things today's viable ads come from, which multiply: Current pipeline (launches a week), Hit rate (finding winners) and Days viable per hit (keeping winners). Closing a gap by any one alone takes the same multiple, so the gap's size never says which lever is short. _Avoid_: driver, factor.
 
@@ -56,7 +56,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Roadmap**: one row per ISO week from next week to the Budget week, then 4 weeks held at the Budget: that week's spend, Viable ad stock, Wearing out, Ads to launch (by format), Expected to work and the Live-by date. _Avoid_: plan, schedule, forecast.
 
-- **Roadmap file**: `meta-ad-roadmap-<date>.md`, the Roadmap handed over as markdown for whoever makes the ads: the Budget, the weeks, the new ads by format, the Live-by dates, and one line each on the Viable lifespan and the Spend per viable ad. Offered at the Close; the page does not need it. _Avoid_: handover file (that is the Action skills'), brief, export.
+- **Roadmap file**: `meta-ad-roadmap-<date>.md`, the Roadmap handed over as markdown for whoever makes the ads: the Budget, the weeks, the new ads by format, the Live-by dates, and one line each on the Hit rate, the Limiting factor with its to-hit and the Spend per viable ad. Offered at the Close; the page does not need it. _Avoid_: handover file (that is the Action skills'), brief, export.
 
 - **Catch-up**: the launches above keeping up in the weeks to the Budget week (4 with no Budget): each week's Ads to launch less Wearing out over the Hit rate, rounded up. They close today's gap, the viable ads short of the Viable ad stock over the Hit rate spread evenly, and where the Budget is above current spend they also grow the stock. _Avoid_: backlog, top-up.
 
@@ -90,4 +90,4 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **How it's worked out**: the page's second tab: the Week-by-week plan table, the Survival curve, the figures behind the Scorecard, Terms, This run, the method word for word, and the Brain line where the run has one. _Avoid_: Notes and Method, appendix.
 
-- **Page label**: the plain words the Scorecard, the Roadmap file and the chat use for a term, fixed once in the Page labels table of `references/page-layout.md`, each explained at its first use. The terms themselves stay on How it's worked out. _Avoid_: display name, friendly name.
+- **Page label**: the plain words the Scorecard, the Roadmap file and the chat use for a term, fixed once in the Page labels table of `references/page-layout.md`, each explained under Terms on How it's worked out, never on the Scorecard. The terms themselves stay on How it's worked out. _Avoid_: display name, friendly name.
