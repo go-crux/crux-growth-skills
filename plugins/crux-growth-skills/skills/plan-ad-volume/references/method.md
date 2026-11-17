@@ -124,20 +124,20 @@ Fern & Co gives a Budget of £36,500 a month, which is 36,500 × 12 ÷ 365 = £1
 
 Each row ties: start, less Wearing out, plus Expected to work, is the end stock. The figures are carried unrounded and shown here to two decimals so each row can be added up, so a launches-needed figure such as 27.07 rounds up to 28 whole ads. The end stock in week 4 is 24.37, above the 24 that spend then needs, and the Catch-up spread the 4 missing viable ads evenly over weeks 1 to 4: the target sits 3, 2, 1 and 0 below the stock needed. The Roadmap goes on for 4 more weeks at £1,200 a day.
 
-**What the page shows.** Every ad count on the page is the unrounded figure above rounded up to a whole ad, and the ties above stay checked on the unrounded figures. The Week-by-week plan and the Waterfall labels read:
+**What the page shows.** Every ad count on the page is the unrounded figure above rounded up to a whole ad, and the ties above stay checked on the unrounded figures. The Week-by-week plan and the stock behind it read:
 
-| Week | Viable ads needed | Expected to wear out | Ads to launch | Expected to work | Waterfall start | Waterfall end |
+| Week | Viable ads needed | Expected to wear out | Ads to launch | Expected to work | Stock at start | Stock at end |
 |---|---|---|---|---|---|---|
 | 1 | 15 | 3 | 18 | 8 | 8 | 13 |
 | 2 | 18 | 5 | 20 | 8 | 13 | 17 |
 | 3 | 21 | 6 | 25 | 10 | 17 | 21 |
 | 4 | 24 | 8 | 28 | 12 | 21 | 25 |
 
-Week 2 reads 13 − 5 + 8 = 16 against an end of 17: a row can be one out, because each figure is rounded up on its own, which is why the table carries the line "Figures are rounded up to whole ads, so a row can be one out." The bars are drawn at the unrounded heights.
+Week 2 reads 13 − 5 + 8 = 16 against an end of 17: a row can be one out, because each figure is rounded up on its own, which is why the table carries the line "Figures are rounded up to whole ads, so a row can be one out."
 
-**The Waterfall of the ramp.** The start bar is the 13 live ads past Ramping, drawn already dropped by the 5 that are Worn out now, down to 8. Then, for each week, a down bar for Wearing out, an up bar for Expected to work, and the end stock, with the stock needed marked as a line:
+**The stock, week by week.** The first week starts from the 13 live ads past Ramping less the 5 that are Worn out now, which is 8 viable ads. Then, for each week, take off Wearing out, add Expected to work, and the end stock is the next week's start, set against the stock needed:
 
-| Week | Starts at | Down | Up | Ends at | Line at |
+| Week | Starts at | Wearing out | Expected to work | Ends at | Stock needed |
 |---|---|---|---|---|---|
 | 1 | 8.00 | 2.82 | 7.20 | 12.38 | 15 |
 | 2 | 12.38 | 4.37 | 8.00 | 16.01 | 18 |
@@ -167,7 +167,7 @@ For four weeks the stock left after Wearing out is already above the stock neede
 | 3 | 25 | 7.5, whole 7 | 17.5, whole 17, plus the ad left over (equal remainders, the larger share): 18 |
 | 4 | 28 | 8.4, whole 8 | 19.6, whole 19, plus the ad left over (the larger remainder): 20 |
 
-Each row adds up: 5 + 13 = 18, 6 + 14 = 20, 7 + 18 = 25 and 8 + 20 = 28. In the Waterfall, each week's up bar is Expected to work, split between video and image in proportion to those launches.
+Each row adds up: 5 + 13 = 18, 6 + 14 = 20, 7 + 18 = 25 and 8 + 20 = 28. Each week's Expected to work is split between video and image in proportion to those launches.
 
 **The Budget ladder.** The Viable share target of 60% and the Spend per viable ad of £30 hold on every rung, and the Current pipeline is 8 a week. At the current £600 a day, L is 12 and N0 is 11, which is 11 ÷ 8 = 1.4 times what Fern & Co launches. At 1.5 times it, £900 a day, L is 900 × 0.60 ÷ 30 = 18 and N0 is ⌈18 × 7 ÷ 7.93⌉ = ⌈15.88⌉ = 16, so 16 ÷ 8 = 2.0. At 2 times it, £1,200 a day, L is 24 and N0 is ⌈21.18⌉ = 22, so 22 ÷ 8 = 2.75, which rounds to 2.8. The £1,200 Budget is the 2 times rung, so it adds no fourth rung; a Budget of £1,050 a day would, with L = 21 and N0 = ⌈18.53⌉ = 19, which is 19 ÷ 8 = 2.4.
 
