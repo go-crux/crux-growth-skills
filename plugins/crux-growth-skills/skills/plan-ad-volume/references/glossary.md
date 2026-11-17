@@ -86,7 +86,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 ## The page
 
-- **Your plan**: the page's first tab, the one it opens on: the four headline tiles, then Do you have the right number of ads? (one bar), How your ads perform, the Week-by-week plan, If more of your ads work and If you spend more, all in Page labels. _Avoid_: dashboard tab, summary.
+- **Your plan**: the page's first tab, the one it opens on: the four headline tiles and the Focus sentence, then Do you have the right number of ads? (one bar), How your ads perform, the Week-by-week plan, If more of your ads work and If you spend more, all in Page labels; under a Focus of Hit rate first, If more of your ads work comes straight after the Focus sentence. _Avoid_: dashboard tab, summary.
 
 - **How it's worked out**: the page's second tab: Terms on the plan, This run, the method word for word, and the Brain line where the run has one. _Avoid_: Notes and Method, appendix.
 

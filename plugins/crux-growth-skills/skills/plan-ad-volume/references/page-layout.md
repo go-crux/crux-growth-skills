@@ -52,6 +52,7 @@ Term, Says), so a reader can match the two.
 | Roadmap | Week-by-week plan | |
 | Waterfall | How your viable ads change, week by week | |
 | Live-by | Go live by | the date a week's new ads must go live to be judged in time |
+| Focus | Focus | what to work on first: your hit rate, your volume, or both |
 | Hit-rate scenarios | If more of your ads work | |
 | Budget ladder | If you spend more | |
 | Format split | Video and image split | |
@@ -71,7 +72,10 @@ on the right, one row per label, in this order:
 
 # Your plan
 
-Four headline tiles, then five headings, always present, always in this order, with these words. A
+Four headline tiles, the Focus sentence under them, then five headings, always present, with these
+words, in the order below; under a Focus of Hit rate first, If more of your ads work moves up to
+straight after the Focus sentence, ahead of Do you have the right number of ads?, and the other four
+keep their order. Under Both and Volume the order is as written. A
 heading with nothing under it stays on the page, with one line saying why. Every section under a
 heading ends on its action; the lower-bound line, where the run has one, follows the last. The page
 tells one story from top to bottom (where you are, why, what to launch to keep up, what next week
@@ -108,11 +112,35 @@ uses for week 1's stock needed), and the gap is the difference between those two
    reads "<k> to keep up". Where c is below 0, it reads "<k> to keep up, less <the size of c>
    (fewer than usual: you are ahead)".
 
-Under the row, one small line for each label the tiles use, giving its Says: viable, Hit rate,
-Launches a week to keep up, "+<n> a week" or "On pace" (whichever tile 3 shows) and, where tile 4 shows a catch-up, Catch-up (where it does not, the
+Under the row, one small line for each label the tiles and the Focus sentence use, giving its Says: viable, Hit rate,
+Focus, Launches a week to keep up, "+<n> a week" or "On pace" (whichever tile 3 shows) and, where tile 4 shows a catch-up, Catch-up (where it does not, the
 Week-by-week plan's first line gives the Catch-up its Says at first use). The verdict colour sits on tile 1
 only: one colour each for Short, About right and Ahead, always with the words, so the tile does not
 depend on colour alone. The other three tiles carry none.
+
+## The Focus sentence
+
+One sentence under the four tiles, on every run, giving the Focus `SKILL.md` step 4 reads off the
+Hit rate and the ask. It names the lever and carries the figures. x is the Hit rate as tile 2 gives
+it, S the Steady-state number and P the Current pipeline, both whole ads as tile 3 gives them, and
+the ask is written to one decimal ("1.8×"), worked on the unrounded Current pipeline. By Focus:
+
+- **Hit rate first:** "Focus on your hit rate: only <x>% of new ads work, so keeping up takes <S>
+  launches a week, <ask>× what you make now. Raising the share that work cuts that faster than
+  making more."
+  - With a Low hit rate and an ask of 1.5 or less: "Focus on your hit rate: only <x>% of new ads
+    work, so keeping up takes <S> launches a week (<ask>× what you make now), so most of what you
+    launch is spent learning. Raising the share that work cuts what you need to make."
+  - With a Current pipeline of 0 the ask has no figure: "Focus on your hit rate: only <x>% of new
+    ads work, so keeping up takes <S> launches a week and you make none now. Raising the share that
+    work cuts that faster than making more."
+- **Both:** "Work on both: your hit rate of <x>% is fair, and <S> a week is within reach of the <P>
+  you make now."
+- **Volume:** "Focus on volume: <x>% of your new ads work, a strong hit rate, so the lever is
+  launching enough. Keeping up takes <S> a week."
+
+The action is the sentence itself, which names where to start: the hit rate (If more of your ads
+work shows what it saves), the volume (the Week-by-week plan shows the launches) or both.
 
 ## Do you have the right number of ads?
 
@@ -261,19 +289,32 @@ line, coming down to it over the weeks that follow.
 
 ## If more of your ads work
 
-The launches a week to keep up at today's Hit rate and at two better ones, in one table of three rows:
+The launches a week to keep up at today's Hit rate and at two better ones, in one table of three
+rows, or four where the ask is above 1.5 (the Focus's ask, as `SKILL.md` step 4 reads it):
 
 | Row | Hit rate | Launches a week to keep up | Change against today | Launches a week at your Budget |
 |---|---|---|---|---|
 | Today | h, as "1 in 8 (12%)", x as tile 2 gives it. | ⌈L × 7 ÷ (h × D)⌉, the Steady-state number. | None (the row is the base). | ⌈L at the daily Budget × 7 ÷ (h × D)⌉. |
 | +20% | h × 1.2, as "1 in N (x%)". | ⌈L × 7 ÷ (h × 1.2 × D)⌉. | Relative to Today's launches, "−17%". | The same formula at the daily Budget. |
 | +30% | h × 1.3, as "1 in N (x%)". | ⌈L × 7 ÷ (h × 1.3 × D)⌉. | As above. | As above. |
+| At 1.5× your launches (only where the ask is above 1.5) | h needed = L × 7 ÷ (D × 1.5 × P), as "1 in N (x%)". | ⌈1.5 × P⌉. | h needed against h, relative, "+110% hit rate". | h needed at the daily Budget's L over the same 1.5 × P, as "needs <x>%". |
 
 L is the Viable ad stock at current spend and D is the Days viable per hit, both fixed down the
-table. In each row N is the whole number nearest 1 over that row's hit rate, and x its percentage as
-tile 2 gives it. The change is worked from the launches as shown, whole ads, in whole percent. The
-last column is present only with a Budget, and each cell is worked at the daily Budget with that
-row's hit rate.
+table; P is the Current pipeline, unrounded in the working. In each row N is the whole number
+nearest 1 over that row's hit rate, and x its percentage as tile 2 gives it. The change is worked
+from the launches as shown, whole ads, in whole percent. The last column is present only with a
+Budget, and each cell is worked at the daily Budget with that row's hit rate.
+
+**The 1.5× row** is the hit rate the most production can stretch to would need. Its Change cell
+compares hit rates, not launches, alone in the table, and says so in the cell ("+110% hit rate",
+worked unrounded, in whole percent). Where h needed is above 100%, its Hit rate cell reads "not
+reachable at this spend", and so does the Budget cell where that rate is above 100%. With a Current
+pipeline of 0 the row is left out, with one line saying "You launch nothing now, so there is no hit
+rate to read at 1.5 times today's launches." h needed times D times 1.5 times P over 7 equals L.
+Under the table, one line: "Making the most your team can (1.5× what you launch now), you need a
+hit rate of <x>% to keep up." (x as tile 2 gives it; where h needed is above 100%, "…keeping up at
+this spend is not reachable, as it needs a hit rate above 100%.") The Week-by-week plan stays
+uncapped and shows the full launches.
 
 Under the table, the assumption, in these words: "This holds how long a working ad lasts fixed and
 moves only the share that work."
@@ -327,6 +368,10 @@ A short list:
   viable, with its quartile range ("a quarter by day 9, three quarters by day 40"; an end the
   curve did not reach reads "not reached"), and the Viable lifespan to one decimal, with "at least"
   before it where it is a lower bound;
+- the Focus, with its two readings, as one line in these words with the figures filled in: "Focus:
+  Hit rate first (hit rate 6.0%, ask 1.8×)." The name is Hit rate first, Both or Volume; the hit rate
+  is as tile 2 gives it and the ask is to one decimal, or "no launches now" where the Current
+  pipeline is 0;
 - the Viable share, as one line in these words with the figures filled in: "Viable share: your best
   weeks (the 90th percentile of <n> weeks counted) put <P90>% of spend on viable ads, so the target is
   <target>% (<P90>% times 1.2, never above 100%). <m> weeks were left out: the first 6 for warm-up and
@@ -389,9 +434,10 @@ a title of "Meta ad roadmap" with the brand and the date:
    Hit rate>), and a working ad stays viable (<the Says of viable ad>) for about <the Days viable
    per hit, to the whole day> days" (x as tile 2 gives it; with "at least" before the figure and "so the ad counts may
    read a little high" after it where the Viable lifespan is a lower bound).
-4. **Spend one viable ad carries**: one line, "One viable ad carries <figure> a day of spend, so a
+4. **Focus**: one line, the Focus sentence as Your plan words it.
+5. **Spend one viable ad carries**: one line, "One viable ad carries <figure> a day of spend, so a
    day's spend of <current spend>, aiming at <target>% of it on viable ads, needs <⌈L⌉> viable ads
    live at once, and <the Steady-state number> launches a week keep up".
 
-It carries no heading beyond the title and these four, and no method, no bar, no Waterfall and no
+It carries no heading beyond the title and these five, and no method, no bar, no Waterfall and no
 survival chart. A run that stopped before the page writes no Roadmap file.
