@@ -99,8 +99,8 @@ uses for week 1's stock needed), and the gap is the difference between those two
    - S at or below P: the big figure is "On pace", and the small line is "<S> a week keeps up; you
      launch <P> now". Where the verdict is Short, it adds "; the plan adds the catch-up".
 
-   Where P rests on fewer than 8 weeks, the small line ends "over <n> weeks" ("you launch 36 now, over
-   5 weeks").
+   Where P rests on fewer than 8 weeks, the small line ends "over <n> weeks" ("93 a week to keep up; you
+   launch 36 now, over 5 weeks").
 4. **Next week**: the first Week-by-week plan row's Ads to launch ("None needed" where it is 0).
    The small line splits it in two. **k**, the launches to keep up, is week 1's Wearing out over the
    Hit rate, rounded up. **c**, the launches to catch up, is week 1's Ads to launch less k. The line
