@@ -14,8 +14,8 @@ plan, the curve, the figures and the method on a second tab, How it's worked out
 creative brief and say when to run it again. Run the steps in order. The user sees only the chat and the
 page, never this skill or its references: say what the ads showed, in plain words with the figures,
 and never cite a file, a rule or a query. The terms
-Viable ad, Viable share, Viable share target, Viable ad stock, Launched ad, Survival curve, Viable lifespan, Hit rate, Days viable per
-hit, Healthy lifespan, Spend per viable ad, Days to clear Ramping, Self-check, Ad stock check, Lever, Lever best,
+Viable ad, Viable share, Viable share target, Viable ad stock, Launched ad, Survival curve, Viable lifespan, Hit rate, Spend bar, Low-spend rate, Days viable per
+hit, Viable spend per hit, Healthy lifespan, Spend per viable ad, Days to clear Ramping, Self-check, Ad stock check, Lever, Lever best,
 Limiting factor, On the table, Worn out now, Wearing out, Current pipeline, Steady-state number, Budget,
 Roadmap, Catch-up, Ads to launch, Expected to work, Live-by, Budget ladder, Format, Name coverage, Format split,
 Roadmap file, Awareness campaign, Lead campaign, Unattended run, Source, Brain line, Scorecard, How it's worked out
@@ -131,8 +131,8 @@ Send one message, then wait for the reply:
 1. The method in brief, in these words with the days and basis filled in (365 days from a Growth Brain,
    180 otherwise): "I'll judge every Meta ad on every day of the last 365 days by its CAC, the way an
    ad audit does. Then, from every ad you launched in that time, I'll work out your hit rate (how
-   many of your new ads become viable: their CAC holding up, under 20% above your account average
-   and not climbing off its best, or recovering towards it) and how long the ones that work stay viable. That tells me how many
+   many of your new ads become viable at real spend: their CAC holding up, under 20% above your account average
+   and not climbing off its best, or recovering towards it, on a budget Meta actually gave them) and how long the ones that work stay viable. That tells me how many
    viable ads your spend needs live at once, aiming at the best share of your spend your account has
    put on viable ads, and so how many new ads a week it takes to hold them.
    CAC here is <basis>. If you give me a monthly budget, I'll step your spend to it week by week and
@@ -194,8 +194,9 @@ Judge every ad on every day of the window and compute the figures from these def
 edits 1 to 3 (the mart's name, in `mart_rows` and in `video_plays`, with any column names from step
 2; the confirmed retargeting campaign keys; and the confirmed awareness and lead campaign keys together), leave edit
 4, and run the whole file with `run_sql` as one statement. It judges every ad on every day of the
-365, and returns one row holding `viable_lifespan` (W), `hit_rate` (h), `days_viable_per_hit` (D) and
-`hit_rate_ads`, `spend_per_viable_ad`, `healthy_lifespan` with `age_below_75` and `age_below_25`,
+365, and returns one row holding `viable_lifespan` (W), `hit_rate` (h), `days_viable_per_hit` (D),
+`spend_bar`, `low_spend_rate`, `viable_spend_per_hit`, `hit_rate_ads` with its split into `hits`, `low_spend_ads` and
+`above_bar_never_viable_ads`, `spend_per_viable_ad`, `healthy_lifespan` with `age_below_75` and `age_below_25`,
 `days_to_clear_ramping`, `current_spend`, `current_pipeline`, `viable_share_p90`,
 `viable_share_target`, `viable_share_weeks` (the weeks counted), `viable_share_weeks_left_out`,
 `viable_ad_stock` (L), `steady_state_number` (N0), `today_date` with today's counts, the Format split default (`video_pct`, `image_pct`) with its
@@ -230,10 +231,19 @@ below is worked in code from that row. Compute each figure once, from these defi
   bound** when the survival rate at the last age that counts (the last with 3 or more ads) is 25% or
   above (`w_is_lower_bound` on a brain): the curve was cut short while ads were still viable, so the
   ads to launch are a ceiling.
+- **Spend bar** is the larger of 300 and 3 times the Spend per viable ad, in the account's currency:
+  300 is the lifetime-spend Eligibility floor, so where 3 times the Spend per viable ad is under 300 the
+  bar is 300. It is worked once per run, from the Spend per viable ad below.
 - **Hit rate** (h) is, over the Launched ads whose first spend is at least 27 days before the last
   complete day (ages 0 to 27 all inside the window), the share that were viable on at least one of
-  those 28 days. `hit_rate_ads` is the number of those ads.
+  those 28 days **and** spent the Spend bar or more over them. `hit_rate_ads` is the number of those
+  ads, the base.
+- **Low-spend rate** is the share of that base whose spend over ages 0 to 27 was below the Spend bar,
+  viable or not, so no ad is both a hit and low-spend. The base splits into three counts that sum to
+  it: `hits`, `low_spend_ads`, and `above_bar_never_viable_ads` (at or above the bar, never viable).
 - **Days viable per hit** (D) is W over h, so h times D is W exactly.
+- **Viable spend per hit** is the Spend per viable ad times D: the spend one ad that works carries
+  over its viable life.
 - **Spend per viable ad** is the spend on viable ad-days over the number of viable ad-days: the
   ad-days are those of the Launched ads at the ages that count.
 - **Healthy lifespan** reads from the curve's peak, its highest rate (the first age that holds it):
@@ -283,7 +293,8 @@ below is worked in code from that row. Compute each figure once, from these defi
   within 25% of today's viable ads (the difference over today's viable ads).
 
 **Stop** where h is 0, with one line and no page: "None of the <n> ads launched at least 28 days ago
-became viable, so there is no hit rate to plan from." (n is `hit_rate_ads`.) **Stop** too where no
+became viable at <the Spend bar> or more of spend, so there is no hit rate to plan from." (n is
+`hit_rate_ads`.) **Stop** too where no
 week is counted, with one line and no page: "<Brand>'s weekly spend is too uneven to read a viable
 share." Both hold for an unattended run too.
 
@@ -330,13 +341,14 @@ number in the working. The page shows every ad count as a whole ad, rounded up (
   the value at rank 0.9 times their number rounded up with the values sorted from lowest to highest.
   - **Launches (B)** is the highest average of Launched ads a week over any 8 complete ISO weeks in a
     row in the window; none with fewer than 8 complete weeks.
-  - **Hit rate (h_best).** For each calendar launch month (by first spend), the month's Hit rate. A
+  - **Hit rate (h_best).** For each calendar launch month (by first spend), the month's Hit rate at
+    the account's Spend bar. A
     month counts when its last day is at least 28 days before today, it has 10 or more Launched ads,
     and it starts after the window's first 6 weeks. h_best is the 90th percentile of the months
     counted (`hit_rate_months` of them); with fewer than 4 months, there is no best (null).
   - **Days viable per hit (D_best).** For each calendar launch quarter, D_q is W_q over h_q, worked
     from that quarter's Launched ads alone: W_q is the sum of that cohort's survival rates over the
-    ages that 3 or more of its ads have reached, and h_q the cohort's Hit rate. A quarter counts when
+    ages that 3 or more of its ads have reached, and h_q the cohort's Hit rate at the account's Spend bar. A quarter counts when
     its last day is at least 60 days before today and it has 10 or more hits. D_best is the highest
     D_q (`dvph_quarters` counted); with fewer than 2 quarters, there is no best (null).
 - **Limiting factor.** First work out L, h, D, W and P (the Current pipeline) as above, N0 (the
@@ -374,7 +386,9 @@ number in the working. The page shows every ad count as a whole ad, rounded up (
   - The **biggest waste** is whichever of test phase and worn out has the larger share of spend (worn
     out on a tie).
 
-**Done when** the run holds W, h, D, Spend per viable ad, the Healthy lifespan with its quartile
+**Done when** the run holds W, h, D, Spend per viable ad, the Spend bar (300 where 3 times the Spend per
+viable ad is under it), the Low-spend rate, Viable spend per hit, hits plus low-spend ads plus
+above-bar-never-viable ads equal to the Hit rate ads, the Healthy lifespan with its quartile
 range, Days to clear Ramping, current spend, the Current pipeline, the weekly viable shares and the
 weeks counted (6 left out for warm-up, then the thin ones, the run stopped on its line where none
 is left), P90, the Viable share target (at most 100%), L
@@ -415,7 +429,7 @@ How it's worked out holds seven parts, in this order: the Week-by-week plan (its
 Catch-up, the table with whole numbers rounded up and the line "Figures are rounded up to whole ads,
 so a row can be one out.", and no chart), the Survival curve with its fitted axis (the first of 5%,
 10%, 20%, 25%, 50% and 100% at or above the curve's highest point, four gridlines at quarters of it),
-the figures (Hit rate, Viable lifespan, Days viable per hit, Spend per viable ad, the Viable share
+the figures (Hit rate, Low-spend rate, Spend bar, Viable lifespan, Days viable per hit, Spend per viable ad, Viable spend per hit, the Viable share
 with its target, each Lever best with the months or quarters it counted, CAC and spend share by group
 over 90 days, and the Self-check line), Terms, This run, `references/method.md` word for word, and
 the Brain line only on a run that page-layout gives one (the Source is not a Growth Brain and the
@@ -436,7 +450,7 @@ only, and none on On track; every figure on the Scorecard equals its step 4 figu
 rounded up; no glossary term shows on the Scorecard where page-layout gives it a Page label, and no
 definition does either; How it's worked out follows the order above, its Week-by-week plan's table
 and the Roadmap file holding the same weeks and the same video and image figures (or the total alone
-with no split); its figures name the number of months and quarters each Lever best counted; This run
+with no split); its figures name the number of months and quarters each Lever best counted and list the Hit rate, Low-spend rate, Spend bar and Viable spend per hit; This run
 names today's date, the Limiting factor with its figures and the groups left out of On the table
 where there are any; a lower bound W is said on both tabs; the Self-check line is there, with its
 fail clause where the check failed; an unattended run says so in This run; and the Brain line,

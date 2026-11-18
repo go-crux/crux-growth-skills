@@ -340,6 +340,8 @@ plan_cut AS (
     365 AS window_days,
     3 AS curve_min_ads,
     28 AS hit_days,
+    300 AS spend_bar_floor,
+    3 AS spend_bar_days,
     8 AS pipeline_weeks,
     6 AS warmup_weeks,
     0.25 AS thin_week_share,
@@ -595,26 +597,6 @@ curve AS (
   CROSS JOIN plan_cut AS p
   WHERE r.reached >= p.curve_min_ads
 ),
--- The Hit rate: over the Launched ads whose first spend is at least hit_days - 1 days before the last
--- complete day (ages 0 to 27 all inside the window), the share viable on at least one of those days.
-hit_ads AS (
-  SELECT
-    l.ad_key,
-    COALESCE(LOGICAL_OR(s.status IN ('Healthy', 'Winner', 'Improving')
-                        AND DATE_DIFF(s.day, l.first_spend, DAY) < p.hit_days), FALSE) AS was_viable
-  FROM launched AS l
-  CROSS JOIN win AS w
-  CROSS JOIN plan_cut AS p
-  LEFT JOIN ad_day_status AS s ON s.ad_key = l.ad_key
-  WHERE l.first_spend <= DATE_SUB(w.date_to, INTERVAL (p.hit_days - 1) DAY)
-  GROUP BY l.ad_key
-),
-hit_rate AS (
-  SELECT
-    COUNT(*) AS hit_rate_ads,
-    SAFE_DIVIDE(COUNTIF(was_viable), COUNT(*)) AS hit_rate
-  FROM hit_ads
-),
 -- The curve's peak: its highest rate, at the first such age. The Healthy lifespan reads from there.
 brain_peak AS (
   SELECT ARRAY_AGG(STRUCT(age, viable, reached) ORDER BY SAFE_DIVIDE(viable, reached) DESC, age LIMIT 1)[SAFE_OFFSET(0)] AS p
@@ -635,6 +617,49 @@ lifespans AS (
     ARRAY_AGG(c.viable * 4 >= c.reached ORDER BY c.age DESC LIMIT 1)[SAFE_OFFSET(0)] AS w_is_lower_bound
   FROM curve AS c
   CROSS JOIN brain_peak AS k
+),
+-- The Spend bar: the larger of the lifetime-spend Eligibility floor and spend_bar_days days of Spend per
+-- viable ad, in the account's currency. On a small account the floor sets it; on a large one the days do.
+spend_bar AS (
+  SELECT GREATEST(p.spend_bar_floor, p.spend_bar_days * ls.spend_per_viable_ad) AS spend_bar
+  FROM lifespans AS ls
+  CROSS JOIN plan_cut AS p
+),
+-- The Hit rate: over the Launched ads whose first spend is at least hit_days - 1 days before the last
+-- complete day (ages 0 to 27 all inside the window). A hit was viable on at least one of those days
+-- and spent the Spend bar or more over them. An ad below the bar is low-spend, hit or not, so no ad is
+-- both. Every ad is a hit, low-spend, or at or above the bar and never viable: the three sum to the base.
+hit_ads_28d AS (
+  SELECT
+    l.ad_key,
+    COALESCE(LOGICAL_OR(s.status IN ('Healthy', 'Winner', 'Improving')
+                        AND DATE_DIFF(s.day, l.first_spend, DAY) < p.hit_days), FALSE) AS was_viable,
+    COALESCE(SUM(IF(DATE_DIFF(s.day, l.first_spend, DAY) < p.hit_days, s.spend, 0)), 0) AS spend_28d
+  FROM launched AS l
+  CROSS JOIN win AS w
+  CROSS JOIN plan_cut AS p
+  LEFT JOIN ad_day_status AS s ON s.ad_key = l.ad_key
+  WHERE l.first_spend <= DATE_SUB(w.date_to, INTERVAL (p.hit_days - 1) DAY)
+  GROUP BY l.ad_key
+),
+hit_ads AS (
+  SELECT
+    h.ad_key,
+    h.was_viable AND h.spend_28d >= b.spend_bar AS is_hit,
+    h.spend_28d < b.spend_bar AS is_low_spend,
+    NOT h.was_viable AND h.spend_28d >= b.spend_bar AS is_above_bar_never_viable
+  FROM hit_ads_28d AS h
+  CROSS JOIN spend_bar AS b
+),
+hit_rate AS (
+  SELECT
+    COUNT(*) AS hit_rate_ads,
+    COUNTIF(is_hit) AS hits,
+    COUNTIF(is_low_spend) AS low_spend_ads,
+    COUNTIF(is_above_bar_never_viable) AS above_bar_never_viable_ads,
+    SAFE_DIVIDE(COUNTIF(is_hit), COUNT(*)) AS hit_rate,
+    SAFE_DIVIDE(COUNTIF(is_low_spend), COUNT(*)) AS low_spend_rate
+  FROM hit_ads
 ),
 -- Days to clear Ramping: the median, over Launched ads, of the age of the first day not Ramping.
 cleared AS (
@@ -811,15 +836,16 @@ pipeline AS (
   CROSS JOIN plan_cut AS p
 ),
 -- Hit rate (h_best), the second Lever best: for each calendar launch month (by first spend), the
--- month's Hit rate. A month counts when its last day is at least hit_days before today, it has
--- best_min_ads or more Launched ads, and it starts after the window's first warmup_weeks weeks. The
--- best is the 90th percentile of the months counted, null with fewer than best_min_months.
+-- month's Hit rate, at the account's one Spend bar. A month counts when its last day is at least
+-- hit_days before today, it has best_min_ads or more Launched ads, and it starts after the window's
+-- first warmup_weeks weeks. The best is the 90th percentile of the months counted, null with fewer
+-- than best_min_months.
 -- `hit_ads` holds every Launched ad old enough, which every ad of a counted month is.
 hit_months AS (
   SELECT
     DATE_TRUNC(l.first_spend, MONTH) AS month_start,
     COUNT(*) AS launched_ads,
-    SAFE_DIVIDE(COUNTIF(h.was_viable), COUNT(*)) AS month_hit_rate
+    SAFE_DIVIDE(COUNTIF(h.is_hit), COUNT(*)) AS month_hit_rate
   FROM hit_ads AS h
   JOIN launched AS l USING (ad_key)
   GROUP BY month_start
@@ -874,8 +900,8 @@ quarter_w AS (
 quarter_hits AS (
   SELECT
     DATE_TRUNC(l.first_spend, QUARTER) AS quarter_start,
-    SAFE_DIVIDE(COUNTIF(h.was_viable), COUNT(*)) AS quarter_hit_rate,
-    COUNTIF(h.was_viable) AS hits
+    SAFE_DIVIDE(COUNTIF(h.is_hit), COUNT(*)) AS quarter_hit_rate,
+    COUNTIF(h.is_hit) AS hits
   FROM hit_ads AS h
   JOIN launched AS l USING (ad_key)
   GROUP BY quarter_start
@@ -1071,9 +1097,15 @@ SELECT
   ls.curve_ages,
   ls.viable_lifespan,
   ls.w_is_lower_bound,
+  sb.spend_bar,
   hr.hit_rate,
+  hr.low_spend_rate,
   SAFE_DIVIDE(ls.viable_lifespan, hr.hit_rate) AS days_viable_per_hit,
+  ls.spend_per_viable_ad * SAFE_DIVIDE(ls.viable_lifespan, hr.hit_rate) AS viable_spend_per_hit,
   hr.hit_rate_ads,
+  hr.hits,
+  hr.low_spend_ads,
+  hr.above_bar_never_viable_ads,
   ls.spend_per_viable_ad,
   ls.healthy_lifespan,
   ls.age_below_75,
@@ -1157,6 +1189,7 @@ FROM win AS w
 CROSS JOIN today AS td
 CROSS JOIN first_day AS f
 CROSS JOIN lifespans AS ls
+CROSS JOIN spend_bar AS sb
 CROSS JOIN hit_rate AS hr
 CROSS JOIN clear_ramping AS cr
 CROSS JOIN current_spend AS cs

@@ -122,9 +122,12 @@ age a when its first spend is at least a days before the last complete day.
 **The model.** From the statuses, the spend per ad per day and the rows' first spend days, compute
 every figure of the Model step of `SKILL.md`, the plan included, as `references/method.md` defines
 it, and each once: the survival curve over every Launched ad at every age it has reached (the
-denominator), the Viable lifespan, the Hit rate over the Launched ads whose first spend is at least
-27 days before the last complete day, the Days viable per hit, and the Spend per viable ad over the
-viable ad-days. Compute the Viable share target once, as `SKILL.md`'s Model step defines it, from
+denominator), the Viable lifespan, the Spend per viable ad over the viable ad-days, the Spend bar (the larger of 300 and 3 times the
+Spend per viable ad), the Hit rate over the Launched ads whose first spend is at least 27 days before
+the last complete day (a hit was viable on one of those 28 days and spent the Spend bar or more over
+them), the Low-spend rate (the share of those ads whose spend over the 28 days was below the bar), the
+Days viable per hit, and the Viable spend per hit (the Spend per viable ad times the Days viable per
+hit). Compute the Viable share target once, as `SKILL.md`'s Model step defines it, from
 the statuses of every ad on every day it spent (not only the Launched ads), outside the awareness and
 lead campaigns: each complete ISO week from the first Monday on or after the window's first day to
 the last Sunday on or before its last day (a week with no spend is still a week), its spend on viable
@@ -146,13 +149,13 @@ rank: with the values sorted from lowest to highest, the value at rank ⌈0.9 ×
   last 8 weeks' average, and B the highest average over any 8 complete weeks in a row (none with fewer
   than 8 weeks).
 - **Hit rate (h_best).** For each calendar month of first spend, the Hit rate of that month's Launched
-  ads. Keep a month whose last day is at least 28 days before the last complete day, with 10 or more
+  ads, at the account's Spend bar. Keep a month whose last day is at least 28 days before the last complete day, with 10 or more
   Launched ads, that starts after the window's first 6 weeks; the 90th percentile of those months, none
   with fewer than 4. Keep the number of months counted.
 - **Days viable per hit (D_best).** For each calendar quarter of first spend, build the survival curve
   from that quarter's Launched ads alone (the ads reached at each age, and those viable on their day),
   W_q the sum of its rates over the ages that 3 or more of them have reached, and D_q = W_q ÷ the
-  quarter's Hit rate. Keep a quarter whose last day is at least 60 days before the last complete day,
+  quarter's Hit rate at the account's Spend bar. Keep a quarter whose last day is at least 60 days before the last complete day,
   with 10 or more hits; D_best is the highest D_q, none with fewer than 2. Keep the number of quarters
   counted.
 - **Limiting factor.** L, N0 and N1 and the five rules in order, as step 4 gives them, with each room
@@ -173,7 +176,9 @@ the rows read equals the spend in the file for the same days outside the awarene
 ad by its latest row's campaign), and the survival table lists each age with the ads reached and the viable count that give its rate, its
 rates sum to the Viable lifespan, the Hit rate times the Days viable per hit equals the Viable
 lifespan to two decimals, the Spend per viable ad is the spend on viable ad-days over their
-number, and the weekly viable shares, the weeks counted and left out, P90 and the Viable share target
+number, the Spend bar is printed (300 where 3 times the Spend per viable ad is under it), and the
+hits, the low-spend ads and the ads at or above the bar that were never viable add up to the Launched
+ads at least 28 days old, with the Low-spend rate and Viable spend per hit printed, and the weekly viable shares, the weeks counted and left out, P90 and the Viable share target
 (at most 100%) are printed, the run having stopped on its line where no week is counted; the last
 complete day is named; and the three Lever bests (each with the months or quarters it counted, or
 none), the Limiting factor with its figures, the Budget ladder's rungs and On the table (or
