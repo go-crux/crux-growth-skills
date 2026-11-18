@@ -3,11 +3,12 @@
 -- intake quotes figures the run already holds. It is run with the proposed awareness and lead
 -- campaigns, and again with the confirmed ones where the reply changes them. A connector or an export computes the
 -- same figures in code (references/exports.md).
--- One row: launched_ads, hit_rate_ads, recent_launched_ads, video_pct, image_pct, name_coverage_pct.
+-- One row: launched_ads, hit_rate_ads, recent_spending_ads, video_pct, image_pct, name_coverage_pct.
 -- hit_rate_ads is the Launched ads at least 28 days old (first spend at least 27 days before the last
 -- complete day), the count the first guard of SKILL.md step 2 reads and the denominator of the Hit
--- rate in references/fatigue.sql. The video and image percentages and the Name coverage are NULL
--- where no Launched ad's first spend fell in the last 8 complete weeks.
+-- rate in references/fatigue.sql. The video and image percentages are shares of spend over the last 8
+-- complete weeks, every ad that spent counted, and the Name coverage is the share of that spend whose ad
+-- name decided the Format. All three are NULL where nothing was spent in those weeks.
 -- Edit 1: the mart's name in `mart_rows` and in `video_plays`, and any column list_tables shows
 -- under another name. Where the mart has no `adset_id`, write `ad_group` in its place; where it has
 -- no `campaign_id`, write `campaign_name` in its place; a mart with no `video_views` column takes 0
@@ -24,7 +25,7 @@ plan_cut AS (
   SELECT
     365 AS window_days,
     28 AS hit_days,
-    8 AS pipeline_weeks
+    8 AS format_weeks
 ),
 -- The last 365 complete days, ending yesterday. `this_monday` starts the ISO week holding today.
 win AS (
@@ -99,32 +100,42 @@ video_plays AS (
   GROUP BY ad_key
 ),
 -- BEGIN shared format
--- The last complete ISO weeks (pipeline_weeks, or fewer where the window holds fewer) that the
--- Current pipeline and the Format split default read.
+-- The last complete ISO weeks (format_weeks, or fewer where the window holds fewer) that the Format
+-- split default reads.
 recent_weeks AS (
   SELECT
-    LEAST(p.pipeline_weeks, DIV(DATE_DIFF(w.this_monday, f.day, DAY), 7)) AS weeks_used,
+    LEAST(p.format_weeks, DIV(DATE_DIFF(w.this_monday, f.day, DAY), 7)) AS weeks_used,
     w.this_monday
   FROM win AS w
   CROSS JOIN first_day AS f
   CROSS JOIN plan_cut AS p
 ),
+-- Spend per ad over those weeks, every ad that spent counted (Launched or not) outside the awareness
+-- and lead campaigns: the split is the share of spend, not of launches.
+recent_spend AS (
+  SELECT s.ad_key, SUM(s.spend) AS spend
+  FROM win_rows AS s
+  CROSS JOIN recent_weeks AS r
+  WHERE s.day >= DATE_SUB(r.this_monday, INTERVAL (r.weeks_used * 7) DAY)
+    AND s.day < r.this_monday
+  GROUP BY s.ad_key
+  HAVING SUM(s.spend) > 0
+),
 -- Format from the ad name alone: whole words, any other character a break. A name with neither
 -- kind of word, or both, takes video where the ad had any 3-second video plays, else image.
 recent_words AS (
   SELECT
+    k.spend,
     COALESCE(REGEXP_CONTAINS(LOWER(n.ad_name), r'(^|[^\p{L}\p{N}])(video|vid|reel)([^\p{L}\p{N}]|$)'), FALSE) AS video_word,
     COALESCE(REGEXP_CONTAINS(LOWER(n.ad_name), r'(^|[^\p{L}\p{N}])(image|img|static|still|carousel)([^\p{L}\p{N}]|$)'), FALSE) AS image_word,
     COALESCE(v.had_video, FALSE) AS had_video
-  FROM launched AS l
-  CROSS JOIN recent_weeks AS r
+  FROM recent_spend AS k
   LEFT JOIN ad_names AS n USING (ad_key)
   LEFT JOIN video_plays AS v USING (ad_key)
-  WHERE l.first_spend >= DATE_SUB(r.this_monday, INTERVAL (r.weeks_used * 7) DAY)
-    AND l.first_spend < r.this_monday
 ),
 recent_formats AS (
   SELECT
+    spend,
     video_word != image_word AS named,
     CASE
       WHEN video_word AND NOT image_word THEN 'video'
@@ -136,9 +147,9 @@ recent_formats AS (
 ),
 format_split AS (
   SELECT
-    COUNT(*) AS recent_launched_ads,
-    CAST(ROUND(100 * SAFE_DIVIDE(COUNTIF(format = 'video'), COUNT(*))) AS INT64) AS video_pct,
-    CAST(ROUND(100 * SAFE_DIVIDE(COUNTIF(named), COUNT(*))) AS INT64) AS name_coverage_pct
+    COUNT(*) AS recent_spending_ads,
+    CAST(ROUND(100 * SAFE_DIVIDE(SUM(IF(format = 'video', spend, 0)), SUM(spend))) AS INT64) AS video_pct,
+    CAST(ROUND(100 * SAFE_DIVIDE(SUM(IF(named, spend, 0)), SUM(spend))) AS INT64) AS name_coverage_pct
   FROM recent_formats
 )
 -- END shared format
@@ -151,7 +162,7 @@ SELECT
     CROSS JOIN plan_cut AS p
     WHERE l.first_spend <= DATE_SUB(w.date_to, INTERVAL (p.hit_days - 1) DAY)
   ) AS hit_rate_ads,
-  fs.recent_launched_ads,
+  fs.recent_spending_ads,
   fs.video_pct,
   100 - fs.video_pct AS image_pct,
   fs.name_coverage_pct

@@ -145,9 +145,13 @@ rank: with the values sorted from lowest to highest, the value at rank ⌈0.9 ×
   or the latest loaded day of the last 14 where yesterday is still loading (a day is loaded when its
   spend and its purchases are each at least half their mean over the 7 days before it). Read viable
   ads, live ads past Ramping and Worn out now on it, and name its date.
-- **Launches (B).** Launched ads for each complete ISO week of the window, the Current pipeline their
-  last 8 weeks' average, and B the highest average over any 8 complete weeks in a row (none with fewer
-  than 8 weeks).
+- **Current spend and Current pipeline.** Current spend is the last complete calendar month's spend (the
+  month before the one holding today) outside the awareness and lead campaigns, and that spend over the
+  month's days a day. The Current pipeline is the Launched ads for each complete calendar month of the
+  window (one that starts after the window's first day and ends by the last complete day), averaged over the
+  last 3; keep their launches and their days for the Self-check.
+- **Launches (B).** The highest average of Launched ads a month over any 3 complete calendar months in a
+  row (none with fewer than 3 months).
 - **Hit rate (h_best).** For each calendar month of first spend, the Hit rate of that month's Launched
   ads, at the account's Spend bar. Keep a month whose last day is at least 28 days before the last complete day, with 10 or more
   Launched ads, that starts after the window's first 6 weeks; the 90th percentile of those months, none
@@ -161,8 +165,9 @@ rank: with the values sorted from lowest to highest, the value at rank ⌈0.9 ×
 - **Limiting factor.** L, N0 and N1 and the five rules in order, as step 4 gives them, with each room
   and each "to hit" figure (the launches, the Hit rate needed, the Days viable per hit needed, and
   whether either is beyond its best).
-- **Budget ladder.** At current spend, 1.5 times and 2 times it, and the Budget where it differs: each
-  rung's L, N0 and N0 over the Current pipeline to one decimal.
+- **Budget ladder.** At current monthly spend, 1.5 times and 2 times it, and the Budget where it differs: each
+  rung's L (the spend over the last complete month's days, as a daily figure), N0 (`ads_for_spend` of the
+  rung's spend) and N0 over the Current pipeline to one decimal.
 - **On the table.** Over the last 90 complete days, every ad-day grouped by its status (viable: Healthy,
   Winner and Improving; test phase: Ramping; worn out: Fatiguing, Fatigued and Low efficiency; other:
   any status left, and any ad-day with no status), each group's spend, purchases and CAC, then the

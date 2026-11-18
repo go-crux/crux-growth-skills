@@ -342,7 +342,8 @@ plan_cut AS (
     28 AS hit_days,
     300 AS spend_bar_floor,
     3 AS spend_bar_days,
-    8 AS pipeline_weeks,
+    3 AS pipeline_months,
+    8 AS format_weeks,
     6 AS warmup_weeks,
     0.25 AS thin_week_share,
     1.20 AS viable_share_headroom,
@@ -364,12 +365,14 @@ plan_cut AS (
     2 AS turnover_min_quarters,
     [1.0, 1.5, 2.0] AS ladder_multiples
 ),
--- The last 365 complete days, ending yesterday. `this_monday` starts the ISO week holding today.
+-- The last 365 complete days, ending yesterday. `this_monday` starts the ISO week holding today and
+-- `this_month` the calendar month holding today, so the month before it is the last complete month.
 win AS (
   SELECT
     DATE_SUB(CURRENT_DATE(), INTERVAL p.window_days DAY) AS date_from,
     DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY) AS date_to,
-    DATE_TRUNC(CURRENT_DATE(), ISOWEEK) AS this_monday
+    DATE_TRUNC(CURRENT_DATE(), ISOWEEK) AS this_monday,
+    DATE_TRUNC(CURRENT_DATE(), MONTH) AS this_month
   FROM plan_cut AS p
 ),
 win_rows AS (
@@ -723,12 +726,20 @@ today_counts AS (
   CROSS JOIN today AS t
   WHERE s.day = t.day
 ),
--- Current spend: the last complete ISO week's spend over 7.
+-- Current spend: the last complete calendar month's spend, and that spend over the month's days.
 current_spend AS (
-  SELECT SUM(d.spend) / 7 AS daily_spend
-  FROM daily_win AS d
-  CROSS JOIN win AS w
-  WHERE d.day >= DATE_SUB(w.this_monday, INTERVAL 7 DAY) AND d.day < w.this_monday
+  SELECT
+    m.monthly_spend,
+    m.month_days,
+    m.monthly_spend / m.month_days AS daily_spend
+  FROM (
+    SELECT
+      SUM(d.spend) AS monthly_spend,
+      DATE_DIFF(ANY_VALUE(w.this_month), DATE_SUB(ANY_VALUE(w.this_month), INTERVAL 1 MONTH), DAY) AS month_days
+    FROM daily_win AS d
+    CROSS JOIN win AS w
+    WHERE d.day >= DATE_SUB(w.this_month, INTERVAL 1 MONTH) AND d.day < w.this_month
+  ) AS m
 ),
 -- The Viable share. A week's viable share is its spend on viable ad-days (Healthy, Winner or Improving) over its
 -- spend, counting every ad, Launched or not; `ad_day_status` already leaves out the awareness and lead
@@ -813,32 +824,46 @@ share_target AS (
 -- THE SCORECARD. Everything below reads the model above and adds the Levers, their bests, the Limiting
 -- factor, the Budget ladder and what is On the table. Nothing in it reads a Budget: the Budget rung of
 -- the ladder, where the user gave one that differs, is worked in code from this row.
--- Launched ads a week, for each complete ISO week of the window. The Current pipeline is the average
--- of the last pipeline_weeks of them, and Launches (B), the first Lever best, is the highest average
--- over any pipeline_weeks complete weeks in a row (the frame is that many rows: 7 preceding and the
--- current one).
-launch_weeks AS (
+-- Launched ads a month, for each complete calendar month of the window: one that starts after the
+-- window's first day (an ad first spending then is not a Launched ad) and ends by the last complete
+-- day. The Current pipeline is the average of the last pipeline_months of them, and Launches (B), the
+-- first Lever best, is the highest average over any pipeline_months complete months in a row (the
+-- frame is that many rows: 2 preceding and the current one).
+complete_months AS (
+  SELECT m AS month_start
+  FROM win AS w
+  CROSS JOIN first_day AS f
+  CROSS JOIN UNNEST(GENERATE_DATE_ARRAY(
+    DATE_ADD(DATE_TRUNC(f.day, MONTH), INTERVAL 1 MONTH),
+    DATE_SUB(w.this_month, INTERVAL 1 MONTH),
+    INTERVAL 1 MONTH
+  )) AS m
+),
+launch_months AS (
   SELECT
-    c.week_start,
+    c.month_start,
+    DATE_DIFF(DATE_ADD(c.month_start, INTERVAL 1 MONTH), c.month_start, DAY) AS month_days,
     COUNTIF(l.ad_key IS NOT NULL) AS launches
-  FROM complete_weeks AS c
-  LEFT JOIN launched AS l ON DATE_TRUNC(l.first_spend, ISOWEEK) = c.week_start
-  GROUP BY c.week_start
+  FROM complete_months AS c
+  LEFT JOIN launched AS l ON DATE_TRUNC(l.first_spend, MONTH) = c.month_start
+  GROUP BY c.month_start
 ),
 launch_rolling AS (
   SELECT
-    week_start, launches,
-    ROW_NUMBER() OVER (ORDER BY week_start DESC) AS recency,
-    AVG(launches) OVER r8 AS avg_launches,
-    COUNT(*) OVER r8 AS weeks_in_frame
-  FROM launch_weeks
-  WINDOW r8 AS (ORDER BY week_start ROWS BETWEEN 7 PRECEDING AND CURRENT ROW)
+    month_start, month_days, launches,
+    ROW_NUMBER() OVER (ORDER BY month_start DESC) AS recency,
+    AVG(launches) OVER r3 AS avg_launches,
+    COUNT(*) OVER r3 AS months_in_frame
+  FROM launch_months
+  WINDOW r3 AS (ORDER BY month_start ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)
 ),
 pipeline AS (
   SELECT
-    SAFE_DIVIDE(SUM(IF(r.recency <= p.pipeline_weeks, r.launches, 0)), COUNTIF(r.recency <= p.pipeline_weeks)) AS current_pipeline,
-    COUNTIF(r.recency <= p.pipeline_weeks) AS weeks_used,
-    MAX(IF(r.weeks_in_frame = p.pipeline_weeks, r.avg_launches, NULL)) AS launches_best
+    SAFE_DIVIDE(SUM(IF(r.recency <= p.pipeline_months, r.launches, 0)), COUNTIF(r.recency <= p.pipeline_months)) AS current_pipeline,
+    COUNTIF(r.recency <= p.pipeline_months) AS months_used,
+    SUM(IF(r.recency <= p.pipeline_months, r.launches, 0)) AS pipeline_launches,
+    SUM(IF(r.recency <= p.pipeline_months, r.month_days, 0)) AS pipeline_days,
+    MAX(IF(r.months_in_frame = p.pipeline_months, r.avg_launches, NULL)) AS launches_best
   FROM launch_rolling AS r
   CROSS JOIN plan_cut AS p
 ),
@@ -938,6 +963,7 @@ scorecard_1 AS (
     hr.hit_rate AS h,
     SAFE_DIVIDE(ls.viable_lifespan, hr.hit_rate) AS d,
     SAFE_DIVIDE(cs.daily_spend * st.viable_share_target, ls.spend_per_viable_ad) AS l,
+    cs.month_days AS days,
     tc.viable_ads AS s0,
     pl.current_pipeline AS pipe,
     pl.launches_best AS b,
@@ -955,12 +981,12 @@ scorecard_1 AS (
 scorecard_2 AS (
   SELECT
     s.*,
-    CEIL(ROUND(SAFE_DIVIDE(s.l * 7, s.w), 9)) AS n0,
-    CEIL(ROUND(SAFE_DIVIDE(s.l * 7, s.h_best * s.d), 9)) AS n1,
+    CEIL(ROUND(SAFE_DIVIDE(s.l * s.days, s.w), 9)) AS n0,
+    CEIL(ROUND(SAFE_DIVIDE(s.l * s.days, s.h_best * s.d), 9)) AS n1,
     COALESCE(SAFE_DIVIDE(s.h_best, s.h), 0) AS room_h,
     COALESCE(SAFE_DIVIDE(s.d_best, s.d), 0) AS room_d,
-    SAFE_DIVIDE(s.l * 7, s.d * s.b) AS h_need,
-    SAFE_DIVIDE(s.l * 7, s.h * s.b) AS d_need
+    SAFE_DIVIDE(s.l * s.days, s.d * s.b) AS h_need,
+    SAFE_DIVIDE(s.l * s.days, s.h * s.b) AS d_need
   FROM scorecard_1 AS s
 ),
 scorecard AS (
@@ -1280,32 +1306,42 @@ creative_score AS (
 -- The block fenced below as shared format is, byte for byte, in references/intake.sql, which gives
 -- the intake the Format split default before this file runs. The two change together.
 -- BEGIN shared format
--- The last complete ISO weeks (pipeline_weeks, or fewer where the window holds fewer) that the
--- Current pipeline and the Format split default read.
+-- The last complete ISO weeks (format_weeks, or fewer where the window holds fewer) that the Format
+-- split default reads.
 recent_weeks AS (
   SELECT
-    LEAST(p.pipeline_weeks, DIV(DATE_DIFF(w.this_monday, f.day, DAY), 7)) AS weeks_used,
+    LEAST(p.format_weeks, DIV(DATE_DIFF(w.this_monday, f.day, DAY), 7)) AS weeks_used,
     w.this_monday
   FROM win AS w
   CROSS JOIN first_day AS f
   CROSS JOIN plan_cut AS p
 ),
+-- Spend per ad over those weeks, every ad that spent counted (Launched or not) outside the awareness
+-- and lead campaigns: the split is the share of spend, not of launches.
+recent_spend AS (
+  SELECT s.ad_key, SUM(s.spend) AS spend
+  FROM win_rows AS s
+  CROSS JOIN recent_weeks AS r
+  WHERE s.day >= DATE_SUB(r.this_monday, INTERVAL (r.weeks_used * 7) DAY)
+    AND s.day < r.this_monday
+  GROUP BY s.ad_key
+  HAVING SUM(s.spend) > 0
+),
 -- Format from the ad name alone: whole words, any other character a break. A name with neither
 -- kind of word, or both, takes video where the ad had any 3-second video plays, else image.
 recent_words AS (
   SELECT
+    k.spend,
     COALESCE(REGEXP_CONTAINS(LOWER(n.ad_name), r'(^|[^\p{L}\p{N}])(video|vid|reel)([^\p{L}\p{N}]|$)'), FALSE) AS video_word,
     COALESCE(REGEXP_CONTAINS(LOWER(n.ad_name), r'(^|[^\p{L}\p{N}])(image|img|static|still|carousel)([^\p{L}\p{N}]|$)'), FALSE) AS image_word,
     COALESCE(v.had_video, FALSE) AS had_video
-  FROM launched AS l
-  CROSS JOIN recent_weeks AS r
+  FROM recent_spend AS k
   LEFT JOIN ad_names AS n USING (ad_key)
   LEFT JOIN video_plays AS v USING (ad_key)
-  WHERE l.first_spend >= DATE_SUB(r.this_monday, INTERVAL (r.weeks_used * 7) DAY)
-    AND l.first_spend < r.this_monday
 ),
 recent_formats AS (
   SELECT
+    spend,
     video_word != image_word AS named,
     CASE
       WHEN video_word AND NOT image_word THEN 'video'
@@ -1317,9 +1353,9 @@ recent_formats AS (
 ),
 format_split AS (
   SELECT
-    COUNT(*) AS recent_launched_ads,
-    CAST(ROUND(100 * SAFE_DIVIDE(COUNTIF(format = 'video'), COUNT(*))) AS INT64) AS video_pct,
-    CAST(ROUND(100 * SAFE_DIVIDE(COUNTIF(named), COUNT(*))) AS INT64) AS name_coverage_pct
+    COUNT(*) AS recent_spending_ads,
+    CAST(ROUND(100 * SAFE_DIVIDE(SUM(IF(format = 'video', spend, 0)), SUM(spend))) AS INT64) AS video_pct,
+    CAST(ROUND(100 * SAFE_DIVIDE(SUM(IF(named, spend, 0)), SUM(spend))) AS INT64) AS name_coverage_pct
   FROM recent_formats
 )
 -- END shared format
@@ -1329,8 +1365,8 @@ SELECT
   w.date_to AS window_to,
   td.day AS today_date,
   f.day AS first_day,
-  DATE_SUB(w.this_monday, INTERVAL 7 DAY) AS current_week_from,
-  DATE_SUB(w.this_monday, INTERVAL 1 DAY) AS current_week_to,
+  DATE_SUB(w.this_month, INTERVAL 1 MONTH) AS current_month_from,
+  DATE_SUB(w.this_month, INTERVAL 1 DAY) AS current_month_to,
   (SELECT COUNT(*) FROM launched) AS launched_ads,
   ls.curve_ages,
   ls.viable_lifespan,
@@ -1350,8 +1386,12 @@ SELECT
   ls.age_below_25,
   cr.days_to_clear_ramping,
   cs.daily_spend AS current_spend,
+  cs.monthly_spend AS current_monthly_spend,
+  cs.month_days AS current_month_days,
   pl.current_pipeline,
-  pl.weeks_used AS pipeline_weeks_used,
+  pl.months_used AS pipeline_months_used,
+  pl.pipeline_launches,
+  pl.pipeline_days,
   st.p90 AS viable_share_p90,
   st.viable_share_target,
   st.weeks_counted AS viable_share_weeks,
@@ -1363,7 +1403,6 @@ SELECT
   tc.viable_ads,
   tc.live_past_ramping,
   tc.worn_out_now,
-  SAFE_DIVIDE(tc.viable_ads * 14, SAFE_DIVIDE(ls.viable_lifespan, hr.hit_rate)) AS wearing_out_2_weeks,
   pl.launches_best,
   hb.hit_rate_best,
   hb.hit_rate_months,
@@ -1378,10 +1417,11 @@ SELECT
   ARRAY(
     SELECT AS STRUCT
       m AS multiple,
+      cs.monthly_spend * m AS monthly_spend,
       cs.daily_spend * m AS daily_spend,
       sc.l * m AS viable_ad_stock,
-      CEIL(ROUND(SAFE_DIVIDE(sc.l * m * 7, sc.w), 9)) AS steady_state_number,
-      ROUND(SAFE_DIVIDE(CEIL(ROUND(SAFE_DIVIDE(sc.l * m * 7, sc.w), 9)), sc.pipe), 1) AS steady_state_over_pipeline
+      CEIL(ROUND(SAFE_DIVIDE(sc.l * m * sc.days, sc.w), 9)) AS steady_state_number,
+      ROUND(SAFE_DIVIDE(CEIL(ROUND(SAFE_DIVIDE(sc.l * m * sc.days, sc.w), 9)), sc.pipe), 1) AS steady_state_over_pipeline
     FROM UNNEST(lp.ladder_multiples) AS m
     ORDER BY m
   ) AS budget_ladder,

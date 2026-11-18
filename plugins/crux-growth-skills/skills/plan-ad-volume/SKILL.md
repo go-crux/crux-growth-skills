@@ -1,17 +1,17 @@
 ---
 name: plan-ad-volume
-description: Meta ad volume forecast. Use when the user asks how many new Meta ads they need a week, how many ads their spend needs, or how long their ads last, or how many ads a bigger Meta budget needs. Runs on the brand's Growth Brain, else a Meta connector, else one Ads Manager export.
+description: Meta ad volume forecast. Use when the user asks how many new Meta ads they need a month, how many ads their spend needs, or how long their ads last, or how many ads a bigger Meta budget needs. Runs on the brand's Growth Brain, else a Meta connector, else one Ads Manager export.
 ---
 
 # Meta ad volume forecast
 
-Work out how many new Meta ads a week the account's spend needs, from the account's own Survival
+Work out how many new Meta ads a month the account's spend needs, from the account's own Survival
 curve and Hit rate, and produce `meta-ad-volume-<date>.html`: a page that opens on a Scorecard a
 founder reads in seconds, three answer cards (whether the account has enough working ads, what is
-holding it back, what is on the table) and three charted panels behind them, with the week-by-week
+holding it back, what is on the table) and three charted panels behind them, with the month-by-month
 plan, the curve, the figures and the method on a second tab, How it's worked out. It is laid out as
 `references/page-layout.md` fixes it. Then offer the Roadmap as `meta-ad-roadmap-<date>.md` for the
-creative brief and say when to run it again. Run the steps in order. The user sees only the chat and the
+creative brief and say when to run it again, monthly. Run the steps in order. The user sees only the chat and the
 page, never this skill or its references: say what the ads showed, in plain words with the figures,
 and never cite a file, a rule or a query. The terms
 Viable ad, Viable share, Viable share target, Viable ad stock, Launched ad, Survival curve, Viable lifespan, Hit rate, Spend bar, Low-spend rate, Days viable per
@@ -35,7 +35,7 @@ none plainly the brand's, no export attached) does it stop with one line saying 
 Its defaults, every one of them:
 
 - Step 3 sends no message and takes the proposed retargeting, awareness and lead campaigns as confirmed.
-- It plans current spend held flat for 4 weeks: no Budget is asked for or used, so the Budget ladder
+- It plans current spend held flat for 3 months: no Budget is asked for or used, so the Budget ladder
   shows its three rungs at current spend, 1.5 times and 2 times it.
 - It uses no Format split, so the Roadmap shows new ads as a total.
 - The page's How it's worked out says the run was unattended, in the words `references/page-layout.md`
@@ -104,14 +104,14 @@ sets for the intake:
 **Count the Launched ads and work out the Format split default** before anything else is asked,
 leaving out the proposed awareness and lead campaigns: the Launched ads are those whose first day of spend
 falls after the window's first day, and the Launched ads at least 28 days old are those whose first
-spend is at least 27 days before the last complete day. The Format split default and its Name
-coverage are step 4's definitions, held here so the intake quotes real figures. Without a Growth Brain, compute them from
+spend is at least 27 days before the last complete day. The Format split default is the video and image share of spend over the last 8 complete
+weeks, and its Name coverage the share of that spend whose ad name decided the Format: step 4's definitions, held here so the intake quotes real figures. Without a Growth Brain, compute them from
 the rows. With a Growth Brain, open `references/intake.sql`, make its edits 1 and 2 (the mart's
 name, in `mart_rows` and in `video_plays`, with any column names from the second call; and the
 proposed awareness and lead campaign keys together), and run it with `run_sql` as one statement. It returns
 `launched_ads`, `hit_rate_ads` (the Launched ads at least 28 days old) and the Format split default
-(`video_pct`, `image_pct`) with its `name_coverage_pct`, all three null where no Launched ad's first
-spend fell in the last 8 complete weeks. With fewer than 20 Launched ads at least 28 days old, stop
+(`video_pct`, `image_pct`) with its `name_coverage_pct`, all three null where nothing was spent in the
+last 8 complete weeks. With fewer than 20 Launched ads at least 28 days old, stop
 here, before step 3, with one line: "<Brand> does not yet launch enough ads to read a hit rate: <n> ads
 launched at least 28 days ago in the last <365 or 180> days, and it needs 20." Write no page and ask
 nothing more. This holds for an unattended run too.
@@ -120,8 +120,8 @@ nothing more. This holds for an unattended run too.
 window's first and last dates are named, the run holds the campaign names with their spend over
 the last 7 complete days and all three proposed sets of campaigns, every ad carries a Format (step 4
 sets the rule), and the Launched ads at least 28 days old are counted at 20 or more with the Format split default and
-its Name coverage worked out for the proposed awareness and lead campaigns (or no proposal, where no Launched
-ad is recent), or the run has stopped with that one line; or, with a Growth Brain, every column
+its Name coverage worked out for the proposed awareness and lead campaigns (or no proposal, where nothing was
+spent in the last 8 weeks), or the run has stopped with that one line; or, with a Growth Brain, every column
 above is named from the second call, or the run has stopped with a line saying which is missing, or
 has moved to the next Source.
 
@@ -135,9 +135,9 @@ Send one message, then wait for the reply:
    many of your new ads become viable at real spend: their CAC holding up, under 20% above your account average
    and not climbing off its best, or recovering towards it, on a budget Meta actually gave them) and how long the ones that work stay viable. That tells me how many
    viable ads your spend needs live at once, aiming at the best share of your spend your account has
-   put on viable ads, and so how many new ads a week it takes to hold them.
-   CAC here is <basis>. If you give me a monthly budget, I'll step your spend to it week by week and
-   work out the new ads each week." The basis is "spend over your own new orders" from a Growth Brain,
+   put on viable ads, and so how many new ads a month it takes to hold them.
+   CAC here is <basis>. If you give me a monthly budget, I'll step your spend to it month by month and
+   work out the new ads each month." The basis is "spend over your own new orders" from a Growth Brain,
    and "Meta's own cost per purchase" otherwise. Then the offer, in these words: "Ask me about the
    method if you want the detail." The method stops there; `references/method.md` holds its windows
    and thresholds.
@@ -156,16 +156,19 @@ Send one message, then wait for the reply:
    from it. Recommend the proposal ("yes" accepts every proposal). With no campaign that fits, say
    so and recommend none.
 5. The Budget: the monthly Meta budget the user wants to reach, outside the awareness and lead campaigns,
-   and, if they like, the week to reach it by (an ISO week, or a date in it). State the defaults in
-   the message: with no week, the ISO week 4 weeks from now, named with its Monday date; with no
-   Budget, current spend held flat for 4 weeks. A Budget below current spend is allowed. Recommend
+   and, if they like, the month to reach it by (the Budget month). State the defaults in
+   the message: with no month, the month 3 months on from the one holding today, named; with no
+   Budget, current spend held flat for 3 months. A Budget below current spend is allowed. Recommend
    no Budget ("yes" takes that).
-6. The Format split, in these words with the figures filled in: "Your last 8 weeks were 30% video,
-   70% image (names gave the format of 82% of ads). Split the roadmap that way, give your own split,
+6. The Format split, in these words with the figures filled in: "Your last 8 weeks of spend were 30% video,
+   70% image (names gave the format of 82% of that spend). Split the roadmap that way, give your own split,
    or no split?" The proposal is the Format split default and the coverage is the Name coverage, both
    as step 2 worked them out for the proposed awareness and lead campaigns. Recommend the proposal ("yes"
-   keeps it). A split of the user's own is a video percentage, with image the rest. With no Launched
-   ad in the last 8 complete weeks there is no proposal: say so and recommend no split.
+   keeps it). Where the Name coverage is under 50%, the split rests mostly on video plays: say so in
+   the message ("names gave the format of only 40% of that spend, so the rest is read from video
+   plays") and ask the user to confirm the split or give their own. A split of the user's own is a
+   video percentage, with image the rest. With no spend in the last 8 complete weeks there is no
+   proposal: say so and recommend no split.
 
 The answer is confirmed once. "Just run it" and "yes" take the proposals and go on.
 
@@ -184,7 +187,7 @@ new split and coverage in one line and use them.
 **Done when** the user has answered (an unattended run needs no answer) and the run holds the
 confirmed retargeting, awareness and lead campaign keys, or the proposed ones for an unattended
 run, or none, a count of 20 or more Launched ads at least 28 days old outside the awareness and lead campaigns it holds, the Budget as a
-monthly figure with its Budget week (given, or the default), or no Budget, and the Format split as
+monthly figure with its Budget month (given, or the default), or no Budget, and the Format split as
 a video and image percentage, or no split.
 
 ## 4. Model
@@ -200,7 +203,8 @@ edits 1 to 3 (the mart's name, in `mart_rows` and in `video_plays`, with any col
 `above_bar_never_viable_ads`, `spend_per_viable_ad`, `healthy_lifespan` with `age_below_75` and `age_below_25`,
 `days_to_clear_ramping`, `current_spend`, `current_pipeline`, `viable_share_p90`,
 `viable_share_target`, `viable_share_weeks` (the weeks counted), `viable_share_weeks_left_out`,
-`viable_ad_stock` (L), `steady_state_number` (N0), `today_date` with today's counts, the Format split default (`video_pct`, `image_pct`) with its
+`viable_ad_stock` (L), `steady_state_number` (N0, a month's ads at current spend), `current_monthly_spend`, `current_month_days`,
+`pipeline_launches` and `pipeline_days` (the launches and days behind the Current pipeline), `today_date` with today's counts, the Format split default (`video_pct`, `image_pct`) with its
 `name_coverage_pct`, the `survival_table` (age, reached, viable, survival, viable_spend), the Creative score
 figures (`creative_score` with `creative_sub_scores`; `evergreen_share`; `spend_degradation`;
 `viable_after_week_1` with `week_one_hits` and `week_one_viable`; `top5_concentration`; `outlier_rate` with
@@ -210,7 +214,7 @@ for each complete quarter, empty with fewer than 2 `complete_quarters`), the Sco
 figures (`launches_best`; `hit_rate_best` with `hit_rate_months`; `days_viable_per_hit_best` with
 `dvph_quarters`; `limiting_factor` with `launches_at_best_hit_rate` (N1), `hit_rate_needed`,
 `days_viable_per_hit_needed` and their `_beyond_best` flags; the `budget_ladder` table, one row for each of
-current spend, 1.5 times and 2 times it, with `multiple`, `daily_spend`, `viable_ad_stock`,
+current spend, 1.5 times and 2 times it, with `multiple`, `monthly_spend`, `daily_spend`, `viable_ad_stock`,
 `steady_state_number` and `steady_state_over_pipeline`; and On the table: the `share_`, `customers_` and
 `cac_` figures for `viable`, `test_phase`, `worn_out` and `other`, `groups_without_customers`,
 `nothing_on_the_table`, `customers_week`, `customers_week_at_target`, `customers_week_gain`,
@@ -264,15 +268,17 @@ below is worked in code from that row. Compute each figure once, from these defi
   `still`, `carousel`. A name with words of one kind only decides the Format. A name with neither
   kind, or both, leaves the ad video if it had any 3-second video plays (`video_views` on a brain) in the rows
   read, and image otherwise.
-- **Format split default** is the video and image shares of the Launched ads whose first spend fell
-  in the last 8 complete ISO weeks, as whole percentages that sum to 100 (video rounded, image the
-  rest). **Name coverage** is the share of those same ads whose name decided the Format, as a whole
-  percentage. Step 2 works these out for the intake with the proposed awareness and lead campaigns, by the
+- **Format split default** is the video and image shares of spend over the last 8 complete ISO
+  weeks, every ad that spent counted (Launched or not), as whole percentages that sum to 100 (video
+  rounded, image the rest). **Name coverage** is the share of that same spend whose ad name decided
+  the Format, as a whole percentage; under 50%, the intake asks the user to confirm the split. Step 2 works these out for the intake with the proposed awareness and lead campaigns, by the
   same definition (on a brain, `references/intake.sql` carries the same block as `references/fatigue.sql`);
   this step gives them again with the confirmed ones, and the page quotes these.
-- **Current spend** is the last complete ISO week's spend over 7, outside the awareness and lead campaigns,
-  as is every spend the plan reads. **Current pipeline** is the Launched ads per week, averaged over
-  the last 8 complete ISO weeks.
+- **Current spend** is the last complete calendar month's spend (the month before the one holding
+  today), outside the awareness and lead campaigns, as is every spend the plan reads; **current
+  spend a day** is that over the month's days. **Current pipeline** is the Launched ads a month,
+  averaged over the last 3 complete calendar months (a month is complete when it starts after the
+  window's first day and ends by the last complete day).
 - **Weekly viable share**: for each complete ISO week of the window (Monday to Sunday, both inside
   it; the window's first day is the first day of the window read), the spend on viable ad-days over
   that week's spend. Count every ad, Launched or not, outside the awareness and lead campaigns.
@@ -285,9 +291,11 @@ below is worked in code from that row. Compute each figure once, from these defi
   sorted from lowest to highest, the share at rank 0.9 times their number, rounded up.
   `viable_share_p90` is the same value.
 - **Viable share target** is the smaller of 100% and P90 times 1.2 (`viable_share_target`).
-- **L**, the Viable ad stock, is current spend times the Viable share target over the Spend per
-  viable ad. The **Steady-state number** is L times 7 over W, rounded up, which is L times 7 over h
-  times D.
+- **L**, the Viable ad stock, is current spend a day times the Viable share target over the Spend per
+  viable ad. The **Steady-state number** is `ads_for_spend(monthly_spend)` at current spend:
+  `ceil(monthly_spend × Viable share target ÷ (h × Viable spend per hit))`, the one function the
+  Roadmap and the page's slider share. At current spend it is L times the month's days over W,
+  rounded up, which is L times the month's days over h times D.
 - **Today** is the window's last complete day, the one every count named today reads, never a day the
   Source is still loading, which reads no orders and so no viable ads. A day is loaded when its spend and
   its new orders (purchases without a brain) are each at least half their mean over the 7 days before it.
@@ -311,8 +319,9 @@ below is worked in code from that row. Compute each figure once, from these defi
   a measure cannot be read. **Top-10 turnover** is worked for each complete calendar quarter of the window
   and shown only with 2 or more; it is never scored. A brain returns all of it; without one, work it in
   code as `references/exports.md` sets out.
-- **Self-check**: predicted viable ads is the Current pipeline times W over 7. It passes when it is
-  within 25% of today's viable ads (the difference over today's viable ads).
+- **Self-check**: predicted viable ads is the launches of the last 3 complete calendar months over
+  their days, times W. It passes when it is within 25% of today's viable ads (the difference over
+  today's viable ads).
 
 **Stop** where h is 0, with one line and no page: "None of the <n> ads launched at least 28 days ago
 became viable at <the Spend bar> or more of spend, so there is no hit rate to plan from." (n is
@@ -320,49 +329,56 @@ became viable at <the Spend bar> or more of spend, so there is no hit rate to pl
 week is counted, with one line and no page: "<Brand>'s weekly spend is too uneven to read a viable
 share." Both hold for an unattended run too.
 
-**The plan.** Weeks are ISO weeks, counted from the current week (the one holding today) as week 0,
-so next week is week 1. Carry every stock unrounded, and check every tie on the unrounded figures; only Ads to launch is a whole
+**The plan.** Months are calendar months, counted from the month holding today as month 0, so next
+month is month 1. Carry every stock unrounded, and check every tie on the unrounded figures; only Ads to launch is a whole
 number in the working. The page shows every ad count as a whole ad, rounded up (step 5).
 
-- **Daily Budget** is the monthly Budget times 12 over 365. **B** is the Budget week counted this way:
-  the week the user gave, else week 4; a week before week 1 is week 1.
-- **Daily spend(w)** steps linearly from current spend to the daily Budget: for w from 1 to B, current
-  spend plus (daily Budget less current spend) times w over B; then the daily Budget for the 4 weeks
-  after B. With no Budget it is current spend for w from 1 to 4 (B is 4). The Roadmap has one row for each w.
-  A Budget below current spend is allowed: daily spend steps down, and the weeks that follow work
-  as below.
-- **L(w)** is daily spend(w) times the Viable share target over the Spend per viable ad. **S(0)** is the viable ads live on the last
-  complete day.
+- **Daily Budget** is the monthly Budget over the Budget month's days. **n** is the Budget month
+  counted this way: the month the user gave, else month 3; a month before month 1 is month 1. With
+  no Budget n is 3.
+- **Daily spend(k)** steps linearly from current spend a day to the daily Budget: current spend a day
+  plus (daily Budget less current spend a day) times k over n, for k from 1 to n. With no Budget it is
+  current spend a day for k from 1 to 3. **Spend(k)** is daily spend(k) times the days of month k, so
+  the Budget month's spend is the Budget. The Roadmap has one row for each k. A Budget below current
+  spend is allowed: daily spend steps down, and the months that follow work as below.
+- **L(k)** is daily spend(k) times the Viable share target over the Spend per viable ad. **S(0)** is
+  the viable ads live on the last complete day.
 - **Gap0** is L at current spend less S(0).
-- **Wearing out(w)** is the smaller of S(w−1) and S(w−1) times 7 over D.
-- **Target T(w)**: where Gap0 is above 0 and w is B or less, T(w) is L(w) less Gap0 times (B less
-  w) over B. This is the **Catch-up**: the gap closes evenly by the Budget week. Otherwise T(w) is L(w).
-- **Ads to launch(w)** is the larger of 0 and T(w) less (S(w−1) less Wearing out(w)), over h, rounded
-  up: a whole number, never below 0. In a scale-down, a week whose stock after Wearing out is
-  already at or above T(w) has Ads to launch(w) of 0 (the Roadmap reads "None needed"), and the
-  stock runs down on its own, week by week, until it meets T(w).
-- **Expected to work(w)** is Ads to launch(w) times h, unrounded.
-- **S(w)** is S(w−1) less Wearing out(w) plus Expected to work(w).
-- **Video(w) and image(w)** divide Ads to launch(w) by the confirmed Format split, by largest
-  remainder: each format first takes the whole ads of its share of Ads to launch(w), and the one ad
+- **Wearing out(k)** is the smaller of S(k−1) and S(k−1) times the days of month k over D.
+- **Target T(k)**: where Gap0 is above 0 and k is n or less, T(k) is L(k) less Gap0 times (n less
+  k) over n. This is the **Catch-up**: the gap closes evenly by the Budget month. Otherwise T(k) is L(k).
+- **Ads to launch(k)** is the larger of 0 and T(k) less (S(k−1) less Wearing out(k)), over h, rounded
+  up: a whole number, never below 0. With the stock at T(k) at the start of the month it is
+  `ads_for_spend(Spend(k))`; at a flat budget with the stock at target every month's Ads to launch is
+  that, give or take one ad for rounding. Where D is under the month's days the whole stock wears out
+  within the month and Ads to launch(k) is T(k) over h, below `ads_for_spend(Spend(k))`: say so in
+  This run. In a scale-down, a month whose stock after Wearing out is already at or above T(k) has
+  Ads to launch(k) of 0 (the Roadmap reads "None needed"), and the stock runs down on its own, month
+  by month, until it meets T(k).
+- **Expected to work(k)** is Ads to launch(k) times h, unrounded.
+- **S(k)** is S(k−1) less Wearing out(k) plus Expected to work(k).
+- **Video(k) and image(k)** divide Ads to launch(k) by the confirmed Format split, by largest
+  remainder: each format first takes the whole ads of its share of Ads to launch(k), and the one ad
   left over, if any, goes to the format with the larger remainder (on a tie, the larger share; on
-  equal shares, video). The two always sum to Ads to launch(w). With no split there is only Ads to
-  launch(w).
-- **Live-by(w)** is the Monday of week w less the Days to clear Ramping, a date.
-- **Launches to keep up(w)** is Wearing out(w) over h, rounded up. **Launches to catch up(w)** is Ads
-  to launch(w) less that, which is below 0 in a week where the stock runs down on its own. The
-  **total catch-up launches** is their sum over weeks 1 to B, worked only where Gap0 is above 0.
+  equal shares, video). The two always sum to Ads to launch(k). With no split there is only Ads to
+  launch(k).
+- **Live-by(k)** is the 1st of month k less the Days to clear Ramping, a date, with the line "launch
+  about a quarter of the month's ads each week".
+- **Launches to keep up(k)** is Wearing out(k) over h, rounded up. **Launches to catch up(k)** is Ads
+  to launch(k) less that, which is below 0 in a month where the stock runs down on its own. The
+  **total catch-up launches** is their sum over months 1 to n, worked only where Gap0 is above 0.
 - **Budget ladder.** The rungs are current spend, 1.5 times and 2 times current spend, and the Budget
-  (as a daily spend) where the user gave one that differs from those three. For each rung: L at that
-  spend (with the same Viable share target and Spend per viable ad), N0 at that spend (the ceiling of
-  L times 7 over W), and N0 over the Current pipeline to one decimal. A brain returns the three fixed
+  (a monthly spend) where the user gave one that differs from those three. For each rung: L at that
+  spend (a daily figure over the last complete month's days, with the same Viable share target and
+  Spend per viable ad), N0 at that spend (`ads_for_spend` of the rung's monthly spend), and N0 over
+  the Current pipeline to one decimal. A brain returns the three fixed
   rungs in `budget_ladder`; the Budget rung, and every rung without a brain, is worked in code from
   those formulas.
 - **Lever best.** Each Lever's best is what the account has done, with the periods it counted. Take
   percentiles by nearest rank, written `APPROX_QUANTILES(x, 100)[OFFSET(90)]` on a brain and, in code,
   the value at rank 0.9 times their number rounded up with the values sorted from lowest to highest.
-  - **Launches (B)** is the highest average of Launched ads a week over any 8 complete ISO weeks in a
-    row in the window; none with fewer than 8 complete weeks.
+  - **Launches (B)** is the highest average of Launched ads a month over any 3 complete calendar
+    months in a row in the window; none with fewer than 3 complete months.
   - **Hit rate (h_best).** For each calendar launch month (by first spend), the month's Hit rate at
     the account's Spend bar. A
     month counts when its last day is at least 28 days before today, it has 10 or more Launched ads,
@@ -374,17 +390,17 @@ number in the working. The page shows every ad count as a whole ad, rounded up (
     its last day is at least 60 days before today and it has 10 or more hits. D_best is the highest
     D_q (`dvph_quarters` counted); with fewer than 2 quarters, there is no best (null).
 - **Limiting factor.** First work out L, h, D, W and P (the Current pipeline) as above, N0 (the
-  Steady-state number, the ceiling of L times 7 over W) and, where h_best exists, N1, the ceiling of L
-  times 7 over h_best times D. The factor is the first of these that holds, with what it needs the
+  Steady-state number, the ceiling of L times the last complete month's days over W) and, where
+  h_best exists, N1, the ceiling of L times those days over h_best times D. The factor is the first of these that holds, with what it needs the
   account to hit:
 
   | Limiting factor | When | To hit |
   |---|---|---|
   | **On track** | S(0) is 0.8 times L or more, and N0 is P or less | none |
-  | **Volume** | N0 is 1.2 times B or less | launches N0 a week |
-  | **Both** | h_best exists and N1 is 1.2 times B or less | hit rate h_best and launches N1 a week |
-  | **Finding winners** | room_h is room_D or more | hit rate h_need, L times 7 over D times B, "beyond your best" where h_need is above h_best |
-  | **Keeping winners** | room_D is above room_h | days viable per hit D_need, L times 7 over h times B, "beyond your best" where D_need is above D_best |
+  | **Volume** | N0 is 1.2 times B or less | launches N0 a month |
+  | **Both** | h_best exists and N1 is 1.2 times B or less | hit rate h_best and launches N1 a month |
+  | **Finding winners** | room_h is room_D or more | hit rate h_need, L times the month's days over D times B, "beyond your best" where h_need is above h_best |
+  | **Keeping winners** | room_D is above room_h | days viable per hit D_need, L times the month's days over h times B, "beyond your best" where D_need is above D_best |
 
   room_h is h_best over h and room_D is D_best over D, a null best giving a room of 0. With both bests
   null the factor is Finding winners, and This run says "not enough history to compare". Where B is
@@ -415,11 +431,11 @@ sub-score (0 to 100) and the Creative score equal to the mean of the seven round
 be read, said which), the Outlier stats (the Outliers over the Launched ads equal to the Outlier rate, the line
 equal to the mean plus 1 standard deviation), Top-10 turnover for each complete quarter or absent with fewer than
 2, never in the mean, the Healthy lifespan with its quartile
-range, Days to clear Ramping, current spend, the Current pipeline, the weekly viable shares and the
+range, Days to clear Ramping, current spend (the last complete month, with its daily figure), the Current pipeline (3 complete months), the weekly viable shares and the
 weeks counted (6 left out for warm-up, then the thin ones, the run stopped on its line where none
 is left), P90, the Viable share target (at most 100%), L
 (current spend times the Viable share target over the Spend per viable ad, the same at every L(w)
-and every Budget ladder rung), the Steady-state number (N0), today's date and
+and every Budget ladder rung), the Steady-state number (N0, equal to `ads_for_spend` at current spend), today's date and
 counts (read on the last complete day, and not a day still loading), the Self-check, and the Format split default with its Name coverage, each from one calculation;
 the survival table (age, ads reached, viable, survival, spend on viable ad-days) has rates that sum to
 W, h times D equals W to two decimals, and the Spend per viable ad is the spend on viable ad-days over
@@ -428,12 +444,12 @@ null, where fewer than 4 months or 2 quarters counted), the Limiting factor read
 on the unrounded figures (N0 at most 1.2 times B and N1 at most 1.2 times B for Both, which needs N0 above
 1.2 times B), with what it needs the account to hit, the Budget ladder's rungs each with L, N0 and N0 over
 the Current pipeline, and On the table, its groups' spend, customers and CAC and its figures per week, or
-"nothing" where v0 is the Viable share target or more; and the run has not stopped on a guard. The Roadmap holds a row for each of its weeks,
+"nothing" where v0 is the Viable share target or more; and the run has not stopped on a guard. The Roadmap holds a row for each calendar month from next month to the Budget month (3 without a Budget),
 with start, less Wearing out, plus Expected to work equal to the end stock on the unrounded figures, to one decimal, in every row,
-no Ads to launch below 0 and video plus image equal to Ads to launch in every row (with a split). Where Gap0 is above 0, the end stock at the Budget week is at or
-above L(B) and the Catch-up is spread evenly over weeks 1 to B. At a flat budget with S(0) equal to L,
-every week's Ads to launch is the Steady-state number, give or take one ad. The Budget ladder's current-spend rung
-has the Steady-state number as its N0, the launches to keep up and to catch up for week 1 sum to its Ads to launch, and the run knows whether W is a lower bound.
+no Ads to launch below 0 and video plus image equal to Ads to launch in every row (with a split). Where Gap0 is above 0, the end stock at the Budget month is at or
+above L(n) and the Catch-up is spread evenly over months 1 to n. At a flat budget with S(0) equal to L (and D at least the month's days),
+every month's Ads to launch is `ads_for_spend` at that month's spend, give or take one ad, and no Ads to launch is below 0, a Budget below current spend included. The Budget ladder's current-spend rung
+has the Steady-state number as its N0, the launches to keep up and to catch up for month 1 sum to its Ads to launch, and the run knows whether W is a lower bound.
 
 ## 5. Write the page
 
@@ -451,7 +467,7 @@ from step 4, shown rounded once and used rounded in every label beside it, and e
 whole ad, rounded up. Where W is a lower bound, Panel 1's action line says the counts may read a
 little high, and the figures say "at least" before a lasting figure.
 
-How it's worked out holds seven parts, in this order: the Week-by-week plan (its first line the
+How it's worked out holds seven parts, in this order: the Month-by-month plan (its first line the
 Catch-up, the table with whole numbers rounded up and the line "Figures are rounded up to whole ads,
 so a row can be one out.", and no chart), the Survival curve with its fitted axis (the first of 5%,
 10%, 20%, 25%, 50% and 100% at or above the curve's highest point, four gridlines at quarters of it),
@@ -467,15 +483,15 @@ download.
 **Done when** the first tab is the masthead, the three cards and the three panels, in that order,
 with no prose beyond labels and one action line for each panel; card 1 reads "<S> of <⌈L⌉>" with
 its pill (Short, About right or Ahead, the gap a whole count, read on viable ads only); card 2 names
-the Limiting factor with its to-hit, and On track reads "nothing: keep launching <P> a week"; card 3
+the Limiting factor with its to-hit, and On track reads "nothing: keep launching <P> a month"; card 3
 reads "+<n> customers" with its CAC change, or "Nothing" where nothing is on the table (Panel 3 then
 shows Today's bar only); Panel 1 has a bar for the working ads needed on every rung and a filled bar
 for the working ads now on Today, with its two-row table of N0 and N0 over P; Panel 2 has one track
 for each Lever with now, best (or "no best yet") and need markers on the Levers the to-hit moves
 only, and none on On track; every figure on the Scorecard equals its step 4 figure, whole ad counts
 rounded up; no glossary term shows on the Scorecard where page-layout gives it a Page label, and no
-definition does either; How it's worked out follows the order above, its Week-by-week plan's table
-and the Roadmap file holding the same weeks and the same video and image figures (or the total alone
+definition does either; How it's worked out follows the order above, its Month-by-month plan's table
+and the Roadmap file holding the same months and the same video and image figures (or the total alone
 with no split); its figures name the number of months and quarters each Lever best counted and list the Hit rate, Low-spend rate, Spend bar and Viable spend per hit, and give the Creative score with the value and sub-score of each of its seven measures, the Outlier stats, and Top-10 turnover for each complete quarter or not at all with fewer than 2; This run
 names today's date, the Limiting factor with its figures and the groups left out of On the table
 where there are any; a lower bound W is said on both tabs; the Self-check line is there, with its
@@ -489,15 +505,16 @@ In chat, after the page, in this order:
 1. One line, in the Page labels, in these words with the figures filled in: "<Limiting factor>:
    <the to-hit>. <S> of <⌈L⌉> working ads; on the table, +<n> new customers a week." The to-hit is
    the words of the to-hit table in `references/page-layout.md` without bold; with On track it reads
-   "On track: keep launching <P> a week." and with nothing on the table the last clause reads "nothing
+   "On track: keep launching <P> a month." and with nothing on the table the last clause reads "nothing
    on the table".
-2. **The Roadmap file.** Offer the Week-by-week plan as a file, `meta-ad-roadmap-<date>.md`, to hand to whoever makes
-   the ads, and say what it holds: the Budget, the weeks, the new ads by format, the Go live by
-   dates, the Limiting factor and what it needs to hit, and one line each on your hit rate and the spend one working ad carries. On "yes", write it as
+2. **The Roadmap file.** Offer the Month-by-month plan as a file, `meta-ad-roadmap-<date>.md`, to hand to whoever makes
+   the ads, and say what it holds: the Budget, the months, the new ads by format, the Go live by
+   dates, the ads a month at current spend and at the Budget, the Limiting factor and what it needs to hit, and one line each on your hit rate and the spend one working ad carries. On "yes", write it as
    `references/page-layout.md` fixes it and save it in the working folder; where none persists (a
    chat), hand it over as a download. It is self-contained: someone who has not seen the page can
    brief from it.
-3. **The Next run.** Tell the user to run this again in 2 weeks, with its date (14 days from today),
+3. **The Next run.** Tell the user to run this again monthly, around the 20th, so next month's ads can
+   be briefed, with its date (the first 20th that is at least 14 days away),
    and give the prompt to paste into that session, in a block: "Plan my Meta ad volume again.
    Monthly Meta budget: <the Budget, or "no change to current spend">. Format split: <the split
    used, or "none">. Retargeting campaigns: <the confirmed names, or "none">. Awareness

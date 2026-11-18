@@ -60,7 +60,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Ad stock check**: today's viable ads against the Viable ad stock at current spend. **Short**: below 80% of it. **Ahead**: above 150% of it. **About right**: between. Shown under Work backwards from spend, with the gap as a count of ads. _Avoid_: health check, ad audit, over-stocked.
 
-- **Lever**: one of the three things today's viable ads come from, which multiply: Current pipeline (launches a week), Hit rate (finding winners) and Days viable per hit (keeping winners). Closing a gap by any one alone takes the same multiple, so the gap's size never says which lever is short. _Avoid_: driver, factor.
+- **Lever**: one of the three things today's viable ads come from, which multiply: Current pipeline (launches a month), Hit rate (finding winners) and Days viable per hit (keeping winners). Closing a gap by any one alone takes the same multiple, so the gap's size never says which lever is short. _Avoid_: driver, factor.
 
 - **Lever best**: the best the account has done on a Lever. Launches: the highest Current pipeline over any 3 complete months in a row. Hit rate: the 90th-percentile launch month (months at least 28 days old with 10 or more Launched ads, outside the first 6 weeks; fewer than 4, no best). Days viable per hit: the highest launch quarter whose ads are all 60 days old with 10 or more hits (fewer than 2, no best). _Avoid_: benchmark, target, potential.
 
@@ -78,11 +78,11 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Budget**: the monthly Meta spend the user wants to reach outside the Awareness and Lead campaigns, and the month to reach it by (the Budget month); without one, 3 months from now. It may be below current spend. _Avoid_: target, goal.
 
-- **Steady-state number**: new ads a month to hold a level of spend: monthly spend times the Viable share target over the Hit rate times the Viable spend per hit, which is Viable ad stock times the month's days over the Viable lifespan. _Avoid_: run rate, replacement rate.
+- **Steady-state number**: new ads a month to hold a level of spend: monthly spend times the Viable share target over the Hit rate times the Viable spend per hit, which is Viable ad stock times the month's days over the Viable lifespan. Written once as `ads_for_spend(monthly_spend)` in `method.md`, which the Roadmap and the page slider share. _Avoid_: run rate, replacement rate.
 
 - **Roadmap**: one row per calendar month from next month to the Budget month (3 months held at current spend without a Budget): that month's spend, Viable ad stock, Wearing out, Ads to launch (by format), Expected to work and the Live-by date. _Avoid_: plan, schedule, forecast, weekly plan.
 
-- **Roadmap file**: `meta-ad-roadmap-<date>.md`, the Roadmap handed over as markdown for whoever makes the ads: the Budget, the weeks, the new ads by format, the Live-by dates, and one line each on the Hit rate, the Limiting factor with its to-hit and the Spend per viable ad. Offered at the Close; the page does not need it. _Avoid_: handover file (that is the Action skills'), brief, export.
+- **Roadmap file**: `meta-ad-roadmap-<date>.md`, the Roadmap handed over as markdown for whoever makes the ads: the Budget with the ads a month at current spend and at the Budget, the months, the new ads by format, the Live-by dates, and one line each on the Hit rate, the Limiting factor with its to-hit and the Spend per viable ad. Offered at the Close; the page does not need it. _Avoid_: handover file (that is the Action skills'), brief, export.
 
 - **Catch-up**: the launches above keeping up in the months to the Budget month: each month's Ads to launch less Wearing out over the Hit rate, rounded up. They close today's gap, the viable ads short of the Viable ad stock over the Hit rate spread evenly, and where the Budget is above current spend they also grow the stock. _Avoid_: backlog, top-up.
 
@@ -104,7 +104,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Source**: where the ad-by-day rows come from, the first that holds them of a Growth Brain (the last 365 days), a Meta connector in the session and one Ads Manager export (each the last 180 days). Named on the page. _Avoid_: data source, feed.
 
-- **Unattended run**: a run whose message says so or says not to ask, or a scheduled session. It asks nothing, takes the proposed retargeting, awareness and lead campaigns, plans current spend held flat for 4 weeks with no Budget and no Format split, saves the Roadmap file without offering it, and says so in This run on How it's worked out. _Avoid_: automatic run, headless run.
+- **Unattended run**: a run whose message says so or says not to ask, or a scheduled session. It asks nothing, takes the proposed retargeting, awareness and lead campaigns, plans current spend held flat for 3 months with no Budget and no Format split, saves the Roadmap file without offering it, and says so in This run on How it's worked out. _Avoid_: automatic run, headless run.
 
 - **Brain line**: the fixed sentence, "With a Growth Brain, the survival curve judges every ad on a single attribution source rather than every purchase Meta claims, and reads a year of history without an export.", said as the last line of How it's worked out on a run whose Source is not a Growth Brain and whose session holds no Growth Brain. _Avoid_: upsell, plug.
 
