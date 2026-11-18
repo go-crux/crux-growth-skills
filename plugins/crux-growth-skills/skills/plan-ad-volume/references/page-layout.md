@@ -251,7 +251,8 @@ launches that many. Its parts, in this order:
 scripts off. Two sentences in these words, with the figures filled in and in bold: "At your current spend
 you need **<N0> new ads a month**. Over the last 3 months you launched **<P> a month**." P is the Current
 pipeline to the nearest whole ad, and a figure shown is the figure the verdict uses. Under them one
-verdict line, set by N0 against P, with "within 10%" meaning P is within 0.1 times N0 of N0 either way:
+verdict line, set by N0 against P, with "within 10%" meaning the whole-ad P is within 0.1 times N0 of N0 either way (an N0 of 47 keeps pace from 43 to 51, and
+an N0 of 0 only at a P of 0):
 
 | P against N0 | Verdict line |
 |---|---|
