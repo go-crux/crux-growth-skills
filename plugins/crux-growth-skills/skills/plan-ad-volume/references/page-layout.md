@@ -1,8 +1,8 @@
 # Page layout
 
 A Meta ad volume forecast is one self-contained HTML file, `meta-ad-volume-<date>.html` (`<date>`
-is today as `YYYY-MM-DD`), written to the working folder, with inline CSS, inline SVG and one inline
-`<script>`. It is Crux-branded as `references/crux-brand.md` sets out, and its only network request
+is today as `YYYY-MM-DD`), written to the working folder, with inline CSS, inline SVG, one inline
+JSON data block (`wb-figures`) and one inline `<script>`. It is Crux-branded as `references/crux-brand.md` sets out, and its only network request
 is that file's Google Fonts stylesheet: the script makes none. It opens on the Creative deep dive,
 which a founder reads top to bottom in a few minutes, in labels and a few fixed sentences; the method sits on a second tab.
 Crux house style: British English, no em dashes, outcome before mechanism, relative percentage
@@ -47,7 +47,7 @@ reader can match the two. A row with no Says is a heading or a chart title and n
 | Short | Short | fewer working ads than your spend needs |
 | About right | About right | within the range your spend needs |
 | Ahead | Ahead | more working ads than your spend needs |
-| Ad stock check | Enough working ads for your spend? | today's working ads against the working ads your spend needs live at once |
+| Ad stock check | Enough working ads for your spend? | the working ads you have today, against the working ads your spend needs live at once |
 | Worn out now | Worn out | ads old enough to be judged whose CAC has slipped; they take spend but do not count |
 | Wearing out | Expected to wear out | working ads likely to stop working in that time |
 | Creative score | Creative score | how healthy your creative is, out of 100: the plain average of seven measures, each placed on fixed bands from Poor to Good |
@@ -244,29 +244,50 @@ little high; How it's worked out has the detail."
 
 ## 6. Work backwards from spend
 
-The section answers "how many ads does this spend need next month". Its parts, in this order:
+The section answers "how many ads does this spend need next month", and says first whether the account
+launches that many. Its parts, in this order:
 
-**a. The slider.** A range input over monthly spend, labelled "Monthly spend", running from half
-current spend to 3 times it (wider where the Budget lies outside that), with `step="any"` and set to
-current spend when the page opens. Two marks under the track name "Current spend" and, where the user
-gave a Budget, "Budget", each at its place on the track, and two buttons set the slider to each.
-Beside it the monthly spend at the slider's position, in whole units of the account's currency, as an
-`<output>`.
+**a. The answer.** Plain HTML, written into the page and never by the script, so it prints and reads with
+scripts off. Two sentences in these words, with the figures filled in and in bold: "At your current spend
+you need **<N0> new ads a month**. Over the last 3 months you launched **<P> a month**." P is the Current
+pipeline to the nearest whole ad, and a figure shown is the figure the verdict uses. Under them one
+verdict line, set by N0 against P, with "within 10%" meaning P is within 0.1 times N0 of N0 either way:
 
-**b. The formula**, in these words, in the terms: "New ads = monthly spend × Viable share target ÷
-(Hit rate × Viable spend per hit)". Under it the same sum with the account's numbers at the slider's
-spend, "<spend> × <target>% ÷ (<Hit rate> × <Viable spend per hit>) = <the quotient to two decimals>,
-rounded up: <ads> new ads a month". At current spend `<ads>` is the Steady-state number N0.
+| P against N0 | Verdict line |
+|---|---|
+| within 10% | "You are keeping pace." |
+| below that | "Make about <N0 − P> more a month." |
+| above that | "You are launching more than your spend needs." |
 
-**c. The answer without JavaScript.** Written into the page as plain HTML, never by the script, so it
-prints and reads with scripts off, each with the sum of part b worked at that spend: "At your current
-spend of <current monthly spend> a month: <the sum> = <N0> new ads a month" and, where the user gave a
-Budget, "At your Budget of <the Budget> a month: <the sum> = <ads_for_spend of the Budget> new ads a
-month". Without a Budget the second line reads "No Budget given". The slider, its marks, the sum under
-the formula and part d sit together in the page's `wb-live` container, hidden, and the script shows
-them.
+Where the user gave a Budget, a second line: "At your Budget of <the Budget> a month you need <ads_for_spend
+of the Budget> new ads a month." Without a Budget it is left out.
 
-**d. Expected outliers a month**, "Expected outliers a month = new ads × Outlier rate", with the
+**b. Holding you back.** The Limiting factor as a pill in the Highlight colour (On track, Volume, Both,
+Finding winners or Keeping winners), then a table with one row for each Lever, in this order and with
+these labels: "Launches a month", "Ads that work", "Days a winner works", and the columns Now, Best and
+Need. Now and Best are in the formats above (Best reads "no best yet" where it is null; Days a winner
+works has "at least" before Now where the Viable lifespan is a lower bound). Need is filled only on the
+Levers the to-hit moves (the table below), with "beyond your best" after a figure above its best, and
+"-" on the others. Under it the action line: "To hit: <the to-hit, figures in bold>." Where the to-hit
+raises the Hit rate (Both and Finding winners), it adds "At today's hit rate it takes <N0> a month."
+With On track it reads "To hit: nothing. Keep launching <P> a month."
+
+**c. The slider.** A range input over monthly spend, labelled "Monthly spend", running from half current
+spend to 3 times it (wider where the Budget lies outside that), with `step="any"` and set to current
+spend when the page opens. Two marks under the track name "Current spend" and, where the user gave a
+Budget, "Budget", each at its place on the track, and two buttons set the slider to each. Beside it the
+monthly spend at the slider's position, in whole units of the account's currency, as an `<output>`. The
+slider, its marks, its buttons and part e sit together in the page's `wb-live` container, hidden, and the
+script shows them.
+
+**d. The formula**, in these words, in the terms: "New ads = monthly spend × Viable share target ÷
+(Hit rate × Viable spend per hit)". Under it the same sum with the account's numbers, "<spend> ×
+<target>% ÷ (<Hit rate> × <Viable spend per hit>) = <the quotient to two decimals>, rounded up: <ads>
+new ads a month". Both sit outside `wb-live`: the page is written with the sum at current spend, where
+`<ads>` is the Steady-state number N0, so it reads and prints with scripts off, and the script rewrites
+the sum at the slider's spend.
+
+**e. Expected outliers a month**, "Expected outliers a month = new ads × Outlier rate", with the
 figure at the slider's spend to one decimal, and **the chance of none** ("<x>% chance of none", the
 chart's first bar). Under it the chart, inline SVG, "Chance of finding k Outliers in a month": six bars
 for k = 0, 1, 2, 3, 4 and 5 or more, each labelled with its probability to one decimal. The vertical axis
@@ -274,14 +295,14 @@ runs from 0 to the first multiple of 10% at or above the tallest bar, with light
 the binomial of `references/method.md` step 16, with the new ads as the number of trials and the Outlier
 rate as the chance of each; the six figures shown are adjusted by largest remainder so they add to
 100.0%. The chart's text alternative is rewritten by the script to read the six figures aloud. With no
-Outlier in the window the rate is 0, and part d is left out of the page whole.
+Outlier in the window the rate is 0, and part e is left out of the page whole.
 
-**e. Enough working ads for your spend?** The Ad stock check at current spend, which the slider does
-not move: "<S> of <⌈L⌉>" with a pill, then "working ads for today's spend". The pill is "Short <g>"
-below 80% of L, "About right" from 80% to 150%, and "Ahead <g>" above 150%, g being the difference
-between ⌈L⌉ and S. Each verdict has its own pill colour and always carries its words, so the check
-does not depend on colour alone; no other mark on the page is a verdict pill. The action line, by
-verdict:
+**f. The stock check, in plain words.** The Ad stock check at current spend, which the slider does not
+move, under the heading "Enough working ads for your spend?": "You have <S> ads working today; your spend
+needs <⌈L⌉> working at once." Then a pill and its action line. The pill is "Short <g>" below 80% of L,
+"About right" from 80% to 150%, and "Ahead <g>" above 150%, g being the difference between ⌈L⌉ and S.
+Each verdict has its own pill colour and always carries its words, so the check does not depend on colour
+alone; no other mark on the page is a verdict pill. The action line, by verdict:
 
 - Short: "Launch <N0> a month to keep up; the Month-by-month plan adds the Catch-up."
 - About right: "Launch <N0> a month to keep up."
@@ -289,16 +310,6 @@ verdict:
 
 Where the Viable lifespan is a lower bound the line ends "Counts may read a little high; How it's
 worked out has the detail."
-
-**f. Holding you back.** The Limiting factor as a pill in the Highlight colour (On track, Volume, Both, Finding winners or
-Keeping winners), then a table with one row for each Lever, in this order and with these labels:
-"Launches a month", "Ads that work", "Days a winner works", and the columns Now, Best and Need. Now and
-Best are in the formats above (Best reads "no best yet" where it is null; Days a winner works has "at
-least" before Now where the Viable lifespan is a lower bound). Need is filled only on the Levers the
-to-hit moves (the table below), with "beyond your best" after a figure above its best, and "-" on the
-others. Under it the action line: "To hit: <the to-hit, figures in bold>." Where the to-hit raises the
-Hit rate (Both and Finding winners), it adds "At today's hit rate it takes <N0> a month." With On track
-it reads "To hit: nothing. Keep launching <P> a month."
 
 **g. The Roadmap.** The Month-by-month plan's Budget line and Video and image split line (both under How it's worked out), then its table cut to the columns
 Month, Spend, Video and Image (only with a Format split), Ads to launch, Expected to work and Go live
@@ -325,22 +336,34 @@ to name a target" and the Need column is empty.
 
 ## The script
 
-One `<script>` at the end of the body, inline, with no network call, between the page and the footer.
-It holds the figures from `SKILL.md` step 4 once, as the `F` object below, and nothing else on the page
-reads them. Write it as here, with `F` filled in and nothing else changed: `currency` is the symbol or
-code the account's money is shown in (a code takes a space after it), `currentSpend` the last complete
-month's spend, `budget` the Budget as a monthly figure or `null`, `target` the Viable share target,
-`hitRate` the Hit rate, `spendPerHit` the Viable spend per hit (all unrounded) and `outlierRate` the
-Outlier rate (0 with no Outlier). Its elements are the ids named below.
+The slider is two blocks at the end of the body, between the page and the footer, both inline and with
+no network call: the figures, as one `<script type="application/json" id="wb-figures">` block, and the
+script, one plain `<script>`, which reads them. Copy the script below into every page verbatim, and fill
+in only the figures block.
+
+**The figures block** holds one JSON object, these keys and no others, each unrounded:
+
+| Key | Holds |
+|---|---|
+| `currency` | the symbol or code the account's money is shown in, as a string (a code takes a space after it: `"USD "`) |
+| `currentSpend` | the last complete month's spend, a number |
+| `budget` | the Budget as a monthly figure, a number, or `null` with none |
+| `target` | the Viable share target, a number from 0 to 1 |
+| `hitRate` | the Hit rate, a number above 0 and up to 1 |
+| `spendPerHit` | the Viable spend per hit, a number above 0 |
+| `outlierRate` | the Outlier rate, a number from 0 to 1 (0 with no Outlier) |
+
+It is JSON, not JavaScript: double-quoted keys, `null` for none, bare numbers with no thousands
+separators, currency symbols or percent signs, and no trailing comma.
 
 ```html
+<script type="application/json" id="wb-figures">
+{"currency": "£", "currentSpend": 18600, "budget": null, "target": 0.6, "hitRate": 0.4, "spendPerHit": 595, "outlierRate": 0.1667}
+</script>
 <script>
 (() => {
-  const F = {
-    currency: "£", currentSpend: 18600, budget: null,
-    target: 0.6, hitRate: 0.4, spendPerHit: 595, outlierRate: 0.1667
-  };
   const $ = id => document.getElementById(id);
+  const F = JSON.parse($("wb-figures").textContent);
   const money = n => F.currency + Math.round(n).toLocaleString("en-GB");
   const hit = h => (h < 0.1 ? (h * 100).toFixed(1) : Math.round(h * 100)) + "%";
   const quotient = s => s * F.target / (F.hitRate * F.spendPerHit);
@@ -408,19 +431,35 @@ Outlier rate (0 with no Outlier). Its elements are the ids named below.
     if (el) el.addEventListener("click", () => { slider.value = v; render(v); });
   });
   slider.addEventListener("input", () => render(Number(slider.value)));
-  $("wb-live").hidden = false;
   render(F.currentSpend);
+  $("wb-live").hidden = false;
 })();
 </script>
 ```
 
-The page's elements for it: `wb-live` (the container of the slider, formula sum and, where it exists,
-part d, `hidden` in the HTML), `wb-slider` (the range input), `wb-spend` (the output beside it),
-`wb-sum` (the formula with the account's numbers), `wb-mark-current` and `wb-mark-budget` (the two
-marks, the second only with a Budget), `wb-set-current` and `wb-set-budget` (the two buttons, the
-second only with a Budget), and, in part d only, `wb-expected`, `wb-none` and `wb-bars` (an `<svg>`
-with `viewBox="0 0 480 210"`, `role="img"` and a first `aria-label`). Its classes `grid`, `axis`, `val`
-and `s-hi` are the page's chart classes of `references/crux-brand.md`.
+The page's elements for it: `wb-live` (the container of the slider, its marks and buttons and, where it
+exists, part e, `hidden` in the HTML), `wb-slider` (the range input), `wb-spend` (the output beside it),
+`wb-sum` (the formula's sum with the account's numbers, outside `wb-live`, written at current spend),
+`wb-mark-current` and `wb-mark-budget` (the two marks, the second only with a Budget), `wb-set-current`
+and `wb-set-budget` (the two buttons, the second only with a Budget), and, in part e only, `wb-expected`,
+`wb-none` and `wb-bars` (an `<svg>` with `viewBox="0 0 480 210"`, `role="img"` and a first `aria-label`).
+Its classes `grid`, `axis`, `val` and `s-hi` are the page's chart classes of `references/crux-brand.md`.
+
+**The pre-save check.** Before saving the page, read it back and check that:
+
+1. it holds both blocks, the `wb-figures` block and the script, and the script is the one above, copied
+   verbatim;
+2. `wb-figures` parses as JSON and holds every key in the table, each of `currentSpend`, `target`,
+   `hitRate`, `spendPerHit` and `outlierRate` a finite number (`hitRate` and `spendPerHit` above 0),
+   `budget` a number or `null`, and `currency` a non-empty string;
+3. every figure equals its step 4 figure, and the sum in `wb-sum` ends on N0 new ads a month;
+4. the elements `wb-live`, `wb-slider`, `wb-spend` and `wb-sum` exist, and so do `wb-expected`,
+   `wb-none` and `wb-bars` wherever part e is on the page.
+
+Where any check fails, fix the page and check again. Where a check still fails, write the line "The spend
+slider could not be built on this run" in plain HTML in the slider's place on the page (the answer, Holding
+you back, the stock check and the Roadmap stay), and again in This run on How it's worked out, rather than
+leave the page showing only its no-JavaScript text without saying so.
 
 # How it's worked out
 
@@ -591,6 +630,8 @@ A short list:
 - the Healthy lifespan, the age by which half the ads viable at the curve's peak have stopped being
   viable, with its quartile range ("a quarter by day 9, three quarters by day 40"; an end the
   curve did not reach reads "not reached"), and the Days to clear Ramping;
+- the spend slider, only where the pre-save check could not build it: "The spend slider could not be
+  built on this run" (a run where it was built carries no line);
 - the Limiting factor, as one line in these words with the figures filled in: "Limiting factor:
   Both (launches needed <N0> a month, your best <B>; at your best hit rate <N1>)." The name is On
   track, Volume, Both, Finding winners or Keeping winners; a null B or N1 reads "no best yet". Where

@@ -37,7 +37,7 @@ Its defaults, every one of them:
 
 - Step 3 sends no message and takes the proposed retargeting, awareness and lead campaigns as confirmed.
 - It plans current spend held flat for 3 months: no Budget is asked for or used, so Work backwards
-  from spend marks current spend alone and its no-JavaScript answer reads "No Budget given".
+  from spend marks current spend alone and its answer carries no Budget line.
 - It uses no Format split, so the Roadmap shows new ads as a total.
 - The page's How it's worked out says the run was unattended, in the words `references/page-layout.md`
   gives.
@@ -370,8 +370,8 @@ number in the working. The page shows every ad count as a whole ad, rounded up (
   **total catch-up launches** is their sum over months 1 to n, worked only where Gap0 is above 0.
 - **Work backwards from spend.** The page's slider runs `ads_for_spend` over monthly spend, from half
   current spend to 3 times it (wider where the Budget lies outside that). Its figures are baked into the
-  page: current spend, the Budget (null with none), the Viable share target, the Hit rate, the Viable
-  spend per hit and the Outlier rate, each unrounded. **Expected outliers a month** is the new ads
+  page's `wb-figures` block: current spend, the Budget (null with none), the Viable share target, the Hit
+  rate, the Viable spend per hit and the Outlier rate, each unrounded, with the currency. **Expected outliers a month** is the new ads
   (`ads_for_spend` of the spend) times the Outlier rate; the chance of finding k Outliers in those ads is
   the binomial of `references/method.md` step 16, with the new ads as the trials and the Outlier rate as
   the chance, shown for k = 0 to 4 and 5 or more, adjusted so the six add to 100.0%. `ads_for_spend`
@@ -463,17 +463,22 @@ equals the Steady-state number, the launches to keep up and to catch up for mont
 
 Write the page as `references/page-layout.md` fixes it, in the Crux brand of `references/crux-brand.md`:
 two tabs switched by CSS alone, opening on the Creative deep dive, with one inline script for the
-slider and Google Fonts as its only network request. The Creative deep dive holds the masthead, then six
+slider, its figures in one `wb-figures` JSON block, and Google Fonts as its only network request. The Creative deep dive holds the masthead, then six
 sections in the Page labels, labels and an action line for most, and two fixed sentences opening Spending power, the Outlier engine and Creative rotation: the Creative score (the score
 out of 100, seven colour-coded Poor-to-Good bars, the Weakest point, and Top-10 turnover beside it), Spending power (monthly spend
 against CAC, and the last 3 months against the 3 before), the Outlier engine, Creative rotation (Top-10
-turnover by quarter, left out with fewer than 2 quarters), Ads that work, and Work backwards from spend:
+turnover by quarter, left out with fewer than 2 quarters), Ads that work, and Work backwards from spend,
+which opens on its answer, N0 against the Current pipeline with a verdict line, then the Limiting factor
+with its to-hit in the words `references/page-layout.md` gives and a Need only on the Levers it moves,
 the slider over monthly spend with the formula and the account's numbers, Expected outliers a month with
-the binomial chart and the chance of none, the Ad stock check (Short below 80% of L, Ahead above 150% of
-L, otherwise About right, with the gap as a whole count of ads, the only verdict pill on the page),
-the Limiting factor with its to-hit in the words `references/page-layout.md` gives and a Need only on the
-Levers it moves, and the Roadmap table. Without JavaScript the page still prints the new ads a month at
-current spend and at the Budget. The Creative deep dive defines nothing: each label's Says lives on How
+the binomial chart and the chance of none, the Ad stock check in plain words ("You have <S> ads working
+today; your spend needs <⌈L⌉> working at once.", then Short below 80% of L, Ahead above 150% of L,
+otherwise About right, with the gap as a whole count of ads, the only verdict pill on the page), and the
+Roadmap table. Without JavaScript the page still prints the answer, the formula's sum at current spend and
+the new ads a month at the Budget. Before saving the page, run the pre-save check of `references/page-layout.md`
+§ The script: both blocks are there, the script is copied verbatim, every `wb-figures` key is present and
+numeric, `wb-live` and the other elements exist. Fix the page where one fails; where it still fails, the
+page and This run say "The spend slider could not be built on this run". The Creative deep dive defines nothing: each label's Says lives on How
 it's worked out under Terms. Every figure on it is its source figure from step 4, shown rounded once
 and used rounded in every label beside it, and every ad count is a whole ad, rounded up. Where W is a
 lower bound, the Ad stock check's action line says the counts may read a little high, and the figures
@@ -500,14 +505,18 @@ with 2 or more complete quarters; Spending power charts the complete months (the
 with fewer than 2) and gives the two changes only with 6 or more; the Outlier engine gives the Outlier
 rate, the Outliers' share of spend, the spend per new ad and the time to Outlier; Creative rotation has a
 bar for each complete quarter, or is left out with fewer than 2; Ads that work gives the Hit rate, the
-Low-spend rate, Viable spend per hit and the Spend bar; Work backwards from spend has the slider at
-current spend (the Budget marked where there is one) with the formula **New ads = monthly spend ×
-Viable share target ÷ (Hit rate × Viable spend per hit)**, the page's figure at current spend equal to
-the Steady-state number in the Roadmap, Expected outliers a month with six binomial bars that add to
-100.0% and the chance of none (both left out with no Outlier), the Ad stock check reading "<S> of <⌈L⌉>"
-with its pill, the Limiting factor with its to-hit (On track reads "nothing: keep launching <P> a month")
-and the Roadmap table; the page's static HTML gives the new ads a month at current spend and at the
-Budget with scripts off; the script makes no network call, and the Google Fonts stylesheet is the page's
+Low-spend rate, Viable spend per hit and the Spend bar; Work backwards from spend opens, before the slider, with N0 new ads a month against the P the account
+launched a month and one verdict line (within 10% "You are keeping pace.", below "Make about <N0 − P> more
+a month.", above "You are launching more than your spend needs."), and the Budget's line where there is
+one, then the Limiting factor with its to-hit (On track reads "nothing: keep launching <P> a month"), then
+the slider at current spend (the Budget marked where there is one) with the formula **New ads = monthly
+spend × Viable share target ÷ (Hit rate × Viable spend per hit)**, the page's figure at current spend
+equal to the Steady-state number in the Roadmap, Expected outliers a month with six binomial bars that
+add to 100.0% and the chance of none (both left out with no Outlier), the Ad stock check reading "You
+have <S> ads working today; your spend needs <⌈L⌉> working at once." with its pill, and the Roadmap
+table; the page passed the pre-save check, or says "The spend slider could not be built on this run" on the
+page and in This run; the page's static HTML gives the answer, the formula's sum at current spend and the
+new ads a month at the Budget with scripts off; the script makes no network call, and the Google Fonts stylesheet is the page's
 only request; no glossary term shows
 on the Creative deep dive where page-layout gives it a Page label (the formula excepted), and no
 definition does either; every figure on it equals its step 4 figure, whole ad counts rounded up;
