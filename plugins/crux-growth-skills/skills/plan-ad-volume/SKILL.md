@@ -464,7 +464,7 @@ equals the Steady-state number, the launches to keep up and to catch up for mont
 Write the page as `references/page-layout.md` fixes it, in the Crux brand of `references/crux-brand.md`:
 two tabs switched by CSS alone, opening on the Creative deep dive, with one inline script for the
 slider and Google Fonts as its only network request. The Creative deep dive holds the masthead, then six
-sections in the Page labels, labels only and an action line for most: the Creative score (the score
+sections in the Page labels, labels and an action line for most, and two fixed sentences opening Spending power, the Outlier engine and Creative rotation: the Creative score (the score
 out of 100, seven colour-coded Poor-to-Good bars, the Weakest point, and Top-10 turnover beside it), Spending power (monthly spend
 against CAC, and the last 3 months against the 3 before), the Outlier engine, Creative rotation (Top-10
 turnover by quarter, left out with fewer than 2 quarters), Ads that work, and Work backwards from spend:
@@ -494,7 +494,7 @@ W is a lower bound says so in the words `references/page-layout.md` gives. Save 
 download.
 
 **Done when** the first tab is the masthead and the six sections, in that order, with no prose beyond
-labels and an action line for most; the Creative score shows the score out of 100 with its seven bars
+labels, an action line for most, and the two fixed opening sentences of Spending power, the Outlier engine and Creative rotation; the Creative score shows the score out of 100 with its seven bars
 each carrying its value (or "Not scored" with the measure named), and Top-10 turnover beside it only
 with 2 or more complete quarters; Spending power charts the complete months (the section left out
 with fewer than 2) and gives the two changes only with 6 or more; the Outlier engine gives the Outlier
