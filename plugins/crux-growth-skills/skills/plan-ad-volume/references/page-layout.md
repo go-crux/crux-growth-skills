@@ -307,6 +307,25 @@ The figures behind the Scorecard, one line each, in this order and in the format
    of <h> predicts <predicted> viable ads; you have <today>." Where it fails, by more than 25% of
    today's viable ads, the line adds "the curve and today's count disagree by <x>%, so read the plan
    as a guide".
+9. **The Creative score**, in this order, under a heading of its own:
+   - **The score**: "Creative score: <score> out of 100", a whole number, and under it a table with a row
+     for each of the seven measures in this order (Evergreen share, Spend degradation, Viable after week 1,
+     Top-5 concentration, Outlier rate, Hit rate, Low-spend rate) and the columns Measure, Value, Poor,
+     Average, Good and Score. Values and anchors are percentages to one decimal, Spend degradation with its
+     sign (−48.1%); the Score is the sub-score to the nearest whole number. Under it one line: "The score is
+     the plain mean of the seven, each placed on fixed bands: 0 at Poor, 50 at Average, 100 at Good, in a
+     straight line between and capped." Where a measure could not be read, the score is not shown and one
+     line names the measure and why ("Viable after week 1 could not be read: no hit has reached 28 days
+     old yet").
+   - **The Outlier stats**: "<n> Outliers among <Launched ads> Launched ads (<rate>%), <share>% of their
+     spend", a table of the spend per Launched ad (Mean, Median, Standard deviation, Outlier line, Highest;
+     whole units of the account's currency), and "Days from first spend to the line: <p25> (fastest
+     quarter), <median>, <p75> (slowest quarter)". With no Outlier the first line reads "No Outliers" and
+     the days line is left out.
+   - **Top-10 turnover**, with the line "Shown beside the score and never part of it": a table with a row for
+     each complete calendar quarter and the columns Quarter, New among the top 10 ("<n> of 10") and Share
+     of the quarter's spend (the new ads' spend over the quarter's). With fewer than 2 complete quarters
+     the table and its line are left out.
 
 ## Terms
 
