@@ -114,7 +114,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 ## The page
 
-- **Creative deep dive**: the page's first tab, the one it opens on, Crux-branded and laid out like CTC's creative report: the Creative score, Spending power (monthly spend against CAC, last 3 months against the 3 before), the Outlier engine, Creative rotation (Top-10 turnover), Ads that work (Hit rate, Low-spend rate, Viable spend per hit), and Work backwards from spend (a spend slider over the Steady-state number, Expected outliers a month, the Limiting factor and the Roadmap). Labels only, no definitions. _Avoid_: Scorecard, dashboard tab, summary.
+- **Creative deep dive**: the page's first tab, the one it opens on, Crux-branded and laid out like CTC's creative report: the Creative score, Spending power (monthly spend against CAC, last 3 months against the 3 before), the Outlier engine, Creative rotation (Top-10 turnover), Ads that work (Hit rate, Low-spend rate, Viable spend per hit), and Work backwards from spend (a spend slider over the Steady-state number, Expected outliers a month, the Limiting factor and the Roadmap). Labels only, no definitions; Spending power, the Outlier engine and Creative rotation each open with two fixed sentences on why the section is there and how to read it. _Avoid_: Scorecard, dashboard tab, summary.
 
 - **How it's worked out**: the page's second tab: the Month-by-month plan table, the Survival curve, the figures behind the Creative deep dive, Terms, This run, the method word for word, and the Brain line where the run has one. _Avoid_: Notes and Method, appendix.
 

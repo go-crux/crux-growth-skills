@@ -4,7 +4,7 @@ A Meta ad volume forecast is one self-contained HTML file, `meta-ad-volume-<date
 is today as `YYYY-MM-DD`), written to the working folder, with inline CSS, inline SVG and one inline
 `<script>`. It is Crux-branded as `references/crux-brand.md` sets out, and its only network request
 is that file's Google Fonts stylesheet: the script makes none. It opens on the Creative deep dive,
-which a founder reads top to bottom in a few minutes, labels only; the method sits on a second tab.
+which a founder reads top to bottom in a few minutes, in labels and a few fixed sentences; the method sits on a second tab.
 Crux house style: British English, no em dashes, outcome before mechanism, relative percentage
 changes (2.0% to 1.8% is "−10%"). Money is in the export's currency, rounded to whole units; CAC and
 Spend per viable ad to two decimals; and every count of ads a whole number, rounded up (⌈x⌉) where it
@@ -101,8 +101,8 @@ otherwise. A footer closes the page: "Built with Crux growth skills".
 # Creative deep dive
 
 The masthead, then six sections in this order, each under a 4px Highlight rule, a small-caps eyebrow
-and its title, which is its name below. The first tab holds no prose beyond labels and, for most
-sections, one action line. Every figure on it is its source figure from `SKILL.md` step 4, worked once
+and its title, which is its name below. The first tab holds no prose beyond labels, the two opening
+sentences of Spending power, Outlier engine and Creative rotation, and, for most sections, one action line. Every figure on it is its source figure from `SKILL.md` step 4, worked once
 and shown rounded once: a figure shown rounded is the figure every label and difference beside it
 uses. S is the working ads today, L the Viable ad stock (⌈L⌉ where shown), P the Current pipeline, B the
 launches Lever best, N0 the Steady-state number and N1 the launches a month at the best Hit rate.
@@ -158,6 +158,11 @@ measure is at Good or better." With no measure readable it is left out.
 
 ## 2. Spending power
 
+**The opening sentences**, in body text between the title and the chart, never a caption, and in these
+words on every run: "Whether rising spend has pushed your CAC up: if it has, you need more working ads,
+not just more budget. The bars are your monthly Meta spend and the line your CAC; read the two figures
+under it as the last 3 months against the 3 before."
+
 **The chart**, inline SVG: one bar for each complete calendar month of the window (`spending_power`),
 oldest at the left, for the month's spend, and over them a line for the month's CAC, with two vertical
 axes: spend on the left from 0 to the largest spend plus 10%, CAC on the right from 0 to the largest
@@ -180,6 +185,11 @@ working ads behind it." With no figures it is left out.
 
 ## 3. Outlier engine
 
+**The opening sentences**, in body text between the title and the first figure, never a caption, and in
+these words on every run: "An Outlier is a new ad that has spent at least one standard deviation above
+your average new ad: the few ads Meta scales hard. A few Outliers tend to carry much of your new ads'
+spend, so how often you find one, and how fast, matters more than any single ad."
+
 **Two figures**: "Outlier rate" (`outlier_rate`, to one decimal) with the line "<n> of <Launched ads>
 new ads", and "Outliers' share of spend" (`outlier_spend_share`, a whole percentage). With no Outlier
 the first reads "No Outliers" and the second is left out.
@@ -197,6 +207,11 @@ no Outlier it reads "No new ad has yet spent like an Outlier: more ads, and more
 Meta more to scale."
 
 ## 4. Creative rotation
+
+**The opening sentences**, in body text between the title and the chart, never a caption, and in these
+words on every run: "Whether new ads keep breaking into your top 10, or the same old ads carry the
+account. Each quarter shows how many of its 10 biggest-spending ads first spent that quarter; neither
+high nor low is good on its own, read it beside Evergreen share."
 
 **The chart**, inline SVG: one bar for each complete calendar quarter, oldest at the left, of "New among
 the top 10" (a whole number out of 10, so the axis is 0 to 10), each labelled with its figure ("3 of
