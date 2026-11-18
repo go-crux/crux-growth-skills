@@ -27,8 +27,11 @@ The page's `:root` holds these values.
 | | `--cat-3` | `#9AA1A8` | the base grey every unhighlighted mark wears |
 | | `--cat-4` | `#D3DCE4` | fourth category |
 | | `--cat-5` | `#5A6169` | fifth category |
-| Deltas | `--positive` | `#1E6E45` | a favourable delta; Good on a bar |
-| | `--negative` | `#A4271C` | an unfavourable delta; Poor on a bar |
+| Deltas | `--positive` | `#1E6E45` | a favourable delta |
+| | `--negative` | `#A4271C` | an unfavourable delta |
+| Score bars | `--score-low` | `#C0392B` | a Creative score bar whose sub-score is under 35 |
+| | `--score-mid` | `#D9A21B` | a bar whose sub-score is 35 to 65 inclusive |
+| | `--score-high` | `#2E8B57` | a bar whose sub-score is over 65 |
 | Display font | `--display` | `"Newsreader",Georgia,"Times New Roman",serif` | the heading, section titles, figures |
 | Body font | `--body` | `"Libre Franklin",system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif` | everything else |
 
@@ -69,6 +72,7 @@ What makes the page read as Crux's:
 ## What never changes
 
 - The tokens above, the two stacks and the devices.
-- `--positive` and `--negative`, which a bar uses for Good and Poor, so every page reads alike.
+- `--score-low`, `--score-mid` and `--score-high`, the Creative score bars' colours, which are the Crux daily
+  email's bar colours, so every page reads alike. The page has no dark mode, so each token has one value.
 - The page's requests: the one Google Fonts stylesheet, and no image, no script file and no other
   call.
