@@ -53,6 +53,21 @@ The number of new ads a week is worked out from how long your own ads stay good.
 
 **23. The self-check.** Every run tests its own curve against the account. The Viable lifespan is the viable ad-days one launch delivers, so the Current pipeline times the Viable lifespan, divided by 7, is the number of viable ads that launching at that rate should leave live. That is the predicted viable ads, and it is set against today's viable ads. The check passes when the two are within 25% of each other, taken relative to today's viable ads. The run states the check either way, and where it fails it says the curve and today's count disagree, so the plan is a guide. A failed check does not stop the run.
 
+**24. The seven measures of the Creative score.** Each is worked once, from the same rows as the plan, with the awareness and lead campaigns left out. The last 30 days are the 30 complete days to today.
+
+- **Evergreen share**: the share of the last 30 days' spend that sat on ads aged 30 days or more on the day it was spent. Every ad counts, not only Launched ads. An ad's age is the days since its first spend, so an ad that spent on the window's first day is older than the window and is aged on every day.
+- **Spend degradation**: over the Launched ads whose first spend is at least 27 days before the last complete day (the base of the Hit rate), each ad's mean daily spend over ages 7 to 27 divided by its mean daily spend over ages 0 to 6, less 1. A day with no spend counts as 0. The measure is the median across those ads (the mean of the middle two where the count is even). The means run over 21 days and 7, so an ad's figure is its spend over ages 7 to 27 divided by 3 times its spend over ages 0 to 6, less 1.
+- **Viable after week 1**: of the hits (step 8) whose first spend is at least 28 days before the last complete day, the share that were viable on their day at age 28. A day with no spend is not viable. A hit younger than that has not reached age 28 and is left out.
+- **Top-5 concentration**: the share of the last 30 days' spend on the 5 ads that spent most in those 30 days.
+- **Outlier rate**: step 25.
+- **Hit rate** and **Low-spend rate**: step 8.
+
+With no hit that has reached age 28, Viable after week 1 cannot be read, and the Creative score is not shown: the page says which measure is missing.
+
+**25. Outliers.** An Outlier is a Launched ad (any, not only those 28 days old) whose spend over the window is at or above the mean plus 1 population standard deviation of every Launched ad's spend over the window. That sum is the line. The Outlier rate is the Outliers over the Launched ads. Beside it the page gives the Outliers' share of the Launched ads' spend; the spend per Launched ad as its mean, median (the mean of the middle two where the count is even), standard deviation, line and maximum; and the days each Outlier took from its first spend to the day its cumulative spend reached the line (the first day is day 0), as the 25th percentile, median and 75th percentile over the Outliers. The quartiles are by nearest rank: with the days sorted from lowest to highest, the value at rank 0.25 times their number and at rank 0.75 times their number, each rounded up. With no Outlier, the rate is 0 and the days read "no Outliers".
+
+**26. Top-10 turnover.** For each complete calendar quarter in the window (its first day is not before the window's first day and its last day is not after its last complete day), take the 10 ads that spent most in the quarter, or all of them where fewer than 10 spent. Turnover is the number of those whose first spend fell in that quarter, out of the 10, and their spend as a share of the quarter's whole spend. An ad that spent on the window's first day is not new in any quarter. It needs 2 or more complete quarters: with fewer it is not shown. It is never scored, and never in the Creative score. A window of 180 days can never hold 2 complete quarters, so it is shown only from a Growth Brain.
+
 ## Worked example
 
 An invented brand, Fern & Co, with six Launched ads. Each ad is one line of its status on each day of its life, from age 0 to the last complete day: R is Ramping, V is viable (Healthy, Winner or Improving), X is a spending day that is not viable (Fatiguing, Fatigued or Low efficiency), a dot is a day with no spend, and a dash is an age the ad has not reached yet. The last complete day is 27 days after the first spend of ads A to E, and 19 days after the first spend of ad F.
@@ -219,7 +234,7 @@ Today's viable share v0 is 50%, under the 60% target, so there is something on t
 
 ## Creative score bands
 
-Each measure is placed on three fixed anchors, the same for every account: Poor scores 0, Average 50 and Good 100. Between two anchors the score is a straight line, and it is capped at 0 and 100. The Creative score is the plain mean of the seven.
+Each measure is placed on three fixed anchors, the same for every account: Poor, Average and Good. Where less is better (Top-5 concentration and Low-spend rate), Good is below Poor.
 
 | Measure | Poor | Average | Good |
 |---|---|---|---|
@@ -231,4 +246,42 @@ Each measure is placed on three fixed anchors, the same for every account: Poor 
 | Hit rate | 3% | 8% | 15% |
 | Low-spend rate | 95% | 85% | 70% |
 
-For example, a Hit rate of 11% sits between Average (8%) and Good (15%), three sevenths of the way, so it scores 50 + 50 × 3 ÷ 7 = 71. Top-10 turnover is shown beside the score and never scored. The score is a read-out: the number of new ads comes from the Hit rate and Viable spend per hit themselves, never from the score.
+**The scorer.** A measure x with anchors Poor P, Average A and Good G scores 0 at P, 50 at A and 100 at G, in a straight line between each pair of anchors, whichever way the anchors run. On the Good side of Average, where (x − A) ÷ (G − A) is 0 or more, the sub-score is 50 + 50 × (x − A) ÷ (G − A); on the Poor side it is 50 × (x − P) ÷ (A − P). It is then held between 0 and 100, so a measure beyond Poor scores 0 and one beyond Good scores 100. The sub-scores are carried unrounded. The Creative score is the plain mean of the seven sub-scores, rounded to a whole number. A measure that cannot be worked leaves the score unshown. Top-10 turnover is shown beside the score and never scored. The score is a read-out: the number of new ads comes from the Hit rate and Viable spend per hit themselves, never from the score.
+
+For example, a Hit rate of 11% sits between Average (8%) and Good (15%), three sevenths of the way, so it scores 50 + 50 × 3 ÷ 7 = 71.
+
+## The Creative score, worked
+
+Fern & Co's six ads give four of the measures from their own spend; its longer history, as for the Viable share target, gives three.
+
+**Spend degradation.** Ads A to E are the base of the Hit rate. Each ad's spend over ages 0 to 6 and over ages 7 to 27, in whole pounds:
+
+| Ad | Ages 0 to 6 | Ages 7 to 27 | Total | Late ÷ (3 × early) − 1 |
+|---|---|---|---|---|
+| A | £130 | £390 | £520 | 390 ÷ 390 − 1 = 0.0% |
+| B | £430 | £670 | £1,100 | 670 ÷ 1,290 − 1 = −48.1% |
+| C | £300 | £600 | £900 | 600 ÷ 900 − 1 = −33.3% |
+| D | £80 | £120 | £200 | 120 ÷ 240 − 1 = −50.0% |
+| E | £270 | £180 | £450 | 180 ÷ 810 − 1 = −77.8% |
+
+Sorted, the five read −77.8%, −50.0%, −48.1%, −33.3% and 0.0%, so the median is the middle one, −48.1% (B's −0.4806).
+
+**Outlier rate.** The six Launched ads' spend over the window is A £520, B £1,100, C £900, D £200, E £450 and F £480: £3,650 in all. The mean is 3,650 ÷ 6 = £608.33 and the median is (480 + 520) ÷ 2 = £500. The squared distances from the mean add to 542,883, so the population variance is 542,883 ÷ 6 = 90,481 and the standard deviation is £300.80. The line is 608.33 + 300.80 = £909.13, and the maximum is £1,100. Only B is at or above it: C, at £900, falls £9 short. The Outlier rate is 1 ÷ 6 = 16.7%, and B's £1,100 is 1,100 ÷ 3,650 = 30.1% of the Launched ads' spend. B spent £330 over ages 0 to 2, £40 over ages 3 and 4, £30 a day over ages 5 to 15, £40 a day over ages 16 to 19 and £30 a day from age 20, so its cumulative spend is £700 by age 15, £860 by age 19, £890 at age 20 and £920 at age 21, which is the first day over £909.13. With one Outlier, the 25th percentile, median and 75th percentile of the days to the line all read 21.
+
+**Hit rate and Low-spend rate.** 0.40 and 0.20, from the six ads above.
+
+**From the longer history.** Over its last 30 days Fern & Co spent £18,000. £4,500 sat on ads aged 30 days or more, so the Evergreen share is 25%. The 5 ads that spent most took £7,200, so the Top-5 concentration is 40%. Of the 20 hits that have reached age 28 (ads A to E have not, as their last day is age 27), 5 were viable on their day at age 28, so Viable after week 1 is 25%.
+
+| Measure | Value | Poor | Average | Good | Sub-score |
+|---|---|---|---|---|---|
+| Evergreen share | 25.0% | 10% | 30% | 50% | between Poor and Average: 50 × (25 − 10) ÷ (30 − 10) = 37.5 |
+| Spend degradation | −48.1% | −80% | −55% | −30% | between Average and Good: 50 + 50 × (−48.06 + 55) ÷ 25 = 63.9 |
+| Viable after week 1 | 25.0% | 10% | 25% | 45% | on Average: 50 |
+| Top-5 concentration | 40.0% | 70% | 45% | 20% | lower is better, between Average and Good: 50 + 50 × (45 − 40) ÷ (45 − 20) = 60 |
+| Outlier rate | 16.7% | 1% | 3% | 6% | beyond Good, capped: 100 |
+| Hit rate | 40.0% | 3% | 8% | 15% | beyond Good, capped: 100 |
+| Low-spend rate | 20.0% | 95% | 85% | 70% | beyond Good, capped: 100 |
+
+The sub-scores add to 37.5 + 63.9 + 50 + 60 + 100 + 100 + 100 = 511.4 (511.38 unrounded), and 511.38 ÷ 7 = 73.05, so the Creative score is 73.
+
+**Top-10 turnover.** Fern & Co's 180-day window holds at most 1 complete quarter, so Top-10 turnover is not shown. Had a Growth Brain given a year holding the complete quarters Q2 and Q3, the page would read, for Q2, 3 of its 10 top-spending ads first spent in Q2 and took 15% of the quarter's spend, and for Q3, 5 of 10, 28%. Neither figure enters the mean: the score stays 73.

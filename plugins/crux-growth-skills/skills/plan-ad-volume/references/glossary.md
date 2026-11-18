@@ -34,25 +34,25 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 ## Creative score
 
-- **Creative score**: the account's creative health out of 100: the plain mean of seven sub-scores (Evergreen share, Spend degradation, Viable after week 1, Top-5 concentration, Outlier rate, Hit rate, Low-spend rate), each placed on the fixed published bands in `references/method.md`, Poor 0, Average 50, Good 100, straight between and capped. A read-out of the plan's own measures plus health checks; it never multiplies the plan. _Avoid_: creative grade, quality score, benchmark rank.
+- **Creative score**: the account's creative health out of 100: the plain mean of seven sub-scores (Evergreen share, Spend degradation, Viable after week 1, Top-5 concentration, Outlier rate, Hit rate, Low-spend rate), each placed on the fixed published bands in `references/method.md`: Poor 0, Average 50, Good 100, straight between and capped, the mean rounded to a whole number. A read-out of the plan's own measures plus health checks; it never multiplies the plan. _Avoid_: creative grade, quality score, benchmark rank.
 
-- **Evergreen ad**: an ad aged 30 days or more that is still spending. Not the same as viable: an old ad can spend without working. _Avoid_: long-runner, winner.
+- **Evergreen ad**: an ad aged 30 days or more that is still spending, age counted from its first spend (an ad live on the window's first day is older than the window). Not the same as viable: an old ad can spend without working. _Avoid_: long-runner, winner.
 
-- **Evergreen share**: the share of the last 30 complete days' spend on ads that were Evergreen ads that day. _Avoid_: evergreen percentage, ad age mix.
+- **Evergreen share**: the share of the last 30 complete days' spend on ads that were Evergreen ads that day, every ad counted, not only Launched ads. _Avoid_: evergreen percentage, ad age mix.
 
-- **Spend degradation**: across Launched ads at least 28 days old, the median relative change in daily spend from their first 7 days to days 8 to 28. _Avoid_: spend decay, drop-off.
+- **Spend degradation**: across the Launched ads at least 28 days old (the Hit rate's base), the median of each ad's mean daily spend over ages 7 to 27 over its mean daily spend over ages 0 to 6, less 1; a day with no spend counts 0. _Avoid_: spend decay, drop-off.
 
-- **Viable after week 1**: the share of hits still viable on day 28, read off the Survival curve: whether the ads that work keep working past launch week. Replaces a CAC-after-launch measure, which order lag and spend shifting onto winners make read as improving. _Avoid_: CAC degradation, ROAS degradation, retention.
+- **Viable after week 1**: the share of hits that have reached age 28 that were viable on their day at age 28: whether the ads that work keep working past launch. Replaces a CAC-after-launch measure, which order lag and spend shifting onto winners make read as improving. _Avoid_: CAC degradation, ROAS degradation, retention.
 
 - **Top-5 concentration**: the share of the last 30 complete days' spend on the 5 ads that spent most. High means the account leans on few ads. _Avoid_: ad concentration, dependency.
 
 - **Low-spend rate**: the share of Launched ads at least 28 days old whose first-28-day spend stayed below the Spend bar: ads Meta never gave budget. Normal within reason. _Avoid_: zero-spend rate, zero-revenue rate, dud rate.
 
-- **Outlier**: a Launched ad whose spend in the window is at or above the mean plus one standard deviation of every Launched ad's spend: the few ads Meta scales hard. Judged on spend alone, unlike Viable. _Avoid_: winner (that is an audit-ads status), hero ad, breakout.
+- **Outlier**: a Launched ad whose spend in the window is at or above the mean plus one population standard deviation of every Launched ad's spend (the line): the few ads Meta scales hard. Judged on spend alone, unlike Viable. _Avoid_: winner (that is an audit-ads status), hero ad, breakout.
 
-- **Outlier rate**: Outliers over Launched ads, with their share of spend and the days each took to cross the line (fastest quarter, median, slowest quarter). Gives Expected outliers a month at the plan's launches and the binomial chance of finding none. _Avoid_: hit rate (that is quality, not spend).
+- **Outlier rate**: Outliers over Launched ads, with their share of spend and the days each took from first spend to its cumulative spend crossing the line (25th percentile, median, 75th percentile). Gives Expected outliers a month at the plan's launches and the binomial chance of finding none. _Avoid_: hit rate (that is quality, not spend).
 
-- **Top-10 turnover**: for each complete calendar quarter, the share of its 10 highest-spending ads whose first spend fell in that quarter, with their share of its spend. An indicator only, never scored: high turnover is neither good nor bad against Evergreen share. Read on 2 or more complete quarters, else not shown. _Avoid_: rotation rate, refresh rate.
+- **Top-10 turnover**: for each complete calendar quarter, how many of its 10 highest-spending ads first spent in that quarter, with those ads' share of the quarter's spend. An indicator only, never scored: high turnover is neither good nor bad against Evergreen share. Read on 2 or more complete quarters, else not shown. _Avoid_: rotation rate, refresh rate.
 
 ## The check
 

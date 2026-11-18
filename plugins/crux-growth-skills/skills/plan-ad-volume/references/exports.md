@@ -167,6 +167,17 @@ rank: with the values sorted from lowest to highest, the value at rank ⌈0.9 ×
   Winner and Improving; test phase: Ramping; worn out: Fatiguing, Fatigued and Low efficiency; other:
   any status left, and any ad-day with no status), each group's spend, purchases and CAC, then the
   share-to-target maths of step 4, with the groups that spent and brought no purchases named.
+- **The Creative score.** The seven measures, the Outlier stats and Top-10 turnover, each worked once as
+  `references/method.md` (steps 24 to 26) defines them and the SQL below `-- END shared classification`
+  in `references/fatigue.sql` works them: the last 30 days are the 30 complete days to today, an ad's
+  age is the days from its first day with spend in the rows (an ad that spent on the first day read is
+  aged on every day, and not a Launched ad), and spend is the Amount spent outside the awareness and lead
+  campaigns. Read the Hit rate and Low-spend rate from the model above and the Spend degradation over the
+  Hit rate's base. Place each measure on the bands of `references/method.md` with its scorer, carry the
+  sub-scores unrounded, and give the score as their mean rounded to a whole number, none where a
+  measure cannot be read. Percentiles by nearest rank and medians as the method sets out. Top-10 turnover
+  is worked for each complete calendar quarter in the rows read and shown only with 2 or more; the
+  180 days of a Meta connector or an export never hold 2, so it is not shown there.
 
 Print the figures, the survival table (age, ads reached, viable, survival, spend on that age's viable
 ad-days) and the Roadmap rows, never the rows of the export.
@@ -182,4 +193,7 @@ ads at least 28 days old, with the Low-spend rate and Viable spend per hit print
 (at most 100%) are printed, the run having stopped on its line where no week is counted; the last
 complete day is named; and the three Lever bests (each with the months or quarters it counted, or
 none), the Limiting factor with its figures, the Budget ladder's rungs and On the table (or
-"nothing") are printed.
+"nothing") are printed, and so are the seven measures with their sub-scores, the Creative score (the mean of
+the seven, none where one cannot be read), the Outlier stats (the spend per Launched ad, the line, the Outliers
+with their share of spend and the days to the line) and Top-10 turnover, or its absence with fewer than 2
+complete quarters.

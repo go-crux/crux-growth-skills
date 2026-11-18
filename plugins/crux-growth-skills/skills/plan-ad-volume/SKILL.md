@@ -18,8 +18,9 @@ Viable ad, Viable share, Viable share target, Viable ad stock, Launched ad, Surv
 hit, Viable spend per hit, Healthy lifespan, Spend per viable ad, Days to clear Ramping, Self-check, Ad stock check, Lever, Lever best,
 Limiting factor, On the table, Worn out now, Wearing out, Current pipeline, Steady-state number, Budget,
 Roadmap, Catch-up, Ads to launch, Expected to work, Live-by, Budget ladder, Format, Name coverage, Format split,
-Roadmap file, Awareness campaign, Lead campaign, Unattended run, Source, Brain line, Scorecard, How it's worked out
-and Page label are those of
+Roadmap file, Awareness campaign, Lead campaign, Unattended run, Source, Brain line, Scorecard, How it's worked out,
+Creative score, Evergreen share, Spend degradation, Viable after week 1, Top-5 concentration, Outlier, Outlier rate,
+Top-10 turnover and Page label are those of
 `references/glossary.md`, and Next run is the repo's shared term; use them as written here and on
 How it's worked out. The Scorecard, the Roadmap file and the chat's close speak to the user in the Page labels
 `references/page-layout.md` gives each term instead. The ad
@@ -200,7 +201,12 @@ edits 1 to 3 (the mart's name, in `mart_rows` and in `video_plays`, with any col
 `days_to_clear_ramping`, `current_spend`, `current_pipeline`, `viable_share_p90`,
 `viable_share_target`, `viable_share_weeks` (the weeks counted), `viable_share_weeks_left_out`,
 `viable_ad_stock` (L), `steady_state_number` (N0), `today_date` with today's counts, the Format split default (`video_pct`, `image_pct`) with its
-`name_coverage_pct`, the `survival_table` (age, reached, viable, survival, viable_spend), the Scorecard
+`name_coverage_pct`, the `survival_table` (age, reached, viable, survival, viable_spend), the Creative score
+figures (`creative_score` with `creative_sub_scores`; `evergreen_share`; `spend_degradation`;
+`viable_after_week_1` with `week_one_hits` and `week_one_viable`; `top5_concentration`; `outlier_rate` with
+`outliers` and `outlier_spend_share`; the spend per Launched ad, `launched_spend_mean`, `_median`, `_sd`,
+`outlier_line` and `launched_spend_max`; `days_to_line_p25`, `_median` and `_p75`; and `top10_turnover`, a row
+for each complete quarter, empty with fewer than 2 `complete_quarters`), the Scorecard
 figures (`launches_best`; `hit_rate_best` with `hit_rate_months`; `days_viable_per_hit_best` with
 `dvph_quarters`; `limiting_factor` with `launches_at_best_hit_rate` (N1), `hit_rate_needed`,
 `days_viable_per_hit_needed` and their `_beyond_best` flags; the `budget_ladder` table, one row for each of
@@ -289,6 +295,22 @@ below is worked in code from that row. Compute each figure once, from these defi
   loading, and yesterday where none is. Name its date in This run.
 - **Today's counts**, on today: viable ads (S(0)); live ads past Ramping; Worn out now (live ads past
   Ramping that are Fatiguing, Fatigued or Low efficiency).
+- **Creative score**, from the definitions in `references/method.md` (steps 24 to 26 and Creative score
+  bands), each worked once: **Evergreen share** and **Top-5 concentration** over the 30 complete days to
+  today (every ad counts; an ad that spent on the window's first day is aged on every day); **Spend
+  degradation** over the Hit rate's base, the median across its ads of the mean daily spend over ages 7
+  to 27 over the mean over ages 0 to 6, less 1, a day with no spend counting 0; **Viable after week 1**
+  over the hits whose first spend is at least 28 days before the last complete day, the share viable on
+  their day at age 28; the **Outlier** line at the mean plus 1 population standard deviation of every
+  Launched ad's window spend, with the **Outlier rate**, the Outliers' share of Launched-ad spend, the spend
+  per ad (mean, median, standard deviation, line, maximum) and the days from first spend to the cumulative
+  spend reaching the line (the 25th percentile by nearest rank, the median, the 75th percentile by nearest
+  rank); the Hit rate and the Low-spend rate as above. Each of the seven is placed on its fixed bands, scored
+  0 at Poor, 50 at Average and 100 at Good, in a straight line between and held to 0 to 100, and the
+  **Creative score** is the mean of the seven unrounded sub-scores, rounded to a whole number, none where
+  a measure cannot be read. **Top-10 turnover** is worked for each complete calendar quarter of the window
+  and shown only with 2 or more; it is never scored. A brain returns all of it; without one, work it in
+  code as `references/exports.md` sets out.
 - **Self-check**: predicted viable ads is the Current pipeline times W over 7. It passes when it is
   within 25% of today's viable ads (the difference over today's viable ads).
 
@@ -388,7 +410,11 @@ number in the working. The page shows every ad count as a whole ad, rounded up (
 
 **Done when** the run holds W, h, D, Spend per viable ad, the Spend bar (300 where 3 times the Spend per
 viable ad is under it), the Low-spend rate, Viable spend per hit, hits plus low-spend ads plus
-above-bar-never-viable ads equal to the Hit rate ads, the Healthy lifespan with its quartile
+above-bar-never-viable ads equal to the Hit rate ads, the seven measures of the Creative score each with its
+sub-score (0 to 100) and the Creative score equal to the mean of the seven rounded (none where a measure cannot
+be read, said which), the Outlier stats (the Outliers over the Launched ads equal to the Outlier rate, the line
+equal to the mean plus 1 standard deviation), Top-10 turnover for each complete quarter or absent with fewer than
+2, never in the mean, the Healthy lifespan with its quartile
 range, Days to clear Ramping, current spend, the Current pipeline, the weekly viable shares and the
 weeks counted (6 left out for warm-up, then the thin ones, the run stopped on its line where none
 is left), P90, the Viable share target (at most 100%), L
@@ -431,7 +457,7 @@ so a row can be one out.", and no chart), the Survival curve with its fitted axi
 10%, 20%, 25%, 50% and 100% at or above the curve's highest point, four gridlines at quarters of it),
 the figures (Hit rate, Low-spend rate, Spend bar, Viable lifespan, Days viable per hit, Spend per viable ad, Viable spend per hit, the Viable share
 with its target, each Lever best with the months or quarters it counted, CAC and spend share by group
-over 90 days, and the Self-check line), Terms, This run, `references/method.md` word for word, and
+over 90 days, the Creative score with its seven measures, the Outlier stats and Top-10 turnover, and the Self-check line), Terms, This run, `references/method.md` word for word, and
 the Brain line only on a run that page-layout gives one (the Source is not a Growth Brain and the
 session holds none). It names the Source and the CAC basis in the masthead and This run, and where
 W is a lower bound says so in the words `references/page-layout.md` gives. Save the page as
@@ -450,7 +476,7 @@ only, and none on On track; every figure on the Scorecard equals its step 4 figu
 rounded up; no glossary term shows on the Scorecard where page-layout gives it a Page label, and no
 definition does either; How it's worked out follows the order above, its Week-by-week plan's table
 and the Roadmap file holding the same weeks and the same video and image figures (or the total alone
-with no split); its figures name the number of months and quarters each Lever best counted and list the Hit rate, Low-spend rate, Spend bar and Viable spend per hit; This run
+with no split); its figures name the number of months and quarters each Lever best counted and list the Hit rate, Low-spend rate, Spend bar and Viable spend per hit, and give the Creative score with the value and sub-score of each of its seven measures, the Outlier stats, and Top-10 turnover for each complete quarter or not at all with fewer than 2; This run
 names today's date, the Limiting factor with its figures and the groups left out of On the table
 where there are any; a lower bound W is said on both tabs; the Self-check line is there, with its
 fail clause where the check failed; an unattended run says so in This run; and the Brain line,

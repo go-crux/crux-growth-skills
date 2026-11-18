@@ -355,6 +355,13 @@ plan_cut AS (
     0.80 AS on_track_share,
     1.20 AS volume_reach,
     90 AS table_days,
+    30 AS recent_days,
+    30 AS evergreen_age_days,
+    5 AS top_ads,
+    7 AS week_one_days,
+    1 AS outlier_sds,
+    10 AS turnover_ads,
+    2 AS turnover_min_quarters,
     [1.0, 1.5, 2.0] AS ladder_multiples
 ),
 -- The last 365 complete days, ending yesterday. `this_monday` starts the ISO week holding today.
@@ -554,7 +561,7 @@ video_plays AS (
   GROUP BY ad_key
 ),
 -- BEGIN model
--- Reads only ad_day_status, daily_win, ad_names, video_plays, win, first_day, today and plan_cut.
+-- Reads only ad_day_status, daily_win, spent, ad_names, video_plays, win, first_day, today and plan_cut.
 -- A Launched ad: its first day of spend falls after the window's first day. Age is the days since
 -- that day, so the first day is age 0.
 launched AS (
@@ -1039,6 +1046,237 @@ on_the_table AS (
        + COALESCE(SAFE_DIVIDE(t.spend_other * t.non_viable_scale, t.used_other), 0)) AS customers_target
   FROM table_2 AS t
 ),
+-- THE CREATIVE SCORE. Seven measures, each placed on fixed bands (stated once, in `creative_bands`, as
+-- references/method.md's table), and Top-10 turnover, which is shown and never scored. The last
+-- recent_days complete days end on today. All spend is outside the awareness and lead campaigns, through
+-- `keyed`.
+recent_30 AS (
+  SELECT DATE_SUB(t.day, INTERVAL (p.recent_days - 1) DAY) AS date_from, t.day AS date_to
+  FROM today AS t
+  CROSS JOIN plan_cut AS p
+),
+ad_first AS (
+  SELECT ad_key, MIN(day) AS first_spend
+  FROM spent
+  GROUP BY ad_key
+),
+-- Each ad's spend over the last recent_days days, and the part of it spent at an age of
+-- evergreen_age_days or more. An ad that is not Launched spent on the window's first day, so it is older
+-- than the window and aged on every day.
+recent_ads AS (
+  SELECT
+    d.ad_key,
+    SUM(d.spend) AS spend,
+    SUM(IF(l.ad_key IS NULL OR DATE_DIFF(d.day, f.first_spend, DAY) >= p.evergreen_age_days, d.spend, 0)) AS aged_spend
+  FROM spent AS d
+  JOIN ad_first AS f ON f.ad_key = d.ad_key
+  LEFT JOIN launched AS l ON l.ad_key = d.ad_key
+  CROSS JOIN recent_30 AS r
+  CROSS JOIN plan_cut AS p
+  WHERE d.day BETWEEN r.date_from AND r.date_to
+  GROUP BY d.ad_key
+),
+-- Evergreen share and Top-5 concentration.
+recent_shares AS (
+  SELECT
+    SAFE_DIVIDE(SUM(a.aged_spend), SUM(a.spend)) AS evergreen_share,
+    SAFE_DIVIDE(SUM(IF(a.rk <= p.top_ads, a.spend, 0)), SUM(a.spend)) AS top5_concentration
+  FROM (
+    SELECT ad_key, spend, aged_spend, ROW_NUMBER() OVER (ORDER BY spend DESC, ad_key) AS rk
+    FROM recent_ads
+  ) AS a
+  CROSS JOIN plan_cut AS p
+),
+-- Spend degradation: over the Hit rate's base, each ad's mean daily spend over ages week_one_days to
+-- hit_days - 1 over its mean over ages 0 to week_one_days - 1, less 1. A day with no spend is 0, which a
+-- sum over the spent days gives. The measure is the median across the ads.
+degradation_ads AS (
+  SELECT
+    h.ad_key,
+    SAFE_DIVIDE(
+      SUM(IF(DATE_DIFF(d.day, l.first_spend, DAY) >= p.week_one_days
+             AND DATE_DIFF(d.day, l.first_spend, DAY) < p.hit_days, d.spend, 0)) / (p.hit_days - p.week_one_days),
+      SUM(IF(DATE_DIFF(d.day, l.first_spend, DAY) < p.week_one_days, d.spend, 0)) / p.week_one_days
+    ) - 1 AS degradation
+  FROM hit_ads_28d AS h
+  JOIN launched AS l ON l.ad_key = h.ad_key
+  JOIN spent AS d ON d.ad_key = h.ad_key
+  CROSS JOIN plan_cut AS p
+  GROUP BY h.ad_key, p.hit_days, p.week_one_days
+),
+degradation_ranked AS (
+  SELECT degradation, ROW_NUMBER() OVER (ORDER BY degradation, ad_key) AS rn, COUNT(*) OVER () AS n
+  FROM degradation_ads
+),
+degradation AS (
+  SELECT AVG(degradation) AS spend_degradation
+  FROM degradation_ranked
+  WHERE rn IN (DIV(n + 1, 2), DIV(n + 2, 2))
+),
+-- Viable after week 1: of the hits that have reached age hit_days (their first spend is at least hit_days
+-- days before the last complete day), the share viable on their day at that age. A day with no spend has
+-- no row in ad_day_status, so it is not viable.
+week_one AS (
+  SELECT
+    COUNT(DISTINCT h.ad_key) AS week_one_hits,
+    COUNT(DISTINCT IF(s.status IN ('Healthy', 'Winner', 'Improving'), h.ad_key, NULL)) AS week_one_viable,
+    SAFE_DIVIDE(
+      COUNT(DISTINCT IF(s.status IN ('Healthy', 'Winner', 'Improving'), h.ad_key, NULL)),
+      COUNT(DISTINCT h.ad_key)
+    ) AS viable_after_week_1
+  FROM hit_ads AS h
+  JOIN launched AS l ON l.ad_key = h.ad_key
+  CROSS JOIN win AS w
+  CROSS JOIN plan_cut AS p
+  LEFT JOIN ad_day_status AS s
+    ON s.ad_key = h.ad_key AND s.day = DATE_ADD(l.first_spend, INTERVAL p.hit_days DAY)
+  WHERE h.is_hit AND l.first_spend <= DATE_SUB(w.date_to, INTERVAL p.hit_days DAY)
+),
+-- Outliers: every Launched ad's spend over the window, its mean plus outlier_sds population standard
+-- deviations as the line, and the Launched ads at or above it. `spent.life_spend` is the ad's cumulative
+-- spend over the window, so the first spent day at or above the line is the day it crossed.
+launched_spend AS (
+  SELECT l.ad_key, l.first_spend, SUM(d.spend) AS spend
+  FROM launched AS l
+  JOIN spent AS d ON d.ad_key = l.ad_key
+  GROUP BY l.ad_key, l.first_spend
+),
+spend_stats AS (
+  SELECT
+    COUNT(*) AS ads,
+    AVG(spend) AS mean_spend,
+    MAX(median_spend) AS median_spend,
+    STDDEV_POP(spend) AS sd_spend,
+    MAX(spend) AS max_spend,
+    SUM(spend) AS total_spend
+  FROM (SELECT spend, PERCENTILE_CONT(spend, 0.5) OVER () AS median_spend FROM launched_spend)
+),
+spend_line AS (
+  SELECT s.*, s.mean_spend + p.outlier_sds * s.sd_spend AS outlier_line
+  FROM spend_stats AS s
+  CROSS JOIN plan_cut AS p
+),
+outliers AS (
+  SELECT ls.ad_key, ls.first_spend, ls.spend
+  FROM launched_spend AS ls
+  CROSS JOIN spend_line AS s
+  WHERE ls.spend >= s.outlier_line
+),
+outlier_days AS (
+  SELECT o.ad_key, MIN(DATE_DIFF(d.day, o.first_spend, DAY)) AS days_to_line
+  FROM outliers AS o
+  JOIN spent AS d ON d.ad_key = o.ad_key
+  CROSS JOIN spend_line AS s
+  WHERE d.life_spend >= s.outlier_line
+  GROUP BY o.ad_key
+),
+outlier_days_ranked AS (
+  SELECT days_to_line, ROW_NUMBER() OVER (ORDER BY days_to_line, ad_key) AS rn, COUNT(*) OVER () AS n
+  FROM outlier_days
+),
+outlier_stats AS (
+  SELECT
+    (SELECT COUNT(*) FROM outliers) AS outliers,
+    (SELECT COALESCE(SUM(spend), 0) FROM outliers) AS outlier_spend,
+    MAX(IF(rn = DIV(n + 3, 4), days_to_line, NULL)) AS days_to_line_p25,
+    AVG(IF(rn IN (DIV(n + 1, 2), DIV(n + 2, 2)), days_to_line, NULL)) AS days_to_line_median,
+    MAX(IF(rn = DIV(3 * n + 3, 4), days_to_line, NULL)) AS days_to_line_p75
+  FROM outlier_days_ranked
+),
+-- Top-10 turnover, for each complete calendar quarter of the window: of its turnover_ads highest-spending
+-- ads, those whose first spend fell in it (Launched ads only), with their spend over the quarter's spend.
+-- Shown only with turnover_min_quarters or more, and never scored.
+quarter_ads AS (
+  SELECT
+    DATE_TRUNC(d.day, QUARTER) AS quarter_start,
+    d.ad_key,
+    SUM(d.spend) AS spend
+  FROM spent AS d
+  GROUP BY quarter_start, d.ad_key
+),
+quarter_top AS (
+  SELECT
+    q.quarter_start, q.ad_key, q.spend,
+    ROW_NUMBER() OVER (PARTITION BY q.quarter_start ORDER BY q.spend DESC, q.ad_key) AS rk,
+    SUM(q.spend) OVER (PARTITION BY q.quarter_start) AS quarter_spend
+  FROM quarter_ads AS q
+  CROSS JOIN first_day AS f
+  CROSS JOIN win AS w
+  WHERE q.quarter_start >= f.day AND LAST_DAY(q.quarter_start, QUARTER) <= w.date_to
+),
+quarter_turnover AS (
+  SELECT
+    t.quarter_start,
+    COUNT(*) AS top_ads,
+    COUNTIF(t.is_new) AS new_ads,
+    SAFE_DIVIDE(SUM(IF(t.is_new, t.spend, 0)), ANY_VALUE(t.quarter_spend)) AS new_spend_share
+  FROM (
+    SELECT
+      k.quarter_start, k.spend, k.quarter_spend,
+      l.ad_key IS NOT NULL AND DATE_TRUNC(l.first_spend, QUARTER) = k.quarter_start AS is_new
+    FROM quarter_top AS k
+    LEFT JOIN launched AS l ON l.ad_key = k.ad_key
+    CROSS JOIN plan_cut AS p
+    WHERE k.rk <= p.turnover_ads
+  ) AS t
+  GROUP BY t.quarter_start
+),
+top10_turnover AS (
+  SELECT
+    COUNT(*) AS complete_quarters,
+    ARRAY_AGG(STRUCT(q.quarter_start, q.new_ads, q.top_ads, q.new_spend_share) ORDER BY q.quarter_start) AS quarters
+  FROM quarter_turnover AS q
+),
+-- The fixed bands, stated once: Poor, Average and Good, the same for every account (references/method.md).
+creative_bands AS (
+  SELECT b.*
+  FROM UNNEST([
+    STRUCT(1 AS ord, 'evergreen_share' AS measure, 0.10 AS poor, 0.30 AS average, 0.50 AS good),
+    STRUCT(2, 'spend_degradation', -0.80, -0.55, -0.30),
+    STRUCT(3, 'viable_after_week_1', 0.10, 0.25, 0.45),
+    STRUCT(4, 'top5_concentration', 0.70, 0.45, 0.20),
+    STRUCT(5, 'outlier_rate', 0.01, 0.03, 0.06),
+    STRUCT(6, 'hit_rate', 0.03, 0.08, 0.15),
+    STRUCT(7, 'low_spend_rate', 0.95, 0.85, 0.70)
+  ]) AS b
+),
+creative_values AS (
+  SELECT v.measure, v.value
+  FROM recent_shares AS rs
+  CROSS JOIN degradation AS dg
+  CROSS JOIN week_one AS wo
+  CROSS JOIN outlier_stats AS os
+  CROSS JOIN spend_line AS sl
+  CROSS JOIN hit_rate AS hr
+  CROSS JOIN UNNEST([
+    STRUCT('evergreen_share' AS measure, rs.evergreen_share AS value),
+    STRUCT('spend_degradation', dg.spend_degradation),
+    STRUCT('viable_after_week_1', wo.viable_after_week_1),
+    STRUCT('top5_concentration', rs.top5_concentration),
+    STRUCT('outlier_rate', SAFE_DIVIDE(os.outliers, sl.ads)),
+    STRUCT('hit_rate', hr.hit_rate),
+    STRUCT('low_spend_rate', hr.low_spend_rate)
+  ]) AS v
+),
+-- The scorer: 0 at Poor, 50 at Average, 100 at Good, straight between, held to 0..100, whichever way the
+-- anchors run. A measure that could not be worked has no sub-score, and then there is no score.
+creative_sub_scores AS (
+  SELECT
+    b.ord, b.measure, v.value,
+    LEAST(100, GREATEST(0, IF(
+      SAFE_DIVIDE(v.value - b.average, b.good - b.average) >= 0,
+      50 + 50 * SAFE_DIVIDE(v.value - b.average, b.good - b.average),
+      50 * SAFE_DIVIDE(v.value - b.poor, b.average - b.poor)
+    ))) AS sub_score
+  FROM creative_bands AS b
+  JOIN creative_values AS v ON v.measure = b.measure
+),
+creative_score AS (
+  SELECT
+    IF(COUNT(sub_score) = COUNT(*), ROUND(ROUND(AVG(sub_score), 9)), NULL) AS creative_score,
+    ARRAY_AGG(STRUCT(measure, value, sub_score) ORDER BY ord) AS sub_scores
+  FROM creative_sub_scores
+),
 -- The block fenced below as shared format is, byte for byte, in references/intake.sql, which gives
 -- the intake the Format split default before this file runs. The two change together.
 -- BEGIN shared format
@@ -1184,7 +1422,33 @@ SELECT
     SELECT AS STRUCT c.age, c.reached, c.viable, c.survival, c.viable_spend
     FROM curve AS c
     ORDER BY c.age
-  ) AS survival_table
+  ) AS survival_table,
+  crs.creative_score,
+  crs.sub_scores AS creative_sub_scores,
+  rs.evergreen_share,
+  dg.spend_degradation,
+  wo.viable_after_week_1,
+  wo.week_one_hits,
+  wo.week_one_viable,
+  rs.top5_concentration,
+  SAFE_DIVIDE(os.outliers, sl.ads) AS outlier_rate,
+  os.outliers,
+  SAFE_DIVIDE(os.outlier_spend, sl.total_spend) AS outlier_spend_share,
+  sl.mean_spend AS launched_spend_mean,
+  sl.median_spend AS launched_spend_median,
+  sl.sd_spend AS launched_spend_sd,
+  sl.outlier_line,
+  sl.max_spend AS launched_spend_max,
+  os.days_to_line_p25,
+  os.days_to_line_median,
+  os.days_to_line_p75,
+  tt.complete_quarters,
+  ARRAY(
+    SELECT AS STRUCT q.quarter_start, q.new_ads, q.top_ads, q.new_spend_share
+    FROM UNNEST(tt.quarters) AS q
+    WHERE tt.complete_quarters >= lp.turnover_min_quarters
+    ORDER BY q.quarter_start
+  ) AS top10_turnover
 FROM win AS w
 CROSS JOIN today AS td
 CROSS JOIN first_day AS f
@@ -1202,3 +1466,10 @@ CROSS JOIN dvph_best AS db
 CROSS JOIN scorecard AS sc
 CROSS JOIN on_the_table AS ot
 CROSS JOIN plan_cut AS lp
+CROSS JOIN creative_score AS crs
+CROSS JOIN recent_shares AS rs
+CROSS JOIN degradation AS dg
+CROSS JOIN week_one AS wo
+CROSS JOIN spend_line AS sl
+CROSS JOIN outlier_stats AS os
+CROSS JOIN top10_turnover AS tt
