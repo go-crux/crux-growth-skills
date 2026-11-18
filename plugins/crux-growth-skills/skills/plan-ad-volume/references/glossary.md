@@ -62,7 +62,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Self-check**: the test of the Survival curve against the account on every run: Current pipeline times Viable lifespan over 7 predicts today's viable ads, and it passes within 25% of them. A fail is said on How it's worked out and does not stop the run. _Avoid_: validation, sanity check.
 
-- **Ad stock check**: today's viable ads against the Viable ad stock at current spend. **Short**: below 80% of it. **Ahead**: above 150% of it. **About right**: between. Shown under Work backwards from spend, with the gap as a count of ads. _Avoid_: health check, ad audit, over-stocked.
+- **Ad stock check**: today's viable ads against the Viable ad stock at current spend. **Short**: below 80% of it. **Ahead**: above 150% of it. **About right**: between. Shown under Work backwards from spend as a sentence, "You have <S> ads working today; your spend needs <⌈L⌉> working at once.", with the gap as a count of ads. _Avoid_: health check, ad audit, over-stocked.
 
 - **Lever**: one of the three things today's viable ads come from, which multiply: Current pipeline (launches a month), Hit rate (finding winners) and Days viable per hit (keeping winners). Closing a gap by any one alone takes the same multiple, so the gap's size never says which lever is short. _Avoid_: driver, factor.
 
@@ -114,7 +114,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 ## The page
 
-- **Creative deep dive**: the page's first tab, the one it opens on, Crux-branded and laid out like CTC's creative report: the Creative score, Spending power (monthly spend against CAC, last 3 months against the 3 before), the Outlier engine, Creative rotation (Top-10 turnover), Ads that work (Hit rate, Low-spend rate, Viable spend per hit), and Work backwards from spend (a spend slider over the Steady-state number, Expected outliers a month, the Limiting factor and the Roadmap). Labels only, no definitions; Spending power, the Outlier engine and Creative rotation each open with two fixed sentences on why the section is there and how to read it. _Avoid_: Scorecard, dashboard tab, summary.
+- **Creative deep dive**: the page's first tab, the one it opens on, Crux-branded and laid out like CTC's creative report: the Creative score, Spending power (monthly spend against CAC, last 3 months against the 3 before), the Outlier engine, Creative rotation (Top-10 turnover), Ads that work (Hit rate, Low-spend rate, Viable spend per hit), and Work backwards from spend (the Steady-state number against the Current pipeline with a verdict line, the Limiting factor, a spend slider over the Steady-state number, Expected outliers a month, the Ad stock check in plain words and the Roadmap). Labels only, no definitions; Spending power, the Outlier engine and Creative rotation each open with two fixed sentences on why the section is there and how to read it. _Avoid_: Scorecard, dashboard tab, summary.
 
 - **How it's worked out**: the page's second tab: the Month-by-month plan table, the Survival curve, the figures behind the Creative deep dive, Terms, This run, the method word for word, and the Brain line where the run has one. _Avoid_: Notes and Method, appendix.
 
