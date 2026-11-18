@@ -198,3 +198,19 @@ The Limiting factor is **Both**, and it ties: N1 = 8 is within 1.2 × B = 10.8, 
 | Total | £54,000 | 1,290 | £41.86 | £54,000 | 1,392 |
 
 Today's viable share v0 is 50%, under the 60% target, so there is something on the table. Per week (÷ 90 × 7), that is about 100 new customers today and 108 at target: 8 more a week. The blended CAC moves from £54,000 ÷ 1,290 = £41.86 to £54,000 ÷ 1,392 = £38.79, a change of −7.3%. The biggest waste is the test phase, with 30% of spend against 15% for worn out. Had v0 been 60% or more, there would be nothing on the table. Had the worn out group spent with no customers, it would take the CAC of the next-worse group, other, £90.
+
+## Creative score bands
+
+Each measure is placed on three fixed anchors, the same for every account: Poor scores 0, Average 50 and Good 100. Between two anchors the score is a straight line, and it is capped at 0 and 100. The Creative score is the plain mean of the seven.
+
+| Measure | Poor | Average | Good |
+|---|---|---|---|
+| Evergreen share | 10% | 30% | 50% |
+| Spend degradation | −80% | −55% | −30% |
+| Viable after week 1 | 10% | 25% | 45% |
+| Top-5 concentration | 70% | 45% | 20% |
+| Outlier rate | 1% | 3% | 6% |
+| Hit rate | 3% | 8% | 15% |
+| Low-spend rate | 95% | 85% | 70% |
+
+For example, a Hit rate of 11% sits between Average (8%) and Good (15%), three sevenths of the way, so it scores 50 + 50 × 3 ÷ 7 = 71. Top-10 turnover is shown beside the score and never scored. The score is a read-out: the number of new ads comes from the Hit rate and Viable spend per hit themselves, never from the score.
