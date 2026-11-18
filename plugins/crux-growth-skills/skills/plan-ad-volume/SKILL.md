@@ -465,7 +465,7 @@ Write the page as `references/page-layout.md` fixes it, in the Crux brand of `re
 two tabs switched by CSS alone, opening on the Creative deep dive, with one inline script for the
 slider and Google Fonts as its only network request. The Creative deep dive holds the masthead, then six
 sections in the Page labels, labels only and an action line for most: the Creative score (the score
-out of 100, seven Poor-to-Good bars, and Top-10 turnover beside it), Spending power (monthly spend
+out of 100, seven colour-coded Poor-to-Good bars, the Weakest point, and Top-10 turnover beside it), Spending power (monthly spend
 against CAC, and the last 3 months against the 3 before), the Outlier engine, Creative rotation (Top-10
 turnover by quarter, left out with fewer than 2 quarters), Ads that work, and Work backwards from spend:
 the slider over monthly spend with the formula and the account's numbers, Expected outliers a month with

@@ -36,6 +36,8 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Creative score**: the account's creative health out of 100: the plain mean of seven sub-scores (Evergreen share, Spend degradation, Viable after week 1, Top-5 concentration, Outlier rate, Hit rate, Low-spend rate), each placed on the fixed published bands in `references/method.md`: Poor 0, Average 50, Good 100, straight between and capped, the mean rounded to a whole number. A read-out of the plan's own measures plus health checks; it never multiplies the plan. _Avoid_: creative grade, quality score, benchmark rank.
 
+- **Weakest point**: the one line under the Creative score naming the measure with the lowest sub-score (the first in bar order on a tie; never Top-10 turnover), its value against its Good anchor, and one fixed sentence on what to do. _Avoid_: biggest problem, worst metric.
+
 - **Evergreen ad**: an ad aged 30 days or more that is still spending, age counted from its first spend (an ad live on the window's first day is older than the window). Not the same as viable: an old ad can spend without working. _Avoid_: long-runner, winner.
 
 - **Evergreen share**: the share of the last 30 complete days' spend on ads that were Evergreen ads that day, every ad counted, not only Launched ads. _Avoid_: evergreen percentage, ad age mix.

@@ -265,11 +265,11 @@ Sorted, the five read −77.8%, −50.0%, −48.1%, −33.3% and 0.0%, so the me
 
 **Hit rate and Low-spend rate.** 0.40 and 0.20, from the six ads above.
 
-**From the longer history.** Over its last 30 days Fern & Co spent £18,000. £4,500 sat on ads aged 30 days or more, so the Evergreen share is 25%. The 5 ads that spent most took £7,200, so the Top-5 concentration is 40%. Of the 20 hits that have reached age 28 (ads A to E have not, as their last day is age 27), 5 were viable on their day at age 28, so Viable after week 1 is 25%.
+**From the longer history.** Over its last 30 days Fern & Co spent £18,000. £2,700 sat on ads aged 30 days or more, so the Evergreen share is 15%. The 5 ads that spent most took £7,200, so the Top-5 concentration is 40%. Of the 20 hits that have reached age 28 (ads A to E have not, as their last day is age 27), 5 were viable on their day at age 28, so Viable after week 1 is 25%.
 
 | Measure | Value | Poor | Average | Good | Sub-score |
 |---|---|---|---|---|---|
-| Evergreen share | 25.0% | 10% | 30% | 50% | between Poor and Average: 50 × (25 − 10) ÷ (30 − 10) = 37.5 |
+| Evergreen share | 15.0% | 10% | 30% | 50% | between Poor and Average: 50 × (15 − 10) ÷ (30 − 10) = 12.5 |
 | Spend degradation | −48.1% | −80% | −55% | −30% | between Average and Good: 50 + 50 × (−48.06 + 55) ÷ 25 = 63.9 |
 | Viable after week 1 | 25.0% | 10% | 25% | 45% | on Average: 50 |
 | Top-5 concentration | 40.0% | 70% | 45% | 20% | lower is better, between Average and Good: 50 + 50 × (45 − 40) ÷ (45 − 20) = 60 |
@@ -277,9 +277,11 @@ Sorted, the five read −77.8%, −50.0%, −48.1%, −33.3% and 0.0%, so the me
 | Hit rate | 40.0% | 3% | 8% | 15% | beyond Good, capped: 100 |
 | Low-spend rate | 20.0% | 95% | 85% | 70% | beyond Good, capped: 100 |
 
-The sub-scores add to 37.5 + 63.9 + 50 + 60 + 100 + 100 + 100 = 511.4 (511.38 unrounded), and 511.38 ÷ 7 = 73.05, so the Creative score is 73.
+The sub-scores add to 12.5 + 63.9 + 50 + 60 + 100 + 100 + 100 = 486.4 (486.38 unrounded), and 486.38 ÷ 7 = 69.48, so the Creative score is 69.
 
-**Top-10 turnover.** Fern & Co's 180-day window holds at most 1 complete quarter, so Top-10 turnover is not shown. Had a Growth Brain given a year holding the complete quarters Q2 and Q3, the page would read, for Q2, 3 of its 10 top-spending ads first spent in Q2 and took 15% of the quarter's spend, and for Q3, 5 of 10, 28%. Neither figure enters the mean: the score stays 73.
+The bars' colours, from the unrounded sub-scores: Evergreen share (12.5) is red; Spend degradation (63.9), Viable after week 1 (50) and Top-5 concentration (60) are amber; Outlier rate, Hit rate and Low-spend rate (100 each) are green. The lowest sub-score is Evergreen share's, so the page reads "Weakest point: Evergreen share, 15.0% against 50.0% for Good. Too little of your spend sits on ads that have lasted, so let your winners keep spending: pause only ads that have stopped working (run `/audit-ads` to see which)."
+
+**Top-10 turnover.** Fern & Co's 180-day window holds at most 1 complete quarter, so Top-10 turnover is not shown. Had a Growth Brain given a year holding the complete quarters Q2 and Q3, the page would read, for Q2, 3 of its 10 top-spending ads first spent in Q2 and took 15% of the quarter's spend, and for Q3, 5 of 10, 28%. Neither figure enters the mean: the score stays 69.
 
 ## Spending power, worked
 

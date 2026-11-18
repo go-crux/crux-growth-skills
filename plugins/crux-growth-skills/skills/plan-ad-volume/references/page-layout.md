@@ -58,6 +58,7 @@ reader can match the two. A row with no Says is a heading or a chart title and n
 | Outlier | Outlier | a new ad that has spent at least the line: the average spend of your new ads plus one standard deviation |
 | Outlier rate | Outlier rate | the share of your new ads that are Outliers |
 | Outlier rate | Outliers' share of spend | the share of your new ads' total spend that sits on Outliers |
+| Weakest point | Weakest point | the measure with the lowest sub-score, its value against Good, and what to do about it |
 | Top-10 turnover | Top-10 turnover | how many of a quarter's 10 biggest-spending ads first spent in that quarter; shown beside the score and never part of it |
 | Expected outliers a month | Expected outliers a month | the new ads a month times your Outlier rate |
 | Hit rate | Ads that work | the share of your new ads that spent the Spend bar or more in their first 28 days and became working ads |
@@ -120,9 +121,12 @@ the left to Good at the right (a measure where less is better, Top-5 concentrati
 runs its anchors the other way, so Good is still at the right):
 
 - the filled length is the measure's sub-score, 0 at Poor to 100 at Good, with a tick at Average (50);
+- its colour is set by the unrounded sub-score: `--score-low` under 35, `--score-mid` from 35 to 65
+  inclusive, `--score-high` over 65 (the tokens of `references/crux-brand.md`), so a founder sees at a
+  glance which measures are weak;
 - its value, in the format above, sits at the end of the track;
 - "Poor" sits at the left end and "Good" at the right, on the first bar only, so the words are not
-  repeated six times; the bar does not depend on colour, because its length and its value carry it.
+  repeated six times; the colour is extra, and the bar's length and printed value carry the reading.
 
 Give the seven bars one title and a text alternative that read the measures and the score aloud.
 
@@ -130,20 +134,27 @@ Give the seven bars one title and a text alternative that read the measures and 
 part of it": the latest complete quarter's "<n> of 10" ("3 of your top 10 ads are new this quarter"),
 under the quarter's name. With fewer than 2 complete quarters it is left out.
 
-**The action line** names the measure with the lowest sub-score (the first in the order above on a
-tie) with its value, then one action:
+**The Weakest point** is one line under the score, in these words: "Weakest point: <measure>, <value>
+against <Good> for Good. <sentence>". The measure is the one with the lowest sub-score (the first in the
+order above on a tie), chosen from the measures that could be read where the score reads "Not scored";
+Top-10 turnover is never chosen, as it is not scored. The value is as its bar prints it and <Good> is that
+measure's Good anchor, in the same format. The sentence is the one fixed below, so every run says the same
+thing:
 
-| Weakest measure | Action |
+| Weakest measure | Sentence |
 |---|---|
-| Evergreen share | "Let your winners keep spending: pause only ads that have stopped working (run `/audit-ads` to see which)." |
-| Spend degradation | "Launch variants of the ads that hold their spend, so new ads keep their budget past the first week." |
-| Working after week 1 | "Make new versions of an ad that works, with a fresh angle on the same idea, so winners last past launch." |
-| Top-5 concentration | "Launch more ads that can take spend, so five ads are not carrying the account." |
-| Outlier rate | "Launch more ads, and more different ones: Outliers come from volume and range." |
-| Ads that work | "Brief fewer, stronger ads, built on what already works." |
-| Ads that never got budget | "Launch fewer ads at once, so each gets budget." |
+| Evergreen share | "Too little of your spend sits on ads that have lasted, so let your winners keep spending: pause only ads that have stopped working (run `/audit-ads` to see which)." |
+| Spend degradation | "New ads lose their budget after the first week, so launch variants of the ads that hold their spend." |
+| Working after week 1 | "Ads that work early are not still working at 28 days, so make new versions of an ad that works, with a fresh angle on the same idea." |
+| Top-5 concentration | "Five ads carry too much of your spend, so launch more ads that can take spend." |
+| Outlier rate | "Too few new ads become big spenders, so launch more ads, and more different ones: Outliers come from volume and range." |
+| Ads that work | "Too few new ads work, so brief fewer, stronger ads, built on what already works." |
+| Ads that never got budget | "Most new ads never get spend, so test fewer concepts per batch and give each a few days at a fair budget." |
 
-With the score not shown, the action line is left out.
+For example, "Weakest point: Ads that never got budget, 88.0% against 70.0% for Good. Most new ads never
+get spend, so test fewer concepts per batch and give each a few days at a fair budget." Where the lowest
+sub-score is 100, every measure is at Good or better and the line reads "Weakest point: none, every
+measure is at Good or better." With no measure readable it is left out.
 
 ## 2. Spending power
 
