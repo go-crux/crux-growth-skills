@@ -45,8 +45,11 @@ title and needs no gloss.
 | Ahead | Ahead | more working ads than your spend needs |
 | Worn out now | Worn out | ads old enough to be judged whose CAC has slipped; they take spend but do not count |
 | Wearing out | Expected to wear out | working ads likely to stop working in that time |
-| Hit rate | Hit rate | the share of your new ads that become working ads |
+| Hit rate | Hit rate | the share of your new ads that spent the Spend bar or more in their first 28 days and became working ads |
+| Spend bar | Spend bar | the spend a new ad needs in its first 28 days to count as working: the larger of 300 and 3 days of what one working ad spends |
+| Low-spend rate | Ads that never got budget | the share of your new ads that spent less than the Spend bar in their first 28 days |
 | Days viable per hit | Days a winner works | how long a new ad that works stays working, on average |
+| Viable spend per hit | Spend a winner carries | the spend one new ad that works carries over its working life |
 | Days to clear Ramping | Days in the test phase | the days a new ad needs before it can be judged |
 | Survival curve | Share of your launched ads still working, by age | of the ads you launched, the share still working at each age |
 | Launched ad | New ads read | ads first launched inside the window, the ones the curve rests on |
@@ -278,6 +281,11 @@ The figures behind the Scorecard, one line each, in this order and in the format
 3. **Days viable per hit**: the days to one decimal, with "at least" where the Viable lifespan is a
    lower bound.
 4. **Spend per viable ad**: to two decimals, a day.
+   After it, three lines in the same formats: **Spend bar**, the amount in the account's currency (with
+   "the 300 floor" where 3 times the Spend per viable ad is under it); **Low-spend rate**, as a
+   percentage, with the hits, low-spend ads and ads at or above the bar that never worked beside it,
+   which add up to the Hit rate ads; **Viable spend per hit**, in the account's currency, rounded to
+   whole units.
 5. **Viable share and its target**, in these words with the figures filled in: "Viable share: your
    best weeks (the 90th percentile of <n> weeks counted) put <P90>% of spend on viable ads, so the
    target is <target>% (<P90>% times 1.2, never above 100%). <m> weeks were left out: the first 6 for
