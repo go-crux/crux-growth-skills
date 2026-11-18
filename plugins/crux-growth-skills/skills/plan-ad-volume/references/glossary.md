@@ -78,7 +78,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Budget**: the monthly Meta spend the user wants to reach outside the Awareness and Lead campaigns, and the month to reach it by (the Budget month); without one, 3 months from now. It may be below current spend. _Avoid_: target, goal.
 
-- **Steady-state number**: new ads a month to hold a level of spend: monthly spend times the Viable share target over the Hit rate times the Viable spend per hit, which is Viable ad stock times the month's days over the Viable lifespan. _Avoid_: run rate, replacement rate.
+- **Steady-state number**: new ads a month to hold a level of spend: monthly spend times the Viable share target over the Hit rate times the Viable spend per hit, which is Viable ad stock times the month's days over the Viable lifespan. Written once as `ads_for_spend(monthly_spend)` in `method.md`, which the Roadmap and the page slider share. _Avoid_: run rate, replacement rate.
 
 - **Roadmap**: one row per calendar month from next month to the Budget month (3 months held at current spend without a Budget): that month's spend, Viable ad stock, Wearing out, Ads to launch (by format), Expected to work and the Live-by date. _Avoid_: plan, schedule, forecast, weekly plan.
 
