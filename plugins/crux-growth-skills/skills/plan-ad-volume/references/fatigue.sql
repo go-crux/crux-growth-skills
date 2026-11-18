@@ -1207,7 +1207,7 @@ quarter_top AS (
 quarter_turnover AS (
   SELECT
     t.quarter_start,
-    COUNT(*) AS top_ads,
+    COUNT(*) AS top_ads_counted,
     COUNTIF(t.is_new) AS new_ads,
     SAFE_DIVIDE(SUM(IF(t.is_new, t.spend, 0)), ANY_VALUE(t.quarter_spend)) AS new_spend_share
   FROM (
@@ -1224,7 +1224,7 @@ quarter_turnover AS (
 top10_turnover AS (
   SELECT
     COUNT(*) AS complete_quarters,
-    ARRAY_AGG(STRUCT(q.quarter_start, q.new_ads, q.top_ads, q.new_spend_share) ORDER BY q.quarter_start) AS quarters
+    ARRAY_AGG(STRUCT(q.quarter_start, q.new_ads, q.top_ads_counted, q.new_spend_share) ORDER BY q.quarter_start) AS quarters
   FROM quarter_turnover AS q
 ),
 -- The fixed bands, stated once: Poor, Average and Good, the same for every account (references/method.md).
@@ -1444,7 +1444,7 @@ SELECT
   os.days_to_line_p75,
   tt.complete_quarters,
   ARRAY(
-    SELECT AS STRUCT q.quarter_start, q.new_ads, q.top_ads, q.new_spend_share
+    SELECT AS STRUCT q.quarter_start, q.new_ads, q.top_ads_counted, q.new_spend_share
     FROM UNNEST(tt.quarters) AS q
     WHERE tt.complete_quarters >= lp.turnover_min_quarters
     ORDER BY q.quarter_start
