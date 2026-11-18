@@ -6,10 +6,11 @@ description: Meta ad volume forecast. Use when the user asks how many new Meta a
 # Meta ad volume forecast
 
 Work out how many new Meta ads a month the account's spend needs, from the account's own Survival
-curve and Hit rate, and produce `meta-ad-volume-<date>.html`: a page that opens on a Scorecard a
-founder reads in seconds, three answer cards (whether the account has enough working ads, what is
-holding it back, what is on the table) and three charted panels behind them, with the month-by-month
-plan, the curve, the figures and the method on a second tab, How it's worked out. It is laid out as
+curve and Hit rate, and produce `meta-ad-volume-<date>.html`: a Crux-branded page that opens on the
+Creative deep dive, laid out like the creative report founders already know: the Creative score,
+Spending power, the Outlier engine, Creative rotation, Ads that work, and Work backwards from spend,
+a slider that answers how many ads a spend needs next month, with the month-by-month plan, the curve,
+the figures and the method on a second tab, How it's worked out. It is laid out as
 `references/page-layout.md` fixes it. Then offer the Roadmap as `meta-ad-roadmap-<date>.md` for the
 creative brief and say when to run it again, monthly. Run the steps in order. The user sees only the chat and the
 page, never this skill or its references: say what the ads showed, in plain words with the figures,
@@ -17,12 +18,12 @@ and never cite a file, a rule or a query. The terms
 Viable ad, Viable share, Viable share target, Viable ad stock, Launched ad, Survival curve, Viable lifespan, Hit rate, Spend bar, Low-spend rate, Days viable per
 hit, Viable spend per hit, Healthy lifespan, Spend per viable ad, Days to clear Ramping, Self-check, Ad stock check, Lever, Lever best,
 Limiting factor, On the table, Worn out now, Wearing out, Current pipeline, Steady-state number, Budget,
-Roadmap, Catch-up, Ads to launch, Expected to work, Live-by, Budget ladder, Format, Name coverage, Format split,
-Roadmap file, Awareness campaign, Lead campaign, Unattended run, Source, Brain line, Scorecard, How it's worked out,
+Roadmap, Catch-up, Ads to launch, Expected to work, Live-by, Format, Name coverage, Format split,
+Roadmap file, Awareness campaign, Lead campaign, Unattended run, Source, Brain line, Creative deep dive, How it's worked out,
 Creative score, Evergreen share, Spend degradation, Viable after week 1, Top-5 concentration, Outlier, Outlier rate,
-Top-10 turnover and Page label are those of
+Top-10 turnover, Expected outliers a month and Page label are those of
 `references/glossary.md`, and Next run is the repo's shared term; use them as written here and on
-How it's worked out. The Scorecard, the Roadmap file and the chat's close speak to the user in the Page labels
+How it's worked out. The Creative deep dive, the Roadmap file and the chat's close speak to the user in the Page labels
 `references/page-layout.md` gives each term instead. The ad
 statuses and CAC are judged exactly as `references/fatigue.sql` judges them.
 
@@ -35,8 +36,8 @@ none plainly the brand's, no export attached) does it stop with one line saying 
 Its defaults, every one of them:
 
 - Step 3 sends no message and takes the proposed retargeting, awareness and lead campaigns as confirmed.
-- It plans current spend held flat for 3 months: no Budget is asked for or used, so the Budget ladder
-  shows its three rungs at current spend, 1.5 times and 2 times it.
+- It plans current spend held flat for 3 months: no Budget is asked for or used, so Work backwards
+  from spend marks current spend alone and its no-JavaScript answer reads "No Budget given".
 - It uses no Format split, so the Roadmap shows new ads as a total.
 - The page's How it's worked out says the run was unattended, in the words `references/page-layout.md`
   gives.
@@ -210,12 +211,12 @@ figures (`creative_score` with `creative_sub_scores`; `evergreen_share`; `spend_
 `viable_after_week_1` with `week_one_hits` and `week_one_viable`; `top5_concentration`; `outlier_rate` with
 `outliers` and `outlier_spend_share`; the spend per Launched ad, `launched_spend_mean`, `_median`, `_sd`,
 `outlier_line` and `launched_spend_max`; `days_to_line_p25`, `_median` and `_p75`; and `top10_turnover`, a row
-for each complete quarter, empty with fewer than 2 `complete_quarters`), the Scorecard
-figures (`launches_best`; `hit_rate_best` with `hit_rate_months`; `days_viable_per_hit_best` with
+for each complete quarter, empty with fewer than 2 `complete_quarters`), the Spending power figures
+(`spending_power`, a row of spend, new orders and CAC for each complete month, with
+`spending_power_months`, `spending_power_spend_change` and `spending_power_cac_change`, the last two
+null with fewer than 6 months), the Lever figures (`launches_best`; `hit_rate_best` with `hit_rate_months`; `days_viable_per_hit_best` with
 `dvph_quarters`; `limiting_factor` with `launches_at_best_hit_rate` (N1), `hit_rate_needed`,
-`days_viable_per_hit_needed` and their `_beyond_best` flags; the `budget_ladder` table, one row for each of
-current spend, 1.5 times and 2 times it, with `multiple`, `monthly_spend`, `daily_spend`, `viable_ad_stock`,
-`steady_state_number` and `steady_state_over_pipeline`; and On the table: the `share_`, `customers_` and
+`days_viable_per_hit_needed` and their `_beyond_best` flags; and On the table: the `share_`, `customers_` and
 `cac_` figures for `viable`, `test_phase`, `worn_out` and `other`, `groups_without_customers`,
 `nothing_on_the_table`, `customers_week`, `customers_week_at_target`, `customers_week_gain`,
 `blended_cac`, `blended_cac_at_target`, `blended_cac_change` and `biggest_waste`). Type
@@ -367,13 +368,19 @@ number in the working. The page shows every ad count as a whole ad, rounded up (
 - **Launches to keep up(k)** is Wearing out(k) over h, rounded up. **Launches to catch up(k)** is Ads
   to launch(k) less that, which is below 0 in a month where the stock runs down on its own. The
   **total catch-up launches** is their sum over months 1 to n, worked only where Gap0 is above 0.
-- **Budget ladder.** The rungs are current spend, 1.5 times and 2 times current spend, and the Budget
-  (a monthly spend) where the user gave one that differs from those three. For each rung: L at that
-  spend (a daily figure over the last complete month's days, with the same Viable share target and
-  Spend per viable ad), N0 at that spend (`ads_for_spend` of the rung's monthly spend), and N0 over
-  the Current pipeline to one decimal. A brain returns the three fixed
-  rungs in `budget_ladder`; the Budget rung, and every rung without a brain, is worked in code from
-  those formulas.
+- **Work backwards from spend.** The page's slider runs `ads_for_spend` over monthly spend, from half
+  current spend to 3 times it (wider where the Budget lies outside that). Its figures are baked into the
+  page: current spend, the Budget (null with none), the Viable share target, the Hit rate, the Viable
+  spend per hit and the Outlier rate, each unrounded. **Expected outliers a month** is the new ads
+  (`ads_for_spend` of the spend) times the Outlier rate; the chance of finding k Outliers in those ads is
+  the binomial of `references/method.md` step 16, with the new ads as the trials and the Outlier rate as
+  the chance, shown for k = 0 to 4 and 5 or more, adjusted so the six add to 100.0%. `ads_for_spend`
+  of the Budget is worked in code with the same function, as is every spend the slider runs.
+- **Spending power.** For each complete calendar month of the window, the spend, the new orders
+  (purchases without a Growth Brain) and the CAC, outside the awareness and lead campaigns: the
+  `spending_power` rows on a brain, worked in code otherwise. With 6 or more complete months, the relative
+  change in spend and in CAC of the last 3 against the 3 before (`references/method.md` step 27); with
+  fewer, neither.
 - **Lever best.** Each Lever's best is what the account has done, with the periods it counted. Take
   percentiles by nearest rank, written `APPROX_QUANTILES(x, 100)[OFFSET(90)]` on a brain and, in code,
   the value at rank 0.9 times their number rounded up with the values sorted from lowest to highest.
@@ -435,37 +442,42 @@ range, Days to clear Ramping, current spend (the last complete month, with its d
 weeks counted (6 left out for warm-up, then the thin ones, the run stopped on its line where none
 is left), P90, the Viable share target (at most 100%), L
 (current spend times the Viable share target over the Spend per viable ad, the same at every L(w)
-and every Budget ladder rung), the Steady-state number (N0, equal to `ads_for_spend` at current spend), today's date and
+and every spend the slider runs), the Steady-state number (N0, equal to `ads_for_spend` at current spend), today's date and
 counts (read on the last complete day, and not a day still loading), the Self-check, and the Format split default with its Name coverage, each from one calculation;
 the survival table (age, ads reached, viable, survival, spend on viable ad-days) has rates that sum to
 W, h times D equals W to two decimals, and the Spend per viable ad is the spend on viable ad-days over
 their number; the run holds the three Lever bests, each with the months or quarters it counted (or
 null, where fewer than 4 months or 2 quarters counted), the Limiting factor read off the table above
 on the unrounded figures (N0 at most 1.2 times B and N1 at most 1.2 times B for Both, which needs N0 above
-1.2 times B), with what it needs the account to hit, the Budget ladder's rungs each with L, N0 and N0 over
-the Current pipeline, and On the table, its groups' spend, customers and CAC and its figures per week, or
+1.2 times B), with what it needs the account to hit, Spending power's months with their spend, orders and CAC (and
+the two changes with 6 or more months), `ads_for_spend` at current spend and at the Budget where one was given, the Outlier
+rate as a chance for each of k = 0 to 4 and 5 or more adding to 100.0% at current spend, and On the table, its groups' spend, customers and CAC and its figures per week, or
 "nothing" where v0 is the Viable share target or more; and the run has not stopped on a guard. The Roadmap holds a row for each calendar month from next month to the Budget month (3 without a Budget),
 with start, less Wearing out, plus Expected to work equal to the end stock on the unrounded figures, to one decimal, in every row,
 no Ads to launch below 0 and video plus image equal to Ads to launch in every row (with a split). Where Gap0 is above 0, the end stock at the Budget month is at or
 above L(n) and the Catch-up is spread evenly over months 1 to n. At a flat budget with S(0) equal to L (and D at least the month's days),
-every month's Ads to launch is `ads_for_spend` at that month's spend, give or take one ad, and no Ads to launch is below 0, a Budget below current spend included. The Budget ladder's current-spend rung
-has the Steady-state number as its N0, the launches to keep up and to catch up for month 1 sum to its Ads to launch, and the run knows whether W is a lower bound.
+every month's Ads to launch is `ads_for_spend` at that month's spend, give or take one ad, and no Ads to launch is below 0, a Budget below current spend included. `ads_for_spend` at current spend
+equals the Steady-state number, the launches to keep up and to catch up for month 1 sum to month 1's Ads to launch, and the run knows whether W is a lower bound.
 
 ## 5. Write the page
 
-Write the page as `references/page-layout.md` fixes it: two tabs switched by CSS alone, opening on
-the Scorecard. The Scorecard holds the masthead, then the strip of three cards (Enough ads?, Holding
-you back, On the table), then three charted panels in the Page labels, each with labels only and one
-action line: Enough working ads for your spend?, What's holding you back? and What's on the table.
-Card 1's verdict is read off today's viable ads against L: Short below 80% of L, Ahead above 150% of
-L, otherwise About right, with the gap as a whole count of ads, and it is the only verdict colour on
-the page. Card 2 and Panel 2's action line carry the Limiting factor's to-hit in the words
-`references/page-layout.md` gives, with a need marker only on the Levers it moves. Panel 1 charts the
-Budget ladder's rungs, Panel 3 the spend shares today and at target. The Scorecard defines nothing:
-each label's Says lives on How it's worked out under Terms. Every figure on the Scorecard is its source figure
-from step 4, shown rounded once and used rounded in every label beside it, and every ad count is a
-whole ad, rounded up. Where W is a lower bound, Panel 1's action line says the counts may read a
-little high, and the figures say "at least" before a lasting figure.
+Write the page as `references/page-layout.md` fixes it, in the Crux brand of `references/crux-brand.md`:
+two tabs switched by CSS alone, opening on the Creative deep dive, with one inline script for the
+slider and Google Fonts as its only network request. The Creative deep dive holds the masthead, then six
+sections in the Page labels, labels only and an action line for most: the Creative score (the score
+out of 100, seven Poor-to-Good bars, and Top-10 turnover beside it), Spending power (monthly spend
+against CAC, and the last 3 months against the 3 before), the Outlier engine, Creative rotation (Top-10
+turnover by quarter, left out with fewer than 2 quarters), Ads that work, and Work backwards from spend:
+the slider over monthly spend with the formula and the account's numbers, Expected outliers a month with
+the binomial chart and the chance of none, the Ad stock check (Short below 80% of L, Ahead above 150% of
+L, otherwise About right, with the gap as a whole count of ads, the only verdict pill on the page),
+the Limiting factor with its to-hit in the words `references/page-layout.md` gives and a Need only on the
+Levers it moves, and the Roadmap table. Without JavaScript the page still prints the new ads a month at
+current spend and at the Budget. The Creative deep dive defines nothing: each label's Says lives on How
+it's worked out under Terms. Every figure on it is its source figure from step 4, shown rounded once
+and used rounded in every label beside it, and every ad count is a whole ad, rounded up. Where W is a
+lower bound, the Ad stock check's action line says the counts may read a little high, and the figures
+say "at least" before a lasting figure.
 
 How it's worked out holds seven parts, in this order: the Month-by-month plan (its first line the
 Catch-up, the table with whole numbers rounded up and the line "Figures are rounded up to whole ads,
@@ -473,26 +485,35 @@ so a row can be one out.", and no chart), the Survival curve with its fitted axi
 10%, 20%, 25%, 50% and 100% at or above the curve's highest point, four gridlines at quarters of it),
 the figures (Hit rate, Low-spend rate, Spend bar, Viable lifespan, Days viable per hit, Spend per viable ad, Viable spend per hit, the Viable share
 with its target, each Lever best with the months or quarters it counted, CAC and spend share by group
-over 90 days, the Creative score with its seven measures, the Outlier stats and Top-10 turnover, and the Self-check line), Terms, This run, `references/method.md` word for word, and
+over 90 days with On the table, the Creative score's bands table with its seven measures, the Outlier stats and Top-10 turnover,
+Spending power's months and Expected outliers, and the Self-check line), Terms, This run, `references/method.md` word for word, and
 the Brain line only on a run that page-layout gives one (the Source is not a Growth Brain and the
 session holds none). It names the Source and the CAC basis in the masthead and This run, and where
 W is a lower bound says so in the words `references/page-layout.md` gives. Save the page as
 `meta-ad-volume-<date>.html` in the working folder; where none persists (a chat), hand it over as a
 download.
 
-**Done when** the first tab is the masthead, the three cards and the three panels, in that order,
-with no prose beyond labels and one action line for each panel; card 1 reads "<S> of <⌈L⌉>" with
-its pill (Short, About right or Ahead, the gap a whole count, read on viable ads only); card 2 names
-the Limiting factor with its to-hit, and On track reads "nothing: keep launching <P> a month"; card 3
-reads "+<n> customers" with its CAC change, or "Nothing" where nothing is on the table (Panel 3 then
-shows Today's bar only); Panel 1 has a bar for the working ads needed on every rung and a filled bar
-for the working ads now on Today, with its two-row table of N0 and N0 over P; Panel 2 has one track
-for each Lever with now, best (or "no best yet") and need markers on the Levers the to-hit moves
-only, and none on On track; every figure on the Scorecard equals its step 4 figure, whole ad counts
-rounded up; no glossary term shows on the Scorecard where page-layout gives it a Page label, and no
-definition does either; How it's worked out follows the order above, its Month-by-month plan's table
-and the Roadmap file holding the same months and the same video and image figures (or the total alone
-with no split); its figures name the number of months and quarters each Lever best counted and list the Hit rate, Low-spend rate, Spend bar and Viable spend per hit, and give the Creative score with the value and sub-score of each of its seven measures, the Outlier stats, and Top-10 turnover for each complete quarter or not at all with fewer than 2; This run
+**Done when** the first tab is the masthead and the six sections, in that order, with no prose beyond
+labels and an action line for most; the Creative score shows the score out of 100 with its seven bars
+each carrying its value (or "Not scored" with the measure named), and Top-10 turnover beside it only
+with 2 or more complete quarters; Spending power charts the complete months (the section left out
+with fewer than 2) and gives the two changes only with 6 or more; the Outlier engine gives the Outlier
+rate, the Outliers' share of spend, the spend per new ad and the time to Outlier; Creative rotation has a
+bar for each complete quarter, or is left out with fewer than 2; Ads that work gives the Hit rate, the
+Low-spend rate, Viable spend per hit and the Spend bar; Work backwards from spend has the slider at
+current spend (the Budget marked where there is one) with the formula **New ads = monthly spend ×
+Viable share target ÷ (Hit rate × Viable spend per hit)**, the page's figure at current spend equal to
+the Steady-state number in the Roadmap, Expected outliers a month with six binomial bars that add to
+100.0% and the chance of none (both left out with no Outlier), the Ad stock check reading "<S> of <⌈L⌉>"
+with its pill, the Limiting factor with its to-hit (On track reads "nothing: keep launching <P> a month")
+and the Roadmap table; the page's static HTML gives the new ads a month at current spend and at the
+Budget with scripts off; the script makes no network call, and the Google Fonts stylesheet is the page's
+only request; no glossary term shows
+on the Creative deep dive where page-layout gives it a Page label (the formula excepted), and no
+definition does either; every figure on it equals its step 4 figure, whole ad counts rounded up;
+How it's worked out follows the order above, its Month-by-month plan's table and the Roadmap
+table on the first tab and the Roadmap file holding the same months and the same video and image
+figures (or the total alone with no split); its figures name the number of months and quarters each Lever best counted and list the Hit rate, Low-spend rate, Spend bar and Viable spend per hit, and give the Creative score with the value and sub-score of each of its seven measures, the Outlier stats, and Top-10 turnover for each complete quarter or not at all with fewer than 2; This run
 names today's date, the Limiting factor with its figures and the groups left out of On the table
 where there are any; a lower bound W is said on both tabs; the Self-check line is there, with its
 fail clause where the check failed; an unattended run says so in This run; and the Brain line,
@@ -509,7 +530,7 @@ In chat, after the page, in this order:
    on the table".
 2. **The Roadmap file.** Offer the Month-by-month plan as a file, `meta-ad-roadmap-<date>.md`, to hand to whoever makes
    the ads, and say what it holds: the Budget, the months, the new ads by format, the Go live by
-   dates, the ads a month at current spend and at the Budget, the Limiting factor and what it needs to hit, and one line each on your hit rate and the spend one working ad carries. On "yes", write it as
+   dates, the ads a month at current spend and at the Budget, the Limiting factor and what it needs to hit, and one line each on how many of your new ads work and the spend one working ad carries. On "yes", write it as
    `references/page-layout.md` fixes it and save it in the working folder; where none persists (a
    chat), hand it over as a download. It is self-contained: someone who has not seen the page can
    brief from it.

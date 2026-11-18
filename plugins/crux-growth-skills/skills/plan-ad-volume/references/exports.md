@@ -136,7 +136,7 @@ ad-days over its spend, then the warm-up and thin-week rules, P90 by nearest ran
 weekly shares of spend on Ramping ads and on Fatiguing, Fatigued and Low efficiency ads over the weeks
 counted.
 
-**The Scorecard figures.** Compute each once, in code, as `SKILL.md` step 4 defines it and the SQL
+**The Creative deep dive figures.** Compute each once, in code, as `SKILL.md` step 4 defines it and the SQL
 below `-- END shared classification` in `references/fatigue.sql` works it. Take percentiles by nearest
 rank: with the values sorted from lowest to highest, the value at rank ⌈0.9 × their number⌉ (what
 `APPROX_QUANTILES(x, 100)[OFFSET(90)]` gives a brain).
@@ -165,9 +165,14 @@ rank: with the values sorted from lowest to highest, the value at rank ⌈0.9 ×
 - **Limiting factor.** L, N0 and N1 and the five rules in order, as step 4 gives them, with each room
   and each "to hit" figure (the launches, the Hit rate needed, the Days viable per hit needed, and
   whether either is beyond its best).
-- **Budget ladder.** At current monthly spend, 1.5 times and 2 times it, and the Budget where it differs: each
-  rung's L (the spend over the last complete month's days, as a daily figure), N0 (`ads_for_spend` of the
-  rung's spend) and N0 over the Current pipeline to one decimal.
+- **Spending power.** For each complete calendar month of the window (the months the Current pipeline
+  counts), the spend and the purchases outside the awareness and lead campaigns, and the CAC (spend over
+  purchases; none where a month has no purchases). With 6 or more months, the relative change in the
+  spend of the last 3 against the 3 before (their total spend over the earlier total, less 1) and the
+  relative change in their CAC (their total spend over their total purchases, against the same for the
+  3 before, less 1); with fewer than 6, neither change.
+- **Work backwards from spend.** `ads_for_spend` of current monthly spend (the Steady-state number) and of
+  the Budget where one was given, and the figures the page's script reads (`references/page-layout.md`).
 - **On the table.** Over the last 90 complete days, every ad-day grouped by its status (viable: Healthy,
   Winner and Improving; test phase: Ramping; worn out: Fatiguing, Fatigued and Low efficiency; other:
   any status left, and any ad-day with no status), each group's spend, purchases and CAC, then the
@@ -197,7 +202,8 @@ hits, the low-spend ads and the ads at or above the bar that were never viable a
 ads at least 28 days old, with the Low-spend rate and Viable spend per hit printed, and the weekly viable shares, the weeks counted and left out, P90 and the Viable share target
 (at most 100%) are printed, the run having stopped on its line where no week is counted; the last
 complete day is named; and the three Lever bests (each with the months or quarters it counted, or
-none), the Limiting factor with its figures, the Budget ladder's rungs and On the table (or
+none), the Limiting factor with its figures, Spending power's months and its two changes (or their absence with
+fewer than 6 months), `ads_for_spend` at current spend and at the Budget, and On the table (or
 "nothing") are printed, and so are the seven measures with their sub-scores, the Creative score (the mean of
 the seven, none where one cannot be read), the Outlier stats (the spend per Launched ad, the line, the Outliers
 with their share of spend and the days to the line) and Top-10 turnover, or its absence with fewer than 2

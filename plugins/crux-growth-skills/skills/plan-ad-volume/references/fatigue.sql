@@ -363,7 +363,7 @@ plan_cut AS (
     1 AS outlier_sds,
     10 AS turnover_ads,
     2 AS turnover_min_quarters,
-    [1.0, 1.5, 2.0] AS ladder_multiples
+    3 AS power_months
 ),
 -- The last 365 complete days, ending yesterday. `this_monday` starts the ISO week holding today and
 -- `this_month` the calendar month holding today, so the month before it is the last complete month.
@@ -821,9 +821,9 @@ share_target AS (
   FROM share_stats AS v
   CROSS JOIN plan_cut AS p
 ),
--- THE SCORECARD. Everything below reads the model above and adds the Levers, their bests, the Limiting
--- factor, the Budget ladder and what is On the table. Nothing in it reads a Budget: the Budget rung of
--- the ladder, where the user gave one that differs, is worked in code from this row.
+-- THE LEVERS. Everything below reads the model above and adds the Levers, their bests, the Limiting
+-- factor and what is On the table. Nothing in it reads a Budget: `ads_for_spend` at the Budget, where
+-- the user gave one, is worked in code from this row.
 -- Launched ads a month, for each complete calendar month of the window: one that starts after the
 -- window's first day (an ad first spending then is not a Launched ad) and ends by the last complete
 -- day. The Current pipeline is the average of the last pipeline_months of them, and Launches (B), the
@@ -1303,6 +1303,45 @@ creative_score AS (
     ARRAY_AGG(STRUCT(measure, value, sub_score) ORDER BY ord) AS sub_scores
   FROM creative_sub_scores
 ),
+-- SPENDING POWER. Spend and CAC (spend over new orders) for each complete calendar month of the window,
+-- the months `complete_months` holds, every ad counted outside the awareness and lead campaigns, through
+-- `daily_win`. The last power_months of them are set against the power_months before: relative changes
+-- in spend and in CAC, each null with fewer than 2 times power_months complete months.
+month_totals AS (
+  SELECT
+    c.month_start,
+    ROW_NUMBER() OVER (ORDER BY c.month_start DESC) AS recency,
+    SUM(d.spend) AS spend,
+    SUM(d.new_orders) AS new_orders
+  FROM complete_months AS c
+  JOIN daily_win AS d ON DATE_TRUNC(d.day, MONTH) = c.month_start
+  GROUP BY c.month_start
+),
+spending_power AS (
+  SELECT
+    COUNT(*) AS months_counted,
+    ARRAY_AGG(STRUCT(m.month_start, m.spend, m.new_orders, SAFE_DIVIDE(m.spend, m.new_orders) AS cac) ORDER BY m.month_start) AS months,
+    IF(COUNT(*) >= 2 * ANY_VALUE(p.power_months),
+       SAFE_DIVIDE(
+         SUM(IF(m.recency <= p.power_months, m.spend, 0)),
+         SUM(IF(m.recency > p.power_months AND m.recency <= 2 * p.power_months, m.spend, 0))
+       ) - 1,
+       NULL) AS spend_change,
+    IF(COUNT(*) >= 2 * ANY_VALUE(p.power_months),
+       SAFE_DIVIDE(
+         SAFE_DIVIDE(
+           SUM(IF(m.recency <= p.power_months, m.spend, 0)),
+           SUM(IF(m.recency <= p.power_months, m.new_orders, 0))
+         ),
+         SAFE_DIVIDE(
+           SUM(IF(m.recency > p.power_months AND m.recency <= 2 * p.power_months, m.spend, 0)),
+           SUM(IF(m.recency > p.power_months AND m.recency <= 2 * p.power_months, m.new_orders, 0))
+         )
+       ) - 1,
+       NULL) AS cac_change
+  FROM month_totals AS m
+  CROSS JOIN plan_cut AS p
+),
 -- The block fenced below as shared format is, byte for byte, in references/intake.sql, which gives
 -- the intake the Format split default before this file runs. The two change together.
 -- BEGIN shared format
@@ -1414,17 +1453,6 @@ SELECT
   sc.h_need > sc.h_best AS hit_rate_needed_beyond_best,
   sc.d_need AS days_viable_per_hit_needed,
   sc.d_need > sc.d_best AS days_viable_per_hit_needed_beyond_best,
-  ARRAY(
-    SELECT AS STRUCT
-      m AS multiple,
-      cs.monthly_spend * m AS monthly_spend,
-      cs.daily_spend * m AS daily_spend,
-      sc.l * m AS viable_ad_stock,
-      CEIL(ROUND(SAFE_DIVIDE(sc.l * m * sc.days, sc.w), 9)) AS steady_state_number,
-      ROUND(SAFE_DIVIDE(CEIL(ROUND(SAFE_DIVIDE(sc.l * m * sc.days, sc.w), 9)), sc.pipe), 1) AS steady_state_over_pipeline
-    FROM UNNEST(lp.ladder_multiples) AS m
-    ORDER BY m
-  ) AS budget_ladder,
   ot.spend_viable / ot.spend_total AS share_viable,
   ot.spend_test_phase / ot.spend_total AS share_test_phase,
   ot.spend_worn_out / ot.spend_total AS share_worn_out,
@@ -1482,6 +1510,10 @@ SELECT
   os.days_to_line_p25,
   os.days_to_line_median,
   os.days_to_line_p75,
+  spw.months_counted AS spending_power_months,
+  spw.spend_change AS spending_power_spend_change,
+  spw.cac_change AS spending_power_cac_change,
+  spw.months AS spending_power,
   tt.complete_quarters,
   ARRAY(
     SELECT AS STRUCT q.quarter_start, q.new_ads, q.top_ads_counted, q.new_spend_share
@@ -1513,3 +1545,4 @@ CROSS JOIN week_one AS wo
 CROSS JOIN spend_line AS sl
 CROSS JOIN outlier_stats AS os
 CROSS JOIN top10_turnover AS tt
+CROSS JOIN spending_power AS spw
