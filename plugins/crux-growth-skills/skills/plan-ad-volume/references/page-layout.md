@@ -1,38 +1,42 @@
 # Page layout
 
 A Meta ad volume forecast is one self-contained HTML file, `meta-ad-volume-<date>.html` (`<date>`
-is today as `YYYY-MM-DD`), written to the working folder, with inline CSS and inline SVG, no script,
-and no network request. It opens on a Scorecard a founder reads in seconds: three answer cards, then
-three charted panels, labels only. Everything else sits on a second tab. Crux house style: British
-English, no em dashes, outcome before mechanism, relative percentage changes (2.0% to 1.8% is "−10%").
-Money is in the export's currency, rounded to whole units; CAC and Spend per viable ad to two
-decimals; and every count of ads a whole number, rounded up (⌈x⌉) where it is worked out as a stock
-or a flow. The maths underneath keeps every figure unrounded, and each tie is checked on those, to
-one decimal.
+is today as `YYYY-MM-DD`), written to the working folder, with inline CSS, inline SVG and one inline
+`<script>`. It is Crux-branded as `references/crux-brand.md` sets out, and its only network request
+is that file's Google Fonts stylesheet: the script makes none. It opens on the Creative deep dive,
+which a founder reads top to bottom in a few minutes, labels only; the method sits on a second tab.
+Crux house style: British English, no em dashes, outcome before mechanism, relative percentage
+changes (2.0% to 1.8% is "−10%"). Money is in the export's currency, rounded to whole units; CAC and
+Spend per viable ad to two decimals; and every count of ads a whole number, rounded up (⌈x⌉) where it
+is worked out as a stock or a flow. The maths underneath keeps every figure unrounded, and each tie
+is checked on those, to one decimal.
 
 Formats used throughout:
 
 - **Hit rate** as a percentage, to one decimal below 10% ("6.5%") and otherwise a whole number
   ("12%"); "1 in N" is N the whole number nearest 1 over the Hit rate.
-- **Days viable per hit** to the whole day on the Scorecard and to one decimal on How it's worked
-  out, with "at least" before it where the Viable lifespan is a lower bound.
+- **Days viable per hit** to the whole day on the Creative deep dive and to one decimal on How it's
+  worked out, with "at least" before it where the Viable lifespan is a lower bound.
 - **Shares of spend** as whole percentages, each rounded once from its source figure.
+- **The seven measures** as percentages to one decimal, Spend degradation with its sign (−48.1%).
 
 ## Two tabs
 
-The page has two tabs, **Scorecard** and **How it's worked out**, switched with CSS alone: two
-radio inputs, each with a label styled as a tab, and each panel shown only while its input is
-checked. Scorecard's input is checked when the page opens. Under `@media print` both panels show,
-Scorecard first. The masthead sits above the tabs and shows with either. On a phone the three
-cards stack, and every chart is an SVG with a `viewBox` that scales to the width of the screen.
+The page has two tabs, **Creative deep dive** and **How it's worked out**, switched with CSS alone:
+two radio inputs, each with a label styled as a tab, and each panel shown only while its input is
+checked. Creative deep dive's input is checked when the page opens. Under `@media print` both panels
+show, Creative deep dive first, and the slider's controls are hidden. The masthead sits above the tabs
+and shows with either. On a phone the sections stack, and every chart is an SVG with a `viewBox` that
+scales to the width of the screen.
 
 ## Page labels
 
-The Scorecard and the chat speak to the user in these labels, never in the term on the left, and so
-do the Month-by-month plan's columns and the Roadmap file. The Scorecard carries no definitions: each
-Says is given once, on How it's worked out under Terms, which is this table as Label, Term and Says
-(the rows with a Says), so a reader can match the two. A row with no Says is a heading or a chart
-title and needs no gloss.
+The Creative deep dive and the chat speak to the user in these labels, never in the term on the left,
+and so do the Month-by-month plan's columns and the Roadmap file. The one exception is the formula
+under Work backwards from spend, which is written in the terms so a reader can check it against How
+it's worked out. The Creative deep dive carries no definitions: each Says is given once, on How it's
+worked out under Terms, which is this table as Label, Term and Says (the rows with a Says), so a
+reader can match the two. A row with no Says is a heading or a chart title and needs no gloss.
 
 | Term (glossary) | Label | Says |
 |---|---|---|
@@ -43,9 +47,20 @@ title and needs no gloss.
 | Short | Short | fewer working ads than your spend needs |
 | About right | About right | within the range your spend needs |
 | Ahead | Ahead | more working ads than your spend needs |
+| Ad stock check | Enough working ads for your spend? | today's working ads against the working ads your spend needs live at once |
 | Worn out now | Worn out | ads old enough to be judged whose CAC has slipped; they take spend but do not count |
 | Wearing out | Expected to wear out | working ads likely to stop working in that time |
-| Hit rate | Hit rate | the share of your new ads that spent the Spend bar or more in their first 28 days and became working ads |
+| Creative score | Creative score | how healthy your creative is, out of 100: the plain average of seven measures, each placed on fixed bands from Poor to Good |
+| Evergreen share | Evergreen share | the share of the last 30 days' spend on ads that are 30 days old or more |
+| Spend degradation | Spend degradation | how much an ad's daily spend changes from its first week to the 3 weeks after, the middle figure across your new ads |
+| Viable after week 1 | Working after week 1 | of the new ads that worked in their first 28 days, the share still working at 28 days |
+| Top-5 concentration | Top-5 concentration | the share of the last 30 days' spend on your 5 biggest ads |
+| Outlier | Outlier | a new ad that has spent at least the line: the average spend of your new ads plus one standard deviation |
+| Outlier rate | Outlier rate | the share of your new ads that are Outliers |
+| Outlier rate | Outliers' share of spend | the share of your new ads' total spend that sits on Outliers |
+| Top-10 turnover | Top-10 turnover | how many of a quarter's 10 biggest-spending ads first spent in that quarter; shown beside the score and never part of it |
+| Expected outliers a month | Expected outliers a month | the new ads a month times your Outlier rate |
+| Hit rate | Ads that work | the share of your new ads that spent the Spend bar or more in their first 28 days and became working ads |
 | Spend bar | Spend bar | the spend a new ad needs in its first 28 days to count as working: the larger of 300 and 3 days of what one working ad spends |
 | Low-spend rate | Ads that never got budget | the share of your new ads that spent less than the Spend bar in their first 28 days |
 | Days viable per hit | Days a winner works | how long a new ad that works stays working, on average |
@@ -63,8 +78,6 @@ title and needs no gloss.
 | Finding winners | Finding winners | the hit rate has the most room: raise the share of new ads that work |
 | Keeping winners | Keeping winners | the days a winner works has the most room: make working ads last longer |
 | Steady-state number | Launches a month needed | the new ads a month that replace the working ads wearing out, at that spend |
-| Budget ladder | Enough working ads for your spend? (panel 1) | |
-| Steady-state number over Current pipeline | × what you launch now | how many times what you launch now each rung asks for |
 | On the table | On the table | the extra new customers a week at today's spend if your target share of spend were on working ads; it assumes the CAC gap between working and other spend holds as the share moves |
 | Catch-up | Catch-up | the extra launches that close today's gap by your Budget month |
 | Ads to launch | Ads to launch | the new ads to make in a month |
@@ -77,132 +90,311 @@ title and needs no gloss.
 
 ## The masthead
 
-One heading, "<Brand> · Meta ads scorecard", and under it one small line, "Last complete day <date>
-· <Source> · CAC on <basis>". The date is today (the last complete day). The Source is the Growth
-Brain connector's name, the Meta connector's name, or "Ads Manager export" with the file's name. The
-basis is "first-party new orders" with a Growth Brain, and "platform-attributed purchases" otherwise.
+An eyebrow, "Meta ad volume", then one heading, "<Brand> · Creative deep dive", and under it one
+small line, "Last complete day <date> · <Source> · CAC on <basis>". The brand's name sits in the heading
+and nowhere else carries a brand's own styling. The date is today (the last complete day). The Source is
+the Growth Brain connector's name, the Meta connector's name, or "Ads Manager export" with the file's
+name. The basis is "first-party new orders" with a Growth Brain, and "platform-attributed purchases"
+otherwise. A footer closes the page: "Built with Crux growth skills".
 
-# Scorecard
+# Creative deep dive
 
-The masthead, then the strip of three cards, then three panels, in that order. The first tab holds
-no prose beyond labels and one action line for each panel. Every figure on it is its source figure
-from `SKILL.md` step 4, worked once and shown rounded once: a figure shown rounded is the figure
-every label and difference beside it uses. S is the working ads today, L the Viable ad stock (⌈L⌉
-where shown), P the Current pipeline, B the launches Lever best, N0 the Steady-state number and N1
-the launches a month at the best Hit rate.
+The masthead, then six sections in this order, each under a 4px Highlight rule, a small-caps eyebrow
+and its title, which is its name below. The first tab holds no prose beyond labels and, for most
+sections, one action line. Every figure on it is its source figure from `SKILL.md` step 4, worked once
+and shown rounded once: a figure shown rounded is the figure every label and difference beside it
+uses. S is the working ads today, L the Viable ad stock (⌈L⌉ where shown), P the Current pipeline, B the
+launches Lever best, N0 the Steady-state number and N1 the launches a month at the best Hit rate.
 
-## The strip
+## 1. Creative score
 
-Three cards across, stacked on a phone. Each has a small caps label, one big figure and one small
-line.
+**The score.** The Creative score as one large figure in the display font, a whole number, with "out of
+100" beside it. Where a measure could not be read, the figure reads "Not scored" and one line names the
+measure and why ("Working after week 1 could not be read: no ad that worked has reached 28 days old
+yet"); the bars of the measures that could be read still show.
 
-1. **Enough ads?**
-   - Big figure: "<S> of <⌈L⌉>".
-   - Small line: a pill, then "working ads for today's spend". The pill is "Short <g>" below 80% of
-     L, "About right" from 80% to 150%, and "Ahead <g>" above 150%, g being the difference between
-     ⌈L⌉ and S. Each verdict has its own pill colour and always carries its words, so the card does
-     not depend on colour alone. No other card carries a verdict colour.
-2. **Holding you back**
-   - Big figure: the Limiting factor (On track, Volume, Both, Finding winners or Keeping winners).
-   - Small line: the to-hit in words, from the table below, for example "lift hit rate to 11% (your
-     best), then launch 43 a month".
-3. **On the table**
-   - Big figure: "+<n> customers", n the new customers a week gained (`customers_week_gain`) to the
-     nearest whole customer, never below 1 where anything is on the table.
-   - Small line: "a week at today's spend · CAC −<x>%", x the blended CAC change as a whole percentage.
-   - With nothing on the table: big figure "Nothing", small line "your spend is already on working
-     ads".
+**The seven bars**, in this order, labelled as the Page labels give them: Evergreen share, Spend
+degradation, Working after week 1, Top-5 concentration, Outlier rate, Ads that work (the Hit rate) and
+Ads that never got budget (the Low-spend rate). Each is a horizontal bar on its own scale from Poor at
+the left to Good at the right (a measure where less is better, Top-5 concentration and Low-spend rate,
+runs its anchors the other way, so Good is still at the right):
 
-## The to-hit
+- the filled length is the measure's sub-score, 0 at Poor to 100 at Good, with a tick at Average (50);
+- its value, in the format above, sits at the end of the track;
+- "Poor" sits at the left end and "Good" at the right, on the first bar only, so the words are not
+  repeated six times; the bar does not depend on colour, because its length and its value carry it.
 
-One wording of what the account has to hit, used by card 2 and, with its figures in bold, by Panel
-2's action line. h_best and N1 are the hit rate best and the launches at it; h_need and D_need the
-hit rate and Days viable per hit that launching B a month would need. Each need marker on Panel 2
-sits on the Lever the to-hit moves.
+Give the seven bars one title and a text alternative that read the measures and the score aloud.
 
-| Limiting factor | The to-hit | Need markers on |
-|---|---|---|
-| On track | "nothing: keep launching <P> a month" | none |
-| Volume | "launch <N0> a month" | Launches a month at N0 |
-| Both | "lift hit rate to <h_best>% (your best), then launch <N1> a month" | Hit rate at h_best; Launches a month at N1 |
-| Finding winners | "lift hit rate to <h_need>%, launching <B> a month (your best)" | Hit rate at h_need |
-| Keeping winners | "keep a winner working <D_need> days, launching <B> a month (your best)" | Days a winner works at D_need |
+**Top-10 turnover**, beside the score as an indicator, with the line "Shown beside the score and never
+part of it": the latest complete quarter's "<n> of 10" ("3 of your top 10 ads are new this quarter"),
+under the quarter's name. With fewer than 2 complete quarters it is left out.
 
-Where h_need or D_need is above its best, "(beyond your best)" follows it. Where B is null (fewer
-than 3 complete months), h_need and D_need are null: the to-hit reads "not enough launch history yet
-to name a target" and there is no need marker.
+**The action line** names the measure with the lowest sub-score (the first in the order above on a
+tie) with its value, then one action:
 
-## Panel 1: "Enough working ads for your spend?"
-
-**The chart** is inline SVG, one grouped bar for each rung of the Budget ladder, in the ladder's
-order: Today, 1.5× spend, 2× spend and, where the user gave a Budget that differs from those three,
-Your Budget.
-
-- Today has a filled bar for the working ads now (S). Every rung, Today included, has a dashed
-  outline bar for the working ads needed (⌈L⌉ at that rung's spend), in the same slot on every rung.
-- The whole number sits above each bar.
-- Each rung is labelled under its group with its name and its daily spend ("Today", "£600 a day").
-- The vertical axis runs from 0 to the largest figure plus 10%, with light gridlines.
-- A two-item legend: "Working now" (filled) and "Needed" (dashed outline).
-
-Give the chart a title and a text alternative that read the figures aloud.
-
-**Under the chart**, a two-row table with one column for each rung:
-
-| Row | Holds |
+| Weakest measure | Action |
 |---|---|
-| Launches a month needed | N0 at that rung's spend: a whole number. |
-| × what you launch now (<P>) | N0 over P, to one decimal; "n/a" where P is 0. P is the whole figure in the row's label. |
+| Evergreen share | "Let your winners keep spending: pause only ads that have stopped working (run `/audit-ads` to see which)." |
+| Spend degradation | "Launch variants of the ads that hold their spend, so new ads keep their budget past the first week." |
+| Working after week 1 | "Make new versions of an ad that works, with a fresh angle on the same idea, so winners last past launch." |
+| Top-5 concentration | "Launch more ads that can take spend, so five ads are not carrying the account." |
+| Outlier rate | "Launch more ads, and more different ones: Outliers come from volume and range." |
+| Ads that work | "Brief fewer, stronger ads, built on what already works." |
+| Ads that never got budget | "Launch fewer ads at once, so each gets budget." |
 
-**The action line**, by verdict:
+With the score not shown, the action line is left out.
+
+## 2. Spending power
+
+**The chart**, inline SVG: one bar for each complete calendar month of the window (`spending_power`),
+oldest at the left, for the month's spend, and over them a line for the month's CAC, with two vertical
+axes: spend on the left from 0 to the largest spend plus 10%, CAC on the right from 0 to the largest
+CAC plus 10%, each with light gridlines. The month is labelled under its bar ("Aug"), the year added at
+a January and at the first month. The first and last CAC carry their figures, to two decimals. Bars
+are the base grey; where the page shows both changes below, the last 3 months' bars are the Highlight
+colour. A month with no CAC (no new orders) has a bar and a gap in the line. The chart needs 2 or more
+complete months; with fewer the whole section is left out. Direct labels "Monthly spend" and "CAC" sit
+on the first bar and the line, so there is no legend. Give the chart a title and a text alternative.
+
+**Two figures** under it, side by side, each with its label and the line "last 3 months against the 3
+before": "Spend <+22%>" (`spending_power_spend_change`) and "CAC <−10%>" (`spending_power_cac_change`),
+as relative changes to the whole percentage, with their sign. A CAC fall is in `--positive` and a rise
+in `--negative`; the Spend figure carries no colour. With fewer than 6 complete months there are no
+figures, and one line says "Needs 6 complete months to compare the last 3 with the 3 before".
+
+**The action line**: where the CAC change is above 0, "CAC rose <x>% over the last 3 months: check
+Enough working ads for your spend? below."; otherwise "CAC held or fell: the plan below keeps enough
+working ads behind it." With no figures it is left out.
+
+## 3. Outlier engine
+
+**Two figures**: "Outlier rate" (`outlier_rate`, to one decimal) with the line "<n> of <Launched ads>
+new ads", and "Outliers' share of spend" (`outlier_spend_share`, a whole percentage). With no Outlier
+the first reads "No Outliers" and the second is left out.
+
+**A table, "Spend per new ad"**, one row each, in these labels and in whole units of the account's
+currency: Mean, Median, Standard deviation, Outlier line, Highest.
+
+**Time to outlier**, three figures labelled "Fastest quarter", "Median" and "Slowest quarter": the days
+from first spend to the line, as `days_to_line_p25`, `days_to_line_median` and `days_to_line_p75`,
+under the heading "Days from first spend to the Outlier line". With no Outlier they are left out.
+
+**The action line**: "At <N0> new ads a month, expect <x> Outliers a month; Work backwards from spend
+below shows the chance of none." x is Expected outliers a month at current spend, to one decimal. With
+no Outlier it reads "No new ad has yet spent like an Outlier: more ads, and more different ones, give
+Meta more to scale."
+
+## 4. Creative rotation
+
+**The chart**, inline SVG: one bar for each complete calendar quarter, oldest at the left, of "New among
+the top 10" (a whole number out of 10, so the axis is 0 to 10), each labelled with its figure ("3 of
+10") and, under the quarter's name, "<n>% of the quarter's spend" (the new ads' share of the quarter's
+spend, a whole percentage). Give it a title and a text alternative. With fewer than 2 complete
+quarters the whole section is left out, and so is the indicator in Creative score.
+
+**The action line**, one sentence: "Read this beside Evergreen share: high turnover is neither good nor
+bad on its own."
+
+## 5. Ads that work
+
+**Four figures**, each with its label and its value in the formats above:
+
+- "Ads that work": the Hit rate ("12%") with "1 in 8" and "of <n> ads launched at least 28 days ago";
+- "Ads that never got budget": the Low-spend rate, a whole percentage;
+- "Spend a winner carries": Viable spend per hit, whole units of the account's currency;
+- "Spend bar": the amount, whole units, with "the 300 floor" where 3 times the Spend per viable ad is
+  under it.
+
+**One stacked bar**, inline SVG, "Your new ads at 28 days": the Hit rate ads split into those that
+worked (`hits`), never got budget (`low_spend_ads`) and got budget but did not work
+(`above_bar_never_viable_ads`), in the three category fills named by direct labels with their whole
+percentages. The three are shares of one base, so they add to 100%. Give it a title and a text
+alternative.
+
+**The action line**: "A winner carries <Spend a winner carries> of spend, so <Spend bar> is the least
+a new ad must spend to count." Where the Viable lifespan is a lower bound it adds "Counts may read a
+little high; How it's worked out has the detail."
+
+## 6. Work backwards from spend
+
+The section answers "how many ads does this spend need next month". Its parts, in this order:
+
+**a. The slider.** A range input over monthly spend, labelled "Monthly spend", running from half
+current spend to 3 times it (wider where the Budget lies outside that), with `step="any"` and set to
+current spend when the page opens. Two marks under the track name "Current spend" and, where the user
+gave a Budget, "Budget", each at its place on the track, and two buttons set the slider to each.
+Beside it the monthly spend at the slider's position, in whole units of the account's currency, as an
+`<output>`.
+
+**b. The formula**, in these words, in the terms: "New ads = monthly spend × Viable share target ÷
+(Hit rate × Viable spend per hit)". Under it the same sum with the account's numbers at the slider's
+spend, "<spend> × <target>% ÷ (<Hit rate> × <Viable spend per hit>) = <the quotient to two decimals>,
+rounded up: <ads> new ads a month". At current spend `<ads>` is the Steady-state number N0.
+
+**c. The answer without JavaScript.** Written into the page as plain HTML, never by the script, so it
+prints and reads with scripts off, each with the sum of part b worked at that spend: "At your current
+spend of <current monthly spend> a month: <the sum> = <N0> new ads a month" and, where the user gave a
+Budget, "At your Budget of <the Budget> a month: <the sum> = <ads_for_spend of the Budget> new ads a
+month". Without a Budget the second line reads "No Budget given". The slider, its marks, the sum under
+the formula and part d sit together in the page's `wb-live` container, hidden, and the script shows
+them.
+
+**d. Expected outliers a month**, "Expected outliers a month = new ads × Outlier rate", with the
+figure at the slider's spend to one decimal, and **the chance of none** ("<x>% chance of none", the
+chart's first bar). Under it the chart, inline SVG, "Chance of finding k Outliers in a month": six bars
+for k = 0, 1, 2, 3, 4 and 5 or more, each labelled with its probability to one decimal. The vertical axis
+runs from 0 to the first multiple of 10% at or above the tallest bar, with light gridlines. The bars are
+the binomial of `references/method.md` step 16, with the new ads as the number of trials and the Outlier
+rate as the chance of each; the six figures shown are adjusted by largest remainder so they add to
+100.0%. The chart's text alternative is rewritten by the script to read the six figures aloud. With no
+Outlier in the window the rate is 0, and part d is left out of the page whole.
+
+**e. Enough working ads for your spend?** The Ad stock check at current spend, which the slider does
+not move: "<S> of <⌈L⌉>" with a pill, then "working ads for today's spend". The pill is "Short <g>"
+below 80% of L, "About right" from 80% to 150%, and "Ahead <g>" above 150%, g being the difference
+between ⌈L⌉ and S. Each verdict has its own pill colour and always carries its words, so the check
+does not depend on colour alone; no other mark on the page is a verdict pill. The action line, by
+verdict:
 
 - Short: "Launch <N0> a month to keep up; the Month-by-month plan adds the Catch-up."
 - About right: "Launch <N0> a month to keep up."
 - Ahead: "Launch fewer for now: you have more working ads than your spend needs, so they wear down first."
 
-Where the Viable lifespan is a lower bound, the line ends "Counts may read a little high; How it's
+Where the Viable lifespan is a lower bound the line ends "Counts may read a little high; How it's
 worked out has the detail."
 
-## Panel 2: "What's holding you back?"
+**f. Holding you back.** The Limiting factor as a pill in the Highlight colour (On track, Volume, Both, Finding winners or
+Keeping winners), then a table with one row for each Lever, in this order and with these labels:
+"Launches a month", "Ads that work", "Days a winner works", and the columns Now, Best and Need. Now and
+Best are in the formats above (Best reads "no best yet" where it is null; Days a winner works has "at
+least" before Now where the Viable lifespan is a lower bound). Need is filled only on the Levers the
+to-hit moves (the table below), with "beyond your best" after a figure above its best, and "-" on the
+others. Under it the action line: "To hit: <the to-hit, figures in bold>." Where the to-hit raises the
+Hit rate (Both and Finding winners), it adds "At today's hit rate it takes <N0> a month." With On track
+it reads "To hit: nothing. Keep launching <P> a month."
 
-The Limiting factor is a pill in the heading, a single accent colour that is the same for every
-factor except On track, which has none.
+**g. The Roadmap.** The Month-by-month plan's Budget line and Video and image split line (both under How it's worked out), then its table cut to the columns
+Month, Spend, Video and Image (only with a Format split), Ads to launch, Expected to work and Go live
+by, one row for each month, with the same figures as the full table on How it's worked out and the same
+two lines under it. The Catch-up line is left to How it's worked out.
 
-**The chart** is inline SVG, one horizontal track for each Lever, in this order and with these
-labels: "Launches a month", "Hit rate", "Days a winner works". Each row is on its own scale, from 0
-to the largest of its now, best and need figures plus 10%. A row shows:
+## The to-hit
 
-- a filled bar from 0 to now, with a dot at its end labelled "now <x>";
-- a tick labelled "best <x>", or "no best yet" where the best is null (no tick is drawn);
-- a red marker labelled "need <x>", only on the Levers the to-hit moves (the table above); "need
-  <x>, beyond your best" where the figure is above its best. Where a need and a best are the same
-  figure the two labels sit one above and one below the track.
+One wording of what the account has to hit, used by Holding you back and, with its figures in bold, by
+its action line. h_best and N1 are the hit rate best and the launches at it; h_need and D_need the hit
+rate and Days viable per hit that launching B a month would need.
 
-Figures are in the formats above: launches as whole ads, the Hit rate as a percentage, Days a winner
-works in whole days ("at least" before now where the Viable lifespan is a lower bound). With On
-track the chart has no need markers. Give the chart a title and a text alternative.
+| Limiting factor | The to-hit | Need on |
+|---|---|---|
+| On track | "nothing: keep launching <P> a month" | none |
+| Volume | "launch <N0> a month" | Launches a month |
+| Both | "lift the share of new ads that work to <h_best>% (your best), then launch <N1> a month" | Ads that work (h_best); Launches a month (N1) |
+| Finding winners | "lift the share of new ads that work to <h_need>%, launching <B> a month (your best)" | Ads that work (h_need) |
+| Keeping winners | "keep a winner working <D_need> days, launching <B> a month (your best)" | Days a winner works (D_need) |
 
-**The action line**: "To hit: <the to-hit, figures in bold>." Where the to-hit raises the Hit rate
-(Both and Finding winners), it adds "At today's hit rate it takes <N0> a month." With On track it
-reads "To hit: nothing. Keep launching <P> a month."
+Where h_need or D_need is above its best, "(beyond your best)" follows it. Where B is null (fewer
+than 3 complete months), h_need and D_need are null: the to-hit reads "not enough launch history yet
+to name a target" and the Need column is empty.
 
-## Panel 3: "What's on the table"
+## The script
 
-**The chart** is inline SVG, two 100% stacked horizontal bars, "Today" and "At target", split into
-Working, Test phase, Worn out and, only where it holds any spend, Other. Today's shares are the 90-day
-spend shares (`share_viable`, `share_test_phase`, `share_worn_out`, `share_other`). At target, Working
-is the target and each of the other three is its share scaled so the three together take the rest.
-Each segment over about 6% carries its percentage; the groups have distinct fills, named in a
-legend, so the chart does not depend on colour alone. Give it a title and a text alternative.
-With nothing on the table the chart has Today's bar only.
+One `<script>` at the end of the body, inline, with no network call, between the page and the footer.
+It holds the figures from `SKILL.md` step 4 once, as the `F` object below, and nothing else on the page
+reads them. Write it as here, with `F` filled in and nothing else changed: `currency` is the symbol or
+code the account's money is shown in (a code takes a space after it), `currentSpend` the last complete
+month's spend, `budget` the Budget as a monthly figure or `null`, `target` the Viable share target,
+`hitRate` the Hit rate, `spendPerHit` the Viable spend per hit (all unrounded) and `outlierRate` the
+Outlier rate (0 with no Outlier). Its elements are the ids named below.
 
-**The action line** names the biggest waste (`biggest_waste`) with its share of spend:
+```html
+<script>
+(() => {
+  const F = {
+    currency: "£", currentSpend: 18600, budget: null,
+    target: 0.6, hitRate: 0.4, spendPerHit: 595, outlierRate: 0.1667
+  };
+  const $ = id => document.getElementById(id);
+  const money = n => F.currency + Math.round(n).toLocaleString("en-GB");
+  const hit = h => (h < 0.1 ? (h * 100).toFixed(1) : Math.round(h * 100)) + "%";
+  const quotient = s => s * F.target / (F.hitRate * F.spendPerHit);
+  const ads = s => Math.ceil(Number(quotient(s).toFixed(9)));
 
-- Worn out: "<n>% of your spend is on ads that have stopped working: run `/audit-ads` to see which to pause."
-- Test phase: "<n>% of your spend is on ads still in their test phase: launch fewer, stronger ads."
+  function binomial(n, p) {
+    const pk = [];
+    let c = 1;
+    for (let k = 0; k < 5; k++) {
+      pk.push(k > n ? 0 : c * Math.pow(p, k) * Math.pow(1 - p, n - k));
+      c = c * (n - k) / (k + 1);
+    }
+    pk.push(Math.max(0, 1 - pk.reduce((a, b) => a + b, 0)));
+    const raw = pk.map(x => x * 1000);
+    const tenths = raw.map(Math.floor);
+    let left = 1000 - tenths.reduce((a, b) => a + b, 0);
+    raw.map((r, i) => [r - tenths[i], i]).sort((a, b) => b[0] - a[0])
+      .slice(0, left).forEach(([, i]) => tenths[i]++);
+    return { pk, tenths };
+  }
 
-With nothing on the table: "Nothing on the table: <v0>% of your spend is on working ads, at or above
-your <target>% target." The page names no ad.
+  function chart(n) {
+    const { pk, tenths } = binomial(n, F.outlierRate);
+    const top = Math.max(0.1, Math.ceil(Math.max(...pk) * 10 - 1e-9) / 10);
+    const names = ["0", "1", "2", "3", "4", "5+"];
+    let g = "";
+    [0, 0.5, 1].forEach(f => {
+      const y = 180 - f * 150;
+      g += `<line class="grid" x1="44" x2="470" y1="${y}" y2="${y}"/><text class="axis" x="38" y="${y + 4}" text-anchor="end">${Math.round(f * top * 100)}%</text>`;
+    });
+    pk.forEach((x, i) => {
+      const h = x / top * 150, bx = 60 + i * 68;
+      g += `<rect class="s-hi" x="${bx}" y="${180 - h}" width="44" height="${h}"/>`
+        + `<text class="val" x="${bx + 22}" y="${174 - h}" text-anchor="middle">${(tenths[i] / 10).toFixed(1)}%</text>`
+        + `<text class="axis" x="${bx + 22}" y="198" text-anchor="middle">${names[i]}</text>`;
+    });
+    $("wb-bars").innerHTML = g;
+    $("wb-bars").setAttribute("aria-label", "Chance of finding k Outliers in a month: "
+      + names.map((k, i) => k + ", " + (tenths[i] / 10).toFixed(1) + "%").join("; "));
+    $("wb-none").textContent = (tenths[0] / 10).toFixed(1) + "%";
+  }
+
+  function render(s) {
+    const n = ads(s);
+    $("wb-spend").textContent = money(s);
+    $("wb-sum").textContent = money(s) + " × " + Math.round(F.target * 100) + "% ÷ ("
+      + hit(F.hitRate) + " × " + money(F.spendPerHit) + ") = " + quotient(s).toFixed(2)
+      + ", rounded up: " + n + " new ads a month";
+    if ($("wb-bars")) {
+      $("wb-expected").textContent = (n * F.outlierRate).toFixed(1);
+      chart(n);
+    }
+  }
+
+  const slider = $("wb-slider");
+  const lo = F.budget === null ? F.currentSpend / 2 : Math.min(F.currentSpend / 2, F.budget);
+  const hi = F.budget === null ? F.currentSpend * 3 : Math.max(F.currentSpend * 3, F.budget);
+  slider.min = lo; slider.max = hi; slider.value = F.currentSpend;
+  [["wb-mark-current", F.currentSpend], ["wb-mark-budget", F.budget]].forEach(([id, v]) => {
+    const el = $(id);
+    if (el && v !== null) el.style.left = (v - lo) / (hi - lo) * 100 + "%";
+  });
+  [["wb-set-current", F.currentSpend], ["wb-set-budget", F.budget]].forEach(([id, v]) => {
+    const el = $(id);
+    if (el) el.addEventListener("click", () => { slider.value = v; render(v); });
+  });
+  slider.addEventListener("input", () => render(Number(slider.value)));
+  $("wb-live").hidden = false;
+  render(F.currentSpend);
+})();
+</script>
+```
+
+The page's elements for it: `wb-live` (the container of the slider, formula sum and, where it exists,
+part d, `hidden` in the HTML), `wb-slider` (the range input), `wb-spend` (the output beside it),
+`wb-sum` (the formula with the account's numbers), `wb-mark-current` and `wb-mark-budget` (the two
+marks, the second only with a Budget), `wb-set-current` and `wb-set-budget` (the two buttons, the
+second only with a Budget), and, in part d only, `wb-expected`, `wb-none` and `wb-bars` (an `<svg>`
+with `viewBox="0 0 480 210"`, `role="img"` and a first `aria-label`). Its classes `grid`, `axis`, `val`
+and `s-hi` are the page's chart classes of `references/crux-brand.md`.
 
 # How it's worked out
 
@@ -210,7 +402,7 @@ Seven parts, in this order.
 
 ## Month-by-month plan
 
-The Ads to launch each calendar month, so next month's ads can be briefed. No chart: the table is the plan.
+The Ads to launch each calendar month, so next month's ads can be briefed. No chart: the table is the plan. Work backwards from spend on the Creative deep dive shows the same table cut to fewer columns, with the same figures.
 
 **First line, the Catch-up.** Where S is below ⌈L⌉ (the gap is above 0 whole ads): "You are <g>
 working ads short, so the plan adds <the total catch-up launches> launches over the <k> months to
@@ -280,7 +472,7 @@ sentence saying the curve is rough.
 
 ## The figures
 
-The figures behind the Scorecard, one line each, in this order and in the formats above:
+The figures behind the Creative deep dive, one line each, in this order and in the formats above:
 
 1. **Hit rate**: "1 in 8, 12%", with the Hit rate ads it rests on ("from <n> ads launched at least 28
    days ago").
@@ -307,7 +499,14 @@ The figures behind the Scorecard, one line each, in this order and in the format
    Worn out and (only where it holds spend) Other, with the columns Share of spend, New customers and
    CAC (two decimals). A group that spent and has no customers reads "no new customers" and is
    named in This run. Under it, one line: "On the table assumes the CAC gap between working and other
-   spend holds as the share moves."
+   spend holds as the share moves." Then **On the table**, as "On the table: +<n> customers a week at
+   today's spend · CAC −<x>%", n the new customers a week gained (`customers_week_gain`) to the nearest
+   whole customer, never below 1 where anything is on the table, and x the blended CAC change as a
+   whole percentage; with nothing on the table, "Nothing on the table: <v0>% of your spend is on
+   working ads, at or above your <target>% target." Last, the biggest waste (`biggest_waste`) with its
+   share of spend: "<n>% of your spend is on ads that have stopped working: run `/audit-ads` to see
+   which to pause." for Worn out, or "<n>% of your spend is on ads still in their test phase: launch
+   fewer, stronger ads." for Test phase, left out with nothing on the table. The page names no ad.
 8. **The Self-check**, as one line in these words with the figures filled in (the Current pipeline for
    the launches a month, the Hit rate as a percentage, the launches of the last 3 complete months over
    their days times the Viable lifespan to one decimal, and today's viable ads): "Check: launching <pipeline> a month at a hit rate
@@ -315,7 +514,7 @@ The figures behind the Scorecard, one line each, in this order and in the format
    today's viable ads, the line adds "the curve and today's count disagree by <x>%, so read the plan
    as a guide".
 9. **The Creative score**, in this order, under a heading of its own:
-   - **The score**: "Creative score: <score> out of 100", a whole number, and under it a table with a row
+   - **The bands table**: "Creative score: <score> out of 100", a whole number, and under it a table with a row
      for each of the seven measures in this order (Evergreen share, Spend degradation, Viable after week 1,
      Top-5 concentration, Outlier rate, Hit rate, Low-spend rate) and the columns Measure, Value, Poor,
      Average, Good and Score. Values and anchors are percentages to one decimal, Spend degradation with its
@@ -333,10 +532,20 @@ The figures behind the Scorecard, one line each, in this order and in the format
      each complete calendar quarter and the columns Quarter, New among the top 10 ("<n> of 10") and Share
      of the quarter's spend (the new ads' spend over the quarter's). With fewer than 2 complete quarters
      the table and its line are left out.
+10. **Spending power**: a table with a row for each complete calendar month of the window and the
+    columns Month, Spend (whole units), New orders (purchases without a Growth Brain) and CAC (two
+    decimals; "none" where a month has no orders), and under it the two changes in the words of the
+    Creative deep dive ("Spend +22%, CAC −10%: the last 3 complete months against the 3 before"), or,
+    with fewer than 6 complete months, "Fewer than 6 complete months, so the last 3 are not compared
+    with the 3 before." Left out with fewer than 2 complete months.
+11. **Expected outliers**: one line, "At current spend, <N0> new ads a month give <x> Expected outliers a
+    month and a <y>% chance of none" (x to one decimal, y the chart's first figure), and, with a Budget,
+    the same at the Budget with `ads_for_spend` of it. With no Outlier, "No Outliers, so no chance is
+    read."
 
 ## Terms
 
-The Page labels table above, as Label, Term and Says, for the labels the Scorecard and the Month-by-month
+The Page labels table above, as Label, Term and Says, for the labels the Creative deep dive and the Month-by-month
 plan used.
 
 ## This run
@@ -369,6 +578,7 @@ A short list:
   Steady-state number and the new ads in the Month-by-month plan are therefore a ceiling: they may read a
   little high." The trigger is a survival rate of 25% or more at the last counted age. A curve that
   ends below 25% carries no such note;
+- the months Spending power charts, as the first and last complete month, or "None";
 - the window: the first and last date read, the last complete day (today) and any later day left out
   as still loading, the last complete calendar month used for current spend and that spend a day outside
   the awareness and lead campaigns, the 3 months behind the Current pipeline, the 8 weeks behind the Format split, and the timezone the
@@ -402,7 +612,7 @@ fell to, and ends on the method.
 
 `meta-ad-roadmap-<date>.md` (`<date>` is today as `YYYY-MM-DD`) is a markdown file the user keeps
 and hands to whoever makes the ads. It is self-contained: it reads without the page, in the same
-house style, money, counts of ads and Page labels as the Scorecard. It holds these, in this order,
+house style, money, counts of ads and Page labels as the Creative deep dive. It holds these, in this order,
 under a title of "Meta ad roadmap" with the brand and the date:
 
 1. **Budget**: the Budget as the Month-by-month plan's Budget line gives it (the monthly figure and
@@ -414,7 +624,7 @@ under a title of "Meta ad roadmap" with the brand and the date:
    (only with a Format split), Ads to launch, Expected to work and Go live by, one row for each month,
    and its Video and image split line, then the table's rounding line and its line on launching a
    quarter of the month's ads each week. Every figure is the page's whole number.
-3. **Hit rate**: one line, "<1 in N, x%> of your new ads work (Hit rate: <the Says of Hit rate>), and
+3. **Ads that work**: one line, "<1 in N, x%> of your new ads work (Ads that work: <the Says of Hit rate>), and
    a working ad stays working (<the Says of working ad>) for about <the Days viable per hit, to the
    whole day> days" (with "at least" before the figure and "so the ad counts may read a little high"
    after it where the Viable lifespan is a lower bound).
