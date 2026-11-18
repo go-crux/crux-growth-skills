@@ -80,6 +80,12 @@ session, so it runs from Matt's own Claude, never from a cold run. Method in
   The two blocks change together, byte for byte, and `/code-review` diffs them.
   `plan-ad-volume`'s `references/intake.sql` and `references/fatigue.sql` likewise carry one
   `-- BEGIN shared format` block, which changes together byte for byte.
+- **A brain runs a skill's SQL as one statement, and BigQuery copies a CTE in full wherever it is read.**
+  A heavy CTE read from many places makes the brain refuse the query ("Not enough resources for query
+  planning - query is too complex") before it scans anything, and the limit moves with the query's shape.
+  `plan-ad-volume`'s `fatigue.sql` reads its per-day status grid once, in `pack`, and chains `m1` to
+  `m9`, each reading only the one before it; add a measure inside that chain, never as a new CTE over
+  `ad_day_status`. Dry run any brain SQL change on a real brain before the zip goes out.
 - **Both hosts read the plugin's `skills/`.** Keep a skill free of Claude-only syntax the Codex host cannot
   follow, and keep the plugin's Claude manifest under `.claude-plugin/` working.
 - **Anyone reads the README.** It is written for a non-technical reader at any ecommerce brand, client or not (founder, head of growth, ecommerce or marketing manager), leads with the desktop app's plugin install, and says what each skill needs. It is in Crux house style
