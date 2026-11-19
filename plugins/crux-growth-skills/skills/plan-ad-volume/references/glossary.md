@@ -96,7 +96,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Growth launches**: month 1's launches for the change in stock needed: the Viable ad stock at month 1's spend less the larger of the stock at current spend and today's viable ads, over the Hit rate. Above 0 where spend rises, below 0 where spend falls or today's viable ads are already above the stock at current spend. Page label **To grow**. _Avoid_: scaling launches.
 
-Stay-level, Gap and Growth launches are worked unrounded and shown in whole ads, with the rounding difference given to the largest, so they sum to month 1's Ads to launch (`method.md` step 14).
+Stay-level, Gap and Growth launches are worked unrounded and shown in whole ads, with the rounding difference given to the largest, so they sum to month 1's Ads to launch (`method.md`, "Next month's ads, in three parts").
 
 - **Expected to work**: a month's launches times the Hit rate: the viable ads they add. _Avoid_: expected winners, yield.
 

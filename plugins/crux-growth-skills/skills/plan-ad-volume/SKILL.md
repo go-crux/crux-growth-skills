@@ -371,7 +371,7 @@ number in the working. The page shows every ad count as a whole ad, rounded up (
 - **Launches to keep up(k)** is Wearing out(k) over h, rounded up. **Launches above keeping up(k)** is Ads
   to launch(k) less that, which is below 0 in a month where the stock runs down on its own. The
   **total catch-up launches** is their sum over months 1 to n, worked only where Gap0 is above 0.
-- **Next month's ads, in three parts** (month 1, by `references/method.md` step 14). In stock:
+- **Next month's ads, in three parts** (month 1, as `references/method.md` gives them). In stock:
   **Wearing out(1)**; **Gap0 over n** where Gap0 is above 0, else 0; and the **growth stock**, L(1) less
   the larger of L at current spend and S(0). Over h they are the **Stay-level launches** x, the **Gap
   launches** y and the **Growth launches** z, unrounded, and x + y + z is Ads to launch(1) before its

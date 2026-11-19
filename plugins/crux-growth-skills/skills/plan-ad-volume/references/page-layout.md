@@ -290,7 +290,7 @@ of the Budget> new ads a month." Without a Budget it is left out.
 **The breakdown**, straight after those lines and before Holding you back: next month's new ads (the
 Roadmap's first row) in three parts that add up. Plain HTML, written into the page and never by the
 script, so it prints and reads with scripts off, and it does not move with the slider. The figures are
-the whole ads of `references/method.md` step 14, "Next month's ads, in three parts", which gives the
+the whole ads of `references/method.md`, "Next month's ads, in three parts", which gives the
 rounding; <X>, <Y> and <Z> are the parts after it. Each part is a label and a line, in this order and
 in these words with the figures filled in and in bold:
 
