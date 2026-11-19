@@ -158,8 +158,9 @@ thing:
 
 For example, "Weakest point: Ads that never got budget, 88.0% against 70.0% for Good. Most new ads never
 get spend, because Meta gives budget to the ads it already trusts. Test new ads in smaller batches in
-their own ad sets, so you control the budget each test gets." Where the lowest sub-score is 100, every measure is at Good or better and the line reads "Weakest point: none, every
-measure is at Good or better." With no measure readable it is left out.
+their own ad sets, so you control the budget each test gets." Where the lowest sub-score is 100, every
+measure is at Good or better and the line reads "Weakest point: none, every measure is at Good or
+better." With no measure readable it is left out.
 
 ## 2. Spending power
 
