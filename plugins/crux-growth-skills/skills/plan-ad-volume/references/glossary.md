@@ -74,7 +74,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Worn out now**: live ads past Ramping that are Fatiguing, Fatigued or Low efficiency. They take spend but are not stock. _Avoid_: dead ads, fatigued ads.
 
-- **Wearing out**: viable ads expected to stop being viable over a period: the stock times the period's days over Days viable per hit; in the Roadmap, the days of that month. _Avoid_: churn, decay, losing.
+- **Wearing out**: viable ads expected to stop being viable over a period. They stop at a steady rate of 1 over Days viable per hit a day, so after d days the share of a stock still working is e^(−d ÷ Days viable per hit). In the Roadmap, a month's Wearing out is every working ad that stops during it, the ones launched in the month included: the start stock plus Expected to work, less the end stock. _Avoid_: churn, decay, losing.
 
 - **Current pipeline**: Launched ads per month, averaged over the last 3 complete months. What the Steady-state number is compared with. _Avoid_: launch rate, creative velocity.
 
@@ -88,19 +88,19 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Roadmap file**: `meta-ad-roadmap-<date>.md`, the Roadmap handed over as markdown for whoever makes the ads: the Budget with the ads a month at current spend and at the Budget, the months, the new ads by format, the Live-by dates, and one line each on the Hit rate, the Limiting factor with its to-hit and the Spend per viable ad. Offered at the Close; the page does not need it. _Avoid_: handover file (that is the Action skills'), brief, export.
 
-- **Catch-up**: the launches above keeping up in the months to the Budget month: each month's Ads to launch less Wearing out over the Hit rate, rounded up. They close today's gap, the viable ads short of the Viable ad stock over the Hit rate spread evenly, and where the Budget is above current spend they also grow the stock. Month 1's share of them is split on the page into Gap launches and Growth launches. _Avoid_: backlog, top-up.
+- **Catch-up**: the extra launches in month 1 that close today's gap, the viable ads short of the Viable ad stock at current spend. Every month aims at the stock it needs, with no glide to the Budget month, so the gap closes in month 1, once, and is not spread over the months. Month 1's Catch-up is the Gap launches where they are above 0. _Avoid_: backlog, top-up.
 
-- **Stay-level launches**: month 1's launches that replace the viable ads Wearing out, Wearing out over the Hit rate, rounded up. Page label **To stay level**. _Avoid_: replacement launches, maintenance.
+- **Stay-level launches**: month 1's launches that replace what the viable ads your current spend needs wear out next month: the Viable ad stock at current spend times month 1's days, over the Hit rate times the Days viable per hit. About the Steady-state number, up to the month's length. Page label **To stay level**. _Avoid_: replacement launches, maintenance.
 
-- **Gap launches**: month 1's launches that close its share of the gap, the gap over the months to the Budget month, over the Hit rate; none where there is no gap. Page label **To catch up**. _Avoid_: backlog launches.
+- **Gap launches**: month 1's one-off launches for the gap between the Viable ad stock at current spend and today's viable ads, the gap times the share of today's stock still working at month 1's end, over the Hit rate times the average share of a month's launches still working at its end. Above 0 where today's viable ads are short, below 0 where they are ahead, 0 with no gap. Page label **To catch up** where above 0 and **Ahead** where below. _Avoid_: backlog launches.
 
-- **Growth launches**: month 1's launches for the change in stock needed: the Viable ad stock at month 1's spend less the larger of the stock at current spend and today's viable ads, over the Hit rate. Above 0 where spend rises, below 0 where spend falls or today's viable ads are already above the stock at current spend. Page label **To grow**. _Avoid_: scaling launches.
+- **Growth launches**: month 1's launches for the change in stock needed: the Viable ad stock at month 1's spend less the stock at current spend, over the Hit rate times the average share of a month's launches still working at its end. Above 0 where spend rises, below 0 where it falls. Page label **To grow**. _Avoid_: scaling launches.
 
-Stay-level, Gap and Growth launches are worked unrounded and shown in whole ads, with the rounding difference given to the largest, so they sum to month 1's Ads to launch (`method.md`, "Next month's ads, in three parts").
+Stay-level, Gap and Growth launches are worked unrounded and shown in whole ads, with the rounding difference given to the part with the largest absolute figure, so they sum to month 1's Ads to launch (`method.md`, "Next month's ads, in three parts").
 
 - **Expected to work**: a month's launches times the Hit rate: the viable ads they add. _Avoid_: expected winners, yield.
 
-- **Ads to launch**: the whole ads a Roadmap month launches: the month's target, less the stock left after Wearing out, over the Hit rate, rounded up and never below 0. _Avoid_: new ads to make, New.
+- **Ads to launch**: the whole ads a Roadmap month launches: the Viable ad stock the month needs, less what is left of the starting stock at the month's end, over the Hit rate times the average share of a month's launches still working at its end, rounded up and never below 0. _Avoid_: new ads to make, New.
 
 - **Live-by**: the date a Roadmap month's first new ads must go live: the month's 1st less the Days to clear Ramping, with about a quarter of the month's ads launched each week after it. _Avoid_: launch date, deadline.
 
