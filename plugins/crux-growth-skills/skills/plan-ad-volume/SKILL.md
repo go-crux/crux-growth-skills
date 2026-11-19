@@ -8,8 +8,8 @@ description: Meta ad volume forecast. Use when the user asks how many new Meta a
 Work out how many new Meta ads a month the account's spend needs, from the account's own Survival
 curve and Hit rate, and produce `meta-ad-volume-<date>.html`: a Crux-branded page that opens on the
 Creative deep dive, laid out like the creative report founders already know: the Creative score,
-Spending power, the Outlier engine, Creative rotation, Hits, and Work backwards from spend,
-a slider that answers how many ads a spend needs next month, with the month-by-month plan, the curve,
+Spending power, the Outlier engine, Creative rotation, Hits, and Ads needed each month,
+a slider that answers how many ads a spend needs next month, with next month's ads split into three parts, with the month-by-month plan, the curve,
 the figures and the method on a second tab, How it's worked out. It is laid out as
 `references/page-layout.md` fixes it. Then offer the Roadmap as `meta-ad-roadmap-<date>.md` for the
 creative brief and say when to run it again, monthly. Run the steps in order. The user sees only the chat and the
@@ -18,7 +18,7 @@ and never cite a file, a rule or a query. The terms
 Viable ad, Viable share, Viable share target, Viable ad stock, Launched ad, Survival curve, Viable lifespan, Hit rate, Spend bar, Low-spend rate, Days viable per
 hit, Viable spend per hit, Healthy lifespan, Spend per viable ad, Days to clear Ramping, Self-check, Ad stock check, Lever, Lever best,
 Limiting factor, On the table, Worn out now, Wearing out, Current pipeline, Steady-state number, Budget,
-Roadmap, Catch-up, Ads to launch, Expected to work, Live-by, Format, Name coverage, Format split,
+Roadmap, Catch-up, Stay-level launches, Gap launches, Growth launches, Ads to launch, Expected to work, Live-by, Format, Name coverage, Format split,
 Roadmap file, Awareness campaign, Lead campaign, Unattended run, Source, Brain line, Creative deep dive, How it's worked out,
 Creative score, Evergreen share, Spend degradation, Viable after week 1, Top-5 concentration, Outlier, Outlier rate,
 Top-10 turnover, Expected outliers a month and Page label are those of
@@ -36,8 +36,8 @@ none plainly the brand's, no export attached) does it stop with one line saying 
 Its defaults, every one of them:
 
 - Step 3 sends no message and takes the proposed retargeting, awareness and lead campaigns as confirmed.
-- It plans current spend held flat for 3 months: no Budget is asked for or used, so Work backwards
-  from spend marks current spend alone and its answer carries no Budget line.
+- It plans current spend held flat for 3 months: no Budget is asked for or used, so Ads needed
+  each month marks current spend alone and its answer carries no Budget line.
 - It uses no Format split, so the Roadmap shows new ads as a total.
 - The page's How it's worked out says the run was unattended, in the words `references/page-layout.md`
   gives.
@@ -368,10 +368,17 @@ number in the working. The page shows every ad count as a whole ad, rounded up (
   launch(k).
 - **Live-by(k)** is the 1st of month k less the Days to clear Ramping, a date, with the line "launch
   about a quarter of the month's ads each week".
-- **Launches to keep up(k)** is Wearing out(k) over h, rounded up. **Launches to catch up(k)** is Ads
+- **Launches to keep up(k)** is Wearing out(k) over h, rounded up. **Launches above keeping up(k)** is Ads
   to launch(k) less that, which is below 0 in a month where the stock runs down on its own. The
   **total catch-up launches** is their sum over months 1 to n, worked only where Gap0 is above 0.
-- **Work backwards from spend.** The page's slider runs `ads_for_spend` over monthly spend, from half
+- **Next month's ads, in three parts** (month 1, by `references/method.md` step 14). In stock:
+  **Wearing out(1)**; **Gap0 over n** where Gap0 is above 0, else 0; and the **growth stock**, L(1) less
+  the larger of L at current spend and S(0). Over h they are the **Stay-level launches** x, the **Gap
+  launches** y and the **Growth launches** z, unrounded, and x + y + z is Ads to launch(1) before its
+  rounding up and its floor of 0. Round x up and y and z to the nearest whole ad, then give the
+  difference to Ads to launch(1) to the part with the largest unrounded figure, so the three parts sum
+  to Ads to launch(1) exactly. With Ads to launch(1) at 0 there are no parts.
+- **Ads needed each month.** The page's slider runs `ads_for_spend` over monthly spend, from half
   current spend to 3 times it (wider where the Budget lies outside that). Its figures are baked into the
   page's `wb-figures` block: current spend, the Budget (null with none), the Viable share target, the Hit
   rate, the Viable spend per hit and the Outlier rate, each unrounded, with the currency. **Expected outliers a month** is the new ads
@@ -460,7 +467,7 @@ with start, less Wearing out, plus Expected to work equal to the end stock on th
 no Ads to launch below 0 and video plus image equal to Ads to launch in every row (with a split). Where Gap0 is above 0, the end stock at the Budget month is at or
 above L(n) and the Catch-up is spread evenly over months 1 to n. At a flat budget with S(0) equal to L (and D at least the month's days),
 every month's Ads to launch is `ads_for_spend` at that month's spend, give or take one ad, and no Ads to launch is below 0, a Budget below current spend included. `ads_for_spend` at current spend
-equals the Steady-state number, the launches to keep up and to catch up for month 1 sum to month 1's Ads to launch, and the run knows whether W is a lower bound.
+equals the Steady-state number, month 1's Stay-level, Gap and Growth launches sum to month 1's Ads to launch (all three 0 where it is 0), and the run knows whether W is a lower bound.
 
 ## 5. Write the page
 
@@ -470,8 +477,8 @@ slider, its figures in one `wb-figures` JSON block, and Google Fonts as its only
 sections in the Page labels, labels and an action line for most, and two fixed sentences opening Spending power, the Outlier engine, Creative rotation and Hits: the Creative score (the score
 out of 100, seven colour-coded Poor-to-Good bars, the Weakest point, and Top-10 turnover beside it), Spending power (monthly spend
 against CAC, and the last 3 months against the 3 before), the Outlier engine, Creative rotation (Top-10
-turnover by quarter, left out with fewer than 2 quarters), Hits, and Work backwards from spend,
-which opens on its answer, N0 against the Current pipeline with a verdict line, then the Limiting factor
+turnover by quarter, left out with fewer than 2 quarters), Hits, and Ads needed each month,
+which opens on its answer, N0 against the Current pipeline with a verdict line, then next month's ads in three parts that add up (To stay level, To catch up and To grow, then the Total), then the Limiting factor
 with its to-hit in the words `references/page-layout.md` gives and a Need only on the Levers it moves,
 the slider over monthly spend with the formula and the account's numbers, Expected outliers a month with
 the binomial chart and the chance of none, the Ad stock check in plain words ("You have <S> ads working
@@ -508,10 +515,10 @@ with 2 or more complete quarters; Spending power charts the complete months (the
 with fewer than 2) and gives the two changes only with 6 or more; the Outlier engine gives the Outlier
 rate, the Outliers' share of spend, the spend per new ad and the time to Outlier; Creative rotation has a
 bar for each complete quarter, or is left out with fewer than 2; Hits gives the Hit rate with the hit test under it, the
-Low-spend rate, Viable spend per hit and the Spend bar with its explanation under it, and the Outlier engine and Hits each carry the Hits and Outliers line; Work backwards from spend opens, before the slider, with N0 new ads a month against the P the account
+Low-spend rate, Viable spend per hit and the Spend bar with its explanation under it, and the Outlier engine and Hits each carry the Hits and Outliers line; Ads needed each month opens, before the slider, with N0 new ads a month against the P the account
 launched a month and one verdict line (within 10% "You are keeping pace.", below "Make about <N0 − P> more
 a month.", above "You are launching more than your spend needs."), and the Budget's line where there is
-one, then the Limiting factor with its to-hit (On track reads "nothing: keep launching <P> a month"), then
+one, then next month's ads in To stay level, To catch up (left out with no gap) and To grow (left out where it is 0), whose figures and Total equal month 1's Ads to launch in the Roadmap (and in plain HTML, so they print with scripts off), then the Limiting factor with its to-hit (On track reads "nothing: keep launching <P> a month"), then
 the slider at current spend (the Budget marked where there is one) with the formula **New ads = monthly
 spend × Viable share target ÷ (Hit rate × Viable spend per hit)**, the page's figure at current spend
 equal to the Steady-state number in the Roadmap, Expected outliers a month with six binomial bars that

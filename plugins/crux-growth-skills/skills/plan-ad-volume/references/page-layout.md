@@ -33,7 +33,7 @@ scales to the width of the screen.
 
 The Creative deep dive and the chat speak to the user in these labels, never in the term on the left,
 and so do the Month-by-month plan's columns and the Roadmap file. The one exception is the formula
-under Work backwards from spend, which is written in the terms so a reader can check it against How
+under Ads needed each month, which is written in the terms so a reader can check it against How
 it's worked out. The Creative deep dive carries no definitions beyond the hit test and the Spend bar's explanation under their figures: each Says is given once, on How it's
 worked out under Terms, which is this table as Label, Term and Says (the rows with a Says), so a
 reader can match the two. A row with no Says is a heading or a chart title and needs no gloss.
@@ -50,6 +50,9 @@ reader can match the two. A row with no Says is a heading or a chart title and n
 | Ad stock check | Enough working ads for your spend? | the working ads you have today, against the working ads your spend needs live at once |
 | Worn out now | Worn out | ads old enough to be judged whose CAC has slipped; they take spend but do not count |
 | Wearing out | Expected to wear out | working ads likely to stop working in that time |
+| Stay-level launches | To stay level | the new ads that replace the working ads wearing out next month |
+| Gap launches | To catch up | the new ads that close next month's share of the working ads you are short |
+| Growth launches | To grow | the new ads for the extra working ads your spend needs next month |
 | Creative score | Creative score | how healthy your creative is, out of 100: the plain average of seven measures, each placed on fixed bands from Poor to Good |
 | Evergreen share | Evergreen share | the share of the last 30 days' spend on ads that are 30 days old or more |
 | Spend degradation | Spend degradation | how much an ad's daily spend changes from its first week to the 3 weeks after, the middle figure across your new ads |
@@ -205,7 +208,7 @@ but an Outlier can be unprofitable. Only hits set how many new ads you need."
 from first spend to the line, as `days_to_line_p25`, `days_to_line_median` and `days_to_line_p75`,
 under the heading "Days from first spend to the Outlier line". With no Outlier they are left out.
 
-**The action line**: "At <N0> new ads a month, expect <x> Outliers a month; Work backwards from spend
+**The action line**: "At <N0> new ads a month, expect <x> Outliers a month; Ads needed each month
 below shows the chance of none." x is Expected outliers a month at current spend, to one decimal. With
 no Outlier it reads "No new ad has yet spent like an Outlier: more ads, and more different ones, give
 Meta more to scale."
@@ -262,10 +265,11 @@ Outliers are hits, but an Outlier can be unprofitable. Only hits set how many ne
 a new ad must spend to count." Where the Viable lifespan is a lower bound it adds "Counts may read a
 little high; How it's worked out has the detail."
 
-## 6. Work backwards from spend
+## 6. Ads needed each month
 
-The section answers "how many ads does this spend need next month", and says first whether the account
-launches that many. Its parts, in this order:
+The section answers "how many ads does this spend need next month", says first whether the account
+launches that many, and then what next month's ads are made of. The slider's formula is CTC's "work
+backwards from spend". Its parts, in this order:
 
 **a. The answer.** Plain HTML, written into the page and never by the script, so it prints and reads with
 scripts off. Two sentences in these words, with the figures filled in and in bold: "At your current spend
@@ -282,6 +286,35 @@ an N0 of 0 only at a P of 0):
 
 Where the user gave a Budget, a second line: "At your Budget of <the Budget> a month you need <ads_for_spend
 of the Budget> new ads a month." Without a Budget it is left out.
+
+**The breakdown**, straight after those lines and before Holding you back: next month's new ads (the
+Roadmap's first row) in three parts that add up. Plain HTML, written into the page and never by the
+script, so it prints and reads with scripts off, and it does not move with the slider. The figures are
+the whole ads of `references/method.md` step 14, "Next month's ads, in three parts", which gives the
+rounding; <X>, <Y> and <Z> are the parts after it. Each part is a label and a line, in this order and
+in these words with the figures filled in and in bold:
+
+| Part | The line | Left out |
+|---|---|---|
+| To stay level | "About <⌈Wearing out(1)⌉> of your working ads will wear out next month; at your hit rate of <h>% that takes <X> launches to replace." | never |
+| To catch up | "You are <g> working ads short of what your spend needs; closing that over <k> months adds <Y> a month." | where there is no gap, or <Y> is 0 |
+| To grow | By <Z>, below | where <Z> is 0, as with no Budget and no spend change |
+
+Wearing out(1) is rounded up to a whole ad as in the Month-by-month plan, and <h> is the Hit rate in the
+format above. <g> is the gap of the Ad stock check, and <k> the months to the Budget month (3 with no
+Budget); where the verdict is About right, "short" reads "under". The To grow line, by <Z>:
+
+| Where | The line |
+|---|---|
+| <Z> above 0 (spend rises) | "Your Budget raises spend next month, which needs <Z> more." |
+| <Z> below 0, and spend falls | "Spend falls next month, so <−Z> fewer are needed." |
+| <Z> below 0, and spend does not fall | "You already have more working ads than your spend needs, so <−Z> fewer are needed." |
+| <Z> below 0, spend falls and the working ads are over what your spend needs | "Spend falls next month and you already have more working ads than it needs, so <−Z> fewer are needed." |
+
+Then **Total**: "<X + Y + Z> new ads next month, against the <P> a month you launched over the last 3
+months." The Total is the Roadmap's Ads to launch for its first row exactly. Where that is 0, the three
+parts and the Total are replaced by one line: "None needed next month: the working ads you have will
+cover it."
 
 **b. Holding you back.** The Limiting factor as a pill in the Highlight colour (On track, Volume, Both,
 Finding hits or Keeping hits), then a table with one row for each Lever, in this order and with
@@ -488,7 +521,7 @@ Seven parts, in this order.
 
 ## Month-by-month plan
 
-The Ads to launch each calendar month, so next month's ads can be briefed. No chart: the table is the plan. Work backwards from spend on the Creative deep dive shows the same table cut to fewer columns, with the same figures.
+The Ads to launch each calendar month, so next month's ads can be briefed. No chart: the table is the plan. Ads needed each month on the Creative deep dive shows the same table cut to fewer columns, with the same figures.
 
 **First line, the Catch-up.** Where S is below ⌈L⌉ (the gap is above 0 whole ads): "You are <g>
 working ads short, so the plan adds <the total catch-up launches> launches over the <k> months to
