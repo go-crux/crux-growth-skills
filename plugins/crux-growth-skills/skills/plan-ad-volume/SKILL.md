@@ -327,7 +327,8 @@ below is worked in code from that row. Compute each figure once, from these defi
   today's viable ads).
 
 **Stop** where h is 0, with one line and no page: "None of the <n> ads launched at least 28 days ago
-was a hit (viable on a day, at <the Spend bar> or more of spend and a CAC within 1.2 times the account's over its first 28 days), so there is no hit rate to plan from." (n is
+was a hit (viable on a day, at <the Spend bar> or more of spend and a CAC within 1.2 times the
+account's over its first 28 days), so there is no hit rate to plan from." (n is
 `hit_rate_ads`.) **Stop** too where no
 week is counted, with one line and no page: "<Brand>'s weekly spend is too uneven to read a viable
 share." Both hold for an unattended run too.
