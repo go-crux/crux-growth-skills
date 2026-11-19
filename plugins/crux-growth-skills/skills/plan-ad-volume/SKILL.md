@@ -8,7 +8,7 @@ description: Meta ad volume forecast. Use when the user asks how many new Meta a
 Work out how many new Meta ads a month the account's spend needs, from the account's own Survival
 curve and Hit rate, and produce `meta-ad-volume-<date>.html`: a Crux-branded page that opens on the
 Creative deep dive, laid out like the creative report founders already know: the Creative score,
-Spending power, the Outlier engine, Creative rotation, Ads that work, and Work backwards from spend,
+Spending power, the Outlier engine, Creative rotation, Hits, and Work backwards from spend,
 a slider that answers how many ads a spend needs next month, with the month-by-month plan, the curve,
 the figures and the method on a second tab, How it's worked out. It is laid out as
 `references/page-layout.md` fixes it. Then offer the Roadmap as `meta-ad-roadmap-<date>.md` for the
@@ -134,7 +134,7 @@ Send one message, then wait for the reply:
    180 otherwise): "I'll judge every Meta ad on every day of the last 365 days by its CAC, the way an
    ad audit does. Then, from every ad you launched in that time, I'll work out your hit rate (how
    many of your new ads become viable at real spend: their CAC holding up, under 20% above your account average
-   and not climbing off its best, or recovering towards it, on a budget Meta actually gave them) and how long the ones that work stay viable. That tells me how many
+   and not climbing off its best, or recovering towards it, on a budget Meta actually gave them) and how long a hit stays viable. That tells me how many
    viable ads your spend needs live at once, aiming at the best share of your spend your account has
    put on viable ads, and so how many new ads a month it takes to hold them.
    CAC here is <basis>. If you give me a monthly budget, I'll step your spend to it month by month and
@@ -255,7 +255,7 @@ below is worked in code from that row. Compute each figure once, from these defi
   viable or not, so no ad is both a hit and low-spend. The base splits into three counts that sum to
   it: `hits`, `low_spend_ads`, and `spent_bar_not_hit_ads` (at or above the bar but not a hit).
 - **Days viable per hit** (D) is W over h, so h times D is W exactly.
-- **Viable spend per hit** is the Spend per viable ad times D: the spend one ad that works carries
+- **Viable spend per hit** is the Spend per viable ad times D: the spend one hit carries
   over its viable life.
 - **Spend per viable ad** is the spend on viable ad-days over the number of viable ad-days: the
   ad-days are those of the Launched ads at the ages that count.
@@ -409,11 +409,11 @@ number in the working. The page shows every ad count as a whole ad, rounded up (
   | **On track** | S(0) is 0.8 times L or more, and N0 is P or less | none |
   | **Volume** | N0 is 1.2 times B or less | launches N0 a month |
   | **Both** | h_best exists and N1 is 1.2 times B or less | hit rate h_best and launches N1 a month |
-  | **Finding winners** | room_h is room_D or more | hit rate h_need, L times the month's days over D times B, "beyond your best" where h_need is above h_best |
-  | **Keeping winners** | room_D is above room_h | days viable per hit D_need, L times the month's days over h times B, "beyond your best" where D_need is above D_best |
+  | **Finding hits** | room_h is room_D or more | hit rate h_need, L times the month's days over D times B, "beyond your best" where h_need is above h_best |
+  | **Keeping hits** | room_D is above room_h | days viable per hit D_need, L times the month's days over h times B, "beyond your best" where D_need is above D_best |
 
   room_h is h_best over h and room_D is D_best over D, a null best giving a room of 0. With both bests
-  null the factor is Finding winners, and This run says "not enough history to compare". Where B is
+  null the factor is Finding hits, and This run says "not enough history to compare". Where B is
   null, Volume and Both do not hold. Keep each of N0, N1, the rooms and the figures to hit unrounded
   until the page shows them.
 - **On the table**, over the last 90 complete days to today, on the skill's CAC basis (new orders, or
@@ -467,10 +467,10 @@ equals the Steady-state number, the launches to keep up and to catch up for mont
 Write the page as `references/page-layout.md` fixes it, in the Crux brand of `references/crux-brand.md`:
 two tabs switched by CSS alone, opening on the Creative deep dive, with one inline script for the
 slider, its figures in one `wb-figures` JSON block, and Google Fonts as its only network request. The Creative deep dive holds the masthead, then six
-sections in the Page labels, labels and an action line for most, and two fixed sentences opening Spending power, the Outlier engine and Creative rotation: the Creative score (the score
+sections in the Page labels, labels and an action line for most, and two fixed sentences opening Spending power, the Outlier engine, Creative rotation and Hits: the Creative score (the score
 out of 100, seven colour-coded Poor-to-Good bars, the Weakest point, and Top-10 turnover beside it), Spending power (monthly spend
 against CAC, and the last 3 months against the 3 before), the Outlier engine, Creative rotation (Top-10
-turnover by quarter, left out with fewer than 2 quarters), Ads that work, and Work backwards from spend,
+turnover by quarter, left out with fewer than 2 quarters), Hits, and Work backwards from spend,
 which opens on its answer, N0 against the Current pipeline with a verdict line, then the Limiting factor
 with its to-hit in the words `references/page-layout.md` gives and a Need only on the Levers it moves,
 the slider over monthly spend with the formula and the account's numbers, Expected outliers a month with
@@ -502,13 +502,13 @@ W is a lower bound says so in the words `references/page-layout.md` gives. Save 
 download.
 
 **Done when** the first tab is the masthead and the six sections, in that order, with no prose beyond
-labels, an action line for most, and the two fixed opening sentences of Spending power, the Outlier engine and Creative rotation; the Creative score shows the score out of 100 with its seven bars
+labels, an action line for most, and the two fixed opening sentences of Spending power, the Outlier engine, Creative rotation and Hits; the Creative score shows the score out of 100 with its seven bars
 each carrying its value (or "Not scored" with the measure named), and Top-10 turnover beside it only
 with 2 or more complete quarters; Spending power charts the complete months (the section left out
 with fewer than 2) and gives the two changes only with 6 or more; the Outlier engine gives the Outlier
 rate, the Outliers' share of spend, the spend per new ad and the time to Outlier; Creative rotation has a
-bar for each complete quarter, or is left out with fewer than 2; Ads that work gives the Hit rate, the
-Low-spend rate, Viable spend per hit and the Spend bar; Work backwards from spend opens, before the slider, with N0 new ads a month against the P the account
+bar for each complete quarter, or is left out with fewer than 2; Hits gives the Hit rate with the hit test under it, the
+Low-spend rate, Viable spend per hit and the Spend bar with its explanation under it, and the Outlier engine and Hits each carry the Hits and Outliers line; Work backwards from spend opens, before the slider, with N0 new ads a month against the P the account
 launched a month and one verdict line (within 10% "You are keeping pace.", below "Make about <N0 − P> more
 a month.", above "You are launching more than your spend needs."), and the Budget's line where there is
 one, then the Limiting factor with its to-hit (On track reads "nothing: keep launching <P> a month"), then
