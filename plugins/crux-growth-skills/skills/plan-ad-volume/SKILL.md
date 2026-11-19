@@ -8,7 +8,7 @@ description: Meta ad volume forecast. Use when the user asks how many new Meta a
 Work out how many new Meta ads a month the account's spend needs, from the account's own Survival
 curve and Hit rate, and produce `meta-ad-volume-<date>.html`: a Crux-branded page that opens on the
 Creative deep dive, laid out like the creative report founders already know: the Creative score,
-Spending power, the Outlier engine, Creative rotation, Hits, and Ads needed each month,
+Spending power, the Outlier engine, Creative rotation, Hits, Ads needed each month and What it's worth:
 a slider that answers how many ads a spend needs next month, with next month's ads split into three parts, with the month-by-month plan, the curve,
 the figures and the method on a second tab, How it's worked out. It is laid out as
 `references/page-layout.md` fixes it. Then offer the Roadmap as `meta-ad-roadmap-<date>.md` for the
@@ -21,8 +21,8 @@ Limiting factor, On the table, What it's worth, Production budget, Worn out now,
 Roadmap, Catch-up, Stay-level launches, Gap launches, Growth launches, Ads to launch, Expected to work, Live-by, Format, Name coverage, Format split,
 Roadmap file, Awareness campaign, Lead campaign, Unattended run, Source, Brain line, Creative deep dive, How it's worked out,
 Creative score, Evergreen share, Spend degradation, Viable after week 1, Top-5 concentration, Outlier, Outlier rate,
-Top-10 turnover, Expected outliers a month and Page label are those of
-`references/glossary.md`, and Next run is the repo's shared term; use them as written here and on
+Top-10 turnover, Expected outliers a month, Next run and Page label are those of
+`references/glossary.md`; use them as written here and on
 How it's worked out. The Creative deep dive, the Roadmap file and the chat's close speak to the user in the Page labels
 `references/page-layout.md` gives each term instead. The ad
 statuses and CAC are judged exactly as `references/fatigue.sql` judges them.
@@ -414,7 +414,7 @@ number in the working. The page shows every ad count as a whole ad, rounded up (
   change in spend and in CAC of the last 3 against the 3 before (`references/method.md` step 27); with
   fewer, neither.
 - **Lever best.** Each Lever's best is what the account has done, with the periods it counted. Take
-  percentiles by nearest rank, written `APPROX_QUANTILES(x, 100)[OFFSET(90)]` on a brain and, in code,
+  percentiles by nearest rank: on a brain and in code alike,
   the value at rank 0.9 times their number rounded up with the values sorted from lowest to highest.
   - **Launches (B)** is the highest average of Launched ads a month over any 3 complete calendar
     months in a row in the window; none with fewer than 3 complete months.
@@ -488,8 +488,7 @@ their number; the run holds the three Lever bests, each with the months or quart
 null, where fewer than 4 months or 2 quarters counted), the Limiting factor read off the table above
 on the unrounded figures (N0 at most 1.2 times B and N1 at most 1.2 times B for Both, which needs N0 above
 1.2 times B), with what it needs the account to hit, Spending power's months with their spend, orders and CAC (and
-the two changes with 6 or more months), `ads_for_spend` at current spend and at the Budget where one was given, the Outlier
-rate as a chance for each of k = 0 to 4 and 5 or more adding to 100.0% at current spend, and On the table, its groups' spend, customers and CAC and its figures per week, or
+the two changes with 6 or more months), `ads_for_spend` at current spend and at the Budget where one was given, Expected outliers a month at current spend, and On the table, its groups' spend, customers and CAC and its figures per week, or
 "nothing" where v0 is the Viable share target or more; and the run has not stopped on a guard. The Roadmap holds a row for each calendar month from next month to the Budget month (3 without a Budget),
 with start plus Expected to work less Wearing out equal to the end stock on the unrounded figures, to one decimal, in every row,
 no Ads to launch below 0, every end stock at or above that month's L(k), and video plus image equal to Ads to launch in every row (with a split). At a flat budget with S(0) equal to L(0),

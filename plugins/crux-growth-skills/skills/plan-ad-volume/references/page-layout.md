@@ -271,8 +271,8 @@ little high; How it's worked out has the detail."
 ## 6. Ads needed each month
 
 The section answers "how many ads does this spend need next month", says first whether the account
-launches that many, and then what next month's ads are made of. The slider's formula is CTC's "work
-backwards from spend". Its parts, in this order:
+launches that many, and then what next month's ads are made of. The slider works
+backwards from spend. Its parts, in this order:
 
 **a. The answer.** Plain HTML, written into the page and never by the script, so it prints and reads with
 scripts off. Two sentences in these words, with the figures filled in and in bold: "At your current spend
