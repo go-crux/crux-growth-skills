@@ -17,7 +17,7 @@ page, never this skill or its references: say what the ads showed, in plain word
 and never cite a file, a rule or a query. The terms
 Viable ad, Viable share, Viable share target, Viable ad stock, Launched ad, Survival curve, Recent fit, Viable lifespan, Hit rate, Spend bar, Low-spend rate, Days viable per
 hit, Viable spend per hit, Healthy lifespan, Spend per viable ad, Days to clear Ramping, Self-check, Ad stock check, Lever, Lever best,
-Limiting factor, On the table, Worn out now, Wearing out, Current pipeline, Steady-state number, Budget,
+Limiting factor, On the table, What it's worth, Production budget, Worn out now, Wearing out, Current pipeline, Steady-state number, Budget,
 Roadmap, Catch-up, Stay-level launches, Gap launches, Growth launches, Ads to launch, Expected to work, Live-by, Format, Name coverage, Format split,
 Roadmap file, Awareness campaign, Lead campaign, Unattended run, Source, Brain line, Creative deep dive, How it's worked out,
 Creative score, Evergreen share, Spend degradation, Viable after week 1, Top-5 concentration, Outlier, Outlier rate,
@@ -462,6 +462,12 @@ number in the working. The page shows every ad count as a whole ad, rounded up (
     customers and This run says so (`groups_without_customers` names them).
   - The **biggest waste** is whichever of test phase and worn out has the larger share of spend (worn
     out on a tie).
+- **What it's worth**, from On the table and current spend (the last complete month's), where something
+  is on the table. New customers a month: the 90-day gain over 90, times 365, over 12, to the nearest
+  whole customer (at least 1). The Worth a month: current spend times (1 less the blended CAC at target
+  over the blended CAC today). The Production budget: the Worth over N0 less P (the whole-ad P the page shows)
+  where N0 is above P, and over N0 otherwise. Keep the Worth unrounded until the page shows it, in whole units of the
+  currency. Nothing on the table gives no figure.
 
 **Done when** the run holds W, h, D, Spend per viable ad, the Spend bar (300 where 3 times the Spend per
 viable ad is under it), the Low-spend rate, Viable spend per hit, hits plus low-spend ads plus
@@ -494,17 +500,17 @@ equals the Steady-state number, month 1's Stay-level, Gap and Growth launches su
 
 Write the page as `references/page-layout.md` fixes it, in the Crux brand of `references/crux-brand.md`:
 two tabs switched by CSS alone, opening on the Creative deep dive, with one inline script for the
-slider, its figures in one `wb-figures` JSON block, and Google Fonts as its only network request. The Creative deep dive holds the masthead, then six
+slider, its figures in one `wb-figures` JSON block, and Google Fonts as its only network request. The Creative deep dive holds the masthead, then seven
 sections in the Page labels, labels and an action line for most, and two fixed sentences opening Spending power, the Outlier engine, Creative rotation and Hits: the Creative score (the score
 out of 100, seven colour-coded Poor-to-Good bars, the Weakest point, and Top-10 turnover beside it), Spending power (monthly spend
 against CAC, and the last 3 months against the 3 before), the Outlier engine, Creative rotation (Top-10
-turnover by quarter, left out with fewer than 2 quarters), Hits, and Ads needed each month,
+turnover by quarter, left out with fewer than 2 quarters), Hits, Ads needed each month,
 which opens on its answer, N0 against the Current pipeline with a verdict line, then next month's ads in three parts that add up (To stay level, To catch up or Ahead and To grow, then the Total), then the Limiting factor
 with its to-hit in the words `references/page-layout.md` gives and a Need only on the Levers it moves,
 the slider over monthly spend with the formula and the account's numbers, the Ad stock check in plain words ("You have <S> ads working
 today; your spend needs <⌈L⌉> working at once.", then Short below 80% of L, Ahead above 150% of L,
 otherwise About right, with the gap as a whole count of ads, the only verdict pill on the page), and the
-Roadmap table. Without JavaScript the page still prints the answer, the formula's sum at current spend and
+Roadmap table, and last What it's worth (the new customers a month at the same spend, the CAC at today's share and at the target, what that is worth a month, and the Production budget for each extra ad, or the one sentence where nothing is on the table). Without JavaScript the page still prints the answer, the formula's sum at current spend and
 the new ads a month at the Budget. Before saving the page, run the pre-save check of `references/page-layout.md`
 § The script: both blocks are there, the script is copied verbatim, every `wb-figures` key is present and
 numeric, `wb-live` and the other elements exist. Fix the page where one fails; where it still fails, the
@@ -520,7 +526,7 @@ so a row can be one out.", and no chart), the Survival curve with its fitted axi
 10%, 20%, 25%, 50% and 100% at or above the curve's highest point, four gridlines at quarters of it),
 the figures (Hit rate, Low-spend rate, Spend bar, Viable lifespan, Days viable per hit, Spend per viable ad, Viable spend per hit, the Viable share
 with its target, each Lever best with the months or quarters it counted, CAC and spend share by group
-over 90 days with On the table, the Creative score's bands table with its seven measures, the Outlier stats and Top-10 turnover,
+over 90 days with a pointer to On the table (which What it's worth shows), the Creative score's bands table with its seven measures, the Outlier stats and Top-10 turnover,
 Spending power's months and Expected outliers, and the Self-check line), Terms, This run, `references/method.md` word for word, and
 the Brain line only on a run that page-layout gives one (the Source is not a Growth Brain and the
 session holds none). It names the Source and the CAC basis in the masthead and This run, and where
@@ -528,8 +534,8 @@ W is a lower bound says so in the words `references/page-layout.md` gives. Save 
 `meta-ad-volume-<date>.html` in the working folder; where none persists (a chat), hand it over as a
 download.
 
-**Done when** the first tab is the masthead and the six sections, in that order, with no prose beyond
-labels, an action line for most, and the two fixed opening sentences of Spending power, the Outlier engine, Creative rotation and Hits; the Creative score shows the score out of 100 with its seven bars
+**Done when** the first tab is the masthead and the seven sections, in that order, with no prose beyond
+labels, an action line for most, and the two fixed opening sentences of Spending power, the Outlier engine, Creative rotation and Hits, and What it's worth's two and its lines; the Creative score shows the score out of 100 with its seven bars
 each carrying its value (or "Not scored" with the measure named), and Top-10 turnover beside it only
 with 2 or more complete quarters; Spending power charts the complete months (the section left out
 with fewer than 2) and gives the two changes only with 6 or more; the Outlier engine gives the Outlier
@@ -543,7 +549,7 @@ the slider at current spend (the Budget marked where there is one) with the form
 spend × Viable share target ÷ (Hit rate × Viable spend per hit)**, the page's figure at current spend
 equal to the Steady-state number in the Roadmap, the Ad stock check reading "You
 have <S> ads working today; your spend needs <⌈L⌉> working at once." with its pill, and the Roadmap
-table; the page passed the pre-save check, or says "The spend slider could not be built on this run" on the
+table; What it's worth is the last section, with its two opening sentences and its four lines (+<m> new customers a month, the CAC now and at target with the change, Worth about <the Worth> a month, and the Production budget for each of the N0 less P extra ads, or for each of the N0 where N0 is not above P) and its assumption line, or with nothing on the table the one sentence with no figure, and it does not move with the slider; How it's worked out shows On the table only as a pointer to it; the page passed the pre-save check, or says "The spend slider could not be built on this run" on the
 page and in This run; the page's static HTML gives the answer, the formula's sum at current spend and the
 new ads a month at the Budget with scripts off; the script makes no network call, and the Google Fonts stylesheet is the page's
 only request; no glossary term shows

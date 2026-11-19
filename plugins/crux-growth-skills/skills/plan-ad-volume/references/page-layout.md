@@ -83,6 +83,8 @@ reader can match the two. A row with no Says is a heading or a chart title and n
 | Keeping hits | Keeping hits | the days a hit works has the most room: make hits last longer |
 | Steady-state number | Launches a month needed | the new ads a month that replace the working ads wearing out, at that spend |
 | On the table | On the table | the extra new customers a week at today's spend if your target share of spend were on working ads; it assumes the CAC gap between working and other spend holds as the share moves |
+| What it's worth | What it's worth | what getting your target share of spend onto working ads is worth at today's spend |
+| Production budget | ceiling for making ads | the most a month's extra ads can cost to make and still pay for themselves |
 | Catch-up | Catch-up | the extra launches, once, that make up today's gap in next month |
 | Ads to launch | Ads to launch | the new ads to make in a month |
 | Expected to work | Expected to work | the launches likely to become working ads |
@@ -103,9 +105,9 @@ otherwise. A footer closes the page: "Built with Crux growth skills".
 
 # Creative deep dive
 
-The masthead, then six sections in this order, each under a 4px Highlight rule, a small-caps eyebrow
+The masthead, then seven sections in this order, each under a 4px Highlight rule, a small-caps eyebrow
 and its title, which is its name below. The first tab holds no prose beyond labels, the two opening
-sentences of Spending power, Outlier engine, Creative rotation and Hits, the hit test and the Spend bar's explanation, the Hits and Outliers line, and, for most sections, one action line. Every figure on it is its source figure from `SKILL.md` step 4, worked once
+sentences of Spending power, Outlier engine, Creative rotation and Hits, the hit test and the Spend bar's explanation, the Hits and Outliers line, What it's worth's two opening sentences and its lines, and, for most sections, one action line. Every figure on it is its source figure from `SKILL.md` step 4, worked once
 and shown rounded once: a figure shown rounded is the figure every label and difference beside it
 uses. S is the working ads today, L the Viable ad stock (⌈L⌉ where shown), P the Current pipeline, B the
 launches Lever best, N0 the Steady-state number and N1 the launches a month at the best Hit rate.
@@ -362,6 +364,32 @@ Month, Spend, Video and Image (only with a Format split), Ads to launch, Expecte
 by, one row for each month, with the same figures as the full table on How it's worked out and the same
 two lines under it. The Catch-up line is left to How it's worked out.
 
+## 7. What it's worth
+
+The last section of the Creative deep dive: what the extra working ads are worth, in a money figure a
+brand can use as its ad production budget. Plain HTML, written into the page and never by the script, so
+it prints and reads with scripts off, and it does not move with the slider. The figures are On the table
+(`references/method.md`, step 19) and current spend (the last complete month's, the plan's), each worked
+once from its source figure and shown rounded once; the sums use the unrounded figures. It opens with two
+sentences in these words: "What getting your target share of spend onto working ads is worth at today's
+spend. Use the monthly figure as your ceiling for making ads: below it, the extra ads pay for themselves."
+Then four lines, in this order and in these words with the figures filled in and in bold, and one line
+under them:
+
+| Line | In these words | The figure |
+|---|---|---|
+| New customers | "+<m> new customers a month at the same spend" | m is On the table's 90-day gain in new customers (`customers_week_gain` ÷ 7 × 90) ÷ 90 × 365 ÷ 12, to the nearest whole customer, never below 1 |
+| CAC | "CAC <CAC now> → <CAC at target> (<change>%)" | `blended_cac` and `blended_cac_at_target` to two decimals in the account's currency, and `blended_cac_change` as a signed whole percentage |
+| Worth a month | "Worth about <Worth> a month" | the Worth is current spend times (1 less CAC at target over CAC now), to whole units of the account's currency: what the same new customers would cost less |
+| Production budget | "That is about <Worth ÷ (N0 − P)> for each of the <N0 − P> extra ads a month you need: make them for less and they pay for themselves." Where N0 is not above P: "That is about <Worth ÷ N0> for each of the <N0> ads a month you need." | N0 and P are the whole ads of Ads needed each month; the per-ad figure is the unrounded Worth over the count, to whole units |
+
+Under the four, one line: "It assumes the CAC gap between working and other spend holds as the share moves."
+
+Where there is nothing on the table (the Viable share v0 at or above the Viable share target), the opening
+sentences, the four lines and the assumption line give way to one sentence, with no figure: "Your share
+of spend on working ads is already at your <target>% target, so the ads you need hold today's CAC rather
+than lower it." <target> is the Viable share target as a whole percentage.
+
 ## The to-hit
 
 One wording of what the account has to hit, used by Holding you back and, with its figures in bold, by
@@ -563,13 +591,8 @@ The figures behind the Creative deep dive, one line each, in this order and in t
 7. **CAC and spend share by group, last 90 days**: one table, a row for each of Working, Test phase,
    Worn out and (only where it holds spend) Other, with the columns Share of spend, New customers and
    CAC (two decimals). A group that spent and has no customers reads "no new customers" and is
-   named in This run. Under it, one line: "On the table assumes the CAC gap between working and other
-   spend holds as the share moves." Then **On the table**, as "On the table: +<n> customers a week at
-   today's spend · CAC −<x>%", n the new customers a week gained (`customers_week_gain`) to the nearest
-   whole customer, never below 1 where anything is on the table, and x the blended CAC change as a
-   whole percentage; with nothing on the table, "Nothing on the table: <v0>% of your spend is on
-   working ads, at or above your <target>% target." Last, the biggest waste (`biggest_waste`) with its
-   share of spend: "<n>% of your spend is on ads that have stopped working: run `/audit-ads` to see
+   named in This run. Under it, one line: "On the table is shown under What it's worth."
+   Last, the biggest waste (`biggest_waste`) with its share of spend: "<n>% of your spend is on ads that have stopped working: run `/audit-ads` to see
    which to pause." for Worn out, or "<n>% of your spend is on ads still in their test phase: launch
    fewer, stronger ads." for Test phase, left out with nothing on the table. The page names no ad.
 8. **The Self-check**, as one line in these words with the figures filled in (the actual and the

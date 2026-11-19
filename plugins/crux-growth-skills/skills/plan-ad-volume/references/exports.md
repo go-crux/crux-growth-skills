@@ -189,6 +189,7 @@ rank: with the values sorted from lowest to highest, the value at rank ⌈0.9 ×
   Winner and Improving; test phase: Ramping; worn out: Fatiguing, Fatigued and Low efficiency; other:
   any status left, and any ad-day with no status), each group's spend, purchases and CAC, then the
   share-to-target maths of step 4, with the groups that spent and brought no purchases named.
+- **What it's worth.** Where something is on the table: the new customers a month, the Worth and the Production budget, from On the table and current spend as step 4 gives them, each worked once on unrounded figures.
 - **The Creative score.** The seven measures, the Outlier stats and Top-10 turnover, each worked once as
   `references/method.md` (steps 24 to 26) defines them and the SQL below `-- END shared classification`
   in `references/fatigue.sql` works them: the last 30 days are the 30 complete days to today, an ad's
@@ -216,8 +217,8 @@ ads at least 28 days old, with the Low-spend rate and Viable spend per hit print
 (at most 100%) are printed, the run having stopped on its line where no week is counted; the last
 complete day is named; and the three Lever bests (each with the months or quarters it counted, or
 none), the Limiting factor with its figures, Spending power's months and its two changes (or their absence with
-fewer than 6 months), `ads_for_spend` at current spend and at the Budget, and On the table (or
-"nothing") are printed, and so are the seven measures with their sub-scores, the Creative score (the mean of
+fewer than 6 months), `ads_for_spend` at current spend and at the Budget, On the table (or
+"nothing") and What it's worth (its three figures, or none) are printed, and so are the seven measures with their sub-scores, the Creative score (the mean of
 the seven, none where one cannot be read), the Outlier stats (the spend per Launched ad, the line, the Outliers
 with their share of spend and the days to the line) and Top-10 turnover, or its absence with fewer than 2
 complete quarters.
