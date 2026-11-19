@@ -12,11 +12,13 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Viable ad stock**: the number of viable ads a level of daily spend needs live at once: daily spend times the Viable share target over Spend per viable ad. The L of Little's law. _Avoid_: ad stock alone (that is MMM carryover), ad inventory, creative stock.
 
-- **Launched ad**: an ad whose first day of spend falls inside the window after its first day. Only Launched ads feed the Survival curve, because an ad already live on day one has an unknown age. _Avoid_: new ad.
+- **Launched ad**: an ad whose first day of spend falls on or after the window's first day plus 42 days, the same 6 weeks the Viable share leaves out. Only Launched ads feed the Survival curve, because an ad already live on day one has an unknown age, and an ad launched in the first 6 weeks is judged before the weekday index, life spend and Peak CAC have warmed up, so it reads worse than a later one. _Avoid_: new ad.
+
+- **Recent fit**: the factor that scales the Survival curve to the account's last 28 complete days, so the plan matches the ads it has now: the actual divided by the predicted, held between 0.5 and 2, and 1 where the predicted is 0. The actual is the mean daily count of viable Launched ads over those days; the predicted is the mean daily sum, over Launched ads first spent on or before that day, of the curve's survival rate at their age that day, an age past the curve's last counted age reading 0. The Viable lifespan is the curve's sum times it, so Days viable per hit, Viable spend per hit and the Steady-state number carry it; the Hit rate and every Lever best stay as measured. _Avoid_: calibration, correction factor, adjustment.
 
 - **Survival curve**: for each day of age, the share of every Launched ad that has reached that age which is viable that day; an ad that stopped spending or is still Ramping counts as not viable. An age counts only with 3 or more ads. _Avoid_: decay curve, fatigue curve, a curve of running ads only.
 
-- **Viable lifespan**: the average viable days one Launched ad delivers, duds included: the area under the Survival curve, and Hit rate times Days viable per hit. The W of Little's law. Where the curve is still at 25% or above when the 3-ad floor cuts it off, it is a lower bound. _Avoid_: ad lifespan, shelf life.
+- **Viable lifespan**: the average viable days one Launched ad delivers, duds included: the area under the Survival curve times the Recent fit, and Hit rate times Days viable per hit. The W of Little's law. The curve's own area, before the fit, is the curve's sum, and the survival curve chart shows the curve as measured. Where the curve is still at 25% or above when the 3-ad floor cuts it off, it is a lower bound. _Avoid_: ad lifespan, shelf life.
 
 - **Hit rate**: the share of Launched ads at least 28 days old that were viable on at least one day in their first 28 days, whose first-28-day spend reached the Spend bar, and whose first-28-day CAC was within 1.2 times the account's over the same 28 days (an ad with no new orders fails): Meta gave them budget and they converted at a good CAC. An ad that spent the bar but is not a hit is one of the three counts that make up the base, with hits and the low-spend ads. A new ad adds Hit rate viable ads, not one. _Avoid_: success rate, win rate, activation rate.
 
@@ -60,7 +62,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 ## The check
 
-- **Self-check**: the test of the Survival curve against the account on every run: Current pipeline times Viable lifespan over 7 predicts today's viable ads, and it passes within 25% of them. A fail is said on How it's worked out and does not stop the run. _Avoid_: validation, sanity check.
+- **Self-check**: the test of the Survival curve against the account's last 28 days on every run, read before the Recent fit: the mean daily count of viable Launched ads (actual) against the mean the curve predicts for the same days (predicted). It passes within 25% of the actual. It is reported on How it's worked out and does not stop the run, and a fail is never given a cause beyond the words of its line. _Avoid_: validation, sanity check.
 
 - **Ad stock check**: today's viable ads against the Viable ad stock at current spend. **Short**: below 80% of it. **Ahead**: above 150% of it. **About right**: between. Shown under Ads needed each month as a sentence, "You have <S> ads working today; your spend needs <⌈L⌉> working at once.", with the gap as a count of ads. _Avoid_: health check, ad audit, over-stocked.
 

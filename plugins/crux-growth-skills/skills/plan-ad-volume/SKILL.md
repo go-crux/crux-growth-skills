@@ -15,7 +15,7 @@ the figures and the method on a second tab, How it's worked out. It is laid out 
 creative brief and say when to run it again, monthly. Run the steps in order. The user sees only the chat and the
 page, never this skill or its references: say what the ads showed, in plain words with the figures,
 and never cite a file, a rule or a query. The terms
-Viable ad, Viable share, Viable share target, Viable ad stock, Launched ad, Survival curve, Viable lifespan, Hit rate, Spend bar, Low-spend rate, Days viable per
+Viable ad, Viable share, Viable share target, Viable ad stock, Launched ad, Survival curve, Recent fit, Viable lifespan, Hit rate, Spend bar, Low-spend rate, Days viable per
 hit, Viable spend per hit, Healthy lifespan, Spend per viable ad, Days to clear Ramping, Self-check, Ad stock check, Lever, Lever best,
 Limiting factor, On the table, Worn out now, Wearing out, Current pipeline, Steady-state number, Budget,
 Roadmap, Catch-up, Stay-level launches, Gap launches, Growth launches, Ads to launch, Expected to work, Live-by, Format, Name coverage, Format split,
@@ -104,7 +104,7 @@ sets for the intake:
 
 **Count the Launched ads and work out the Format split default** before anything else is asked,
 leaving out the proposed awareness and lead campaigns: the Launched ads are those whose first day of spend
-falls after the window's first day, and the Launched ads at least 28 days old are those whose first
+falls on or after the window's first day plus 42 days, and the Launched ads at least 28 days old are those whose first
 spend is at least 27 days before the last complete day. The Format split default is the video and image share of spend over the last 8 complete
 weeks, and its Name coverage the share of that spend whose ad name decided the Format: step 4's definitions, held here so the intake quotes real figures. Without a Growth Brain, compute them from
 the rows. With a Growth Brain, open `references/intake.sql`, make its edits 1 and 2 (the mart's
@@ -132,7 +132,7 @@ Send one message, then wait for the reply:
 
 1. The method in brief, in these words with the days and basis filled in (365 days from a Growth Brain,
    180 otherwise): "I'll judge every Meta ad on every day of the last 365 days by its CAC, the way an
-   ad audit does. Then, from every ad you launched in that time, I'll work out your hit rate (how
+   ad audit does. Then, from every ad you launched in that time after its first 6 weeks (the judging needs that long to warm up), I'll work out your hit rate (how
    many of your new ads become viable at real spend: their CAC holding up, under 20% above your account average
    and not climbing off its best, or recovering towards it, on a budget Meta actually gave them) and how long a hit stays viable. That tells me how many
    viable ads your spend needs live at once, aiming at the best share of your spend your account has
@@ -199,7 +199,7 @@ Judge every ad on every day of the window and compute the figures from these def
 edits 1 to 3 (the mart's name, in `mart_rows` and in `video_plays`, with any column names from step
 2; the confirmed retargeting campaign keys; and the confirmed awareness and lead campaign keys together), leave edit
 4, and run the whole file with `run_sql` as one statement. It judges every ad on every day of the
-365, and returns one row holding `viable_lifespan` (W), `hit_rate` (h), `days_viable_per_hit` (D),
+365, and returns one row holding `viable_lifespan` (W, the curve's sum times the Recent fit) beside `viable_lifespan_curve`, the Recent fit's `fit_actual`, `fit_predicted` and `recent_fit`, `hit_rate` (h), `days_viable_per_hit` (D),
 `spend_bar`, `low_spend_rate`, `viable_spend_per_hit`, `hit_rate_ads` with its split into `hits`, `low_spend_ads` and
 `spent_bar_not_hit_ads`, `spend_per_viable_ad`, `healthy_lifespan` with `age_below_75` and `age_below_25`,
 `days_to_clear_ramping`, `current_spend`, `current_pipeline`, `viable_share_p90`,
@@ -229,8 +229,12 @@ below is worked in code from that row. Compute each figure once, from these defi
   Healthy, and it widens the test where the plan reads the status, never in the classification. Every
   count and share below that tests a viable status takes the three: the Survival curve, the Hit rate,
   Spend per viable ad, the weekly Viable share, today's viable ads and On the table.
-- A **Launched ad** is one whose first day of spend falls after the window's first day. Only
-  Launched ads feed the Survival curve. An ad's **age** is the days since its first spend (the
+- A **Launched ad** is one whose first day of spend falls on or after the window's first day plus 42
+  days (the same 6 weeks the viable share leaves out: an ad launched earlier is judged before the
+  weekday index, life spend and Peak CAC warm up, so it reads worse than a later one). Only
+  Launched ads feed the Survival curve, and so the Spend per viable ad, the Hit rate, the Low-spend rate,
+  the Outlier rate, Viable after week 1 and the Lever bests. The Current pipeline and Top-10 turnover keep
+  their own month and quarter rules. An ad's **age** is the days since its first spend (the
   first day is age 0). A Launched ad has **reached** age a when its first spend is at least a days
   before the last complete day.
 - **Survival curve**: at each age a, the denominator is every Launched ad that has reached age a;
@@ -238,7 +242,16 @@ below is worked in code from that row. Compute each figure once, from these defi
   Ramping, Unknown or any status that is not viable counts as not viable, so an ad that stops
   spending or never leaves Ramping stays in the count. An age counts only with 3 or more ads in
   the denominator. The rates are raw, never smoothed.
-- **Viable lifespan** (W) is the sum of the survival rates over the ages that count. W is a **lower
+- **Recent fit** (c): over the 28 complete days to today, the **actual** is the mean daily count of
+  viable Launched ads, and the **predicted** is the mean daily sum, over the Launched ads first spent on or
+  before that day, of the survival rate at their age that day (an age past the curve's last counted age
+  reads 0). c is the actual over the predicted, held between 0.5 and 2, and 1 where the predicted is 0
+  (`fit_actual`, `fit_predicted`, `recent_fit`).
+- **Viable lifespan** (W) is the sum of the survival rates over the ages that count (`viable_lifespan_curve`)
+  times c (`viable_lifespan`). Every figure below that divides by W, Days viable per hit, Viable spend per
+  hit, the Steady-state number, `ads_for_spend`, the Roadmap, the slider and the Days a hit works Lever's
+  Now, carries c; the Hit rate and every Lever best stay as measured, and the survival curve chart shows
+  the curve as measured. W is a **lower
   bound** when the survival rate at the last age that counts (the last with 3 or more ads) is 25% or
   above (`w_is_lower_bound` on a brain): the curve was cut short while ads were still viable, so the
   ads to launch are a ceiling.
@@ -322,9 +335,11 @@ below is worked in code from that row. Compute each figure once, from these defi
   a measure cannot be read. **Top-10 turnover** is worked for each complete calendar quarter of the window
   and shown only with 2 or more; it is never scored. A brain returns all of it; without one, work it in
   code as `references/exports.md` sets out.
-- **Self-check**: predicted viable ads is the launches of the last 3 complete calendar months over
-  their days, times W. It passes when it is within 25% of today's viable ads (the difference over
-  today's viable ads).
+- **Self-check**: the actual and the predicted of the Recent fit, read before the fit. It passes when the
+  predicted is within 25% of the actual (the difference over the actual), and fails where the actual is 0.
+  The page's line gives both means and c in the words `references/page-layout.md` fixes, and adds its one
+  sentence where c was held at 0.5 or 2. This run reports that the check passed or failed. The run never
+  explains a failed check beyond those words: it names no cause for the difference.
 
 **Stop** where h is 0, with one line and no page: "None of the <n> ads launched at least 28 days ago
 was a hit (viable on a day, at <the Spend bar> or more of spend and a CAC within 1.2 times the
@@ -460,9 +475,9 @@ weeks counted (6 left out for warm-up, then the thin ones, the run stopped on it
 is left), P90, the Viable share target (at most 100%), L
 (current spend times the Viable share target over the Spend per viable ad, the same at every L(w)
 and every spend the slider runs), the Steady-state number (N0, equal to `ads_for_spend` at current spend), today's date and
-counts (read on the last complete day, and not a day still loading), the Self-check, and the Format split default with its Name coverage, each from one calculation;
+counts (read on the last complete day, and not a day still loading), the Recent fit (its actual and predicted over the last 28 days, and c between 0.5 and 2, or 1 where the predicted is 0), the Self-check read before it, and the Format split default with its Name coverage, each from one calculation;
 the survival table (age, ads reached, viable, survival, spend on viable ad-days) has rates that sum to
-W, h times D equals W to two decimals, and the Spend per viable ad is the spend on viable ad-days over
+the curve's sum, W equals that sum times c, h times D equals W to two decimals, and the Spend per viable ad is the spend on viable ad-days over
 their number; the run holds the three Lever bests, each with the months or quarters it counted (or
 null, where fewer than 4 months or 2 quarters counted), the Limiting factor read off the table above
 on the unrounded figures (N0 at most 1.2 times B and N1 at most 1.2 times B for Both, which needs N0 above
@@ -539,7 +554,7 @@ table on the first tab and the Roadmap file holding the same months and the same
 figures (or the total alone with no split); its figures name the number of months and quarters each Lever best counted and list the Hit rate, Low-spend rate, Spend bar and Viable spend per hit, and give the Creative score with the value and sub-score of each of its seven measures, the Outlier stats, and Top-10 turnover for each complete quarter or not at all with fewer than 2; This run
 names today's date, the Limiting factor with its figures and the groups left out of On the table
 where there are any; a lower bound W is said on both tabs; the Self-check line is there, with its
-fail clause where the check failed; an unattended run says so in This run; and the Brain line,
+sentence where c was held, and This run says whether the check passed, with no cause for a fail; an unattended run says so in This run; and the Brain line,
 where the run has one, is the last line of How it's worked out.
 
 ## 6. Close
