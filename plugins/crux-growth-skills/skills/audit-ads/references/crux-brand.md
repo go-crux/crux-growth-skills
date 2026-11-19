@@ -13,13 +13,13 @@ The page's `:root` holds these values.
 |---|---|---|---|
 | Paper | `--paper` | `#FFFFFF` | the page ground |
 | Paper greys | `--paper-2`, `--paper-3` | `#F5F6F7`, `#EDEFF1` | `--paper-2` grounds the table header row and the masthead table's label column; `--paper-3` is held for parity with the other Crux pages and unused here |
-| Ink | `--ink-1` | `#0E1215` | the heading, section titles, the strong rule |
+| Ink | `--ink-1` | `#0E1215` | the heading, section titles |
 | Greys | `--ink-2` | `#3A4046` | body text |
 | | `--ink-3` | `#5A6169` | labels, eyebrows, the evidence line under an Action, muted text |
-| | `--ink-4` | `#8A9099` | the footer, the campaign under an ad set, source lines |
+| | `--ink-4` | `#8A9099` | the footer, the campaign under an ad set |
 | Highlight colour | `--signal` | `#0F4C81` | the 4px rule above each section |
 | | `--signal-tint` | `#E7EEF4` | the highlighted table row: the Recommendation to do first |
-| Rules | `--line` | `#C9CDD1` | hairlines under each table header |
+| Rules | `--line` | `#C9CDD1` | hairlines under each table header, the rule above the footer |
 | | `--line-soft` | `#E2E5E8` | row lines |
 | | `--line-strong` | `#0E1215` | the heavy rule above the heading |
 | Deltas | `--positive` | `#1E6E45` | the statuses Winner and Improving |
@@ -58,7 +58,7 @@ What makes the page read as Crux's:
 - A heading of the brand's name under a heavy rule, with the page's name above it as an eyebrow and
   the date beneath.
 - Tables set on hairlines: figures right-aligned, text left-aligned, a header row in uppercase, letter-spaced labels.
-- A highlighted table row in `--signal-tint` with the rest muted.
+- A highlighted table row in `--signal-tint` with the rest plain.
 - The footer "Built with Crux growth skills", at the foot of the page.
 
 ## What never changes

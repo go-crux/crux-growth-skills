@@ -160,7 +160,7 @@ tr.hi td{background:var(--signal-tint);-webkit-print-color-adjust:exact;print-co
 .st-good{color:var(--positive);font-weight:600}
 .st-bad{color:var(--negative);font-weight:600}
 footer{max-width:1120px;margin:0 auto;padding:16px;border-top:1px solid var(--line);color:var(--ink-4);font-size:12px}
-@media print{main{padding-top:0}.table-wrap{overflow:visible}th[data-dir]::after{content:none}}
+@media print{main{padding-top:0}.table-wrap{overflow:visible}section h2{break-after:avoid}th[data-dir]::after{content:none}}
 </style>
 </head>
 <body>
