@@ -49,9 +49,9 @@ reader can match the two. A row with no Says is a heading or a chart title and n
 | Ahead | Ahead | more working ads than your spend needs |
 | Ad stock check | Enough working ads for your spend? | the working ads you have today, against the working ads your spend needs live at once |
 | Worn out now | Worn out | ads old enough to be judged whose CAC has slipped; they take spend but do not count |
-| Wearing out | Expected to wear out | working ads likely to stop working in that time |
-| Stay-level launches | To stay level | the new ads that replace the working ads wearing out next month |
-| Gap launches | To catch up | the new ads that close next month's share of the working ads you are short |
+| Wearing out | Expected to wear out | working ads likely to stop working in that time, the ones launched in it included |
+| Stay-level launches | To stay level | the new ads that replace the working ads your current spend needs, which wear out next month |
+| Gap launches | To catch up / Ahead | the one-off new ads that make up the working ads you are short today, or the fewer needed because you have more than your spend needs |
 | Growth launches | To grow | the new ads for the extra working ads your spend needs next month |
 | Creative score | Creative score | how healthy your creative is, out of 100: the plain average of seven measures, each placed on fixed bands from Poor to Good |
 | Evergreen share | Evergreen share | the share of the last 30 days' spend on ads that are 30 days old or more |
@@ -83,7 +83,7 @@ reader can match the two. A row with no Says is a heading or a chart title and n
 | Keeping hits | Keeping hits | the days a hit works has the most room: make hits last longer |
 | Steady-state number | Launches a month needed | the new ads a month that replace the working ads wearing out, at that spend |
 | On the table | On the table | the extra new customers a week at today's spend if your target share of spend were on working ads; it assumes the CAC gap between working and other spend holds as the share moves |
-| Catch-up | Catch-up | the extra launches that close today's gap by your Budget month |
+| Catch-up | Catch-up | the extra launches, once, that make up today's gap in next month |
 | Ads to launch | Ads to launch | the new ads to make in a month |
 | Expected to work | Expected to work | the launches likely to become working ads |
 | Spend per viable ad | Spend one working ad carries | the typical daily spend on one working ad |
@@ -288,33 +288,35 @@ Where the user gave a Budget, a second line: "At your Budget of <the Budget> a m
 of the Budget> new ads a month." Without a Budget it is left out.
 
 **The breakdown**, straight after those lines and before Holding you back: next month's new ads (the
-Roadmap's first row) in three parts that add up. Plain HTML, written into the page and never by the
-script, so it prints and reads with scripts off, and it does not move with the slider. The figures are
-the whole ads of `references/method.md`, "Next month's ads, in three parts", which gives the
-rounding; <X>, <Y> and <Z> are the parts after it. Each part is a label and a line, in this order and
-in these words with the figures filled in and in bold:
+Roadmap's first row), built from the headline and adjusted in three parts that add up. Plain HTML,
+written into the page and never by the script, so it prints and reads with scripts off, and it does not
+move with the slider. The figures are the whole ads of `references/method.md`, "Next month's ads, in
+three parts", which gives the rounding; <x>, <y> and <z> are the parts after it. Each part is a label and
+a line, in this order and in these words with the figures filled in and in bold:
 
 | Part | The line | Left out |
 |---|---|---|
-| To stay level | "About <⌈Wearing out(1)⌉> of your working ads will wear out next month; at your hit rate of <h>% that takes <X> launches to replace." | never |
-| To catch up | "You are <g> working ads short of what your spend needs; closing that over <k> months adds <Y> a month." | where there is no gap, or <Y> is 0 |
-| To grow | By <Z>, below | where <Z> is 0, as with no Budget and no spend change |
+| To stay level | "Your working ads last about <D> days, so the <⌈L0⌉> your spend needs mostly turn over each month. At your hit rate of <h>% that takes <x> launches to replace." | never |
+| To catch up (y above 0) | "You are <g> working ads short today; making them up adds <y> next month, once." | where there is no gap, or <y> is 0 |
+| Ahead (y below 0) | "You have <g> more working ads than your spend needs today, so next month needs <−y> fewer, once." | where there is no gap, or <y> is 0 |
+| To grow | By <z>, below | where <z> is 0, as with no Budget and no spend change |
 
-Wearing out(1) is rounded up to a whole ad as in the Month-by-month plan, and <h> is the Hit rate in the
-format above. <g> is the gap of the Ad stock check, and <k> the months to the Budget month (3 with no
-Budget); where the verdict is About right, "short" reads "under". The To grow line, by <Z>:
+<D> is the Days viable per hit to the whole day, <⌈L0⌉> the Viable ad stock at current spend rounded up
+to a whole ad, and <h> the Hit rate in the format above. <g> is the gap between L0 and today's viable ads,
+rounded up to a whole ad; where the verdict is About right, "short" reads "under". <y> is the whole-ad
+part, shown without its sign. The To grow line, by <z>:
 
 | Where | The line |
 |---|---|
-| <Z> above 0 (spend rises) | "Your Budget raises spend next month, which needs <Z> more." |
-| <Z> below 0, and spend falls | "Spend falls next month, so <−Z> fewer are needed." |
-| <Z> below 0, and spend does not fall | "You already have more working ads than your spend needs, so <−Z> fewer are needed." |
-| <Z> below 0, spend falls and the working ads are over what your spend needs | "Spend falls next month and you already have more working ads than it needs, so <−Z> fewer are needed." |
+| <z> above 0 (spend rises) | "Your Budget raises spend next month, which needs <z> more." |
+| <z> below 0 (spend falls) | "Spend falls next month, so <−z> fewer are needed." |
 
-Then **Total**: "<X + Y + Z> new ads next month, against the <P> a month you launched over the last 3
-months." The Total is the Roadmap's Ads to launch for its first row exactly. Where that is 0, the three
-parts and the Total are replaced by one line: "None needed next month: the working ads you have will
-cover it."
+Then **Total**: "<Ads to launch(1)> new ads next month. After that, about <N0> a month at this spend." The
+Total is the Roadmap's Ads to launch for its first row exactly, and the parts above add up to it. The second
+sentence is said only where spend is held flat (no Budget); with a Budget it names the Budget month's
+figure instead, "After that, about <ads_for_spend of the Budget> a month at your Budget." Where Ads to
+launch(1) is 0, the three parts and the Total are replaced by one line: "None needed next month: the
+working ads you have will cover it."
 
 **b. Holding you back.** The Limiting factor as a pill in the Highlight colour (On track, Volume, Both,
 Finding hits or Keeping hits), then a table with one row for each Lever, in this order and with
@@ -343,12 +345,12 @@ the sum at the slider's spend.
 
 **e. The stock check, in plain words.** The Ad stock check at current spend, which the slider does not
 move, under the heading "Enough working ads for your spend?": "You have <S> ads working today; your spend
-needs <⌈L⌉> working at once." Then a pill and its action line. The pill is "Short <g>" below 80% of L,
+needs <⌈L⌉> working at once." Then one line: "Having enough today does not lower the monthly number: your working ads last about <D> days, so nearly all of them need replacing within a month, and about 1 in <⌈1 ÷ h⌉> launches becomes one." (<D> is the Days viable per hit to the whole day.) Then a pill and its action line. The pill is "Short <g>" below 80% of L,
 "About right" from 80% to 150%, and "Ahead <g>" above 150%, g being the difference between ⌈L⌉ and S.
 Each verdict has its own pill colour and always carries its words, so the check does not depend on colour
 alone; no other mark on the page is a verdict pill. The action line, by verdict:
 
-- Short: "Launch <N0> a month to keep up; the Month-by-month plan adds the Catch-up."
+- Short: "Launch <N0> a month to keep up; next month's plan adds the Catch-up, once."
 - About right: "Launch <N0> a month to keep up."
 - Ahead: "Launch fewer for now: you have more working ads than your spend needs, so they wear down first."
 
@@ -467,13 +469,11 @@ Seven parts, in this order.
 
 The Ads to launch each calendar month, so next month's ads can be briefed. No chart: the table is the plan. Ads needed each month on the Creative deep dive shows the same table cut to fewer columns, with the same figures.
 
-**First line, the Catch-up.** Where S is below ⌈L⌉ (the gap is above 0 whole ads): "You are <g>
-working ads short, so the plan adds <the total catch-up launches> launches over the <k> months to
-<the Budget month's name>, on top of keeping up." Where the verdict is About right, "short"
-reads "under what your spend needs". k is the number of months to the Budget month (3 with no
-Budget). The total catch-up launches is the sum, over those k months, of each month's Ads to launch less its launches to keep up (that
-month's Wearing out over the Hit rate, rounded up). The first line is left out where S is at or above
-⌈L⌉, and the plan then needs no catch-up.
+**First line, the Catch-up.** Where S is below ⌈L⌉ (the gap is above 0 whole ads) and the To catch up part
+is above 0: "You are <g> working ads short, so <month 1's name> adds <y> launches, once, on top of keeping up."
+Where the verdict is About right, "short" reads "under what your spend needs". <y> is the To catch up
+part of next month's ads. The first line is left out where S is at or above ⌈L⌉, and the plan then needs
+no catch-up.
 
 **The Budget line.** The Budget as the user gave it (the monthly figure and the Budget month, saying
 when the month was the default of 3 months from now), or "No Budget given: current spend held
@@ -510,12 +510,10 @@ Two lines under the table, in these words: "Figures are rounded up to whole ads,
 out." and "Launch about a quarter of each month's ads each week from its Go live by date."
 
 The action: the first row's new ads go live by its Go live by date, and each later row's by its own.
-Where you are Ahead, or the Budget is below current spend, one sentence says the working ads above
-what spend needs wear out on their own, so Ads to launch fall below Launches a month needed. A month
-with surplus shows "None needed". Where the Days viable per hit is under a month's days, one sentence
-says so: "Your working ads last about <D> days, less than a month, so each month's working ads wear
-out within it and the plan launches the ads that rebuild the stock, which is fewer than Launches a
-month needed."
+Where you are Ahead, one sentence says next month's launches are lower once, because the working ads above
+what spend needs wear out on their own, and later months return to Launches a month needed. Where the
+Budget is below current spend, one sentence says the working ads above what spend needs wear out on their
+own, so Ads to launch fall below Launches a month needed. A month with surplus shows "None needed".
 
 ## Survival curve
 
@@ -683,7 +681,7 @@ under a title of "Meta ad roadmap" with the brand and the date:
 1. **Budget**: the Budget as the Month-by-month plan's Budget line gives it (the monthly figure and
    the Budget month), or "No Budget given: current spend held flat for 3 months", with current spend a
    month and a day beside it, and under it the Budget line's ads a month at current spend and at the
-   Budget. Where the page shows the Catch-up line ("You are <g> working ads short, so the plan adds
+   Budget. Where the page shows the Catch-up line ("You are <g> working ads short, so <month 1's name> adds
    ..."), it follows as the file's next line, in the page's words.
 2. **The months**: the Month-by-month plan's table, with the columns Month, Spend, Video and Image
    (only with a Format split), Ads to launch, Expected to work and Go live by, one row for each month,
