@@ -1044,7 +1044,7 @@ m6 AS (
     (
       SELECT AS STRUCT
         COUNT(*) AS hit_rate_months,
-        IF(COUNT(*) >= p.best_min_months, ARRAY_AGG(c.month_hit_rate ORDER BY c.month_hit_rate)[SAFE_OFFSET(CAST(CEIL(0.9 * COUNT(*)) AS INT64) - 1)], NULL) AS hit_rate_best
+        IF(COUNT(*) >= p.best_min_months, ARRAY_AGG(c.month_hit_rate ORDER BY c.month_hit_rate)[SAFE_OFFSET(DIV(9 * COUNT(*) + 9, 10) - 1)], NULL) AS hit_rate_best
       FROM (
         SELECT
           DATE_TRUNC(h.first_spend, MONTH) AS month_start,

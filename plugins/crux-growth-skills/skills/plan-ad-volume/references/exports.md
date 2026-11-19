@@ -150,8 +150,8 @@ counted.
 
 **The Creative deep dive figures.** Compute each once, in code, as `SKILL.md` step 4 defines it and the SQL
 below `-- END shared classification` in `references/fatigue.sql` works it. Take percentiles by nearest
-rank: with the values sorted from lowest to highest, the value at rank ⌈0.9 × their number⌉ (what
-`APPROX_QUANTILES(x, 100)[OFFSET(90)]` gives a brain).
+rank: with the values sorted from lowest to highest, the value at rank ⌈0.9 × their number⌉, as the
+brain's SQL takes it.
 
 - **Today and its counts.** Today is the window's last complete day, as step 4 defines it: yesterday,
   or the latest loaded day of the last 14 where yesterday is still loading (a day is loaded when its

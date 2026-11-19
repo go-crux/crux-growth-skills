@@ -122,7 +122,8 @@ Stay-level, Gap and Growth launches are worked unrounded and shown in whole ads,
 
 - **Source**: where the ad-by-day rows come from, the first that holds them of a Growth Brain (the last 365 days), a Meta connector in the session and one Ads Manager export (each the last 180 days). Named on the page. _Avoid_: data source, feed.
 
-- **Next run**: the close's line on when to run the skill again, monthly, around the 20th, so next month's ads can be briefed, with the prompt to paste into that session. _Avoid_: cadence reminder, schedule.
+- **Next run**: the close's line on when to run the skill again, monthly, around the 20th, so next month's ads can be briefed, with the prompt to paste into that session and, where a calendar connector is in the session, the offer to add it as an event. _Avoid_: cadence reminder, schedule.
+
 - **Unattended run**: a run whose message says so or says not to ask, or a scheduled session. It asks nothing, takes the proposed retargeting, awareness and lead campaigns, plans current spend held flat for 3 months with no Budget and no Format split, saves the Roadmap file without offering it, and says so in This run on How it's worked out. _Avoid_: automatic run, headless run.
 
 - **Brain line**: the fixed sentence, "With a Growth Brain, the survival curve judges every ad on a single attribution source rather than every purchase Meta claims, and reads a year of history without an export.", said as the last line of How it's worked out on a run whose Source is not a Growth Brain and whose session holds no Growth Brain. _Avoid_: upsell, plug.

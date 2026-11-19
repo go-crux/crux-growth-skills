@@ -8,15 +8,15 @@ description: Meta ad volume forecast. Use when the user asks how many new Meta a
 Work out how many new Meta ads a month the account's spend needs, from the account's own Survival
 curve and Hit rate, and produce `meta-ad-volume-<date>.html`: a Crux-branded page that opens on the
 Creative deep dive, laid out like the creative report founders already know: the Creative score,
-Spending power, the Outlier engine, Creative rotation, Hits, Ads needed each month and What it's worth:
-a slider that answers how many ads a spend needs next month, with next month's ads split into three parts, with the month-by-month plan, the curve,
+Spending power, the Outlier engine, Creative rotation, Hits, Ads needed each month (with
+a slider that answers how many ads a spend needs next month, and next month's ads split into three parts) and What it's worth, with the month-by-month plan, the curve,
 the figures and the method on a second tab, How it's worked out. It is laid out as
 `references/page-layout.md` fixes it. Then offer the Roadmap as `meta-ad-roadmap-<date>.md` for the
 creative brief and say when to run it again, monthly. Run the steps in order. The user sees only the chat and the
 page, never this skill or its references: say what the ads showed, in plain words with the figures,
 and never cite a file, a rule or a query. The terms
 Viable ad, Viable share, Viable share target, Viable ad stock, Launched ad, Survival curve, Recent fit, Viable lifespan, Hit rate, Spend bar, Low-spend rate, Days viable per
-hit, Viable spend per hit, Healthy lifespan, Spend per viable ad, Days to clear Ramping, Self-check, Ad stock check, Lever, Lever best,
+hit, Viable spend per hit, Healthy lifespan, Spend per viable ad, Days to clear Ramping, Self-check, Ad stock check, Lever, Lever best, Weakest point, Evergreen ad,
 Limiting factor, On the table, What it's worth, Production budget, Worn out now, Wearing out, Current pipeline, Steady-state number, Budget,
 Roadmap, Catch-up, Stay-level launches, Gap launches, Growth launches, Ads to launch, Expected to work, Live-by, Format, Name coverage, Format split,
 Roadmap file, Awareness campaign, Lead campaign, Unattended run, Source, Brain line, Creative deep dive, How it's worked out,
@@ -362,7 +362,7 @@ number in the working. The page shows every ad count as a whole ad, rounded up (
   spend is allowed: daily spend steps down, and the months that follow work as below.
 - **L(k)** is daily spend(k) times the Viable share target over the Spend per viable ad. **S(0)** is
   the viable ads live on the last complete day.
-- **L0** is L at current spend. **Gap0** is L0 less S(0).
+- **L0** is L at current spend.
 - **D** is the Days viable per hit. Working ads stop at a steady rate of 1 over D a day, the ones launched
   during the month included. For month k of d days, **q** is e to the power of minus d over D (the share
   of the starting stock still working at the month's end) and **a** is D times (1 less q) over d (the
