@@ -54,7 +54,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Outlier rate**: Outliers over Launched ads, with their share of spend and the days each took from first spend to its cumulative spend crossing the line (25th percentile, median, 75th percentile). Gives Expected outliers a month at the plan's launches and the binomial chance of finding none. _Avoid_: hit rate (that is quality, not spend).
 
-- **Expected outliers a month**: the new ads a month times the Outlier rate, with the binomial chance of finding k Outliers in them (k = 0 to 4 and 5 or more) and so the chance of finding none. Read on Work backwards from spend at the slider's spend. _Avoid_: expected winners (that is Expected to work), outlier forecast.
+- **Expected outliers a month**: the new ads a month times the Outlier rate, with the binomial chance of finding k Outliers in them (k = 0 to 4 and 5 or more) and so the chance of finding none. Read on Ads needed each month at the slider's spend. _Avoid_: expected winners (that is Expected to work), outlier forecast.
 
 - **Top-10 turnover**: for each complete calendar quarter, how many of its 10 highest-spending ads first spent in that quarter, with those ads' share of the quarter's spend. An indicator only, never scored: high turnover is neither good nor bad against Evergreen share. Read on 2 or more complete quarters, else not shown. _Avoid_: rotation rate, refresh rate.
 
@@ -62,7 +62,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Self-check**: the test of the Survival curve against the account on every run: Current pipeline times Viable lifespan over 7 predicts today's viable ads, and it passes within 25% of them. A fail is said on How it's worked out and does not stop the run. _Avoid_: validation, sanity check.
 
-- **Ad stock check**: today's viable ads against the Viable ad stock at current spend. **Short**: below 80% of it. **Ahead**: above 150% of it. **About right**: between. Shown under Work backwards from spend as a sentence, "You have <S> ads working today; your spend needs <⌈L⌉> working at once.", with the gap as a count of ads. _Avoid_: health check, ad audit, over-stocked.
+- **Ad stock check**: today's viable ads against the Viable ad stock at current spend. **Short**: below 80% of it. **Ahead**: above 150% of it. **About right**: between. Shown under Ads needed each month as a sentence, "You have <S> ads working today; your spend needs <⌈L⌉> working at once.", with the gap as a count of ads. _Avoid_: health check, ad audit, over-stocked.
 
 - **Lever**: one of the three things today's viable ads come from, which multiply: Current pipeline (launches a month), Hit rate (finding hits) and Days viable per hit (keeping hits). Closing a gap by any one alone takes the same multiple, so the gap's size never says which lever is short. _Avoid_: driver, factor.
 
@@ -88,7 +88,15 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Roadmap file**: `meta-ad-roadmap-<date>.md`, the Roadmap handed over as markdown for whoever makes the ads: the Budget with the ads a month at current spend and at the Budget, the months, the new ads by format, the Live-by dates, and one line each on the Hit rate, the Limiting factor with its to-hit and the Spend per viable ad. Offered at the Close; the page does not need it. _Avoid_: handover file (that is the Action skills'), brief, export.
 
-- **Catch-up**: the launches above keeping up in the months to the Budget month: each month's Ads to launch less Wearing out over the Hit rate, rounded up. They close today's gap, the viable ads short of the Viable ad stock over the Hit rate spread evenly, and where the Budget is above current spend they also grow the stock. _Avoid_: backlog, top-up.
+- **Catch-up**: the launches above keeping up in the months to the Budget month: each month's Ads to launch less Wearing out over the Hit rate, rounded up. They close today's gap, the viable ads short of the Viable ad stock over the Hit rate spread evenly, and where the Budget is above current spend they also grow the stock. Month 1's share of them is split on the page into Gap launches and Growth launches. _Avoid_: backlog, top-up.
+
+- **Stay-level launches**: month 1's launches that replace the viable ads Wearing out, Wearing out over the Hit rate, rounded up. Page label **To stay level**. _Avoid_: replacement launches, maintenance.
+
+- **Gap launches**: month 1's launches that close its share of the gap, the gap over the months to the Budget month, over the Hit rate; none where there is no gap. Page label **To catch up**. _Avoid_: backlog launches.
+
+- **Growth launches**: month 1's launches for the change in stock needed: the Viable ad stock at month 1's spend less the larger of the stock at current spend and today's viable ads, over the Hit rate. Above 0 where spend rises, below 0 where spend falls or today's viable ads are already above the stock at current spend. Page label **To grow**. _Avoid_: scaling launches.
+
+Stay-level, Gap and Growth launches are worked unrounded and shown in whole ads, with the rounding difference given to the largest, so they sum to month 1's Ads to launch (`method.md`, "Next month's ads, in three parts").
 
 - **Expected to work**: a month's launches times the Hit rate: the viable ads they add. _Avoid_: expected winners, yield.
 
@@ -114,7 +122,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 ## The page
 
-- **Creative deep dive**: the page's first tab, the one it opens on, Crux-branded and laid out like CTC's creative report: the Creative score, Spending power (monthly spend against CAC, last 3 months against the 3 before), the Outlier engine, Creative rotation (Top-10 turnover), Hits (Hit rate, Low-spend rate, Viable spend per hit, the Spend bar), and Work backwards from spend (the Steady-state number against the Current pipeline with a verdict line, the Limiting factor, a spend slider over the Steady-state number, Expected outliers a month, the Ad stock check in plain words and the Roadmap). Labels only, no definitions beyond the hit test and the Spend bar's explanation under their figures, and the Hits and Outliers line; Spending power, the Outlier engine, Creative rotation and Hits each open with two fixed sentences on why the section is there and how to read it. _Avoid_: Scorecard, dashboard tab, summary.
+- **Creative deep dive**: the page's first tab, the one it opens on, Crux-branded and laid out like CTC's creative report: the Creative score, Spending power (monthly spend against CAC, last 3 months against the 3 before), the Outlier engine, Creative rotation (Top-10 turnover), Hits (Hit rate, Low-spend rate, Viable spend per hit, the Spend bar), and Ads needed each month (the Steady-state number against the Current pipeline with a verdict line, next month's ads in three parts that add up, the Limiting factor, a spend slider over the Steady-state number, Expected outliers a month, the Ad stock check in plain words and the Roadmap). Labels only, no definitions beyond the hit test and the Spend bar's explanation under their figures, and the Hits and Outliers line; Spending power, the Outlier engine, Creative rotation and Hits each open with two fixed sentences on why the section is there and how to read it. _Avoid_: Scorecard, dashboard tab, summary.
 
 - **How it's worked out**: the page's second tab: the Month-by-month plan table, the Survival curve, the figures behind the Creative deep dive, Terms, This run, the method word for word, and the Brain line where the run has one. _Avoid_: Notes and Method, appendix.
 

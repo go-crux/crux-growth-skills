@@ -173,7 +173,7 @@ rank: with the values sorted from lowest to highest, the value at rank ⌈0.9 ×
   spend of the last 3 against the 3 before (their total spend over the earlier total, less 1) and the
   relative change in their CAC (their total spend over their total purchases, against the same for the
   3 before, less 1); with fewer than 6, neither change.
-- **Work backwards from spend.** `ads_for_spend` of current monthly spend (the Steady-state number) and of
+- **Ads needed each month.** `ads_for_spend` of current monthly spend (the Steady-state number) and of
   the Budget where one was given, and the figures the page's script reads (`references/page-layout.md`).
 - **On the table.** Over the last 90 complete days, every ad-day grouped by its status (viable: Healthy,
   Winner and Improving; test phase: Ramping; worn out: Fatiguing, Fatigued and Low efficiency; other:
