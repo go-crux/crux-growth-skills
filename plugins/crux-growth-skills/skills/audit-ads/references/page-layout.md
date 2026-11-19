@@ -1,6 +1,6 @@
 # Audit page layout
 
-A Meta ad audit is one self-contained HTML file, `meta-ad-audit-<date>.html` (`<date>` is today as
+A Meta ad audit is one HTML file, self-contained bar its web fonts, `meta-ad-audit-<date>.html` (`<date>` is today as
 `YYYY-MM-DD`), written to the working folder, with inline CSS and one small inline script (the
 sorting below). It is always Crux-branded as `references/crux-brand.md` sets out, whatever the
 brand: never ask the user about a brand's own colours, fonts or logo, and never apply them. It makes no
@@ -23,7 +23,7 @@ a label on the left and its text on the right, one row per label, in this order:
 
 **Four headings**, always present, always in this order, with these words. A heading with nothing
 under it stays on the page, with one line saying why. Each section sits under a 4px signal-blue rule,
-with its number as a small-caps eyebrow ("Section 1") and its heading as the title. A footer closes
+with its number as an eyebrow ("Section 1") and its heading as the title. A footer closes
 the page: "Built with Crux growth skills".
 
 ## 1. Summary
@@ -57,8 +57,8 @@ ranks it (Pause and Refresh by size, then Iterate by CAC gap), with these column
 | Confidence | High, Medium or Low. |
 | Metric to watch | Pause: the ad set's CAC over the next 7 days. Refresh and Iterate: the new ad's CAC after Ramping against the source ad's Peak CAC, with that figure. |
 
-The first row, the Recommendation to do first, is the highlighted row (`class="hi"`), and stays so
-however the table is sorted. With no Recommendation, the table is replaced by one line: "No Recommendations: every Reported ad
+The first row, the Recommendation to do first, is the highlighted row (`class="hi"`); the highlight
+moves with that row when the table is sorted. With no Recommendation, the table is replaced by one line: "No Recommendations: every Reported ad
 is Healthy, Improving or Ramping."
 
 An evidence line reads like "5-day CAC 42 against a Peak CAC of 24, 50% or more worse on each of
@@ -156,11 +156,11 @@ td{padding:9px 10px;border-bottom:1px solid var(--line-soft);vertical-align:top;
 td.num,th.num{text-align:right}
 td .sub{display:block;font-size:12px;color:var(--ink-3)}
 td .sub.camp{color:var(--ink-4)}
-tr.hi td{background:var(--signal-tint)}
+tr.hi td{background:var(--signal-tint);-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .st-good{color:var(--positive);font-weight:600}
 .st-bad{color:var(--negative);font-weight:600}
 footer{max-width:1120px;margin:0 auto;padding:16px;border-top:1px solid var(--line);color:var(--ink-4);font-size:12px}
-@media print{main{padding-top:0}section{break-inside:avoid-page}th[data-dir]::after{content:none}}
+@media print{main{padding-top:0}.table-wrap{overflow:visible}th[data-dir]::after{content:none}}
 </style>
 </head>
 <body>
@@ -182,7 +182,8 @@ footer{max-width:1120px;margin:0 auto;padding:16px;border-top:1px solid var(--li
 </html>
 ```
 
-The masthead's table does not sort: it has no `<thead>`, its labels are a `<th>` at the start of
+The Summary, Recommendations and Every ad tables each carry a `<thead>` and a `<tbody>`, or the
+sorting script cannot reach them. The masthead's table does not sort: it has no `<thead>`, its labels are a `<th>` at the start of
 each row, and the sorting script below sorts only by headers inside a `<thead>`. Wrap
 every table in `<div class="table-wrap">` so a wide table scrolls on a phone and the page does not.
 

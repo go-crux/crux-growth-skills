@@ -12,8 +12,8 @@ The page's `:root` holds these values.
 | Role | Token | Value | Use |
 |---|---|---|---|
 | Paper | `--paper` | `#FFFFFF` | the page ground |
-| Paper greys | `--paper-2`, `--paper-3` | `#F5F6F7`, `#EDEFF1` | tinted grounds: the table header row, the masthead table's label column |
-| Ink | `--ink-1` | `#0E1215` | titles, figures, the strong rule |
+| Paper greys | `--paper-2`, `--paper-3` | `#F5F6F7`, `#EDEFF1` | `--paper-2` grounds the table header row and the masthead table's label column; `--paper-3` is held for parity with the other Crux pages and unused here |
+| Ink | `--ink-1` | `#0E1215` | the heading, section titles, the strong rule |
 | Greys | `--ink-2` | `#3A4046` | body text |
 | | `--ink-3` | `#5A6169` | labels, eyebrows, the evidence line under an Action, muted text |
 | | `--ink-4` | `#8A9099` | the footer, the campaign under an ad set, source lines |
@@ -53,12 +53,12 @@ What makes the page read as Crux's:
 - Hairline rules, no boxes, no shadows and square corners.
 - The display serif for the heading and section titles; the sans for the rest, with tabular lining
   numerals in every table.
-- A small-caps label (the eyebrow) above each section's title, in `--ink-3`.
+- An uppercase, letter-spaced label (the eyebrow) above each section's title, in `--ink-3`.
 - A 4px signal-blue rule across the top of each section.
 - A heading of the brand's name under a heavy rule, with the page's name above it as an eyebrow and
   the date beneath.
-- Tables set on hairlines: figures right-aligned, text left-aligned, a header row in small caps.
-- A highlighted table row in `--signal-tint` with the rest plain.
+- Tables set on hairlines: figures right-aligned, text left-aligned, a header row in uppercase, letter-spaced labels.
+- A highlighted table row in `--signal-tint` with the rest muted.
 - The footer "Built with Crux growth skills", at the foot of the page.
 
 ## What never changes
