@@ -149,16 +149,16 @@ thing:
 | Weakest measure | Sentence |
 |---|---|
 | Evergreen share | "Too little of your spend sits on ads that have lasted, so let your working ads keep spending: pause only ads that have stopped working (run `/audit-ads` to see which)." |
-| Spend degradation | "New ads lose their budget after the first week, so focus on launching longer-lasting copy and longer-lasting hooks, and add variations." |
-| Working after week 1 | "Hits are not still working at 28 days, so make new versions of a hit, with a fresh angle on the same idea." |
-| Top-5 concentration | "Five ads carry too much of your spend, so launch more ads that can take spend." |
+| Spend degradation | "New ads lose their budget after the first week, so focus on launching longer-lasting copy and longer-lasting hooks that keep Meta spending on them." |
+| Working after week 1 | "Hits are not still working at 28 days, so extend them: make new versions of each hit, with a fresh angle on the same idea." |
+| Top-5 concentration | "Five ads carry too much of your spend, so focus on evergreen concepts rather than short-lived trends or hooks." |
 | Outlier rate | "Too few new ads become big spenders, so launch more ads, and more different ones: Outliers come from volume and range." |
-| Hit rate | "Too few new ads become hits, so brief fewer, stronger ads, built on what already works." |
-| Ads that never got budget | "Most new ads never get spend, so test fewer concepts per batch and give each a few days at a fair budget." |
+| Hit rate | "Too few new ads become hits, so put quality over quantity: brief fewer, stronger ads, built on what already works." |
+| Ads that never got budget | "Most new ads never get spend, because Meta gives budget to the ads it already trusts. Test new ads in smaller batches in their own ad sets, so you control the budget each test gets." |
 
 For example, "Weakest point: Ads that never got budget, 88.0% against 70.0% for Good. Most new ads never
-get spend, so test fewer concepts per batch and give each a few days at a fair budget." Where the lowest
-sub-score is 100, every measure is at Good or better and the line reads "Weakest point: none, every
+get spend, because Meta gives budget to the ads it already trusts. Test new ads in smaller batches in
+their own ad sets, so you control the budget each test gets." Where the lowest sub-score is 100, every measure is at Good or better and the line reads "Weakest point: none, every
 measure is at Good or better." With no measure readable it is left out.
 
 ## 2. Spending power
