@@ -189,7 +189,7 @@ rank: with the values sorted from lowest to highest, the value at rank ⌈0.9 ×
   Winner and Improving; test phase: Ramping; worn out: Fatiguing, Fatigued and Low efficiency; other:
   any status left, and any ad-day with no status), each group's spend, purchases and CAC, then the
   share-to-target maths of step 4, with the groups that spent and brought no purchases named.
-- **What it's worth.** Where something is on the table: the new customers a month, W and the Production budget, from On the table and current spend as step 4 gives them, each worked once on unrounded figures.
+- **What it's worth.** Where something is on the table: the new customers a month, the Worth and the Production budget, from On the table and current spend as step 4 gives them, each worked once on unrounded figures.
 - **The Creative score.** The seven measures, the Outlier stats and Top-10 turnover, each worked once as
   `references/method.md` (steps 24 to 26) defines them and the SQL below `-- END shared classification`
   in `references/fatigue.sql` works them: the last 30 days are the 30 complete days to today, an ad's

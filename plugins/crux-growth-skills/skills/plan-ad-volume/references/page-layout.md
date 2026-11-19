@@ -380,8 +380,8 @@ under them:
 |---|---|---|
 | New customers | "+<m> new customers a month at the same spend" | m is On the table's 90-day gain in new customers (`customers_week_gain` ÷ 7 × 90) ÷ 90 × 365 ÷ 12, to the nearest whole customer, never below 1 |
 | CAC | "CAC <CAC now> → <CAC at target> (<change>%)" | `blended_cac` and `blended_cac_at_target` to two decimals in the account's currency, and `blended_cac_change` as a signed whole percentage |
-| Worth a month | "Worth about <W> a month" | W is current spend times (1 less CAC at target over CAC now), to whole units of the account's currency: what the same new customers would cost less |
-| Production budget | "That is about <W ÷ (N0 − P)> for each of the <N0 − P> extra ads a month you need: make them for less and they pay for themselves." Where N0 is not above P: "That is about <W ÷ N0> for each of the <N0> ads a month you need." | N0 and P are the whole ads of Ads needed each month; the per-ad figure is the unrounded W over the count, to whole units |
+| Worth a month | "Worth about <Worth> a month" | the Worth is current spend times (1 less CAC at target over CAC now), to whole units of the account's currency: what the same new customers would cost less |
+| Production budget | "That is about <Worth ÷ (N0 − P)> for each of the <N0 − P> extra ads a month you need: make them for less and they pay for themselves." Where N0 is not above P: "That is about <Worth ÷ N0> for each of the <N0> ads a month you need." | N0 and P are the whole ads of Ads needed each month; the per-ad figure is the unrounded Worth over the count, to whole units |
 
 Under the four, one line: "It assumes the CAC gap between working and other spend holds as the share moves."
 

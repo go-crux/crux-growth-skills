@@ -464,9 +464,9 @@ number in the working. The page shows every ad count as a whole ad, rounded up (
     out on a tie).
 - **What it's worth**, from On the table and current spend (the last complete month's), where something
   is on the table. New customers a month: the 90-day gain over 90, times 365, over 12, to the nearest
-  whole customer (at least 1). W, the Worth a month: current spend times (1 less the blended CAC at target
-  over the blended CAC today). The Production budget: W over N0 less P (the whole-ad P the page shows)
-  where N0 is above P, and over N0 otherwise. Keep W unrounded until the page shows it, in whole units of the
+  whole customer (at least 1). The Worth a month: current spend times (1 less the blended CAC at target
+  over the blended CAC today). The Production budget: the Worth over N0 less P (the whole-ad P the page shows)
+  where N0 is above P, and over N0 otherwise. Keep the Worth unrounded until the page shows it, in whole units of the
   currency. Nothing on the table gives no figure.
 
 **Done when** the run holds W, h, D, Spend per viable ad, the Spend bar (300 where 3 times the Spend per
@@ -549,7 +549,7 @@ the slider at current spend (the Budget marked where there is one) with the form
 spend × Viable share target ÷ (Hit rate × Viable spend per hit)**, the page's figure at current spend
 equal to the Steady-state number in the Roadmap, the Ad stock check reading "You
 have <S> ads working today; your spend needs <⌈L⌉> working at once." with its pill, and the Roadmap
-table; What it's worth is the last section, with its two opening sentences and its four lines (+<m> new customers a month, the CAC now and at target with the change, Worth about <W> a month, and the Production budget for each of the N0 less P extra ads, or for each of the N0 where N0 is not above P) and its assumption line, or with nothing on the table the one sentence with no figure, and it does not move with the slider; How it's worked out shows On the table only as a pointer to it; the page passed the pre-save check, or says "The spend slider could not be built on this run" on the
+table; What it's worth is the last section, with its two opening sentences and its four lines (+<m> new customers a month, the CAC now and at target with the change, Worth about <the Worth> a month, and the Production budget for each of the N0 less P extra ads, or for each of the N0 where N0 is not above P) and its assumption line, or with nothing on the table the one sentence with no figure, and it does not move with the slider; How it's worked out shows On the table only as a pointer to it; the page passed the pre-save check, or says "The spend slider could not be built on this run" on the
 page and in This run; the page's static HTML gives the answer, the formula's sum at current spend and the
 new ads a month at the Budget with scripts off; the script makes no network call, and the Google Fonts stylesheet is the page's
 only request; no glossary term shows

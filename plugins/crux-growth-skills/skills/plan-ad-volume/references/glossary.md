@@ -74,9 +74,9 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **On the table**: the extra new customers a week at today's spend if the Viable share rose to the Viable share target, from new-customer CAC by status over the last 90 days, with the blended CAC change beside it. Assumes the CAC gap holds; at or above target, nothing. _Avoid_: opportunity, upside, prize.
 
-- **What it's worth**: the Creative deep dive's last section: what getting the Viable share target of spend onto working ads is worth at today's spend, from On the table and current spend. It gives the new customers a month, the CAC today and at target, the Worth a month W (current spend times 1 less the CAC at target over the CAC today) and the Production budget; with nothing on the table, one sentence and no figure. Plain HTML, it does not move with the slider. _Avoid_: ROI, payback, business case, opportunity.
+- **What it's worth**: the Creative deep dive's last section: what getting the Viable share target of spend onto working ads is worth at today's spend, from On the table and current spend. It gives the new customers a month, the CAC today and at target, the Worth a month (current spend times 1 less the CAC at target over the CAC today) and the Production budget; with nothing on the table, one sentence and no figure. Plain HTML, it does not move with the slider. _Avoid_: ROI, payback, business case, opportunity.
 
-- **Production budget**: the most the ads can cost to make and still pay for themselves: W over the extra ads a month (N0 less P) where the Steady-state number N0 is above the Current pipeline P, and over N0 otherwise. The page's label is "ceiling for making ads". _Avoid_: creative budget, content budget, ad spend, media budget.
+- **Production budget**: the most the ads can cost to make and still pay for themselves: the Worth a month over the extra ads a month (N0 less P) where the Steady-state number N0 is above the Current pipeline P, and over N0 otherwise. The page's label is "ceiling for making ads". _Avoid_: creative budget, content budget, ad spend, media budget.
 
 - **Worn out now**: live ads past Ramping that are Fatiguing, Fatigued or Low efficiency. They take spend but are not stock. _Avoid_: dead ads, fatigued ads.
 
