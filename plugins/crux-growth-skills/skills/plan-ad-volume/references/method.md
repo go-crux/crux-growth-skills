@@ -21,7 +21,7 @@ The number of new ads a month is worked out from how long your own ads stay good
 
 **7. Lifespans.** The Viable lifespan is the sum of the survival rates over the ages that count: the average number of days one Launched ad is viable, the ones that never work included. Where the curve is still at 25% or above when the 3-ad floor cuts it off, it is a lower bound, and the Steady-state number and the Ads to launch in the Roadmap, which divide by it, are a ceiling. The Healthy lifespan reads from the curve's peak, its highest rate (the first age that holds it): it is the first age after the peak at which the rate is below half the peak rate, with a quartile range from the first age after the peak below 75% of the peak rate to the first below 25% of it. Either end reads "not reached" where the curve never gets there. The Days to clear Ramping is the median, over Launched ads that leave Ramping, of the age at which an ad first stops being Ramping.
 
-**8. Spend per viable ad, the Spend bar and the Hit rate.** The Spend per viable ad is the spend on every viable ad-day of the Launched ads, at the ages that count, divided by the number of those viable ad-days: the typical daily spend on one viable ad. The Spend bar is the larger of 300 and 3 times the Spend per viable ad, in the account's currency. 300 is the lifetime spend an ad needs before it is judged at all (step 2), so where 3 times the Spend per viable ad is under 300 the bar is 300, and every ad that was ever viable has already cleared it: the bar only starts to remove hits where a viable ad spends over 100 a day. The base is the Launched ads whose first spend is at least 27 days before the last complete day (ages 0 to 27 all inside the window). A hit is an ad in the base that was viable on at least one of those 28 days and spent the Spend bar or more over them: Meta gave it real budget and it converted. The Hit rate is the hits over the base. The Low-spend rate is the ads in the base that spent less than the Spend bar over those 28 days, viable or not, over the base, so no ad is both a hit and low-spend. Every ad in the base is a hit, low-spend, or at or above the bar and never viable, so those three counts add up to the base. The Days viable per hit is the Viable lifespan divided by the Hit rate: how long an ad that works stays viable. So the Hit rate times the Days viable per hit is the Viable lifespan exactly. The Viable spend per hit is the Spend per viable ad times the Days viable per hit: the spend one ad that works carries over its viable life.
+**8. Spend per viable ad, the Spend bar and the Hit rate.** The Spend per viable ad is the spend on every viable ad-day of the Launched ads, at the ages that count, divided by the number of those viable ad-days: the typical daily spend on one viable ad. The Spend bar is the larger of 300 and 3 times the Spend per viable ad, in the account's currency. 300 is the lifetime spend an ad needs before it is judged at all (step 2), so where 3 times the Spend per viable ad is under 300 the bar is 300, and every ad that was ever viable has already cleared it: the bar only starts to remove hits where a viable ad spends over 100 a day. The base is the Launched ads whose first spend is at least 27 days before the last complete day (ages 0 to 27 all inside the window). A hit is an ad in the base that passes all three tests over those 28 days: it spent the Spend bar or more (Meta gave it real budget); its 28-day CAC, its spend over its new orders in the 28 days, is no more than 1.2 times the account's over the same 28 calendar days (the account's is every ad's spend over every ad's new orders, outside the awareness and lead campaigns, so an ad with no new orders fails; 1.2 is the Low efficiency line of step 3); and it was viable on at least one of those days. So an ad that started well and was poor for the rest of its month is not a hit. The Hit rate is the hits over the base. The Low-spend rate is the ads in the base that spent less than the Spend bar over those 28 days, viable or not, over the base, so no ad is both a hit and low-spend. Every ad in the base is a hit, low-spend, or spent the bar but is not a hit (at or above the bar, but never viable or over the CAC line), so those three counts add up to the base. The CAC test changes how the Viable lifespan splits between the Hit rate and the Days viable per hit, not the Viable lifespan, so the ad count does not move. The Days viable per hit is the Viable lifespan divided by the Hit rate: how long an ad that works stays viable. So the Hit rate times the Days viable per hit is the Viable lifespan exactly. The Viable spend per hit is the Spend per viable ad times the Days viable per hit: the spend one ad that works carries over its viable life.
 
 **9. The viable share.** No account puts every pound of spend on a viable ad: some always sits on ads in their test phase and on ads that have stopped working. So the plan aims at a share it can reach. A week's viable share is its spend on viable ads over its spend, counting every ad, not only the ones you launched in the window, and leaving out the awareness and lead campaigns. The weeks are the complete ISO weeks of the window, Monday to Sunday. The first 6 are left out, because the weekday index, an ad's life spend and its Peak CAC all warm up from the window's first day, so those weeks lean towards Ramping. Of the weeks that remain, any whose spend is below 25% of their median weekly spend is left out too, because a thin week gives a noisy share. The weeks left are the weeks counted. With fewer than 8, the plan uses those there are and says how many; with none, it stops, because the weekly spend is too uneven to read a viable share. The 90th percentile (P90) of the weekly viable shares counted is the share at rank 0.9 times their number, rounded up, once they are sorted from lowest to highest: the best weeks your account has sustained. The Viable share target is the smaller of 100% and the P90 times 1.2: your own best, plus 20% for running creative production well. It rests on your account's history, not on a benchmark, so another account reads a different target. The page also gives the median weekly share of spend on ads still in their test phase (Ramping) and on ads that have stopped working (Fatiguing, Fatigued and Low efficiency), over the same weeks, to show where the rest of the spend goes.
 
@@ -109,25 +109,37 @@ Age 28 has not been reached by any ad, so it does not count. Every counted age h
 
 **Spend bar.** The larger of 300 and 3 × £30 = £90, which is 300. Where 3 times the Spend per viable ad is under 300, the bar is 300; here the floor sets it.
 
-**Hit rate.** Ads A to E first spent at least 27 days before the last complete day, so their ages 0 to 27 are all inside the window; ad F is only 19 days old and is left out. These five are the base. Their spend over those 28 days is A £520 (£370 of it on its viable days), B £1,100, C £900, D £200 and E £450. A and B were viable on at least one day and spent £300 or more, so both are hits. C and E spent £300 or more but were never viable. D spent £200, below the bar. The Hit rate is 2 ÷ 5 = 0.40, which is 2 in 5. The bar removed no hit, because A and B could not have left Ramping on less than 300 of lifetime spend.
+**Hit rate.** Ads A to E first spent at least 27 days before the last complete day, so their ages 0 to 27 are all inside the window; ad F is only 19 days old and is left out. These five are the base. They first spent on the same day, so they share the same 28 calendar days, over which every ad in the account spent £16,800 and brought 420 new orders: an account CAC of £40, and a line of 1.2 × £40 = £48. Over those 28 days:
 
-**Low-spend rate.** Only D spent under £300: 1 ÷ 5 = 0.20. The partition ties: 2 hits (A, B) + 1 low-spend (D) + 2 at or above the bar and never viable (C, E) = 5, the base.
+| Ad | 28-day spend | New orders | 28-day CAC | Viable on a day | Counts as |
+|---|---|---|---|---|---|
+| A | £520 (£370 of it on its viable days) | 12 | £43.33, within £48 | yes | hit |
+| B | £1,100 | 30 | £36.67, within £48 | yes | hit |
+| C | £900 | 15 | £60.00, over £48 | no | at or above the bar, not a hit |
+| D | £200 | 4 | £50.00, over £48 | no | low-spend (under £300) |
+| E | £450 | 9 | £50.00, over £48 | no | at or above the bar, not a hit |
+
+A and B were viable on at least one day, spent £300 or more and held a CAC within £48, so both are hits. C and E spent £300 or more but were never viable. D spent £200, below the bar. The Hit rate is 2 ÷ 5 = 0.40, which is 2 in 5. The bar removed no hit, because A and B could not have left Ramping on less than 300 of lifetime spend.
+
+**The CAC check removing a hit.** Say instead that ad A had brought only 8 new orders over its 28 days. Its CAC would be £520 ÷ 8 = £65.00, above the £48 line, so A, which was viable on a day and cleared the bar, is not a hit: it started well and was dear for the rest of its month. Only B is a hit, so the Hit rate is 1 ÷ 5 = 0.20 (it was 2 ÷ 5 = 0.40 with A counted). The partition still ties: 1 hit (B) + 1 low-spend (D) + 3 that spent the bar but are not hits (A, C, E) = 5, the base. The Days viable per hit is 7.933 ÷ 0.20 = 39.67 days (the Viable lifespan unrounded, 119 ÷ 15) and the Viable spend per hit is £30 × 39.67 = £1,190, so the Steady-state number is £18,600 × 0.60 ÷ (0.20 × £1,190) = 11,160 ÷ 238 = 46.89 again: the test moved how the same 7.93 days split, not the 7.93. The rest of this example keeps A's 12 orders, so A is a hit.
+
+**Low-spend rate.** Only D spent under £300: 1 ÷ 5 = 0.20. The partition ties: 2 hits (A, B) + 1 low-spend (D) + 2 that spent the bar but are not hits (C, E) = 5, the base.
 
 **Days viable per hit.** 7.93 ÷ 0.40 = 19.83 days. As a check, 0.40 × 19.83 = 7.93, the Viable lifespan.
 
 **Viable spend per hit.** £30 × 19.83 = £595: the spend one ad that works carries over its viable life. It gives the Steady-state number again: a month's spend of £18,600 × 0.60 ÷ (0.40 × £595) = 11,160 ÷ 238 = 46.89, the same 46.89 as below.
 
-**The bar removing a hit.** The bar bites where a viable ad spends over 100 a day. Take Birch & Co, whose six ads have the same statuses as Fern & Co's (so the same curve, 7.93 days of Viable lifespan and 46 viable ad-days) but spend far more: A £400, B £13,000 and F £400 on their viable ad-days, £13,800 in all. The Spend per viable ad is 13,800 ÷ 46 = £300 a day, and the Spend bar is the larger of 300 and 3 × £300 = £900, which is 900. Over their 28 days A spent £780 (£260 while Ramping, £400 viable, £120 Fatiguing), B £13,300, C £1,500, D £250 and E £600. Only B is viable and at or above £900, so it is the one hit. A was viable on 13 days but spent £780, under the bar, so it is low-spend and not a hit, and D and E are low-spend too. C is at or above the bar and was never viable.
+**The bar removing a hit.** The bar bites where a viable ad spends over 100 a day. Take Birch & Co, whose six ads have the same statuses as Fern & Co's (so the same curve, 7.93 days of Viable lifespan and 46 viable ad-days) but spend far more: A £400, B £13,000 and F £400 on their viable ad-days, £13,800 in all. The Spend per viable ad is 13,800 ÷ 46 = £300 a day, and the Spend bar is the larger of 300 and 3 × £300 = £900, which is 900. Over their 28 days A spent £780 (£260 while Ramping, £400 viable, £120 Fatiguing), B £13,300, C £1,500, D £250 and E £600. Say the same 28 calendar days saw every ad in the account spend £140,000 and bring 1,750 new orders: an account CAC of £80 and a line of £96. B brought 190 new orders, a CAC of £13,300 ÷ 190 = £70, within the line. Only B is viable, at or above £900 and within the CAC line, so it is the one hit. A was viable on 13 days but spent £780, under the bar, so it is low-spend and not a hit, and D and E are low-spend too. C is at or above the bar and was never viable, so it is not a hit.
 
 | Ad | 28-day spend | Viable | Counts as |
 |---|---|---|---|
 | A | £780 | yes | low-spend (under £900) |
 | B | £13,300 | yes | hit |
-| C | £1,500 | no | at or above the bar, never viable |
+| C | £1,500 | no | at or above the bar, not a hit |
 | D | £250 | no | low-spend |
 | E | £600 | no | low-spend |
 
-The partition ties: 1 hit + 3 low-spend + 1 at or above the bar and never viable = 5, the base. The Hit rate is 1 ÷ 5 = 0.20 (without the bar it would have been 2 ÷ 5 = 0.40, with A counted) and the Low-spend rate is 3 ÷ 5 = 0.60. The Days viable per hit is 7.933 ÷ 0.20 = 39.67 days (the Viable lifespan unrounded, 119 ÷ 15), and the Viable spend per hit is £300 × 39.67 = £11,900. The bar changed how the same 7.93 days split between the Hit rate and the Days viable per hit, not the 7.93 itself, so the Steady-state number does not move.
+The partition ties: 1 hit + 3 low-spend + 1 that spent the bar but is not a hit = 5, the base. The Hit rate is 1 ÷ 5 = 0.20 (without the bar it would have been 2 ÷ 5 = 0.40, with A counted) and the Low-spend rate is 3 ÷ 5 = 0.60. The Days viable per hit is 7.933 ÷ 0.20 = 39.67 days (the Viable lifespan unrounded, 119 ÷ 15), and the Viable spend per hit is £300 × 39.67 = £11,900. The bar changed how the same 7.93 days split between the Hit rate and the Days viable per hit, not the 7.93 itself, so the Steady-state number does not move.
 
 **Viable share target.** Say Fern & Co's window, 180 days from a connector or an export, holds 25 complete ISO weeks. The first 6 are left out for warm-up, leaving 19. Their median weekly spend is £4,200, so a week below 25% of it, £1,050, is thin, and one week of £800 is left out: 18 weeks are counted, which is 8 or more. Sorted from lowest to highest, the weekly viable shares have their nearest-rank 90th percentile at rank ⌈0.9 × 18⌉ = 17, and the 17th is 50%. So the P90 is 50% and the Viable share target is the smaller of 100% and 50% × 1.2 = 60%. Across those weeks the median share of spend on ads in their test phase is 30% and on ads that have stopped working 12%, so the larger share of the rest sits in the test phase.
 
@@ -235,15 +247,15 @@ Each measure is placed on three fixed anchors, the same for every account: Poor,
 |---|---|---|---|
 | Evergreen share | 10% | 30% | 50% |
 | Spend degradation | −80% | −55% | −30% |
-| Viable after week 1 | 10% | 25% | 45% |
+| Viable after week 1 | 15% | 35% | 60% |
 | Top-5 concentration | 70% | 45% | 20% |
 | Outlier rate | 1% | 3% | 6% |
-| Hit rate | 3% | 8% | 15% |
+| Hit rate | 2% | 5% | 10% |
 | Low-spend rate | 95% | 85% | 70% |
 
 **The scorer.** A measure x with anchors Poor P, Average A and Good G scores 0 at P, 50 at A and 100 at G, in a straight line between each pair of anchors, whichever way the anchors run. On the Good side of Average, where (x − A) ÷ (G − A) is 0 or more, the sub-score is 50 + 50 × (x − A) ÷ (G − A); on the Poor side it is 50 × (x − P) ÷ (A − P). It is then held between 0 and 100, so a measure beyond Poor scores 0 and one beyond Good scores 100. The sub-scores are carried unrounded. The Creative score is the plain mean of the seven sub-scores, rounded to a whole number. A measure that cannot be worked leaves the score unshown. Top-10 turnover is shown beside the score and never scored. The score is a read-out: the number of new ads comes from the Hit rate and Viable spend per hit themselves, never from the score.
 
-For example, a Hit rate of 11% sits between Average (8%) and Good (15%), three sevenths of the way, so it scores 50 + 50 × 3 ÷ 7 = 71.
+For example, a Hit rate of 7% sits between Average (5%) and Good (10%), two fifths of the way, so it scores 50 + 50 × 2 ÷ 5 = 70.
 
 ## The Creative score, worked
 
@@ -271,17 +283,17 @@ Sorted, the five read −77.8%, −50.0%, −48.1%, −33.3% and 0.0%, so the me
 |---|---|---|---|---|---|
 | Evergreen share | 15.0% | 10% | 30% | 50% | between Poor and Average: 50 × (15 − 10) ÷ (30 − 10) = 12.5 |
 | Spend degradation | −48.1% | −80% | −55% | −30% | between Average and Good: 50 + 50 × (−48.06 + 55) ÷ 25 = 63.9 |
-| Viable after week 1 | 25.0% | 10% | 25% | 45% | on Average: 50 |
+| Viable after week 1 | 25.0% | 15% | 35% | 60% | between Poor and Average: 50 × (25 − 15) ÷ (35 − 15) = 25 |
 | Top-5 concentration | 40.0% | 70% | 45% | 20% | lower is better, between Average and Good: 50 + 50 × (45 − 40) ÷ (45 − 20) = 60 |
 | Outlier rate | 16.7% | 1% | 3% | 6% | beyond Good, capped: 100 |
-| Hit rate | 40.0% | 3% | 8% | 15% | beyond Good, capped: 100 |
+| Hit rate | 40.0% | 2% | 5% | 10% | beyond Good, capped: 100 |
 | Low-spend rate | 20.0% | 95% | 85% | 70% | beyond Good, capped: 100 |
 
-The sub-scores add to 12.5 + 63.9 + 50 + 60 + 100 + 100 + 100 = 486.4 (486.38 unrounded), and 486.38 ÷ 7 = 69.48, so the Creative score is 69.
+The sub-scores add to 12.5 + 63.9 + 25 + 60 + 100 + 100 + 100 = 461.4 (461.38 unrounded), and 461.38 ÷ 7 = 65.91, so the Creative score is 66.
 
-The bars' colours, from the unrounded sub-scores: Evergreen share (12.5) is red; Spend degradation (63.9), Viable after week 1 (50) and Top-5 concentration (60) are amber; Outlier rate, Hit rate and Low-spend rate (100 each) are green. The lowest sub-score is Evergreen share's, so the page reads "Weakest point: Evergreen share, 15.0% against 50.0% for Good. Too little of your spend sits on ads that have lasted, so let your winners keep spending: pause only ads that have stopped working (run `/audit-ads` to see which)."
+The bars' colours, from the unrounded sub-scores: Evergreen share (12.5) and Viable after week 1 (25) are red; Spend degradation (63.9) and Top-5 concentration (60) are amber; Outlier rate, Hit rate and Low-spend rate (100 each) are green. The lowest sub-score is Evergreen share's, so the page reads "Weakest point: Evergreen share, 15.0% against 50.0% for Good. Too little of your spend sits on ads that have lasted, so let your winners keep spending: pause only ads that have stopped working (run `/audit-ads` to see which)."
 
-**Top-10 turnover.** Fern & Co's 180-day window holds at most 1 complete quarter, so Top-10 turnover is not shown. Had a Growth Brain given a year holding the complete quarters Q2 and Q3, the page would read, for Q2, 3 of its 10 top-spending ads first spent in Q2 and took 15% of the quarter's spend, and for Q3, 5 of 10, 28%. Neither figure enters the mean: the score stays 69.
+**Top-10 turnover.** Fern & Co's 180-day window holds at most 1 complete quarter, so Top-10 turnover is not shown. Had a Growth Brain given a year holding the complete quarters Q2 and Q3, the page would read, for Q2, 3 of its 10 top-spending ads first spent in Q2 and took 15% of the quarter's spend, and for Q3, 5 of 10, 28%. Neither figure enters the mean: the score stays 66.
 
 ## Spending power, worked
 

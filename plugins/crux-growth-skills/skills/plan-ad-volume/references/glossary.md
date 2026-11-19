@@ -18,7 +18,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Viable lifespan**: the average viable days one Launched ad delivers, duds included: the area under the Survival curve, and Hit rate times Days viable per hit. The W of Little's law. Where the curve is still at 25% or above when the 3-ad floor cuts it off, it is a lower bound. _Avoid_: ad lifespan, shelf life.
 
-- **Hit rate**: the share of Launched ads at least 28 days old that were viable on at least one day in their first 28 days and whose first-28-day spend reached the Spend bar: Meta gave them budget and they converted. A new ad adds Hit rate viable ads, not one. Shown as Ads that work. _Avoid_: success rate, win rate, activation rate.
+- **Hit rate**: the share of Launched ads at least 28 days old that were viable on at least one day in their first 28 days, whose first-28-day spend reached the Spend bar, and whose first-28-day CAC was within 1.2 times the account's over the same 28 days (an ad with no new orders fails): Meta gave them budget and they converted at a good CAC. An ad that spent the bar but is not a hit is one of the three counts that make up the base, with hits and the low-spend ads. A new ad adds Hit rate viable ads, not one. Shown as Ads that work. _Avoid_: success rate, win rate, activation rate.
 
 - **Days viable per hit**: the Viable lifespan over the Hit rate: how long an ad that works stays viable. Today's viable ads wear out at 1 over it. Times Spend per viable ad it is the Viable spend per hit. _Avoid_: winner lifespan, hit lifespan.
 
