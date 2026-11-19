@@ -1165,8 +1165,8 @@ m9 AS (
       WHEN m.tc.viable_ads >= p.on_track_share * m.sc_l AND m.sc_n0 <= m.pl.current_pipeline THEN 'On track'
       WHEN m.sc_n0 <= p.volume_reach * m.pl.launches_best THEN 'Volume'
       WHEN m.sc_n1 <= p.volume_reach * m.pl.launches_best THEN 'Both'
-      WHEN m.sc_room_h >= m.sc_room_d THEN 'Finding winners'
-      ELSE 'Keeping winners'
+      WHEN m.sc_room_h >= m.sc_room_d THEN 'Finding hits'
+      ELSE 'Keeping hits'
     END AS limiting_factor,
     m.v0 >= m.st.viable_share_target AS nothing_on_the_table,
     IF(m.v0 >= m.st.viable_share_target, NULL,

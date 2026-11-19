@@ -18,9 +18,9 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Viable lifespan**: the average viable days one Launched ad delivers, duds included: the area under the Survival curve, and Hit rate times Days viable per hit. The W of Little's law. Where the curve is still at 25% or above when the 3-ad floor cuts it off, it is a lower bound. _Avoid_: ad lifespan, shelf life.
 
-- **Hit rate**: the share of Launched ads at least 28 days old that were viable on at least one day in their first 28 days, whose first-28-day spend reached the Spend bar, and whose first-28-day CAC was within 1.2 times the account's over the same 28 days (an ad with no new orders fails): Meta gave them budget and they converted at a good CAC. An ad that spent the bar but is not a hit is one of the three counts that make up the base, with hits and the low-spend ads. A new ad adds Hit rate viable ads, not one. Shown as Ads that work. _Avoid_: success rate, win rate, activation rate.
+- **Hit rate**: the share of Launched ads at least 28 days old that were viable on at least one day in their first 28 days, whose first-28-day spend reached the Spend bar, and whose first-28-day CAC was within 1.2 times the account's over the same 28 days (an ad with no new orders fails): Meta gave them budget and they converted at a good CAC. An ad that spent the bar but is not a hit is one of the three counts that make up the base, with hits and the low-spend ads. A new ad adds Hit rate viable ads, not one. _Avoid_: success rate, win rate, activation rate.
 
-- **Days viable per hit**: the Viable lifespan over the Hit rate: how long an ad that works stays viable. Today's viable ads wear out at 1 over it. Times Spend per viable ad it is the Viable spend per hit. _Avoid_: winner lifespan, hit lifespan.
+- **Days viable per hit**: the Viable lifespan over the Hit rate: how long a hit stays viable. Today's viable ads wear out at 1 over it. Times Spend per viable ad it is the Viable spend per hit. _Avoid_: winner lifespan, hit lifespan.
 
 - **Healthy lifespan**: the age by which half the ads viable at the Survival curve's peak have stopped being viable, with the quartile range (the ages at 75% and 25% of the peak). Quoted on How it's worked out. _Avoid_: median life, half-life.
 
@@ -28,7 +28,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Spend bar**: the larger of the 300 lifetime-spend eligibility floor and 3 days of Spend per viable ad: the first-28-day spend a Launched ad must reach to count as a hit, and below which it counts towards the Low-spend rate. On a small account the floor sets it; on a large one the 3 days do. It sits well below the Outlier line, so Low-spend, hit and Outlier stay three distinct tiers. _Avoid_: activation threshold, spend floor (the Eligibility floors are audit-ads').
 
-- **Viable spend per hit**: Spend per viable ad times Days viable per hit: the spend one ad that works carries over its viable life. The divisor of the Steady-state number with the Hit rate. _Avoid_: activated spend, lifetime spend.
+- **Viable spend per hit**: Spend per viable ad times Days viable per hit: the spend one hit carries over its viable life. The divisor of the Steady-state number with the Hit rate. _Avoid_: activated spend, lifetime spend.
 
 - **Days to clear Ramping**: the median number of days a Launched ad spends Ramping before its first status. Sets the Live-by date. _Avoid_: learning phase, ramp time.
 
@@ -44,7 +44,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Spend degradation**: across the Launched ads at least 28 days old (the Hit rate's base), the median of each ad's mean daily spend over ages 7 to 27 over its mean daily spend over ages 0 to 6, less 1; a day with no spend counts 0. _Avoid_: spend decay, drop-off.
 
-- **Viable after week 1**: the share of hits that have reached age 28 that were viable on their day at age 28: whether the ads that work keep working past launch. Replaces a CAC-after-launch measure, which order lag and spend shifting onto winners make read as improving. _Avoid_: CAC degradation, ROAS degradation, retention.
+- **Viable after week 1**: the share of hits that have reached age 28 that were viable on their day at age 28: whether hits keep working past launch. Replaces a CAC-after-launch measure, which order lag and spend shifting onto hits make read as improving. _Avoid_: CAC degradation, ROAS degradation, retention.
 
 - **Top-5 concentration**: the share of the last 30 complete days' spend on the 5 ads that spent most. High means the account leans on few ads. _Avoid_: ad concentration, dependency.
 
@@ -64,11 +64,11 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Ad stock check**: today's viable ads against the Viable ad stock at current spend. **Short**: below 80% of it. **Ahead**: above 150% of it. **About right**: between. Shown under Work backwards from spend as a sentence, "You have <S> ads working today; your spend needs <⌈L⌉> working at once.", with the gap as a count of ads. _Avoid_: health check, ad audit, over-stocked.
 
-- **Lever**: one of the three things today's viable ads come from, which multiply: Current pipeline (launches a month), Hit rate (finding winners) and Days viable per hit (keeping winners). Closing a gap by any one alone takes the same multiple, so the gap's size never says which lever is short. _Avoid_: driver, factor.
+- **Lever**: one of the three things today's viable ads come from, which multiply: Current pipeline (launches a month), Hit rate (finding hits) and Days viable per hit (keeping hits). Closing a gap by any one alone takes the same multiple, so the gap's size never says which lever is short. _Avoid_: driver, factor.
 
 - **Lever best**: the best the account has done on a Lever. Launches: the highest Current pipeline over any 3 complete months in a row. Hit rate: the 90th-percentile launch month (months at least 28 days old with 10 or more Launched ads, outside the first 6 weeks; fewer than 4, no best). Days viable per hit: the highest launch quarter whose ads are all 60 days old with 10 or more hits (fewer than 2, no best). _Avoid_: benchmark, target, potential.
 
-- **Limiting factor**: the Lever the Creative deep dive names as holding the account back, B being the launches Lever best. **On track**: viable ads at 80% of needed or more, and the Steady-state number within the Current pipeline. **Volume**: the Steady-state number within 1.2 times B. **Both**: within it at the best Hit rate. Else **Finding winners** or **Keeping winners**, whichever Lever has more room below its best. _Avoid_: focus, bottleneck, constraint.
+- **Limiting factor**: the Lever the Creative deep dive names as holding the account back, B being the launches Lever best. **On track**: viable ads at 80% of needed or more, and the Steady-state number within the Current pipeline. **Volume**: the Steady-state number within 1.2 times B. **Both**: within it at the best Hit rate. Else **Finding hits** or **Keeping hits**, whichever Lever has more room below its best. _Avoid_: focus, bottleneck, constraint.
 
 - **On the table**: the extra new customers a week at today's spend if the Viable share rose to the Viable share target, from new-customer CAC by status over the last 90 days, with the blended CAC change beside it. Assumes the CAC gap holds; at or above target, nothing. _Avoid_: opportunity, upside, prize.
 
@@ -114,7 +114,7 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 ## The page
 
-- **Creative deep dive**: the page's first tab, the one it opens on, Crux-branded and laid out like CTC's creative report: the Creative score, Spending power (monthly spend against CAC, last 3 months against the 3 before), the Outlier engine, Creative rotation (Top-10 turnover), Ads that work (Hit rate, Low-spend rate, Viable spend per hit), and Work backwards from spend (the Steady-state number against the Current pipeline with a verdict line, the Limiting factor, a spend slider over the Steady-state number, Expected outliers a month, the Ad stock check in plain words and the Roadmap). Labels only, no definitions; Spending power, the Outlier engine and Creative rotation each open with two fixed sentences on why the section is there and how to read it. _Avoid_: Scorecard, dashboard tab, summary.
+- **Creative deep dive**: the page's first tab, the one it opens on, Crux-branded and laid out like CTC's creative report: the Creative score, Spending power (monthly spend against CAC, last 3 months against the 3 before), the Outlier engine, Creative rotation (Top-10 turnover), Hits (Hit rate, Low-spend rate, Viable spend per hit, the Spend bar), and Work backwards from spend (the Steady-state number against the Current pipeline with a verdict line, the Limiting factor, a spend slider over the Steady-state number, Expected outliers a month, the Ad stock check in plain words and the Roadmap). Labels only, no definitions beyond the hit test and the Spend bar's explanation under their figures, and the Hits and Outliers line; Spending power, the Outlier engine, Creative rotation and Hits each open with two fixed sentences on why the section is there and how to read it. _Avoid_: Scorecard, dashboard tab, summary.
 
 - **How it's worked out**: the page's second tab: the Month-by-month plan table, the Survival curve, the figures behind the Creative deep dive, Terms, This run, the method word for word, and the Brain line where the run has one. _Avoid_: Notes and Method, appendix.
 
