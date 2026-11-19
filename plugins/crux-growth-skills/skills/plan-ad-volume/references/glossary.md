@@ -52,9 +52,9 @@ The terms `SKILL.md` and the other references use, each with one meaning. The sh
 
 - **Outlier**: a Launched ad whose spend in the window is at or above the mean plus one population standard deviation of every Launched ad's spend (the line): the few ads Meta scales hard. Judged on spend alone, unlike Viable. _Avoid_: winner (that is an audit-ads status), hero ad, breakout.
 
-- **Outlier rate**: Outliers over Launched ads, with their share of spend and the days each took from first spend to its cumulative spend crossing the line (25th percentile, median, 75th percentile). Gives Expected outliers a month at the plan's launches and the binomial chance of finding none. _Avoid_: hit rate (that is quality, not spend).
+- **Outlier rate**: Outliers over Launched ads, with their share of spend and the days each took from first spend to its cumulative spend crossing the line (25th percentile, median, 75th percentile). Gives Expected outliers a month at the plan's launches. _Avoid_: hit rate (that is quality, not spend).
 
-- **Expected outliers a month**: the new ads a month times the Outlier rate, with the binomial chance of finding k Outliers in them (k = 0 to 4 and 5 or more) and so the chance of finding none. Read on Ads needed each month at the slider's spend. _Avoid_: expected winners (that is Expected to work), outlier forecast.
+- **Expected outliers a month**: the new ads a month times the Outlier rate, to one decimal. Read as one line in the Outlier engine, at current spend and at the Budget, with no target: nothing in the forecast uses it. _Avoid_: expected winners (that is Expected to work), outlier forecast.
 
 - **Top-10 turnover**: for each complete calendar quarter, how many of its 10 highest-spending ads first spent in that quarter, with those ads' share of the quarter's spend. An indicator only, never scored: high turnover is neither good nor bad against Evergreen share. Read on 2 or more complete quarters, else not shown. _Avoid_: rotation rate, refresh rate.
 

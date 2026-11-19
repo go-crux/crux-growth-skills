@@ -208,9 +208,9 @@ but an Outlier can be unprofitable. Only hits set how many new ads you need."
 from first spend to the line, as `days_to_line_p25`, `days_to_line_median` and `days_to_line_p75`,
 under the heading "Days from first spend to the Outlier line". With no Outlier they are left out.
 
-**The action line**: "At <N0> new ads a month, expect <x> Outliers a month; Ads needed each month
-below shows the chance of none." x is Expected outliers a month at current spend, to one decimal. With
-no Outlier it reads "No new ad has yet spent like an Outlier: more ads, and more different ones, give
+**The action line**: "At <N0> new ads a month, expect about <x> Outliers a month (new ads × your
+Outlier rate). There is no target: Outliers come from launching more ads, and more different ones." x is
+Expected outliers a month at current spend, to one decimal. With no Outlier it reads "No new ad has yet spent like an Outlier: more ads, and more different ones, give
 Meta more to scale."
 
 ## 4. Creative rotation
@@ -331,7 +331,7 @@ spend to 3 times it (wider where the Budget lies outside that), with `step="any"
 spend when the page opens. Two marks under the track name "Current spend" and, where the user gave a
 Budget, "Budget", each at its place on the track, and two buttons set the slider to each. Beside it the
 monthly spend at the slider's position, in whole units of the account's currency, as an `<output>`. The
-slider, its marks, its buttons and part e sit together in the page's `wb-live` container, hidden, and the
+slider, its marks and its buttons sit together in the page's `wb-live` container, hidden, and the
 script shows them.
 
 **d. The formula**, in these words, in the terms: "New ads = monthly spend × Viable share target ÷
@@ -341,17 +341,7 @@ new ads a month". Both sit outside `wb-live`: the page is written with the sum a
 `<ads>` is the Steady-state number N0, so it reads and prints with scripts off, and the script rewrites
 the sum at the slider's spend.
 
-**e. Expected outliers a month**, "Expected outliers a month = new ads × Outlier rate", with the
-figure at the slider's spend to one decimal, and **the chance of none** ("<x>% chance of none", the
-chart's first bar). Under it the chart, inline SVG, "Chance of finding k Outliers in a month": six bars
-for k = 0, 1, 2, 3, 4 and 5 or more, each labelled with its probability to one decimal. The vertical axis
-runs from 0 to the first multiple of 10% at or above the tallest bar, with light gridlines. The bars are
-the binomial of `references/method.md` step 16, with the new ads as the number of trials and the Outlier
-rate as the chance of each; the six figures shown are adjusted by largest remainder so they add to
-100.0%. The chart's text alternative is rewritten by the script to read the six figures aloud. With no
-Outlier in the window the rate is 0, and part e is left out of the page whole.
-
-**f. The stock check, in plain words.** The Ad stock check at current spend, which the slider does not
+**e. The stock check, in plain words.** The Ad stock check at current spend, which the slider does not
 move, under the heading "Enough working ads for your spend?": "You have <S> ads working today; your spend
 needs <⌈L⌉> working at once." Then a pill and its action line. The pill is "Short <g>" below 80% of L,
 "About right" from 80% to 150%, and "Ahead <g>" above 150%, g being the difference between ⌈L⌉ and S.
@@ -365,7 +355,7 @@ alone; no other mark on the page is a verdict pill. The action line, by verdict:
 Where the Viable lifespan is a lower bound the line ends "Counts may read a little high; How it's
 worked out has the detail."
 
-**g. The Roadmap.** The Month-by-month plan's Budget line and Video and image split line (both under How it's worked out), then its table cut to the columns
+**f. The Roadmap.** The Month-by-month plan's Budget line and Video and image split line (both under How it's worked out), then its table cut to the columns
 Month, Spend, Video and Image (only with a Format split), Ads to launch, Expected to work and Go live
 by, one row for each month, with the same figures as the full table on How it's worked out and the same
 two lines under it. The Catch-up line is left to How it's worked out.
@@ -405,14 +395,13 @@ in only the figures block.
 | `target` | the Viable share target, a number from 0 to 1 |
 | `hitRate` | the Hit rate, a number above 0 and up to 1 |
 | `spendPerHit` | the Viable spend per hit, a number above 0 |
-| `outlierRate` | the Outlier rate, a number from 0 to 1 (0 with no Outlier) |
 
 It is JSON, not JavaScript: double-quoted keys, `null` for none, bare numbers with no thousands
 separators, currency symbols or percent signs, and no trailing comma.
 
 ```html
 <script type="application/json" id="wb-figures">
-{"currency": "£", "currentSpend": 18600, "budget": null, "target": 0.6, "hitRate": 0.4, "spendPerHit": 595, "outlierRate": 0.1667}
+{"currency": "£", "currentSpend": 18600, "budget": null, "target": 0.6, "hitRate": 0.4, "spendPerHit": 595}
 </script>
 <script>
 (() => {
@@ -423,53 +412,12 @@ separators, currency symbols or percent signs, and no trailing comma.
   const quotient = s => s * F.target / (F.hitRate * F.spendPerHit);
   const ads = s => Math.ceil(Number(quotient(s).toFixed(9)));
 
-  function binomial(n, p) {
-    const pk = [];
-    let c = 1;
-    for (let k = 0; k < 5; k++) {
-      pk.push(k > n ? 0 : c * Math.pow(p, k) * Math.pow(1 - p, n - k));
-      c = c * (n - k) / (k + 1);
-    }
-    pk.push(Math.max(0, 1 - pk.reduce((a, b) => a + b, 0)));
-    const raw = pk.map(x => x * 1000);
-    const tenths = raw.map(Math.floor);
-    let left = 1000 - tenths.reduce((a, b) => a + b, 0);
-    raw.map((r, i) => [r - tenths[i], i]).sort((a, b) => b[0] - a[0])
-      .slice(0, left).forEach(([, i]) => tenths[i]++);
-    return { pk, tenths };
-  }
-
-  function chart(n) {
-    const { pk, tenths } = binomial(n, F.outlierRate);
-    const top = Math.max(0.1, Math.ceil(Math.max(...pk) * 10 - 1e-9) / 10);
-    const names = ["0", "1", "2", "3", "4", "5+"];
-    let g = "";
-    [0, 0.5, 1].forEach(f => {
-      const y = 180 - f * 150;
-      g += `<line class="grid" x1="44" x2="470" y1="${y}" y2="${y}"/><text class="axis" x="38" y="${y + 4}" text-anchor="end">${Math.round(f * top * 100)}%</text>`;
-    });
-    pk.forEach((x, i) => {
-      const h = x / top * 150, bx = 60 + i * 68;
-      g += `<rect class="s-hi" x="${bx}" y="${180 - h}" width="44" height="${h}"/>`
-        + `<text class="val" x="${bx + 22}" y="${174 - h}" text-anchor="middle">${(tenths[i] / 10).toFixed(1)}%</text>`
-        + `<text class="axis" x="${bx + 22}" y="198" text-anchor="middle">${names[i]}</text>`;
-    });
-    $("wb-bars").innerHTML = g;
-    $("wb-bars").setAttribute("aria-label", "Chance of finding k Outliers in a month: "
-      + names.map((k, i) => k + ", " + (tenths[i] / 10).toFixed(1) + "%").join("; "));
-    $("wb-none").textContent = (tenths[0] / 10).toFixed(1) + "%";
-  }
-
   function render(s) {
     const n = ads(s);
     $("wb-spend").textContent = money(s);
     $("wb-sum").textContent = money(s) + " × " + Math.round(F.target * 100) + "% ÷ ("
       + hit(F.hitRate) + " × " + money(F.spendPerHit) + ") = " + quotient(s).toFixed(2)
       + ", rounded up: " + n + " new ads a month";
-    if ($("wb-bars")) {
-      $("wb-expected").textContent = (n * F.outlierRate).toFixed(1);
-      chart(n);
-    }
   }
 
   const slider = $("wb-slider");
@@ -491,24 +439,20 @@ separators, currency symbols or percent signs, and no trailing comma.
 </script>
 ```
 
-The page's elements for it: `wb-live` (the container of the slider, its marks and buttons and, where it
-exists, part e, `hidden` in the HTML), `wb-slider` (the range input), `wb-spend` (the output beside it),
+The page's elements for it: `wb-live` (the container of the slider, its marks and buttons, `hidden` in the HTML), `wb-slider` (the range input), `wb-spend` (the output beside it),
 `wb-sum` (the formula's sum with the account's numbers, outside `wb-live`, written at current spend),
 `wb-mark-current` and `wb-mark-budget` (the two marks, the second only with a Budget), `wb-set-current`
-and `wb-set-budget` (the two buttons, the second only with a Budget), and, in part e only, `wb-expected`,
-`wb-none` and `wb-bars` (an `<svg>` with `viewBox="0 0 480 210"`, `role="img"` and a first `aria-label`).
-Its classes `grid`, `axis`, `val` and `s-hi` are the page's chart classes of `references/crux-brand.md`.
+and `wb-set-budget` (the two buttons, the second only with a Budget).
 
 **The pre-save check.** Before saving the page, read it back and check that:
 
 1. it holds both blocks, the `wb-figures` block and the script, and the script is the one above, copied
    verbatim;
 2. `wb-figures` parses as JSON and holds every key in the table, each of `currentSpend`, `target`,
-   `hitRate`, `spendPerHit` and `outlierRate` a finite number (`hitRate` and `spendPerHit` above 0),
+   `hitRate` and `spendPerHit` a finite number (`hitRate` and `spendPerHit` above 0),
    `budget` a number or `null`, and `currency` a non-empty string;
 3. every figure equals its step 4 figure, and the sum in `wb-sum` ends on N0 new ads a month;
-4. the elements `wb-live`, `wb-slider`, `wb-spend` and `wb-sum` exist, and so do `wb-expected`,
-   `wb-none` and `wb-bars` wherever part e is on the page.
+4. the elements `wb-live`, `wb-slider`, `wb-spend` and `wb-sum` exist.
 
 Where any check fails, fix the page and check again. Where a check still fails, write the line "The spend
 slider could not be built on this run" in plain HTML in the slider's place on the page (the answer, Holding
@@ -658,10 +602,9 @@ The figures behind the Creative deep dive, one line each, in this order and in t
     Creative deep dive ("Spend +22%, CAC −10%: the last 3 complete months against the 3 before"), or,
     with fewer than 6 complete months, "Fewer than 6 complete months, so the last 3 are not compared
     with the 3 before." Left out with fewer than 2 complete months.
-11. **Expected outliers**: one line, "At current spend, <N0> new ads a month give <x> Expected outliers a
-    month and a <y>% chance of none" (x to one decimal, y the chart's first figure), and, with a Budget,
-    the same at the Budget with `ads_for_spend` of it. With no Outlier, "No Outliers, so no chance is
-    read."
+11. **Expected outliers**: one line, "At current spend, <N0> new ads a month give about <x> Expected
+    outliers a month" (x to one decimal), and, with a Budget, the same at the Budget with `ads_for_spend`
+    of it. With no Outlier, "No Outliers, so none are expected."
 
 ## Terms
 
