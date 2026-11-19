@@ -6,8 +6,8 @@ description: Meta ad audit. Use when the user asks to audit their Meta ads, whic
 # Meta ad audit
 
 Judge every Meta ad on the last 60 complete days and produce `meta-ad-audit-<date>.html`: ranked
-Recommendations (Pause, Refresh, Iterate) and every Reported ad with its status, laid out as
-`references/page-layout.md` fixes it. Then close in the chat with the Hand-off and the Next run.
+Recommendations (Pause, Refresh, Iterate) and every Reported ad with its status, a Crux-branded page
+laid out as `references/page-layout.md` fixes it. Then close in the chat with the Hand-off and the Next run.
 Run the steps in order. The user sees only the chat and the page, never this skill or its
 references: say what the ads showed, in plain words with the figures, and never cite a file, a
 rule or a query. The terms CAC, Account blend, Peak CAC, Eligibility floors, Ramping, Low
@@ -201,7 +201,9 @@ flexible or dynamic creative ad reads "add new assets", and the list is in ranke
 
 ## 6. Write the page
 
-Write the page as `references/page-layout.md` fixes it: its four headings (Summary,
+Write the page as `references/page-layout.md` fixes it, in the Crux brand of
+`references/crux-brand.md` and never a brand's own look (ask nothing about it), with Google Fonts as
+its only network request: its four headings (Summary,
 Recommendations, Every ad, Notes and Method), in order, with only Reported ads and every table
 header sorting. Notes and Method carries `references/method.md` word for word, and no second
 wording of it. Where the Judged spend share is below 50%, the Summary
