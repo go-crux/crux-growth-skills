@@ -124,8 +124,10 @@ every figure of the Model step of `SKILL.md`, the plan included, as `references/
 it, and each once: the survival curve over every Launched ad at every age it has reached (the
 denominator), the Viable lifespan, the Spend per viable ad over the viable ad-days, the Spend bar (the larger of 300 and 3 times the
 Spend per viable ad), the Hit rate over the Launched ads whose first spend is at least 27 days before
-the last complete day (a hit was viable on one of those 28 days and spent the Spend bar or more over
-them), the Low-spend rate (the share of those ads whose spend over the 28 days was below the bar), the
+the last complete day (a hit spent the Spend bar or more over those 28 days, was viable on one of
+them, and had a 28-day CAC no more than 1.2 times the account's over the same 28 calendar days: the
+ad's spend over its new orders, against every ad's, outside the awareness and lead campaigns; an ad
+with no new orders fails), the Low-spend rate (the share of those ads whose spend over the 28 days was below the bar), the
 Days viable per hit, and the Viable spend per hit (the Spend per viable ad times the Days viable per
 hit). Compute the Viable share target once, as `SKILL.md`'s Model step defines it, from
 the statuses of every ad on every day it spent (not only the Launched ads), outside the awareness and
@@ -198,7 +200,7 @@ ad by its latest row's campaign), and the survival table lists each age with the
 rates sum to the Viable lifespan, the Hit rate times the Days viable per hit equals the Viable
 lifespan to two decimals, the Spend per viable ad is the spend on viable ad-days over their
 number, the Spend bar is printed (300 where 3 times the Spend per viable ad is under it), and the
-hits, the low-spend ads and the ads at or above the bar that were never viable add up to the Launched
+hits, the low-spend ads and the ads that spent the bar but are not hits add up to the Launched
 ads at least 28 days old, with the Low-spend rate and Viable spend per hit printed, and the weekly viable shares, the weeks counted and left out, P90 and the Viable share target
 (at most 100%) are printed, the run having stopped on its line where no week is counted; the last
 complete day is named; and the three Lever bests (each with the months or quarters it counted, or

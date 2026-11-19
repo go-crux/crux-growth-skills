@@ -340,6 +340,7 @@ plan_cut AS (
     365 AS window_days,
     3 AS curve_min_ads,
     28 AS hit_days,
+    1.20 AS hit_cac_ratio,
     300 AS spend_bar_floor,
     3 AS spend_bar_days,
     3 AS pipeline_months,
@@ -955,20 +956,40 @@ m5 AS (
     ARRAY(
       SELECT AS STRUCT
         h.ad_key, h.first_spend, h.spend_28d,
-        h.was_viable AND h.spend_28d >= GREATEST(p.spend_bar_floor, p.spend_bar_days * m.ls.spend_per_viable_ad) AS is_hit,
+        h.was_viable AND h.spend_28d >= GREATEST(p.spend_bar_floor, p.spend_bar_days * m.ls.spend_per_viable_ad) AND h.cac_within AS is_hit,
         h.spend_28d < GREATEST(p.spend_bar_floor, p.spend_bar_days * m.ls.spend_per_viable_ad) AS is_low_spend,
-        NOT h.was_viable AND h.spend_28d >= GREATEST(p.spend_bar_floor, p.spend_bar_days * m.ls.spend_per_viable_ad) AS is_above_bar_never_viable
+        h.spend_28d >= GREATEST(p.spend_bar_floor, p.spend_bar_days * m.ls.spend_per_viable_ad) AND NOT (h.was_viable AND h.cac_within) AS is_spent_bar_not_hit
       FROM (
+        -- cac_within: the ad's spend over its first 28 days over its new orders in them is within
+        -- hit_cac_ratio times the account's over the same 28 calendar days (every ad in daily_win).
+        -- An ad with no new orders fails. The window's frame is hit_days - 1 days ahead.
         SELECT
-          l.ad_key,
-          ANY_VALUE(l.first_spend) AS first_spend,
-          COALESCE(LOGICAL_OR(x.status IN ('Healthy', 'Winner', 'Improving')
-                              AND DATE_DIFF(x.day, l.first_spend, DAY) < p.hit_days), FALSE) AS was_viable,
-          COALESCE(SUM(IF(DATE_DIFF(x.day, l.first_spend, DAY) < p.hit_days, x.spend, 0)), 0) AS spend_28d
-        FROM UNNEST(m.launched) AS l
-        LEFT JOIN (SELECT * FROM UNNEST(m.dw) WHERE status IS NOT NULL) AS x ON x.ad_key = l.ad_key
-        WHERE l.first_spend <= DATE_SUB(w.date_to, INTERVAL (p.hit_days - 1) DAY)
-        GROUP BY l.ad_key
+          g.*,
+          COALESCE(SAFE_DIVIDE(g.spend_28d, g.orders_28d) <= p.hit_cac_ratio * a.account_cac_28d, FALSE) AS cac_within
+        FROM (
+          SELECT
+            l.ad_key,
+            ANY_VALUE(l.first_spend) AS first_spend,
+            COALESCE(LOGICAL_OR(x.status IN ('Healthy', 'Winner', 'Improving')
+                                AND DATE_DIFF(x.day, l.first_spend, DAY) < p.hit_days), FALSE) AS was_viable,
+            COALESCE(SUM(IF(DATE_DIFF(x.day, l.first_spend, DAY) < p.hit_days, x.spend, 0)), 0) AS spend_28d,
+            COALESCE(SUM(IF(DATE_DIFF(x.day, l.first_spend, DAY) < p.hit_days, x.new_orders, 0)), 0) AS orders_28d
+          FROM UNNEST(m.launched) AS l
+          LEFT JOIN (SELECT * FROM UNNEST(m.dw)) AS x ON x.ad_key = l.ad_key
+          WHERE l.first_spend <= DATE_SUB(w.date_to, INTERVAL (p.hit_days - 1) DAY)
+          GROUP BY l.ad_key
+        ) AS g
+        LEFT JOIN (
+          SELECT
+            t.day,
+            SAFE_DIVIDE(SUM(t.spend) OVER f, SUM(t.new_orders) OVER f) AS account_cac_28d
+          FROM (
+            SELECT x.day, SUM(x.spend) AS spend, SUM(x.new_orders) AS new_orders
+            FROM UNNEST(m.dw) AS x
+            GROUP BY x.day
+          ) AS t
+          WINDOW f AS (ORDER BY UNIX_DATE(t.day) RANGE BETWEEN CURRENT ROW AND 27 FOLLOWING)
+        ) AS a ON a.day = g.first_spend
       ) AS h
     ) AS hit_ads,
     (
@@ -1001,7 +1022,7 @@ m6 AS (
         COUNT(*) AS hit_rate_ads,
         COUNTIF(h.is_hit) AS hits,
         COUNTIF(h.is_low_spend) AS low_spend_ads,
-        COUNTIF(h.is_above_bar_never_viable) AS above_bar_never_viable_ads,
+        COUNTIF(h.is_spent_bar_not_hit) AS spent_bar_not_hit_ads,
         SAFE_DIVIDE(COUNTIF(h.is_hit), COUNT(*)) AS hit_rate,
         SAFE_DIVIDE(COUNTIF(h.is_low_spend), COUNT(*)) AS low_spend_rate
       FROM UNNEST(m.hit_ads) AS h
@@ -1103,10 +1124,10 @@ m7 AS (
         FROM UNNEST([
           STRUCT(1 AS ord, 'evergreen_share' AS measure, 0.10 AS poor, 0.30 AS average, 0.50 AS good),
           STRUCT(2, 'spend_degradation', -0.80, -0.55, -0.30),
-          STRUCT(3, 'viable_after_week_1', 0.10, 0.25, 0.45),
+          STRUCT(3, 'viable_after_week_1', 0.15, 0.35, 0.60),
           STRUCT(4, 'top5_concentration', 0.70, 0.45, 0.20),
           STRUCT(5, 'outlier_rate', 0.01, 0.03, 0.06),
-          STRUCT(6, 'hit_rate', 0.03, 0.08, 0.15),
+          STRUCT(6, 'hit_rate', 0.02, 0.05, 0.10),
           STRUCT(7, 'low_spend_rate', 0.95, 0.85, 0.70)
         ]) AS b
         JOIN UNNEST([
@@ -1232,7 +1253,7 @@ SELECT
   m.hr.hit_rate_ads,
   m.hr.hits,
   m.hr.low_spend_ads,
-  m.hr.above_bar_never_viable_ads,
+  m.hr.spent_bar_not_hit_ads,
   m.ls.spend_per_viable_ad,
   m.ls.healthy_lifespan,
   m.ls.age_below_75,

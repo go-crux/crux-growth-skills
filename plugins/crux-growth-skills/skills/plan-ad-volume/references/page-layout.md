@@ -61,7 +61,7 @@ reader can match the two. A row with no Says is a heading or a chart title and n
 | Weakest point | Weakest point | the measure with the lowest sub-score, its value against Good, and what to do about it |
 | Top-10 turnover | Top-10 turnover | how many of a quarter's 10 biggest-spending ads first spent in that quarter; shown beside the score and never part of it |
 | Expected outliers a month | Expected outliers a month | the new ads a month times your Outlier rate |
-| Hit rate | Ads that work | the share of your new ads that spent the Spend bar or more in their first 28 days and became working ads |
+| Hit rate | Ads that work | the share of your new ads that spent the Spend bar or more in their first 28 days, kept their cost per new customer within 1.2 times your account's, and became working ads |
 | Spend bar | Spend bar | the spend a new ad needs in its first 28 days to count as working: the larger of 300 and 3 days of what one working ad spends |
 | Low-spend rate | Ads that never got budget | the share of your new ads that spent less than the Spend bar in their first 28 days |
 | Days viable per hit | Days a winner works | how long a new ad that works stays working, on average |
@@ -233,8 +233,8 @@ bad on its own."
   under it.
 
 **One stacked bar**, inline SVG, "Your new ads at 28 days": the Hit rate ads split into those that
-worked (`hits`), never got budget (`low_spend_ads`) and got budget but did not work
-(`above_bar_never_viable_ads`), in the three category fills named by direct labels with their whole
+worked (`hits`), never got budget (`low_spend_ads`) and got budget but did not make the grade
+(`spent_bar_not_hit_ads`), in the three category fills named by direct labels with their whole
 percentages. The three are shares of one base, so they add to 100%. Give it a title and a text
 alternative.
 
@@ -548,7 +548,7 @@ The figures behind the Creative deep dive, one line each, in this order and in t
 4. **Spend per viable ad**: to two decimals, a day.
    After it, three lines in the same formats: **Spend bar**, the amount in the account's currency (with
    "the 300 floor" where 3 times the Spend per viable ad is under it); **Low-spend rate**, as a
-   percentage, with the hits, low-spend ads and ads at or above the bar that never worked beside it,
+   percentage, with the hits, low-spend ads and ads that spent the bar but were not hits beside it,
    which add up to the Hit rate ads; **Viable spend per hit**, in the account's currency, rounded to
    whole units.
 5. **Viable share and its target**, in these words with the figures filled in: "Viable share: your

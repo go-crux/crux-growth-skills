@@ -201,7 +201,7 @@ edits 1 to 3 (the mart's name, in `mart_rows` and in `video_plays`, with any col
 4, and run the whole file with `run_sql` as one statement. It judges every ad on every day of the
 365, and returns one row holding `viable_lifespan` (W), `hit_rate` (h), `days_viable_per_hit` (D),
 `spend_bar`, `low_spend_rate`, `viable_spend_per_hit`, `hit_rate_ads` with its split into `hits`, `low_spend_ads` and
-`above_bar_never_viable_ads`, `spend_per_viable_ad`, `healthy_lifespan` with `age_below_75` and `age_below_25`,
+`spent_bar_not_hit_ads`, `spend_per_viable_ad`, `healthy_lifespan` with `age_below_75` and `age_below_25`,
 `days_to_clear_ramping`, `current_spend`, `current_pipeline`, `viable_share_p90`,
 `viable_share_target`, `viable_share_weeks` (the weeks counted), `viable_share_weeks_left_out`,
 `viable_ad_stock` (L), `steady_state_number` (N0, a month's ads at current spend), `current_monthly_spend`, `current_month_days`,
@@ -246,12 +246,14 @@ below is worked in code from that row. Compute each figure once, from these defi
   300 is the lifetime-spend Eligibility floor, so where 3 times the Spend per viable ad is under 300 the
   bar is 300. It is worked once per run, from the Spend per viable ad below.
 - **Hit rate** (h) is, over the Launched ads whose first spend is at least 27 days before the last
-  complete day (ages 0 to 27 all inside the window), the share that were viable on at least one of
-  those 28 days **and** spent the Spend bar or more over them. `hit_rate_ads` is the number of those
-  ads, the base.
+  complete day (ages 0 to 27 all inside the window), the share that pass all three: they spent the
+  Spend bar or more over those 28 days; their 28-day CAC (spend over new orders in the 28 days) is
+  no more than 1.2 times the account's over the same 28 calendar days (every ad outside the awareness
+  and lead campaigns, and an ad with no new orders fails); and they were viable on at least one of
+  those days. 1.2 is the Low efficiency line. `hit_rate_ads` is the number of those ads, the base.
 - **Low-spend rate** is the share of that base whose spend over ages 0 to 27 was below the Spend bar,
   viable or not, so no ad is both a hit and low-spend. The base splits into three counts that sum to
-  it: `hits`, `low_spend_ads`, and `above_bar_never_viable_ads` (at or above the bar, never viable).
+  it: `hits`, `low_spend_ads`, and `spent_bar_not_hit_ads` (at or above the bar but not a hit).
 - **Days viable per hit** (D) is W over h, so h times D is W exactly.
 - **Viable spend per hit** is the Spend per viable ad times D: the spend one ad that works carries
   over its viable life.
@@ -325,7 +327,8 @@ below is worked in code from that row. Compute each figure once, from these defi
   today's viable ads).
 
 **Stop** where h is 0, with one line and no page: "None of the <n> ads launched at least 28 days ago
-became viable at <the Spend bar> or more of spend, so there is no hit rate to plan from." (n is
+was a hit (viable on a day, at <the Spend bar> or more of spend and a CAC within 1.2 times the
+account's over its first 28 days), so there is no hit rate to plan from." (n is
 `hit_rate_ads`.) **Stop** too where no
 week is counted, with one line and no page: "<Brand>'s weekly spend is too uneven to read a viable
 share." Both hold for an unattended run too.
@@ -433,7 +436,7 @@ number in the working. The page shows every ad count as a whole ad, rounded up (
 
 **Done when** the run holds W, h, D, Spend per viable ad, the Spend bar (300 where 3 times the Spend per
 viable ad is under it), the Low-spend rate, Viable spend per hit, hits plus low-spend ads plus
-above-bar-never-viable ads equal to the Hit rate ads, the seven measures of the Creative score each with its
+ads that spent the bar but are not hits equal to the Hit rate ads, the seven measures of the Creative score each with its
 sub-score (0 to 100) and the Creative score equal to the mean of the seven rounded (none where a measure cannot
 be read, said which), the Outlier stats (the Outliers over the Launched ads equal to the Outlier rate, the line
 equal to the mean plus 1 standard deviation), Top-10 turnover for each complete quarter or absent with fewer than
