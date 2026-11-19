@@ -202,11 +202,10 @@ flexible or dynamic creative ad reads "add new assets", and the list is in ranke
 ## 6. Write the page
 
 Write the page as `references/page-layout.md` fixes it, in the Crux brand of
-`references/crux-brand.md` and never a brand's own look (ask nothing about it), with Google Fonts as
-its only network request: its four headings (Summary,
-Recommendations, Every ad, Notes and Method), in order, with only Reported ads and every table
-header sorting. Notes and Method carries `references/method.md` word for word, and no second
-wording of it. Where the Judged spend share is below 50%, the Summary
+`references/crux-brand.md` and never a brand's own look (ask nothing about it). It holds its four
+headings (Summary, Recommendations, Every ad, Notes and Method), in order, with only Reported ads
+and every header of the Summary, Recommendations and Every ad tables sorting. Notes and Method
+carries `references/method.md` word for word, and no second wording of it. Where the Judged spend share is below 50%, the Summary
 opens with the same caveat as the intake. Save the page as `meta-ad-audit-<date>.html` in the working
 folder; where none persists (a chat), hand it over as a download. The masthead names the Source,
 and a run whose Source is not a Growth Brain, with none connected, labels CAC platform-attributed

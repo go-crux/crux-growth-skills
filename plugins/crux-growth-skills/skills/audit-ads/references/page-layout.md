@@ -3,8 +3,9 @@
 A Meta ad audit is one self-contained HTML file, `meta-ad-audit-<date>.html` (`<date>` is today as
 `YYYY-MM-DD`), written to the working folder, with inline CSS and one small inline script (the
 sorting below). It is always Crux-branded as `references/crux-brand.md` sets out, whatever the
-brand: never ask the user about a brand's own colours, fonts or logo, and never apply them. Its only
-network request is that file's Google Fonts stylesheet: the script makes none. Crux house style:
+brand: never ask the user about a brand's own colours, fonts or logo, and never apply them. It makes no
+network request beyond that file's Google Fonts stylesheet and the font files it serves: the
+script makes none. Crux house style:
 British English, no em dashes, outcome before mechanism, relative percentage changes (2.0% to 1.8%
 is "−10%"). Money is in the account's currency, rounded to whole units; CAC to two decimals.
 
@@ -21,7 +22,7 @@ a label on the left and its text on the right, one row per label, in this order:
 | Reported ads | How many ads are on the page, and the share of the last 7 days' spend they hold, outside the awareness and lead campaigns. |
 
 **Four headings**, always present, always in this order, with these words. A heading with nothing
-under it stays on the page, with one line saying why. Each section sits under a 4px Highlight rule,
+under it stays on the page, with one line saying why. Each section sits under a 4px signal-blue rule,
 with its number as a small-caps eyebrow ("Section 1") and its heading as the title. A footer closes
 the page: "Built with Crux growth skills".
 
@@ -112,8 +113,9 @@ In this order:
 Use this skeleton, unchanged, as the page's `<head>` and the frame of its body, filling the
 `…`. Every colour and font on the page comes from these tokens, never a hex value in the body. A
 status cell carries `class="st-good"` (Winner, Improving) or `class="st-bad"` (Low efficiency,
-Fatigued), and the others none. Figure cells carry `class="num"`; the evidence line under an Action
-and the campaign under an ad set sit in a `<span class="sub">`.
+Fatigued), and the others none. Figure columns carry `class="num"` on their header and every cell; the evidence line under an
+Action sits in a `<span class="sub">`, and the campaign under an ad set in a
+`<span class="sub camp">`.
 
 ```html
 <!doctype html>
@@ -157,9 +159,8 @@ td .sub.camp{color:var(--ink-4)}
 tr.hi td{background:var(--signal-tint)}
 .st-good{color:var(--positive);font-weight:600}
 .st-bad{color:var(--negative);font-weight:600}
-.figure{font:500 22px/1.2 var(--display);color:var(--ink-1)}
 footer{max-width:1120px;margin:0 auto;padding:16px;border-top:1px solid var(--line);color:var(--ink-4);font-size:12px}
-@media print{main{padding-top:0}section{break-inside:avoid-page}th::after{content:""}}
+@media print{main{padding-top:0}section{break-inside:avoid-page}th[data-dir]::after{content:none}}
 </style>
 </head>
 <body>
