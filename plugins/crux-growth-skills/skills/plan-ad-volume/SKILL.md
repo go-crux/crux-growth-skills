@@ -381,11 +381,10 @@ number in the working. The page shows every ad count as a whole ad, rounded up (
 - **Ads needed each month.** The page's slider runs `ads_for_spend` over monthly spend, from half
   current spend to 3 times it (wider where the Budget lies outside that). Its figures are baked into the
   page's `wb-figures` block: current spend, the Budget (null with none), the Viable share target, the Hit
-  rate, the Viable spend per hit and the Outlier rate, each unrounded, with the currency. **Expected outliers a month** is the new ads
-  (`ads_for_spend` of the spend) times the Outlier rate; the chance of finding k Outliers in those ads is
-  the binomial of `references/method.md` step 16, with the new ads as the trials and the Outlier rate as
-  the chance, shown for k = 0 to 4 and 5 or more, adjusted so the six add to 100.0%. `ads_for_spend`
-  of the Budget is worked in code with the same function, as is every spend the slider runs.
+  rate and the Viable spend per hit, each unrounded, with the currency. `ads_for_spend`
+  of the Budget is worked in code with the same function, as is every spend the slider runs. **Expected
+  outliers a month** (the new ads times the Outlier rate) is one line in the Outlier engine and moves with
+  no slider.
 - **Spending power.** For each complete calendar month of the window, the spend, the new orders
   (purchases without a Growth Brain) and the CAC, outside the awareness and lead campaigns: the
   `spending_power` rows on a brain, worked in code otherwise. With 6 or more complete months, the relative
@@ -480,8 +479,7 @@ against CAC, and the last 3 months against the 3 before), the Outlier engine, Cr
 turnover by quarter, left out with fewer than 2 quarters), Hits, and Ads needed each month,
 which opens on its answer, N0 against the Current pipeline with a verdict line, then next month's ads in three parts that add up (To stay level, To catch up and To grow, then the Total), then the Limiting factor
 with its to-hit in the words `references/page-layout.md` gives and a Need only on the Levers it moves,
-the slider over monthly spend with the formula and the account's numbers, Expected outliers a month with
-the binomial chart and the chance of none, the Ad stock check in plain words ("You have <S> ads working
+the slider over monthly spend with the formula and the account's numbers, the Ad stock check in plain words ("You have <S> ads working
 today; your spend needs <⌈L⌉> working at once.", then Short below 80% of L, Ahead above 150% of L,
 otherwise About right, with the gap as a whole count of ads, the only verdict pill on the page), and the
 Roadmap table. Without JavaScript the page still prints the answer, the formula's sum at current spend and
@@ -513,7 +511,7 @@ labels, an action line for most, and the two fixed opening sentences of Spending
 each carrying its value (or "Not scored" with the measure named), and Top-10 turnover beside it only
 with 2 or more complete quarters; Spending power charts the complete months (the section left out
 with fewer than 2) and gives the two changes only with 6 or more; the Outlier engine gives the Outlier
-rate, the Outliers' share of spend, the spend per new ad and the time to Outlier; Creative rotation has a
+rate, the Outliers' share of spend, the spend per new ad and the time to Outlier, and its action line gives Expected outliers a month at current spend with "There is no target"; Creative rotation has a
 bar for each complete quarter, or is left out with fewer than 2; Hits gives the Hit rate with the hit test under it, the
 Low-spend rate, Viable spend per hit and the Spend bar with its explanation under it, and the Outlier engine and Hits each carry the Hits and Outliers line; Ads needed each month opens, before the slider, with N0 new ads a month against the P the account
 launched a month and one verdict line (within 10% "You are keeping pace.", below "Make about <N0 − P> more
@@ -521,8 +519,7 @@ a month.", above "You are launching more than your spend needs."), and the Budge
 one, then next month's ads in To stay level, To catch up (left out with no gap) and To grow (left out where it is 0), whose figures and Total equal month 1's Ads to launch in the Roadmap (and in plain HTML, so they print with scripts off), then the Limiting factor with its to-hit (On track reads "nothing: keep launching <P> a month"), then
 the slider at current spend (the Budget marked where there is one) with the formula **New ads = monthly
 spend × Viable share target ÷ (Hit rate × Viable spend per hit)**, the page's figure at current spend
-equal to the Steady-state number in the Roadmap, Expected outliers a month with six binomial bars that
-add to 100.0% and the chance of none (both left out with no Outlier), the Ad stock check reading "You
+equal to the Steady-state number in the Roadmap, the Ad stock check reading "You
 have <S> ads working today; your spend needs <⌈L⌉> working at once." with its pill, and the Roadmap
 table; the page passed the pre-save check, or says "The spend slider could not be built on this run" on the
 page and in This run; the page's static HTML gives the answer, the formula's sum at current spend and the
