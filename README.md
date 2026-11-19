@@ -110,12 +110,27 @@ the line items behind your products, are marked in the deck as needing one, and 
 connectors and exports cannot fill. A Crux Growth Brain also adds your budget and profit margin to
 the deck where it holds them. Ask Claude for your monthly review, or send `/review-month` in Claude Code.
 
+**Plan ad volume** (`plan-ad-volume`) works out how many new Meta ads to make each month to hold or
+reach your budget. It reads, from your own account's history, how many of your new ads become hits
+and how long a hit keeps working, and checks whether the ads you have live now are enough for what
+you spend. You leave with a monthly creative deep dive for your team: a creative score, how many
+new ads your spend needs next month against how many you launch, what is holding you back (making
+more ads or making better ones), a slider for other spend levels, a month-by-month plan with the
+date each batch has to be live by, and what getting there is worth. You can give it a split of
+formats (video and image) and it plans the ads by format, with a short roadmap file to hand to
+whoever makes them. It tells you to run it again each month. Nothing is changed in your ads, your
+account or your data.
+
+*Needs:* a way to read your Meta ads: a Crux Growth Brain, a Meta Ads connector in Claude, or one
+Ads Manager export of the last 180 days at ad level, by day, which it tells you how to download.
+Ask Claude how many new Meta ads you need each month, or send `/plan-ad-volume` in Claude Code.
+
 **Audit Meta ads** (`audit-ads`) tells you which of your Meta ads to pause, refresh or iterate on.
 It judges every ad on the last 60 complete days, one at a time, by what it costs you to win a new
 customer. It compares each ad with the rest of your account and with the ad's own best run, so it
 can tell an ad that was never efficient from one that has worn out. It asks you which of your
 campaigns are retargeting or aimed at existing customers, because those cost very different
-amounts, and which are bought for awareness rather than sales, which it leaves out. It tells you
+amounts, and which are bought for awareness or leads rather than sales, which it leaves out. It tells you
 how it judges before it starts. You leave with one page for your team: the
 recommendations ranked by what each is worth a month, and every ad that spent at least 100 (in your
 currency) in the last week, with its status. It then asks what you want to do with the recommendations: act on them

@@ -6,11 +6,11 @@
 -- Where the mart has no `adset_id`, write `ad_group` in its place; where it has no `campaign_id`,
 -- write `campaign_name` in its place. Nothing else in `mart_rows` changes.
 -- Edit 2, in `retargeting`: the confirmed campaign_keys (ARRAY<STRING>[] when none).
--- Edit 3, in `awareness`: the campaign_keys of the awareness campaigns, the proposed ones for the
--- account check and the confirmed ones after the intake (ARRAY<STRING>[] when none). Their rows are
--- left out of everything below: no verdict, no blend, no Reported spend.
+-- Edit 3, in `left_out`: the campaign_keys of the awareness and lead campaigns together, the
+-- proposed ones for the account check and the confirmed ones after the intake (ARRAY<STRING>[] when
+-- none). Their rows are left out of everything below: no verdict, no blend, no Reported spend.
 -- Account check (SKILL.md step 2): before the intake, run the file with `retargeting` empty, the
--- proposed `awareness`, and the final SELECT replaced by the commented ACCOUNT CHECK statement at
+-- proposed `left_out`, and the final SELECT replaced by the commented ACCOUNT CHECK statement at
 -- the end of the file.
 -- Timezone: where the brain's own instructions name the store's timezone, write the one
 -- CURRENT_DATE() in `period` as CURRENT_DATE('<timezone>'), so yesterday is the store's own.
@@ -22,6 +22,7 @@
 -- below is adj_spend over new_orders. Each comparison is written as spend >= multiple x CAC x
 -- orders, so an ad with no new orders in the window counts as infinitely above any CAC.
 WITH
+-- BEGIN shared classification
 -- Every threshold, stated once. The rolling frames in `rolling` are the 5 and 7 day windows.
 cut AS (
   SELECT
@@ -69,17 +70,13 @@ mart_rows AS (
   FROM `<client>-meta_performance`  -- Edit 1: the mart's name
   WHERE COALESCE(ad_id, 'Unknown') != 'Unknown'
 ),
--- The campaigns bought for awareness, reach, video views, engagement or traffic rather than
--- purchases. CAC is the wrong measure for them, so the audit leaves them out whole.
-awareness AS (
+-- The campaigns bought for awareness, reach, video views, engagement or traffic, or for leads,
+-- sign-ups, giveaways or competitions, rather than purchases. CAC is the wrong measure for them, so
+-- they are left out whole, each ad by its latest row's campaign key (`keyed`), so a renamed
+-- campaign takes its old-name rows with it. One list holds both kinds.
+left_out AS (
   SELECT campaign_key
   FROM UNNEST(ARRAY<STRING>['<campaign_key>']) AS campaign_key  -- Edit 3
-),
--- Every row the audit reads: the mart's, less the awareness campaigns.
-source AS (
-  SELECT m.*
-  FROM mart_rows AS m
-  WHERE m.campaign_key IS NULL OR m.campaign_key NOT IN (SELECT campaign_key FROM awareness)
 ),
 -- The campaigns the user confirmed as retargeting or existing-customer. Judged against their own
 -- Account blend; every other ad against the rest.
@@ -93,14 +90,16 @@ ad_keys AS (
     ad_key,
     ARRAY_AGG(STRUCT(campaign_key, adset_key)
       ORDER BY day DESC, spend DESC, campaign_key, adset_key LIMIT 1)[OFFSET(0)] AS k
-  FROM source
+  FROM mart_rows
   GROUP BY 1
 ),
--- Every row the audit reads, carrying its ad's one ad set and campaign key.
+-- Every row read, carrying its ad's one ad set and campaign key, less the ads of the awareness and
+-- lead campaigns.
 keyed AS (
   SELECT s.* REPLACE (k.k.campaign_key AS campaign_key, k.k.adset_key AS adset_key)
-  FROM source AS s
+  FROM mart_rows AS s
   JOIN ad_keys AS k USING (ad_key)
+  WHERE k.k.campaign_key IS NULL OR k.k.campaign_key NOT IN (SELECT campaign_key FROM left_out)
 ),
 daily AS (
   SELECT
@@ -298,6 +297,7 @@ status AS (
     END AS status
   FROM flags AS f
 ),
+-- END shared classification
 -- Sizes in a month: (ad CAC - reference CAC) x new orders in the window = adj_spend - reference x
 -- orders, run-rated from the 5 days to 30. Never below 0.
 sized AS (
@@ -363,7 +363,7 @@ ORDER BY spend_7 DESC
 -- ACCOUNT CHECK. One row: the Reported ads, and the last 7 days' spend in the account and in ads
 -- past the Eligibility floors (every status but Ramping). The Judged spend share is the second
 -- over the first. Run it in place of the final SELECT above, with `retargeting` empty (the floors
--- read no retargeting campaign) and `awareness` holding the proposed awareness campaigns.
+-- read no retargeting campaign) and `left_out` holding the proposed awareness and lead campaigns.
 -- SELECT
 --   COUNTIF(spend_7 >= c.reported_spend) AS reported_ads,
 --   ROUND(SUM(spend_7), 2) AS account_spend_7d,
