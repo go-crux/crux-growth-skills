@@ -147,7 +147,7 @@ thing:
 | Weakest measure | Sentence |
 |---|---|
 | Evergreen share | "Too little of your spend sits on ads that have lasted, so let your working ads keep spending: pause only ads that have stopped working (run `/audit-ads` to see which)." |
-| Spend degradation | "New ads lose their budget after the first week, so launch variants of the ads that hold their spend." |
+| Spend degradation | "New ads lose their budget after the first week, so focus on launching longer-lasting copy and longer-lasting hooks, and add variations." |
 | Working after week 1 | "Hits are not still working at 28 days, so make new versions of a hit, with a fresh angle on the same idea." |
 | Top-5 concentration | "Five ads carry too much of your spend, so launch more ads that can take spend." |
 | Outlier rate | "Too few new ads become big spenders, so launch more ads, and more different ones: Outliers come from volume and range." |
