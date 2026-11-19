@@ -116,7 +116,9 @@ Improving (the port reads the widening where it tests the status, never in the c
 audit-ads carries unchanged); it is
 *live past Ramping* when it spent that day and its status is not Ramping. An ad that spent nothing
 that day is Inactive, an ad the port gives no status is Unknown, and Ramping and every status that
-is not viable are not viable either: all of them count as not viable. A Launched ad has *reached*
+is not viable are not viable either: all of them count as not viable. A *Launched ad* is one whose first
+day with spend is on or after the window's first day plus 42 days; an ad that first spent earlier is in
+no Launched-ad count, and in no curve, rate or Lever best. A Launched ad has *reached*
 age a when its first spend is at least a days before the last complete day.
 
 **The model.** From the statuses, the spend per ad per day and the rows' first spend days, compute
@@ -129,7 +131,15 @@ them, and had a 28-day CAC no more than 1.2 times the account's over the same 28
 ad's spend over its new orders, against every ad's, outside the awareness and lead campaigns; an ad
 with no new orders fails), the Low-spend rate (the share of those ads whose spend over the 28 days was below the bar), the
 Days viable per hit, and the Viable spend per hit (the Spend per viable ad times the Days viable per
-hit). Compute the Viable share target once, as `SKILL.md`'s Model step defines it, from
+hit). Then work the Recent fit once, as `references/method.md` step 7 defines it: over the 28 complete days
+to today, the actual (the mean daily count of viable Launched ads) and the predicted (the mean daily sum,
+over the Launched ads first spent on or before that day, of the survival rate at their age that day,
+an age past the curve's last counted age reading 0), and c, the actual over the predicted, held between
+0.5 and 2 and 1 where the predicted is 0. Keep the curve's sum as it is, and take the Viable lifespan
+as the curve's sum times c; the Days viable per hit and the Viable spend per hit above are then worked
+from that Viable lifespan, and so is every figure after them. The Lever bests stay as measured. The Self-check reads the actual and the
+predicted before the fit.
+Compute the Viable share target once, as `SKILL.md`'s Model step defines it, from
 the statuses of every ad on every day it spent (not only the Launched ads), outside the awareness and
 lead campaigns: each complete ISO week from the first Monday on or after the window's first day to
 the last Sunday on or before its last day (a week with no spend is still a week), its spend on viable
@@ -151,7 +161,7 @@ rank: with the values sorted from lowest to highest, the value at rank ⌈0.9 ×
   month before the one holding today) outside the awareness and lead campaigns, and that spend over the
   month's days a day. The Current pipeline is the Launched ads for each complete calendar month of the
   window (one that starts after the window's first day and ends by the last complete day), averaged over the
-  last 3; keep their launches and their days for the Self-check.
+  last 3.
 - **Launches (B).** The highest average of Launched ads a month over any 3 complete calendar months in a
   row (none with fewer than 3 months).
 - **Hit rate (h_best).** For each calendar month of first spend, the Hit rate of that month's Launched
@@ -197,8 +207,9 @@ ad-days) and the Roadmap rows, never the rows of the export.
 **Done when** every ad that spent on a day carries exactly one status for that day, the spend over
 the rows read equals the spend in the file for the same days outside the awareness and lead campaigns (each
 ad by its latest row's campaign), and the survival table lists each age with the ads reached and the viable count that give its rate, its
-rates sum to the Viable lifespan, the Hit rate times the Days viable per hit equals the Viable
-lifespan to two decimals, the Spend per viable ad is the spend on viable ad-days over their
+rates sum to the curve's sum, the Viable lifespan equals that sum times the Recent fit, the actual,
+the predicted and the Recent fit are printed (with the Self-check's pass or fail), the Hit rate times
+the Days viable per hit equals the Viable lifespan to two decimals, the Spend per viable ad is the spend on viable ad-days over their
 number, the Spend bar is printed (300 where 3 times the Spend per viable ad is under it), and the
 hits, the low-spend ads and the ads that spent the bar but are not hits add up to the Launched
 ads at least 28 days old, with the Low-spend rate and Viable spend per hit printed, and the weekly viable shares, the weeks counted and left out, P90 and the Viable share target

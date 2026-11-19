@@ -364,7 +364,11 @@ plan_cut AS (
     1 AS outlier_sds,
     10 AS turnover_ads,
     2 AS turnover_min_quarters,
-    3 AS power_months
+    3 AS power_months,
+    42 AS warmup_launch_days,
+    28 AS fit_days,
+    0.5 AS fit_min,
+    2.0 AS fit_max
 ),
 -- The last 365 complete days, ending yesterday. `this_monday` starts the ISO week holding today and
 -- `this_month` the calendar month holding today, so the month before it is the last complete month.
@@ -384,7 +388,8 @@ win_rows AS (
   CROSS JOIN win AS w
   WHERE s.day BETWEEN w.date_from AND w.date_to
 ),
--- The first day the mart holds inside the window: an ad first spending after it is a Launched ad.
+-- The first day the mart holds inside the window: an ad first spending on or after it plus
+-- warmup_launch_days is a Launched ad.
 first_day AS (
   SELECT MIN(day) AS day
   FROM win_rows
@@ -569,14 +574,15 @@ video_plays AS (
 -- ad_names and video_plays.
 -- BigQuery copies a CTE in full at every place it is used, so the per-day status grid above is read
 -- exactly once, in `pack`, and every step after it reads only the step before it, once: `m1` to
--- `m9` each add their measures as subqueries over the arrays already in the row. Never read
+-- `m10` each add their measures as subqueries over the arrays already in the row. Never read
 -- `ad_day_status`, `daily_win` or a step other than the one before it from a later step, and add a
 -- new measure inside the chain the same way: a CTE read in several places multiplies the status grid
 -- and the brain refuses the statement ("query is too complex"). The shared format block reads only
 -- win_rows, ad_names and video_plays, so it stands alone. Definitions are those of
 -- references/method.md; the chain changes how the statement is built, not what it computes.
--- A Launched ad: its first day of spend falls after the window's first day. Age is the days since
--- that day, so the first day is age 0.
+-- A Launched ad: its first day of spend falls on or after the window's first day plus
+-- warmup_launch_days (the first weeks are judged before the weekday index, life spend and Peak CAC
+-- warm up). Age is the days since that day, so the first day is age 0.
 pack AS (
   SELECT
     ARRAY(
@@ -597,7 +603,7 @@ m2 AS (
       FROM UNNEST(m.dw) AS x
       WHERE x.status IS NOT NULL
       GROUP BY x.ad_key
-      HAVING MIN(x.day) > m.first_day
+      HAVING MIN(x.day) >= DATE_ADD(m.first_day, INTERVAL p.warmup_launch_days DAY)
     ) AS launched,
     (
       SELECT COALESCE(MAX(IF(t.is_loaded, t.day, NULL)), ANY_VALUE(w.date_to))
@@ -841,7 +847,15 @@ m3 AS (
             ) AS q
             WHERE q.quarter_start >= m.first_day AND LAST_DAY(q.quarter_start, QUARTER) <= w.date_to
           ) AS k
-          LEFT JOIN (SELECT * FROM UNNEST(m.launched)) AS l ON l.ad_key = k.ad_key
+          -- New in a quarter is any ad first spending in it after the window's first day, warm-up
+          -- launches included: Top-10 turnover keeps its own quarter rule, not the Launched ad's.
+          LEFT JOIN (
+            SELECT x.ad_key, MIN(x.day) AS first_spend
+            FROM UNNEST(m.dw) AS x
+            WHERE x.status IS NOT NULL
+            GROUP BY x.ad_key
+            HAVING MIN(x.day) > m.first_day
+          ) AS l ON l.ad_key = k.ad_key
           WHERE k.rk <= p.turnover_ads
         ) AS u
         GROUP BY u.quarter_start
@@ -1095,12 +1109,44 @@ m6 AS (
   CROSS JOIN win AS w
   CROSS JOIN plan_cut AS p
 ),
+-- The Recent fit: over the last fit_days complete days to today, actual is the mean daily count of
+-- viable Launched ads, and predicted the mean daily sum, over Launched ads first spent on or before
+-- that day, of the curve's survival rate at their age that day (an age past the curve reads 0). The
+-- fit is actual over predicted, held between fit_min and fit_max, and 1 where predicted is 0. It reads
+-- only `launched`, `curve`, `dw` and `today`, carried from the steps before.
 m7 AS (
   SELECT
     m.*,
-    m.ls.viable_lifespan AS sc_w,
+    (
+      SELECT AS STRUCT
+        f.actual, f.predicted,
+        IF(f.predicted > 0, LEAST(p.fit_max, GREATEST(p.fit_min, SAFE_DIVIDE(f.actual, f.predicted))), 1) AS recent_fit
+      FROM (
+        SELECT
+          (
+            SELECT COUNT(*)
+            FROM UNNEST(m.dw) AS x
+            JOIN (SELECT * FROM UNNEST(m.launched)) AS l ON l.ad_key = x.ad_key
+            WHERE x.status IN ('Healthy', 'Winner', 'Improving')
+              AND x.day BETWEEN DATE_SUB(m.today, INTERVAL (p.fit_days - 1) DAY) AND m.today
+          ) / p.fit_days AS actual,
+          (
+            SELECT COALESCE(SUM(c.survival), 0)
+            FROM UNNEST(GENERATE_DATE_ARRAY(DATE_SUB(m.today, INTERVAL (p.fit_days - 1) DAY), m.today)) AS g
+            CROSS JOIN (SELECT * FROM UNNEST(m.launched)) AS l
+            JOIN (SELECT * FROM UNNEST(m.curve)) AS c ON c.age = DATE_DIFF(g, l.first_spend, DAY)
+          ) / p.fit_days AS predicted
+      ) AS f
+    ) AS fit
+  FROM m6 AS m
+  CROSS JOIN plan_cut AS p
+),
+m8 AS (
+  SELECT
+    m.*,
+    m.ls.viable_lifespan * m.fit.recent_fit AS sc_w,
     m.hr.hit_rate AS sc_h,
-    SAFE_DIVIDE(m.ls.viable_lifespan, m.hr.hit_rate) AS sc_d,
+    SAFE_DIVIDE(m.ls.viable_lifespan * m.fit.recent_fit, m.hr.hit_rate) AS sc_d,
     SAFE_DIVIDE(m.cs.daily_spend * m.st.viable_share_target, m.ls.spend_per_viable_ad) AS sc_l,
     m.cs.month_days AS sc_days,
     SAFE_DIVIDE(m.gw.spend_viable, m.gw.customers_viable) AS cac_viable,
@@ -1141,9 +1187,9 @@ m7 AS (
         ]) AS v ON v.measure = b.measure
       ) AS u
     ) AS crs
-  FROM m6 AS m
+  FROM m7 AS m
 ),
-m8 AS (
+m9 AS (
   SELECT
     m.*,
     CEIL(ROUND(SAFE_DIVIDE(m.sc_l * m.sc_days, m.sc_w), 9)) AS sc_n0,
@@ -1156,9 +1202,9 @@ m8 AS (
     COALESCE(m.cac_test_phase, m.cac_worn_out, m.cac_other) AS used_test_phase,
     COALESCE(m.cac_worn_out, m.cac_other) AS used_worn_out,
     m.cac_other AS used_other
-  FROM m7 AS m
+  FROM m8 AS m
 ),
-m9 AS (
+m10 AS (
   SELECT
     m.*,
     CASE
@@ -1174,7 +1220,7 @@ m9 AS (
        + COALESCE(SAFE_DIVIDE(m.gw.spend_test_phase * m.non_viable_scale, m.used_test_phase), 0)
        + COALESCE(SAFE_DIVIDE(m.gw.spend_worn_out * m.non_viable_scale, m.used_worn_out), 0)
        + COALESCE(SAFE_DIVIDE(m.gw.spend_other * m.non_viable_scale, m.used_other), 0)) AS customers_target
-  FROM m8 AS m
+  FROM m9 AS m
   CROSS JOIN plan_cut AS p
 ),
 -- The block fenced below as shared format is, byte for byte, in references/intake.sql, which gives
@@ -1243,13 +1289,17 @@ SELECT
   DATE_SUB(w.this_month, INTERVAL 1 DAY) AS current_month_to,
   ARRAY_LENGTH(m.launched) AS launched_ads,
   m.ls.curve_ages,
-  m.ls.viable_lifespan,
+  m.sc_w AS viable_lifespan,
+  m.ls.viable_lifespan AS viable_lifespan_curve,
+  m.fit.actual AS fit_actual,
+  m.fit.predicted AS fit_predicted,
+  m.fit.recent_fit,
   m.ls.w_is_lower_bound,
   m.spend_bar,
   m.hr.hit_rate,
   m.hr.low_spend_rate,
-  SAFE_DIVIDE(m.ls.viable_lifespan, m.hr.hit_rate) AS days_viable_per_hit,
-  m.ls.spend_per_viable_ad * SAFE_DIVIDE(m.ls.viable_lifespan, m.hr.hit_rate) AS viable_spend_per_hit,
+  m.sc_d AS days_viable_per_hit,
+  m.ls.spend_per_viable_ad * m.sc_d AS viable_spend_per_hit,
   m.hr.hit_rate_ads,
   m.hr.hits,
   m.hr.low_spend_ads,
@@ -1352,7 +1402,7 @@ SELECT
     WHERE m.tt.complete_quarters >= p.turnover_min_quarters
     ORDER BY q.quarter_start
   ) AS top10_turnover
-FROM m9 AS m
+FROM m10 AS m
 CROSS JOIN win AS w
 CROSS JOIN plan_cut AS p
 CROSS JOIN format_split AS fs

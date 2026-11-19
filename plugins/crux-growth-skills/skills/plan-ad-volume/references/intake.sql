@@ -25,7 +25,8 @@ plan_cut AS (
   SELECT
     365 AS window_days,
     28 AS hit_days,
-    8 AS format_weeks
+    8 AS format_weeks,
+    42 AS warmup_launch_days
 ),
 -- The last 365 complete days, ending yesterday. `this_monday` starts the ISO week holding today.
 win AS (
@@ -68,7 +69,8 @@ win_rows AS (
   WHERE (k.k.campaign_key IS NULL OR k.k.campaign_key NOT IN (SELECT campaign_key FROM left_out))
     AND s.day BETWEEN w.date_from AND w.date_to
 ),
--- The first day the mart holds inside the window: an ad first spending after it is a Launched ad.
+-- The first day the mart holds inside the window: an ad first spending on or after it plus
+-- warmup_launch_days is a Launched ad.
 first_day AS (
   SELECT MIN(day) AS day
   FROM win_rows
@@ -82,7 +84,7 @@ launched AS (
     HAVING SUM(spend) > 0
   )
   GROUP BY ad_key
-  HAVING MIN(day) > (SELECT day FROM first_day)
+  HAVING MIN(day) >= DATE_ADD((SELECT day FROM first_day), INTERVAL (SELECT warmup_launch_days FROM plan_cut) DAY)
 ),
 ad_names AS (
   SELECT ad_key, ARRAY_AGG(ad IGNORE NULLS ORDER BY day DESC LIMIT 1)[SAFE_OFFSET(0)] AS ad_name

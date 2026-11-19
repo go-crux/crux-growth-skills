@@ -71,7 +71,7 @@ reader can match the two. A row with no Says is a heading or a chart title and n
 | Viable spend per hit | Spend a hit carries | the spend one hit carries over its working life |
 | Days to clear Ramping | Days in the test phase | the days a new ad needs before it can be judged |
 | Survival curve | Share of your launched ads still working, by age | of the ads you launched, the share still working at each age |
-| Launched ad | New ads read | ads first launched inside the window, the ones the curve rests on |
+| Launched ad | New ads read | ads first launched after the first 6 weeks of the window, the ones the curve rests on |
 | Improving | recovering | not working today by the audit's measure, but its CAC has fallen over the last 3 days; it counts as a working ad here because it converts like one |
 | Current pipeline | Launches a month (now) | new ads a month, averaged over your last 3 complete months |
 | Lever best | best | the best your account has done on that Lever: your best 3 months in a row for launches, your best launch months for hit rate, your best launch quarter for days a hit works |
@@ -526,7 +526,7 @@ labelled to as few decimals as it needs. Draw one point per age that counts, joi
 point for an age under the 3-ad floor. Mark the test phase with a vertical line at Days in the test
 phase, labelled "Test phase: <n> days". Label both axes in plain words ("Days since the ad launched",
 "Still working"), give the chart a title and a text alternative, and write the figures in the labels in
-the same format as the figures below.
+the same format as the figures below. The chart shows the curve as measured, before the Recent fit.
 
 Under it, one line: "New ads read: <n>", the Launched ads the curve rests on, and, below 10, one
 sentence saying the curve is rough.
@@ -537,7 +537,10 @@ The figures behind the Creative deep dive, one line each, in this order and in t
 
 1. **Hit rate**: "1 in 8, 12%", with the Hit rate ads it rests on ("from <n> ads launched at least 28
    days ago"), and under it the hit test in the words of the Creative deep dive.
-2. **Viable lifespan**: the days to one decimal, with "at least" before it where it is a lower bound.
+2. **Viable lifespan**: the days to one decimal, the curve's sum times the Recent fit, with "at least"
+   before it where it is a lower bound. Under it, one line: "The survival curve sums to <W_curve> days;
+   the Recent fit scales it by <c> to match your last 28 days." (`viable_lifespan_curve` and `recent_fit`,
+   to one decimal and two.)
 3. **Days viable per hit**: the days to one decimal, with "at least" where the Viable lifespan is a
    lower bound.
 4. **Spend per viable ad**: to two decimals, a day.
@@ -569,12 +572,13 @@ The figures behind the Creative deep dive, one line each, in this order and in t
    share of spend: "<n>% of your spend is on ads that have stopped working: run `/audit-ads` to see
    which to pause." for Worn out, or "<n>% of your spend is on ads still in their test phase: launch
    fewer, stronger ads." for Test phase, left out with nothing on the table. The page names no ad.
-8. **The Self-check**, as one line in these words with the figures filled in (the Current pipeline for
-   the launches a month, the Hit rate as a percentage, the launches of the last 3 complete months over
-   their days times the Viable lifespan to one decimal, and today's viable ads): "Check: launching <pipeline> a month at a hit rate
-   of <h> predicts <predicted> viable ads; you have <today>." Where it fails, by more than 25% of
-   today's viable ads, the line adds "the curve and today's count disagree by <x>%, so read the plan
-   as a guide".
+8. **The Self-check**, as one line in these words with the figures filled in (the actual and the
+   predicted mean daily counts of viable Launched ads over the last 28 days, each to one decimal, and the
+   Recent fit to two): "Check: over the last 28 days you averaged <actual> working ads; your year's curve
+   predicts <predicted>. The plan scales the curve by <c> to match your recent ads." Where the Recent fit
+   was held at 0.5 or 2, the line adds "Your recent ads differ from the year's by more than the plan will
+   adjust for, so read the plan as a guide." The line is these words and no others: the page gives no cause
+   for a difference.
 9. **The Creative score**, in this order, under a heading of its own:
    - **The bands table**: "Creative score: <score> out of 100", a whole number, and under it a table with a row
      for each of the seven measures in this order (Evergreen share, Spend degradation, Viable after week 1,
@@ -628,6 +632,12 @@ A short list:
   curve did not reach reads "not reached"), and the Days to clear Ramping;
 - the spend slider, only where the pre-save check could not build it: "The spend slider could not be
   built on this run" (a run where it was built carries no line);
+- the Self-check, as "Self-check passed" or "Self-check failed", with the difference between the predicted
+  and the actual as a percentage of the actual to the whole percent, and the 25% it is held to: it passes
+  within 25% and fails beyond it, and it fails where the actual is 0. The Recent fit is named beside it,
+  as "Recent fit <c> (<actual> working ads a day on average over the last 28 days against <predicted>
+  predicted)", and "held at <0.5 or 2>" where it was held. A failed check carries no cause beyond the
+  Self-check line's words;
 - the Limiting factor, as one line in these words with the figures filled in: "Limiting factor:
   Both (launches needed <N0> a month, your best <B>; at your best hit rate <N1>)." The name is On
   track, Volume, Both, Finding hits or Keeping hits; a null B or N1 reads "no best yet". Where
@@ -642,7 +652,8 @@ A short list:
   little high." The trigger is a survival rate of 25% or more at the last counted age. A curve that
   ends below 25% carries no such note;
 - the months Spending power charts, as the first and last complete month, or "None";
-- the window: the first and last date read, the last complete day (today) and any later day left out
+- the window: the first and last date read, the earliest first spend a Launched ad can
+  have (the window's first day plus 42 days; an ad that first spent earlier is not in the curve), the last complete day (today) and any later day left out
   as still loading, the last complete calendar month used for current spend and that spend a day outside
   the awareness and lead campaigns, the 3 months behind the Current pipeline, the 8 weeks behind the Format split, and the timezone the
   days follow or that none was named;

@@ -84,7 +84,7 @@ session, so it runs from Matt's own Claude, never from a cold run. Method in
   A heavy CTE read from many places makes the brain refuse the query ("Not enough resources for query
   planning - query is too complex") before it scans anything, and the limit moves with the query's shape.
   `plan-ad-volume`'s `fatigue.sql` reads its per-day status grid once, in `pack`, and chains `m1` to
-  `m9`, each reading only the one before it; add a measure inside that chain, never as a new CTE over
+  `m10`, each reading only the one before it; add a measure inside that chain, never as a new CTE over
   `ad_day_status`. Dry run any brain SQL change on a real brain before the zip goes out.
 - **Both hosts read the plugin's `skills/`.** Keep a skill free of Claude-only syntax the Codex host cannot
   follow, and keep the plugin's Claude manifest under `.claude-plugin/` working.
