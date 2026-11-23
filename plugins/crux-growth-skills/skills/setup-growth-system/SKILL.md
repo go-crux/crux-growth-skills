@@ -55,8 +55,9 @@ glossary's definitions); their views; the Strategy map page; the explainer, prin
 Growth system page. State that no sample rows are created and that nothing existing is touched.
 End by asking for one yes. On anything but yes, create nothing and stop.
 
-**On the yes, create everything in this order, with no further question.** Each item is done when it
-exists with everything `references/notion-schema.md` gives it.
+**On the yes, create everything in this order, with no further question.** Items 1 to 5 are here; the body and
+the final state are step 4. Each item is done when it exists with everything
+`references/notion-schema.md` gives it.
 
 1. **The Growth system page**, titled `Growth system`, with no parent so it lands private. Keep its ID.
 2. **The Settings page**, at once, as a child of the Growth system page: the opening line and the
@@ -79,29 +80,35 @@ exists with everything `references/notion-schema.md` gives it.
 4. **The views**: every row of the Views table in `references/notion-schema.md`, each a tab on its database.
 5. **The Strategy map page**, as `references/page-layout.md` fixes it, a child of the Growth
    system page. Add `strategy_map_page` to the block.
-6. **The Growth system page body**, as step 4 sets out.
-7. **`setup_state: complete`**, written last, by changing that one line of the block.
+
+The Growth system page body and `setup_state: complete` come next, in step 4.
 
 When a create fails, stop. Tell the user plainly what exists, what failed and why, leave
 `setup_state: in_progress` as it is, and say that setup will pick the system up again once
 repair is available. Never delete what was created.
 
-**Done when** the Settings page block holds `schema_version: 1`, `setup_state: complete`, the two
+**Done when** the Settings page block holds `schema_version: 1`, `setup_state: in_progress`, the two
 page lines, and `<name>_database` and `<name>_data_source` for all seven databases (fourteen lines),
 plus a `<name>_prefix` line for each database that used the Prefix fallback; and every database
 holds zero rows.
 
-## 4. Fill the Growth system page
+## 4. Fill the Growth system page and finish
 
 Serves all four principles: the page is where the team first reads what the system runs on.
 
-Write the body as `references/page-layout.md` fixes it: the explainer, the four principles, the
-links, and the Tasks and Projects boards inline. Take each principle's line from
-`references/principles.md`, with its credit and the link to `https://gocrux.io/growth-system`.
-Link each database and the Strategy map by its Notion link, taken from the IDs this run created.
+1. Write the body as `references/page-layout.md` fixes it: the explainer, the four principles, the
+   links, and the Tasks and Projects boards inline. Take each principle's line from
+   `references/principles.md`; the credit and the link to `https://gocrux.io/growth-system` go once,
+   under the list, as the layout gives them. Link each database and the Strategy map by its Notion
+   link, taken from the IDs this run created.
+2. Only then write `setup_state: complete`, by changing that one line of the block. It is the last
+   write of the build.
+
+When a write fails, stop and report as step 3 does.
 
 **Done when** every heading of `references/page-layout.md` is on the page, the page links all
-seven databases and the Strategy map, and the Tasks and Projects boards show inline.
+seven databases and the Strategy map, the Tasks and Projects boards show inline, and the Settings
+page block reads `setup_state: complete`.
 
 ## 5. Close
 
