@@ -1,0 +1,1 @@
+# One skill folder name per line (under plugins/crux-growth-skills/skills/); blank lines and # lines are ignored.
