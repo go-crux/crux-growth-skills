@@ -63,8 +63,4 @@ for t in $targets; do
   done
 done
 
-if [ "$check" -eq 1 ] && [ "$drift" -ne 0 ]; then
-  exit 1
-fi
 [ "$drift" -eq 0 ] || exit 1
-exit 0

@@ -1,10 +1,10 @@
 # Growth system glossary
 
-The skills that run a growth team's operating rhythm on its own Notion: plan, prioritise, build, capture. Their shared files (`context-load.md`, `notion-schema.md`, `principles.md`) have one canonical copy in `shared/growth-system/`, synced byte for byte into each growth-system skill's `references/`, because a skill reads nothing outside its own folder.
+The skills that run a growth team's operating rhythm on its own Notion: plan, prioritise, build, capture.
 
 - **Growth system**: the seven Notion databases (Initiatives, Projects, Tasks, Issues, Decisions, Learnings, Insights) plus the skills that read and write them, shared by everyone on the brand's team. _Avoid_: growth OS, operating system (in a skill), workspace.
 
-- **Growth system page**: the Notion home page `/setup-growth-system` always creates fresh, titled `Growth system`: the explainer, the four principles, and a link to each database and the Strategy map. Private until the user moves it into a teamspace (ADR-0019). _Avoid_: Growth Hub (that is the Crux product the system later moves into), dashboard, parent page.
+- **Growth system page**: the Notion home page `/setup-growth-system` always creates fresh, titled `Growth system`: the explainer, the four principles, and a link to each database and the Strategy map. Private until the user moves it into a teamspace. _Avoid_: Growth Hub (that is the Crux product the system later moves into), dashboard, parent page.
 
 - **Settings page**: the child of the Growth system page titled exactly `Growth system settings`, maintained by `/setup-growth-system` and never edited by hand, holding every database ID and the `Schema version`. Every growth-system skill finds it by that title and addresses databases only through it, by filter, never by saved-view ID. _Avoid_: config, reference file, IDs file.
 

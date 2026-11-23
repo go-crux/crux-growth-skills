@@ -25,7 +25,7 @@ One match is enough to open a row. Where nothing matches, say so; do not stretch
 
 Each read has two passes.
 
-- **Pass 1, the index.** Query with the filter below and ask for the title, the row's `ID` and its `Status` only. Cheap, and it shows everything the filter allows.
+- **Pass 1, the index.** Query with the filter below and ask for the title, the row's `ID` and its `Status` (Insights have none) only. Cheap, and it shows everything the filter allows.
 - **Pass 2, hydration.** Open, in full, only the rows from pass 1 that are on the subject (or, for read 1, every row). Opening everything is the failure the two passes exist to prevent.
 
 | # | Read | Database | Pass 1 filter | Pass 2 opens |
