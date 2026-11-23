@@ -22,7 +22,7 @@ home of the schema (every property, option, formula, relation and view), the Set
 update a page); use whichever tool in the session does it.
 
 **One path for every run.** A build is a repair against an empty system. Step 3 compares the live
-system with the schema and lists what is missing; steps 4 and 5 add it. The same steps run whether
+system with the schema and lists what is missing; step 4 asks for one yes and step 5 adds it. The same steps run whether
 the list is everything, a single property or nothing.
 
 **Additive only.** The run adds databases, properties, select options, views and pages. It never
@@ -110,11 +110,12 @@ database, property, option, view and page is named with the database it belongs 
 - **Against an existing system (a repair):** exactly the missing items, each with the database it
   goes in, and any **Differences**, each with what the schema expects and the line that it is left
   as it is. Where an earlier setup was interrupted, say that this run finishes it. State that
-  nothing is renamed, removed or changed and that no row is touched.
+  nothing is renamed, removed or changed and that no row is touched. Name any database the
+  Settings page records that Notion no longer holds as one to recreate empty, so the one yes covers it.
 
 When the Change list is empty, `setup_state` is `complete` and `schema_version` is the schema's,
 say that the system is complete and report any Differences. Change nothing and stop.
-When it is empty but one of those two needs finishing, say so and go straight to step 5.
+When it is empty but one of those two needs finishing, say so and go straight to step 6.
 
 On anything but yes, change nothing and stop.
 
@@ -142,8 +143,8 @@ found present are skipped.
    says so and the next run resumes it.
 2. **The missing databases**, each a child of the Growth system page, with every property other than a
    relation, with every select option, status group and formula of its table in
-   `references/notion-schema.md`. Create them in the order Insights, Learnings, Decisions, Tasks,
-   Projects, Initiatives. After each is created, write its `<name>_database` and `<name>_data_source`
+   `references/notion-schema.md`. Create them in the order Insights, Learnings, Decisions, Issues,
+   Tasks, Projects, Initiatives. After each is created, write its `<name>_database` and `<name>_data_source`
    lines to the block (replacing the old lines of a database that was gone) before creating the next.
    - **Prefix fallback.** Give each database its default `ID` prefix. When Notion refuses a prefix
      because another data source in the workspace holds it, create that database with `GS-` plus
