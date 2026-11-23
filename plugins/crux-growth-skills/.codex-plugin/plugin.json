@@ -1,7 +1,7 @@
 {
   "name": "crux-growth-skills",
-  "version": "0.8.1",
-  "description": "Growth skills for ecommerce brands by gocrux.io, written by operators who have scaled them: planning and targets, performance reporting and diagnosis, conversion, and audits that end in changes to make. Best with a Crux Growth Brain connected; most skills also run without one.",
+  "version": "0.9.0",
+  "description": "Growth skills for ecommerce brands by gocrux.io, written by operators who have scaled them: planning and targets, performance reporting and diagnosis, conversion, audits that end in changes to make, and running your growth team's system in its own Notion. Best with a Crux Growth Brain connected; most skills also run without one.",
   "author": {
     "name": "Crux",
     "email": "matt@gocrux.io",
@@ -23,8 +23,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Crux",
-    "shortDescription": "Crux growth skills: planning and targets, performance reporting and diagnosis, conversion, and audits",
-    "longDescription": "Growth skills written by operators who have scaled ecommerce brands, in four kinds: planning and targets, performance reporting and diagnosis, conversion, and audits that end in changes to make. Each skill works from your own pages and data and ends on what to do next. Best with a Crux Growth Brain connected; most skills also run without one and say what the brain would add.",
+    "shortDescription": "Crux growth skills: planning and targets, performance reporting and diagnosis, conversion, audits, and your growth system in Notion",
+    "longDescription": "Growth skills written by operators who have scaled ecommerce brands, in five kinds: planning and targets, performance reporting and diagnosis, conversion, audits that end in changes to make, and running your growth team's system in its own Notion. Each skill works from your own pages and data and ends on what to do next. Best with a Crux Growth Brain connected; most skills also run without one and say what the brain would add.",
     "developerName": "Crux",
     "category": "Productivity",
     "capabilities": [
