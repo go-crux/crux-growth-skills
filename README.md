@@ -145,7 +145,7 @@ is then Meta's own cost per purchase, and the page says so. Ask Claude which of 
 pause, or send `/audit-ads` in Claude Code.
 
 **Set up the growth system** (`setup-growth-system`) gives your growth team a system of its own in
-your Notion: a Growth system page holding seven databases, their views, a Strategy map and a settings
+your Notion: a Growth system page holding seven databases, their views, a Strategy map and a Settings
 page, with no sample rows to delete. It asks you for one confirmation, then builds it. If you already
 have one, it checks it against the current design and adds only what is missing, so you can run it
 again to repair a system after a deleted property or an interrupted setup, and it never renames or
