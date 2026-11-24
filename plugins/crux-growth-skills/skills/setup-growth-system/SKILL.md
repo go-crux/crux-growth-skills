@@ -273,8 +273,7 @@ Tell the user, in the chat:
   everyone in it now shares one system, so their skills read and write the same databases. Private
   (no teamspace to put it in, or it could not be placed there in step 5): say so, and that moving it
   into a teamspace or sharing it with teammates lets their skills find it. Give the page's link.
-  Notion's Free plan limits blocks once a workspace has two or more members. Next comes the planning
-  chain, starting with the Strategy map: coming soon.
+  Notion's Free plan limits blocks once a workspace has two or more members.
 - **After a repair:** what was added, each with its database, and that nothing was renamed,
   removed or changed. After the version 1 to 2 move, say how many Objectives rows it created from
   which values and how many Initiatives it related, that `Quarter` now takes several quarters,
@@ -284,7 +283,10 @@ Tell the user, in the chat:
   the page as private, say so, and that moving it into a teamspace lets the team share it. Give the
   Growth system page's link.
 - **Either way:** name any icon that could not be set, so the user can add it by hand, and any part
-  of the page written as plain paragraphs instead of callouts or columns.
+  of the page written as plain paragraphs instead of callouts or columns. Then name `/to-objectives`
+  as the next skill: it agrees the quarter's Objectives, and the planning chain carries on from
+  there into Initiatives, Projects and Tasks.
 
 **Done when** the chat message carries the points for the run's kind (where the page is, after a
-build), any unset icon or plain-paragraph fallback, and the link to the Growth system page.
+build), any unset icon or plain-paragraph fallback, the link to the Growth system page, and
+`/to-objectives` as the next skill.
