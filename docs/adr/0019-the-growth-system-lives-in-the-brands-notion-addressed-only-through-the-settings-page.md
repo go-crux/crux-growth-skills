@@ -1,5 +1,5 @@
 # The growth system lives in the brand's Notion, addressed only through its Settings page
 
-**Status:** Accepted, 2026-11-23.
+**Status:** Amended by [ADR-0021](0021-the-growth-system-page-is-built-in-a-teamspace.md), 2026-11-24, which builds the Growth system page in a teamspace. Accepted 2026-11-23.
 
 The plugin folder is overwritten on every update and Claude Desktop has no durable file a skill can write, yet every teammate's run must reach the same databases so one person's learning reaches everyone's context load. So `/setup-growth-system` creates a fresh **Growth system** page and, under it, a `Growth system settings` page holding every database ID and a `Schema version`; every skill finds that page by exact title and addresses the databases only through it, reading by filter, never by saved-view ID, so a teammate editing a view cannot break a skill. A re-run repairs the system it finds and never builds a second, and a schema change is additive only (a removed select option blanks every row that held it). This makes the later move into Growth Hub one swap of what the Settings page points at, and we accept that a newly created page is private until the user moves it into a teamspace, because the connector cannot create a shared one.

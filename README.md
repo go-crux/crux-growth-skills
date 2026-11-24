@@ -152,9 +152,8 @@ again to repair a system after a deleted property or an interrupted setup, and i
 removes anything or touches your rows. It writes only to your Notion, and nothing is changed in your
 ads, your store or your data.
 
-*Needs:* a Notion connector in Claude, and nothing else: no Growth Brain. The Growth system page it
-creates is private to you until you move it into a teamspace, so move it there, or share it, for your
-team to see it. Ask Claude to set up your growth system, or send `/setup-growth-system` in Claude Code.
+*Needs:* a Notion connector in Claude, and nothing else: no Growth Brain. It builds the Growth system page
+in a Notion teamspace you choose, so your whole team shares one system. Ask Claude to set up your growth system, or send `/setup-growth-system` in Claude Code.
 
 ## Getting a Growth Brain
 

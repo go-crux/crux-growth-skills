@@ -252,6 +252,6 @@ The Initiatives board also appears inline on the Growth system page, as a linked
 
 ## Pages
 
-- **Growth system page**: titled `Growth system`, icon 🌱, created private: at the top level of the user's own pages, with no parent page and no teamspace, even when the connector offers one or the user belongs to one. Where the connector has a private or draft mode for a page with no destination, setup uses it. It stays private until the user moves it into a teamspace. It holds the Settings page, the seven databases, the Strategy map and an explainer.
+- **Growth system page**: titled `Growth system`, icon 🌱, created at the top level of a teamspace, so the whole team shares one system. The teamspace is the one the user confirms: where they belong to one they can add pages to, that one; where there are several, the workspace's default teamspace (the one every member joins) if they can add pages to it, else the first in the list, and the user's yes can name another. Where they belong to none, or the connector cannot create a page in a teamspace, it is created private, at the top level of their own pages, never under another page. It holds the Settings page, the seven databases, the Strategy map and an explainer.
 - **Strategy map**: a page under the Growth system page, titled `Strategy map`, icon 🧭, with empty headings for the quarter's Objectives and the reasoning behind them.
 - **Settings page**: icon ⚙️; see "The Settings page".

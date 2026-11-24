@@ -5,7 +5,7 @@ description: Set up, repair or finish the growth system in the user's own Notion
 
 # Set up the growth system
 
-Leave the user with a complete growth system in their own Notion: a private Growth system page holding
+Leave the user with a complete growth system in their own Notion: a Growth system page in a teamspace, holding
 seven databases, their views, a Strategy map page and a Settings page, with no sample rows. Where a
 system already exists, add only what it is missing. The user answers one confirmation and no
 questions, except which system to use when there are two. The skill writes only to the user's Notion
@@ -33,7 +33,8 @@ options are never removed or renamed.
 
 ## 1. Check the connector
 
-Check that the session can search Notion and create pages, databases and views.
+Check that the session can search Notion and create pages, databases and views. Then list the
+teamspaces the user belongs to and can add pages to; step 4 offers them.
 
 Without it, stop and create nothing. Tell the user in plain words that the growth system runs on
 their own Notion, and how to add it: in their app's connector settings, add the Notion connector,
@@ -106,7 +107,9 @@ database, property, option, view and page is named with the database it belongs 
 **The Change list.** Send one message, in plain words, and ask for one yes:
 
 - **Against no system (a build):** everything the run will create: the Growth system page and where
-  it will live (private, at the top level of their Notion); the Settings page; the seven databases
+  it will live, as "Pages" in `references/notion-schema.md` chooses the teamspace (name it, and
+  where there is a choice, list the others and say the yes can name one instead: "yes, in
+  Marketing"); the Settings page; the seven databases
   by name with one line on what each is for (the Growth system glossary's definitions); their
   views; the Strategy map page; the explainer, the principles, the databases laid out and the
   Initiatives board on the Growth system page. State
@@ -135,10 +138,11 @@ when it exists with everything `references/notion-schema.md` gives it. Items an 
 found present are skipped.
 
 1. **The Settings page.**
-   - **Against no system:** create the Growth system page, titled `Growth system`, private, exactly
-     as "Pages" in `references/notion-schema.md` places it. Keep its ID, and fetch it: where it
-     landed in a teamspace or under another page, move it to the top level of the user's private
-     pages. Where it cannot be moved, say so now, carry on, and name where it is in step 7. Then
+   - **Against no system:** create the Growth system page, titled `Growth system`, at the top level
+     of the teamspace the yes settled (private where there is none), exactly as "Pages" in
+     `references/notion-schema.md` places it. Keep its ID, and fetch it: where it landed anywhere
+     else, move it there. Where it cannot be placed there, say so now, carry
+     on, and name where it is in step 7. Then
      create the Settings page at once, as a child of it: the opening line and the fenced block as
      "The Settings page" in `references/notion-schema.md` gives them, holding the schema's
      `schema_version`, `setup_state: in_progress` and `growth_system_page`.
@@ -207,15 +211,16 @@ ends with the Initiatives board, and the block reads the schema's `schema_versio
 
 Tell the user, in the chat:
 
-- **After a build:** the page is private to them. To share it, move the Growth system page into a
-  teamspace, or share it with teammates, so their skills find the same system. Give the page's
-  link. Notion's Free plan limits blocks once a workspace has two or more members. Next comes the
+- **After a build:** which teamspace the Growth system page is in, and that everyone in it now
+  shares one system, so their skills read and write the same databases. Where it was built private
+  (no teamspace to put it in), say so, and that moving it into a teamspace or sharing it with
+  teammates lets their skills find it. Give the page's link. Notion's Free plan limits blocks once a workspace has two or more members. Next comes the
   planning chain, starting with the Strategy map: coming soon.
 - **After a repair:** what was added, each with its database, and that nothing was renamed,
   removed or changed. Name each Difference again and say it was left as it is. Give the Growth
   system page's link.
-- **Either way:** where the Growth system page could not be moved to the user's private pages in
-  step 5, say where it is; name any icon that could not be set, so the user can add it by hand; and
+- **Either way:** where the Growth system page could not be placed in its teamspace in step 5, say
+  where it is; name any icon that could not be set, so the user can add it by hand; and
   name any part of the page written as plain paragraphs instead of callouts or columns.
 
 **Done when** the chat message carries the points for the run's kind, any misplaced page, unset
