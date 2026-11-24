@@ -95,7 +95,8 @@ sourced notes, or the step was skipped.
 
 Serves the principle Seek impact: the Weakest steps are where effort pays most.
 
-Follow `references/growth-model.md`: the ecommerce default's rates computed from the Growth Brain for
+Follow `references/growth-model.md`: the ecommerce default (sessions, first orders, returning customer
+orders, with order value beside it) with its rates computed from the Growth Brain for
 the last 90 days against the 90 before where the session has one, otherwise the team's own steps and
 rates with any missing rate marked Estimated and the Brain line said once. Show the Growth model as a
 table (step, rate, now, Comparison) and name the Weakest steps, at most three, each with its reason.
