@@ -6,7 +6,7 @@ Settings page is not here: its content is "The Settings page" in `notion-schema.
 
 ## The Growth system page
 
-Titled `Growth system`, with the 🌱 icon. Body, in this order, in the user's Notion (headings are
+Titled `Growth system`, with its icon from `notion-schema.md`. Body, in this order, in the user's Notion (headings are
 second-level). Build it from Notion's own blocks (callouts, columns, dividers), so it reads as a home
 page rather than a document. Notion has no grid block: a two-by-two grid is two columns of two
 callouts each. Where the connector cannot make a callout or a column, write the same text as plain
@@ -64,7 +64,7 @@ goes last because the connector places a linked view at the end of the page.
 
 ## The Strategy map page
 
-Titled `Strategy map`, with the 🧭 icon, a child of the Growth system page. Body: the headings below, empty.
+Titled `Strategy map`, with its icon from `notion-schema.md`, a child of the Growth system page. Body: the headings below, empty.
 
 **## Objectives**
 

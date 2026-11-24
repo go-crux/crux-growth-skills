@@ -19,7 +19,8 @@ are those of `references/glossary.md`. Use them as written. `references/notion-s
 home of the schema (every property, option, formula, relation and view), the Settings page block and
 "Finding the system"; this skill states none of it again. Every Notion action here is a capability
 (search, fetch a page or database, create a page, create a database, add a property, create a view,
-update a page); use whichever tool in the session does it.
+create a linked view on a page, set an icon, update a page, move a page or block, restore from the
+trash); use whichever tool in the session does it.
 
 **One path for every run.** A build is a repair against an empty system. Step 3 compares the live
 system with the schema and lists what is missing; step 4 asks for one yes and step 5 adds it. The same steps run whether
@@ -90,7 +91,9 @@ live Notion by fetching it:
 4. **Pages.** The Strategy map: `strategy_map_page` from the block, fetched; where the line is
    absent, a child of the Growth system page titled `Strategy map`. Absent: missing. The Growth
    system page body: missing only when the page holds nothing but its child pages and databases,
-   as after an interrupted run; a page with any other content stays as the user has it.
+   as after an interrupted run; a page with any other content stays as the user has it. The
+   Initiatives board on the Growth system page: a linked view of the Initiatives database on the
+   page itself. Absent: missing.
 5. **The Settings page block.** Missing lines are those the items above will add. When
    `setup_state` is `in_progress`, an earlier run did not finish.
 
@@ -134,7 +137,8 @@ found present are skipped.
 1. **The Settings page.**
    - **Against no system:** create the Growth system page, titled `Growth system`, private, exactly
      as "Pages" in `references/notion-schema.md` places it. Keep its ID, and fetch it: where it
-     landed in a teamspace or under another page, say so now, and name it again in step 7. Then
+     landed in a teamspace or under another page, move it to the top level of the user's private
+     pages. Where it cannot be moved, say so now, carry on, and name where it is in step 7. Then
      create the Settings page at once, as a child of it: the opening line and the fenced block as
      "The Settings page" in `references/notion-schema.md` gives them, holding the schema's
      `schema_version`, `setup_state: in_progress` and `growth_system_page`.
@@ -164,8 +168,8 @@ found present are skipped.
 6. **The Strategy map page**, as `references/page-layout.md` fixes it, a child of the Growth
    system page. Add `strategy_map_page` to the block.
 
-Give each page and database this step creates the icon `references/notion-schema.md` shows for it.
-Where the connector cannot set an icon, carry on, and name the icons not set in step 7.
+Give each page and database this step creates its icon, as the Icons convention in
+`references/notion-schema.md` says. Where an icon cannot be set, carry on, and name it in step 7.
 
 When an add fails, stop. Tell the user plainly what was added, what failed and why, leave
 `setup_state: in_progress` as it is, and say that running setup again picks the system up where it
@@ -180,22 +184,22 @@ or deleted.
 
 Serves all four principles: the page is where the team first reads what the system runs on.
 
-1. Where step 3 found the Growth system page body missing, write it as `references/page-layout.md`
-   fixes it: the explainer, the four principles as a two-by-two grid, the databases in three
-   columns, and the Initiatives board inline, last. Take each principle's line from
-   `references/principles.md`; the credit and the link to `https://gocrux.io/growth-system` go
-   once, under the grid, as the layout gives them. Place each database, the Strategy map and the
-   Settings page as the layout gives them, by the IDs in the block. Keep every child block the page
-   already holds: a rewrite that leaves one out deletes it.
-2. Fetch the Growth system page and check that all seven databases, the Strategy map and the
-   Settings page are still its children and none is in the trash. Where one is, restore it from
-   the trash before anything else, then stop and report as step 5 does.
-3. Only then write the schema's `schema_version` and `setup_state: complete`, by changing those two
+1. Where step 3 found the Growth system page body missing, write it exactly as
+   `references/page-layout.md` fixes it, finding each database, the Strategy map and the Settings
+   page by the IDs in the block. Note any callout or column written as plain paragraphs instead,
+   for step 7.
+2. Where step 3 found the Initiatives board missing, add it as the layout gives it, after the body,
+   so it is the page's last block.
+3. Fetch the Growth system page and check that all seven databases, the Strategy map and the
+   Settings page are on it and none is in the trash. Restore any in the trash, move any no longer
+   on the page back to it, place each as the layout gives it, and check again. Where the check
+   still fails, stop and report as step 5 does.
+4. Only then write the schema's `schema_version` and `setup_state: complete`, by changing those two
    lines of the block. It is the last write of the run.
 
 When a write fails, stop and report as step 5 does.
 
-**Done when** the check in item 2 has passed, the Growth system page holds every heading of
+**Done when** the check in item 3 has passed, the Growth system page holds every heading of
 `references/page-layout.md`, shows all seven databases, the Strategy map and the Settings page,
 ends with the Initiatives board, and the block reads the schema's `schema_version` and `setup_state: complete`.
 
@@ -210,8 +214,9 @@ Tell the user, in the chat:
 - **After a repair:** what was added, each with its database, and that nothing was renamed,
   removed or changed. Name each Difference again and say it was left as it is. Give the Growth
   system page's link.
-- **Either way:** where step 5 found the Growth system page outside the user's private pages, say
-  where it is; and name any icon the connector could not set, so the user can add it by hand.
+- **Either way:** where the Growth system page could not be moved to the user's private pages in
+  step 5, say where it is; name any icon that could not be set, so the user can add it by hand; and
+  name any part of the page written as plain paragraphs instead of callouts or columns.
 
-**Done when** the chat message carries the points for the run's kind, any misplaced page or unset
-icon, and the link to the Growth system page.
+**Done when** the chat message carries the points for the run's kind, any misplaced page, unset
+icon or plain-paragraph fallback, and the link to the Growth system page.
