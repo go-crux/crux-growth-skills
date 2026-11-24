@@ -144,6 +144,18 @@ and otherwise asks you for one export from Ads Manager and tells you the steps; 
 is then Meta's own cost per purchase, and the page says so. Ask Claude which of your Meta ads to
 pause, or send `/audit-ads` in Claude Code.
 
+**Set up the growth system** (`setup-growth-system`) gives your growth team a system of its own in
+your Notion: a Growth system page holding seven databases, their views, a Strategy map and a Settings
+page, with no sample rows to delete. It asks you for one confirmation, then builds it. If you already
+have one, it checks it against the current design and adds only what is missing, so you can run it
+again to repair a system after a deleted property or an interrupted setup, and it never renames or
+removes anything or touches your rows. It writes only to your Notion, and nothing is changed in your
+ads, your store or your data.
+
+*Needs:* a Notion connector in Claude, and nothing else: no Growth Brain. It builds the Growth system page
+in a Notion teamspace you choose, so your whole team shares one system. Ask Claude to set up your
+growth system, or send `/setup-growth-system` in Claude Code.
+
 ## Getting a Growth Brain
 
 We build each Growth Brain on the brand's own data. To see what one would read for yours, book a

@@ -1,0 +1,5 @@
+# The Growth system page is built in a teamspace
+
+**Status:** Accepted, 2026-11-24. Amends [ADR-0019](0019-the-growth-system-lives-in-the-brands-notion-addressed-only-through-the-settings-page.md).
+
+ADR-0019 accepted a private Growth system page because the Notion connector could not create a shared one. It now can: a page can be created at the top level of a teamspace. The point of the system is that the whole team's skills read and write the same databases, so `/setup-growth-system` builds the Growth system page in a teamspace by default. The Change list names the teamspace (the only one the user can add pages to, else the workspace's default one, else the first) and the one yes can name another, so the skill still asks no separate question. It builds private only where the user has no teamspace or the connector cannot place a page in one, and the close says how to share it. A dry run had a build land in a teamspace on one run and private on the next, so setup fetches the page after creating it and moves it to the chosen place when it landed elsewhere.
