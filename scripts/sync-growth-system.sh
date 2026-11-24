@@ -6,7 +6,7 @@ set -u
 root="$(cd "$(dirname "$0")/.." && pwd)"
 src="$root/shared/growth-system"
 skills="plugins/crux-growth-skills/skills"
-files="context-load.md notion-schema.md principles.md growth-system-glossary.md"
+files="context-load.md notion-schema.md principles.md growth-system-glossary.md initiative-contract.md"
 
 check=0
 case "${1:-}" in
