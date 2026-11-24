@@ -153,7 +153,8 @@ removes anything or touches your rows. It writes only to your Notion, and nothin
 ads, your store or your data.
 
 *Needs:* a Notion connector in Claude, and nothing else: no Growth Brain. It builds the Growth system page
-in a Notion teamspace you choose, so your whole team shares one system. Ask Claude to set up your growth system, or send `/setup-growth-system` in Claude Code.
+in a Notion teamspace you choose, so your whole team shares one system. Ask Claude to set up your
+growth system, or send `/setup-growth-system` in Claude Code.
 
 ## Getting a Growth Brain
 

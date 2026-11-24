@@ -249,6 +249,11 @@ Views are for people. A skill never reads or depends on one (see "Finding the sy
 
 ## Pages
 
-- **Growth system page**: titled `Growth system`, icon 🌱, created at the top level of a teamspace, so the whole team shares one system. The teamspace is the one the user confirms: where they belong to one they can add pages to, that one; where there are several, the workspace's default teamspace (the one every member joins) where the connector shows which that is and they can add pages to it, else the first in the list, and the user's yes can name another. Where they belong to none, or the connector cannot create a page in a teamspace, it is created private, at the top level of their own pages, never under another page. It holds the Settings page, the seven databases, the Strategy map and an explainer.
+- **Growth system page**: titled `Growth system`, icon 🌱, created at the top level of a teamspace, so the whole team shares one system. Only teamspaces the user can add pages to count, where the connector shows which those are. The Change list offers one, and the user's yes can name another:
+  1. Where exactly one counts, that one.
+  2. Where several count, the workspace's default teamspace (the one every member joins), where the connector shows which that is.
+  3. Otherwise, the first in the list.
+
+  Where none counts, or the connector cannot create a page in a teamspace, the page is created private, at the top level of the user's own pages, never under another page. It holds the Settings page, the seven databases, the Strategy map and an explainer.
 - **Strategy map**: a page under the Growth system page, titled `Strategy map`, icon 🧭, with empty headings for the quarter's Objectives and the reasoning behind them.
 - **Settings page**: icon ⚙️; see "The Settings page".

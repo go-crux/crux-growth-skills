@@ -18,9 +18,9 @@ rest are those of `references/growth-system-glossary.md`; Change list, Differenc
 are those of `references/glossary.md`. Use them as written. `references/notion-schema.md` is the one
 home of the schema (every property, option, formula, relation and view), the Settings page block and
 "Finding the system"; this skill states none of it again. Every Notion action here is a capability
-(search, fetch a page or database, create a page, create a database, add a property, create a view,
-set an icon, update a page, move a page or block, restore from the
-trash); use whichever tool in the session does it.
+(search, list teamspaces, fetch a page or database, create a page, create a database, add a
+property, create a view, set an icon, update a page, move a page or block, restore from the trash);
+use whichever tool in the session does it.
 
 **One path for every run.** A build is a repair against an empty system. Step 3 compares the live
 system with the schema and lists what is missing; step 4 asks for one yes and step 5 adds it. The same steps run whether
@@ -34,15 +34,16 @@ options are never removed or renamed.
 ## 1. Check the connector
 
 Check that the session can search Notion and create pages, databases and views. Then list the
-teamspaces the user belongs to, for step 4 to offer; where the connector shows which ones they can
-add pages to, keep only those. Where it cannot list teamspaces, carry on with none: the page is
-built private, as "Pages" in `references/notion-schema.md` says.
+teamspaces the user belongs to, for step 4 to choose from as "Pages" in
+`references/notion-schema.md` says. Where it cannot list teamspaces, carry on with none.
 
-Without search and create, stop and create nothing. Tell the user in plain words that the growth system runs on
-their own Notion, and how to add it: in their app's connector settings, add the Notion connector,
+Where any of those four is missing, stop and create nothing. Tell the user in plain words that the
+growth system runs on their own Notion, and how to add it: in their app's connector settings, add the Notion connector,
 sign in, give it access to the workspace, then ask again. Name no tool.
 
-**Done when** the session can search and create all three, with its teamspaces listed (or none), or the skill has stopped with that message and made no Notion call that writes.
+**Done when** the session can search and create pages, databases and views, and its teamspaces are
+listed (or there are none), or the skill has stopped with that message and made no Notion call that
+writes.
 
 ## 2. Find the system
 
@@ -205,26 +206,26 @@ Serves all four principles: the page is where the team first reads what the syst
 
 When a write fails, stop and report as step 5 does.
 
-**Done when** the check in item 2 has passed where it ran, the Growth system page holds every heading of
-`references/page-layout.md` (or the user's own content, left as it is), shows all seven databases, the Strategy map and the Settings page,
-and the block reads the schema's `schema_version` and `setup_state: complete`.
+**Done when** the block reads the schema's `schema_version` and `setup_state: complete` and, where
+item 1 wrote the body, the page holds every heading of `references/page-layout.md` and the check in
+item 2 has passed; a page the user had edited is left as it is.
 
 ## 7. Close
 
 Tell the user, in the chat:
 
-- **After a build:** which teamspace the Growth system page is in, and that everyone in it now
-  shares one system, so their skills read and write the same databases. Where it was built private
-  (no teamspace to put it in), say so, and that moving it into a teamspace or sharing it with
-  teammates lets their skills find it. Give the page's link. Notion's Free plan limits blocks once a workspace has two or more members. Next comes the
-  planning chain, starting with the Strategy map: coming soon.
+- **After a build:** where the Growth system page is. In a teamspace: name it, and say that
+  everyone in it now shares one system, so their skills read and write the same databases. Private
+  (no teamspace to put it in, or it could not be placed there in step 5): say so, and that moving it
+  into a teamspace or sharing it with teammates lets their skills find it. Give the page's link.
+  Notion's Free plan limits blocks once a workspace has two or more members. Next comes the planning
+  chain, starting with the Strategy map: coming soon.
 - **After a repair:** what was added, each with its database, and that nothing was renamed,
   removed or changed. Name each Difference again and say it was left as it is. Where step 3 noted
   the page as private, say so, and that moving it into a teamspace lets the team share it. Give the
   Growth system page's link.
-- **Either way:** where the Growth system page could not be placed in its teamspace in step 5, say
-  where it is; name any icon that could not be set, so the user can add it by hand; and
-  name any part of the page written as plain paragraphs instead of callouts or columns.
+- **Either way:** name any icon that could not be set, so the user can add it by hand, and any part
+  of the page written as plain paragraphs instead of callouts or columns.
 
-**Done when** the chat message carries the points for the run's kind, any misplaced page, unset
-icon or plain-paragraph fallback, and the link to the Growth system page.
+**Done when** the chat message carries the points for the run's kind (where the page is, after a
+build), any unset icon or plain-paragraph fallback, and the link to the Growth system page.
