@@ -86,8 +86,8 @@ session, so it runs from Matt's own Claude, never from a cold run. Method in
   `plan-ad-volume`'s `fatigue.sql` reads its per-day status grid once, in `pack`, and chains `m1` to
   `m10`, each reading only the one before it; add a measure inside that chain, never as a new CTE over
   `ad_day_status`. Dry run any brain SQL change on a real brain before the zip goes out.
-- **The growth system's four shared files live in `shared/growth-system/`** (`context-load.md`, `notion-schema.md`,
-  `principles.md`, `growth-system-glossary.md`), listed targets in `targets.txt`, and are copied into each target skill's
+- **The growth system's shared files live in `shared/growth-system/`** (`context-load.md`, `notion-schema.md`,
+  `principles.md`, `growth-system-glossary.md`, `initiative-contract.md`), listed targets in `targets.txt`, and are copied into each target skill's
   `references/` by `scripts/sync-growth-system.sh` (ADR-0018). A copy inside a skill is never edited: change the
   canonical file and re-run the script. Run `scripts/sync-growth-system.sh --check` before any push touching them;
   it exits 1 naming each drifted or missing copy. `/code-review` runs it too.
