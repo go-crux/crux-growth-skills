@@ -16,9 +16,10 @@ paragraphs in the same order; nothing is dropped.
 
 **## How it fits together**
 
-One callout, icon 🪜, blue background, holding the hierarchy line in bold: "**Objective → Initiative → Project → Task**". Under it, a bulleted list. In the callout and the list, each bold name is a plain text link to its page: Objective to the Strategy map, and Initiative, Project, Task, Issues, Decisions, Learnings and Insights to their databases, by the IDs in the Settings page block. A link, never a page mention or a database block, so the line reads as text.
+One callout, icon 🪜, blue background, holding the hierarchy line in bold: "**Objective → Initiative → Project → Task**". Under it, a bulleted list. In the callout and the list, each bold name is a plain text link to its page: Objective, Initiative, Project, Task, Issues, Decisions, Learnings and Insights to their databases, by the IDs in the Settings page block. A link, never a page mention or a database block, so the line reads as text.
 
-- "**Initiative**: serves one of the quarter's one to three Objectives, and carries one Key result."
+- "**Objective**: a quarter's qualitative direction, served by 3 to 5 Initiatives."
+- "**Initiative**: serves one Objective, and carries one Key result."
 - "**Project**: the whole context of one piece of work, hanging from an Initiative."
 - "**Task**: the action somebody, or Claude, actually does; an Experiment is a Task that tests a hypothesis."
 - "**Issues** are open problems nobody has the answer to yet. Solving one creates Tasks or a Decision."
@@ -44,7 +45,7 @@ as a third-level heading on a coloured background, the column's header bar: Plan
 orange, Learn on green. Under it, its entries in the order given, each followed by its grey line,
 as written here.
 
-- **Plan:** Strategy map ("The quarter's Objectives and why."), Initiatives ("Workstreams, each with one Key result."), Projects ("The whole context of each piece of work.").
+- **Plan:** Objectives ("A quarter's direction, served by 3 to 5 Initiatives."), Strategy map ("Each quarter's growth model and weakest steps."), Initiatives ("Workstreams, each with one Key result."), Projects ("The whole context of each piece of work.").
 - **Do:** Tasks ("The board: tasks and experiments."), Issues ("Open problems nobody has the answer to yet.").
 - **Learn:** Decisions ("Choices the team complies with."), Learnings ("What we concluded, rated on evidence."), Insights ("What customers say, verbatim.").
 
@@ -60,8 +61,4 @@ stay where Notion put them, so each shows twice: better than a child lost.
 
 ## The Strategy map page
 
-Titled `Strategy map`, with its icon from `notion-schema.md`, a child of the Growth system page. Body: the headings below, empty.
-
-**## Objectives**
-
-**## Reasoning**
+Titled `Strategy map`, with its icon from `notion-schema.md`, a child of the Growth system page. Body: empty. It holds no section until `/to-objectives` writes the first, one `## <quarter>` per quarter as "Pages" in `notion-schema.md` fixes it. A Strategy map that an earlier version of this skill created keeps the headings it has.
