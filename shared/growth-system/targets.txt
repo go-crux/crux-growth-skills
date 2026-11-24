@@ -1,2 +1,7 @@
 # One skill folder name per line (under plugins/crux-growth-skills/skills/); blank lines and # lines are ignored.
 setup-growth-system
+to-objectives
+to-initiatives
+to-projects
+to-tasks
+prioritise

@@ -1,6 +1,6 @@
-# The growth system's Notion schema, version 1
+# The growth system's Notion schema, version 2
 
-Everything a growth-system skill needs to address and write the Growth system: how to find it, the seven databases with every property, option, formula and relation, and the views people use. This file describes **Schema version** 1. Terms are in `growth-system-glossary.md`.
+Everything a growth-system skill needs to address and write the Growth system: how to find it, the eight databases with every property, option, formula and relation, and the views people use. This file describes **Schema version** 2. Terms are in `growth-system-glossary.md`.
 
 Every Notion action here is named by capability (search, create page, create database, create view, update page, query with a filter), never by tool name, because each harness names its Notion tools differently. Use whichever tool in the session does the capability.
 
@@ -12,7 +12,7 @@ The one lookup every growth-system skill makes, on every run, before it reads or
 2. **None found:** stop. Say the user has no growth system yet and to run `/setup-growth-system`. Make no other Notion call.
 3. **More than one found:** list them (title, parent page, last edited) and ask which is the team's. Accept a pasted link instead. Use the one chosen for the rest of the run.
 4. **One found:** open it and parse its fenced block of `key: value` lines (see "The Settings page" below).
-5. **Check the block.** If `schema_version` is lower than 1, or `setup_state` is `in_progress`, stop and say to re-run `/setup-growth-system`. Make no other Notion call.
+5. **Check the block.** If `schema_version` is lower than 2, or `setup_state` is `in_progress`, stop and say to re-run `/setup-growth-system`. Make no other Notion call.
 6. **Return** the block's values. Address every database by its `<name>_data_source` for a query and by its `<name>_database` for a link; address a page by its page value.
 
 The lookup is the only way to a database. A skill never stores an ID of its own, never searches for a database by its title, and never reads through a saved view's ID: it queries a data source with a **filter** (for example `Status = Active`), so a teammate editing a view cannot break a run.
@@ -22,10 +22,12 @@ The lookup is the only way to a database. A skill never stores an ID of its own,
 Titled exactly `Growth system settings`, a child of the Growth system page. It opens with the line "Maintained by `/setup-growth-system`. Do not edit." and its body is one fenced block:
 
 ```
-schema_version: 1
+schema_version: 2
 setup_state: complete
 growth_system_page: <page ID>
 strategy_map_page: <page ID>
+objectives_database: <database ID>
+objectives_data_source: <data source ID>
 initiatives_database: <database ID>
 initiatives_data_source: <data source ID>
 projects_database: <database ID>
@@ -43,12 +45,12 @@ insights_data_source: <data source ID>
 ```
 
 - `setup_state` is `in_progress` while `/setup-growth-system` is building or repairing, and `complete` once it has finished.
-- A `<name>_prefix` line (`initiatives_prefix`, `projects_prefix`, `tasks_prefix`, `issues_prefix`, `decisions_prefix`, `learnings_prefix`, `insights_prefix`) is present only for a database whose `ID` prefix is not the default below. Absent means the default.
+- A `<name>_prefix` line (`objectives_prefix`, `initiatives_prefix`, `projects_prefix`, `tasks_prefix`, `issues_prefix`, `decisions_prefix`, `learnings_prefix`, `insights_prefix`) is present only for a database whose `ID` prefix is not the default below. Absent means the default.
 - A skill never writes the Settings page. Only `/setup-growth-system` does.
 
 ## Rules for writing the system
 
-- **Additive only.** A schema change adds databases, properties and options. It never renames or deletes: removing a select option blanks every row that held it.
+- **Additive only.** A schema change adds databases, properties and options. It never renames or deletes: removing a select option blanks every row that held it. The one recorded exception (ADR-0022) is `/setup-growth-system` moving a version 1 system to version 2: it creates one Objectives row for each value the Initiatives `Objective` select holds in use, turns Initiatives `Quarter` into a multi-select (every value kept), relates each Initiative to its row, and only then deletes that select, so every value it held is on a row first. Nothing else removes or retypes anything.
 - **People columns.** Every owner, assignee or capturer is a Notion **people** property. There is no named-person select and no roster.
 - **Select options.** A select listed with "no starting options" starts empty and fills as rows are written. Reuse an existing option before adding a new one.
 - **No sample rows.** Setup creates no rows in any database.
@@ -59,6 +61,23 @@ insights_data_source: <data source ID>
 
 Notation: **Name** (type; options). `Status` options are grouped as Notion's status property groups them: to do, in progress, complete.
 
+### Objectives (`OBJ`)
+
+Icon: 🏔️
+
+A quarter's qualitative direction, served by 3 to 5 Initiatives.
+
+| Property | Type | Notes |
+|---|---|---|
+| `Objective` | title | |
+| `Quarter` | multi-select | no starting options; written as `2027 Q1`; an Objective carried into a second quarter holds both |
+| `Status` | select | Active, Done, Dropped |
+| `Owned by` | people | |
+| `Why` | rich text | |
+| `Initiatives` | relation → Initiatives | dual, shown on Initiatives as `Objective` |
+
+Its page body is the evidence behind it: the weak steps, and the Learnings, Insights and Issues cited.
+
 ### Initiatives (`INI`)
 
 Icon: 🎯
@@ -68,12 +87,12 @@ A workstream serving one Objective, with one Key result.
 | Property | Type | Notes |
 |---|---|---|
 | `Initiative` | title | |
-| `Objective` | select | no starting options; the Strategy map's Objectives |
+| `Objective` | relation → Objectives | the dual of `Objectives.Initiatives` |
 | `Key result` | rich text | |
 | `Target` | number | |
 | `Target unit` | rich text | |
 | `Target date` | date | |
-| `Quarter` | select | no starting options; written as `2027 Q1` |
+| `Quarter` | multi-select | no starting options; written as `2027 Q1` |
 | `Why` | rich text | |
 | `Owned by` | people | |
 | `Status` | select | On track, At risk, Off track, Done |
@@ -223,6 +242,7 @@ Each relation is a pair, one property on each side (a Decisions self-relation is
 
 | From | Property | To | Dual property |
 |---|---|---|---|
+| Objectives | `Initiatives` | Initiatives | `Objective` |
 | Initiatives | `Projects` | Projects | `Initiative` |
 | Initiatives | `Tasks` | Tasks | `Initiative` |
 | Projects | `Tasks` | Tasks | `Project` |
@@ -231,7 +251,7 @@ Each relation is a pair, one property on each side (a Decisions self-relation is
 | Decisions | `Learnings` | Learnings | `Decisions` |
 | Learnings | `Insights` | Insights | `Learnings` |
 
-The hierarchy is Objective → Initiative → Project → Task. A Task hangs from a Project, from an Initiative directly, or from nothing (standing work).
+The hierarchy is Objective → Initiative → Project → Task, each a database. A Task hangs from a Project, from an Initiative directly, or from nothing (standing work).
 
 ## Views
 
@@ -244,6 +264,7 @@ Views are for people. A skill never reads or depends on one (see "Finding the sy
 | Tasks | Board | board | `Status` is not Archived | group by `Status` |
 | Tasks | Experiments | table | `Type` = Experiment | sort by `ICE`, descending |
 | Projects | Board | board | none | group by `Status` |
+| Objectives | By quarter | table | `Status` = Active | group by `Quarter` |
 | Initiatives | By objective | table | none | group by `Objective` |
 | Decisions | Active | table | `Status` = Active | none |
 | Learnings | Active | table | `Status` = Active | none |
@@ -256,6 +277,6 @@ Views are for people. A skill never reads or depends on one (see "Finding the sy
   2. Where several count, the workspace's default teamspace (the one every member joins), where the connector shows which that is.
   3. Otherwise, the first in the list.
 
-  Where none counts, or the connector cannot create a page in a teamspace, the page is created private, at the top level of the user's own pages, never under another page. It holds the Settings page, the seven databases, the Strategy map and an explainer.
-- **Strategy map**: a page under the Growth system page, titled `Strategy map`, icon 🧭, with empty headings for the quarter's Objectives and the reasoning behind them.
+  Where none counts, or the connector cannot create a page in a teamspace, the page is created private, at the top level of the user's own pages, never under another page. It holds the Settings page, the eight databases, the Strategy map and an explainer.
+- **Strategy map**: a page under the Growth system page, titled `Strategy map`, icon 🧭. Setup creates it with no sections. `/to-objectives` writes one `## <quarter>` section per quarter (`## 2027 Q1`), as a second-level heading, newest on top: that quarter's Growth model snapshot table, its weakest steps, and links to that quarter's Objective rows. An older quarter's section is never edited.
 - **Settings page**: icon ⚙️; see "The Settings page".

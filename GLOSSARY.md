@@ -22,23 +22,27 @@ Crux growth skills: free skills any brand installs in its own Claude that carry 
 
 ## Growth system
 
-The skills that run a growth team's operating rhythm on its own Notion: plan, prioritise, build, capture. Their shared files (`context-load.md`, `notion-schema.md`, `principles.md`) have one canonical copy in `shared/growth-system/`, synced byte for byte into each growth-system skill's `references/`, because a skill reads nothing outside its own folder.
+The skills that run a growth team's operating rhythm on its own Notion: plan, prioritise, build, capture. Their shared files (`context-load.md`, `notion-schema.md`, `principles.md`, the contracts, `experiment-scoping.md` and `wip-limits.md`) have one canonical copy in `shared/growth-system/`, synced byte for byte into each growth-system skill's `references/`, because a skill reads nothing outside its own folder.
 
-- **Growth system**: the seven Notion databases (Initiatives, Projects, Tasks, Issues, Decisions, Learnings, Insights) plus the skills that read and write them, shared by everyone on the brand's team. _Avoid_: growth OS, operating system (in a skill), workspace.
+- **Growth system**: the eight Notion databases (Objectives, Initiatives, Projects, Tasks, Issues, Decisions, Learnings, Insights) plus the skills that read and write them, shared by everyone on the brand's team. _Avoid_: growth OS, operating system (in a skill), workspace.
 
 - **Growth system page**: the Notion home page `/setup-growth-system` always creates fresh, titled `Growth system`: the explainer, the four principles, each database and the Strategy map laid out under Plan, Do and Learn, and the Settings page. Built in a teamspace the user confirms, so the team shares it (ADR-0021). _Avoid_: Growth Hub (that is the Crux product the system later moves into), dashboard, parent page.
 
 - **Settings page**: the child of the Growth system page titled exactly `Growth system settings`, maintained by `/setup-growth-system` and never edited by hand, holding every database ID and the `Schema version`. Every growth-system skill finds it by that title and addresses databases only through it, by filter, never by saved-view ID. _Avoid_: config, reference file, IDs file.
 
-- **Objective**: one of the quarter's 1 to 3 outcomes, chosen on the Strategy map from the growth model's weakest steps; a select on Initiatives. _Avoid_: goal, OKR, priority.
+- **Objective**: one of a quarter's 1 to 3 qualitative directions, such as "focus on retention" or "improve order value", chosen by `/to-objectives` from the growth model's weakest steps and the team's learnings, insights and issues; a row on Objectives. Aimed at a quarter, it often runs into a second. _Avoid_: goal, OKR, priority, strategy.
 
 - **Key result**: an Initiative's own measurable outcome, with `Target`, `Target unit` and `Target date`; 3 to 5 initiatives, each with one key result, serve an Objective. _Avoid_: goal, KPI, target (that is the number inside it).
 
-- **Strategy map**: the page under the Growth system page holding the quarter's Objectives and the growth-model reasoning behind them. _Avoid_: plan, roadmap, OKR doc.
+- **Growth model**: the brand's chain of steps from first contact to repeat purchase, with the conversion rate between each; the ecommerce lever tree by default, any funnel the user states otherwise (a B2B pipeline included). Its weakest steps are where Objectives come from. _Avoid_: funnel (one part of it), flywheel.
+
+- **Strategy map**: the page under the Growth system page holding one section per quarter: that quarter's Growth model snapshot, its weakest steps and links to its Objectives. Older quarters stay below, unedited. _Avoid_: plan, roadmap, OKR doc.
 
 - **Schema version**: the number on the Settings page saying which schema the brand's databases carry. A skill that needs a newer one stops and says to re-run `/setup-growth-system`, which only ever adds. _Avoid_: migration, upgrade.
 
-- **Initiative**: a workstream serving one Objective, carrying one Key result and an owner. Projects hang from it. _Avoid_: epic, theme, bucket.
+- **Initiative**: a workstream serving one Objective, carrying one Key result and an owner; 3 to 5 serve each Objective. Its page body is the plan its Projects inherit. Projects hang from it. _Avoid_: epic, theme, bucket, AOB.
+
+- **Carry**: at a quarter's start, keeping an Objective or Initiative for the new quarter by adding it to the row's `Quarter`, instead of marking it Done or Dropped. One row keeps its whole history. _Avoid_: roll over, duplicate, re-create.
 
 - **Project**: a row on Projects carrying the whole context of one piece of work, once, so no task under it restates it; hangs from one Initiative. _Avoid_: card, epic.
 
@@ -54,6 +58,10 @@ The skills that run a growth team's operating rhythm on its own Notion: plan, pr
 
 - **Issue**: an open problem nobody has the answer to yet, ranked on Impact × Urgency. Solving one creates Tasks or a Decision; it never becomes one. _Avoid_: blocker, risk, ticket.
 
+- **Ready**: a Task at `Status` Not started: prioritised and waiting to be pulled into In progress; the Tasks board's equivalent of a Project at `Prioritised`. _Avoid_: backlog (that is Idea), to do, queued.
+
+- **WIP limit**: the cap on work in flight: Projects at `Prioritised` or In progress at most 4 across the team, and Tasks In progress at most 4 per person. Any skill moving a card past one warns and goes ahead on the user's yes; it never blocks. _Avoid_: capacity, sprint.
+
 - **Context load**: the opening reads a planning skill makes before proposing anything: Active decisions, Active learnings, Insights and open Issues on the subject, and the Initiative served. It names what it read and flags any Decision the proposal would breach. _Avoid_: context pull, research step.
 
 ## Skill glossaries
@@ -64,3 +72,8 @@ The skills that run a growth team's operating rhythm on its own Notion: plan, pr
 - `diagnose-performance`: [`diagnose-performance/references/glossary.md`](plugins/crux-growth-skills/skills/diagnose-performance/references/glossary.md) (Success KPI, Current period, Comparison period, Period timezone, Good direction, Lever, Lever tree, Source, Contribution, Main driver, Also large, Offset, Drill-down, Cause, Recommendation, Check-first, Brain line, Performance diagnosis).
 - `plan-ad-volume`: [`plan-ad-volume/references/glossary.md`](plugins/crux-growth-skills/skills/plan-ad-volume/references/glossary.md) (Viable ad, Viable share, Viable share target, Viable ad stock, Launched ad, Survival curve, Recent fit, Viable lifespan, Hit rate, Days viable per hit, Healthy lifespan, Spend per viable ad, Days to clear Ramping, Self-check, Ad stock check, Lever, Lever best, Limiting factor, On the table, Worn out now, Wearing out, Current pipeline, Budget, Steady-state number, Roadmap, Catch-up, Stay-level launches, Gap launches, Growth launches, Expected to work, Ads to launch, Live-by, Format, Format split, Roadmap file, Awareness campaign, Lead campaign, Source, Unattended run, Brain line, Creative deep dive, How it's worked out, Page label, Spend bar, Viable spend per hit, Creative score, Evergreen ad, Evergreen share, Spend degradation, Viable after week 1, Top-5 concentration, Low-spend rate, Outlier, Outlier rate, Top-10 turnover, Expected outliers a month, Weakest point, What it's worth, Production budget, Name coverage, Next run).
 - `review-month`: [`review-month/references/glossary.md`](plugins/crux-growth-skills/skills/review-month/references/glossary.md) (Monthly performance review, Section, Action title, Brain slot, Brain line, Share toggle, Current period, Comparison period, Source, Month context, Focus question, Recommendation, Next month, Last month's actions, Unattended run, Margin rung, Discount rate, Discount depth, New customer, CAC, Active customer, Lapsed customer, LTV, Unknown row).
+- `to-objectives`: [`to-objectives/references/glossary.md`](plugins/crux-growth-skills/skills/to-objectives/references/glossary.md) (the quarter, Last quarter's Objectives, Cold start, Rate, Comparison, Estimated, Weakest step, Altitude test, Candidate Initiative, Round, Frontier, Brain line).
+- `to-initiatives`: [`to-initiatives/references/glossary.md`](plugins/crux-growth-skills/skills/to-initiatives/references/glossary.md) (the quarter, the quarter's Objectives, Carried Objective, Carry review, Dropped Initiative, Live row, Weakest step, Candidate Initiative, Level test, Named gap, Class, Rename, Round, Frontier).
+- `to-projects`: [`to-projects/references/glossary.md`](plugins/crux-growth-skills/skills/to-projects/references/glossary.md) (Source, Loose idea, Live Project, Grounded, Surface, Size signal, Split, Stub Project, Fully scoped, Sequence, Open question, Question, Frontier).
+- `to-tasks`: [`to-tasks/references/glossary.md`](plugins/crux-growth-skills/skills/to-tasks/references/glossary.md) (Cut, Drafted Task, Matched Task, Unmatched Task, Gap, Blocker, Run order, Verdict date, Sitting, Question).
+- `prioritise`: [`prioritise/references/glossary.md`](plugins/crux-growth-skills/skills/prioritise/references/glossary.md) (In flight, Room, Stale card, Unexplained block, Stranded Task, Candidate, Pull, Rank, Over-limit move, Proposal).
