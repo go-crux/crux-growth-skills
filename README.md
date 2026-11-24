@@ -145,11 +145,12 @@ is then Meta's own cost per purchase, and the page says so. Ask Claude which of 
 pause, or send `/audit-ads` in Claude Code.
 
 **Set up the growth system** (`setup-growth-system`) gives your growth team a system of its own in
-your Notion: a Growth system page holding seven databases, their views, a Strategy map and a Settings
+your Notion: a Growth system page holding eight databases, their views, a Strategy map and a Settings
 page, with no sample rows to delete. It asks you for one confirmation, then builds it. If you already
 have one, it checks it against the current design and adds only what is missing, so you can run it
-again to repair a system after a deleted property or an interrupted setup, and it never renames or
-removes anything or touches your rows. It writes only to your Notion, and nothing is changed in your
+again to repair a system after a deleted property or an interrupted setup. It never renames or
+removes anything or touches your rows, with one exception: a system built before Objectives became their own
+database is brought up to date with every value kept. It writes only to your Notion, and nothing is changed in your
 ads, your store or your data.
 
 *Needs:* a Notion connector in Claude, and nothing else: no Growth Brain. It builds the Growth system page
@@ -180,7 +181,7 @@ on your boards changes until you say yes.
 *Needs:* the five planning skills above need the growth system in Notion that `setup-growth-system`
 builds, and a Notion connector in Claude. A Growth Brain is optional: `to-objectives`, `to-initiatives`,
 `to-projects` and `to-tasks` use one when it is connected, and `prioritise` uses none. Ask Claude to agree
-your Objectives and so on, or send `/to-objectives`, `/to-initiatives`, `/to-projects`, `/to-tasks` or
+your quarter's Objectives, or send `/to-objectives`, `/to-initiatives`, `/to-projects`, `/to-tasks` or
 `/prioritise` in Claude Code. Start with `/to-objectives`.
 
 ## Getting a Growth Brain
