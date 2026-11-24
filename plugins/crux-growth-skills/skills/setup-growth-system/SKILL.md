@@ -89,8 +89,8 @@ live Notion by fetching it:
    present under that name stays as the user has it, whatever its filter.
 4. **Pages.** The Strategy map: `strategy_map_page` from the block, fetched; where the line is
    absent, a child of the Growth system page titled `Strategy map`. Absent: missing. The Growth
-   system page body: missing only when the page has no content at all, as after an interrupted
-   run; a page with any content stays as the user has it.
+   system page body: missing only when the page holds nothing but its child pages and databases,
+   as after an interrupted run; a page with any other content stays as the user has it.
 5. **The Settings page block.** Missing lines are those the items above will add. When
    `setup_state` is `in_progress`, an earlier run did not finish.
 
@@ -131,8 +131,10 @@ when it exists with everything `references/notion-schema.md` gives it. Items an 
 found present are skipped.
 
 1. **The Settings page.**
-   - **Against no system:** create the Growth system page, titled `Growth system`, with no parent
-     so it lands private, and keep its ID. Then create the Settings page at once, as a child of
+   - **Against no system:** create the Growth system page, titled `Growth system`, private, as
+     "Pages" in `references/notion-schema.md` places it: no parent page and no teamspace, even when
+     the connector offers one or the user belongs to one; where the connector has a private or draft
+     mode for a page with no destination, use it. Keep its ID. Then create the Settings page at once, as a child of
      it: the opening line and the fenced block as "The Settings page" in `references/notion-schema.md`
      gives them, holding the schema's `schema_version`, `setup_state: in_progress` and
      `growth_system_page`.
@@ -143,7 +145,7 @@ found present are skipped.
    says so and the next run resumes it.
 2. **The missing databases**, each a child of the Growth system page, with every property other than a
    relation, with every select option, status group and formula of its table in
-   `references/notion-schema.md`. Create them in the order Insights, Learnings, Decisions, Issues,
+   `references/notion-schema.md`, and its icon. Create them in the order Insights, Learnings, Decisions, Issues,
    Tasks, Projects, Initiatives. After each is created, write its `<name>_database` and `<name>_data_source`
    lines to the block (replacing the old lines of a database that was gone) before creating the next.
    - **Prefix fallback.** Give each database its default `ID` prefix. When Notion refuses a prefix
@@ -160,7 +162,10 @@ found present are skipped.
    self-relation (`Supersedes` with its dual `Superseded by`) is added on the Decisions data source.
 5. **The missing views**: each row of the Views table, a tab on its database.
 6. **The Strategy map page**, as `references/page-layout.md` fixes it, a child of the Growth
-   system page. Add `strategy_map_page` to the block.
+   system page.
+
+Give each page and database the icon `references/notion-schema.md` shows when creating it. Where the
+connector cannot set an icon, carry on, and name the icons not set in step 7. Add `strategy_map_page` to the block.
 
 When an add fails, stop. Tell the user plainly what was added, what failed and why, leave
 `setup_state: in_progress` as it is, and say that running setup again picks the system up where it
@@ -176,18 +181,20 @@ or deleted.
 Serves all four principles: the page is where the team first reads what the system runs on.
 
 1. Where step 3 found the Growth system page body missing, write it as `references/page-layout.md`
-   fixes it: the explainer, the four principles, the links, and the Tasks and Projects boards
-   inline. Take each principle's line from `references/principles.md`; the credit and the link to
-   `https://gocrux.io/growth-system` go once, under the list, as the layout gives them. Link each
-   database and the Strategy map by its Notion link, taken from the block.
+   fixes it: the explainer, the four principles as a two-by-two grid, the databases in three
+   columns, and the Initiatives board inline, last. Take each principle's line from
+   `references/principles.md`; the credit and the link to `https://gocrux.io/growth-system` go
+   once, under the grid, as the layout gives them. Place each database, the Strategy map and the
+   Settings page as the layout gives them, by the IDs in the block. Keep every child block the page
+   already holds: a rewrite that leaves one out deletes it.
 2. Only then write the schema's `schema_version` and `setup_state: complete`, by changing those two
    lines of the block. It is the last write of the run.
 
 When a write fails, stop and report as step 5 does.
 
-**Done when** the Growth system page holds every heading of `references/page-layout.md`, the page
-links all seven databases and the Strategy map, and the block reads the schema's `schema_version` and
-`setup_state: complete`.
+**Done when** the Growth system page holds every heading of `references/page-layout.md`, shows
+all seven databases, the Strategy map and the Settings page, ends with the Initiatives board, and
+the block reads the schema's `schema_version` and `setup_state: complete`.
 
 ## 7. Close
 

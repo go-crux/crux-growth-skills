@@ -52,6 +52,7 @@ insights_data_source: <data source ID>
 - **People columns.** Every owner, assignee or capturer is a Notion **people** property. There is no named-person select and no roster.
 - **Select options.** A select listed with "no starting options" starts empty and fills as rows are written. Reuse an existing option before adding a new one.
 - **No sample rows.** Setup creates no rows in any database.
+- **Icons.** Setup gives each database and page the icon shown here when it creates it. A repair adds no icon and changes none: an icon is the team's to change.
 - **Prefixes.** Each database's `ID` property is a unique ID with the prefix shown. A prefix can belong to only one data source in a workspace; if it is taken, setup uses `GS-` plus it (for example `GS-TSK`) and records it as `<name>_prefix`.
 
 ## The databases
@@ -59,6 +60,8 @@ insights_data_source: <data source ID>
 Notation: **Name** (type; options). `Status` options are grouped as Notion's status property groups them: to do, in progress, complete.
 
 ### Initiatives (`INI`)
+
+Icon: 🎯
 
 A workstream serving one Objective, with one Key result.
 
@@ -79,6 +82,8 @@ A workstream serving one Objective, with one Key result.
 
 ### Projects (`PRJ`)
 
+Icon: 📁
+
 The whole context of one piece of work, once, hanging from one Initiative. A Project is chosen against its Initiative on `Priority`, never scored.
 
 | Property | Type | Notes |
@@ -95,6 +100,8 @@ The whole context of one piece of work, once, hanging from one Initiative. A Pro
 | `Tasks` | relation → Tasks | dual, shown on Tasks as `Project` |
 
 ### Tasks (`TSK`)
+
+Icon: ✅
 
 The Kanban board. `Type` is Task or Experiment.
 
@@ -131,6 +138,8 @@ Experiment-only properties, blank on a Task by design:
 
 ### Issues (`ISS`)
 
+Icon: 🚩
+
 An open problem nobody has the answer to yet. Solving one creates Tasks or a Decision; an Issue never becomes one.
 
 | Property | Type | Notes |
@@ -149,6 +158,8 @@ An open problem nobody has the answer to yet. Solving one creates Tasks or a Dec
 
 ### Decisions (`DEC`)
 
+Icon: ⚖️
+
 A choice you comply with or breach, with what it rules out. A Decision is never edited into a different decision: a replacement supersedes it.
 
 | Property | Type | Notes |
@@ -165,6 +176,8 @@ A choice you comply with or breach, with what it rules out. A Decision is never 
 | `Source` | select | Meeting, Issue, Project close-out, Ad hoc |
 
 ### Learnings (`LRN`)
+
+Icon: 💡
 
 Something we concluded and could be wrong about, rated on the evidence ladder.
 
@@ -189,6 +202,8 @@ Something we concluded and could be wrong about, rated on the evidence ladder.
 | `Experiments` | relation → Tasks | the dual of `Tasks.Learnings` |
 
 ### Insights (`INS`)
+
+Icon: 💬
 
 Something customers say, banked verbatim: one row per recurring thing, never per response.
 
@@ -227,15 +242,16 @@ Views are for people. A skill never reads or depends on one (see "Finding the sy
 | Tasks | Board | board | `Status` is not Archived | group by `Status` |
 | Tasks | Experiments | table | `Type` = Experiment | sort by `ICE`, descending |
 | Projects | Board | board | none | group by `Status` |
+| Initiatives | Board | board | none | group by `Status` |
 | Initiatives | By objective | table | none | group by `Objective` |
 | Decisions | Active | table | `Status` = Active | none |
 | Learnings | Active | table | `Status` = Active | none |
 | Issues | Open | table | `Status` is Open or Solving | sort by `Priority score`, descending |
 
-The Tasks board and the Projects board also appear inline on the Growth system page.
+The Initiatives board also appears inline on the Growth system page, as a linked view.
 
 ## Pages
 
-- **Growth system page**: titled `Growth system`, created with no parent, so private until the user moves it into a teamspace. It holds the Settings page, the seven databases, the Strategy map and an explainer.
-- **Strategy map**: a page under the Growth system page, titled `Strategy map`, with empty headings for the quarter's Objectives and the reasoning behind them.
-- **Settings page**: see "The Settings page".
+- **Growth system page**: titled `Growth system`, icon 🌱, created private: at the top level of the user's own pages, with no parent page and no teamspace, even when the connector offers one. It stays private until the user moves it into a teamspace. It holds the Settings page, the seven databases, the Strategy map and an explainer.
+- **Strategy map**: a page under the Growth system page, titled `Strategy map`, icon 🧭, with empty headings for the quarter's Objectives and the reasoning behind them.
+- **Settings page**: icon ⚙️; see "The Settings page".
