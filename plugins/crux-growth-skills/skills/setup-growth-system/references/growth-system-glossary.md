@@ -4,7 +4,7 @@ The skills that run a growth team's operating rhythm on its own Notion: plan, pr
 
 - **Growth system**: the seven Notion databases (Initiatives, Projects, Tasks, Issues, Decisions, Learnings, Insights) plus the skills that read and write them, shared by everyone on the brand's team. _Avoid_: growth OS, operating system (in a skill), workspace.
 
-- **Growth system page**: the Notion home page `/setup-growth-system` always creates fresh, titled `Growth system`: the explainer, the four principles, each database, the Strategy map and the Settings page laid out under Plan, Do and Learn, and the Initiatives board. Built in a teamspace the user confirms, so the team shares it. _Avoid_: Growth Hub (that is the Crux product the system later moves into), dashboard, parent page.
+- **Growth system page**: the Notion home page `/setup-growth-system` always creates fresh, titled `Growth system`: the explainer, the four principles, each database, the Strategy map and the Settings page laid out under Plan, Do and Learn. Built in a teamspace the user confirms, so the team shares it. _Avoid_: Growth Hub (that is the Crux product the system later moves into), dashboard, parent page.
 
 - **Settings page**: the child of the Growth system page titled exactly `Growth system settings`, maintained by `/setup-growth-system` and never edited by hand, holding every database ID and the `Schema version`. Every growth-system skill finds it by that title and addresses databases only through it, by filter, never by saved-view ID. _Avoid_: config, reference file, IDs file.
 

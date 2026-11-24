@@ -242,13 +242,10 @@ Views are for people. A skill never reads or depends on one (see "Finding the sy
 | Tasks | Board | board | `Status` is not Archived | group by `Status` |
 | Tasks | Experiments | table | `Type` = Experiment | sort by `ICE`, descending |
 | Projects | Board | board | none | group by `Status` |
-| Initiatives | Board | board | none | group by `Status` |
 | Initiatives | By objective | table | none | group by `Objective` |
 | Decisions | Active | table | `Status` = Active | none |
 | Learnings | Active | table | `Status` = Active | none |
 | Issues | Open | table | `Status` is Open or Solving | sort by `Priority score`, descending |
-
-The Initiatives board also appears inline on the Growth system page, as a linked view.
 
 ## Pages
 

@@ -16,7 +16,7 @@ paragraphs in the same order; nothing is dropped.
 
 **## How it fits together**
 
-One callout, icon 🪜, blue background, holding the hierarchy line in bold: "**Objective → Initiative → Project → Task**". Under it, a bulleted list:
+One callout, icon 🪜, blue background, holding the hierarchy line in bold: "**Objective → Initiative → Project → Task**". Under it, a bulleted list. In the callout and the list, each bold name is a plain text link to its page: Objective to the Strategy map, and Initiative, Project, Task, Issues, Decisions, Learnings and Insights to their databases, by the IDs in the Settings page block. A link, never a page mention or a database block, so the line reads as text.
 
 - "**Initiative**: serves one of the quarter's one to three Objectives, and carries one Key result."
 - "**Project**: the whole context of one piece of work, hanging from an Initiative."
@@ -39,8 +39,10 @@ A divider.
 
 **## The databases**
 
-Three columns of equal width, each opening with a bold label, then its entries in the order given,
-each entry followed by its grey line, as written here.
+Three columns of equal width, so they read as one row of three. Each column opens with its label
+as a third-level heading on a coloured background, the column's header bar: Plan on blue, Do on
+orange, Learn on green. Under it, its entries in the order given, each followed by its grey line,
+as written here.
 
 - **Plan:** Strategy map ("The quarter's Objectives and why."), Initiatives ("Workstreams, each with one Key result."), Projects ("The whole context of each piece of work.").
 - **Do:** Tasks ("The board: tasks and experiments."), Issues ("Open problems nobody has the answer to yet.").
@@ -55,12 +57,6 @@ child block it keeps, because a child left out is deleted; never drop one. Where
 cannot move a child block into a column, the entry is a link to it instead and the child blocks
 stay where Notion put them, so each shows twice: better than a child lost.
 
-A divider.
-
-**## Initiatives board**
-
-The last block on the page: a linked view of the Initiatives database's Board view, inline. It
-goes last because the connector places a linked view at the end of the page.
 
 ## The Strategy map page
 

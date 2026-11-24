@@ -19,7 +19,7 @@ are those of `references/glossary.md`. Use them as written. `references/notion-s
 home of the schema (every property, option, formula, relation and view), the Settings page block and
 "Finding the system"; this skill states none of it again. Every Notion action here is a capability
 (search, fetch a page or database, create a page, create a database, add a property, create a view,
-create a linked view on a page, set an icon, update a page, move a page or block, restore from the
+set an icon, update a page, move a page or block, restore from the
 trash); use whichever tool in the session does it.
 
 **One path for every run.** A build is a repair against an empty system. Step 3 compares the live
@@ -94,15 +94,14 @@ live Notion by fetching it:
 4. **Pages.** The Strategy map: `strategy_map_page` from the block, fetched; where the line is
    absent, a child of the Growth system page titled `Strategy map`. Absent: missing. The Growth
    system page body: missing only when the page holds nothing but its child pages and databases,
-   as after an interrupted run; a page with any other content stays as the user has it. The
-   Initiatives board on the Growth system page, as `references/page-layout.md` places it. Absent:
-   missing. Where the Growth system page is private and step 1 listed a teamspace, note it for
+   as after an interrupted run; a page with any other content stays as the user has it. Where the
+   Growth system page is private and step 1 listed a teamspace, note it for
    step 7; it is not a Change list item, and a repair never moves the page.
 5. **The Settings page block.** Missing lines are those the items above will add. When
    `setup_state` is `in_progress`, an earlier run did not finish.
 
-**Done when** every database, every property and select option, every view, both pages of the
-schema and the Initiatives board on the Growth system page is on the Change list as either present, missing, or a Difference, and each missing
+**Done when** every database, every property and select option, every view and both pages of the
+schema is on the Change list as either present, missing, or a Difference, and each missing
 database, property, option, view and page is named with the database it belongs to.
 
 ## 4. Confirm
@@ -114,8 +113,8 @@ database, property, option, view and page is named with the database it belongs 
   where there is a choice, list the others and say the yes can name one instead: "yes, in
   Marketing"); the Settings page; the seven databases
   by name with one line on what each is for (the Growth system glossary's definitions); their
-  views; the Strategy map page; the explainer, the principles, the databases laid out and the
-  Initiatives board on the Growth system page. State
+  views; the Strategy map page; the explainer, the principles and the databases laid out on the
+  Growth system page. State
   that no sample rows are created and that nothing existing is touched.
 - **Against an existing system (a repair):** exactly the missing items, each with the database it
   goes in, and any **Differences**, each with what the schema expects and the line that it is left
@@ -195,22 +194,20 @@ Serves all four principles: the page is where the team first reads what the syst
    `references/page-layout.md` fixes it, finding each database, the Strategy map and the Settings
    page by the IDs in the block. Note any callout or column written as plain paragraphs instead,
    for step 7.
-2. Where step 3 found the Initiatives board missing and item 1 did not just write it, add it as the
-   layout gives it, after the body, so it is the page's last block.
-3. Only where item 1 wrote the body in this run (a page the user has edited is never touched):
+2. Only where item 1 wrote the body in this run (a page the user has edited is never touched):
    fetch the Growth system page and check that every database, the Strategy map and the Settings
    page whose ID is in the block is on it and not in the trash, since a body write can displace a
    child. Restore any of those in the trash, move any no longer on the page back to it, place each
    as the layout gives it, and check again. Where the check still fails, stop and report as step 5
    does.
-4. Only then write the schema's `schema_version` and `setup_state: complete`, by changing those two
+3. Only then write the schema's `schema_version` and `setup_state: complete`, by changing those two
    lines of the block. It is the last write of the run.
 
 When a write fails, stop and report as step 5 does.
 
-**Done when** the check in item 3 has passed where it ran, the Growth system page holds every heading of
+**Done when** the check in item 2 has passed where it ran, the Growth system page holds every heading of
 `references/page-layout.md` (or the user's own content, left as it is), shows all seven databases, the Strategy map and the Settings page,
-holds the Initiatives board, and the block reads the schema's `schema_version` and `setup_state: complete`.
+and the block reads the schema's `schema_version` and `setup_state: complete`.
 
 ## 7. Close
 
