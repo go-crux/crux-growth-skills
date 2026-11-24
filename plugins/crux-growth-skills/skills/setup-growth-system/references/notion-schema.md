@@ -52,7 +52,7 @@ insights_data_source: <data source ID>
 - **People columns.** Every owner, assignee or capturer is a Notion **people** property. There is no named-person select and no roster.
 - **Select options.** A select listed with "no starting options" starts empty and fills as rows are written. Reuse an existing option before adding a new one.
 - **No sample rows.** Setup creates no rows in any database.
-- **Icons.** Setup gives each database and page the icon shown here when it creates it. A repair adds no icon and changes none: an icon is the team's to change.
+- **Icons.** Setup gives each database and page the icon shown here when it creates it, on a build or a repair alike. It never adds or changes the icon of one that already exists: an icon is the team's to change.
 - **Prefixes.** Each database's `ID` property is a unique ID with the prefix shown. A prefix can belong to only one data source in a workspace; if it is taken, setup uses `GS-` plus it (for example `GS-TSK`) and records it as `<name>_prefix`.
 
 ## The databases
@@ -252,6 +252,6 @@ The Initiatives board also appears inline on the Growth system page, as a linked
 
 ## Pages
 
-- **Growth system page**: titled `Growth system`, icon 🌱, created private: at the top level of the user's own pages, with no parent page and no teamspace, even when the connector offers one. It stays private until the user moves it into a teamspace. It holds the Settings page, the seven databases, the Strategy map and an explainer.
+- **Growth system page**: titled `Growth system`, icon 🌱, created private: at the top level of the user's own pages, with no parent page and no teamspace, even when the connector offers one or the user belongs to one. Where the connector has a private or draft mode for a page with no destination, setup uses it. It stays private until the user moves it into a teamspace. It holds the Settings page, the seven databases, the Strategy map and an explainer.
 - **Strategy map**: a page under the Growth system page, titled `Strategy map`, icon 🧭, with empty headings for the quarter's Objectives and the reasoning behind them.
 - **Settings page**: icon ⚙️; see "The Settings page".

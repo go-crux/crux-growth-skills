@@ -105,7 +105,8 @@ database, property, option, view and page is named with the database it belongs 
 - **Against no system (a build):** everything the run will create: the Growth system page and where
   it will live (private, at the top level of their Notion); the Settings page; the seven databases
   by name with one line on what each is for (the Growth system glossary's definitions); their
-  views; the Strategy map page; the explainer, principles and links on the Growth system page. State
+  views; the Strategy map page; the explainer, the principles, the databases laid out and the
+  Initiatives board on the Growth system page. State
   that no sample rows are created and that nothing existing is touched.
 - **Against an existing system (a repair):** exactly the missing items, each with the database it
   goes in, and any **Differences**, each with what the schema expects and the line that it is left
@@ -131,13 +132,12 @@ when it exists with everything `references/notion-schema.md` gives it. Items an 
 found present are skipped.
 
 1. **The Settings page.**
-   - **Against no system:** create the Growth system page, titled `Growth system`, private, as
-     "Pages" in `references/notion-schema.md` places it: no parent page and no teamspace, even when
-     the connector offers one or the user belongs to one; where the connector has a private or draft
-     mode for a page with no destination, use it. Keep its ID. Then create the Settings page at once, as a child of
-     it: the opening line and the fenced block as "The Settings page" in `references/notion-schema.md`
-     gives them, holding the schema's `schema_version`, `setup_state: in_progress` and
-     `growth_system_page`.
+   - **Against no system:** create the Growth system page, titled `Growth system`, private, exactly
+     as "Pages" in `references/notion-schema.md` places it. Keep its ID, and fetch it: where it
+     landed in a teamspace or under another page, say so now, and name it again in step 7. Then
+     create the Settings page at once, as a child of it: the opening line and the fenced block as
+     "The Settings page" in `references/notion-schema.md` gives them, holding the schema's
+     `schema_version`, `setup_state: in_progress` and `growth_system_page`.
    - **Against an existing system:** write `setup_state: in_progress` to the block, so every other
      skill stops until this run finishes. Add any adopted IDs to the block.
 
@@ -145,7 +145,7 @@ found present are skipped.
    says so and the next run resumes it.
 2. **The missing databases**, each a child of the Growth system page, with every property other than a
    relation, with every select option, status group and formula of its table in
-   `references/notion-schema.md`, and its icon. Create them in the order Insights, Learnings, Decisions, Issues,
+   `references/notion-schema.md`. Create them in the order Insights, Learnings, Decisions, Issues,
    Tasks, Projects, Initiatives. After each is created, write its `<name>_database` and `<name>_data_source`
    lines to the block (replacing the old lines of a database that was gone) before creating the next.
    - **Prefix fallback.** Give each database its default `ID` prefix. When Notion refuses a prefix
@@ -162,10 +162,10 @@ found present are skipped.
    self-relation (`Supersedes` with its dual `Superseded by`) is added on the Decisions data source.
 5. **The missing views**: each row of the Views table, a tab on its database.
 6. **The Strategy map page**, as `references/page-layout.md` fixes it, a child of the Growth
-   system page.
+   system page. Add `strategy_map_page` to the block.
 
-Give each page and database the icon `references/notion-schema.md` shows when creating it. Where the
-connector cannot set an icon, carry on, and name the icons not set in step 7. Add `strategy_map_page` to the block.
+Give each page and database this step creates the icon `references/notion-schema.md` shows for it.
+Where the connector cannot set an icon, carry on, and name the icons not set in step 7.
 
 When an add fails, stop. Tell the user plainly what was added, what failed and why, leave
 `setup_state: in_progress` as it is, and say that running setup again picks the system up where it
@@ -187,14 +187,17 @@ Serves all four principles: the page is where the team first reads what the syst
    once, under the grid, as the layout gives them. Place each database, the Strategy map and the
    Settings page as the layout gives them, by the IDs in the block. Keep every child block the page
    already holds: a rewrite that leaves one out deletes it.
-2. Only then write the schema's `schema_version` and `setup_state: complete`, by changing those two
+2. Fetch the Growth system page and check that all seven databases, the Strategy map and the
+   Settings page are still its children and none is in the trash. Where one is, restore it from
+   the trash before anything else, then stop and report as step 5 does.
+3. Only then write the schema's `schema_version` and `setup_state: complete`, by changing those two
    lines of the block. It is the last write of the run.
 
 When a write fails, stop and report as step 5 does.
 
-**Done when** the Growth system page holds every heading of `references/page-layout.md`, shows
-all seven databases, the Strategy map and the Settings page, ends with the Initiatives board, and
-the block reads the schema's `schema_version` and `setup_state: complete`.
+**Done when** the check in item 2 has passed, the Growth system page holds every heading of
+`references/page-layout.md`, shows all seven databases, the Strategy map and the Settings page,
+ends with the Initiatives board, and the block reads the schema's `schema_version` and `setup_state: complete`.
 
 ## 7. Close
 
@@ -207,6 +210,8 @@ Tell the user, in the chat:
 - **After a repair:** what was added, each with its database, and that nothing was renamed,
   removed or changed. Name each Difference again and say it was left as it is. Give the Growth
   system page's link.
+- **Either way:** where step 5 found the Growth system page outside the user's private pages, say
+  where it is; and name any icon the connector could not set, so the user can add it by hand.
 
-**Done when** the chat message carries the points for the run's kind and the link to the Growth
-system page.
+**Done when** the chat message carries the points for the run's kind, any misplaced page or unset
+icon, and the link to the Growth system page.

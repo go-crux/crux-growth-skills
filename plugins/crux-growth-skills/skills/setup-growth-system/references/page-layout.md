@@ -16,7 +16,7 @@ paragraphs in the same order; nothing is dropped.
 
 **## How it fits together**
 
-One callout, icon 🧭, blue background, holding the hierarchy line in bold: "**Objective → Initiative → Project → Task**". Under it, a bulleted list:
+One callout, icon 🪜, blue background, holding the hierarchy line in bold: "**Objective → Initiative → Project → Task**". Under it, a bulleted list:
 
 - "**Initiative**: serves one of the quarter's one to three Objectives, and carries one Key result."
 - "**Project**: the whole context of one piece of work, hanging from an Initiative."
@@ -30,7 +30,7 @@ One callout, icon 🧭, blue background, holding the hierarchy line in bold: "**
 
 A two-by-two grid: two columns of equal width, each holding two callouts, one per principle.
 Left column: Maximise learning (icon 🔬, green background), then Balance art and science (icon
-⚖️, purple background). Right column: Seek impact (icon 🎯, orange background), then Stay agile (icon
+🎨, purple background). Right column: Seek impact (icon 📈, orange background), then Stay agile (icon
 ⚡, yellow background). Each callout holds the principle's name in bold on its first line and, under
 it, one line condensed from its text in `principles.md`. Under the grid, outside it, one paragraph:
 "From Brian Balfour. [How Crux reads them](https://gocrux.io/growth-system)."
@@ -49,10 +49,11 @@ each entry followed by a short grey line on what it holds.
 Under the columns, outside them: the Settings page, then one grey line, "Kept by setup; do not edit."
 
 The databases, the Strategy map and the Settings page are children of this page, so Notion already
-shows each as a block on it. Each entry is that block itself, moved into its column, so every child appears once and
-the page holds no loose list of them. A rewrite of the page must name every child block it keeps,
-because a child left out is deleted; never drop one. Where the connector cannot move a child block
-into a column, the entry is a link to it instead and the child blocks stay where Notion put them.
+shows each as a block on it. Each entry is that block itself, moved into its column, so every
+child appears once and the page holds no loose list of them. A rewrite of the page must name every
+child block it keeps, because a child left out is deleted; never drop one. Where the connector
+cannot move a child block into a column, the entry is a link to it instead and the child blocks
+stay where Notion put them, so each shows twice: better than a child lost.
 
 A divider.
 
