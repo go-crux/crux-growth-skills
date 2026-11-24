@@ -36,6 +36,8 @@ Each read has two passes.
 | 4 | Open Issues on the subject | Issues | `Status` is Open or Solving | the rows on the subject |
 | 5 | The Initiative the work serves | Initiatives, then Projects | the Initiative the work names | the Initiative, and its Project where there is one |
 
+`to-objectives` replaces read 5: the work serves no Initiative yet, so it reads the Active Objectives, each with its Initiatives, and does not ask which Initiative the work serves.
+
 For read 5, when the work names no Initiative, list the Initiatives with `Status` not Done, ask which the work serves, and open that one.
 
 ## The two obligations
@@ -47,7 +49,7 @@ For read 5, when the work names no Initiative, list the Initiatives with `Status
 
 | Skill | Reads |
 |---|---|
-| `strategy-map` | all five |
+| `to-objectives` | all five, with read 5 replaced by last quarter's Objectives and their Initiatives (`Status`, `Key result`, `Target`) |
 | `to-initiatives` | all five |
 | `to-projects` | all five |
 | `wrap-up` | all five |
