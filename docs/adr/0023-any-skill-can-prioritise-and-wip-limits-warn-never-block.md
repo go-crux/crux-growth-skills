@@ -1,0 +1,5 @@
+# Any skill can prioritise, and WIP limits warn but never block
+
+**Status:** Accepted, 2026-11-24.
+
+S3 lets only its weekly L10 meeting move a project to Prioritised, and its task-cutting skill refuses until it has. A Crux growth system has no such meeting, and in a growth team much prioritising happens ad hoc, so a single gate would either be bypassed by hand or stall the board. So any growth-system skill moves a Project to `Prioritised` or a Task to Ready (`Not started`) or In progress when the user asks, and every such move checks the WIP limits (Projects at `Prioritised` or In progress at most 4 across the team, Tasks In progress at most 4 per person, fixed defaults in `wip-limits.md`), warns when the move would go over, and goes ahead on the user's yes. `/prioritise` is an advisory triage the team runs when it wants the whole board looked at; it proposes moves and writes only on a yes. We accept that a team can run over its limits knowingly, in exchange for limits that stay visible and a board people keep using.
