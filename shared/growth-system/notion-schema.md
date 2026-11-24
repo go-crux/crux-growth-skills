@@ -235,7 +235,9 @@ The hierarchy is Objective → Initiative → Project → Task. A Task hangs fro
 
 ## Views
 
-Views are for people. A skill never reads or depends on one (see "Finding the system"). Setup creates them as tabs on each database:
+Views are for people. A skill never reads or depends on one (see "Finding the system"). Setup creates them as tabs on each database.
+
+**`ID` first.** Every table view setup creates, the table Notion makes with each new database included, shows `ID` as its first column, then the title, then the other properties in the order the database's table above gives them. Every board view shows `ID` first on its cards. Set it by naming the shown properties in that order. A view that already exists keeps the columns the team gave it.
 
 | Database | View | Type | Filter | Sort or group |
 |---|---|---|---|---|

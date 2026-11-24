@@ -171,7 +171,9 @@ found present are skipped.
    with its dual property named there. Where the other side of the pair is already present, add this
    side as a relation to that database, whatever Notion makes of the dual. The Decisions
    self-relation (`Supersedes` with its dual `Superseded by`) is added on the Decisions data source.
-5. **The missing views**: each row of the Views table, a tab on its database.
+5. **The missing views**: each row of the Views table, a tab on its database, with its columns in
+   the order "`ID` first" in `references/notion-schema.md` gives. Give each database created in item
+   2 the same order on the table Notion made with it.
 6. **The Strategy map page**, as `references/page-layout.md` fixes it, a child of the Growth
    system page. Add `strategy_map_page` to the block.
 
