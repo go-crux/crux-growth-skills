@@ -4,3 +4,4 @@ to-objectives
 to-initiatives
 to-projects
 to-tasks
+prioritise
