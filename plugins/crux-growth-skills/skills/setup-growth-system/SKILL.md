@@ -187,7 +187,9 @@ stopped. Never delete or undo what was added.
 **Done when** every missing item of the Change list exists, the block holds the two page lines and
 `<name>_database` and `<name>_data_source` for all seven databases (fourteen lines), plus a
 `<name>_prefix` line for each database that used the Prefix fallback, and no row was created, edited
-or deleted, and each page and database this step created carries its icon or is noted for step 7.
+or deleted, each page this step created carries its icon and each database it created carries its
+icon on its block in the Growth system page, or is noted for step 7, and each view this step created
+shows `ID` first.
 
 ## 6. Fill the Growth system page and finish
 
@@ -200,8 +202,9 @@ Serves all four principles: the page is where the team first reads what the syst
 2. Only where item 1 wrote the body in this run (a page the user has edited is never touched):
    fetch the Growth system page and check that every database, the Strategy map and the Settings
    page whose ID is in the block is on it and not in the trash, since a body write can displace a
-   child. Restore any of those in the trash, move any no longer on the page back to it, place each
-   as the layout gives it, and check again. Where the check still fails, stop and report as step 5
+   child. Check too that each database block still carries its icon. Restore any of those in the
+   trash, move any no longer on the page back to it, place each as the layout gives it, set any
+   icon the write lost as the Icons convention says, and check again. Where the check still fails, stop and report as step 5
    does.
 3. Only then write the schema's `schema_version` and `setup_state: complete`, by changing those two
    lines of the block. It is the last write of the run.
