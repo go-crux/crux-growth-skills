@@ -51,7 +51,7 @@ as written here.
 Under the columns, outside them: the Settings page, then one grey line, "Kept by setup; do not edit."
 
 The databases, the Strategy map and the Settings page are children of this page, so Notion already
-shows each as a block on it. Each entry is that block itself, moved into its column, so every
+shows each as a block on it. Each entry is that block itself, moved into its column and still carrying its icon, so every
 child appears once and the page holds no loose list of them. A rewrite of the page must name every
 child block it keeps, because a child left out is deleted; never drop one. Where the connector
 cannot move a child block into a column, the entry is a link to it instead and the child blocks

@@ -52,7 +52,7 @@ insights_data_source: <data source ID>
 - **People columns.** Every owner, assignee or capturer is a Notion **people** property. There is no named-person select and no roster.
 - **Select options.** A select listed with "no starting options" starts empty and fills as rows are written. Reuse an existing option before adding a new one.
 - **No sample rows.** Setup creates no rows in any database.
-- **Icons.** Setup gives each database and page the icon shown here when it creates it, on a build or a repair alike. It never adds or changes the icon of one that already exists: an icon is the team's to change.
+- **Icons.** Setup gives each database and page the icon shown here when it creates it, on a build or a repair alike. It never adds or changes the icon of one that already exists: an icon is the team's to change. A page takes its icon directly. A database does not: setting the icon on the database itself is accepted and does nothing. Set it on the database's block in its parent page, the Growth system page, by updating that page so the block carries the icon, then fetch the page to check the block shows it.
 - **Prefixes.** Each database's `ID` property is a unique ID with the prefix shown. A prefix can belong to only one data source in a workspace; if it is taken, setup uses `GS-` plus it (for example `GS-TSK`) and records it as `<name>_prefix`.
 
 ## The databases
