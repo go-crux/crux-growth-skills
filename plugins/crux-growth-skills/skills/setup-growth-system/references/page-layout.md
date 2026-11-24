@@ -40,11 +40,11 @@ A divider.
 **## The databases**
 
 Three columns of equal width, each opening with a bold label, then its entries in the order given,
-each entry followed by a short grey line on what it holds.
+each entry followed by its grey line, as written here.
 
-- **Plan:** the Strategy map, Initiatives, Projects.
-- **Do:** Tasks, Issues.
-- **Learn:** Decisions, Learnings, Insights.
+- **Plan:** Strategy map ("The quarter's Objectives and why."), Initiatives ("Workstreams, each with one Key result."), Projects ("The whole context of each piece of work.").
+- **Do:** Tasks ("The board: tasks and experiments."), Issues ("Open problems nobody has the answer to yet.").
+- **Learn:** Decisions ("Choices the team complies with."), Learnings ("What we concluded, rated on evidence."), Insights ("What customers say, verbatim.").
 
 Under the columns, outside them: the Settings page, then one grey line, "Kept by setup; do not edit."
 

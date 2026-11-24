@@ -34,13 +34,15 @@ options are never removed or renamed.
 ## 1. Check the connector
 
 Check that the session can search Notion and create pages, databases and views. Then list the
-teamspaces the user belongs to and can add pages to; step 4 offers them.
+teamspaces the user belongs to, for step 4 to offer; where the connector shows which ones they can
+add pages to, keep only those. Where it cannot list teamspaces, carry on with none: the page is
+built private, as "Pages" in `references/notion-schema.md` says.
 
-Without it, stop and create nothing. Tell the user in plain words that the growth system runs on
+Without search and create, stop and create nothing. Tell the user in plain words that the growth system runs on
 their own Notion, and how to add it: in their app's connector settings, add the Notion connector,
 sign in, give it access to the workspace, then ask again. Name no tool.
 
-**Done when** the session can do all four, or the skill has stopped with that message and made no Notion call that writes.
+**Done when** the session can search and create all three, with its teamspaces listed (or none), or the skill has stopped with that message and made no Notion call that writes.
 
 ## 2. Find the system
 
@@ -93,13 +95,14 @@ live Notion by fetching it:
    absent, a child of the Growth system page titled `Strategy map`. Absent: missing. The Growth
    system page body: missing only when the page holds nothing but its child pages and databases,
    as after an interrupted run; a page with any other content stays as the user has it. The
-   Initiatives board on the Growth system page: a linked view of the Initiatives database on the
-   page itself. Absent: missing.
+   Initiatives board on the Growth system page, as `references/page-layout.md` places it. Absent:
+   missing. Where the Growth system page is private and step 1 listed a teamspace, note it for
+   step 7; it is not a Change list item, and a repair never moves the page.
 5. **The Settings page block.** Missing lines are those the items above will add. When
    `setup_state` is `in_progress`, an earlier run did not finish.
 
-**Done when** every database, every property and select option, every view and both pages of the
-schema is on the Change list as either present, missing, or a Difference, and each missing
+**Done when** every database, every property and select option, every view, both pages of the
+schema and the Initiatives board on the Growth system page is on the Change list as either present, missing, or a Difference, and each missing
 database, property, option, view and page is named with the database it belongs to.
 
 ## 4. Confirm
@@ -139,7 +142,7 @@ found present are skipped.
 
 1. **The Settings page.**
    - **Against no system:** create the Growth system page, titled `Growth system`, at the top level
-     of the teamspace the yes settled (private where there is none), exactly as "Pages" in
+     of the teamspace the yes settled, exactly as "Pages" in
      `references/notion-schema.md` places it. Keep its ID, and fetch it: where it landed anywhere
      else, move it there. Where it cannot be placed there, say so now, carry
      on, and name where it is in step 7. Then
@@ -182,7 +185,7 @@ stopped. Never delete or undo what was added.
 **Done when** every missing item of the Change list exists, the block holds the two page lines and
 `<name>_database` and `<name>_data_source` for all seven databases (fourteen lines), plus a
 `<name>_prefix` line for each database that used the Prefix fallback, and no row was created, edited
-or deleted.
+or deleted, and each page and database this step created carries its icon or is noted for step 7.
 
 ## 6. Fill the Growth system page and finish
 
@@ -192,20 +195,22 @@ Serves all four principles: the page is where the team first reads what the syst
    `references/page-layout.md` fixes it, finding each database, the Strategy map and the Settings
    page by the IDs in the block. Note any callout or column written as plain paragraphs instead,
    for step 7.
-2. Where step 3 found the Initiatives board missing, add it as the layout gives it, after the body,
-   so it is the page's last block.
-3. Fetch the Growth system page and check that all seven databases, the Strategy map and the
-   Settings page are on it and none is in the trash. Restore any in the trash, move any no longer
-   on the page back to it, place each as the layout gives it, and check again. Where the check
-   still fails, stop and report as step 5 does.
+2. Where step 3 found the Initiatives board missing and item 1 did not just write it, add it as the
+   layout gives it, after the body, so it is the page's last block.
+3. Only where item 1 wrote the body in this run (a page the user has edited is never touched):
+   fetch the Growth system page and check that every database, the Strategy map and the Settings
+   page whose ID is in the block is on it and not in the trash, since a body write can displace a
+   child. Restore any of those in the trash, move any no longer on the page back to it, place each
+   as the layout gives it, and check again. Where the check still fails, stop and report as step 5
+   does.
 4. Only then write the schema's `schema_version` and `setup_state: complete`, by changing those two
    lines of the block. It is the last write of the run.
 
 When a write fails, stop and report as step 5 does.
 
-**Done when** the check in item 3 has passed, the Growth system page holds every heading of
-`references/page-layout.md`, shows all seven databases, the Strategy map and the Settings page,
-ends with the Initiatives board, and the block reads the schema's `schema_version` and `setup_state: complete`.
+**Done when** the check in item 3 has passed where it ran, the Growth system page holds every heading of
+`references/page-layout.md` (or the user's own content, left as it is), shows all seven databases, the Strategy map and the Settings page,
+holds the Initiatives board, and the block reads the schema's `schema_version` and `setup_state: complete`.
 
 ## 7. Close
 
@@ -217,8 +222,9 @@ Tell the user, in the chat:
   teammates lets their skills find it. Give the page's link. Notion's Free plan limits blocks once a workspace has two or more members. Next comes the
   planning chain, starting with the Strategy map: coming soon.
 - **After a repair:** what was added, each with its database, and that nothing was renamed,
-  removed or changed. Name each Difference again and say it was left as it is. Give the Growth
-  system page's link.
+  removed or changed. Name each Difference again and say it was left as it is. Where step 3 noted
+  the page as private, say so, and that moving it into a teamspace lets the team share it. Give the
+  Growth system page's link.
 - **Either way:** where the Growth system page could not be placed in its teamspace in step 5, say
   where it is; name any icon that could not be set, so the user can add it by hand; and
   name any part of the page written as plain paragraphs instead of callouts or columns.
