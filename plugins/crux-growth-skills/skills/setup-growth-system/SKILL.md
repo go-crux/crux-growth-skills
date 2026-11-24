@@ -6,8 +6,9 @@ description: Set up, repair or finish the growth system in the user's own Notion
 # Set up the growth system
 
 Leave the user with a complete growth system in their own Notion: a Growth system page in a teamspace, holding
-seven databases, their views, a Strategy map page and a Settings page, with no sample rows. Where a
-system already exists, add only what it is missing. The user answers one confirmation and no
+eight databases, their views, a Strategy map page and a Settings page, with no sample rows. Where a
+system already exists, add only what it is missing; a Schema version 1 system is brought to 2 with
+every value it held kept. The user answers one confirmation and no
 questions, except which system to use when there are two. The skill writes only to the user's Notion
 and never uses a Growth Brain (ADR-0001). The user sees only the chat and their Notion, never this
 skill or its references: say what is being created in plain words, and never name a file,
@@ -29,7 +30,11 @@ the list is everything, a single property or nothing.
 **Additive only.** The run adds databases, properties, select options, views and pages. It never
 renames, removes or retypes any of them, never creates, edits or deletes a row, and never writes a
 page body the user may have edited. A removed select option blanks every row that held it, so
-options are never removed or renamed.
+options are never removed or renamed. The one exception is the Schema version 1 to 2 move (step 5,
+item 7, and "Additive only" in `references/notion-schema.md`): it creates Objectives rows, turns
+Initiatives `Quarter` into a multi-select, relates each Initiative to its Objectives row and, only
+once every Initiative that held a value is related, deletes the `Objective` select. Every value that
+select held is on a row first.
 
 ## 1. Check the connector
 
@@ -76,7 +81,7 @@ items, grouped by where they belong. With no Settings page everything is missing
 page and the Growth system page are the first two items. Otherwise check each of these against the
 live Notion by fetching it:
 
-1. **Databases.** For each of the seven, take `<name>_database` and `<name>_data_source` from the
+1. **Databases.** For each of the eight, take `<name>_database` and `<name>_data_source` from the
    block and fetch the database.
    - **Line absent:** a run may have stopped after creating the database and before recording it.
      Look among the Growth system page's own children for a database with the exact title, and
@@ -88,8 +93,9 @@ live Notion by fetching it:
 2. **Properties and options.** For each database that exists, match every property of its table by
    exact name. Absent: missing. Present with the schema's type: for a select or status, match every
    option by name and list each absent one as missing (extra options and other groupings stay).
-   Present with another type: a **Difference**. A relation counts as present when it relates to the
-   database the Relations table names.
+   Present with another type: a **Difference**, except Initiatives `Objective` and `Quarter` on a
+   system that item 6 finds at Schema version 1, which are the move. A relation counts as present
+   when it relates to the database the Relations table names.
 3. **Views.** Match each row of the Views table by database and view name. Absent: missing. A view
    present under that name stays as the user has it, whatever its filter.
 4. **Pages.** The Strategy map: `strategy_map_page` from the block, fetched; where the line is
@@ -100,10 +106,21 @@ live Notion by fetching it:
    step 7; it is not a Change list item, and a repair never moves the page.
 5. **The Settings page block.** Missing lines are those the items above will add. When
    `setup_state` is `in_progress`, an earlier run did not finish.
+6. **The version 1 to 2 move.** Read Initiatives `Objective` and say which of three states it is in:
+   - **A select:** the move is needed in full. Query the Initiatives data source and note each value
+     of the `Objective` select in use, how many Initiatives carry it, and the union of those
+     Initiatives' `Quarter` values; note whether `Quarter` is still a select. Initiatives with no
+     `Objective` value are left unrelated. Note any Objectives row already titled with a value (an
+     earlier run made it) and any Initiative already related to it: those are skipped.
+   - **Absent, with a relation named `Objective (new)` to Objectives:** an earlier run stopped after
+     deleting the select; only the naming remains.
+   - **A relation to Objectives:** nothing to do.
 
 **Done when** every database, every property and select option, every view and both pages of the
-schema is on the Change list as either present, missing, or a Difference, and each missing
-database, property, option, view and page is named with the database it belongs to.
+schema is on the Change list as either present, missing, or a Difference, each missing
+database, property, option, view and page is named with the database it belongs to, and the
+version 1 to 2 move is on the list as needed in full, naming each value with its Initiative count
+and Quarter union, as only the naming left, or as nothing to do.
 
 ## 4. Confirm
 
@@ -112,7 +129,7 @@ database, property, option, view and page is named with the database it belongs 
 - **Against no system (a build):** everything the run will create: the Growth system page and where
   it will live, as "Pages" in `references/notion-schema.md` chooses the teamspace (name it, and
   where there is a choice, list the others and say the yes can name one instead: "yes, in
-  Marketing"); the Settings page; the seven databases
+  Marketing"); the Settings page; the eight databases
   by name with one line on what each is for (the Growth system glossary's definitions); their
   views; the Strategy map page; the explainer, the principles and the databases laid out on the
   Growth system page. State
@@ -120,8 +137,16 @@ database, property, option, view and page is named with the database it belongs 
 - **Against an existing system (a repair):** exactly the missing items, each with the database it
   goes in, and any **Differences**, each with what the schema expects and the line that it is left
   as it is. Where an earlier setup was interrupted, say that this run finishes it. State that
-  nothing is renamed, removed or changed and that no row is touched. Name any database the
+  nothing is renamed, removed or changed and that no row is touched, apart from the
+  Schema version 1 move below where it applies. Name any database the
   Settings page records that Notion no longer holds as one to recreate empty, so the one yes covers it.
+  - **A system at Schema version 1** also gets this item, in plain words: Objectives becomes its own
+    database, and each value of the `Objective` select in use becomes a row on it (name each value
+    and how many Initiatives carry it); every Initiative with a value is related to its row;
+    Initiatives `Quarter` becomes a multi-select with its values kept. Say that the old `Objective`
+    select is deleted, the one thing the run removes, and only after the run has read back that every
+    Initiative that had a value is related. Say that no value is lost. Where an earlier run already deleted the select, say only that the
+    relation is named `Objective`.
 
 When the Change list is empty, `setup_state` is `complete` and `schema_version` is the schema's,
 say that the system is complete and report any Differences. Change nothing and stop.
@@ -157,25 +182,47 @@ found present are skipped.
 2. **The missing databases**, each a child of the Growth system page, with every property other than a
    relation, with every select option, status group and formula of its table in
    `references/notion-schema.md`. Create them in the order Insights, Learnings, Decisions, Issues,
-   Tasks, Projects, Initiatives. After each is created, write its `<name>_database` and `<name>_data_source`
+   Tasks, Projects, Initiatives, Objectives. After each is created, write its `<name>_database` and `<name>_data_source`
    lines to the block (replacing the old lines of a database that was gone) before creating the next.
    - **Prefix fallback.** Give each database its default `ID` prefix. When Notion refuses a prefix
      because another data source in the workspace holds it, create that database with `GS-` plus
      the default (for example `GS-TSK`) and add a `<name>_prefix` line to the block. When
      the fallback is refused too, stop and tell the user which prefix, and that setup is
      unfinished.
-3. **The missing properties and options** on databases that already existed, other than relations.
+3. **The missing properties and options** on databases that already existed, other than relations
+   and other than Initiatives `Quarter` and `Objective` on a Schema version 1 system (item 7).
    Add a formula after the properties it reads. An added property or option is blank on the rows
    already there; no row is written.
 4. **The missing relations**, now that every database exists: each as the Relations table gives it,
    with its dual property named there. Where the other side of the pair is already present, add this
    side as a relation to that database, whatever Notion makes of the dual. The Decisions
    self-relation (`Supersedes` with its dual `Superseded by`) is added on the Decisions data source.
+   On a system whose Initiatives still holds the `Objective` select, the Objectives `Initiatives`
+   relation is added under item 7 instead, since a relation and a select cannot share a name.
 5. **The missing views**: each row of the Views table, a tab on its database, with its columns in
    the order "`ID` first" in `references/notion-schema.md` gives. Give each database created in item
    2 the same order on the table Notion made with it.
 6. **The Strategy map page**, as `references/page-layout.md` fixes it, a child of the Growth
    system page. Add `strategy_map_page` to the block.
+7. **The version 1 to 2 move**, only where step 3 found it needed, done in this order with each
+   sub-step skipped where its result already exists. The Objectives database, its view and its
+   Settings lines are items 2 and 5 above, done first.
+   1. **Objectives rows.** For each value of the Initiatives `Objective` select in use, create one
+      row on Objectives: `Objective` the value, `Quarter` the union of the `Quarter` values of the
+      Initiatives carrying it, `Status` Active. Reuse an existing row with that exact title.
+   2. **`Quarter`.** Change Initiatives `Quarter` to a multi-select, then read a few Initiatives
+      to check its values are kept. Where a value was lost, stop and report as below.
+   3. **The relation.** Add the Objectives `Initiatives` relation to Initiatives, its dual on
+      Initiatives named `Objective (new)` for now. Relate every Initiative that carries an old
+      `Objective` value to the row for that value.
+   4. **Read back.** Query Initiatives for those with an old `Objective` value, and check each is
+      related to the row titled with that value. **If any Initiative is not related, stop here,
+      before the select is deleted:** name each such Initiative and its value, leave the select as
+      it is and `setup_state: in_progress`, and say running setup again picks it up.
+   5. **Only then** delete the `Objective` select and rename `Objective (new)` to `Objective`. Check
+      that Initiatives now shows `Objective` as a relation to Objectives. Where the Initiatives
+      `By objective` view lost its grouping with the select, group it by `Objective`.
+   6. Where step 3 found the select already deleted, do sub-step 5's rename and nothing else.
 
 Give each page and database this step creates its icon, as the Icons convention in
 `references/notion-schema.md` says. Where an icon cannot be set, carry on, and name it in step 7.
@@ -185,11 +232,13 @@ When an add fails, stop. Tell the user plainly what was added, what failed and w
 stopped. Never delete or undo what was added.
 
 **Done when** every missing item of the Change list exists, the block holds the two page lines and
-`<name>_database` and `<name>_data_source` for all seven databases (fourteen lines), plus a
+`<name>_database` and `<name>_data_source` for all eight databases (sixteen lines), plus a
 `<name>_prefix` line for each database that used the Prefix fallback, and no row was created, edited
 or deleted, each page this step created carries its icon and each database it created carries its
 icon on its block in the Growth system page, or is noted for step 7, and each view this step created,
-and the table Notion made with each database it created, shows `ID` first.
+and the table Notion made with each database it created, shows `ID` first. Where item 7 ran,
+Initiatives `Objective` is a relation to Objectives, each Initiative that held an old value is
+related to the row for it, and the old select is gone.
 
 ## 6. Fill the Growth system page and finish
 
@@ -227,7 +276,11 @@ Tell the user, in the chat:
   Notion's Free plan limits blocks once a workspace has two or more members. Next comes the planning
   chain, starting with the Strategy map: coming soon.
 - **After a repair:** what was added, each with its database, and that nothing was renamed,
-  removed or changed. Name each Difference again and say it was left as it is. Where step 3 noted
+  removed or changed. After the version 1 to 2 move, say how many Objectives rows it created from
+  which values and how many Initiatives it related, that `Quarter` now takes several quarters,
+  and that the old `Objective` select is gone with every value on a row. Where the Growth system
+  page was already laid out by the user, Objectives sits at its foot: say it can be dragged to the
+  top of Plan. Name each Difference again and say it was left as it is. Where step 3 noted
   the page as private, say so, and that moving it into a teamspace lets the team share it. Give the
   Growth system page's link.
 - **Either way:** name any icon that could not be set, so the user can add it by hand, and any part
