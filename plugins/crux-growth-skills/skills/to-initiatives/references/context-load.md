@@ -54,6 +54,7 @@ For read 5, when the work names no Initiative, list the Initiatives with `Status
 | `to-projects` | all five |
 | `wrap-up` | all five |
 | `to-tasks` | the Project only (read 5, its Project) |
+| `prioritise` | none: it reads the Projects and Tasks boards and each Initiative's `Status`, never the five reads |
 | `do-task` | its Task, its Project, the rows the Project cites, and the full Active Decisions index (pass 1 of read 1, then every Active Decision it opens) |
 | the capture skills and `add-issue` | none |
 
